@@ -1,4 +1,4 @@
-
+# Scrape general assembly and legislator information
 
 
 library(dplyr)
@@ -17,28 +17,8 @@ library(RSelenium)
 senators_url = "https://www.legis.iowa.gov/legislators/senate"
 reps_url = "https://www.legis.iowa.gov/legislators/house"
 
-test_url = "https://www.legis.iowa.gov/legislators/house?v.template=legislators/legislatorsAjax&layout=false&ga=88&layout=false&chamberID=H&partyID=-1"
 
-
-
-senators = read_html(senators_url)
-reps = read_html(reps_url)
-
-html_form(senators)
-
-html_table(senators)
-
-test = read_html(test_url)
-
-# 
-# 
-# driver <- remoteDriver(
-#   remoteServerAddr = "localhost",
-#   port = 4445L,
-#   browserName = "chrome"
-# )
-# 
-# driver$open()
+# Set up driver -----------------------------------------------------------
 
 binman::rm_platform("phantomjs")
 wdman::selenium(retcommand = TRUE)
@@ -50,10 +30,9 @@ driver <- rd$client
 driver$navigate(senators_url)
 
 
-# x = driver$findElement(using = "id", value = "gaSelectorDataMethod")
-
 
 # General Assembly List ---------------------------------------------------
+
 selection = driver$findElement(value = "//*[@id=\"legislatorContent\"]/div[2]/ul")
 
 selection$clickElement()
@@ -64,6 +43,7 @@ ga_list = selection$findChildElements(using = "tag name", value = "li")
 ga_list[[6]]$findElement(value = "//*[@id=\"legislatorContent\"]/div[2]/ul/li[6]/a")$clickElement()
 
 ga_dates = list()
+
 for(i in 2:length(ga_list)){
   ga_dates = append(ga_dates, ga_list[[i]]$getElementText()[[1]])
 }
@@ -77,6 +57,7 @@ ga_df = data.frame(ga = unlist(ga_dates)) %>%
   )
 
 write_csv(ga_df, "data/general_assemblies.csv")
+
 
 
 # Representative List -----------------------------------------------------
@@ -275,4 +256,80 @@ write_csv(all_legislators, "data/legislators.csv")
 
 driver$close()
   
+
+# Legislator Sponsorship --------------------------------------------------
+
+url = "https://www.legis.iowa.gov/legislation/findLegislation/findBillBySponsorOrManager?ga=87&pid=9397"
+
+sponsor_column = list()
+for(i in 1:nrow(all_legislators)){
+  print(i)
+  url = paste0(
+    "https://www.legis.iowa.gov/legislation/findLegislation/findBillBySponsorOrManager?ga=",
+    all_legislators$ga_num[i],
+    "&pid=",
+    all_legislators$person_id[i]
+  )
   
+  page = read_html(url)
+  
+  tables = html_table(page)
+  
+  bill_list = list()
+  
+  if(length(tables) > 0){
+    for(j in 1:length(tables)){
+      table = tables[[j]]
+      if(str_detect(table$Bill, "HF") || str_detect(table$Bill, "SF")){
+        bill_list = append(bill_list, table$Bill)
+      } else{
+        next
+      }
+    }
+  }
+  
+  Sys.sleep(0.5)
+  sponsor_column[[i]] = bill_list
+}
+
+
+# Legislator Floor Manager ------------------------------------------------
+
+fm_column = list()
+for(i in 1:nrow(all_legislators)){
+  print(i)
+  url = paste0(
+    "https://www.legis.iowa.gov/legislation/findLegislation/findBillBySponsorOrManager?ga=",
+    all_legislators$ga_num[i],
+    "&pid=",
+    all_legislators$person_id[i],
+    "&type=fm" 
+  )
+  
+  page = read_html(url)
+  
+  tables = html_table(page)
+  
+  bill_list = list()
+  
+  if(length(tables) > 0){
+    for(j in 1:length(tables)){
+      table = tables[[j]]
+      if(str_detect(table$Bill, "HF") || str_detect(table$Bill, "SF")){
+        bill_list = append(bill_list, table$Bill)
+      } else{
+        next
+      }
+    }
+  }
+  
+  Sys.sleep(0.5)
+  fm_column[[i]] = bill_list
+}
+
+
+all_legislators_copy = all_legislators
+all_legislators$sponsor = sponsor_column
+all_legislators$floor_manager = fm_column
+
+write_rds(all_legislators, "data/legislators.rds")
