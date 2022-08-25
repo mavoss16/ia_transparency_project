@@ -1,5 +1,5 @@
 # Scrape general assembly and legislator information
-
+# Author: Matthew Voss
 
 library(dplyr)
 library(readr)
