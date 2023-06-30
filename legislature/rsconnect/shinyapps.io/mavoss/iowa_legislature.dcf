@@ -1,0 +1,14 @@
+name: iowa_legislature
+title: iowa_legislature
+username:
+account: mavoss
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9326197
+bundleId: 7400132
+url: https://mavoss.shinyapps.io/iowa_legislature/
+when: 1688003487.80327
+lastSyncTime: 1688003487.8033
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .gitattributes|analysis/contributions_explore.R|analysis/legislation_analysis.R|analysis/legislator_floor_vote_combinations.rds|analysis/network_analysis.R|archive|scripts
