@@ -97,7 +97,7 @@ final_senate <- senate |>
     date, time,
     file_name, file_sponsor, file_title,
     vote_yes_count, vote_no_count,
-    gop_yes, gop_no, dem_yes, dem_no,
+    gop_yes, gop_no, gop_na_vote, dem_yes, dem_no, dem_na_vote,
     vote_record
   ) |>
   mutate(
@@ -108,11 +108,11 @@ final_senate <- senate |>
       (gop_yes > 0 & dem_yes > 0) ~ "Bipartisan Support",
       (gop_no > 0 & dem_no > 0) ~ "Bipartisan Opposition"
     ),
-    .after = dem_no
+    .after = dem_na_vote
   ) |>
   rename_with(
     # !tidyselect::contains("file_"),
-    .fn = function(x){paste0("senate_vote_", x) |> str_replace_all("vote_vote_", "vote_")}
+    .fn = function(x){paste0("senate_vote_", x) |> str_replace_all("vote_vote_", "vote_") |> str_replace_all("_vote$", "")}
   )
 
 final_house <- house |>
@@ -124,7 +124,7 @@ final_house <- house |>
     date, time,
     file_name, file_sponsor, file_title,
     vote_yes_count, vote_no_count,
-    gop_yes, gop_no, dem_yes, dem_no,
+    gop_yes, gop_no, gop_na_vote, dem_yes, dem_no, dem_na_vote,
     vote_record
   ) |>
   mutate(
@@ -135,11 +135,11 @@ final_house <- house |>
       (gop_yes > 0 & dem_yes > 0) ~ "Bipartisan Support",
       (gop_no > 0 & dem_no > 0) ~ "Bipartisan Opposition"
     ),
-    .after = dem_no
+    .after = dem_na_vote
   ) |>
   rename_with(
     # !tidyselect::contains("file_"),
-    .fn = function(x){paste0("house_vote_", x) |> str_replace_all("vote_vote_", "vote_")}
+    .fn = function(x){paste0("house_vote_", x) |> str_replace_all("vote_vote_", "vote_") |> str_replace_all("_vote$", "")}
   )
 
 
@@ -164,18 +164,25 @@ files <- files |>
     file = bill, file_title = bill_title
   ) |>
   mutate(
+    sponsor_count = 1 + str_count(sponsor, ", ") + str_count(sponsor |> tolower(), " and "),
+    sponsor_count = ifelse(str_detect(sponsor, "\\(PROPOSED"), yes = NA_integer_, no = sponsor_count),
+    sponsor_count = ifelse(str_detect(tolower(sponsor), "committee"), yes = NA_integer_, no = sponsor_count),
+    .after = sponsor
+  ) |>
+  mutate(
     categorization = case_when(
       str_detect(action_list, "Signed by Governor") ~ "Signed by Governor",
       str_detect(action_list, "Voted out of Senate,|Voted out of Senate$") & str_detect(action_list, "Voted out of House,|Voted out of House$") ~ "Passed Both Chambers",
       str_detect(action_list, "Voted out of Senate,|Voted out of Senate$|Voted out of House,|Voted out of House$") ~ "Passed One Chamber",
       str_detect(action_list, "Voted out of Senate Committee|Voted out of House Committee") ~ "Passed Committee",
       TRUE ~ "Introduced"
-    )
+    ),
+    .after = file_title
   ) |>
   rowwise() |>
   mutate(
     file_introduced_date = list(get_file_date(actions)),
-    .after = sponsor
+    .after = sponsor_count
   ) |>
   mutate(
     lobbyist_declarations = list(as.data.frame(lobbyist_declarations)),
@@ -191,7 +198,41 @@ files_sorted <- files |>
   mutate(
     sort_var = paste0(as.numeric(file_introduced_date), file)
   )
+
+library(gtools)
 files_sorted <- files_sorted[mixedorder(files_sorted$sort_var), ] |>
   select(-sort_var)
 
-write_rds(files_sorted, "data/legislation_2023_clean.rds")
+# write_rds(files_sorted, "data/legislation_2023_clean.rds")
+
+
+# Connect Related Files ---------------------------------------------------
+
+linked_files <- files_sorted |>
+  mutate(
+    preceding_file = str_extract(file_title, "Formerly [a-zA-Z0-9 ,]+") |> str_remove("Formerly "),
+    succeding_file = str_extract(file_title, "See [a-zA-Z0-9 ,]+") |> str_remove("See "),
+    related_file_list = paste0(
+      ifelse(!is.na(preceding_file), yes = paste0(preceding_file, ", "), no = ""),
+      file, ", ",
+      ifelse(!is.na(succeding_file), yes = succeding_file, no = "")
+    ) |>
+      str_remove_all(", $"),
+    .after = categorization
+  ) |>
+  rowwise() |>
+  mutate(
+    related_file_list_sorted = related_file_list |>
+      str_split_1(", ") |>
+      sort() |>
+      paste0(collapse = ", "),
+    .after = related_file_list
+  ) |>
+  ungroup() |>
+  mutate(
+    file_group_id = cur_group_id(), .by = related_file_list_sorted,
+    .after = related_file_list_sorted
+  )
+
+
+write_rds(linked_files, "data/legislation_2023_clean.rds")

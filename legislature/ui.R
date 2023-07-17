@@ -14,66 +14,75 @@ library(leaflet)
 
 
 # Define UI for application that draws a histogram
-fluidPage(
-
-
-  # Application title
-  titlePanel("Iowa Legislature"),
-
-  mainPanel(
-    tabsetPanel(
-      tabPanel(
-        title = "Legislation",
-        selectizeInput(
-          "category_input", label = "", 
-          choices = c("All Legislation", "Signed by Governor", "Passed Both Chambers", "Passed One Chamber", "Passed Committee", "Introduced"),
-          selected = "All Legislation"
+ui <- function(request){
+  
+  fluidPage(
+    
+    
+    # Application title
+    titlePanel("Iowa Legislature"),
+    
+    mainPanel(
+      htmlOutput("intro_text"),
+      tabsetPanel(
+        tabPanel(
+          title = "Legislation",
+          selectizeInput(
+            "category_input", label = "", 
+            choices = c("All Legislation", "Signed by Governor", "Passed Both Chambers", "Passed One Chamber", "Passed Committee", "Introduced"),
+            selected = "All Legislation"
+          ),
+          selectizeInput("legislation_input", label = "Choose a File: ", choices = NULL),
+          h2("Summary"),
+          htmlOutput("leg_summary_text"),
+          # textOutput("text")
+          tabsetPanel(
+            tabPanel(
+              title = "Actions",
+              reactableOutput("actions")
+            ),
+            tabPanel(
+              title = "Senate Vote",
+              plotOutput("senate_vote_seats"),
+              leafletOutput("senate_vote_map"),
+              reactableOutput("senate_vote")
+            ),
+            tabPanel(
+              title = "House Vote",
+              plotOutput("house_vote_seats"),
+              leafletOutput("house_vote_map"),
+              reactableOutput("house_vote")
+            ),
+            tabPanel(
+              title = "Lobbyist Declarations",
+              reactableOutput("declarations")
+            )
+          )
         ),
-        selectizeInput("legislation_input", label = "Choose a File: ", choices = NULL),
-        h2("Summary"),
-        htmlOutput("leg_summary_text"),
-        # textOutput("text")
-        tabsetPanel(
-          tabPanel(
-            title = "Actions",
-            reactableOutput("actions")
-          ),
-          tabPanel(
-            title = "Senate Vote",
-            leafletOutput("senate_vote_map"),
-            reactableOutput("senate_vote")
-          ),
-          tabPanel(
-            title = "House Vote",
-            leafletOutput("house_vote_map"),
-            reactableOutput("house_vote")
-          ),
-          tabPanel(
-            title = "Lobbyist Declarations",
-            reactableOutput("declarations")
+        tabPanel(
+          title = "Legislators",
+          selectizeInput("chamber_input", label = "Chooose a Chamber:", choices = c("House", "Senate"), selected = "House"),
+          selectizeInput("legislator_input", label = "Choose a Legislator:", choices = NULL),
+          htmlOutput("legislator_summary_text"),
+          tabsetPanel(
+            tabPanel(
+              title = "Sponsored Files",
+              reactableOutput("legislator_sponsor_table")
+            ),
+            tabPanel(
+              title = "Floor-Managed Files",
+              reactableOutput("legislator_floor_manager_table")
+            )
           )
+        ),
+        tabPanel(
+          title = "Campaign Contributions"
         )
-      ),
-      tabPanel(
-        title = "Legislators",
-        selectizeInput("chamber_input", label = "Chooose a Chamber:", choices = c("House", "Senate"), selected = "House"),
-        selectizeInput("legislator_input", label = "Choose a Legislator:", choices = NULL),
-        htmlOutput("legislator_summary_text"),
-        tabsetPanel(
-          tabPanel(
-            title = "Sponsored Files",
-            reactableOutput("legislator_sponsor_table")
-          ),
-          tabPanel(
-            title = "Floor-Managed Files",
-            reactableOutput("legislator_floor_manager_table")
-          )
-        )
-      ),
-      tabPanel(
-        title = "Campaign Contributions"
       )
     )
+    
   )
   
-)
+  
+}
+

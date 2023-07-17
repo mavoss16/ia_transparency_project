@@ -137,6 +137,16 @@ vote_records <- votes |>
 # Vote by Party -----------------------------------------------------------
 
 count_votes_by_filter <- function(df, filter_var, filter_values, vote_var, vote_values){
+  
+  if(is.na(vote_values)){
+    row_count <- df |>
+      as.data.frame() |>
+      filter(
+        {{filter_var}} %in% filter_values & is.na({{vote_var}})
+      ) |>
+      nrow()
+    return(row_count)
+  }
   df |>
     as.data.frame() |>
     filter(
@@ -152,6 +162,8 @@ vote_records <- vote_records |>
     dem_yes = count_votes_by_filter(vote_record, Party, "Democrat", vote, "Yes"),
     gop_no = count_votes_by_filter(vote_record, Party, "Republican", vote, "No"),
     dem_no = count_votes_by_filter(vote_record, Party, "Democrat", vote, "No"),
+    gop_na_vote = count_votes_by_filter(vote_record, Party, "Republican", vote, NA),
+    dem_na_vote = count_votes_by_filter(vote_record, Party, "Democrat", vote, NA)
   ) |>
   ungroup()
 

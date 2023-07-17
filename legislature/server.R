@@ -15,6 +15,10 @@ library(htmltools)
 library(leaflet)
 library(sf)
 library(stringr)
+library(tidyr)
+library(ggplot2)
+library(ggpol)
+library(ggparliament)
 # library(data.table)
 
 
@@ -28,6 +32,37 @@ house_map <- st_read("data/Districts/Plan2_House.shp") |> st_transform(crs = 432
 
 function(input, output, session) {
   
+  output$out <- renderText({
+    if (input$caps)
+      toupper(input$txt)
+    else
+      input$txt
+  })
+  
+  # observe({
+  #   reactiveValuesToList(input)
+  #   session$doBookmark()
+  # })
+  # # Update the query string
+  # onBookmarked(updateQueryString)
+  
+  output$intro_text <- renderUI({
+    paste0(
+      paste0(
+        "This is a preliminary dashboard designed to consolidate a variety of Iowa political data. ",
+        "The dashboard is in development and as such will be changing as new features are added. ",
+        "There also may be errors with certain selections. With time, these errors will be resolved.",
+        "<br/>"
+      ), "<br/>",
+      strong("Last Data Update: "), "7/12/2023", "<br/>",
+      strong("Primary Data Source: "),
+      a(
+        "https://www.legis.iowa.gov/",
+        href = "https://www.legis.iowa.gov/",
+        target = "_blank"
+      ), "<br/>", "<br/>", "<br/>"
+    ) |> HTML()
+  })
 
 # Legislation Server ------------------------------------------------------
   
@@ -57,6 +92,24 @@ function(input, output, session) {
   selected_leg <- reactive({
     legislation |>
       filter(file == input$legislation_input)
+  })
+  
+  # Create long df for seat plot
+  selected_leg_long <- reactive({
+    selected_leg() |>
+      select(
+        file, file_title, sponsor, 
+        senate_vote_gop_yes, senate_vote_gop_no, senate_vote_gop_na, senate_vote_dem_yes, senate_vote_dem_no, senate_vote_dem_na,
+        house_vote_gop_yes, house_vote_gop_no, house_vote_gop_na, house_vote_dem_yes, house_vote_dem_no, house_vote_dem_na
+      ) |>
+      pivot_longer(senate_vote_gop_yes:house_vote_dem_na, names_to = "vote", values_to = "vote_num")
+  })
+  
+  selected_leg_parliament <- reactive({
+    parliament_data(
+      election_data = selected_leg_long(),
+      parl_rows = 
+    )
   })
   
   # Get selected file name
@@ -104,6 +157,7 @@ function(input, output, session) {
       strong("Title: "), selected_leg()$file_title, "<br/>",
       strong("Sponsor: "), selected_leg()$sponsor, "<br/>",
       strong("Last Action: "), selected_leg()$last_action, "<br/>",
+      strong("Related Files: "), ifelse(is.na(selected_leg()$related_file_list), yes = "No Related Files", no = selected_leg()$related_file_list), "<br/>",
       strong("Final Senate Vote: "), "<br/>",
       senate_vote(), "<br/>",
       strong("Final House Vote: "), "<br/>", 
@@ -131,6 +185,31 @@ function(input, output, session) {
       filterable = TRUE, searchable = TRUE
     )
   )
+  
+  # Create senate seats plot
+  output$senate_vote_seats <- renderPlot({
+
+    data <- selected_leg_long() |>
+      filter(
+        str_detect(vote, "senate")
+      )
+    par_data <- parliament_data(
+      election_data = data, parl_rows = 4,
+      party_seats = data$vote_num,
+      type = "semicircle"
+    )
+
+    par_data |>
+      ggplot(aes(x = x, y = y, color = vote)) +
+      geom_parliament_seats() +
+      scale_color_manual(
+        values = c("#DC0309", "#EE8181", "grey", "#A4A3F6", "#2320E6", "grey"), 
+        limits = c("senate_vote_gop_yes", "senate_vote_gop_no", "senate_vote_gop_na", "senate_vote_dem_no", "senate_vote_dem_yes", "senate_vote_dem_na"),
+        labels = c("GOP: Yes", "GOP: No", "GOP: NA", "Dem: No", "Dem: Yes", "Dem: NA")
+      ) +
+      theme_ggparliament()
+  })
+  
   
   # Create map of senate vote
   output$senate_vote_map <- renderLeaflet({
@@ -177,6 +256,29 @@ function(input, output, session) {
       filterable = TRUE, searchable = TRUE
     )
   )
+  
+  # Create house seats plot
+  output$house_vote_seats <- renderPlot({
+    data <- selected_leg_long() |>
+      filter(
+        str_detect(vote, "house")
+      )
+    par_data <- parliament_data(
+      election_data = data, parl_rows = 5,
+      party_seats = data$vote_num,
+      type = "semicircle"
+    )
+    
+    par_data |>
+      ggplot(aes(x = x, y = y, color = vote)) +
+      geom_parliament_seats() +
+      scale_color_manual(
+        values = c("#DC0309", "#EE8181", "grey", "#A4A3F6", "#2320E6", "grey"), 
+        limits = c("house_vote_gop_yes", "house_vote_gop_no", "house_vote_gop_na", "house_vote_dem_no", "house_vote_dem_yes", "house_vote_dem_na"),
+        labels = c("GOP: Yes", "GOP: No", "GOP: NA", "Dem: No", "Dem: Yes", "Dem: NA")
+      ) +
+      theme_ggparliament()
+  })
   
   # Create map of house vote
   output$house_vote_map <- renderLeaflet({
