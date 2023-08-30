@@ -6,11 +6,13 @@ library(stringr)
 library(tidyr)
 library(janitor)
 library(lubridate)
+library(data.table)
 
 
-orig_contributions <- read_csv("../Iowa_Campaign_Contributions_Received.csv") |> clean_names()
-candidate_committees <- read_csv("../Registered_Political_Candidates__Committees_and_Entities_in_Iowa.csv") |> clean_names()
+orig_contributions <- read_csv("data/Iowa_Campaign_Contributions_Received.csv") |> clean_names()
+candidate_committees <- read_csv("data/Registered_Political_Candidates__Committees_and_Entities_in_Iowa.csv") |> clean_names()
 
+dt_orig_contributions <- fread("data/Iowa_Campaign_Contributions_Received.csv")
 
 contributions <- orig_contributions |>
   mutate(

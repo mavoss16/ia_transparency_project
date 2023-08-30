@@ -11,6 +11,8 @@ library(shiny)
 library(htmltools)
 library(reactable)
 library(leaflet)
+library(ggplot2)
+# library(forcats)
 
 
 # Define UI for application that draws a histogram
@@ -76,7 +78,31 @@ ui <- function(request){
           )
         ),
         tabPanel(
-          title = "Campaign Contributions"
+          title = "Campaign Contributions",
+          dateRangeInput(
+            "contribution_date_input", label = "Choose a Date Range:",
+            start = "2020-01-01", end = "2023-07-01",
+            min = "2016-01-01", max = "2023-07-01"
+          ),
+          selectizeInput("committee_type_input", label = "Choose a Committee Type:", choices = c("All", "Party", "State Candidate", "Legislative Candidate", "PAC", "Local", "Unknown"), selected = "All"),
+          selectizeInput("committee_input", label = "Choose a Committee:", choices = NULL),
+          selectizeInput("contribution_type_input", label = "Choose a Contribution Type:", choices = c("All", "Individual", "Organization"), selected = "All"),
+          selectizeInput("contribution_geo_input", label = "Choose a Geography:", choices = c("Iowa", "Outside Iowa"), selected = "Iowa"),
+          # htmlOutput("test_text"),
+          # reactableOutput("contribution_test")
+          htmlOutput("contribution_summary"),
+          tabsetPanel(
+            tabPanel(
+              title = "Top Donors",
+              plotOutput("total_contribution_donor_bar"),
+              plotOutput("avg_contribution_donor_bar"),
+              reactableOutput("donor_table")
+            ),
+            tabPanel(
+              title = "Contribution Maps",
+              leafletOutput("contribution_zip_map")
+            )
+          )
         )
       )
     )
