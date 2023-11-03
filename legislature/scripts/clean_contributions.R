@@ -12,7 +12,7 @@ library(tigris)
 orig_contributions <- read_csv("data/Iowa_Campaign_Contributions_Received.csv") |> clean_names()
 candidate_committees <- read_csv("data/Registered_Political_Candidates__Committees_and_Entities_in_Iowa.csv") |> clean_names()
 
-zip_sf <- tigris::zctas()
+# zip_sf <- tigris::zctas()
 ia_zips <- tigris::zctas(state = "IA", year = 2010)
 
 # dt_orig_contributions <- fread("data/Iowa_Campaign_Contributions_Received.csv")
@@ -76,11 +76,26 @@ contributions <- left_join(
       !is.na(first_name) & !is.na(last_name) ~ paste0(last_name, "(No first name provided)"),
       is.na(first_name) & is.na(last_name) ~ "No name or organization provided",
       TRUE ~ NA_character_
+    ),
+    contribution_location = paste0(
+      city, ", ", state, " ", zip5
+    )
+  ) |>
+  mutate(
+    committee_unique_name = ifelse(
+      is.na(committee_unique_name),
+      yes = ifelse(
+        !is.na(candidate_name),
+        yes = paste0(committee_name, " (", candidate_name, ")"),
+        no = committee_name
+      ),
+      no = committee_unique_name
     )
   )
 
 
 write_rds(contributions, "data/cleaned_contributions_post_2016.rds")
+write_rds(contributions, "shiny_data/cleaned_contributions_post_2016.rds")
 write_rds(candidate_committees, "data/candidate_committees.rds")
-write_rds(zip_sf, "data/us_zctas.rds")
+# write_rds(zip_sf, "data/us_zctas.rds")
 write_rds(ia_zips, "data/ia_zctas.rds")

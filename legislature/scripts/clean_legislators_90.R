@@ -4,6 +4,7 @@ library(dplyr)
 library(readr)
 library(tidyr)
 library(stringr)
+library(purrr)
 
 
 data <- read_rds("data/legislators_90th_ga.rds")
@@ -21,6 +22,9 @@ add_legislation_info <- function(file_name_list, legislation_df){
     df,
     legislation_df
   )
+  if(nrow(df) > length(file_name_list)){print(file_name_list)}
+  
+  return(df)
 }
 
 count_by_filter <- function(df, filter_var, filter_values){
@@ -43,7 +47,6 @@ legislators <- data |>
   ) |>
   ungroup()
 
-
 # Add Counts for File Outcomes --------------------------------------------
 
 legislators_counts <- legislators |>
@@ -60,21 +63,134 @@ legislators_counts <- legislators |>
       categorization, 
       c("Passed Committee", "Passed One Chamber", "Signed by Governor", "Passed Both Chambers")
     ),
-    sponsor_signed_count = count_by_filter(sponsor, categorization, c("Signed by Governor"))
+    sponsor_signed_count = count_by_filter(sponsor, categorization, c("Signed by Governor")),
+    floor_manager_signed_count = count_by_filter(floor_manager, categorization, c("Signed by Governor")),
+    sponsor_group_advanced_count = count_by_filter(
+      sponsor,
+      group_categorization,
+      c("Passed Committee", "Passed One Chamber", "Signed by Governor", "Passed Both Chambers")
+    ),
+    sponsor_group_signed_count = count_by_filter(sponsor, group_categorization, c("Signed by Governor")),
+    floor_manager_group_signed_count = count_by_filter(floor_manager, group_categorization, c("Signed by Governor"))
+  ) |>
+  ungroup()
+
+
+# Effectiveness Values ----------------------------------------------------
+
+legislators_counts <- legislators_counts |>
+  group_by(Chamber) |>
+  mutate(
+    
+    sponsor_advanced_pct = sponsor_advanced_count / sponsor_count,
+    sponsor_signed_pct = sponsor_signed_count / sponsor_count,
+    sponsor_group_advanced_pct = sponsor_group_advanced_count / sponsor_count,
+    sponsor_group_signed_pct = sponsor_group_signed_count / sponsor_count,
+    floor_manager_signed_pct = floor_manager_signed_count / floor_manager_count,
+    floor_manager_group_signed_pct = floor_manager_group_signed_count / floor_manager_count,
+    
+    across(
+      c(contains("_count"), contains("_pct")),
+      .fns = function(x){rank(-x, ties.method = "min")},
+      .names = "{.col}_rank"
+    )
+  ) |>
+  ungroup()
+
+
+# Add Counts for Votes ----------------------------------------------------
+
+# Get data frame of legislator votes from legislation dataframe
+get_legislator_votes <- function(legislation_df, df_list_column, column_name, filter_value, chamber, party){
+  print(filter_value)
+  
+  # Filter each df in column by filter_value for {{column_name}}
+  # If filtering to a legislator, should be one row df for each df (If there was not a vote, return df with 1 blank row)
+  df_list <- map(
+    df_list_column,
+    function(x){
+      if(nrow(x) == 0){return(data.frame(Name = "blank_name"))}
+      x |>
+        filter(
+          {{column_name}} == filter_value
+        )
+    }
+  )
+  
+  # Bind together all dfs, then add file names (order should be the same)
+  votes <- bind_rows(df_list)
+  votes$file <- legislation_df$file
+  
+  # Filter to votes that happened, select columns, then add other legislation vote info
+  votes |>
+    filter(!is.na(vote)) |>
+    select(
+      {{column_name}}, file, vote
+    ) |>
+    left_join(
+      legislation_df |> 
+        select(
+          file, 
+          house_vote_gop, house_vote_dem, house_vote_outcome, 
+          senate_vote_gop, senate_vote_dem, senate_vote_outcome
+        )
+    ) |>
+    mutate(
+      vote_agree = case_when(
+        chamber == "House" & party == "Republican" ~ vote == house_vote_gop,
+        chamber == "House" & party == "Democrat" ~ vote == house_vote_dem,
+        chamber == "Senate" & party == "Republican" ~ vote == senate_vote_gop,
+        chamber == "Senate" & party == "Democrat" ~ vote == senate_vote_dem
+        
+      )
+    )
+  
+}
+
+# Add legislator votes for senators
+senate_counts <- legislators_counts |>
+  filter(Chamber == "Senate") |>
+  rowwise() |>
+  mutate(
+    floor_vote_record = list(get_legislator_votes(legislation, legislation$senate_vote_record, Name, Name, Chamber, Party))
+  ) |>
+  ungroup()
+
+# Add legislator votes for democrats
+house_counts <- legislators_counts |>
+  filter(Chamber == "House") |>
+  rowwise() |>
+  mutate(
+    floor_vote_record = list(get_legislator_votes(legislation, legislation$house_vote_record, Name, Name, Chamber, Party))
+  ) |>
+  ungroup()
+
+
+# Count yes and no votes
+senate_counts2 <- senate_counts |>
+  rowwise() |>
+  mutate(
+    yes_count = count_by_filter(floor_vote_record, vote, filter_values = "Yes"),
+    no_count = count_by_filter(floor_vote_record, vote, filter_values = "No"),
+    with_party = count_by_filter(floor_vote_record, vote_agree, filter_values = TRUE),
+    with_party_pct = with_party / (yes_count + no_count)
+  ) |>
+  ungroup()
+
+house_counts2 <- house_counts |>
+  rowwise() |>
+  mutate(
+    yes_count = count_by_filter(floor_vote_record, vote, filter_values = "Yes"),
+    no_count = count_by_filter(floor_vote_record, vote, filter_values = "No"),
+    with_party = count_by_filter(floor_vote_record, vote_agree, filter_values = TRUE),
+    with_party_pct = with_party / (yes_count + no_count)
   ) |>
   ungroup()
 
 
 
-# Add Counts for Votes ----------------------------------------------------
 
-# Want:
-  # Num votes with party majority
-  # Num votes against party majority
-  # Num yes/no votes
-  # Num NA votes
-
-
-
+# Write Data --------------------------------------------------------------
 
 write_rds(legislators_counts, "data/legislators_90th_ga_clean.rds")
+write_rds(legislators_counts, "shiny_data/legislators_90th_ga_clean.rds")

@@ -163,7 +163,19 @@ vote_records <- vote_records |>
     gop_no = count_votes_by_filter(vote_record, Party, "Republican", vote, "No"),
     dem_no = count_votes_by_filter(vote_record, Party, "Democrat", vote, "No"),
     gop_na_vote = count_votes_by_filter(vote_record, Party, "Republican", vote, NA),
-    dem_na_vote = count_votes_by_filter(vote_record, Party, "Democrat", vote, NA)
+    dem_na_vote = count_votes_by_filter(vote_record, Party, "Democrat", vote, NA),
+    dem_vote = case_when(
+      dem_yes > dem_no ~ "Yes",
+      dem_no > dem_yes ~ "No",
+      dem_yes == dem_no ~ "Split",
+      TRUE ~ NA_character_
+    ),
+    gop_vote = case_when(
+      gop_yes > gop_no ~ "Yes",
+      gop_no > gop_yes ~ "No",
+      gop_yes == gop_no ~ "Split",
+      TRUE ~ NA_character_
+    )
   ) |>
   ungroup()
 

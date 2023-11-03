@@ -13,19 +13,38 @@ file_actions <- read_rds("data/legislative_actions_2023.rds") |> rename(sponsor 
 floor_votes <- read_rds("data/floor_vote_records_2023.rds")
 lobbyist_declarations <- read_rds("data/lobbyist_declarations_2023.rds")
 
+file_actions |>
+  filter(bill == "SF 252") |>
+  pull(bill_title)
 
 file_actions <- file_actions |>
   filter(
     !str_detect(bill, " to ")
-  )
-
-remove_bill_title_text <- "Passed House.+$|Passed Senate.+$|Ayes.+$|Read first time.+$|Withdrawn.+$|Signed by Governor.+$|Passed on file.+$"
-file_actions <- file_actions |>
+  ) |>
   mutate(
-    action_notes = str_extract(
-      bill_title, remove_bill_title_text),
-    bill_title = str_remove_all(bill_title, remove_bill_title_text) |> str_trim()
-  )
+    full_title = bill_title,
+    bill_title = str_extract(bill_title, "[^.]+\\."),
+    other_info = str_extract(full_title, "\\..+") |> str_remove("^\\."),
+    related_info = str_extract(other_info, "\\([^()]+\\)") |> str_remove_all("\\(|\\)") |> str_trim(),
+    action_notes = str_remove(other_info, "\\([^()]+\\)") |> str_trim()
+  ) |>
+  mutate(
+    action_notes = str_trim(action_notes),
+    action_notes = replace(action_notes, action_notes == "", NA_character_)
+  ) |>
+  select(-other_info, -full_title)
+
+file_actions |>
+  filter(bill == "SF 252") |>
+  pull(bill_title)
+
+# remove_bill_title_text <- "Passed House.+$|Passed Senate.+$|Ayes.+$|Read first time.+$|Withdrawn.+$|Signed by Governor.+$|Passed on file.+$"
+# file_actions <- file_actions |>
+#   mutate(
+#     action_notes = str_extract(
+#       bill_title, remove_bill_title_text),
+#     bill_title = str_remove_all(bill_title, remove_bill_title_text) |> str_trim()
+#   )
 
 
 sponsors <- file_actions |>
@@ -42,11 +61,14 @@ file_actions <- left_join(
 last_actions <- file_actions |>
   group_by(bill, bill_title) |>
   # mutate(sponsors = paste0(unique(sponsor, collapse = ", "))) |>
-  mutate(action_list = paste0(unique(action), collapse = ", ")) |>
+  mutate(
+    action_list = paste0(unique(action), collapse = ", "),
+    related_info = paste0(unique(related_info), collapse = ", ")
+  ) |>
   slice_tail(n = 1) |>
   ungroup() |>
   transmute(
-    bill = bill, bill_title = bill_title,
+    bill = bill, bill_title = bill_title, related_info = related_info,
     last_action = action, action_list = action_list
   )
 
@@ -97,7 +119,8 @@ final_senate <- senate |>
     date, time,
     file_name, file_sponsor, file_title,
     vote_yes_count, vote_no_count,
-    gop_yes, gop_no, gop_na_vote, dem_yes, dem_no, dem_na_vote,
+    gop_yes, gop_no, gop_na_vote, gop_vote, 
+    dem_yes, dem_no, dem_na_vote, dem_vote,
     vote_record
   ) |>
   mutate(
@@ -124,7 +147,8 @@ final_house <- house |>
     date, time,
     file_name, file_sponsor, file_title,
     vote_yes_count, vote_no_count,
-    gop_yes, gop_no, gop_na_vote, dem_yes, dem_no, dem_na_vote,
+    gop_yes, gop_no, gop_na_vote, gop_vote, 
+    dem_yes, dem_no, dem_na_vote, dem_vote,
     vote_record
   ) |>
   mutate(
@@ -210,8 +234,8 @@ files_sorted <- files_sorted[mixedorder(files_sorted$sort_var), ] |>
 
 linked_files <- files_sorted |>
   mutate(
-    preceding_file = str_extract(file_title, "Formerly [a-zA-Z0-9 ,]+") |> str_remove("Formerly "),
-    succeding_file = str_extract(file_title, "See [a-zA-Z0-9 ,]+") |> str_remove("See "),
+    preceding_file = str_extract(related_info, "Formerly [a-zA-Z0-9 ,]+") |> str_remove("Formerly "),
+    succeding_file = str_extract(related_info, "See [a-zA-Z0-9 ,]+") |> str_remove("See "),
     related_file_list = paste0(
       ifelse(!is.na(preceding_file), yes = paste0(preceding_file, ", "), no = ""),
       file, ", ",
@@ -220,6 +244,7 @@ linked_files <- files_sorted |>
       str_remove_all(", $"),
     .after = categorization
   ) |>
+  relocate(related_info, .before = preceding_file) |>
   rowwise() |>
   mutate(
     related_file_list_sorted = related_file_list |>
@@ -232,7 +257,19 @@ linked_files <- files_sorted |>
   mutate(
     file_group_id = cur_group_id(), .by = related_file_list_sorted,
     .after = related_file_list_sorted
-  )
+  ) |>
+  mutate(
+    categorization_fct = factor(categorization, c("Introduced", "Passed Committee", "Passed One Chamber", "Passed Both Chambers", "Signed by Governor"), ordered = TRUE),
+    .after = categorization
+  ) |>
+  group_by(file_group_id) |>
+  mutate(
+    group_categorization = max(categorization_fct),
+    group_final_file = file[which.max(categorization_fct)],
+    .after = file_group_id
+  ) |>
+  ungroup()
 
 
 write_rds(linked_files, "data/legislation_2023_clean.rds")
+write_rds(linked_files, "shiny_data/legislation_2023_clean.rds")

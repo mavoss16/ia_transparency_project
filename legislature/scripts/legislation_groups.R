@@ -5,6 +5,7 @@ library(stringr)
 library(tidyr)
 library(purrr)
 library(readr)
+library(forcats)
 
 
 
@@ -27,3 +28,15 @@ linked_files <- linked_files |>
 linked_files |> select(1:10) |> View()
 
 
+linked_files <- linked_files |>
+  mutate(
+    categorization_fct = factor(categorization, c("Introduced", "Passed Committee", "Passed One Chamber", "Passed Both Chambers", "Signed by Governor"), ordered = TRUE),
+    .after = categorization
+  ) |>
+  group_by(file_group_id) |>
+  mutate(
+    group_categorization = max(categorization_fct),
+    group_final_file = file[which.max(categorization_fct)],
+    .after = file_group_id
+  ) |>
+  ungroup()
