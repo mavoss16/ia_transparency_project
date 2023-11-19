@@ -37,9 +37,29 @@ ui <- function(request){
           ),
           selectizeInput("legislation_input", label = "Choose a File: ", choices = NULL)
         ),
-        h2("Summary"),
-        htmlOutput("leg_summary_text"),
-        # textOutput("text")
+        # h2("Summary"),
+        # htmlOutput("leg_summary_text"),
+        htmlOutput("legislation_header_text"),
+        layout_column_wrap(
+          width = 1/4,
+          fill = FALSE,
+          value_box(
+            "House Vote",
+            value = htmlOutput("house_vote_text")
+          ),
+          value_box(
+            "Senate Vote",
+            value = htmlOutput("senate_vote_text")
+          ),
+          value_box(
+            "Related File Outcome",
+            value = htmlOutput("related_leg_outcome_text")
+          ),
+          value_box(
+            "Lobbying",
+            value = htmlOutput("lobbying_text")
+          )
+        ),
         tabsetPanel(
           tabPanel(
             title = "Actions",
@@ -71,14 +91,53 @@ ui <- function(request){
           selectizeInput("chamber_input", label = "Chooose a Chamber:", choices = c("House", "Senate"), selected = "House"),
           selectizeInput("legislator_input", label = "Choose a Legislator:", choices = NULL)
         ),
-        htmlOutput("legislator_summary_text"),
+        # htmlOutput("legislator_summary_text"),
+        htmlOutput("legislator_header_text"),
         tabsetPanel(
           tabPanel(
+            title = "Summary",
+            layout_column_wrap(
+              width = 1,
+              value_box(
+                "Votes",
+                value = htmlOutput("legislator_vote_summary_text")
+              ),
+              value_box(
+                "Sponsored Files",
+                value = htmlOutput("legislator_sponsor_summary_text")
+              ),
+              value_box(
+                "Floor-Managed Files",
+                value = htmlOutput("legislator_floor_manager_summary_text")
+              )
+            ),
+          ),
+          tabPanel(
+            title = "Vote Record",
+            layout_column_wrap(
+              width = 1/3,
+              value_box("Yes Votes", htmlOutput("legislator_vote_record_yes_text")),
+              value_box("No Votes", htmlOutput("legislator_vote_record_no_text")),
+              value_box("Percent of Votes with Party", htmlOutput("legislator_vote_record_with_party_text"))
+            ),
+            reactableOutput("legislator_vote_record_table")
+          ),
+          tabPanel(
             title = "Sponsored Files",
+            layout_column_wrap(
+              width = 1/4,
+              value_box("# of Sponsored Files", htmlOutput("legislator_sponsor_num_text"), htmlOutput("legislator_sponsor_num_caption")),
+              value_box("# of Solo-Sponsored Files", htmlOutput("legislator_sponsor_sole_num_text"), htmlOutput("legislator_sponsor_sole_num_caption")),
+              value_box("# of Sponsored Files Advanced Through Committee", htmlOutput("legislator_sponsor_advance_num_text"), htmlOutput("legislator_sponsor_advance_num_caption")),
+              value_box("# of Sponsored-Related Files Signed", htmlOutput("legislator_sponsor_group_sign_num_text"), htmlOutput("legislator_sponsor_group_sign_num_caption")),
+            ),
             reactableOutput("legislator_sponsor_table")
           ),
           tabPanel(
             title = "Floor-Managed Files",
+            width = 1/2,
+            value_box("# of Floor-Managed Files", htmlOutput("legislator_floor_manager_num_text"), htmlOutput("legislator_floor_manager_num_caption")),
+            value_box("# of Floor-Managed Files Signed", htmlOutput("legislator_floor_manager_signed_num_text"), htmlOutput("legislator_floor_manager_signed_num_caption")),
             reactableOutput("legislator_floor_manager_table")
           )
         )

@@ -39,6 +39,18 @@ count_by_filter <- function(df, filter_var, filter_values){
     nrow()
 }
 
+count_by_na <- function(df, filter_var){
+  if(is.null(df)){
+    return(0)
+  }
+  df |>
+    as.data.frame() |>
+    filter(
+      is.na({{filter_var}})
+    ) |>
+    nrow()
+}
+
 legislators <- data |>
   rowwise() |>
   mutate(
@@ -172,6 +184,7 @@ senate_counts2 <- senate_counts |>
   mutate(
     yes_count = count_by_filter(floor_vote_record, vote, filter_values = "Yes"),
     no_count = count_by_filter(floor_vote_record, vote, filter_values = "No"),
+    # NA_count = count_by_na(floor_vote_record, vote),
     with_party = count_by_filter(floor_vote_record, vote_agree, filter_values = TRUE),
     with_party_pct = with_party / (yes_count + no_count)
   ) |>
@@ -182,6 +195,7 @@ house_counts2 <- house_counts |>
   mutate(
     yes_count = count_by_filter(floor_vote_record, vote, filter_values = "Yes"),
     no_count = count_by_filter(floor_vote_record, vote, filter_values = "No"),
+    # NA_count = count_by_na(floor_vote_record, vote),
     with_party = count_by_filter(floor_vote_record, vote_agree, filter_values = TRUE),
     with_party_pct = with_party / (yes_count + no_count)
   ) |>
@@ -189,8 +203,9 @@ house_counts2 <- house_counts |>
 
 
 
+write_file <- bind_rows(senate_counts2, house_counts2)
 
 # Write Data --------------------------------------------------------------
 
-write_rds(legislators_counts, "data/legislators_90th_ga_clean.rds")
-write_rds(legislators_counts, "shiny_data/legislators_90th_ga_clean.rds")
+write_rds(write_file, "data/legislators_90th_ga_clean.rds")
+write_rds(write_file, "shiny_data/legislators_90th_ga_clean.rds")

@@ -34,6 +34,8 @@ contributions <- read_rds("shiny_data/cleaned_contributions_post_2016.rds")
 ia_zips <- read_rds("shiny_data/ia_zctas.rds")
 # us_zips <- read_rds("data/us_zctas.rds")
 
+percent <- percent_format(accuracy = 0.1)
+
 
 function(input, output, session) {
   
@@ -122,64 +124,77 @@ function(input, output, session) {
     selected_leg() |> pull(file) |> unlist()
   })
   
-  # Create summary text for selected file's senate vote
-  senate_vote <- reactive({
-    if(is.na(selected_leg()$senate_vote_date)){
-      return("No Senate Vote")
-    } else{
-      text <- paste0(
-        selected_leg()$senate_vote_outcome, "<br/>",
-        "Yes: ", selected_leg()$senate_vote_yes_count, 
-        " (", selected_leg()$senate_vote_gop_yes, " R, ", selected_leg()$senate_vote_dem_yes, " D), ",
-        "No: ", selected_leg()$senate_vote_no_count,
-        " (", selected_leg()$senate_vote_gop_no, " R, ", selected_leg()$senate_vote_dem_no, " D)"
-      )
-      return(text)
-    }
-  })
-  
-  # Create summary text for selected file's house vote
-  house_vote <- reactive({
-    if(is.na(selected_leg()$house_vote_date)){
-      return("No House Vote")
-    } else{
-      text <- paste0(
-        selected_leg()$house_vote_outcome, "<br/>",
-        "Yes: ", selected_leg()$house_vote_yes_count, 
-        " (", selected_leg()$house_vote_gop_yes, " R, ", selected_leg()$house_vote_dem_yes, " D), ",
-        "No: ", selected_leg()$house_vote_no_count,
-        " (", selected_leg()$house_vote_gop_no, " R, ", selected_leg()$house_vote_dem_no, " D)"
-      )
-      return(text)
-    }
-  })
-  
-  
-  # Create summary text for selected file
-  output$leg_summary_text <- renderUI({
+  # Create header text for selected file
+  output$legislation_header_text <- renderUI({
     paste0(
-      strong("File Number: "), selected_leg()$file, "<br/>",
-      strong("Title: "), selected_leg()$file_title, "<br/>",
-      strong("Sponsor: "), selected_leg()$sponsor, "<br/>",
-      strong("Last Action: "), selected_leg()$last_action, "<br/>",
-      strong("Related Files: "), ifelse(is.na(selected_leg()$related_file_list), yes = "No Related Files", no = selected_leg()$related_file_list), "<br/>",
-      strong("Related File Action: "), ifelse(
-        is.na(selected_leg()$related_file_list), 
-        yes = "No Related Files", 
-        no = paste0(selected_leg()$group_final_file, ", ", selected_leg()$group_categorization)
-      ), "<br/>",
-      strong("Final Senate Vote: "), "<br/>",
-      senate_vote(), "<br/>",
-      strong("Final House Vote: "), "<br/>", 
-      house_vote(), "<br/>",
-      strong("# Lobbyists For: "), selected_leg()$num_dec_for, "<br/>",
-      strong("# Lobbyists Against: "), selected_leg()$num_dec_against, "<br/>",
-      strong("BillBook Link: "), 
-        a(
-          paste0("https://www.legis.iowa.gov/legislation/BillBook?ga=90&ba=", str_remove_all(selected_leg_name(), " ")), 
-          href = paste0("https://www.legis.iowa.gov/legislation/BillBook?ga=90&ba=", str_remove_all(selected_leg_name(), " ")),
-          target = "_blank"
+      h2(selected_leg()$file),
+      selected_leg()$file_title, "<br/>",
+      strong("Sponsor(s): "), selected_leg()$sponsor, "<br/>",
+      strong("Final Action: "), selected_leg()$last_action, "<br/>",
+      a(
+        paste0("https://www.legis.iowa.gov/legislation/BillBook?ga=90&ba=", str_remove_all(selected_leg_name(), " ")), 
+        href = paste0("https://www.legis.iowa.gov/legislation/BillBook?ga=90&ba=", str_remove_all(selected_leg_name(), " ")),
+        target = "_blank"
+      )
+    ) |> HTML()
+  })
+  
+  output$house_vote_text <- renderUI({
+    if(is.na(selected_leg()$house_vote_date)){
+      h5("No House Vote")
+    } else{
+      paste0(
+        h5(selected_leg()$house_vote_outcome),
+        h5(
+          paste0(
+            "Yes: ", selected_leg()$house_vote_yes_count, 
+            " (", selected_leg()$house_vote_gop_yes, " R, ", selected_leg()$house_vote_dem_yes, " D)"
+          )
+        ),
+        h5(
+          paste0(
+            "No: ", selected_leg()$house_vote_no_count,
+            " (", selected_leg()$house_vote_gop_no, " R, ", selected_leg()$house_vote_dem_no, " D)"
+          )
         )
+      ) |> HTML()
+    }
+  })
+  
+  output$senate_vote_text <- renderUI({
+    if(is.na(selected_leg()$senate_vote_date)){
+      h5("No Senate Vote")
+    } else{
+      paste0(
+        h5(selected_leg()$senate_vote_outcome),
+        h5(
+          paste0(
+            "Yes: ", selected_leg()$senate_vote_yes_count, 
+            " (", selected_leg()$senate_vote_gop_yes, " R, ", selected_leg()$senate_vote_dem_yes, " D)"
+          )
+        ),
+        h5(
+          paste0(
+            "No: ", selected_leg()$senate_vote_no_count,
+            " (", selected_leg()$senate_vote_gop_no, " R, ", selected_leg()$senate_vote_dem_no, " D)"
+          )
+        )
+      ) |> HTML()
+    }
+  })
+  
+  output$related_leg_outcome_text <- renderUI({
+    ifelse(
+      is.na(selected_leg()$related_file_list), 
+      yes = "No Related Files", 
+      no = paste0(selected_leg()$group_final_file, ", ", selected_leg()$group_categorization)
+    ) |> h5()
+  })
+  
+  output$lobbying_text <- renderUI({
+    paste0(
+      h5("# For: ", selected_leg()$num_dec_for),
+      h5("# Against: ", selected_leg()$num_dec_against)
     ) |> HTML()
   })
   
@@ -382,6 +397,21 @@ function(input, output, session) {
       filter(Name == input$legislator_input)
   })
   
+  # Legislator header text
+  output$legislator_header_text <- renderUI({
+    paste0(
+      h2(
+        paste0(selected_legislator()$Name, " (", selected_legislator()$Party, ", ", selected_legislator()$County, " County)")
+      ), # "<br/>",
+      selected_legislator()$Chamber, " District ", selected_legislator()$District, "<br/>",
+      a(
+        paste0("https://www.legis.iowa.gov/", selected_legislator()$link),
+        href = paste0("https://www.legis.iowa.gov/", selected_legislator()$link),
+        target = "_blank"
+      )
+    ) |> HTML()
+  })
+  
   # Create summary text for selected file
   output$legislator_summary_text <- renderUI({
     paste0(
@@ -403,7 +433,115 @@ function(input, output, session) {
     ) |> HTML()
 
   })
-
+  
+  # Create legislator summary vote text
+  output$legislator_vote_summary_text <- renderUI({
+    paste0(
+      "Yes Votes: ", selected_legislator()$yes_count, "<br/>",
+      "No Votes: ", selected_legislator()$no_count, "<br/>",
+      "% With Party: ", percent(selected_legislator()$with_party_pct)
+    ) |> HTML()
+  })
+  
+  output$legislator_vote_record_yes_text <- renderUI({
+    selected_legislator()$yes_count
+  })
+  output$legislator_vote_record_no_text <- renderUI({
+    selected_legislator()$no_count
+  })
+  output$legislator_vote_record_with_party_text <- renderUI({
+    percent(selected_legislator()$with_party_pct)
+  })
+  
+  # Create legislator sponsor summary text
+  output$legislator_sponsor_summary_text <- renderUI({
+    paste0(
+      "Number of Sponsored Files: ", selected_legislator()$sponsor_count, "<br/>",
+      "Number of Solo-Sponsored Files: ", selected_legislator()$sponsor_sole_count, "<br/>",
+      "Number of Sponsored Files Advanced Through Committee: ", selected_legislator()$sponsor_advanced_count, "<br/>",
+      "Number of Sponsored-Related Files Signed: ", selected_legislator()$sponsor_group_signed_count, "<br/>"
+    ) |> HTML()
+  })
+  
+  output$legislator_sponsor_num_text <- renderUI({
+    selected_legislator()$sponsor_count
+  })
+  output$legislator_sponsor_num_caption <- renderUI({
+    paste0(
+      "Chamber Rank: ", selected_legislator()$sponsor_count_rank, " of ", ifelse(selected_legislator()$Chamber == "House", yes = "100", no = "50")
+    )
+  })
+  output$legislator_sponsor_sole_num_text <- renderUI({
+    selected_legislator()$sponsor_sole_count
+  })
+  output$legislator_sponsor_sole_num_caption <- renderUI({
+    paste0(
+      "Chamber Rank: ", selected_legislator()$sponsor_sole_count_rank, " of ", ifelse(selected_legislator()$Chamber == "House", yes = "100", no = "50")
+    )
+  })
+  output$legislator_sponsor_advance_num_text <- renderUI({
+    selected_legislator()$sponsor_advanced_count
+  })
+  output$legislator_sponsor_advance_num_caption <- renderUI({
+    paste0(
+      "Chamber Rank: ", selected_legislator()$sponsor_advanced_count_rank, " of ", ifelse(selected_legislator()$Chamber == "House", yes = "100", no = "50")
+    )
+  })
+  output$legislator_sponsor_group_sign_num_text <- renderUI({
+    selected_legislator()$sponsor_group_signed_count
+  })
+  output$legislator_sponsor_group_sign_num_caption <- renderUI({
+    paste0(
+      "Chamber Rank: ", selected_legislator()$sponsor_group_signed_count_rank, " of ", ifelse(selected_legislator()$Chamber == "House", yes = "100", no = "50")
+    )
+  })
+  
+  # Create legislator floor manager summary text
+  output$legislator_floor_manager_summary_text <- renderUI({
+    paste0(
+      "Number of Floor-Managed Files: ", selected_legislator()$floor_manager_count, "<br/>",
+      "Number of Floor-Managed Files Signed: ", selected_legislator()$floor_manager_signed_count
+    ) |> HTML()
+  })
+  
+  output$legislator_floor_manager_num_text <- renderUI({
+    selected_legislator()$floor_manager_count
+  })
+  output$legislator_floor_manager_num_caption <- renderUI({
+    paste0(
+      "Chamber Rank: ", selected_legislator()$floor_manager_count_rank, " of ", ifelse(selected_legislator()$Chamber == "House", yes = "100", no = "50")
+    )
+  })
+  output$legislator_floor_manager_signed_num_text <- renderUI({
+    selected_legislator()$floor_manager_signed_count
+  })
+  output$legislator_floor_manager_signed_num_caption <- renderUI({
+    paste0(
+      "Chamber Rank: ", selected_legislator()$floor_manager_signed_count_rank, " of ", ifelse(selected_legislator()$Chamber == "House", yes = "100", no = "50")
+    )
+  })
+  
+  output$legislator_vote_record_table <- renderReactable({
+    reactable(
+      selected_legislator()$floor_vote_record |> 
+        as.data.frame() |> 
+        select(file, vote, house_vote_outcome, senate_vote_outcome, vote_agree) |>
+        mutate(
+          vote_agree = case_when(
+            vote_agree == TRUE ~ "Yes",
+            vote_agree == FALSE ~ "No"
+          )
+        ),
+      filterable = TRUE, searchable = TRUE,
+      columns = list(
+        file = colDef(name = "File Name"),
+        vote = colDef(name = "Vote"),
+        house_vote_outcome = colDef(name = "House Outcome"),
+        senate_vote_outcome = colDef(name = "Senate Outcome"),
+        vote_agree = colDef(name = "Agreement with Party Majority")
+      )
+    )
+  })
 
   # Create sponsor table
   output$legislator_sponsor_table <- renderReactable({
