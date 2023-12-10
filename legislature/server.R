@@ -29,16 +29,12 @@ legislation <- read_rds("shiny_data/legislation_2023_clean.rds")
 senate_map <- st_read("shiny_data/Plan2_Senate.shp") |> st_transform(crs = 4326) |> transmute(District = as.numeric(DISTRICT), geometry = geometry)
 house_map <- st_read("shiny_data/Plan2_House.shp") |> st_transform(crs = 4326) |> transmute(District = as.numeric(DISTRICT), geometry = geometry)
 
-contributions <- read_rds("shiny_data/cleaned_contributions_post_2016.rds")
-# committees <- read_rds("shiny_data/candidate_committees.rds")
-ia_zips <- read_rds("shiny_data/ia_zctas.rds")
-# us_zips <- read_rds("data/us_zctas.rds")
-
 percent <- percent_format(accuracy = 0.1)
 
 
 function(input, output, session) {
-  
+
+
   output$out <- renderText({
     if (input$caps)
       toupper(input$txt)
@@ -71,7 +67,7 @@ function(input, output, session) {
     ) |> HTML()
   })
 
-# Legislation Server ------------------------------------------------------
+# Legislation Data ------------------------------------------------------
   
   # Create choice vector for legislation dropdown
   file_choices <- reactive({
@@ -123,6 +119,44 @@ function(input, output, session) {
   selected_leg_name <- reactive({
     selected_leg() |> pull(file) |> unlist()
   })
+  
+
+# Legislation Output ------------------------------------------------------
+  
+  output$legislation_summary_table <- renderReactable({
+    legislation |>
+      select(
+        file, file_title, file_introduced_date, categorization, related_file_list_sorted, group_categorization
+      ) |>
+      arrange(
+        file_introduced_date, file
+      ) |>
+      reactable(
+        filterable = TRUE, searchable = TRUE,
+        defaultPageSize = 25, showPageSizeOptions = TRUE,
+        columns = list(
+          file = colDef(
+            name = "File", minWidth = 80
+          ),
+          file_title = colDef(
+            name = "File Description", minWidth = 250
+          ),
+          file_introduced_date = colDef(
+            name = "Date Introduced", minWidth = 110
+          ),
+          categorization = colDef(
+            name = "Outcome", minWidth = 100
+          ),
+          related_file_list_sorted = colDef(
+            name = "Related File Group", minWidth = 100
+          ),
+          group_categorization = colDef(
+            name = "File Group Outcome", minWidth = 100
+          )
+        )
+      )
+  })
+  
   
   # Create header text for selected file
   output$legislation_header_text <- renderUI({
@@ -370,7 +404,7 @@ function(input, output, session) {
   
   
 
-# Legislator Server -------------------------------------------------------
+# Legislator Data -------------------------------------------------------
   
   # Create choice vector for legislation dropdown
   legislator_choices <- reactive({
@@ -395,6 +429,66 @@ function(input, output, session) {
   selected_legislator <- reactive({
     legislators |>
       filter(Name == input$legislator_input)
+  })
+  
+
+# Legislator Output -------------------------------------------------------
+  
+  output$legislator_summary_table <- renderReactable({
+    legislators |>
+      select(
+        Name, Chamber, District, County, Party, 
+        sponsor_count, floor_manager_count, 
+        yes_count, no_count, with_party_pct
+      ) |>
+      arrange(
+        Chamber, District
+      ) |>
+      reactable(
+        filterable = TRUE, searchable = TRUE, resizable = TRUE,
+        defaultPageSize = 25, showPageSizeOptions = TRUE,
+        columns = list(
+          Name = colDef(
+            name = "Name", minWidth = 175
+          ),
+          Chamber = colDef(
+            name = "Chamber", minWidth = 100
+          ),
+          District = colDef(
+            name = "District", align = "left", minWidth = 75
+          ),
+          County = colDef(
+            name = "County", minWidth = 100
+          ),
+          Party = colDef(
+            name = "Party", minWidth = 90,
+            style = function(value){
+              color <- case_when(
+                value == "Republican" ~ "#fc7272",
+                value == "Democrat" ~ "#70a3fa",
+                TRUE ~ "#c9ced6"
+              )
+              list(background = color)
+            }
+          ),
+          sponsor_count = colDef(
+            name = "Sponsored File Count", minWidth = 90
+          ),
+          floor_manager_count = colDef(
+            name = "Floor-Managed File Count", minWidth = 85
+          ),
+          yes_count = colDef(
+            name = "Yes Votes", minWidth = 70
+          ),
+          no_count = colDef(
+            name = "No Votes", minWidth = 70
+          ),
+          with_party_pct = colDef(
+            name = "Party Agreement Pct.", minWidth = 95,
+            format = colFormat(percent = TRUE, digits = 1)
+          )
+        )
+      )
   })
   
   # Legislator header text
@@ -578,513 +672,6 @@ function(input, output, session) {
       )
     )
   })
-  
-  
-
-# Contributions Server ----------------------------------------------------
-  
-  
-
-# --Contributions Data ----------------------------------------------------
-
-  # Return row numbers of filtered dates
-  date_rows <- reactive({
-    contributions |>
-      with(which(date >= min(input$contribution_date_input) & date <= max(input$contribution_date_input)))
-  })
-
-  # Return row numbers of filtered committee
-  committee_rows <- reactive({
-    if(is.null(input$committee_input)){
-      return(c(-1))
-    } else if(input$committee_input == ""){
-      return(c(-1))
-    }
-    contributions |>
-      with(which(committee_unique_name == input$committee_input))
-  })
-  
-  # Return row numbers of filtered donor
-  donor_rows <- reactive({
-    if(is.null(input$donor_input)){
-      return(c(-1))
-    } else if(input$donor_input == ""){
-      return(c(-1))
-    }
-    contributions |>
-      with(which(contribution_name == input$donor_input & contribution_location == input$donor_location_input))
-  })
-
-  # Return row numbers of filtered contribution type (Committee, Individual)
-  contribution_type_rows <- reactive({
-    if(input$contribution_type_input == "All"){
-      rows <- 1:nrow(contributions)
-    } else{
-      rows <- contributions |>
-        with(which(contribution_type == input$contribution_type_input))
-    }
-
-    return(rows)
-  })
-
-  # Return row numbers of filtered geography
-  contribution_geo_rows <- reactive({
-    rows <- contributions |>
-      with(which(contribution_geo == input$contribution_geo_input))
-    return(rows)
-  })
-
-  # Intersect row number vectors to get row numbers on which to filter data
-  side_filter_rows <- reactive({
-    # print(input$donor_input)
-    # final_rows <- intersect(committee_rows(), donor_rows())
-    # final_rows <- intersect(final_rows, date_rows())
-    rows <- intersect(date_rows(), contribution_type_rows())
-    rows <- intersect(rows, contribution_geo_rows())
-
-    rows
-  })
-
-  final_committee_rows <- reactive({
-    rows <- intersect(side_filter_rows(), committee_rows())
-    rows
-  })
-  
-  committee_type_rows <- reactive({
-    if(input$committee_type_input == "All"){
-      rows <- 1:nrow(contributions)
-    } else{
-      rows <- contributions |>
-        with(which(committee_type2 == input$committee_type_input))
-    }
-    
-    return(rows)
-  })
-  
-  final_donor_rows <- reactive({
-    rows <- intersect(side_filter_rows(), donor_rows())
-    rows <- intersect(rows, committee_type_rows())
-    return(rows)
-  })
-  
-  # Only filter by committee, donor, and date
-  date_filtered_data <- reactive({
-    final_rows <- intersect(committee_rows(), donor_rows())
-    final_rows <- intersect(final_rows, date_rows())
-    contributions |>
-      slice(final_rows)
-  })
-
-  # Filter data by all filters for committees
-  committee_contribution_data <- reactive({
-    print("Data Update")
-    # rows <- intersect(side_filter_rows(), committee_rows())
-    contributions |>
-      slice(final_committee_rows())
-
-  })
-  
-  # Filter data by all filters for donors
-  donor_contribution_data <- reactive({
-    print("Data Update")
-    print(input$committee_type_input)
-    print(final_donor_rows())
-    # print(paste0("All rows: ", final_donor_rows()))
-    # rows <- intersect(side_filter_rows(), donor_rows())
-    contributions |>
-      slice(final_donor_rows())
-  })
-
-  # Get summary stats for contribution types
-  contribution_type_summary <- reactive({
-    date_filtered_data() |>
-      group_by(contribution_type) |>
-      summarize(
-        total_contributions = sum(contribution_amount, na.rm = T),
-        average_contribution = mean(contribution_amount, na.rm = T),
-        num_contributions = n()
-      ) |>
-      ungroup() |>
-      mutate(
-        contribution_pct = total_contributions / sum(total_contributions, na.rm = T)
-      )
-  })
-
-  # Get summary stats for contribution geographies
-  contribution_geo_summary <- reactive({
-    date_filtered_data() |>
-      group_by(contribution_geo) |>
-      summarize(
-        total_contributions = sum(contribution_amount, na.rm = T),
-        average_contribution = mean(contribution_amount, na.rm = T),
-        num_contributions = n()
-      ) |>
-      mutate(
-        contribution_pct = total_contributions / sum(total_contributions, na.rm = T)
-      )
-  })
-
-  # Get committee choices for dropdown
-  committee_choices <- reactive({
-    if(input$committee_type_input == "All"){
-      choices <- unique(contributions$committee_unique_name)
-    } else{
-      choices <- contributions |>
-        select(committee_unique_name, committee_type2) |>
-        filter(
-          committee_type2 == input$committee_type_input
-        ) |>
-        pull(committee_unique_name) |>
-        unique()
-    }
-
-    return(choices)
-  })
-
-  # Update committee dropdown
-  observe({
-    updateSelectizeInput(
-      inputId = "committee_input", choices = committee_choices(), server = TRUE
-    )
-  })
-  
-  # Get donor choices for dropdown
-  donor_choices <- reactive({
-    # choices <- unique(contributions$contribution_name)
-    
-    if(input$contribution_type_input == "All"){
-      # choices <- unique(contributions$committee_unique_name)
-      choices <- contributions |>
-        select(date, contribution_name, contribution_geo, contribution_type) |>
-        filter(
-          contribution_geo == input$contribution_geo_input,
-          date >= min(input$contribution_date_input) & date <= max(input$contribution_date_input)
-        ) |>
-        pull(contribution_name) |>
-        unique()
-    } else{
-      choices <- contributions |>
-        select(date, contribution_name, contribution_geo, contribution_type) |>
-        filter(
-          contribution_geo == input$contribution_geo_input,
-          contribution_type == input$contribution_type_input,
-          date >= min(input$contribution_date_input) & date <= max(input$contribution_date_input)
-        ) |>
-        pull(contribution_name) |>
-        unique()
-    }
-    
-    return(choices)
-  })
-  
-  # Update donor dropdown
-  observe({
-    updateSelectizeInput(
-      inputId = "donor_input", choices = donor_choices(), server = TRUE
-    )
-  })
-  
-  # Create choices for donor location (to be able to filter donors with the same name)
-  donor_location_choices <- reactive({
-    contributions |>
-      select(date, contribution_name, contribution_location) |>
-      filter(
-        date >= min(input$contribution_date_input) & date <= max(input$contribution_date_input),
-        contribution_name == input$donor_input
-      ) |>
-      pull(contribution_location) |>
-      unique()
-  })
-  
-  # Update donor location input
-  observe({
-    updateSelectizeInput(
-      inputId = "donor_location_input", choices = donor_location_choices(), server = TRUE
-    )
-  })
-
-  # Aggregate contribution data by zip
-  sf_zip_data <- reactive({
-
-    if(input$contribution_geo_input == "Iowa"){
-      data <- committee_contribution_data() |>
-        filter(
-          zip5 %in% ia_zips$ZCTA5CE10
-        )
-
-      zips <- ia_zips |>
-        filter(
-          ZCTA5CE10 %in% unique(data$zip5)
-        ) |>
-        rename(zip5 = ZCTA5CE10)
-    } # else{
-    #   data <- contribution_data() |>
-    #     filter(
-    #       !(zip5 %in% ia_zips$ZCTA5CE10)
-    #     )
-    # 
-    #   zips <- us_zips |>
-    #     filter(
-    #       ZCTA5CE20 %in% unique(data$zip5)
-    #     ) |>
-    #     rename(zip5 = ZCTA5CE20)
-    # }
-
-    data <- data |>
-      group_by(zip5) |>
-      summarize(
-        total_contributions = sum(contribution_amount, na.rm = T)
-      )
-
-    dollar_function <- label_dollar()
-    data <- left_join(
-      zips, data,
-      by = c("zip5" = "zip5")
-    ) |>
-      mutate(
-        labels = paste0("ZIP: ", zip5, "<br/>", "Total Contributions: ", dollar_function(total_contributions))
-      )
-
-  })
-
-  # Aggregate contribution data by donor
-  donor_total_data <- reactive({
-    committee_contribution_data() |>
-      group_by(contribution_name, contribution_type, contribution_geo, zip5) |>
-      summarize(
-        total_contributions = sum(contribution_amount, na.rm = T),
-        average_contribution = mean(contribution_amount, na.rm = T),
-        num_contributions = n()
-      ) |>
-      ungroup()
-
-  })
-  
-  # Aggregate contribution data by committee
-  committee_total_data <- reactive({
-    donor_contribution_data() |>
-      group_by(committee_unique_name, party, committee_type2) |>
-      summarize(
-        total_contributions = sum(contribution_amount, na.rm = T),
-        average_contribution = mean(contribution_amount, na.rm = T),
-        num_contributions = n()
-      ) |>
-      ungroup()
-  })
-
-
-# -Contributions Output ---------------------------------------------------
-
-
-  # Summary of Date/Committee donations
-  output$contribution_summary <- renderUI({
-    dollar_function <- label_dollar()
-    percent_function <- label_percent(accuracy = 0.01)
-
-    individual <- paste0(
-      contribution_type_summary() |> filter(contribution_type == "Individual") |> pull(contribution_pct) |> percent_function(),
-      " (",
-      contribution_type_summary() |> filter(contribution_type == "Individual") |> pull(total_contributions) |> dollar_function(),
-      ")"
-    )
-    iowa <- paste0(
-      contribution_geo_summary() |> filter(contribution_geo == "Iowa") |> pull(contribution_pct) |> percent_function(),
-      " (",
-      contribution_geo_summary() |> filter(contribution_geo == "Iowa") |> pull(total_contributions) |> dollar_function(),
-      ")"
-    )
-
-    paste0(
-      strong("Total Contributions: "), sum(date_filtered_data()$contribution_amount, na.rm = T) |> dollar_function(), "<br/>",
-      strong("Individual: "), individual, "<br/>",
-      strong("In-State: "), iowa, "<br/>"
-    ) |> HTML()
-  })
-
-  # Bar graph of top donors by total
-  output$total_contribution_donor_bar <- renderPlot({
-    donor_total_data() |>
-      filter(total_contributions >= 100) |>
-      arrange(-total_contributions) |>
-      slice(1:10) |>
-      ggplot(
-        aes(x = fct_reorder(str_wrap(contribution_name, width = 25), total_contributions), y = total_contributions, fill = contribution_type)
-      ) +
-      geom_col() +
-      scale_y_continuous(labels = scales::label_dollar()) +
-      labs(title = "Top 10 Donors by Total Donations", x = "Donor", y = "Total Donations", fill = "Contribution Type") +
-      coord_flip() +
-      theme_minimal() +
-      theme(text = element_text(size = 3.5), legend.key.size = unit(0.15, 'cm'))
-
-  }, res = 300)
-
-  # Bar graph of top donors by average
-  output$avg_contribution_donor_bar <- renderPlot({
-    donor_total_data() |>
-      filter(total_contributions >= 100) |>
-      arrange(-average_contribution) |>
-      slice(1:10) |>
-      ggplot(
-        aes(x = fct_reorder(str_wrap(contribution_name, width = 25), average_contribution), y = average_contribution, fill = contribution_type)
-      ) +
-      geom_col() +
-      scale_y_continuous(labels = scales::label_dollar()) +
-      labs(title = "Top 10 Donors by Average Donation", x = "Donor", y = "Average Donation", fill = "Contribution Type") +
-      coord_flip() +
-      theme_minimal() +
-      theme(text = element_text(size = 3.5), legend.key.size = unit(0.15, 'cm'))
-
-  }, res = 300)
-
-
-  # Table of donors
-  output$donor_table <- renderReactable({
-    reactable(
-      donor_total_data() |>
-        filter(total_contributions >= 100) |>
-        arrange(-total_contributions),
-      columns = list(
-        contribution_name = colDef(name = "Name"),
-        contribution_type = colDef(name = "Type"),
-        contribution_geo = colDef(name = "Location"),
-        zip5 = colDef(name = "ZIP"),
-        total_contributions = colDef(name = "Total Contribution Amount", format = colFormat(prefix = "$", separators = TRUE)),
-        num_contributions = colDef(name = "Number of Contributions"),
-        average_contribution = colDef(name = "Average Contribution", format = colFormat(digits = 2, prefix = "$", separators = TRUE))
-      ),
-      filterable = TRUE,
-      searchable = TRUE
-    )
-  })
-  
-  # Table of contributions
-  output$committee_contribution_table <- renderReactable({
-    reactable(
-      committee_contribution_data() |>
-        select(date, committee_unique_name, committee_type, contribution_amount, contribution_name, contribution_location) |>
-        arrange(date),
-      columns = list(
-        date = colDef(name = "Date"),
-        committee_unique_name = colDef(name = "Receiving Committee"),
-        committee_type = colDef(name = "Committee Type"),
-        contribution_amount = colDef(name = "Amount", format = colFormat(prefix = "$", separators = TRUE)),
-        contribution_name = colDef(name = "Donor Name"),
-        contribution_location = colDef(name = "Donor Location")
-      )
-    )
-  })
-
-
-  # Map of zip codes
-  output$contribution_zip_map <- renderLeaflet({
-
-    data <- sf_zip_data()
-
-    # Create palette
-    pal <- colorNumeric(
-      "viridis",
-      range(data$total_contributions)
-    )
-
-    # Create and output map
-    leaflet() |>
-      addTiles() |>
-      addPolygons(
-        data = data, fillColor = pal(data$total_contributions), fillOpacity = 0.9,
-        color = "black", weight = 1,
-        label = lapply(data$labels, HTML)
-      ) |>
-      addLegend(
-        position = "bottomright", pal = pal, values = data$total_contributions,
-        opacity = 0.9, title = "Total Contributions"
-      )
-  })
-  
-  # Summary of Date/Donor contributions
-  output$donor_summary <- renderUI({
-    dollar_function <- label_dollar()
-
-    simplify_function <- function(value_vector){
-      if(length(value_vector) == 0){
-        value <- dollar_function(0)
-      } else{
-        value <- value_vector |>
-          sum(na.rm = T) |>
-          dollar_function()
-      }
-    }
-    
-    paste0(
-      strong(input$donor_input), " (", input$donor_location_input, ")", "<br/>",
-      strong("Total Donations: "), dollar_function(sum(donor_contribution_data()$contribution_amount)), "<br/>",
-      
-      strong("Donation Recipients"), "<br/>",
-      "Party Organizations: ", simplify_function(donor_contribution_data() |> filter(committee_type2 == "Party") |> pull(contribution_amount)), "<br/>",
-      "Statewide Candidates: ", simplify_function(donor_contribution_data() |> filter(committee_type2 == "State Candidate") |> pull(contribution_amount)), "<br/>",
-      "Legislative Candidates: ", simplify_function(donor_contribution_data() |> filter(committee_type2 == "Legislative Candidate") |> pull(contribution_amount)), "<br/>",
-      "Political Action Committees: ", simplify_function(donor_contribution_data() |> filter(committee_type2 == "PAC") |> pull(contribution_amount)), "<br/>",
-      "Local Candidates or Ballot Issues: ", simplify_function(donor_contribution_data() |> filter(committee_type2 == "Local") |> pull(contribution_amount)), "<br/>"
-    ) |> HTML()
-  })
-  
-  
-  # Bar plot of top committees donor contributed to
-  output$total_contributions_committee_bar <- renderPlot({
-    committee_total_data() |>
-      # filter(total_contributions >= 100) |>
-      arrange(-total_contributions) |>
-      slice(1:10) |>
-      ggplot(
-        aes(x = fct_reorder(str_wrap(committee_unique_name, width = 25), total_contributions), y = total_contributions)
-      ) +
-      geom_col(fill = "navy", color = "navy") +
-      scale_y_continuous(labels = scales::label_dollar()) +
-      labs(title = "Top 10 Committees by Total Donations", x = "Committee", y = "Total Donations", fill = "Party") +
-      coord_flip() +
-      theme_minimal() +
-      theme(text = element_text(size = 3.5), legend.key.size = unit(0.15, 'cm'))
-    
-  }, res = 300)
-  
-  
-  # Table of committees donor contributed to
-  output$committee_table <- renderReactable({
-    reactable(
-      committee_total_data() |>
-        # filter(total_contributions >= 100) |>
-        arrange(-total_contributions),
-      columns = list(
-        committee_unique_name = colDef(name = "Committee"),
-        party = colDef(name = "Committee Party"),
-        committee_type2 = colDef(name = "Committee Type"),
-        total_contributions = colDef(name = "Total Contribution Amount", format = colFormat(prefix = "$", separators = TRUE)),
-        num_contributions = colDef(name = "Number of Contributions"),
-        average_contribution = colDef(name = "Average Contribution", format = colFormat(digits = 2, prefix = "$", separators = TRUE))
-      ),
-      filterable = TRUE,
-      searchable = TRUE
-    )
-  })
-
-
-  # Table of contributions
-  output$donor_contribution_table <- renderReactable({
-    reactable(
-      donor_contribution_data() |>
-        select(date, committee_unique_name, committee_type, contribution_amount, contribution_name, contribution_location) |>
-        arrange(desc(date)),
-      columns = list(
-        date = colDef(name = "Date"),
-        committee_unique_name = colDef(name = "Receiving Committee"),
-        committee_type = colDef(name = "Committee Type"),
-        contribution_amount = colDef(name = "Amount", format = colFormat(prefix = "$", separators = TRUE)),
-        contribution_name = colDef(name = "Donor Name"),
-        contribution_location = colDef(name = "Donor Location")
-      )
-    )
-  })
-  
   
   
   session$onSessionEnded(function() {

@@ -5,10 +5,8 @@ account: mavoss
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9326197
-bundleId: 7943314
+bundleId: 8029855
 url: https://mavoss.shinyapps.io/iowa_legislature/
-when: 1700341531.77458
-lastSyncTime: 1700341531.7746
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: .gitattributes|analysis/contributions_explore.R|analysis/legislation_analysis.R|analysis/legislator_floor_vote_combinations.rds|analysis/network_analysis.R|archive|data|scripts
