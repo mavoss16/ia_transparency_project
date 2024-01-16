@@ -81,15 +81,39 @@ ui <- function(request){
               ),
               tabPanel(
                 title = "Senate Vote",
-                plotOutput("senate_vote_seats"),
-                leafletOutput("senate_vote_map"),
-                reactableOutput("senate_vote")
+                selectizeInput("senate_vote_date_input", label = "Choose a Vote Date: ", choices = NULL),
+                tabsetPanel(
+                  tabPanel(
+                    title = "Vote Table",
+                    reactableOutput("senate_vote")
+                  ),
+                  tabPanel(
+                    title = "Vote Map",
+                    leafletOutput("senate_vote_map")
+                  )#,
+                  # tabPanel(
+                  #   title = "Vote Plot",
+                  #   plotOutput("senate_vote_seats")
+                  # )
+                )
               ),
               tabPanel(
                 title = "House Vote",
-                plotOutput("house_vote_seats"),
-                leafletOutput("house_vote_map"),
-                reactableOutput("house_vote")
+                selectizeInput("house_vote_date_input", label = "Choose a Vote Date: ", choices = NULL),
+                tabsetPanel(
+                  tabPanel(
+                    title = "Vote Table",
+                    reactableOutput("house_vote")
+                  ),
+                  tabPanel(
+                    title = "Vote Map",
+                    leafletOutput("house_vote_map")
+                  )#,
+                  # tabPanel(
+                  #   title = "Vote Plot",
+                  #   plotOutput("house_vote_seats")
+                  # )
+                )
               ),
               tabPanel(
                 title = "Lobbyist Declarations",

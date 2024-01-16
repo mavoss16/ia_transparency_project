@@ -103,6 +103,9 @@ files <- left_join(files, lobby_files)
 
 # Add Floor Votes ---------------------------------------------------------
 
+# Change this section, probably need to group and collapse votes into list
+# Need to keep final_senate and final_house for calculations
+
 senate <- floor_votes |> 
   filter(chamber == "Senate") |>
   mutate(date = mdy(date))
@@ -113,7 +116,7 @@ house <- floor_votes |>
 final_senate <- senate |>
   mutate(sequence_no = str_extract(sequence_no, "\\d+") |> as.numeric()) |>
   group_by(file_name) |>
-  slice_max(order_by = sequence_no, n = 1) |>
+  slice_max(order_by = sequence_no, n = 1) |> 
   ungroup() |>
   select(
     date, time,

@@ -283,7 +283,7 @@ for(i in 1:nrow(all_legislators)){
   if(length(tables) > 0){
     for(j in 1:length(tables)){
       table = tables[[j]]
-      if(str_detect(table$Bill, "HF") || str_detect(table$Bill, "SF")){
+      if(any(str_detect(table$Bill, "HF")) || any(str_detect(table$Bill, "SF"))){
         bill_list = append(bill_list, table$Bill)
       } else{
         next
@@ -291,7 +291,7 @@ for(i in 1:nrow(all_legislators)){
     }
   }
   
-  Sys.sleep(0.5)
+  Sys.sleep(runif(1, 0.1, 0.6))
   sponsor_column[[i]] = bill_list
 }
 
@@ -318,7 +318,7 @@ for(i in 1:nrow(all_legislators)){
   if(length(tables) > 0){
     for(j in 1:length(tables)){
       table = tables[[j]]
-      if(str_detect(table$Bill, "HF") || str_detect(table$Bill, "SF")){
+      if(any(str_detect(table$Bill, "HF")) || any(str_detect(table$Bill, "SF"))){
         bill_list = append(bill_list, table$Bill)
       } else{
         next
@@ -326,7 +326,7 @@ for(i in 1:nrow(all_legislators)){
     }
   }
   
-  Sys.sleep(0.5)
+  Sys.sleep(runif(1, 0.1, 0.6))
   fm_column[[i]] = bill_list
 }
 
@@ -335,4 +335,4 @@ all_legislators_copy = all_legislators
 all_legislators$sponsor = sponsor_column
 all_legislators$floor_manager = fm_column
 
-write_rds(all_legislators, "data/legislators_90th_ga.rds")
+write_rds(all_legislators, "data/legislators_90th_ga_sponsor_fm.rds")

@@ -24,8 +24,19 @@ library(scales)
 # library(data.table)
 
 
-legislators <- read_rds("shiny_data/legislators_90th_ga_clean.rds")
-legislation <- read_rds("shiny_data/legislation_2023_clean.rds")
+# legislators <- read_rds("shiny_data/legislators_90th_ga_clean.rds")
+# legislators <- readRDS(url("https://github.com/mavoss16/iowa_legislature/raw/main/shiny_data/legislators_90th_ga_clean.rds", "rb"))
+# legislation <- read_rds("shiny_data/legislation_2023_clean.rds")
+# legislation <- readRDS(url("https://github.com/mavoss16/iowa_legislature/raw/main/shiny_data/legislation_2023_clean.rds", "rb"))
+
+legislators <- read_rds("data/legislators_90th_ga_clean.rds")
+legislation <- read_rds("data/legislation_90th_ga_clean.rds")
+legislation_actions <- read_rds("data/actions_legislation_90th_ga.rds")
+file_actions <- read_rds("data/actions_legislation_90th_ga.rds")
+lobbyist_declarations <- read_rds("data/lobbyist_declarations_2023.rds")
+vote_records <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_90th_ga.rds")
+vote_summaries <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_90th_ga.rds")
+
 senate_map <- st_read("shiny_data/Plan2_Senate.shp") |> st_transform(crs = 4326) |> transmute(District = as.numeric(DISTRICT), geometry = geometry)
 house_map <- st_read("shiny_data/Plan2_House.shp") |> st_transform(crs = 4326) |> transmute(District = as.numeric(DISTRICT), geometry = geometry)
 
@@ -98,15 +109,15 @@ function(input, output, session) {
   })
   
   # Create long df for seat plot
-  selected_leg_long <- reactive({
-    selected_leg() |>
-      select(
-        file, file_title, sponsor, 
-        senate_vote_gop_yes, senate_vote_gop_no, senate_vote_gop_na, senate_vote_dem_yes, senate_vote_dem_no, senate_vote_dem_na,
-        house_vote_gop_yes, house_vote_gop_no, house_vote_gop_na, house_vote_dem_yes, house_vote_dem_no, house_vote_dem_na
-      ) |>
-      pivot_longer(senate_vote_gop_yes:house_vote_dem_na, names_to = "vote", values_to = "vote_num")
-  })
+  # selected_leg_long <- reactive({
+  #   selected_leg() |>
+  #     select(
+  #       file, file_title, sponsor, 
+  #       senate_vote_gop_yes, senate_vote_gop_no, senate_vote_gop_na, senate_vote_dem_yes, senate_vote_dem_no, senate_vote_dem_na,
+  #       house_vote_gop_yes, house_vote_gop_no, house_vote_gop_na, house_vote_dem_yes, house_vote_dem_no, house_vote_dem_na
+  #     ) |>
+  #     pivot_longer(senate_vote_gop_yes:house_vote_dem_na, names_to = "vote", values_to = "vote_num")
+  # })
   
   selected_leg_parliament <- reactive({
     parliament_data(
@@ -119,6 +130,23 @@ function(input, output, session) {
   selected_leg_name <- reactive({
     selected_leg() |> pull(file) |> unlist()
   })
+  
+  # Filter actions data
+  selected_leg_actions <- reactive({
+    legislation_actions |>
+      filter(
+        file == selected_leg_name()
+      )
+  })
+  
+  # Filter Lobbyist Data
+  selected_leg_declarations <- reactive({
+    lobbyist_declarations |>
+      filter(
+        bill == selected_leg_name()
+      )
+  })
+
   
 
 # Legislation Output ------------------------------------------------------
@@ -174,21 +202,27 @@ function(input, output, session) {
   })
   
   output$house_vote_text <- renderUI({
-    if(is.na(selected_leg()$house_vote_date)){
+    
+    last_vote <- vote_summaries |>
+      filter(chamber == "House" & file_name == selected_leg_name()) |>
+      arrange(datetime) |>
+      slice_tail(n = 1)
+    
+    if(nrow(last_vote) == 0){
       h5("No House Vote")
     } else{
       paste0(
-        h5(selected_leg()$house_vote_outcome),
+        h5(last_vote$vote_outcome),
         h5(
           paste0(
-            "Yes: ", selected_leg()$house_vote_yes_count, 
-            " (", selected_leg()$house_vote_gop_yes, " R, ", selected_leg()$house_vote_dem_yes, " D)"
+            "Yes: ", last_vote$vote_yes_count, 
+            " (", last_vote$vote_gop_yes, " R, ", last_vote$vote_dem_yes, " D)"
           )
         ),
         h5(
           paste0(
-            "No: ", selected_leg()$house_vote_no_count,
-            " (", selected_leg()$house_vote_gop_no, " R, ", selected_leg()$house_vote_dem_no, " D)"
+            "No: ", last_vote$vote_no_count,
+            " (", last_vote$vote_gop_no, " R, ", last_vote$vote_dem_no, " D)"
           )
         )
       ) |> HTML()
@@ -196,21 +230,27 @@ function(input, output, session) {
   })
   
   output$senate_vote_text <- renderUI({
-    if(is.na(selected_leg()$senate_vote_date)){
+    
+    last_vote <- vote_summaries |>
+      filter(chamber == "Senate" & file_name == selected_leg_name()) |>
+      arrange(datetime) |>
+      slice_tail(n = 1)
+    
+    if(nrow(last_vote) == 0){
       h5("No Senate Vote")
     } else{
       paste0(
-        h5(selected_leg()$senate_vote_outcome),
+        h5(last_vote$vote_outcome),
         h5(
           paste0(
-            "Yes: ", selected_leg()$senate_vote_yes_count, 
-            " (", selected_leg()$senate_vote_gop_yes, " R, ", selected_leg()$senate_vote_dem_yes, " D)"
+            "Yes: ", last_vote$vote_yes_count, 
+            " (", last_vote$vote_gop_yes, " R, ", last_vote$vote_dem_yes, " D)"
           )
         ),
         h5(
           paste0(
-            "No: ", selected_leg()$senate_vote_no_count,
-            " (", selected_leg()$senate_vote_gop_no, " R, ", selected_leg()$senate_vote_dem_no, " D)"
+            "No: ", last_vote$vote_no_count,
+            " (", last_vote$vote_gop_no, " R, ", last_vote$vote_dem_no, " D)"
           )
         )
       ) |> HTML()
@@ -226,28 +266,69 @@ function(input, output, session) {
   })
   
   output$lobbying_text <- renderUI({
+    
+    declarations <- selected_leg_declarations() |>
+      group_by(lobbyist) |>
+      arrange(date) |>
+      slice_tail(n = 1) |>
+      ungroup() |>
+      pull(declaration)
+    
     paste0(
-      h5("# For: ", selected_leg()$num_dec_for),
-      h5("# Against: ", selected_leg()$num_dec_against)
+      h5("# For: ", sum(declarations == "For", na.rm = TRUE)),
+      h5("# Against: ", sum(declarations == "Against", na.rm = TRUE))
     ) |> HTML()
   })
   
   # Create table of actions
   output$actions <- renderReactable({
     reactable(
-      selected_leg()$actions |> as.data.frame(),
+      selected_leg_actions() |> select(action, date),
       columns = list(
         action = colDef(name = "Action"),
-        date = colDef(name = "Date"),
-        action_notes = colDef(name = "Notes")
+        date = colDef(name = "Date")
       )
     )
+  })
+  
+  # Create list of Senate Vote Datetimes
+  senate_vote_list <- reactive({
+    
+    list <- vector()
+    if(!is.null(selected_leg_name()) & length(selected_leg_name()) != 0){
+      list <- vote_summaries |> filter(chamber == "Senate" & file_name == selected_leg_name()) |> pull(datetime)
+    }
+    
+    if(length(list) == 0){
+      return("No Senate Votes")
+    } else{
+      return(as.character(list))
+    }
+  })
+  
+  # Update selectizeInput for vote dates
+  observe({
+    updateSelectizeInput(inputId = "senate_vote_date_input", choices = senate_vote_list())
+  })
+  
+  senate_vote_record_selection <- reactive({
+    print(class(input$senate_vote_date_input))
+    print(input$senate_vote_date_input)
+    input_sequence_number <- vote_summaries |> filter(datetime == ymd_hms(input$senate_vote_date_input)) |> pull(sequence_no)
+    if(length(input_sequence_number) == 0){
+      input_sequence_number <- "No Vote"
+    }
+    vote_records |>
+      filter(
+        Chamber == "Senate", sequence_no == input_sequence_number
+      ) |>
+      select(Name, Party, District, County, vote)
   })
   
   # Create senate vote record table
   output$senate_vote <- renderReactable({
     reactable(
-      selected_leg()$senate_vote_record |> as.data.frame() |> select(Name, Party, District, County, vote),
+      senate_vote_record_selection(),
       filterable = TRUE, searchable = TRUE,
       columns = list(
         vote = colDef(name = "Vote")
@@ -256,35 +337,35 @@ function(input, output, session) {
   })
   
   # Create senate seats plot
-  output$senate_vote_seats <- renderPlot({
-
-    data <- selected_leg_long() |>
-      filter(
-        str_detect(vote, "senate")
-      )
-    par_data <- parliament_data(
-      election_data = data, parl_rows = 4,
-      party_seats = data$vote_num,
-      type = "semicircle"
-    )
-
-    par_data |>
-      ggplot(aes(x = x, y = y, color = vote)) +
-      geom_parliament_seats() +
-      scale_color_manual(
-        values = c("#DC0309", "#EE8181", "grey", "#A4A3F6", "#2320E6", "grey"), 
-        limits = c("senate_vote_gop_yes", "senate_vote_gop_no", "senate_vote_gop_na", "senate_vote_dem_no", "senate_vote_dem_yes", "senate_vote_dem_na"),
-        labels = c("GOP: Yes", "GOP: No", "GOP: NA", "Dem: No", "Dem: Yes", "Dem: NA")
-      ) +
-      theme_ggparliament()
-  })
+  # output$senate_vote_seats <- renderPlot({
+  # 
+  #   data <- selected_leg_long() |>
+  #     filter(
+  #       str_detect(vote, "senate")
+  #     )
+  #   par_data <- parliament_data(
+  #     election_data = data, parl_rows = 4,
+  #     party_seats = data$vote_num,
+  #     type = "semicircle"
+  #   )
+  # 
+  #   par_data |>
+  #     ggplot(aes(x = x, y = y, color = vote)) +
+  #     geom_parliament_seats() +
+  #     scale_color_manual(
+  #       values = c("#DC0309", "#EE8181", "grey", "#A4A3F6", "#2320E6", "grey"), 
+  #       limits = c("senate_vote_gop_yes", "senate_vote_gop_no", "senate_vote_gop_na", "senate_vote_dem_no", "senate_vote_dem_yes", "senate_vote_dem_na"),
+  #       labels = c("GOP: Yes", "GOP: No", "GOP: NA", "Dem: No", "Dem: Yes", "Dem: NA")
+  #     ) +
+  #     theme_ggparliament()
+  # })
   
   
   # Create map of senate vote
   output$senate_vote_map <- renderLeaflet({
     
     # Get vote record data from list-column
-    senate_vote <- selected_leg()$senate_vote_record |> as.data.frame() |> select(Name, Party, District, County, vote) |>
+    senate_vote <- senate_vote_record_selection() |>
       mutate(
         vote_outcome = paste0(Party, ": ", vote),
         labels = paste0(
@@ -313,15 +394,47 @@ function(input, output, session) {
       ) |>
       addLegend(
         position = "bottomright", pal = pal, values = c("Democrat: Yes", "Democrat: No", "Republican: Yes", "Republican: No"),
-        opacity = 0.9, title = paste0(selected_leg_name(), " Final Senate Vote")
+        opacity = 0.9, title = paste0(selected_leg_name(), " Senate Vote")
       )
     
+  })
+  
+  # Create list of House Vote Datetimes
+  house_vote_list <- reactive({
+    
+    list <- vector()
+    if(!is.null(selected_leg_name()) & length(selected_leg_name()) != 0){
+      list <- vote_summaries |> filter(chamber == "House" & file_name == selected_leg_name()) |> pull(datetime)
+    }
+    
+    if(length(list) == 0){
+      return("No House Votes")
+    } else{
+      return(as.character(list))
+    }
+  })
+  
+  # Update selectizeInput for vote dates
+  observe({
+    updateSelectizeInput(inputId = "house_vote_date_input", choices = house_vote_list())
+  })
+  
+  house_vote_record_selection <- reactive({
+    input_sequence_number <- vote_summaries |> filter(datetime == ymd_hms(input$house_vote_date_input)) |> pull(sequence_no)
+    if(length(input_sequence_number) == 0){
+      input_sequence_number <- "No Vote"
+    }
+    vote_records |>
+      filter(
+        Chamber == "House", sequence_no == input_sequence_number
+      ) |>
+      select(Name, Party, District, County, vote)
   })
   
   # Create house vote record table
   output$house_vote <- renderReactable({
     reactable(
-      selected_leg()$house_vote_record |> as.data.frame() |> select(Name, Party, District, County, vote),
+      house_vote_record_selection(),
       filterable = TRUE, searchable = TRUE,
       columns = list(
         vote = colDef(name = "Vote")
@@ -330,33 +443,33 @@ function(input, output, session) {
   })
   
   # Create house seats plot
-  output$house_vote_seats <- renderPlot({
-    data <- selected_leg_long() |>
-      filter(
-        str_detect(vote, "house")
-      )
-    par_data <- parliament_data(
-      election_data = data, parl_rows = 5,
-      party_seats = data$vote_num,
-      type = "semicircle"
-    )
-    
-    par_data |>
-      ggplot(aes(x = x, y = y, color = vote)) +
-      geom_parliament_seats() +
-      scale_color_manual(
-        values = c("#DC0309", "#EE8181", "grey", "#A4A3F6", "#2320E6", "grey"), 
-        limits = c("house_vote_gop_yes", "house_vote_gop_no", "house_vote_gop_na", "house_vote_dem_no", "house_vote_dem_yes", "house_vote_dem_na"),
-        labels = c("GOP: Yes", "GOP: No", "GOP: NA", "Dem: No", "Dem: Yes", "Dem: NA")
-      ) +
-      theme_ggparliament()
-  })
+  # output$house_vote_seats <- renderPlot({
+  #   data <- selected_leg_long() |>
+  #     filter(
+  #       str_detect(vote, "house")
+  #     )
+  #   par_data <- parliament_data(
+  #     election_data = data, parl_rows = 5,
+  #     party_seats = data$vote_num,
+  #     type = "semicircle"
+  #   )
+  #   
+  #   par_data |>
+  #     ggplot(aes(x = x, y = y, color = vote)) +
+  #     geom_parliament_seats() +
+  #     scale_color_manual(
+  #       values = c("#DC0309", "#EE8181", "grey", "#A4A3F6", "#2320E6", "grey"), 
+  #       limits = c("house_vote_gop_yes", "house_vote_gop_no", "house_vote_gop_na", "house_vote_dem_no", "house_vote_dem_yes", "house_vote_dem_na"),
+  #       labels = c("GOP: Yes", "GOP: No", "GOP: NA", "Dem: No", "Dem: Yes", "Dem: NA")
+  #     ) +
+  #     theme_ggparliament()
+  # })
   
   # Create map of house vote
   output$house_vote_map <- renderLeaflet({
     
     # Get vote record data from list-column
-    house_vote <- selected_leg()$house_vote_record |> as.data.frame() |> select(Name, Party, District, County, vote) |>
+    house_vote <- house_vote_record_selection() |>
       mutate(
         vote_outcome = paste0(Party, ": ", vote),
         labels = paste0(
@@ -385,16 +498,20 @@ function(input, output, session) {
       ) |>
       addLegend(
         position = "bottomright", pal = pal, values = c("Democrat: Yes", "Democrat: No", "Republican: Yes", "Republican: No"),
-        opacity = 0.9, title = paste0(selected_leg_name(), " Final House Vote")
+        opacity = 0.9, title = paste0(selected_leg_name(), " House Vote")
       )
   })
   
   # Create lobbyist declaration table
   output$declarations <- renderReactable({
+    table_data <- lobbyist_declarations |>
+      filter(bill == selected_leg_name()) |>
+      select(date, client, lobbyist, declaration)
     reactable(
-      selected_leg()$lobbyist_declarations |> as.data.frame() |> select(client, lobbyist, declaration),
+      table_data,
       filterable = TRUE, searchable = TRUE,
       columns = list(
+        date = colDef(name = "Date"),
         client = colDef(name = "Client"),
         lobbyist = colDef(name = "Lobbyist Name"),
         declaration = colDef(name = "Declaration")
@@ -616,22 +733,28 @@ function(input, output, session) {
   })
   
   output$legislator_vote_record_table <- renderReactable({
+    table_data <- vote_records |>
+      filter(
+        Name == input$legislator_input
+      ) |>
+      select(Chamber, sequence_no, file_name, vote, vote_agree) |>
+      left_join(vote_summaries |> select(chamber, file_name, sequence_no, datetime, vote_outcome), by = c("Chamber" = "chamber", "file_name", "sequence_no")) |>
+      select(-Chamber, -sequence_no) |>
+      mutate(
+        vote_agree = case_when(
+          vote_agree == TRUE ~ "Yes",
+          vote_agree == FALSE ~ "No"
+        )
+      )
+    
     reactable(
-      selected_legislator()$floor_vote_record |> 
-        as.data.frame() |> 
-        select(file, vote, house_vote_outcome, senate_vote_outcome, vote_agree) |>
-        mutate(
-          vote_agree = case_when(
-            vote_agree == TRUE ~ "Yes",
-            vote_agree == FALSE ~ "No"
-          )
-        ),
+      table_data,
       filterable = TRUE, searchable = TRUE,
       columns = list(
-        file = colDef(name = "File Name"),
+        file_name = colDef(name = "File Name"),
         vote = colDef(name = "Vote"),
-        house_vote_outcome = colDef(name = "House Outcome"),
-        senate_vote_outcome = colDef(name = "Senate Outcome"),
+        datetime = colDef(name = "Vote Date"),
+        vote_outcome = colDef(name = "Vote Outcome"),
         vote_agree = colDef(name = "Agreement with Party Majority")
       )
     )

@@ -100,9 +100,10 @@ driver <- rd$client
 
 declaration_list <- list()
 
+# For loop takes greater than 10 minutes
 for(i in 1:nrow(lobbyists)){
   print(
-    paste0(i, "/677: ", lobbyists$name[i])
+    paste0(i, "/", nrow(lobbyists), ": ", lobbyists$name[i])
   )
   declaration_url <- paste0(
     "https://www.legis.iowa.gov/lobbyist/reports/declarations?personID=",
