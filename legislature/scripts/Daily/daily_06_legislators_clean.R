@@ -28,30 +28,6 @@ add_legislation_info <- function(file_name_list, legislation_df){
   return(df)
 }
 
-count_by_filter <- function(df, filter_var, filter_values){
-  if(is.null(df)){
-    return(0)
-  }
-  df |>
-    as.data.frame() |>
-    filter(
-      {{filter_var}} %in% filter_values
-    ) |>
-    nrow()
-}
-
-count_by_na <- function(df, filter_var){
-  if(is.null(df)){
-    return(0)
-  }
-  df |>
-    as.data.frame() |>
-    filter(
-      is.na({{filter_var}})
-    ) |>
-    nrow()
-}
-
 legislators <- data |>
   rowwise() |>
   mutate(
@@ -132,5 +108,4 @@ write_file <- left_join(legislators_counts, count_votes)
 
 # Write Data --------------------------------------------------------------
 
-write_rds(write_file, "data/legislators_90th_ga_clean.rds")
-write_rds(write_file, "shiny_data/legislators_90th_ga_clean.rds")
+write_rds(write_file, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislators_90th_ga_clean.rds")

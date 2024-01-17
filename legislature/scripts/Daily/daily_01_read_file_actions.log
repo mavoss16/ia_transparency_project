@@ -262,3 +262,144 @@ Backtrace:
  13.                 └─vctrs:::stop_vctrs(...)
  14.                   └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
 Execution halted
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+
+Attaching package: 'janitor'
+
+The following objects are masked from 'package:stats':
+
+    chisq.test, fisher.test
+
+
+Attaching package: 'readr'
+
+The following object is masked from 'package:rvest':
+
+    guess_encoding
+
+checking Selenium Server versions:
+BEGIN: PREDOWNLOAD
+BEGIN: DOWNLOAD
+BEGIN: POSTDOWNLOAD
+checking geckodriver versions:
+BEGIN: PREDOWNLOAD
+BEGIN: DOWNLOAD
+BEGIN: POSTDOWNLOAD
+checking phantomjs versions:
+BEGIN: PREDOWNLOAD
+BEGIN: DOWNLOAD
+BEGIN: POSTDOWNLOAD
+[1] "Connecting to remote server"
+$acceptInsecureCerts
+[1] FALSE
+
+$browserName
+[1] "firefox"
+
+$browserVersion
+[1] "121.0"
+
+$`moz:accessibilityChecks`
+[1] FALSE
+
+$`moz:buildID`
+[1] "20231211174248"
+
+$`moz:geckodriverVersion`
+[1] "0.34.0"
+
+$`moz:headless`
+[1] FALSE
+
+$`moz:platformVersion`
+[1] "10.0"
+
+$`moz:processID`
+[1] 21124
+
+$`moz:profile`
+[1] "C:\\Users\\mavos\\AppData\\Local\\Temp\\rust_mozprofilezDMVBe"
+
+$`moz:shutdownTimeout`
+[1] 60000
+
+$`moz:webdriverClick`
+[1] TRUE
+
+$`moz:windowless`
+[1] FALSE
+
+$pageLoadStrategy
+[1] "normal"
+
+$platformName
+[1] "windows"
+
+$proxy
+named list()
+
+$setWindowRect
+[1] TRUE
+
+$strictFileInteractability
+[1] FALSE
+
+$timeouts
+$timeouts$implicit
+[1] 0
+
+$timeouts$pageLoad
+[1] 300000
+
+$timeouts$script
+[1] 30000
+
+
+$unhandledPromptBehavior
+[1] "dismiss and notify"
+
+$webdriver.remote.sessionid
+[1] "d312005d-306b-46c2-aa5f-c56a0efd5251"
+
+$id
+[1] "d312005d-306b-46c2-aa5f-c56a0efd5251"
+
+[1] 1
+[1] 2
+[1] 3
+[1] 1
+[1] 2
+[1] 3
+[1] TRUE
+Error in `rename()`:
+! Names must be unique.
+✖ These names are duplicated:
+  * "file" at locations 1 and 6.
+  * "file_title" at locations 2 and 7.
+Backtrace:
+     ▆
+  1. ├─dplyr::rename(...)
+  2. └─dplyr:::rename.data.frame(...)
+  3.   └─tidyselect::eval_rename(expr(c(...)), .data)
+  4.     └─tidyselect:::rename_impl(...)
+  5.       ├─tidyselect:::with_subscript_errors(...)
+  6.       │ └─rlang::try_fetch(...)
+  7.       │   └─base::withCallingHandlers(...)
+  8.       └─vctrs::vec_as_names(names, repair = "check_unique", call = error_call)
+  9.         └─vctrs (local) `<fn>`()
+ 10.           └─vctrs:::validate_unique(names = names, arg = arg, call = call)
+ 11.             └─vctrs:::stop_names_must_be_unique(names, arg, call = call)
+ 12.               └─vctrs:::stop_names(...)
+ 13.                 └─vctrs:::stop_vctrs(...)
+ 14.                   └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
+Execution halted

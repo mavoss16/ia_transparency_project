@@ -24,18 +24,21 @@ library(scales)
 # library(data.table)
 
 
-# legislators <- read_rds("shiny_data/legislators_90th_ga_clean.rds")
-# legislators <- readRDS(url("https://github.com/mavoss16/iowa_legislature/raw/main/shiny_data/legislators_90th_ga_clean.rds", "rb"))
-# legislation <- read_rds("shiny_data/legislation_2023_clean.rds")
-# legislation <- readRDS(url("https://github.com/mavoss16/iowa_legislature/raw/main/shiny_data/legislation_2023_clean.rds", "rb"))
+# Reading from Github
+legislators <- readRDS(url("https://github.com/mavoss16/iowa_legislature/raw/main/data/legislators_90th_ga_clean.rds", "rb"))
+legislation <- readRDS(url("https://github.com/mavoss16/iowa_legislature/raw/main/data/legislation_90th_ga_clean.rds", "rb"))
+legislation_actions <- readRDS(url("https://github.com/mavoss16/iowa_legislature/raw/main/data/actions_legislation_90th_ga.rds", "rb"))
+lobbyist_declarations <- readRDS(url("https://github.com/mavoss16/iowa_legislature/raw/main/data/lobbyist_declarations_2023.rds", "rb"))
+vote_records <- readRDS(url("https://github.com/mavoss16/iowa_legislature/raw/main/data/floor_vote_records_90th_ga.rds", "rb"))
+vote_summaries <- readRDS(url("https://github.com/mavoss16/iowa_legislature/raw/main/data/floor_vote_summaries_90th_ga.rds", "rb"))
 
-legislators <- read_rds("data/legislators_90th_ga_clean.rds")
-legislation <- read_rds("data/legislation_90th_ga_clean.rds")
-legislation_actions <- read_rds("data/actions_legislation_90th_ga.rds")
-file_actions <- read_rds("data/actions_legislation_90th_ga.rds")
-lobbyist_declarations <- read_rds("data/lobbyist_declarations_2023.rds")
-vote_records <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_90th_ga.rds")
-vote_summaries <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_90th_ga.rds")
+# Reading from local files
+# legislators <- read_rds("data/legislators_90th_ga_clean.rds")
+# legislation <- read_rds("data/legislation_90th_ga_clean.rds")
+# legislation_actions <- read_rds("data/actions_legislation_90th_ga.rds")
+# lobbyist_declarations <- read_rds("data/lobbyist_declarations_2023.rds")
+# vote_records <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_90th_ga.rds")
+# vote_summaries <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_90th_ga.rds")
 
 senate_map <- st_read("shiny_data/Plan2_Senate.shp") |> st_transform(crs = 4326) |> transmute(District = as.numeric(DISTRICT), geometry = geometry)
 house_map <- st_read("shiny_data/Plan2_House.shp") |> st_transform(crs = 4326) |> transmute(District = as.numeric(DISTRICT), geometry = geometry)
@@ -68,7 +71,7 @@ function(input, output, session) {
         "There also may be errors with certain selections. With time, these errors will be resolved.",
         "<br/>"
       ), "<br/>",
-      strong("Last Data Update: "), "7/12/2023", "<br/>",
+      strong("Last Data Update: "), "1/16/2024", "<br/>",
       strong("Primary Data Source: "),
       a(
         "https://www.legis.iowa.gov/",

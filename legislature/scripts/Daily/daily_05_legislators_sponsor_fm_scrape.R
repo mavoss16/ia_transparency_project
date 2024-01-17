@@ -11,7 +11,7 @@ library(rvest)
 library(RSelenium)
 
 
-all_legislators <- read_csv("data/legislators_90th_ga.csv")
+all_legislators <- read_csv("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislators_90th_ga.csv")
 
 
 # Legislator Sponsorship --------------------------------------------------

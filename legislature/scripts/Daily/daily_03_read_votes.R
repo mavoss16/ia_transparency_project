@@ -12,12 +12,12 @@ library(lubridate)
 # Previous Data -----------------------------------------------------------
 
 prev_vote_records <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_90th_ga.rds")
-prev_vote_summary <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_90th_ga.rds")
+prev_vote_summaries <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_90th_ga.rds")
 
 # Prep Data Paths ---------------------------------------------------------
 
-vote_files <- list.files("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2023", pattern = ".pdf$", full.names = TRUE)
-votes_path <- "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2023"
+vote_files <- list.files("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2024", pattern = ".pdf$", full.names = TRUE)
+votes_path <- "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2024"
 # read_vote_files <- vote_files
 read_vote_files <- vote_files[which(!(vote_files %in% unique(prev_vote_records$file_path)))]
 
@@ -176,78 +176,83 @@ vote_records <- map(votes$file_path, function(input_file_path){
 
 
 # Vote by Party -----------------------------------------------------------
-
-party_votes <- vote_records |>
-  mutate(vote = tolower(replace_na(vote, "NA"))) |>
-  group_by(file_name, sequence_no, Chamber, party_abbr, vote) |>
-  count(name = "vote_num") |>
-  pivot_wider(
-    values_from = vote_num, names_from = c(party_abbr, vote), names_glue = "vote_{party_abbr}_{vote}"
-  ) |>
-  bind_rows(data.frame(vote_dem_yes = integer(), vote_dem_no = integer(), vote_dem_na = integer(), vote_gop_yes = integer(), vote_gop_no = integer(), vote_gop_na = integer())) |>
-  mutate(
-    across(where(is.numeric), function(x){replace_na(x, 0)}),
-    vote_dem = case_when(
-      vote_dem_yes > vote_dem_no ~ "Yes",
-      vote_dem_no > vote_dem_yes ~ "No",
-      vote_dem_yes == vote_dem_no ~ "Evenly Split",
-      TRUE ~ NA_character_
-    ),
-    vote_gop = case_when(
-      vote_gop_yes > vote_gop_no ~ "Yes",
-      vote_gop_no > vote_gop_yes ~ "No",
-      vote_gop_yes == vote_gop_no ~ "Evenly Split",
-      TRUE ~ NA_character_
+if(nrow(vote_records) > 0){
+  party_votes <- vote_records |>
+    mutate(vote = tolower(replace_na(vote, "NA"))) |>
+    group_by(file_name, sequence_no, Chamber, party_abbr, vote) |>
+    count(name = "vote_num") |>
+    pivot_wider(
+      values_from = vote_num, names_from = c(party_abbr, vote), names_glue = "vote_{party_abbr}_{vote}"
+    ) |>
+    bind_rows(data.frame(vote_dem_yes = integer(), vote_dem_no = integer(), vote_dem_na = integer(), vote_gop_yes = integer(), vote_gop_no = integer(), vote_gop_na = integer())) |>
+    mutate(
+      across(where(is.numeric), function(x){replace_na(x, 0)}),
+      vote_dem = case_when(
+        vote_dem_yes > vote_dem_no ~ "Yes",
+        vote_dem_no > vote_dem_yes ~ "No",
+        vote_dem_yes == vote_dem_no ~ "Evenly Split",
+        TRUE ~ NA_character_
+      ),
+      vote_gop = case_when(
+        vote_gop_yes > vote_gop_no ~ "Yes",
+        vote_gop_no > vote_gop_yes ~ "No",
+        vote_gop_yes == vote_gop_no ~ "Evenly Split",
+        TRUE ~ NA_character_
+      )
     )
-  )
-
-
-party_vote_long <- party_votes |>
-  pivot_longer(
-    cols = c(vote_dem, vote_gop), names_to = "party_abbr", values_to = "vote"
-  ) |>
-  mutate(
-    party_abbr = str_remove(party_abbr, "vote_")
-  ) |>
-  select(file_name, sequence_no, Chamber, party_abbr, vote) |>
-  rename(party_vote = vote)
-
-
-# Final Summary DF and Legislator Vote DF ---------------------------------
-
-vote_summaries <- left_join(votes, party_votes, by = c("file_name" = "file_name", "sequence_no" = "sequence_no", "chamber" = "Chamber")) |>
-  select(
-    file_path, chamber, sequence_no, date, time,
-    file_name, file_sponsor, file_title,
-    vote_yes_count, vote_no_count,
-    vote_dem_yes, vote_dem_no, vote_dem_na,
-    vote_gop_yes, vote_gop_no, vote_gop_na,
-    vote_dem, vote_gop
-  ) |>
-  mutate(
-    vote_outcome = case_when(
-      vote_no_count == 0 ~ "Unanimous",
-      (vote_gop_no == 0 & vote_dem_yes == 0) | (vote_gop_yes == 0 & vote_dem_no == 0) ~ "Party Line",
-      (vote_gop_yes > 0 & vote_dem_yes > 0) & (vote_gop_no > 0 & vote_dem_no > 0) ~ "Bipartisan Support and Opposition",
-      (vote_gop_yes > 0 & vote_dem_yes > 0) ~ "Bipartisan Support",
-      (vote_gop_no > 0 & vote_dem_no > 0) ~ "Bipartisan Opposition"
+  
+  
+  party_vote_long <- party_votes |>
+    pivot_longer(
+      cols = c(vote_dem, vote_gop), names_to = "party_abbr", values_to = "vote"
+    ) |>
+    mutate(
+      party_abbr = str_remove(party_abbr, "vote_")
+    ) |>
+    select(file_name, sequence_no, Chamber, party_abbr, vote) |>
+    rename(party_vote = vote)
+  
+  
+  # Final Summary DF and Legislator Vote DF ---------------------------------
+  
+  vote_summaries <- left_join(votes, party_votes, by = c("file_name" = "file_name", "sequence_no" = "sequence_no", "chamber" = "Chamber")) |>
+    select(
+      file_path, chamber, sequence_no, date, time,
+      file_name, file_sponsor, file_title,
+      vote_yes_count, vote_no_count,
+      vote_dem_yes, vote_dem_no, vote_dem_na,
+      vote_gop_yes, vote_gop_no, vote_gop_na,
+      vote_dem, vote_gop
+    ) |>
+    mutate(
+      vote_outcome = case_when(
+        vote_no_count == 0 ~ "Unanimous",
+        (vote_gop_no == 0 & vote_dem_yes == 0) | (vote_gop_yes == 0 & vote_dem_no == 0) ~ "Party Line",
+        (vote_gop_yes > 0 & vote_dem_yes > 0) & (vote_gop_no > 0 & vote_dem_no > 0) ~ "Bipartisan Support and Opposition",
+        (vote_gop_yes > 0 & vote_dem_yes > 0) ~ "Bipartisan Support",
+        (vote_gop_no > 0 & vote_dem_no > 0) ~ "Bipartisan Opposition"
+      )
+    ) |>
+    mutate(
+      date = mdy(date),
+      datetime = paste(date, time) |> ymd_hm(),
+      .after = time
     )
-  ) |>
-  mutate(
-    date = mdy(date),
-    datetime = paste(date, time) |> ymd_hm(),
-    .after = time
-  )
-
-vote_records_party <- left_join(vote_records, party_vote_long) |>
-  mutate(
-    vote_agree = vote == party_vote
-  )
+  
+  vote_records_party <- left_join(vote_records, party_vote_long) |>
+    mutate(
+      vote_agree = vote == party_vote
+    )
+  
+} else{
+  vote_records_party <- data.frame()
+  vote_summaries <- data.frame()
+}
 
 
 # Write Data --------------------------------------------------------------
-prev_vote_records <- data.frame()
-prev_vote_summaries <- data.frame()
+# prev_vote_records <- data.frame()
+# prev_vote_summaries <- data.frame()
 write_vote_records <- bind_rows(prev_vote_records, vote_records_party)
 write_vote_summaries <- bind_rows(prev_vote_summaries, vote_summaries)
 
