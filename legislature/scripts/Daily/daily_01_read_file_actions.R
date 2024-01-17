@@ -152,11 +152,11 @@ full_filed <- filed |>
 
 all_actions <- bind_rows(full_filed, full_actions) |>
   mutate(date = lubridate::mdy(date)) |>
-  arrange(date, bill)
+  arrange(date, bill) |>
+  rename(file = bill, file_title = bill_title)
 
 all_actions <- bind_rows(prev_actions, all_actions) |>
-  distinct() |>
-  rename(file = bill, file_title = bill_title)
+  distinct()
 
 # all_lsa <- bind_rows(prev_lsa, lsa) |>
 #   distinct()
