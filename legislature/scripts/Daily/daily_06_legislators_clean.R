@@ -28,6 +28,30 @@ add_legislation_info <- function(file_name_list, legislation_df){
   return(df)
 }
 
+count_by_filter <- function(df, filter_var, filter_values){
+  if(is.null(df)){
+    return(0)
+  }
+  df |>
+    as.data.frame() |>
+    filter(
+      {{filter_var}} %in% filter_values
+    ) |>
+    nrow()
+}
+
+count_by_na <- function(df, filter_var){
+  if(is.null(df)){
+    return(0)
+  }
+  df |>
+    as.data.frame() |>
+    filter(
+      is.na({{filter_var}})
+    ) |>
+    nrow()
+}
+
 legislators <- data |>
   rowwise() |>
   mutate(
