@@ -17,7 +17,7 @@ library(rvest)
   
   votes <- html_elements(page, ".grid_8")
   
-  if(length(votes == 0)){
+  if(length(votes) == 0){
     print("Stop Execution")
     quit()
   }
