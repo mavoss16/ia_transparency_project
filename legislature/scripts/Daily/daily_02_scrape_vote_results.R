@@ -52,7 +52,7 @@ library(rvest)
     item_id <- str_extract(url_end, "calendarItemID=\\d+") |> str_remove("calendarItemID=")
     chamber <- str_sub(url_end, start = -1, end = -1)
     full_url <- paste0(download_url_pre, url_end)
-    file_path <- file.path("data", "Floor Votes", "2023", paste0("floor_vote_", item_id, "_", chamber, ".pdf"))
+    file_path <- file.path("data", "Floor Votes", "2024", paste0("floor_vote_", item_id, "_", chamber, ".pdf"))
     download.file(
       url = full_url,
       destfile = file_path,
