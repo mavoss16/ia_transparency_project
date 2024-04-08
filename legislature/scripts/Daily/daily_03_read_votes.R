@@ -5,6 +5,7 @@ library(pdftools)
 library(readr)
 library(purrr)
 library(lubridate)
+library(tidyr)
 # source("read_journal_functions.R")
 
 
