@@ -20,7 +20,7 @@ prev_vote_summaries <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislatur
 vote_files <- list.files("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2024", pattern = ".pdf$", full.names = TRUE)
 votes_path <- "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2024"
 # read_vote_files <- vote_files
-read_vote_files <- vote_files[which(!(vote_files %in% unique(prev_vote_records$file_path)))]
+read_vote_files <- vote_files[which(!(vote_files %in% unique(prev_vote_summaries$file_path)))]
 
 legislators <- read_rds("data/legislators_90th_ga.rds") |>
   mutate(
