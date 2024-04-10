@@ -5,7 +5,7 @@ account: mavoss
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9326197
-bundleId: 8152264
+bundleId: 8478336
 url: https://mavoss.shinyapps.io/iowa_legislature/
 asMultiple: FALSE
 asStatic: FALSE
