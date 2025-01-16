@@ -12,17 +12,21 @@ library(tidyr)
 
 # Previous Data -----------------------------------------------------------
 
+
+prev_vote_records <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_91st_ga.rds")
+prev_vote_summaries <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_91st_ga.rds")
+
 prev_vote_records <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_90th_ga.rds")
 prev_vote_summaries <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_90th_ga.rds")
 
 # Prep Data Paths ---------------------------------------------------------
 
-vote_files <- list.files("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2024", pattern = ".pdf$", full.names = TRUE)
-votes_path <- "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2024"
+vote_files <- list.files("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2025", pattern = ".pdf$", full.names = TRUE)
+votes_path <- "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2025"
 # read_vote_files <- vote_files
 read_vote_files <- vote_files[which(!(vote_files %in% unique(prev_vote_summaries$file_path)))]
 
-legislators <- read_rds("data/legislators_90th_ga.rds") |>
+legislators <- read_rds("data/legislators_91st_ga.rds") |>
   mutate(
     plain_name = str_remove_all(Name, "[A-Za-z]+\\.") |> str_squish() |> str_trim(),
     last_name = word(plain_name, start = -1)
@@ -257,5 +261,5 @@ if(nrow(vote_records) > 0){
 write_vote_records <- bind_rows(prev_vote_records, vote_records_party)
 write_vote_summaries <- bind_rows(prev_vote_summaries, vote_summaries)
 
-write_rds(write_vote_records, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_90th_ga.rds")
-write_rds(write_vote_summaries, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_90th_ga.rds")
+write_rds(write_vote_records, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_91st_ga.rds")
+write_rds(write_vote_summaries, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_91st_ga.rds")

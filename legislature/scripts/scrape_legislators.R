@@ -61,7 +61,7 @@ ga_df = data.frame(ga = unlist(ga_dates)) %>%
 write_csv(ga_df, "data/general_assemblies.csv")
 
 
-ga_df = data.frame(ga_num = c(90))
+ga_df = data.frame(ga_num = c(91))
 
 # Representative List -----------------------------------------------------
 
@@ -145,14 +145,14 @@ for(i in 1){
     # Add former legislators data
     legislators = bind_rows(legislators, former_legislators) %>%
       clean_names() %>%
-      arrange(district, start_date)
+      arrange(district)
     
   } else{
     
     # Add data if no former legislators data exists
     legislators = legislators %>%
       clean_names() %>%
-      arrange(district, start_date)
+      arrange(district)
   }
   
   # Combine all legislator data
@@ -239,22 +239,22 @@ for(i in 1){
     # Add former legislators data
     legislators = bind_rows(legislators, former_legislators) %>%
       clean_names() %>%
-      arrange(district, start_date)
+      arrange(district)
     
   } else{
     
     # Add data if no former legislators data exists
     legislators = legislators %>%
       clean_names() %>%
-      arrange(district, start_date)
+      arrange(district)
   }
   
   # Combine all legislator data
   all_legislators = bind_rows(all_legislators, legislators)
 }
 
-write_csv(all_leg_composition, "data/general_assembly_composition.csv")
-write_csv(all_legislators, "data/legislators_90th_ga.csv")
+write_csv(all_leg_composition, "data/general_assembly_91_composition.csv")
+write_csv(all_legislators, "data/legislators_91st_ga.csv")
 
 
 driver$close()

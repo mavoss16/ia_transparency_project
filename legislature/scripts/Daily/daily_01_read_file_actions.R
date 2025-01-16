@@ -16,7 +16,11 @@ library(readr)
 
 # Read Previous Data ------------------------------------------------------
 
-prev_actions <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/actions_legislation_90th_ga.rds")
+# prev_actions <- data.frame("sponsor" = character(0), "action" = character(0), "date" = POSIXct(0), "sponsor_s" = character(0))
+# write_rds(prev_actions, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/actions_legislation_91st_ga.rds")
+
+# prev_actions <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/actions_legislation_90th_ga.rds")
+prev_actions <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/actions_legislation_91st_ga.rds")
 # prev_lsa <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/actions_lsa_90th_ga.rds")
 action_documentation <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/actions_documentation.rds")
 
@@ -174,6 +178,6 @@ action_documentation <- bind_rows(
 )
 
 
-write_rds(all_actions, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/actions_legislation_90th_ga.rds")
+write_rds(all_actions, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/actions_legislation_91st_ga.rds")
 write_rds(action_documentation, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/actions_documentation.rds")
 # write_rds(all_lsa, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/actions_lsa_90th_ga.rds")

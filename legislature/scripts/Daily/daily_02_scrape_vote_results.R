@@ -8,7 +8,7 @@ library(rvest)
 # Brackets to allow exit if no votes
 {
   # Get df with documentation of previously scraped vote files
-  scraped_urls <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2024/downloaded_floor_votes.rds")
+  scraped_urls <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2025/downloaded_floor_votes.rds")
   
   # Get vote info from web page
   url <- "https://www.legis.iowa.gov/legislation/findLegislation/floorVotes"
@@ -70,5 +70,5 @@ library(rvest)
   
   
   # Write documented file of downloads
-  write_rds(vote_df, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2024/downloaded_floor_votes.rds")
+  write_rds(vote_df, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes/2025/downloaded_floor_votes.rds")
 }
