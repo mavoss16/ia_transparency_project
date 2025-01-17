@@ -9,7 +9,7 @@ library(lubridate)
 
 # filter_count <- function(df, filter_var, filter_vals){df |> filter({{filter_var}} %in% filter_vals) |> nrow()}
 
-file_actions <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/actions_legislation_90th_ga.rds")
+file_actions <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/actions_legislation_91st_ga.rds")
 
 amendment_actions <- file_actions |>
   filter(
@@ -141,5 +141,5 @@ linked_files <- files_sorted |>
   ungroup()
 
 
-write_rds(linked_files, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislation_90th_ga_clean.rds")
+write_rds(linked_files, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislation_91st_ga_clean.rds")
 # write_rds(linked_files, "shiny_data/legislation_2023_clean.rds")

@@ -11,7 +11,7 @@ library(rvest)
 library(RSelenium)
 
 
-all_legislators <- read_csv("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislators_90th_ga.csv")
+all_legislators <- read_csv("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislators_91st_ga.csv")
 
 
 # Legislator Sponsorship --------------------------------------------------
@@ -88,4 +88,4 @@ all_legislators_copy = all_legislators
 all_legislators$sponsor = sponsor_column
 all_legislators$floor_manager = fm_column
 
-write_rds(all_legislators, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislators_90th_ga_sponsor_fm.rds")
+write_rds(all_legislators, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislators_91st_ga_sponsor_fm.rds")

@@ -7,9 +7,9 @@ library(stringr)
 library(purrr)
 
 
-data <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislators_90th_ga_sponsor_fm.rds")
-legislation <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislation_90th_ga_clean.rds")
-vote_records <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_90th_ga.rds")
+data <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislators_91st_ga_sponsor_fm.rds")
+legislation <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislation_91st_ga_clean.rds")
+vote_records <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_91st_ga.rds")
 
 add_legislation_info <- function(file_name_list, legislation_df){
   
@@ -132,4 +132,4 @@ write_file <- left_join(legislators_counts, count_votes)
 
 # Write Data --------------------------------------------------------------
 
-write_rds(write_file, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislators_90th_ga_clean.rds")
+write_rds(write_file, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislators_91st_ga_clean.rds")
