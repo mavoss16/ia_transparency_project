@@ -11,13 +11,15 @@ library(tidyr)
 
 
 # Previous Data -----------------------------------------------------------
+write_rds(prev_vote_records, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_91st_ga.rds")
+write_rds(prev_vote_summaries, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_91st_ga.rds")
 
 
 prev_vote_records <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_91st_ga.rds")
 prev_vote_summaries <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_91st_ga.rds")
 
-prev_vote_records <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_90th_ga.rds")
-prev_vote_summaries <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_90th_ga.rds")
+# prev_vote_records <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_90th_ga.rds") |> slice(0) |> rename_with(.fn = tolower, .cols = everything())
+# prev_vote_summaries <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_90th_ga.rds") |> slice(0) |> rename_with(.fn = tolower, .cols = everything())
 
 # Prep Data Paths ---------------------------------------------------------
 
@@ -26,7 +28,7 @@ votes_path <- "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/Floor Votes
 # read_vote_files <- vote_files
 read_vote_files <- vote_files[which(!(vote_files %in% unique(prev_vote_summaries$file_path)))]
 
-legislators <- read_rds("data/legislators_91st_ga.rds") |>
+legislators <- read_csv("data/legislators_91st_ga.csv") |>
   mutate(
     plain_name = str_remove_all(Name, "[A-Za-z]+\\.") |> str_squish() |> str_trim(),
     last_name = word(plain_name, start = -1)

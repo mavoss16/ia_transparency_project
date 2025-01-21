@@ -92,7 +92,7 @@ legislators_counts <- legislators |>
 # Effectiveness Values ----------------------------------------------------
 
 legislators_counts <- legislators_counts |>
-  group_by(Chamber) |>
+  group_by(chamber) |>
   mutate(
     
     sponsor_advanced_pct = sponsor_advanced_count / sponsor_count,
@@ -114,7 +114,7 @@ legislators_counts <- legislators_counts |>
 # Add Counts for Votes ----------------------------------------------------
 
 count_votes <- vote_records |>
-  group_by(Chamber, Name, Party, District, County) |>
+  group_by(chamber, name, party, district, county) |>
   summarize(
     yes_count = sum(vote == "Yes", na.rm = T),
     no_count = sum(vote == "No", na.rm = T),
@@ -129,7 +129,7 @@ count_votes <- vote_records |>
 # Combine Data ------------------------------------------------------------
 
 write_file <- left_join(legislators_counts, count_votes)
-
+# write_file <- legislators_counts
 # Write Data --------------------------------------------------------------
 
 write_rds(write_file, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/legislators_91st_ga_clean.rds")
