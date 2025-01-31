@@ -30,21 +30,21 @@ read_vote_files <- vote_files[which(!(vote_files %in% unique(prev_vote_summaries
 
 legislators <- read_csv("data/legislators_91st_ga.csv") |>
   mutate(
-    plain_name = str_remove_all(Name, "[A-Za-z]+\\.") |> str_squish() |> str_trim(),
+    plain_name = str_remove_all(name, "[A-Za-z]+\\.") |> str_squish() |> str_trim(),
     last_name = word(plain_name, start = -1)
   ) |>
-  group_by(Chamber, last_name) |>
+  group_by(chamber, last_name) |>
   add_count(name = "last_name_count") |>
   ungroup() |>
   mutate(
-    initial_last = ifelse(last_name_count > 1, yes = paste0(last_name, ", ", str_sub(Name, start = 1, end = 1), "."), no = last_name),
-    initial_first = ifelse(last_name_count > 1, yes = paste0(str_sub(Name, start = 1, end = 1), ". ", last_name), no = last_name),
+    initial_last = ifelse(last_name_count > 1, yes = paste0(last_name, ", ", str_sub(name, start = 1, end = 1), "."), no = last_name),
+    initial_first = ifelse(last_name_count > 1, yes = paste0(str_sub(name, start = 1, end = 1), ". ", last_name), no = last_name),
     party_abbr = case_when(
-      Party == "Republican" ~ "gop",
-      Party == "Democrat" ~ "dem"
+      party == "Republican" ~ "gop",
+      party == "Democrat" ~ "dem"
     )
   ) |>
-  select(Chamber, Name, Party, District, County, party_abbr, initial_last, initial_first)
+  select(chamber, name, party, district, county, party_abbr, initial_last, initial_first)
 
 
 
@@ -129,7 +129,7 @@ for(file in read_vote_files){
 
 create_vote_df <- function(legislator_df, leg_name_var, yes_votes, no_votes, file_name = "", sequence_no = "", chamber = c("House", "Senate")){
   return_df <- legislator_df |>
-    filter(Chamber %in% chamber) |>
+    filter(chamber %in% chamber) |>
     mutate(
       vote = case_when(
         str_detect(yes_votes, {{leg_name_var}}) ~ "Yes",
@@ -186,7 +186,7 @@ vote_records <- map(votes$file_path, function(input_file_path){
 if(nrow(vote_records) > 0){
   party_votes <- vote_records |>
     mutate(vote = tolower(replace_na(vote, "NA"))) |>
-    group_by(file_name, sequence_no, Chamber, party_abbr, vote) |>
+    group_by(file_name, sequence_no, chamber, party_abbr, vote) |>
     count(name = "vote_num") |>
     pivot_wider(
       values_from = vote_num, names_from = c(party_abbr, vote), names_glue = "vote_{party_abbr}_{vote}"
@@ -216,13 +216,13 @@ if(nrow(vote_records) > 0){
     mutate(
       party_abbr = str_remove(party_abbr, "vote_")
     ) |>
-    select(file_name, sequence_no, Chamber, party_abbr, vote) |>
+    select(file_name, sequence_no, chamber, party_abbr, vote) |>
     rename(party_vote = vote)
   
   
   # Final Summary DF and Legislator Vote DF ---------------------------------
   
-  vote_summaries <- left_join(votes, party_votes, by = c("file_name" = "file_name", "sequence_no" = "sequence_no", "chamber" = "Chamber")) |>
+  vote_summaries <- left_join(votes, party_votes, by = c("file_name" = "file_name", "sequence_no" = "sequence_no", "chamber" = "chamber")) |>
     select(
       file_path, chamber, sequence_no, date, time,
       file_name, file_sponsor, file_title,
