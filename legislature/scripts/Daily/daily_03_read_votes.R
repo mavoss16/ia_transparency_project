@@ -11,8 +11,8 @@ library(tidyr)
 
 
 # Previous Data -----------------------------------------------------------
-write_rds(prev_vote_records, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_91st_ga.rds")
-write_rds(prev_vote_summaries, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_91st_ga.rds")
+# write_rds(prev_vote_records, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_91st_ga.rds")
+# write_rds(prev_vote_summaries, "C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_summaries_91st_ga.rds")
 
 
 prev_vote_records <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislature/data/floor_vote_records_91st_ga.rds")
