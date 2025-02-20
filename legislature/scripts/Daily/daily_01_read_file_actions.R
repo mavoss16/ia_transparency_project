@@ -27,7 +27,7 @@ action_documentation <- read_rds("C:/Users/mavos/Documents/GitHub/iowa_legislatu
 
 # rsDriver Attempt --------------------------------------------------------
 
-rd <- rsDriver(port = 4111L, browser = "firefox", chromever = NULL)
+rd <- rsDriver(port = 4567L, browser = "firefox", chromever = NULL)
 driver <- rd$client
 
 
