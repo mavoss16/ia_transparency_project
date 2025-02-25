@@ -92,7 +92,7 @@ dropdown_elements <- dropdown$findChildElements(using = "tag name", value = "opt
 
 filed <- data.frame()
 lsa <- data.frame()
-for(i in 1:3){
+for(i in 1:4){
   print(i)
   dropdown_elements[[i]]$clickElement()
   Sys.sleep(runif(1, 1, 1.5))
