@@ -28,7 +28,17 @@ for(i in 1:nrow(all_legislators)){
     all_legislators$person_id[i]
   )
   
-  page = read_html(url)
+  for(j in 1:3){
+    page <- tryCatch(
+      {read_html(url)},
+      error = function(e){cat("An error occured:", conditionMessage(e), "\n")}
+    )
+
+    if(!is.null(page)){
+      break
+    }
+  }
+  # page = read_html(url)
   
   tables = html_table(page)
   
@@ -62,7 +72,17 @@ for(i in 1:nrow(all_legislators)){
     "&type=fm" 
   )
   
-  page = read_html(url)
+  for(j in 1:3){
+    page <- tryCatch(
+      {read_html(url)},
+      error = function(e){cat("An error occured:", conditionMessage(e), "\n")}
+    )
+
+    if(!is.null(page)){
+      break
+    }
+  }
+  # page = read_html(url)
   
   tables = html_table(page)
   
