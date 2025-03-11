@@ -8,3 +8,4 @@ source("C:/Users/mavos/Documents/GitHub/iowa_legislature/scripts/Daily/daily_03_
 source("C:/Users/mavos/Documents/GitHub/iowa_legislature/scripts/Daily/daily_04_legislation_clean.R")
 source("C:/Users/mavos/Documents/GitHub/iowa_legislature/scripts/Daily/daily_05_legislators_sponsor_fm_scrape.R")
 source("C:/Users/mavos/Documents/GitHub/iowa_legislature/scripts/Daily/daily_06_legislators_clean.R")
+
