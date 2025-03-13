@@ -43,7 +43,7 @@ dropdown_elements <- dropdown$findChildElements(using = "tag name", value = "opt
 # page <- read_html(driver$getPageSource()[[1]])
 # tables <- html_table(page)
 actions <- data.frame()
-for(i in 1:3){
+for(i in 1:4){
   print(i)
   dropdown_elements[[i]]$clickElement()
   Sys.sleep(runif(1, 0.5, 1.5))
