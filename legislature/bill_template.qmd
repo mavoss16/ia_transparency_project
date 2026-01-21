@@ -1,0 +1,150 @@
+---
+title: "bill_template"
+format: 
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    toc-location: right
+    toc-depth: 2
+    
+params:
+  bill_num: "HF856"
+---
+
+```{r}
+library(jsonlite)
+library(readr)
+
+library(dplyr)
+library(purrr)
+library(stringr)
+library(tidyr)
+
+library(gt)
+
+source(here::here("utils.R"))
+
+```
+
+
+```{r}
+bill <- read_json(here::here(str_glue("legiscan/files_ga91_json/bill/{params$bill_num}.json"))) |>
+  pluck("bill")
+
+people <- read_csv(here::here(str_glue("legiscan/files_ga91/people.csv")))
+
+sponsors <- bill |>
+  pluck("sponsors") |>
+  items_to_df()
+
+history <- bill |>
+  pluck("history") |>
+  items_to_df()
+
+
+# Votes lists more than just the committee vote for HF1
+votes <- bill |>
+  pluck("votes") |>
+  items_to_df()
+
+calendar <- bill |>
+  pluck("calendar") |>
+  items_to_df()
+
+```
+
+
+# [`r params$bill_num`](`r bill$state_link`){target="_blank"}
+
+`r bill$title`
+
+## Sponsors
+```{r}
+gt(sponsors |> select(name, party, role, district))
+```
+
+*Status: * 
+
+*Most Recent Action: *
+
+::: {.panel-tabset}
+
+## Legislation History
+```{r}
+gt(history |> select(date, action, chamber, importance))
+```
+
+
+## Votes
+
+### Vote Summaries
+```{r}
+gt(votes |> filter(!str_detect(desc, "Report$")) |> select(date, chamber, desc, yea, nay, nv, absent, total, passed))
+```
+
+### Individual Votes
+
+::: {.panel-tabset}
+
+```{r}
+#| results: "asis"
+
+for(vote_num in votes |> filter(!str_detect(desc, "Report$")) |> pull(roll_call_id)){
+  vote_row <- votes |> filter(roll_call_id == vote_num)
+  
+  cat("##", vote_row$chamber, ": ", vote_row$date, "\n\n")
+  
+  # cat("#### ", vote_row$chamber, ": ", vote_row$date, "\n\n")
+  cat("#### ", vote_row$desc, "\n\n")
+  
+  vote <- read_json(here::here(str_glue("legiscan/files_ga91_json/vote/{vote_num}.json"))) |>
+    pluck("roll_call") |>
+    pluck("votes") |>
+    items_to_df() |>
+    left_join(people |> select(people_id, name, party, district)) |>
+    select(-people_id, -vote_id) |>
+    arrange(district)
+  
+  summary <- vote |>
+    count(party, vote_text) |>
+    mutate(vote_text = factor(vote_text, levels = c("Yea", "Nay", "Absent"))) |>
+    arrange(vote_text, party) |>
+    pivot_wider(names_from = vote_text, values_from = n) |>
+    mutate(across(everything(), .fns = function(x){replace_na(x, 0)}))
+  
+  gt(summary, rowname_col = "party") |>
+    tab_stubhead(label = "Party") |>
+    as_raw_html() |>
+    cat()
+
+  gt(vote) |>
+    as_raw_html() |>
+    cat()
+}
+
+```
+
+
+:::
+
+## Lobbyist Declarations
+
+```{r}
+lobby <- scrape_lobbyist_declarations(params$bill_num)
+
+
+gt(lobby |> select(-bill))
+```
+
+
+## Calendar Items
+```{r}
+gt(calendar |> select(date, time, type, location, description))
+```
+
+:::
+
+
+

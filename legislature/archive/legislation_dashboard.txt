@@ -1,0 +1,117 @@
+---
+title: "Untitled"
+execute:
+  echo: false
+format: html
+---
+
+## Shiny Documents
+
+This Quarto document is made interactive using Shiny. Interactive documents allow readers to modify parameters and see the results immediately. Learn more about Shiny interactive documents at <https://quarto.org/docs/interactive/shiny/>.
+
+## Inputs and Outputs
+
+You can embed Shiny inputs and outputs in your document. Outputs are automatically updated whenever inputs change. This demonstrates how a standard R plot can be made interactive:
+
+```{r}
+#| include: false
+
+library(dplyr)
+library(readr)
+library(reactable)
+library(ggplot2)
+
+
+```
+
+
+```{r data}
+#| include: false
+
+legislators <- read_rds("data/legislators_90th_ga.rds")
+legislation <- read_rds("data/legislation_2023_clean.rds")
+
+```
+
+
+::: {.panel-tabset}
+
+## Legislation
+```{r}
+selectizeInput("legislation_input", label = "Choose a File: ", choices = NULL)
+```
+
+
+::: {.panel-tabset}
+### Summary
+```{r}
+textOutput("leg_summary_text")
+textOutput("text")
+# reactableOutput("leg_table")
+```
+
+
+
+### Actions
+
+### Lobbyist Declarations
+
+### Floor Votes
+
+:::
+
+## Legislators
+
+## Votes
+
+
+:::
+```{r}
+sliderInput("bins", "Number of bins:", 
+            min = 1, max = 50, value = 30)
+plotOutput("distPlot")
+```
+
+```{r}
+#| context: server
+
+updateSelectizeInput(
+  inputId = "legislation_input", choices = unique(legislation$bill)
+)
+
+selected_leg <- reactive({
+  legislation |>
+    filter(bill == input$legislation_input)
+})
+
+selected_title <- reactive({
+  selected_leg() |> dplyr::pull(bill_title) |> unlist()
+})
+
+output$text <- renderText({
+  input$legislation_input
+})
+output$leg_summary_text <- renderText({
+  class(selected_title())
+  # paste0(
+  #   "File Number: ", selected_leg()$bill |> unlist(), "<br>",
+  #   "Title: ", selected_leg()$bill_title |> unlist(), "<br>",
+  #   "Sponsor: ", selected_leg()$sponsor |> unlist(), "<br>",
+  #   "Last Action: ", selected_leg()$last_action |> unlist()
+  # 
+  # )
+})
+
+output$leg_table <- reactable::renderReactable({
+  reactable(selected_leg |> select(1:3))
+})
+
+
+output$distPlot <- renderPlot({
+   x <- faithful[, 2]  # Old Faithful Geyser data
+   bins <- seq(min(x), max(x), length.out = input$bins + 1)
+   hist(x, breaks = bins, col = 'darkgray', border = 'white',
+        xlab = 'Waiting time to next eruption (in mins)',
+        main = 'Histogram of waiting times')
+})
+```

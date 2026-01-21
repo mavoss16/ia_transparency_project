@@ -1,0 +1,191 @@
+people_id,name,first_name,middle_name,last_name,suffix,nickname,party_id,party,role_id,role,district,followthemoney_eid,votesmart_id,opensecrets_id,ballotpedia,knowwho_pid,committee_id
+6970,"Dave Jacoby",Dave,J.,Jacoby,,,1,D,1,Rep,HD-086,12999526,32757,,David_Jacoby,218551,0
+6973,"Jason Schultz",Jason,,Schultz,,,2,R,2,Sen,SD-006,12999504,103373,,Jason_Schultz,271929,0
+6981,"Bobby Kaufmann",Bobby,,Kaufmann,,,2,R,1,Rep,HD-082,11023416,137993,,Bobby_Kaufmann,404581,0
+6982,"Matt Windschitl",Matt,W.,Windschitl,,,2,R,1,Rep,HD-015,6033928,57046,,Matt_Windschitl,249746,0
+7000,"Bob Kressig",Bob,M.,Kressig,,,1,D,1,Rep,HD-075,6012907,32632,,Bob_Kressig,227063,0
+7003,"Cindy Winckler",Cindy,L.,Winckler,,,1,D,2,Sen,SD-049,6013503,32798,,Cindy_Winckler,205721,0
+7010,"Annette Sweeney",Annette,,Sweeney,,,2,R,2,Sen,SD-027,6080199,103365,,Annette_Sweeney,271927,0
+7033,"Beth Wessel-Kroeschell",Beth,,Wessel-Kroeschell,,,1,D,1,Rep,HD-049,6177376,32637,,Beth_Wessel-Kroeschell,227071,0
+7037,"Janet Petersen",Janet,,Petersen,,,1,D,2,Sen,SD-018,6019894,32520,,Janet_Petersen,205728,0
+7061,Commerce,,,,,,0,,1,Rep,,0,0,,,0,1453
+7066,Judiciary,,,,,,0,,1,Rep,,0,0,,,0,1460
+7069,"Rick Olson",Rick,L.,Olson,,,1,D,1,Rep,HD-039,6452649,32444,,Rick_Olson_(Iowa),227073,0
+7071,"State Government",,,,,,0,,1,Rep,,0,0,,,0,1466
+7072,"Veterans Affairs",,,,,,0,,1,Rep,,0,0,,,0,1468
+7075,"Pat Grassley",Pat,,Grassley,,,2,R,1,Rep,HD-057,6668217,56852,,Pat_Grassley,249723,0
+7076,"Public Safety",,,,,,0,,1,Rep,,0,0,,,0,1464
+7077,Education,,,,,,0,,1,Rep,,0,0,,,0,1455
+7080,"Local Government",,,,,,0,,1,Rep,,0,0,,,0,1462
+7085,Agriculture,,,,,,0,,1,Rep,,0,0,,,0,1451
+7087,Appropriations,,,,,,0,,1,Rep,,0,0,,,0,1452
+7088,"Environmental Protection",,,,,,0,,1,Rep,,0,0,,,0,1456
+7089,Transportation,,,,,,0,,1,Rep,,0,0,,,0,1467
+7090,"Natural Resources",,,,,,0,,1,Rep,,0,0,,,0,1463
+7097,Ethics,,,,,,0,,1,Rep,,0,0,,,0,1457
+7121,Judiciary,,,,,,0,,2,Sen,,0,0,,,0,1479
+7125,"William Dotzler",William,A.,Dotzler,Jr.,Bill,1,D,2,Sen,SD-031,6205957,11013,,William_Dotzler,194046,0
+7131,"Local Government",,,,,,0,,2,Sen,,0,0,,,0,1481
+7132,"Ways & Means",,,,,,0,,2,Sen,,0,0,,,0,1488
+7133,"State Government",,,,,,0,,2,Sen,,0,0,,,0,1485
+7134,"Herman Quirmbach",Herman,C.,Quirmbach,,,1,D,2,Sen,SD-025,6013582,32647,,Herman_Quirmbach,212166,0
+7151,Education,,,,,,0,,2,Sen,,0,0,,,0,1474
+7158,"Veterans Affairs",,,,,,0,,2,Sen,,0,0,,,0,1487
+7159,Transportation,,,,,,0,,2,Sen,,0,0,,,0,1486
+7160,Commerce,,,,,,0,,2,Sen,,0,0,,,0,1472
+7164,Agriculture,,,,,,0,,2,Sen,,0,0,,,0,1470
+7166,Appropriations,,,,,,0,,2,Sen,,0,0,,,0,1471
+7168,Ethics,,,,,,0,,2,Sen,,0,0,,,0,1476
+10726,"Mark Lofgren",Mark,S.,Lofgren,,,2,R,2,Sen,SD-048,12999614,122026,,Mark_Lofgren,291372,0
+10728,"Julian Garrett",Julian,B.,Garrett,,,2,R,2,Sen,SD-011,6101063,57126,,Julian_B._Garrett,291369,0
+11623,"Ruth Ann Gaines","Ruth Ann",,Gaines,,,1,D,1,Rep,HD-033,6138524,122043,,Ruth_Ann_Gaines,291364,0
+13191,"Jack Whitver",Jack,,Whitver,,,2,R,2,Sen,SD-023,12999588,68976,,Jack_Whitver,330075,0
+14789,"Mark Costello",Mark,,Costello,,,2,R,2,Sen,SD-008,11023372,137943,,Mark_Costello_(Iowa),404415,0
+14790,"Dean Fisher",Dean,C.,Fisher,,,2,R,1,Rep,HD-053,6035921,137989,,Dean_Fisher,404575,0
+14793,"Megan Hess Jones",Megan,,"Hess Jones",,,2,R,1,Rep,HD-006,12999470,137928,,Megan_Jones,404360,0
+14797,"Sandy Salmon",Sandy,,Salmon,,,2,R,2,Sen,SD-029,6083924,122095,,Sandy_Salmon,291340,0
+15397,"Dennis Guth",Dennis,R.,Guth,,,2,R,2,Sen,SD-028,6101704,137900,,Dennis_Guth,404288,0
+15398,"Ken Rozenboom",Ken,,Rozenboom,,,2,R,2,Sen,SD-019,6142167,134145,,Ken_Rozenboom,404326,0
+15400,"Amy Sinclair",Amy,B.,Sinclair,,,2,R,2,Sen,SD-012,6298610,85793,,Amy_Sinclair,404299,0
+15401,"Daniel Zumbach",Daniel,,Zumbach,,,2,R,2,Sen,SD-034,11023406,137923,,Dan_Zumbach,404343,0
+15615,"Art Staed",Art,,Staed,,,1,D,2,Sen,SD-040,6095152,32771,,Art_Staed,249732,0
+16122,"Brian Meyer",Brian,J.,Meyer,,,1,D,1,Rep,HD-029,6032935,73744,,Brian_Meyer_(Iowa),473802,0
+17037,"Tony Bisignano",Tony,,Bisignano,,,1,D,2,Sen,SD-015,6031767,6415,,Tony_Bisignano,251009,0
+17218,"Steven Holt",Steven,,Holt,,,2,R,1,Rep,HD-012,18229443,151141,,Steven_Holt,491337,0
+17286,"Liz Bennett",Liz,,Bennett,,,1,D,2,Sen,SD-039,21090074,151097,,Liz_Bennett,490537,0
+17287,"Timi Brown-powers",Timi,,Brown-powers,,,1,D,1,Rep,HD-061,23353688,151105,,Timi_Brown-Powers,491302,0
+17289,"Norlin Mommsen",Norlin,,Mommsen,,,2,R,1,Rep,HD-070,15505928,151166,,Norlin_Mommsen,491277,0
+17290,"John Wills",John,H.,Wills,,,2,R,1,Rep,HD-010,23353651,151202,,John_H._Wills,490513,0
+17368,"Tim Kraayenbrink",Tim,,Kraayenbrink,,,2,R,2,Sen,SD-004,21113853,151155,,Tim_Kraayenbrink,491226,0
+17430,"Tom Shipley",Tom,,Shipley,,,2,R,2,Sen,SD-009,6014441,151191,,Tom_Shipley,491250,0
+17458,"Michael Sexton",Michael,V.,Sexton,,Mike,2,R,1,Rep,HD-007,6355879,17957,,Mike_Sexton,193969,0
+17617,"David Sieck",David,,Sieck,,,2,R,1,Rep,HD-016,6029192,156146,,David_Sieck,527566,0
+17825,"Tom Moore",Thomas,Jay,Moore,,Tom,2,R,1,Rep,HD-018,36602164,166256,,Tom_Moore_(Iowa),564052,0
+18623,"Dan Dawson",Dan,,Dawson,,,2,R,2,Sen,SD-010,39447202,168617,,Dan_Dawson,574039,0
+18953,"Michael Bergan",Michael,,Bergan,,,2,R,1,Rep,HD-063,39447246,168753,,Michael_Bergan,575291,0
+18954,"Jane Bloomingdale",Jane,E.,Bloomingdale,,,2,R,1,Rep,HD-060,39447241,168748,,Jane_Bloomingdale,574848,0
+18958,"Shannon Lundgren",Shannon,,Lundgren,,,2,R,1,Rep,HD-065,39447250,168757,,Shannon_Lundgren,575293,0
+18960,"Gary Mohr",Gary,M.,Mohr,,,2,R,1,Rep,HD-093,14298600,158838,,Gary_Mohr,572940,0
+18961,"Skyler Wheeler",Skyler,,Wheeler,,,2,R,1,Rep,HD-004,39447197,168685,,Skyler_Wheeler,572907,0
+19009,"Rules And Administration",,,,,,0,,2,Sen,,0,0,,,0,1484
+19016,"Amy Nielsen",Amy,,Nielsen,,,1,D,1,Rep,HD-085,21105011,168799,,Amy_Nielsen,574071,0
+19141,"Craig Johnson",Craig,P.,Johnson,,,2,R,1,Rep,HD-067,6052114,151145,,Craig_Johnson_(Iowa),490534,0
+19214,"Administration And Rules",,,,,,0,,1,Rep,,0,0,,,0,1450
+19251,"Ways and Means",,,,,,0,,1,Rep,,0,0,,,0,1469
+19287,"Monica Kurth",Monica,,Kurth,,,1,D,1,Rep,HD-098,6080269,176071,,Monica_Hosch_Kurth,615560,0
+19314,"Natural Resources And Environment",,,,,,0,,2,Sen,,0,0,,,0,2443
+19548,"Jacob Bossman",Jacob,,Bossman,,,2,R,1,Rep,HD-014,6034810,168689,,Jacob_Bossman,229575,0
+20957,"Claire Celsi",Claire,A.,Celsi,,,1,D,2,Sen,SD-016,24808356,168742,,Claire_Celsi,574060,0
+21044,"Ray Sorensen",Ray,Bubba,Sorensen,,,2,R,1,Rep,HD-023,44932133,180192,,Ray_Sorensen,659441,0
+21051,"Jeff Shipley",Jeff,J.,Shipley,,,2,R,1,Rep,HD-087,21126265,151192,,Jeff_Shipley_(Iowa),490551,0
+21052,"Zach Wahls",Zach,,Wahls,,,1,D,2,Sen,SD-043,18101973,180165,,Zach_Wahls,659189,0
+21055,"Molly Donahue",Molly,E.,Donahue,,,1,D,2,Sen,SD-037,38146751,168785,,Molly_Donahue,575295,0
+21056,"Tracy Ehlert",Tracy,,Ehlert,,,1,D,1,Rep,HD-079,44485223,180257,,Tracy_Ehlert,659634,0
+21057,"Jennifer Konfrst",Jennifer,Glover,Konfrst,,,1,D,1,Rep,HD-032,38137829,168743,,Jennifer_Konfrst,574061,0
+21091,"Lindsay James",Lindsay,,James,,,1,D,1,Rep,HD-071,44483988,180303,,Lindsay_James,659553,0
+21092,"Kenan Judge",Kenan,,Judge,,,1,D,1,Rep,HD-027,40547933,180233,,Kenan_Judge,659547,0
+21093,"Heather Matson",Heather,Ann,Matson,,,1,D,1,Rep,HD-042,21093719,168736,,Heather_Matson,574056,0
+21097,"Carrie Koelker",Carrie,,Koelker,,,2,R,2,Sen,SD-033,44932103,180162,,Carrie_Koelker,659182,0
+21115,"Thomas Gerhold",Thomas,D.,Gerhold,,,2,R,1,Rep,HD-084,44932181,180263,,Thomas_Gerhold,659640,0
+21125,"Ann Meyer",Ann,,Meyer,,,2,R,1,Rep,HD-008,37823222,180183,,Ann_Meyer,659419,0
+21160,"Thomas Jeneary",Thomas,,Jeneary,,,2,R,1,Rep,HD-003,6189999,180178,,Thomas_Jeneary,659406,0
+21242,"Brian Lohse",Brian,K.,Lohse,,,2,R,1,Rep,HD-045,46002608,184841,,Brian_Lohse,679691,0
+21419,"Ross Wilburn",Ross,,Wilburn,,Bill,1,D,1,Rep,HD-050,38148286,73799,,Ross_Wilburn,633388,0
+22488,"Jesse Green",Jesse,,Green,,,2,R,2,Sen,SD-024,48857822,190927,,Jesse_Green,735440,0
+22489,"Jeff Reichman",Jeffrey,,Reichman,,Jeff,2,R,2,Sen,SD-050,44932192,180274,,Jeffrey_Reichman,659606,0
+22530,"Dawn Driscoll",Dawn,,Driscoll,,,2,R,2,Sen,SD-046,49448355,190935,,Dawn_Driscoll,735448,0
+22531,"Mike Klimesh",Michael,T.,Klimesh,,Mike,2,R,2,Sen,SD-032,12999498,122088,,Michael_T._Klimesh,289599,0
+22552,"Jeff Taylor",Jeff,,Taylor,,,2,R,2,Sen,SD-002,49448408,190900,,Jeff_Taylor_(Iowa),735425,0
+22553,"Craig Williams",Craig,Steven,Williams,,,2,R,1,Rep,HD-011,49448416,190908,,Craig_Williams_(Iowa),735427,0
+22572,"Eric Gjerde",Eric,J.,Gjerde,,,1,D,1,Rep,HD-074,44484142,180254,,Eric_Gjerde,659631,0
+22573,"Carter Nordman",Carter,,Nordman,,,2,R,1,Rep,HD-047,49448386,190966,,Carter_Nordman,735654,0
+22650,"Sarah Trone Garriott",Sarah,,"Trone Garriott",,,1,D,2,Sen,SD-014,49448363,190923,,Sarah_Garriott,735435,0
+22663,"Steven Bradley",Steven,P.,Bradley,,,2,R,1,Rep,HD-066,6398539,191007,,Steven_Bradley_(Iowa),735729,0
+22664,"Henry Stone",Henry,,Stone,,,2,R,1,Rep,HD-009,49448407,190949,,Henry_Stone,735613,0
+22665,"Cherielynn Westrich",Cherielynn,,Westrich,,,2,R,2,Sen,SD-013,44932191,180273,,Cherielynn_Westrich,659608,0
+22682,"Eddie Andrews",Eddie,,Andrews,,,2,R,1,Rep,HD-043,49448342,190988,,Eddie_Andrews,735697,0
+22683,"Brooke Boden",Brooke,,Boden,,,2,R,1,Rep,HD-021,49448345,190974,,Brooke_Boden,735673,0
+22686,"Mark Cisneros",Mark,,Cisneros,,,2,R,1,Rep,HD-096,13813265,151111,,Mark_Cisneros,490554,0
+22687,"Martin Graber",Martin,L.,Graber,,,2,R,1,Rep,HD-100,49448366,191054,,Martin_Graber,735758,0
+22688,"Chad Ingels",Chad,,Ingels,,,2,R,1,Rep,HD-068,28068752,191032,,Chad_Ingels,659081,0
+22689,"Shannon Latham",Shannon,,Latham,,,2,R,1,Rep,HD-055,6112887,180161,,Shannon_Latham,659178,0
+22690,"Charlie McClintock",Charlie,,McClintock,,,2,R,2,Sen,SD-042,49448381,191062,,Charlie_McClintock,735774,0
+22691,"Brent Siegrist",Brent,J.,Siegrist,,,2,R,1,Rep,HD-019,14402995,6544,,Brent_Siegrist,194103,0
+22801,"Adrian Dickey",Adrian,Jeremy,Dickey,,,2,R,2,Sen,SD-044,52872570,195699,,Adrian_Dickey,766605,0
+22961,"Mike Bousselot",Mike,,Bousselot,,,2,R,2,Sen,SD-021,54255637,198999,,Mike_Bousselot,526774,0
+22962,"Jon Dunwell",Jon,,Dunwell,,,2,R,1,Rep,HD-038,54255637,190976,,Jon_Dunwell,735680,0
+23049,"Dave Rowley",Dave,,Rowley,,,2,R,2,Sen,SD-005,46527685,200628,,Dave_Rowley,793311,0
+23866,"Scott Webster",Scott,,Webster,,,2,R,2,Sen,SD-047,55400508,158835,,Scott_Webster,0,0
+24097,"Taylor Collins",Taylor,,Collins,,,2,R,1,Rep,HD-095,55400586,204023,,Taylor_Collins,0,0
+24098,"Dan Gehlbach",Dan,,Gehlbach,,,2,R,1,Rep,HD-046,55400550,203975,,Dan_Gehlbach,0,0
+24099,"Cindy Golding",Cindy,L.,Golding,,,2,R,1,Rep,HD-083,6012208,32565,,Cindy_Golding,0,0
+24100,"Bill Gustoff",Bill,,Gustoff,,,2,R,1,Rep,HD-040,16146102,203968,,Bill_Gustoff,0,0
+24101,"Austin Harris",Austin,,Harris,,,2,R,1,Rep,HD-026,12371951,203947,,Austin_Harris_(Iowa),0,0
+24102,"Robert Henderson",Robert,,Henderson,,,2,R,1,Rep,HD-002,6106243,168717,,Robert_Henderson_(Iowa),0,0
+24103,"Heather Hora",Heather,,Hora,,,2,R,1,Rep,HD-092,44932102,180169,,Heather_Hora,0,0
+24104,"Barb Kniff McCulla",Barb,,"Kniff McCulla",,,2,R,1,Rep,HD-037,55400540,203964,,Barb_Kniff_McCulla,0,0
+24105,"Joshua Meggers",Joshua,,Meggers,,,2,R,1,Rep,HD-054,55400555,203979,,Joshua_Meggers,0,0
+24106,"Matthew Rinker",Matthew,,Rinker,,,2,R,1,Rep,HD-099,49448397,190940,,Matthew_Rinker_(Iowa),0,0
+24109,"Charley Thomson",Charley,,Thomson,,,2,R,1,Rep,HD-058,55400558,191002,,Charley_Thomson,0,0
+24110,"Mike Vondran",Mike,,Vondran,,,2,R,1,Rep,HD-094,49448413,191060,,Mike_Vondran,0,0
+24111,"Devon Wood",Devon,,Wood,,,2,R,1,Rep,HD-017,55400520,203937,,Devon_Wood,0,0
+24112,"Derek Wulf",Derek,,Wulf,,,2,R,1,Rep,HD-076,55400567,203997,,Derek_Wulf,0,0
+24113,"David Young",David,E.,Young,,,2,R,1,Rep,HD-028,6056851,155218,,David_Young_(Iowa),0,0
+24258,"Izaah Knox",Izaah,,Knox,,,1,D,2,Sen,SD-017,21106097,203905,,Izaah_Knox,0,0
+24259,"Janice Weiner",Janice,,Weiner,,,1,D,2,Sen,SD-045,55856610,180166,,Janice_Weiner,0,0
+24265,"Zachary Dieken",Zachary,M.,Dieken,,,2,R,1,Rep,HD-005,55400513,0,,Zach_Dieken,0,0
+24266,"Hans Wilz",Hans,C.,Wilz,,,2,R,1,Rep,HD-025,55400527,0,,Hans_Wilz,0,0
+24378,"Economic Growth And Technology",,,,,,0,,1,Rep,,0,0,,,0,4721
+24380,"Health And Human Services",,,,,,0,,1,Rep,,0,0,,,0,4696
+24381,"Health And Human Services",,,,,,0,,2,Sen,,0,0,,,0,4682
+24382,Technology,,,,,,0,,2,Sen,,0,0,,,0,4689
+24514,"Kevin Alons",Kevin,,Alons,,,2,R,2,Sen,SD-007,6098367,203901,,Kevin_Alons,802696,0
+24515,"Lynn Evans",Lynn,,Evans,,,2,R,2,Sen,SD-003,55400482,203896,,Lynn_Evans_(Iowa),735607,0
+24516,"Rocky De Witt",Rocky,,"De Witt",,,2,R,2,Sen,SD-001,55400481,203897,,Rocky_De_Witt,802684,0
+24620,"Jerome Amos",Jerome,,Amos,Jr.,,1,D,1,Rep,HD-062,55400561,173629,,Jerome_Amos_Jr.,0,0
+24621,"Austin Baeth",Austin,,Baeth,,,1,D,1,Rep,HD-036,51428032,203958,,Austin_Baeth,0,0
+24623,"Jeff Cooling",Jeff,,Cooling,,,1,D,1,Rep,HD-077,44485219,203999,,Jeff_Cooling,0,0
+24624,"Tom Determann",Tom,,Determann,,,2,R,1,Rep,HD-069,54820633,203991,,Tom_Determann,0,0
+24625,"Kerry Gruenhagen",Kerry,,Gruenhagen,,,2,R,2,Sen,SD-041,44485706,203917,,Kerry_Gruenhagen,0,0
+24626,"Helena Hayes",Helena,J.,Hayes,,,2,R,1,Rep,HD-088,55400574,204006,,Helena_Hayes,0,0
+24627,"Elinor Levin",Elinor,A.,Levin,,,1,D,1,Rep,HD-089,55400577,204009,,Elinor_Levin,0,0
+24628,"Mary Madison",Mary,,Madison,,,1,D,1,Rep,HD-031,6241131,203954,,Mary_Madison,0,0
+24629,"J.D. Scholten",J.D.,,Scholten,,,1,D,1,Rep,HD-001,55400510,179231,,J.D._Scholten,0,0
+24630,"Megan Srinivas",Megan,L.,Srinivas,,,1,D,1,Rep,HD-030,55400533,180184,,Megan_Srinivas,0,0
+24631,"Mark Thompson",Mark,,Thompson,,,2,R,1,Rep,HD-056,55400556,203982,,Mark_Thompson_(Iowa),0,0
+24632,"Josh Turek",Josh,,Turek,,,1,D,1,Rep,HD-020,55400524,203942,,Josh_Turek,0,0
+24633,"Elizabeth Wilson",Elizabeth,,Wilson,,,1,D,1,Rep,HD-073,45346045,203995,,Elizabeth_Wilson,0,0
+24811,"Sean Bagniewski",Sean,,Bagniewski,,,1,D,1,Rep,HD-035,6025785,203957,,Sean_Bagniewski,803185,0
+24813,"Ken Croken",Ken,,Croken,,,1,D,1,Rep,HD-097,6170522,187399,,Ken_Croken,803459,0
+24814,"Sami Scheetz",Sami,,Scheetz,,,1,D,1,Rep,HD-078,55400569,204000,,Sami_Scheetz,803340,0
+24815,"Adam Zabner",Adam,,Zabner,,,1,D,1,Rep,HD-090,55400579,204012,,Adam_Zabner,803434,0
+24855,Workforce,,,,,,0,,2,Sen,,0,0,,,0,4683
+24869,"Labor And Workforce",,,,,,0,,1,Rep,,0,0,,,0,4722
+26303,"Brett Barker",Brett,,Barker,,,2,R,1,Rep,HD-051,59829392,215617,,Brett_Barker,0,0
+26304,"Chad Behn",Chad,,Behn,,,2,R,1,Rep,HD-048,59829294,190924,,Chad_Behn,0,0
+26305,"David Blom",David,L.,Blom,,,2,R,1,Rep,HD-052,0,220652,,David_Blom,0,0
+26306,"Samantha Fett",Samantha,,Fett,,,2,R,1,Rep,HD-022,59829595,215582,,Samantha_Fett,0,0
+26307,"Jason Gearhart",Jason,,Gearhart,,,2,R,1,Rep,HD-064,59829701,215629,,Jason_Gearhart,0,0
+26308,"Daniel Gosa",Daniel,,Gosa,,,1,D,1,Rep,HD-081,59829419,215643,,Daniel_Gosa,0,0
+26309,"Christian Hermanson",Christian,,Hermanson,,,2,R,1,Rep,HD-059,59829623,215626,,Christian_Hermanson,0,0
+26310,"Rob Johnson",Rob,,Johnson,,,1,D,1,Rep,HD-034,59829400,215600,,Rob_Johnson_(Iowa),0,0
+26311,"Judd Lawler",Judd,,Lawler,,,2,R,1,Rep,HD-091,55864842,215651,,Judd_Lawler,0,0
+26312,"Larry McBurney",Larry,,McBurney,,,1,D,1,Rep,HD-044,59829700,215610,,Larry_McBurney,0,0
+26313,"Travis Sitzmann",Travis,M.,Sitzmann,,,2,R,1,Rep,HD-013,59829241,215571,,Travis_Sitzmann,0,0
+26314,"Jennifer Smith",Jennifer,J.,Smith,,,2,R,1,Rep,HD-072,28087653,190943,,Jennifer_Smith_(Iowa),0,0
+26315,"Ryan Weldon",Ryan,,Weldon,,,2,R,1,Rep,HD-041,59829278,215608,,Ryan_Weldon,0,0
+26316,"Sam Wengryn",Sam,,Wengryn,,,2,R,1,Rep,HD-024,59829470,215589,,Sam_Wengryn,0,0
+26317,"Aime Wichtendahl",Aime,,Wichtendahl,,,1,D,1,Rep,HD-080,59829351,215642,,Aime_Wichtendahl,0,0
+26318,"Matt Blake",Matt,,Blake,,,1,D,2,Sen,SD-022,59829171,198850,,Matt_Blake_(Iowa),0,0
+26319,"Doug Campbell",Doug,,Campbell,,,2,R,2,Sen,SD-030,44483136,203985,,Doug_Campbell_(Iowa),0,0
+26320,"Mike Pike",Mike,,Pike,,,2,R,2,Sen,SD-020,59829199,215546,,Mike_Pike,0,0
+26321,"Dave Sires",Dave,,Sires,,,2,R,2,Sen,SD-038,59829219,215562,,Dave_Sires,0,0
+26322,"Thomas Townsend",Thomas,,Townsend,,,1,D,2,Sen,SD-036,59829200,215558,,Thomas_Townsend,0,0
+26323,"Kara Warme",Kara,,Warme,,,2,R,2,Sen,SD-026,59829667,215553,,Kara_Warme,0,0
+26389,"Higher Education",,,,,,0,,1,Rep,,0,0,,,0,5043
+26409,"Mike Zimmer",Mike,,Zimmer,,,1,D,2,Sen,SD-035,0,220726,,Mike_Zimmer_(Iowa),0,0
+26448,"Blaine Watkins",Blaine,C.,Watkins,,,2,R,1,Rep,HD-100,0,220933,,Blaine_Watkins,0,0
+26467,"Angel Ramirez",Angel,,Ramirez,,,1,D,1,Rep,HD-078,0,223180,,Angel_Ramirez_(Iowa),0,0
+26570,"Wendy Larson",Wendy,,Larson,,,2,R,1,Rep,HD-007,0,215568,,Wendy_Larson_(Iowa),0,0
+26571,"Catelin Drey",Catelin,,Drey,,,1,D,2,Sen,SD-001,0,225192,,Catelin_Drey,0,0
+26572,"Renee Hardman",Renee,,Hardman,,,1,D,2,Sen,SD-016,0,198862,,Renee_Hardman,0,0

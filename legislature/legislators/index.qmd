@@ -1,0 +1,167 @@
+---
+title: "Legislators - 91st General Assembly"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    toc-location: right
+    toc-depth: 2
+---
+
+```{r}
+library(readr)
+library(dplyr)
+library(stringr)
+library(tidyr)
+library(gt)
+```
+
+```{r}
+# Load data
+people <- read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"), show_col_types = FALSE)
+votes <- read_csv(here::here("legiscan/files_ga91/votes.csv"), show_col_types = FALSE)
+```
+
+## Overview
+
+The 91st Iowa General Assembly consists of **`r nrow(people)`** legislators serving in the House and Senate.
+
+```{r}
+# Party breakdown by chamber
+chamber_party <- people |>
+  count(role, party) |>
+  pivot_wider(names_from = party, values_from = n, values_fill = 0) |>
+  mutate(
+    Chamber = case_when(
+      role == "Rep" ~ "House",
+      role == "Sen" ~ "Senate"
+    )
+  ) |>
+  select(Chamber, R, D) |>
+  mutate(Total = R + D)
+
+gt(chamber_party) |>
+  cols_label(
+    R = "Republican",
+    D = "Democrat"
+  ) |>
+  tab_header(title = "Party Composition by Chamber")
+```
+
+---
+
+## Senate
+
+```{r}
+# Calculate activity stats for each legislator
+sponsor_counts <- sponsors |>
+  count(people_id, name = "bills_sponsored")
+
+vote_counts <- votes |>
+  count(people_id, name = "votes_cast")
+
+senators <- people |>
+  filter(role == "Sen") |>
+  left_join(sponsor_counts, by = "people_id") |>
+  left_join(vote_counts, by = "people_id") |>
+  replace_na(list(bills_sponsored = 0, votes_cast = 0)) |>
+  mutate(
+    name_link = str_glue("<a href='{people_id}.html'>{name}</a>")
+  ) |>
+  arrange(district) |>
+  select(name_link, party, district, bills_sponsored, votes_cast)
+
+gt(senators) |>
+  cols_label(
+    name_link = "Name",
+    party = "Party",
+    district = "District",
+    bills_sponsored = "Bills Sponsored",
+    votes_cast = "Votes Cast"
+  ) |>
+  fmt_markdown(columns = name_link) |>
+  tab_options(
+    table.font.size = px(12),
+    data_row.padding = px(4)
+  )
+```
+
+---
+
+## House of Representatives
+
+```{r}
+representatives <- people |>
+  filter(role == "Rep") |>
+  left_join(sponsor_counts, by = "people_id") |>
+  left_join(vote_counts, by = "people_id") |>
+  replace_na(list(bills_sponsored = 0, votes_cast = 0)) |>
+  mutate(
+    name_link = str_glue("<a href='{people_id}.html'>{name}</a>")
+  ) |>
+  arrange(district) |>
+  select(name_link, party, district, bills_sponsored, votes_cast)
+
+gt(representatives) |>
+  cols_label(
+    name_link = "Name",
+    party = "Party",
+    district = "District",
+    bills_sponsored = "Bills Sponsored",
+    votes_cast = "Votes Cast"
+  ) |>
+  fmt_markdown(columns = name_link) |>
+  tab_options(
+    table.font.size = px(12),
+    data_row.padding = px(4)
+  )
+```
+
+---
+
+## Find by District
+
+Use the table below to search for legislators by district number.
+
+```{r}
+all_legislators <- people |>
+  left_join(sponsor_counts, by = "people_id") |>
+  left_join(vote_counts, by = "people_id") |>
+  replace_na(list(bills_sponsored = 0, votes_cast = 0)) |>
+  mutate(
+    name_link = str_glue("<a href='{people_id}.html'>{name}</a>"),
+    chamber = if_else(role == "Sen", "Senate", "House")
+  ) |>
+  arrange(chamber, district) |>
+  select(chamber, district, name_link, party, bills_sponsored, votes_cast)
+
+gt(all_legislators) |>
+  cols_label(
+    chamber = "Chamber",
+    district = "District",
+    name_link = "Name",
+    party = "Party",
+    bills_sponsored = "Bills Sponsored",
+    votes_cast = "Votes Cast"
+  ) |>
+  fmt_markdown(columns = name_link) |>
+  tab_options(
+    table.font.size = px(12),
+    data_row.padding = px(4)
+  ) |>
+  opt_interactive(
+    use_search = TRUE,
+    use_filters = TRUE,
+    use_page_size_select = TRUE,
+    page_size_default = 25
+  )
+```
+
+---
+
+[Back to Home](../index.html)
+
+*Last updated: `r Sys.Date()`*

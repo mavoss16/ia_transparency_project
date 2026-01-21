@@ -1,0 +1,240 @@
+---
+title: "legislator_template"
+format: 
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    toc-location: right
+    toc-depth: 2
+    
+params:
+  people_id: 19548
+---
+
+```{r}
+library(jsonlite)
+library(readr)
+library(dplyr)
+library(purrr)
+library(stringr)
+library(tidyr)
+library(gt)
+```
+
+```{r}
+items_to_df <- function(list){
+  map(list, as.data.frame) |>
+    bind_rows()
+}
+```
+
+```{r}
+# Read legislator data
+legislator <- read_json(here::here(str_glue("legiscan/files_ga91_json/people/{params$people_id}.json"))) |>
+  pluck("person")
+
+# Read related data
+bills <- read_csv(here::here("legiscan/files_ga91/bills.csv"))
+sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"))
+votes <- read_csv(here::here("legiscan/files_ga91/votes.csv"))
+
+# Filter to this legislator's activity
+leg_sponsored_bills <- sponsors |>
+  mutate(sponsor_num = n(), .by = bill_id) |>
+  filter(people_id == params$people_id) |>
+  left_join(bills, by = "bill_id") |>
+  arrange(desc(status_date))
+
+leg_votes <- votes |>
+  filter(people_id == params$people_id)
+```
+
+# `r legislator$name` (`r legislator$party`-`r legislator$district`)
+
+**Role:** `r legislator$role`  
+**Party:** `r legislator$party`  
+**District:** `r legislator$district`  
+**State:** Iowa
+
+---
+
+## Profile
+
+```{r}
+profile_data <- data.frame(
+  Field = c("Full Name", "Party", "Role", "District", "FTM EID", "VoteSmart ID", "Ballotpedia"),
+  Value = c(
+    legislator$name,
+    legislator$party,
+    legislator$role,
+    legislator$district,
+    as.character(legislator$ftm_eid),
+    as.character(legislator$votesmart_id),
+    legislator$ballotpedia
+  )
+)
+
+gt(profile_data) |>
+  cols_label(Field = "", Value = "")
+```
+
+**External Links:**
+
+- [Ballotpedia Profile](https://ballotpedia.org/`r legislator$ballotpedia`){target="_blank"}
+- [VoteSmart Profile](https://justfacts.votesmart.org/candidate/`r legislator$votesmart_id`){target="_blank"}
+
+---
+
+::: {.panel-tabset}
+
+## Legislative Summary
+
+```{r}
+# Calculate summary statistics
+total_sponsored <- nrow(leg_sponsored_bills)
+total_votes <- nrow(leg_votes)
+
+# Vote breakdown
+if(nrow(leg_votes) > 0) {
+  vote_summary <- leg_votes |>
+    count(vote_desc) |>
+    mutate(pct = n / sum(n) * 100)
+} else {
+  vote_summary <- data.frame(vote_desc = character(), n = integer(), pct = numeric())
+}
+
+# Sponsorship by role
+if(nrow(leg_sponsored_bills) > 0) {
+  sponsor_summary <- leg_sponsored_bills |>
+    mutate(
+      Role = case_when(
+        position == 1 & sponsor_num == 1 ~ "Sole Sponsor",
+        position == 1 ~ "Primary Sponsor",
+        position >= 2 ~ "Co-Sponsor"
+      )
+    ) |>
+    count(Role) |>
+    select(Role, n)
+} else {
+  sponsor_summary <- data.frame(Role = character(), n = integer())
+}
+```
+
+### Sponsorship Activity
+
+**Total Bills Sponsored:** `r total_sponsored`
+
+```{r}
+if(nrow(sponsor_summary) > 0) {
+  gt(sponsor_summary) |>
+    cols_label(Role = "Sponsorship Type", n = "Count")
+} else {
+  cat("No sponsorship data available.\n")
+}
+```
+
+### Voting Record
+
+```{r}
+if(nrow(vote_summary) > 0) {
+  gt(vote_summary) |>
+    cols_label(
+      vote_desc = "Vote",
+      n = "Count",
+      pct = "Percentage"
+    ) |>
+    fmt_number(columns = pct, decimals = 1) |>
+    cols_label(pct = "Percentage (%)")
+} else {
+  cat("No voting data available.\n")
+}
+```
+
+## Sponsored Bills
+
+```{r}
+if(nrow(leg_sponsored_bills) > 0) {
+  leg_sponsored_bills |>
+    select(bill_number, title, status_desc, status_date, position, sponsor_num) |>
+    mutate(
+      Sponsor_Role = case_when(
+        position == 1 & sponsor_num == 1 ~ "Sole Sponsor",
+        position == 1 ~ "Primary Sponsor",
+        position >= 2 ~ "Co-Sponsor"
+      )
+    ) |>
+    select(-position) |>
+    relocate(sponsor_num, .after = Sponsor_Role) |>
+    gt() |>
+    cols_label(
+      bill_number = "Bill",
+      title = "Title",
+      status_desc = "Status",
+      status_date = "Status Date",
+      Sponsor_Role = "Role",
+      sponsor_num = "# of Sponsors"
+    ) |>
+    tab_options(
+      table.font.size = px(12)
+    )
+} else {
+  cat("No sponsored bills found.\n")
+}
+```
+
+## Voting Record
+
+```{r}
+if(nrow(leg_votes) > 0) {
+  # leg_votes |>
+  #   select(date, bill_number, vote_desc, chamber, desc) |>
+  #   gt() |>
+  #   cols_label(
+  #     # date = "Date",
+  #     bill_number = "Bill",
+  #     vote_desc = "Vote",
+  #     chamber = "Chamber",
+  #     desc = "Description"
+  #   ) |>
+  #   tab_options(
+  #     table.font.size = px(12)
+  #   )
+  
+  gt(leg_votes)
+} else {
+  cat("No voting record found.\n")
+}
+```
+
+## Vote Analysis
+
+```{r}
+if(nrow(leg_votes) > 0) {
+  # Party line voting analysis
+  party_votes <- leg_votes |>
+    filter(!is.na(vote_desc), vote_desc %in% c("Yea", "Nay")) |>
+    group_by(vote_desc) |>
+    summarize(count = n()) |>
+    ungroup()
+  
+  gt(party_votes) |>
+    cols_label(
+      vote_desc = "Vote",
+      count = "Count"
+    )
+  
+} else {
+  cat("Insufficient voting data for analysis.\n")
+}
+```
+
+:::
+
+---
+
+## Notes
+
+This profile was generated from LegiScan data for the Iowa Legislature.  
+Last updated: `r Sys.Date()`

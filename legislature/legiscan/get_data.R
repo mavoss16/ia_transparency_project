@@ -65,3 +65,6 @@ bills <- read_csv("legiscan/files_2025/bills.csv")
 hf1038 <- fromJSON("legiscan/files_2025_json/bill/HF1038.json")
 
 listviewer::jsonedit(hf1038)
+
+
+votes <- read_csv("legiscan/files_2025/votes.csv")

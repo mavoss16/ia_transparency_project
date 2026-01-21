@@ -1,0 +1,241 @@
+---
+title: "Legislation - 91st General Assembly"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    toc-location: right
+    toc-depth: 2
+---
+
+```{r}
+library(readr)
+library(dplyr)
+library(stringr)
+library(tidyr)
+library(gt)
+```
+
+```{r}
+# Load data
+bills <- read_csv(here::here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
+sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"), show_col_types = FALSE)
+```
+
+## Overview
+
+The 91st Iowa General Assembly has introduced **`r format(nrow(bills), big.mark=",")`** bills and resolutions.
+
+```{r}
+# Bill type breakdown
+bill_types <- bills |>
+  mutate(
+    bill_type = case_when(
+      str_detect(bill_number, "^HF") ~ "House File (HF)",
+      str_detect(bill_number, "^SF") ~ "Senate File (SF)",
+      str_detect(bill_number, "^HJR") ~ "House Joint Resolution (HJR)",
+      str_detect(bill_number, "^SJR") ~ "Senate Joint Resolution (SJR)",
+      str_detect(bill_number, "^HR") ~ "House Resolution (HR)",
+      str_detect(bill_number, "^SR") ~ "Senate Resolution (SR)",
+      str_detect(bill_number, "^HCR") ~ "House Concurrent Resolution (HCR)",
+      str_detect(bill_number, "^SCR") ~ "Senate Concurrent Resolution (SCR)",
+      str_detect(bill_number, "^SSB") ~ "Senate Study Bill (SSB)",
+      str_detect(bill_number, "^HSB") ~ "House Study Bill (HSB)",
+      TRUE ~ "Other"
+    )
+  ) |>
+  count(bill_type, name = "count") |>
+  arrange(desc(count))
+
+gt(bill_types) |>
+  cols_label(
+    bill_type = "Bill Type",
+    count = "Count"
+  ) |>
+  tab_header(title = "Bills by Type")
+```
+
+### Status Summary
+
+```{r}
+status_summary <- bills |>
+  count(status_desc, name = "count") |>
+  arrange(desc(count))
+
+gt(status_summary) |>
+  cols_label(
+    status_desc = "Status",
+    count = "Count"
+  ) |>
+  tab_header(title = "Bills by Status")
+```
+
+---
+
+## Recent Bills
+
+Bills with the most recent activity:
+
+```{r}
+recent_bills <- bills |>
+  arrange(desc(last_action_date)) |>
+  head(25) |>
+  mutate(
+    bill_link = str_glue("<a href='{bill_number}.html'>{bill_number}</a>")
+  ) |>
+  select(bill_link, title, status_desc, last_action_date, last_action)
+
+gt(recent_bills) |>
+  cols_label(
+    bill_link = "Bill",
+    title = "Title",
+    status_desc = "Status",
+    last_action_date = "Last Action Date",
+    last_action = "Last Action"
+  ) |>
+  fmt_markdown(columns = bill_link) |>
+  tab_options(
+    table.font.size = px(12),
+    data_row.padding = px(4)
+  ) |>
+  cols_width(
+    bill_link ~ px(80),
+    title ~ px(300),
+    status_desc ~ px(100),
+    last_action_date ~ px(100),
+    last_action ~ px(250)
+  )
+```
+
+---
+
+## All Legislation
+
+Use the interactive table below to search and filter all bills.
+
+```{r}
+# Get primary sponsor for each bill
+primary_sponsors <- sponsors |>
+  filter(position == 1) |>
+  select(bill_id, sponsor_name = name)
+
+all_bills <- bills |>
+  left_join(primary_sponsors, by = "bill_id") |>
+  mutate(
+    bill_link = str_glue("<a href='{bill_number}.html'>{bill_number}</a>"),
+    chamber = case_when(
+      str_detect(bill_number, "^H") ~ "House",
+      str_detect(bill_number, "^S") ~ "Senate",
+      TRUE ~ "Other"
+    )
+  ) |>
+  arrange(desc(last_action_date)) |>
+  select(bill_link, title, chamber, sponsor_name, status_desc, last_action_date)
+
+gt(all_bills) |>
+  cols_label(
+    bill_link = "Bill",
+    title = "Title",
+    chamber = "Chamber",
+    sponsor_name = "Primary Sponsor",
+    status_desc = "Status",
+    last_action_date = "Last Action"
+  ) |>
+  fmt_markdown(columns = bill_link) |>
+  tab_options(
+    table.font.size = px(12),
+    data_row.padding = px(4)
+  ) |>
+  cols_width(
+    bill_link ~ px(80),
+    title ~ px(350),
+    chamber ~ px(70),
+    sponsor_name ~ px(150),
+    status_desc ~ px(100),
+    last_action_date ~ px(100)
+  ) |>
+  opt_interactive(
+    use_search = TRUE,
+    use_filters = TRUE,
+    use_page_size_select = TRUE,
+    page_size_default = 25
+  )
+```
+
+---
+
+## House Files
+
+```{r}
+house_files <- bills |>
+  filter(str_detect(bill_number, "^HF")) |>
+  left_join(primary_sponsors, by = "bill_id") |>
+  mutate(
+    bill_link = str_glue("<a href='{bill_number}.html'>{bill_number}</a>")
+  ) |>
+  arrange(as.numeric(str_extract(bill_number, "\\d+"))) |>
+  select(bill_link, title, sponsor_name, status_desc, last_action_date)
+
+gt(house_files) |>
+  cols_label(
+    bill_link = "Bill",
+    title = "Title",
+    sponsor_name = "Primary Sponsor",
+    status_desc = "Status",
+    last_action_date = "Last Action"
+  ) |>
+  fmt_markdown(columns = bill_link) |>
+  tab_options(
+    table.font.size = px(12),
+    data_row.padding = px(4)
+  ) |>
+  opt_interactive(
+    use_search = TRUE,
+    use_filters = TRUE,
+    use_page_size_select = TRUE,
+    page_size_default = 25
+  )
+```
+
+---
+
+## Senate Files
+
+```{r}
+senate_files <- bills |>
+  filter(str_detect(bill_number, "^SF")) |>
+  left_join(primary_sponsors, by = "bill_id") |>
+  mutate(
+    bill_link = str_glue("<a href='{bill_number}.html'>{bill_number}</a>")
+  ) |>
+  arrange(as.numeric(str_extract(bill_number, "\\d+"))) |>
+  select(bill_link, title, sponsor_name, status_desc, last_action_date)
+
+gt(senate_files) |>
+  cols_label(
+    bill_link = "Bill",
+    title = "Title",
+    sponsor_name = "Primary Sponsor",
+    status_desc = "Status",
+    last_action_date = "Last Action"
+  ) |>
+  fmt_markdown(columns = bill_link) |>
+  tab_options(
+    table.font.size = px(12),
+    data_row.padding = px(4)
+  ) |>
+  opt_interactive(
+    use_search = TRUE,
+    use_filters = TRUE,
+    use_page_size_select = TRUE,
+    page_size_default = 25
+  )
+```
+
+---
+
+[Back to Home](../index.html)
+
+*Last updated: `r Sys.Date()`*

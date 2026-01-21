@@ -1,0 +1,116 @@
+---
+title: "Iowa Legislature - 91st General Assembly"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    toc-location: right
+    toc-depth: 2
+---
+
+```{r}
+library(readr)
+library(dplyr)
+library(stringr)
+library(gt)
+```
+
+```{r}
+# Load data
+bills <- read_csv(here::here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
+people <- read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+history <- read_csv(here::here("legiscan/files_ga91/history.csv"), show_col_types = FALSE)
+```
+
+Welcome to the Iowa Legislature tracker for the **91st General Assembly (2025)**. This site provides access to bill information, legislator profiles, voting records, and lobbyist declarations.
+
+## Quick Stats
+
+```{r}
+n_bills <- nrow(bills)
+n_house_bills <- sum(str_detect(bills$bill_number, "^HF|^HJR|^HR"))
+n_senate_bills <- sum(str_detect(bills$bill_number, "^SF|^SJR|^SR"))
+n_legislators <- nrow(people)
+n_house <- sum(people$role == "Rep")
+n_senate <- sum(people$role == "Sen")
+```
+
+::: {.grid}
+
+::: {.g-col-6}
+**Legislation**
+
+- **`r format(n_bills, big.mark=",")`** total bills
+- `r format(n_house_bills, big.mark=",")` House bills
+- `r format(n_senate_bills, big.mark=",")` Senate bills
+:::
+
+::: {.g-col-6}
+**Legislators**
+
+- **`r n_legislators`** total legislators
+- `r n_house` Representatives
+- `r n_senate` Senators
+:::
+
+:::
+
+---
+
+## Recent Activity
+
+The table below shows the most recent legislative actions.
+
+```{r}
+recent_activity <- history |>
+  left_join(bills |> select(bill_id, bill_number, title), by = "bill_id") |>
+  arrange(desc(date), desc(sequence)) |>
+  head(50) |>
+  mutate(
+    bill_link = str_glue("<a href='legislation/{bill_number}.html'>{bill_number}</a>")
+  ) |>
+  select(date, bill_link, chamber, action, title)
+
+gt(recent_activity) |>
+  cols_label(
+    date = "Date",
+    bill_link = "Bill",
+    chamber = "Chamber",
+    action = "Action",
+    title = "Title"
+  ) |>
+  fmt_markdown(columns = bill_link) |>
+  tab_options(
+    table.font.size = px(12),
+    data_row.padding = px(4)
+  ) |>
+  cols_width(
+    date ~ px(100),
+    bill_link ~ px(80),
+    chamber ~ px(70),
+    action ~ px(300),
+    title ~ px(350)
+  )
+```
+
+---
+
+## Browse
+
+- [All Legislation](legislation/index.html) - Browse all bills and resolutions
+- [All Legislators](legislators/index.html) - Browse all Representatives and Senators
+
+---
+
+## Data Sources
+
+This site aggregates data from:
+
+- [LegiScan](https://legiscan.com/IA) - Bill text, voting records, and sponsor information
+- [Iowa Legislature](https://www.legis.iowa.gov/) - Official state legislature site for lobbyist declarations
+
+---
+
+*Last updated: `r Sys.Date()`*
