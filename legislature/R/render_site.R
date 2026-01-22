@@ -3,7 +3,7 @@
 # Supports incremental rendering using LegiScan hash values
 #
 # Usage: Run this script from the project root directory
-#   source("render_site.R")
+#   source("R/render_site.R")
 #
 # Or run specific functions:
 #   render_all_bills()
@@ -117,7 +117,7 @@ needs_render_legislator <- function(people_id, manifest) {
 #' Render a single bill page
 #' @param bill_number Character string like "HF856"
 #' @param template_path Path to bill_template.qmd
-render_bill <- function(bill_number, template_path = here("bill_template.qmd")) {
+render_bill <- function(bill_number, template_path = here("site/templates/bill_template.qmd")) {
   output_file <- file.path(LEGISLATION_DIR, paste0(bill_number, ".html"))
 
   tryCatch({
@@ -129,7 +129,7 @@ render_bill <- function(bill_number, template_path = here("bill_template.qmd")) 
     )
 
     # Move rendered file to correct location
-    rendered_file <- here("bill_template.html")
+    rendered_file <- here("site/templates/bill_template.html")
     if (file.exists(rendered_file)) {
       file.rename(rendered_file, output_file)
     }
@@ -145,7 +145,7 @@ render_bill <- function(bill_number, template_path = here("bill_template.qmd")) 
 #' Render a single legislator page
 #' @param people_id Numeric ID for the legislator
 #' @param template_path Path to legislator_template.qmd
-render_legislator <- function(people_id, template_path = here("legislator_template.qmd")) {
+render_legislator <- function(people_id, template_path = here("site/templates/legislator_template.qmd")) {
   output_file <- file.path(LEGISLATORS_DIR, paste0(people_id, ".html"))
 
   tryCatch({
@@ -157,7 +157,7 @@ render_legislator <- function(people_id, template_path = here("legislator_templa
     )
 
     # Move rendered file to correct location
-    rendered_file <- here("legislator_template.html")
+    rendered_file <- here("site/templates/legislator_template.html")
     if (file.exists(rendered_file)) {
       file.rename(rendered_file, output_file)
     }
@@ -281,7 +281,7 @@ render_all_legislators <- function(limit = NULL, force = FALSE) {
 #' Render the main Quarto site (index pages)
 render_index_pages <- function() {
   message("Rendering main site pages...")
-  quarto_render(here())
+  quarto_render(here("site"))
   message("Main site pages complete.")
 }
 

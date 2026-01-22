@@ -6,16 +6,43 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Iowa Legislature tracker for the 91st General Assembly (2025). Pulls legislative data from LegiScan API, stores in R data formats, and generates a static Quarto website with individual bill and legislator pages.
 
+## Directory Structure
+
+```
+iowa_legislature/
+├── site/                      # Quarto source files
+│   ├── _quarto.yml
+│   ├── index.qmd
+│   ├── legislation/index.qmd
+│   ├── legislators/index.qmd
+│   └── templates/
+│       ├── bill_template.qmd
+│       └── legislator_template.qmd
+├── R/                         # All R scripts
+│   ├── render_site.R          # Main rendering orchestrator
+│   ├── utils.R                # Helper functions
+│   ├── data_pipeline/         # LegiScan data fetching
+│   │   └── download_data.R
+│   └── daily/                 # Daily update scripts
+├── legiscan/                  # Raw LegiScan data
+│   ├── files_ga91/            # CSV files
+│   └── files_ga91_json/       # JSON files
+├── data/                      # Processed RDS files
+├── docs/                      # Rendered website (GitHub Pages)
+├── shiny_app/                 # Legacy Shiny dashboard
+└── archive/                   # Deprecated files
+```
+
 ## Data Flow Architecture
 
 ```
-LegiScan API → download_data.R → JSON/CSV files (legiscan/files_ga91/)
-                                        ↓
-                              Quarto Templates (bill_template.qmd, legislator_template.qmd)
-                                        ↓
-                              render_site.R (incremental rendering)
-                                        ↓
-                              Static website in docs/
+LegiScan API → R/data_pipeline/download_data.R → legiscan/files_ga91/
+                                                        ↓
+                                    site/templates/ (bill_template.qmd, legislator_template.qmd)
+                                                        ↓
+                                              R/render_site.R (incremental rendering)
+                                                        ↓
+                                              Static website in docs/
 ```
 
 ## Common Commands
@@ -23,7 +50,7 @@ LegiScan API → download_data.R → JSON/CSV files (legiscan/files_ga91/)
 All commands run in R from the project root:
 
 ```r
-source("render_site.R")
+source("R/render_site.R")
 
 # Check what needs rendering
 render_status()
@@ -44,7 +71,7 @@ render_index_pages()
 clear_manifest()
 ```
 
-Preview site locally: `quarto preview` from terminal.
+Preview site locally: `quarto preview site/` from terminal.
 
 ## Incremental Rendering System
 
@@ -58,14 +85,14 @@ Only items with changed hashes are re-rendered. Use `clear_manifest()` to force 
 
 | File | Purpose |
 |------|---------|
-| `render_site.R` | Main rendering orchestrator |
-| `bill_template.qmd` | Template for individual bill pages (param: `bill_num`) |
-| `legislator_template.qmd` | Template for legislator pages (param: `people_id`) |
-| `index.qmd` | Home page with recent activity |
-| `legislation/index.qmd` | Browse all bills |
-| `legislators/index.qmd` | Browse all legislators |
-| `legiscan/download_data.R` | Downloads LegiScan data (requires API key) |
-| `utils.R` | Helper functions (`scrape_lobbyist_declarations`, `items_to_df`) |
+| `R/render_site.R` | Main rendering orchestrator |
+| `R/utils.R` | Helper functions (`scrape_lobbyist_declarations`, `items_to_df`) |
+| `R/data_pipeline/download_data.R` | Downloads LegiScan data (requires API key) |
+| `site/templates/bill_template.qmd` | Template for individual bill pages (param: `bill_num`) |
+| `site/templates/legislator_template.qmd` | Template for legislator pages (param: `people_id`) |
+| `site/index.qmd` | Home page with recent activity |
+| `site/legislation/index.qmd` | Browse all bills |
+| `site/legislators/index.qmd` | Browse all legislators |
 
 ## Data Sources
 

@@ -24,7 +24,7 @@ library(tidyr)
 
 library(gt)
 
-source(here::here("utils.R"))
+source(here::here("R/utils.R"))
 
 ```
 
