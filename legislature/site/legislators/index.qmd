@@ -16,6 +16,8 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(gt)
+
+source(here::here("R/utils.R"))
 ```
 
 ```{r}
@@ -23,6 +25,9 @@ library(gt)
 people <- read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
 sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"), show_col_types = FALSE)
 votes <- read_csv(here::here("legiscan/files_ga91/votes.csv"), show_col_types = FALSE)
+
+# Load processed voting statistics
+legislator_stats <- read_rds(here::here("data/legislator_voting_stats_91st_ga.rds"))
 ```
 
 ## Overview
@@ -67,12 +72,19 @@ senators <- people |>
   filter(role == "Sen") |>
   left_join(sponsor_counts, by = "people_id") |>
   left_join(vote_counts, by = "people_id") |>
-  replace_na(list(bills_sponsored = 0, votes_cast = 0)) |>
-  mutate(
-    name_link = str_glue("<a href='{people_id}.html'>{name}</a>")
+  left_join(
+    legislator_stats |> select(people_id, with_party_pct, participation_rate),
+    by = "people_id"
   ) |>
+  replace_na(list(bills_sponsored = 0, votes_cast = 0)) |>
+  rowwise() |>
+  mutate(
+    filename = get_legislator_filename(people_id, people),
+    name_link = str_glue("<a href='{filename}.html'>{name}</a>")
+  ) |>
+  ungroup() |>
   arrange(district) |>
-  select(name_link, party, district, bills_sponsored, votes_cast)
+  select(name_link, party, district, bills_sponsored, votes_cast, with_party_pct, participation_rate)
 
 gt(senators) |>
   cols_label(
@@ -80,9 +92,12 @@ gt(senators) |>
     party = "Party",
     district = "District",
     bills_sponsored = "Bills Sponsored",
-    votes_cast = "Votes Cast"
+    votes_cast = "Votes Cast",
+    with_party_pct = "Party Alignment",
+    participation_rate = "Participation"
   ) |>
   fmt_markdown(columns = name_link) |>
+  fmt_percent(columns = c(with_party_pct, participation_rate), decimals = 1) |>
   tab_options(
     table.font.size = px(12),
     data_row.padding = px(4)
@@ -98,12 +113,19 @@ representatives <- people |>
   filter(role == "Rep") |>
   left_join(sponsor_counts, by = "people_id") |>
   left_join(vote_counts, by = "people_id") |>
-  replace_na(list(bills_sponsored = 0, votes_cast = 0)) |>
-  mutate(
-    name_link = str_glue("<a href='{people_id}.html'>{name}</a>")
+  left_join(
+    legislator_stats |> select(people_id, with_party_pct, participation_rate),
+    by = "people_id"
   ) |>
+  replace_na(list(bills_sponsored = 0, votes_cast = 0)) |>
+  rowwise() |>
+  mutate(
+    filename = get_legislator_filename(people_id, people),
+    name_link = str_glue("<a href='{filename}.html'>{name}</a>")
+  ) |>
+  ungroup() |>
   arrange(district) |>
-  select(name_link, party, district, bills_sponsored, votes_cast)
+  select(name_link, party, district, bills_sponsored, votes_cast, with_party_pct, participation_rate)
 
 gt(representatives) |>
   cols_label(
@@ -111,9 +133,12 @@ gt(representatives) |>
     party = "Party",
     district = "District",
     bills_sponsored = "Bills Sponsored",
-    votes_cast = "Votes Cast"
+    votes_cast = "Votes Cast",
+    with_party_pct = "Party Alignment",
+    participation_rate = "Participation"
   ) |>
   fmt_markdown(columns = name_link) |>
+  fmt_percent(columns = c(with_party_pct, participation_rate), decimals = 1) |>
   tab_options(
     table.font.size = px(12),
     data_row.padding = px(4)
@@ -130,13 +155,20 @@ Use the table below to search for legislators by district number.
 all_legislators <- people |>
   left_join(sponsor_counts, by = "people_id") |>
   left_join(vote_counts, by = "people_id") |>
+  left_join(
+    legislator_stats |> select(people_id, with_party_pct, participation_rate),
+    by = "people_id"
+  ) |>
   replace_na(list(bills_sponsored = 0, votes_cast = 0)) |>
+  rowwise() |>
   mutate(
-    name_link = str_glue("<a href='{people_id}.html'>{name}</a>"),
+    filename = get_legislator_filename(people_id, people),
+    name_link = str_glue("<a href='{filename}.html'>{name}</a>"),
     chamber = if_else(role == "Sen", "Senate", "House")
   ) |>
+  ungroup() |>
   arrange(chamber, district) |>
-  select(chamber, district, name_link, party, bills_sponsored, votes_cast)
+  select(chamber, district, name_link, party, bills_sponsored, votes_cast, with_party_pct, participation_rate)
 
 gt(all_legislators) |>
   cols_label(
@@ -145,9 +177,12 @@ gt(all_legislators) |>
     name_link = "Name",
     party = "Party",
     bills_sponsored = "Bills Sponsored",
-    votes_cast = "Votes Cast"
+    votes_cast = "Votes Cast",
+    with_party_pct = "Party Alignment",
+    participation_rate = "Participation"
   ) |>
   fmt_markdown(columns = name_link) |>
+  fmt_percent(columns = c(with_party_pct, participation_rate), decimals = 1) |>
   tab_options(
     table.font.size = px(12),
     data_row.padding = px(4)

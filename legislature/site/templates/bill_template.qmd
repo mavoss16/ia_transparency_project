@@ -33,7 +33,7 @@ source(here::here("R/utils.R"))
 bill <- read_json(here::here(str_glue("legiscan/files_ga91_json/bill/{params$bill_num}.json"))) |>
   pluck("bill")
 
-people <- read_csv(here::here(str_glue("legiscan/files_ga91/people.csv")))
+people <- read_csv(here::here(str_glue("legiscan/files_ga91/people.csv")), show_col_types = FALSE)
 
 sponsors <- bill |>
   pluck("sponsors") |>
@@ -53,6 +53,11 @@ calendar <- bill |>
   pluck("calendar") |>
   items_to_df()
 
+# Load processed vote summaries for party breakdown and classification
+vote_summaries <- read_rds(here::here("data/vote_summaries_91st_ga.rds"))
+bill_vote_summaries <- vote_summaries |>
+  filter(bill_id == bill$bill_id)
+
 ```
 
 
@@ -62,7 +67,12 @@ calendar <- bill |>
 
 ## Sponsors
 ```{r}
-gt(sponsors |> select(name, party, role, district))
+if (!is.null(sponsors) && nrow(sponsors) > 0) {
+  gt(sponsors |> select(role, name, party, district)) |>
+    cols_label(role = "Role", name = "Name", party = "Party", district = "District")
+} else {
+  cat("No sponsors listed.")
+}
 ```
 
 *Status: * 
@@ -73,7 +83,12 @@ gt(sponsors |> select(name, party, role, district))
 
 ## Legislation History
 ```{r}
-gt(history |> select(date, action, chamber, importance))
+if (!is.null(history) && nrow(history) > 0) {
+  gt(history |> select(date, action, chamber, importance)) |>
+    cols_label(date = "Date", action = "Action", chamber = "Chamber", importance = "Importance")
+} else {
+  cat("No legislative history recorded yet.")
+}
 ```
 
 
@@ -81,7 +96,37 @@ gt(history |> select(date, action, chamber, importance))
 
 ### Vote Summaries
 ```{r}
-gt(votes |> filter(!str_detect(desc, "Report$")) |> select(date, chamber, desc, yea, nay, nv, absent, total, passed))
+if (!is.null(votes) && nrow(votes) > 0) {
+  votes_filtered <- votes |> filter(!str_detect(desc, "Report$"))
+  if (nrow(votes_filtered) > 0) {
+    # Merge with processed vote data for party breakdown
+    votes_display <- votes_filtered |>
+      left_join(
+        bill_vote_summaries |> select(
+          roll_call_id, vote_dem_yes, vote_dem_no, vote_gop_yes, vote_gop_no, vote_outcome
+        ),
+        by = "roll_call_id"
+      )
+
+    gt(votes_display |> select(
+      date, chamber, desc, yea, nay, nv, absent,
+      vote_dem_yes, vote_dem_no, vote_gop_yes, vote_gop_no, vote_outcome
+    )) |>
+      cols_label(
+        date = "Date", chamber = "Chamber", desc = "Description",
+        yea = "Yea", nay = "Nay", nv = "NV", absent = "Absent",
+        vote_dem_yes = "D Yea", vote_dem_no = "D Nay",
+        vote_gop_yes = "R Yea", vote_gop_no = "R Nay",
+        vote_outcome = "Classification"
+      ) |>
+      tab_spanner(label = "Total", columns = c(yea, nay, nv, absent)) |>
+      tab_spanner(label = "By Party", columns = c(vote_dem_yes, vote_dem_no, vote_gop_yes, vote_gop_no))
+  } else {
+    cat("No floor votes recorded yet.")
+  }
+} else {
+  cat("No votes recorded yet.")
+}
 ```
 
 ### Individual Votes
@@ -91,39 +136,41 @@ gt(votes |> filter(!str_detect(desc, "Report$")) |> select(date, chamber, desc, 
 ```{r}
 #| results: "asis"
 
-for(vote_num in votes |> filter(!str_detect(desc, "Report$")) |> pull(roll_call_id)){
-  vote_row <- votes |> filter(roll_call_id == vote_num)
-  
-  cat("##", vote_row$chamber, ": ", vote_row$date, "\n\n")
-  
-  # cat("#### ", vote_row$chamber, ": ", vote_row$date, "\n\n")
-  cat("#### ", vote_row$desc, "\n\n")
-  
-  vote <- read_json(here::here(str_glue("legiscan/files_ga91_json/vote/{vote_num}.json"))) |>
-    pluck("roll_call") |>
-    pluck("votes") |>
-    items_to_df() |>
-    left_join(people |> select(people_id, name, party, district)) |>
-    select(-people_id, -vote_id) |>
-    arrange(district)
-  
-  summary <- vote |>
-    count(party, vote_text) |>
-    mutate(vote_text = factor(vote_text, levels = c("Yea", "Nay", "Absent"))) |>
-    arrange(vote_text, party) |>
-    pivot_wider(names_from = vote_text, values_from = n) |>
-    mutate(across(everything(), .fns = function(x){replace_na(x, 0)}))
-  
-  gt(summary, rowname_col = "party") |>
-    tab_stubhead(label = "Party") |>
-    as_raw_html() |>
-    cat()
+if (!is.null(votes) && nrow(votes) > 0) {
+  votes_filtered <- votes |> filter(!str_detect(desc, "Report$"))
 
-  gt(vote) |>
-    as_raw_html() |>
-    cat()
+  for(vote_num in votes_filtered |> pull(roll_call_id)){
+    vote_row <- votes |> filter(roll_call_id == vote_num)
+
+    cat("##", vote_row$chamber, ": ", vote_row$date, "\n\n")
+
+    cat("#### ", vote_row$desc, "\n\n")
+
+    vote <- read_json(here::here(str_glue("legiscan/files_ga91_json/vote/{vote_num}.json"))) |>
+      pluck("roll_call") |>
+      pluck("votes") |>
+      items_to_df() |>
+      left_join(people |> select(people_id, name, party, district)) |>
+      select(-people_id, -vote_id) |>
+      arrange(district)
+
+    summary <- vote |>
+      count(party, vote_text) |>
+      mutate(vote_text = factor(vote_text, levels = c("Yea", "Nay", "Absent"))) |>
+      arrange(vote_text, party) |>
+      pivot_wider(names_from = vote_text, values_from = n) |>
+      mutate(across(everything(), .fns = function(x){replace_na(x, 0)}))
+
+    gt(summary, rowname_col = "party") |>
+      tab_stubhead(label = "Party") |>
+      as_raw_html() |>
+      cat()
+
+    gt(vote) |>
+      as_raw_html() |>
+      cat()
+  }
 }
-
 ```
 
 
@@ -141,7 +188,12 @@ gt(lobby |> select(-bill))
 
 ## Calendar Items
 ```{r}
-gt(calendar |> select(date, time, type, location, description))
+if (!is.null(calendar) && nrow(calendar) > 0) {
+  gt(calendar |> select(date, time, type, location, description)) |>
+    cols_label_with(fn = stringr::str_to_title)
+} else {
+  cat("No calendar items scheduled.")
+}
 ```
 
 :::

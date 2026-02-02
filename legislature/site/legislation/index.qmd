@@ -21,7 +21,9 @@ library(gt)
 ```{r}
 # Load data
 bills <- read_csv(here::here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
-sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"), show_col_types = FALSE)
+people <- read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"), show_col_types = FALSE) |>
+  left_join(people)
 ```
 
 ## Overview

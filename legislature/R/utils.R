@@ -7,9 +7,49 @@ library(purrr)
 
 library(rvest)
 
+fill_empty <- function(x, default = NA) {
+  if (is.null(x) || length(x) == 0) default else x
+}
+
+#' Generate a URL-friendly filename for a legislator
+#' @param people_id Numeric ID for the legislator
+#' @param people_df Optional dataframe of people (to avoid re-reading CSV)
+#' @return Character string like "dave-jacoby-6970"
+get_legislator_filename <- function(people_id, people_df = NULL) {
+  if (is.null(people_df)) {
+    people_df <- readr::read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+  }
+
+  person <- people_df |> filter(people_id == !!people_id)
+
+  if (nrow(person) == 0) {
+    return(as.character(people_id))
+  }
+
+  first_name <- tolower(person$first_name[1])
+  last_name <- tolower(person$last_name[1])
+
+  # Remove special characters and replace spaces with hyphens
+  first_name <- str_replace_all(first_name, "[^a-z0-9]", "-")
+  last_name <- str_replace_all(last_name, "[^a-z0-9]", "-")
+
+  # Remove multiple consecutive hyphens and trim
+  first_name <- str_replace_all(first_name, "-+", "-") |> str_trim()
+  last_name <- str_replace_all(last_name, "-+", "-") |> str_trim()
+
+  paste0(first_name, "-", last_name, "-", people_id)
+}
+
 items_to_df <- function(list){
-  map(list, as.data.frame) |>
-    bind_rows()
+  if(length(list) >= 1){
+    map(list, function(item){
+      item <- map(item, fill_empty)
+      as.data.frame(item)
+    }) |>
+      bind_rows()
+  } else{
+    NULL
+  }
 }
 
 scrape_lobbyist_declarations <- function(bill_number, ga = 91) {

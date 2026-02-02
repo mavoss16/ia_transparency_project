@@ -17,6 +17,8 @@ library(jsonlite)
 library(quarto)
 library(here)
 
+source(here("R/utils.R"))
+
 # Configuration
 OUTPUT_DIR <- here("docs")
 LEGISLATION_DIR <- file.path(OUTPUT_DIR, "legislation")
@@ -62,7 +64,7 @@ update_manifest <- function(manifest, type, id, hash) {
       type = type,
       id = id,
       hash = hash,
-      rendered_at = as.character(Sys.time())
+      rendered_at = Sys.time()
     ))
 
   manifest
@@ -129,7 +131,7 @@ render_bill <- function(bill_number, template_path = here("site/templates/bill_t
     )
 
     # Move rendered file to correct location
-    rendered_file <- here("site/templates/bill_template.html")
+    rendered_file <- here("docs/templates", basename(output_file))
     if (file.exists(rendered_file)) {
       file.rename(rendered_file, output_file)
     }
@@ -146,7 +148,8 @@ render_bill <- function(bill_number, template_path = here("site/templates/bill_t
 #' @param people_id Numeric ID for the legislator
 #' @param template_path Path to legislator_template.qmd
 render_legislator <- function(people_id, template_path = here("site/templates/legislator_template.qmd")) {
-  output_file <- file.path(LEGISLATORS_DIR, paste0(people_id, ".html"))
+  filename <- get_legislator_filename(people_id)
+  output_file <- file.path(LEGISLATORS_DIR, paste0(filename, ".html"))
 
   tryCatch({
     quarto_render(
@@ -157,12 +160,12 @@ render_legislator <- function(people_id, template_path = here("site/templates/le
     )
 
     # Move rendered file to correct location
-    rendered_file <- here("site/templates/legislator_template.html")
+    rendered_file <- here("docs/templates", basename(output_file))
     if (file.exists(rendered_file)) {
       file.rename(rendered_file, output_file)
     }
 
-    message(paste("Rendered legislator:", people_id))
+    message(paste("Rendered legislator:", filename))
     return(TRUE)
   }, error = function(e) {
     warning(paste("Failed to render legislator", people_id, ":", e$message))
@@ -217,6 +220,7 @@ render_all_bills <- function(limit = NULL, force = FALSE) {
     } else {
       fail_count <- fail_count + 1
     }
+    gc()
   }
 
   message(paste("\nBills completed:", success_count, "success,", fail_count, "failed"))
@@ -271,6 +275,7 @@ render_all_legislators <- function(limit = NULL, force = FALSE) {
     } else {
       fail_count <- fail_count + 1
     }
+    gc()
   }
 
   message(paste("\nLegislators completed:", success_count, "success,", fail_count, "failed"))
@@ -312,6 +317,70 @@ render_site <- function(bills_limit = NULL, legislators_limit = NULL, force = FA
 test_render <- function() {
   message("Running test render (5 bills, 5 legislators)...\n")
   render_site(bills_limit = 5, legislators_limit = 5, force = TRUE)
+}
+
+#' Render a sample of bills and legislators
+#' @param n_bills Number of bills to render (default 5)
+#' @param n_legislators Number of legislators to render (default 5)
+#' @param random If TRUE, sample randomly; if FALSE, take first n (default FALSE)
+#' @param index_pages If TRUE, also render index pages (default FALSE)
+render_sample <- function(n_bills = 5, n_legislators = 5, random = FALSE, index_pages = FALSE) {
+  ensure_dirs()
+  manifest <- load_manifest()
+
+  message(paste0(
+    "=== Rendering sample: ", n_bills, " bills, ", n_legislators, " legislators",
+    if (random) " (random)" else " (first n)", " ===\n"
+  ))
+
+  # Optionally render index pages
+
+  if (index_pages) {
+    render_index_pages()
+    message("\n")
+  }
+
+  # Get bills
+ bills <- read_csv(here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
+  if (random && n_bills < nrow(bills)) {
+    bill_numbers <- sample(bills$bill_number, n_bills)
+  } else {
+    bill_numbers <- head(bills$bill_number, n_bills)
+  }
+
+  # Get legislators
+  people <- read_csv(here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+  if (random && n_legislators < nrow(people)) {
+    people_ids <- sample(people$people_id, n_legislators)
+  } else {
+    people_ids <- head(people$people_id, n_legislators)
+  }
+
+  # Render bills
+  message(paste("Rendering", length(bill_numbers), "bills..."))
+  for (bill_number in bill_numbers) {
+    success <- render_bill(bill_number)
+    if (success) {
+      current_hash <- get_bill_hash(bill_number)
+      manifest <- update_manifest(manifest, "bill", bill_number, current_hash)
+      save_manifest(manifest)
+    }
+  }
+
+  message("\n")
+
+  # Render legislators
+  message(paste("Rendering", length(people_ids), "legislators..."))
+  for (people_id in people_ids) {
+    success <- render_legislator(people_id)
+    if (success) {
+      current_hash <- get_legislator_hash(people_id)
+      manifest <- update_manifest(manifest, "legislator", as.character(people_id), current_hash)
+      save_manifest(manifest)
+    }
+  }
+
+  message("\n=== Sample render complete ===")
 }
 
 #' Show render status - how many items need rendering
@@ -366,6 +435,8 @@ render_site.R loaded. Available functions:
 
   Utilities:
     test_render()                - Quick test (5 bills, 5 legislators)
+    render_sample(n_bills=10, n_legislators=5)  - Render a custom sample
+    render_sample(random=TRUE)   - Render a random sample
     render_status()              - Show how many items need rendering
     render_index_pages()         - Render main site index pages only
     clear_manifest()             - Clear render history (forces full re-render)

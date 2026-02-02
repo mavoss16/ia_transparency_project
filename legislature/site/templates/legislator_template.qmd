@@ -36,9 +36,13 @@ legislator <- read_json(here::here(str_glue("legiscan/files_ga91_json/people/{pa
   pluck("person")
 
 # Read related data
-bills <- read_csv(here::here("legiscan/files_ga91/bills.csv"))
-sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"))
-votes <- read_csv(here::here("legiscan/files_ga91/votes.csv"))
+bills <- read_csv(here::here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
+sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"), show_col_types = FALSE)
+votes <- read_csv(here::here("legiscan/files_ga91/votes.csv"), show_col_types = FALSE)
+rollcalls <- read_csv(here::here("legiscan/files_ga91/rollcalls.csv"), show_col_types = FALSE)
+
+votes <- left_join(votes, rollcalls, by = join_by(roll_call_id)) |>
+  left_join(bills |> select(bill_id, bill_number, title), by = join_by(bill_id))
 
 # Filter to this legislator's activity
 leg_sponsored_bills <- sponsors |>
@@ -48,7 +52,17 @@ leg_sponsored_bills <- sponsors |>
   arrange(desc(status_date))
 
 leg_votes <- votes |>
-  filter(people_id == params$people_id)
+  filter(
+    people_id == params$people_id,
+    !str_detect(description, "Report$")
+  )
+
+# Load processed vote data for party alignment analysis
+legislator_stats <- read_rds(here::here("data/legislator_voting_stats_91st_ga.rds"))
+vote_records <- read_rds(here::here("data/vote_records_91st_ga.rds"))
+
+leg_stats <- legislator_stats |> filter(people_id == params$people_id)
+leg_vote_records <- vote_records |> filter(people_id == params$people_id)
 ```
 
 # `r legislator$name` (`r legislator$party`-`r legislator$district`)
@@ -152,6 +166,38 @@ if(nrow(vote_summary) > 0) {
 }
 ```
 
+### Party Alignment
+
+```{r}
+if(nrow(leg_stats) > 0 && leg_stats$total_votes > 0) {
+  party_alignment <- data.frame(
+    Metric = c(
+      "Votes With Party",
+      "Votes Against Party",
+      "Party Alignment Rate",
+      "Party Line Votes",
+      "Bipartisan Votes",
+      "Unanimous Votes",
+      "Participation Rate"
+    ),
+    Value = c(
+      as.character(leg_stats$votes_with_party),
+      as.character(leg_stats$votes_against_party),
+      sprintf("%.1f%%", leg_stats$with_party_pct * 100),
+      as.character(leg_stats$party_line_votes),
+      as.character(leg_stats$bipartisan_votes),
+      as.character(leg_stats$unanimous_votes),
+      sprintf("%.1f%%", leg_stats$participation_rate * 100)
+    )
+  )
+
+  gt(party_alignment) |>
+    cols_label(Metric = "", Value = "")
+} else {
+  cat("Insufficient voting data for party alignment analysis.\n")
+}
+```
+
 ## Sponsored Bills
 
 ```{r}
@@ -188,21 +234,14 @@ if(nrow(leg_sponsored_bills) > 0) {
 
 ```{r}
 if(nrow(leg_votes) > 0) {
-  # leg_votes |>
-  #   select(date, bill_number, vote_desc, chamber, desc) |>
-  #   gt() |>
-  #   cols_label(
-  #     # date = "Date",
-  #     bill_number = "Bill",
-  #     vote_desc = "Vote",
-  #     chamber = "Chamber",
-  #     desc = "Description"
-  #   ) |>
-  #   tab_options(
-  #     table.font.size = px(12)
-  #   )
-  
-  gt(leg_votes)
+  gt(leg_votes |> select(bill_number, title, date, description, vote_desc)) |>
+    cols_label(
+      bill_number = "File #",
+      title = "Title",
+      date = "Vote Date",
+      description = "Vote Description",
+      vote_desc = "Vote"
+    )
 } else {
   cat("No voting record found.\n")
 }
@@ -210,21 +249,58 @@ if(nrow(leg_votes) > 0) {
 
 ## Vote Analysis
 
+### Votes by Classification
+
 ```{r}
-if(nrow(leg_votes) > 0) {
-  # Party line voting analysis
-  party_votes <- leg_votes |>
-    filter(!is.na(vote_desc), vote_desc %in% c("Yea", "Nay")) |>
-    group_by(vote_desc) |>
-    summarize(count = n()) |>
-    ungroup()
-  
-  gt(party_votes) |>
+if(nrow(leg_vote_records) > 0) {
+  outcome_breakdown <- leg_vote_records |>
+    filter(vote_text %in% c("Yea", "Nay")) |>
+    group_by(vote_outcome) |>
+    summarize(
+      count = n(),
+      with_party = sum(vote_with_party == TRUE, na.rm = TRUE),
+      against_party = sum(vote_with_party == FALSE, na.rm = TRUE),
+      .groups = "drop"
+    ) |>
+    mutate(pct_of_total = count / sum(count) * 100) |>
+    arrange(desc(count))
+
+  gt(outcome_breakdown) |>
     cols_label(
-      vote_desc = "Vote",
-      count = "Count"
-    )
-  
+      vote_outcome = "Vote Type",
+      count = "Total",
+      with_party = "With Party",
+      against_party = "Against Party",
+      pct_of_total = "% of Votes"
+    ) |>
+    fmt_number(columns = pct_of_total, decimals = 1)
+} else {
+  cat("Insufficient voting data for analysis.\n")
+}
+```
+
+### Votes Against Party
+
+```{r}
+if(nrow(leg_vote_records) > 0) {
+  against_party <- leg_vote_records |>
+    filter(vote_with_party == FALSE) |>
+    select(bill_number, vote_date, vote_desc, vote_text, party_position, vote_outcome) |>
+    arrange(desc(vote_date))
+
+  if(nrow(against_party) > 0) {
+    gt(against_party) |>
+      cols_label(
+        bill_number = "Bill",
+        vote_date = "Date",
+        vote_desc = "Description",
+        vote_text = "Vote",
+        party_position = "Party Position",
+        vote_outcome = "Classification"
+      )
+  } else {
+    cat("This legislator has not voted against their party.\n")
+  }
 } else {
   cat("Insufficient voting data for analysis.\n")
 }
