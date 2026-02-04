@@ -1,0 +1,164 @@
+---
+title: "committee_template"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    toc-location: right
+    toc-depth: 2
+
+params:
+  people_id: 7061
+---
+
+```{r}
+library(jsonlite)
+library(readr)
+library(dplyr)
+library(purrr)
+library(stringr)
+library(tidyr)
+library(gt)
+```
+
+```{r}
+# Read committee data from people JSON
+committee_data <- read_json(here::here(str_glue("legiscan/files_ga91_json/people/{params$people_id}.json"))) |>
+  pluck("person")
+
+# Read related data
+bills <- read_csv(here::here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
+sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"), show_col_types = FALSE)
+rollcalls <- read_csv(here::here("legiscan/files_ga91/rollcalls.csv"), show_col_types = FALSE)
+
+# Determine chamber
+chamber_name <- if (committee_data$role == "Sen") "Senate" else "House"
+committee_name <- committee_data$name
+committee_id <- committee_data$committee_id
+```
+
+# `r chamber_name` `r committee_name`
+
+**Chamber:** `r chamber_name`
+**Committee ID:** `r committee_id`
+
+---
+
+::: {.panel-tabset}
+
+## Bills Referred
+
+```{r}
+referred_bills <- bills |>
+  filter(committee_id == !!committee_id) |>
+  select(bill_number, title, status_desc, status_date, last_action_date, last_action) |>
+  arrange(desc(last_action_date))
+
+if (nrow(referred_bills) > 0) {
+  gt(referred_bills) |>
+    cols_label(
+      bill_number = "Bill",
+      title = "Title",
+      status_desc = "Status",
+      status_date = "Status Date",
+      last_action_date = "Last Action Date",
+      last_action = "Last Action"
+    ) |>
+    tab_options(
+      table.font.size = px(12),
+      data_row.padding = px(4)
+    ) |>
+    opt_interactive(
+      use_search = TRUE,
+      use_filters = TRUE,
+      use_page_size_select = TRUE,
+      page_size_default = 25
+    )
+} else {
+  cat("No bills referred to this committee.\n")
+}
+```
+
+## Bills Sponsored
+
+```{r}
+sponsored_bills <- sponsors |>
+  filter(people_id == params$people_id) |>
+  left_join(bills, by = "bill_id") |>
+  select(bill_number, title, status_desc, status_date, last_action_date, last_action) |>
+  arrange(desc(last_action_date))
+
+if (nrow(sponsored_bills) > 0) {
+  gt(sponsored_bills) |>
+    cols_label(
+      bill_number = "Bill",
+      title = "Title",
+      status_desc = "Status",
+      status_date = "Status Date",
+      last_action_date = "Last Action Date",
+      last_action = "Last Action"
+    ) |>
+    tab_options(
+      table.font.size = px(12),
+      data_row.padding = px(4)
+    ) |>
+    opt_interactive(
+      use_search = TRUE,
+      use_filters = TRUE,
+      use_page_size_select = TRUE,
+      page_size_default = 25
+    )
+} else {
+  cat("No bills sponsored by this committee.\n")
+}
+```
+
+## Committee Votes
+
+```{r}
+# Match rollcalls where the description contains the committee name
+# Pattern: "{Chamber}.*{Committee Name}.*Report"
+vote_pattern <- str_glue("{chamber_name}.*{committee_name}.*Report")
+
+committee_votes <- rollcalls |>
+  filter(str_detect(description, regex(vote_pattern, ignore_case = TRUE))) |>
+  left_join(bills |> select(bill_id, bill_number, title), by = "bill_id") |>
+  select(bill_number, title, date, description, yea, nay, nv, absent, total) |>
+  arrange(desc(date))
+
+if (nrow(committee_votes) > 0) {
+  gt(committee_votes) |>
+    cols_label(
+      bill_number = "Bill",
+      title = "Title",
+      date = "Date",
+      description = "Description",
+      yea = "Yea",
+      nay = "Nay",
+      nv = "NV",
+      absent = "Absent",
+      total = "Total"
+    ) |>
+    tab_options(
+      table.font.size = px(12),
+      data_row.padding = px(4)
+    ) |>
+    opt_interactive(
+      use_search = TRUE,
+      use_filters = TRUE,
+      use_page_size_select = TRUE,
+      page_size_default = 25
+    )
+} else {
+  cat("No committee votes found.\n")
+}
+```
+
+:::
+
+---
+
+This page was generated from LegiScan data for the Iowa Legislature.
+Last updated: `r Sys.Date()`

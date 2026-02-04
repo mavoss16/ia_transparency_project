@@ -179,10 +179,19 @@ if (!is.null(votes) && nrow(votes) > 0) {
 ## Lobbyist Declarations
 
 ```{r}
-lobby <- scrape_lobbyist_declarations(params$bill_num)
+lobby <- tryCatch(
+  scrape_lobbyist_declarations(params$bill_num),
+  error = function(e) {
+    message(paste("Lobbyist scrape failed for", params$bill_num, ":", e$message))
+    NULL
+  }
+)
 
-
-gt(lobby |> select(-bill))
+if (!is.null(lobby) && nrow(lobby) > 0) {
+  gt(lobby |> select(-bill))
+} else {
+  cat("Lobbyist declaration data is currently unavailable for this bill.\n")
+}
 ```
 
 

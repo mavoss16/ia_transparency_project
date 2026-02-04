@@ -23,13 +23,14 @@ source(here("R/utils.R"))
 OUTPUT_DIR <- here("docs")
 LEGISLATION_DIR <- file.path(OUTPUT_DIR, "legislation")
 LEGISLATORS_DIR <- file.path(OUTPUT_DIR, "legislators")
+COMMITTEES_DIR <- file.path(OUTPUT_DIR, "committees")
 MANIFEST_FILE <- here("render_manifest.csv")
 
 # Ensure output directories exist
 ensure_dirs <- function() {
-
   dir.create(LEGISLATION_DIR, recursive = TRUE, showWarnings = FALSE)
   dir.create(LEGISLATORS_DIR, recursive = TRUE, showWarnings = FALSE)
+  dir.create(COMMITTEES_DIR, recursive = TRUE, showWarnings = FALSE)
 }
 
 #' Load or create the render manifest
@@ -173,6 +174,107 @@ render_legislator <- function(people_id, template_path = here("site/templates/le
   })
 }
 
+#' Get the hash for a committee from its JSON file
+get_committee_hash <- function(people_id) {
+  get_legislator_hash(people_id)  # Same JSON structure
+}
+
+#' Check if a committee needs rendering (hash changed or never rendered)
+needs_render_committee <- function(people_id, manifest) {
+  current_hash <- get_committee_hash(people_id)
+  if (is.na(current_hash)) return(FALSE)
+
+  existing <- manifest |>
+    filter(type == "committee", id == as.character(people_id))
+
+  if (nrow(existing) == 0) return(TRUE)
+
+  return(existing$hash[1] != current_hash)
+}
+
+#' Render a single committee page
+#' @param people_id Numeric ID for the committee (from people.csv)
+#' @param template_path Path to committee_template.qmd
+render_committee <- function(people_id, template_path = here("site/templates/committee_template.qmd")) {
+  filename <- get_committee_filename(people_id)
+  output_file <- file.path(COMMITTEES_DIR, paste0(filename, ".html"))
+
+  tryCatch({
+    quarto_render(
+      input = template_path,
+      output_file = basename(output_file),
+      execute_params = list(people_id = people_id),
+      output_format = "html"
+    )
+
+    # Move rendered file to correct location
+    rendered_file <- here("docs/templates", basename(output_file))
+    if (file.exists(rendered_file)) {
+      file.rename(rendered_file, output_file)
+    }
+
+    message(paste("Rendered committee:", filename))
+    return(TRUE)
+  }, error = function(e) {
+    warning(paste("Failed to render committee", people_id, ":", e$message))
+    return(FALSE)
+  })
+}
+
+#' Render all committee pages (incremental by default)
+#' @param limit Optional limit for testing (NULL for all)
+#' @param force If TRUE, re-render all regardless of hash
+render_all_committees <- function(limit = NULL, force = FALSE) {
+  ensure_dirs()
+  manifest <- load_manifest()
+
+  people <- read_csv(here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+  committees <- people |> filter(is.na(first_name) | first_name == "", committee_id > 0)
+  committee_ids <- committees$people_id
+
+  if (!is.null(limit)) {
+    committee_ids <- head(committee_ids, limit)
+  }
+
+  if (!force) {
+    needs_render <- sapply(committee_ids, needs_render_committee, manifest = manifest)
+    committees_to_render <- committee_ids[needs_render]
+    message(paste(
+      "Found", length(committees_to_render), "committees needing render out of",
+      length(committee_ids), "total"
+    ))
+  } else {
+    committees_to_render <- committee_ids
+    message(paste("Force rendering all", length(committees_to_render), "committees..."))
+  }
+
+  if (length(committees_to_render) == 0) {
+    message("No committees need rendering. Use force = TRUE to re-render all.")
+    return(invisible(NULL))
+  }
+
+  success_count <- 0
+  fail_count <- 0
+
+  for (people_id in committees_to_render) {
+    success <- render_committee(people_id)
+
+    if (success) {
+      current_hash <- get_committee_hash(people_id)
+      manifest <- update_manifest(manifest, "committee", as.character(people_id), current_hash)
+      save_manifest(manifest)
+      success_count <- success_count + 1
+    } else {
+      fail_count <- fail_count + 1
+    }
+    gc()
+  }
+
+  message(paste("\nCommittees completed:", success_count, "success,", fail_count, "failed"))
+
+  return(invisible(list(success = success_count, failed = fail_count)))
+}
+
 #' Render all bill pages (incremental by default)
 #' @param limit Optional limit for testing (NULL for all)
 #' @param force If TRUE, re-render all regardless of hash
@@ -236,7 +338,9 @@ render_all_legislators <- function(limit = NULL, force = FALSE) {
   manifest <- load_manifest()
 
   people <- read_csv(here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
-  people_ids <- people$people_id
+  # Exclude committees (have empty first_name/last_name)
+  legislators <- people |> filter(!is.na(first_name), first_name != "")
+  people_ids <- legislators$people_id
 
   if (!is.null(limit)) {
     people_ids <- head(people_ids, limit)
@@ -290,11 +394,12 @@ render_index_pages <- function() {
   message("Main site pages complete.")
 }
 
-#' Render everything: index pages, all bills, and all legislators
+#' Render everything: index pages, all bills, legislators, and committees
 #' @param bills_limit Optional limit for bills (NULL for all)
 #' @param legislators_limit Optional limit for legislators (NULL for all)
+#' @param committees_limit Optional limit for committees (NULL for all)
 #' @param force If TRUE, re-render all regardless of hash
-render_site <- function(bills_limit = NULL, legislators_limit = NULL, force = FALSE) {
+render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees_limit = NULL, force = FALSE) {
   message("=== Starting full site render ===\n")
 
   # Render main quarto site first
@@ -310,50 +415,65 @@ render_site <- function(bills_limit = NULL, legislators_limit = NULL, force = FA
   # Render legislators (incremental unless force = TRUE)
   render_all_legislators(limit = legislators_limit, force = force)
 
+  message("\n")
+
+  # Render committees (incremental unless force = TRUE)
+  render_all_committees(limit = committees_limit, force = force)
+
   message("\n=== Site render complete ===")
 }
 
-#' Quick test render - renders 5 bills and 5 legislators
+#' Quick test render - renders 5 bills, 5 legislators, and 3 committees
 test_render <- function() {
-  message("Running test render (5 bills, 5 legislators)...\n")
-  render_site(bills_limit = 5, legislators_limit = 5, force = TRUE)
+  message("Running test render (5 bills, 5 legislators, 3 committees)...\n")
+  render_site(bills_limit = 5, legislators_limit = 5, committees_limit = 3, force = TRUE)
 }
 
-#' Render a sample of bills and legislators
+#' Render a sample of bills, legislators, and committees
 #' @param n_bills Number of bills to render (default 5)
 #' @param n_legislators Number of legislators to render (default 5)
+#' @param n_committees Number of committees to render (default 3)
 #' @param random If TRUE, sample randomly; if FALSE, take first n (default FALSE)
 #' @param index_pages If TRUE, also render index pages (default FALSE)
-render_sample <- function(n_bills = 5, n_legislators = 5, random = FALSE, index_pages = FALSE) {
+render_sample <- function(n_bills = 5, n_legislators = 5, n_committees = 3, random = FALSE, index_pages = FALSE) {
   ensure_dirs()
   manifest <- load_manifest()
 
   message(paste0(
-    "=== Rendering sample: ", n_bills, " bills, ", n_legislators, " legislators",
+    "=== Rendering sample: ", n_bills, " bills, ", n_legislators, " legislators, ",
+    n_committees, " committees",
     if (random) " (random)" else " (first n)", " ===\n"
   ))
 
   # Optionally render index pages
-
   if (index_pages) {
     render_index_pages()
     message("\n")
   }
 
   # Get bills
- bills <- read_csv(here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
+  bills <- read_csv(here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
   if (random && n_bills < nrow(bills)) {
     bill_numbers <- sample(bills$bill_number, n_bills)
   } else {
     bill_numbers <- head(bills$bill_number, n_bills)
   }
 
-  # Get legislators
+  # Get legislators (exclude committees)
   people <- read_csv(here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
-  if (random && n_legislators < nrow(people)) {
-    people_ids <- sample(people$people_id, n_legislators)
+  legislators <- people |> filter(!is.na(first_name), first_name != "")
+  if (random && n_legislators < nrow(legislators)) {
+    people_ids <- sample(legislators$people_id, n_legislators)
   } else {
-    people_ids <- head(people$people_id, n_legislators)
+    people_ids <- head(legislators$people_id, n_legislators)
+  }
+
+  # Get committees
+  committees <- people |> filter(is.na(first_name) | first_name == "", committee_id > 0)
+  if (random && n_committees < nrow(committees)) {
+    committee_ids <- sample(committees$people_id, n_committees)
+  } else {
+    committee_ids <- head(committees$people_id, n_committees)
   }
 
   # Render bills
@@ -380,6 +500,19 @@ render_sample <- function(n_bills = 5, n_legislators = 5, random = FALSE, index_
     }
   }
 
+  message("\n")
+
+  # Render committees
+  message(paste("Rendering", length(committee_ids), "committees..."))
+  for (people_id in committee_ids) {
+    success <- render_committee(people_id)
+    if (success) {
+      current_hash <- get_committee_hash(people_id)
+      manifest <- update_manifest(manifest, "committee", as.character(people_id), current_hash)
+      save_manifest(manifest)
+    }
+  }
+
   message("\n=== Sample render complete ===")
 }
 
@@ -390,11 +523,17 @@ render_status <- function() {
   bills <- read_csv(here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
   people <- read_csv(here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
 
+  # Separate legislators from committees
+  legislators <- people |> filter(!is.na(first_name), first_name != "")
+  committees <- people |> filter(is.na(first_name) | first_name == "", committee_id > 0)
+
   bills_need_render <- sum(sapply(bills$bill_number, needs_render_bill, manifest = manifest))
-  legislators_need_render <- sum(sapply(people$people_id, needs_render_legislator, manifest = manifest))
+  legislators_need_render <- sum(sapply(legislators$people_id, needs_render_legislator, manifest = manifest))
+  committees_need_render <- sum(sapply(committees$people_id, needs_render_committee, manifest = manifest))
 
   bills_rendered <- manifest |> filter(type == "bill") |> nrow()
   legislators_rendered <- manifest |> filter(type == "legislator") |> nrow()
+  committees_rendered <- manifest |> filter(type == "committee") |> nrow()
 
   message(paste(
     "\n=== Render Status ===",
@@ -403,9 +542,13 @@ render_status <- function() {
     paste("\n  Previously rendered:", bills_rendered),
     paste("\n  Need rendering:", bills_need_render),
     paste("\n\nLegislators:"),
-    paste("\n  Total:", nrow(people)),
+    paste("\n  Total:", nrow(legislators)),
     paste("\n  Previously rendered:", legislators_rendered),
     paste("\n  Need rendering:", legislators_need_render),
+    paste("\n\nCommittees:"),
+    paste("\n  Total:", nrow(committees)),
+    paste("\n  Previously rendered:", committees_rendered),
+    paste("\n  Need rendering:", committees_need_render),
     "\n"
   ))
 }
@@ -427,6 +570,7 @@ render_site.R loaded. Available functions:
   Incremental Rendering (default):
     render_all_bills()           - Render only changed bills
     render_all_legislators()     - Render only changed legislators
+    render_all_committees()      - Render only changed committees
     render_site()                - Render everything (incremental)
 
   Force Full Render:
@@ -434,8 +578,8 @@ render_site.R loaded. Available functions:
     render_site(force=TRUE)      - Re-render everything
 
   Utilities:
-    test_render()                - Quick test (5 bills, 5 legislators)
-    render_sample(n_bills=10, n_legislators=5)  - Render a custom sample
+    test_render()                - Quick test (5 bills, 5 legislators, 3 committees)
+    render_sample(n_bills=10, n_legislators=5, n_committees=3)  - Render a custom sample
     render_sample(random=TRUE)   - Render a random sample
     render_status()              - Show how many items need rendering
     render_index_pages()         - Render main site index pages only
@@ -443,9 +587,10 @@ render_site.R loaded. Available functions:
 
   Limiting:
     render_all_bills(limit=10)   - Process first 10 bills only
+    render_all_committees(limit=5)  - Process first 5 committees only
 
 The manifest file (render_manifest.csv) tracks:
-  - Which items have been rendered
+  - Which items have been rendered (bills, legislators, committees)
   - The LegiScan hash at render time
   - Only items with changed hashes are re-rendered
 ")

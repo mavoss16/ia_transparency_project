@@ -22,7 +22,8 @@ source(here::here("R/utils.R"))
 
 ```{r}
 # Load data
-people <- read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+people <- read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE) |>
+  filter(!is.na(first_name), first_name != "")
 sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"), show_col_types = FALSE)
 votes <- read_csv(here::here("legiscan/files_ga91/votes.csv"), show_col_types = FALSE)
 
