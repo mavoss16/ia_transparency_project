@@ -15,7 +15,7 @@
 library(here)
 
 # Source the vote analysis functions
-source(here("R/data_pipeline/vote_analysis.R"))
+source(here("R/data_pipeline/02a_vote_analysis_functions.R"))
 
 
 # Configuration -----------------------------------------------------------

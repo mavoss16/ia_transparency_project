@@ -21,6 +21,7 @@ library(purrr)
 library(stringr)
 library(tidyr)
 library(gt)
+source(here::here("R/utils.R"))
 ```
 
 ```{r}
@@ -53,19 +54,21 @@ committee_id <- committee_data$committee_id
 ```{r}
 referred_bills <- bills |>
   filter(committee_id == !!committee_id) |>
-  select(bill_number, title, status_desc, status_date, last_action_date, last_action) |>
+  mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
+  select(bill_link, title, status_desc, status_date, last_action_date, last_action) |>
   arrange(desc(last_action_date))
 
 if (nrow(referred_bills) > 0) {
   gt(referred_bills) |>
     cols_label(
-      bill_number = "Bill",
+      bill_link = "Bill",
       title = "Title",
       status_desc = "Status",
       status_date = "Status Date",
       last_action_date = "Last Action Date",
       last_action = "Last Action"
     ) |>
+    fmt_markdown(columns = bill_link) |>
     tab_options(
       table.font.size = px(12),
       data_row.padding = px(4)
@@ -87,19 +90,21 @@ if (nrow(referred_bills) > 0) {
 sponsored_bills <- sponsors |>
   filter(people_id == params$people_id) |>
   left_join(bills, by = "bill_id") |>
-  select(bill_number, title, status_desc, status_date, last_action_date, last_action) |>
+  mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
+  select(bill_link, title, status_desc, status_date, last_action_date, last_action) |>
   arrange(desc(last_action_date))
 
 if (nrow(sponsored_bills) > 0) {
   gt(sponsored_bills) |>
     cols_label(
-      bill_number = "Bill",
+      bill_link = "Bill",
       title = "Title",
       status_desc = "Status",
       status_date = "Status Date",
       last_action_date = "Last Action Date",
       last_action = "Last Action"
     ) |>
+    fmt_markdown(columns = bill_link) |>
     tab_options(
       table.font.size = px(12),
       data_row.padding = px(4)
@@ -125,13 +130,14 @@ vote_pattern <- str_glue("{chamber_name}.*{committee_name}.*Report")
 committee_votes <- rollcalls |>
   filter(str_detect(description, regex(vote_pattern, ignore_case = TRUE))) |>
   left_join(bills |> select(bill_id, bill_number, title), by = "bill_id") |>
-  select(bill_number, title, date, description, yea, nay, nv, absent, total) |>
+  mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
+  select(bill_link, title, date, description, yea, nay, nv, absent, total) |>
   arrange(desc(date))
 
 if (nrow(committee_votes) > 0) {
   gt(committee_votes) |>
     cols_label(
-      bill_number = "Bill",
+      bill_link = "Bill",
       title = "Title",
       date = "Date",
       description = "Description",
@@ -141,6 +147,7 @@ if (nrow(committee_votes) > 0) {
       absent = "Absent",
       total = "Total"
     ) |>
+    fmt_markdown(columns = bill_link) |>
     tab_options(
       table.font.size = px(12),
       data_row.padding = px(4)

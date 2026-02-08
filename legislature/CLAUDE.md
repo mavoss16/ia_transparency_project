@@ -21,8 +21,13 @@ iowa_legislature/
 ├── R/                         # All R scripts
 │   ├── render_site.R          # Main rendering orchestrator
 │   ├── utils.R                # Helper functions
-│   ├── data_pipeline/         # LegiScan data fetching
-│   │   └── download_data.R
+│   ├── data_pipeline/         # LegiScan data fetching & processing
+│   │   ├── 01_download_legiscan_data.R
+│   │   ├── 02_process_votes.R
+│   │   ├── 02a_vote_analysis_functions.R
+│   │   ├── 03_bill_relationships.R
+│   │   ├── 03a_resume_scrape_relationships.R
+│   │   └── archive/           # Deprecated exploration scripts
 │   └── daily/                 # Daily update scripts
 ├── legiscan/                  # Raw LegiScan data
 │   ├── files_ga91/            # CSV files
@@ -36,7 +41,10 @@ iowa_legislature/
 ## Data Flow Architecture
 
 ```
-LegiScan API → R/data_pipeline/download_data.R → legiscan/files_ga91/
+LegiScan API → 01_download_legiscan_data.R → legiscan/files_ga91/
+                                                        ↓
+                                    02_process_votes.R → data/*.rds
+                                    03_bill_relationships.R → data/bill_groups.rds
                                                         ↓
                                     site/templates/ (bill_template.qmd, legislator_template.qmd)
                                                         ↓
@@ -87,7 +95,10 @@ Only items with changed hashes are re-rendered. Use `clear_manifest()` to force 
 |------|---------|
 | `R/render_site.R` | Main rendering orchestrator |
 | `R/utils.R` | Helper functions (`scrape_lobbyist_declarations`, `items_to_df`) |
-| `R/data_pipeline/download_data.R` | Downloads LegiScan data (requires API key) |
+| `R/data_pipeline/01_download_legiscan_data.R` | Downloads LegiScan data (requires API key) |
+| `R/data_pipeline/02_process_votes.R` | Processes votes into summaries, records, and legislator stats |
+| `R/data_pipeline/02a_vote_analysis_functions.R` | Vote classification and party alignment functions |
+| `R/data_pipeline/03_bill_relationships.R` | Scrapes bill relationships, builds bill groups |
 | `site/templates/bill_template.qmd` | Template for individual bill pages (param: `bill_num`) |
 | `site/templates/legislator_template.qmd` | Template for legislator pages (param: `people_id`) |
 | `site/index.qmd` | Home page with recent activity |
@@ -110,7 +121,7 @@ Only items with changed hashes are re-rendered. Use `clear_manifest()` to force 
 
 ## Environment Variables
 
-- `LEGISCAN_API_KEY` - Required for `download_data.R`
+- `LEGISCAN_API_KEY` - Required for `01_download_legiscan_data.R`
 
 ## Output
 

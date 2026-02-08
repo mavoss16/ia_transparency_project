@@ -1,5 +1,5 @@
 ---
-title: "legislator_template"
+# title: "legislator_template"
 format: 
   html:
     echo: false
@@ -21,6 +21,7 @@ library(purrr)
 library(stringr)
 library(tidyr)
 library(gt)
+source(here::here("R/utils.R"))
 ```
 
 ```{r}
@@ -203,7 +204,8 @@ if(nrow(leg_stats) > 0 && leg_stats$total_votes > 0) {
 ```{r}
 if(nrow(leg_sponsored_bills) > 0) {
   leg_sponsored_bills |>
-    select(bill_number, title, status_desc, status_date, position, sponsor_num) |>
+    mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
+    select(bill_link, title, status_desc, status_date, position, sponsor_num) |>
     mutate(
       Sponsor_Role = case_when(
         position == 1 & sponsor_num == 1 ~ "Sole Sponsor",
@@ -215,13 +217,14 @@ if(nrow(leg_sponsored_bills) > 0) {
     relocate(sponsor_num, .after = Sponsor_Role) |>
     gt() |>
     cols_label(
-      bill_number = "Bill",
+      bill_link = "Bill",
       title = "Title",
       status_desc = "Status",
       status_date = "Status Date",
       Sponsor_Role = "Role",
       sponsor_num = "# of Sponsors"
     ) |>
+    fmt_markdown(columns = bill_link) |>
     tab_options(
       table.font.size = px(12)
     )
@@ -234,14 +237,17 @@ if(nrow(leg_sponsored_bills) > 0) {
 
 ```{r}
 if(nrow(leg_votes) > 0) {
-  gt(leg_votes |> select(bill_number, title, date, description, vote_desc)) |>
+  gt(leg_votes |>
+    mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
+    select(bill_link, title, date, description, vote_desc)) |>
     cols_label(
-      bill_number = "File #",
+      bill_link = "File #",
       title = "Title",
       date = "Vote Date",
       description = "Vote Description",
       vote_desc = "Vote"
-    )
+    ) |>
+    fmt_markdown(columns = bill_link)
 } else {
   cat("No voting record found.\n")
 }
@@ -285,19 +291,21 @@ if(nrow(leg_vote_records) > 0) {
 if(nrow(leg_vote_records) > 0) {
   against_party <- leg_vote_records |>
     filter(vote_with_party == FALSE) |>
-    select(bill_number, vote_date, vote_desc, vote_text, party_position, vote_outcome) |>
+    mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
+    select(bill_link, vote_date, vote_desc, vote_text, party_position, vote_outcome) |>
     arrange(desc(vote_date))
 
   if(nrow(against_party) > 0) {
     gt(against_party) |>
       cols_label(
-        bill_number = "Bill",
+        bill_link = "Bill",
         vote_date = "Date",
         vote_desc = "Description",
         vote_text = "Vote",
         party_position = "Party Position",
         vote_outcome = "Classification"
-      )
+      ) |>
+      fmt_markdown(columns = bill_link)
   } else {
     cat("This legislator has not voted against their party.\n")
   }

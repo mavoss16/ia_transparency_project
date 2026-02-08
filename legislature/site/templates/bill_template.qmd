@@ -1,5 +1,5 @@
 ---
-title: "bill_template"
+# title: "bill_template"
 format: 
   html:
     echo: false
@@ -34,6 +34,7 @@ bill <- read_json(here::here(str_glue("legiscan/files_ga91_json/bill/{params$bil
   pluck("bill")
 
 people <- read_csv(here::here(str_glue("legiscan/files_ga91/people.csv")), show_col_types = FALSE)
+bills_csv <- read_csv(here::here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
 
 sponsors <- bill |>
   pluck("sponsors") |>
@@ -58,6 +59,29 @@ vote_summaries <- read_rds(here::here("data/vote_summaries_91st_ga.rds"))
 bill_vote_summaries <- vote_summaries |>
   filter(bill_id == bill$bill_id)
 
+# Load bill groups (graceful degradation if not yet generated)
+bill_groups_path <- here::here("data/bill_groups.rds")
+if (file.exists(bill_groups_path)) {
+  bill_groups <- read_rds(bill_groups_path)
+  bill_group_info <- bill_groups |> filter(bill == params$bill_num)
+} else {
+  bill_groups <- tibble(
+    bill = character(),
+    status = character(),
+    group_status = character(),
+    group_size = integer(),
+    lead_bill = character(),
+    group_members = list()
+  )
+  bill_group_info <- tibble(
+    bill = params$bill_num,
+    status = NA_character_,
+    group_status = NA_character_,
+    group_size = 1L,
+    lead_bill = NA_character_,
+    group_members = list(params$bill_num)
+  )
+}
 ```
 
 
@@ -75,9 +99,75 @@ if (!is.null(sponsors) && nrow(sponsors) > 0) {
 }
 ```
 
-*Status: * 
+```{r}
+#| output: asis
+if (nrow(bill_group_info) > 0 && !is.na(bill_group_info$status)) {
+  cat(paste0("**Status:** ", bill_group_info$status, "\n\n"))
 
-*Most Recent Action: *
+  if (bill_group_info$group_size > 1 && bill_group_info$status != bill_group_info$group_status) {
+    lead_bill_display <- str_replace(bill_group_info$lead_bill, "^([A-Z]+)(\\d+)$", "\\1 \\2")
+    cat(paste0("**Group Status:** ", bill_group_info$group_status,
+               " (via [", lead_bill_display, "](", bill_group_info$lead_bill, ".html))\n\n"))
+  }
+} else {
+  cat("**Status:** ", bill$status, "\n\n")
+}
+```
+
+*Most Recent Action: `r if(!is.null(history) && nrow(history) > 0) history$action[1] else "None"`*
+
+---
+
+## Related Legislation
+
+```{r}
+#| output: asis
+if (nrow(bill_group_info) > 0 && bill_group_info$group_size > 1) {
+  cat(paste0("This bill is part of a group of **", bill_group_info$group_size, "** related bills. "))
+
+  if (bill_group_info$status != bill_group_info$group_status) {
+    lead_bill_display <- str_replace(bill_group_info$lead_bill, "^([A-Z]+)(\\d+)$", "\\1 \\2")
+    cat(paste0("The group's furthest progress is **", bill_group_info$group_status,
+               "**, achieved by [", lead_bill_display, "](", bill_group_info$lead_bill, ".html).\n\n"))
+  } else {
+    cat("\n\n")
+  }
+} else {
+  cat("No related bills identified.\n")
+}
+```
+
+```{r}
+if (nrow(bill_group_info) > 0 && bill_group_info$group_size > 1) {
+  related_bills_list <- unlist(bill_group_info$group_members)
+
+  related_df <- bill_groups |>
+    filter(bill %in% related_bills_list, bill != params$bill_num) |>
+    left_join(
+      bills_csv |> select(bill_number, title),
+      by = c("bill" = "bill_number")
+    ) |>
+    mutate(bill_link = format_bill_link(bill, "")) |>
+    arrange(desc(status_level)) |>
+    select(bill_link, title, status)
+
+  if (nrow(related_df) > 0) {
+    gt(related_df) |>
+      cols_label(
+        bill_link = "Bill",
+        title = "Title",
+        status = "Status"
+      ) |>
+      fmt_markdown(columns = bill_link) |>
+      tab_options(
+        table.font.size = px(12),
+        data_row.padding = px(4)
+      )
+  }
+}
+```
+
+---
 
 ::: {.panel-tabset}
 

@@ -11,6 +11,15 @@ fill_empty <- function(x, default = NA) {
   if (is.null(x) || length(x) == 0) default else x
 }
 
+#' Format a bill number as an HTML link with spaced display name
+#' @param bill_number Bill number string (e.g., "HF1", "SF23")
+#' @param path_prefix Relative path prefix to the legislation directory (e.g., "../legislation/")
+#' @return HTML anchor tag string
+format_bill_link <- function(bill_number, path_prefix = "") {
+  display <- str_replace(bill_number, "^([A-Z]+)(\\d+)$", "\\1 \\2")
+  str_glue("<a href='{path_prefix}{bill_number}.html'>{display}</a>")
+}
+
 #' Generate a URL-friendly filename for a legislator
 #' @param people_id Numeric ID for the legislator
 #' @param people_df Optional dataframe of people (to avoid re-reading CSV)

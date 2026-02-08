@@ -26,18 +26,71 @@ people <- read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types 
   filter(!is.na(first_name), first_name != "")
 sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"), show_col_types = FALSE)
 votes <- read_csv(here::here("legiscan/files_ga91/votes.csv"), show_col_types = FALSE)
+rollcalls <- read_csv(here::here("legiscan/files_ga91/rollcalls.csv"), show_col_types = FALSE)
 
 # Load processed voting statistics
 legislator_stats <- read_rds(here::here("data/legislator_voting_stats_91st_ga.rds"))
 ```
 
+```{r}
+# Identify former legislators via duplicate districts.
+# When a legislator resigns or passes away, LegiScan adds their replacement
+# to the same district, creating duplicate entries. We determine who is former
+# by comparing last vote dates within each duplicate pair.
+last_vote_dates <- votes |>
+  left_join(rollcalls |> select(roll_call_id, date), by = "roll_call_id") |>
+  group_by(people_id) |>
+  summarize(last_vote_date = max(date, na.rm = TRUE), .groups = "drop")
+
+dup_districts <- people |>
+  count(role, district) |>
+  filter(n > 1)
+
+former_ids <- people |>
+  semi_join(dup_districts, by = c("role", "district")) |>
+  left_join(last_vote_dates, by = "people_id") |>
+  group_by(role, district) |>
+  mutate(
+    is_former = case_when(
+      # Both have votes: the one who voted earlier is former
+      all(!is.na(last_vote_date)) ~ last_vote_date == min(last_vote_date),
+      # One has votes, one doesn't: the voter left and was replaced
+      !is.na(last_vote_date) ~ TRUE,
+      # No votes yet: this is the new replacement
+      is.na(last_vote_date) ~ FALSE
+    )
+  ) |>
+  ungroup() |>
+  filter(is_former) |>
+  pull(people_id)
+
+former_info <- people |>
+  semi_join(dup_districts, by = c("role", "district")) |>
+  mutate(is_former = people_id %in% former_ids) |>
+  arrange(role, district, is_former) |>
+  group_by(role, district) |>
+  summarize(
+    former = name[is_former],
+    former_party = party[is_former],
+    replacement = name[!is_former],
+    replacement_party = party[!is_former],
+    .groups = "drop"
+  ) |>
+  mutate(
+    chamber = if_else(role == "Sen", "Senate", "House"),
+    note = str_glue("{former} ({former_party}) replaced by {replacement} ({replacement_party}), {district}")
+  )
+
+active_people <- people |> filter(!people_id %in% former_ids)
+```
+
 ## Overview
 
-The 91st Iowa General Assembly consists of **`r nrow(people)`** legislators serving in the House and Senate.
+The 91st Iowa General Assembly currently has **`r nrow(active_people)`** legislators serving in the House and Senate.
 
 ```{r}
-# Party breakdown by chamber
-chamber_party <- people |>
+# Party breakdown by chamber (active legislators only)
+chamber_party <- active_people |>
   count(role, party) |>
   pivot_wider(names_from = party, values_from = n, values_fill = 0) |>
   mutate(
@@ -55,6 +108,16 @@ gt(chamber_party) |>
     D = "Democrat"
   ) |>
   tab_header(title = "Party Composition by Chamber")
+```
+
+```{r}
+#| output: asis
+if (nrow(former_info) > 0) {
+  cat("**Note:** The following legislators are no longer serving and have been replaced this session:\n\n")
+  for (i in seq_len(nrow(former_info))) {
+    cat(str_glue("- {former_info$note[i]}"), "\n")
+  }
+}
 ```
 
 ---

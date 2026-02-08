@@ -414,6 +414,9 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1963434,1553620,2025-04-22,Senate,"Shall the bill pass?",46,0,0,4,50
 1963490,1485356,2025-02-10,Senate,"Senate Health And Human Services Report",17,0,0,0,17
 1963581,1491963,2025-02-18,House,"House Committee On Health And Human Services Report",19,0,0,0,19
+1963606,1615536,2026-01-21,House,"House Committee On Commerce Report",22,0,0,1,23
+1963606,1615537,2026-01-21,House,"House Committee On Commerce Report",22,0,0,1,23
+1963606,1615538,2026-01-21,House,"House Committee On Commerce Report",22,0,0,1,23
 1963643,1506816,2025-03-05,House,"House Committee On Education Report",14,9,0,0,23
 1963668,1493454,2025-02-19,House,"House Committee On Education Report",14,8,0,0,22
 1963739,1520125,2025-03-18,House,"Shall the bill pass?",65,32,0,2,99
@@ -976,6 +979,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1988407,1535335,2025-04-02,Senate,"Senate Commerce Report",20,0,0,0,20
 1988407,1570036,2025-05-12,Senate,"Shall amendment S–3165 to amendment S–3064 be adopted?",22,28,0,0,50
 1988407,1570037,2025-05-12,Senate,"Shall the bill pass?",27,22,0,1,50
+1988407,1616876,2025-05-12,Senate,"Shall the motion pass?",15,34,0,1,50
 1988442,1517271,2025-03-13,House,"Shall the bill pass?",89,6,0,4,99
 1988442,1548844,2025-04-15,Senate,"Shall the bill pass?",47,0,0,3,50
 1988459,1517407,2025-03-13,House,"Shall the bill pass?",95,0,0,4,99
@@ -1024,6 +1028,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1990783,1559519,2025-04-28,Senate,"Shall the bill pass?",42,8,0,0,50
 1990813,1507803,2025-03-06,House,"House Committee On Economic Growth And Technology Report",20,1,0,0,21
 1990822,1505019,2025-03-04,Senate,"Senate Workforce Report",9,4,0,0,13
+1990822,1615396,2026-01-21,Senate,"Senate Workforce Report",7,4,0,1,12
 1990842,1506948,2025-03-05,House,"House Committee On State Government Report",21,0,0,0,21
 1990860,1508365,2025-03-04,Senate,"Senate Local Government Report",11,0,0,2,13
 1990890,1507821,2025-03-06,House,"House Committee On Economic Growth And Technology Report",20,0,0,1,21
@@ -1036,6 +1041,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1991003,1532874,2025-04-01,House,"House Committee On Commerce Report",13,7,0,1,21
 1991028,1505028,2025-03-04,Senate,"Senate Workforce Report",8,5,0,0,13
 1991049,1505537,2025-03-04,Senate,"Senate Transportation Report",15,1,0,0,16
+1991049,1615532,2026-01-21,Senate,"Senate Transportation Report",15,1,0,1,17
 1991326,1504921,2025-03-04,Senate,"Senate Education Report",11,5,0,0,16
 1991439,1504926,2025-03-04,Senate,"Senate Local Government Report",10,3,0,0,13
 1991606,1508029,2025-03-05,Senate,"Senate Education Report",16,0,0,0,16
@@ -1583,3 +1589,14 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2031434,1571989,2025-05-14,Senate,"Shall the bill pass?",43,0,0,7,50
 2031434,1572579,2025-05-14,House,"Shall the bill pass?",80,2,0,18,100
 2071429,1614168,2026-01-15,House,"House Committee On Judiciary Report",19,2,0,0,21
+2072262,1614873,2026-01-20,House,"House Committee On Public Safety Report",17,6,0,0,23
+2072262,1614874,2026-01-20,House,"House Committee On Public Safety Report",17,6,0,0,23
+2072262,1614875,2026-01-20,House,"House Committee On Public Safety Report",17,6,0,0,23
+2077599,1615402,2026-01-21,House,"House Committee On Commerce Report",14,4,0,3,21
+2077599,1615403,2026-01-21,House,"House Committee On Commerce Report",14,4,0,3,21
+2082355,1615404,2026-01-21,House,"Shall the bill pass?",64,28,0,8,100
+2090046,1616083,2026-01-22,Senate,"Senate Workforce Report",11,0,0,1,12
+2090335,1616232,2026-01-22,Senate,"Senate Transportation Report",16,0,0,1,17
+2090353,1616257,2026-01-22,Senate,"Senate Workforce Report",11,0,0,1,12
+2090520,1616291,2026-01-22,Senate,"Senate Health And Human Services Report",14,1,0,2,17
+2090625,1616293,2026-01-22,Senate,"Senate Workforce Report",7,4,0,1,12

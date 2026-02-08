@@ -15,6 +15,7 @@ library(readr)
 library(dplyr)
 library(stringr)
 library(gt)
+source(here::here("R/utils.R"))
 ```
 
 ```{r}
@@ -69,7 +70,7 @@ recent_activity <- history |>
   arrange(desc(date), desc(sequence)) |>
   head(50) |>
   mutate(
-    bill_link = str_glue("<a href='legislation/{bill_number}.html'>{bill_number}</a>")
+    bill_link = format_bill_link(bill_number, "legislation/")
   ) |>
   select(date, bill_link, chamber, action, title)
 

@@ -16,6 +16,7 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(gt)
+source(here::here("R/utils.R"))
 ```
 
 ```{r}
@@ -24,6 +25,19 @@ bills <- read_csv(here::here("legiscan/files_ga91/bills.csv"), show_col_types = 
 people <- read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
 sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"), show_col_types = FALSE) |>
   left_join(people)
+
+# Load bill groups (graceful degradation if not yet generated)
+bill_groups_path <- here::here("data/bill_groups.rds")
+if (file.exists(bill_groups_path)) {
+  bill_groups <- read_rds(bill_groups_path)
+} else {
+  bill_groups <- tibble(
+    bill = character(),
+    group_status = character(),
+    group_size = integer(),
+    lead_bill = character()
+  )
+}
 ```
 
 ## Overview
@@ -61,18 +75,66 @@ gt(bill_types) |>
 
 ### Status Summary
 
-```{r}
-status_summary <- bills |>
-  count(status_desc, name = "count") |>
-  arrange(desc(count))
+::: {.grid}
 
-gt(status_summary) |>
-  cols_label(
-    status_desc = "Status",
-    count = "Count"
-  ) |>
-  tab_header(title = "Bills by Status")
+::: {.g-col-6}
+```{r}
+if (nrow(bill_groups) > 0) {
+  status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
+                    "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
+
+  status_summary <- bill_groups |>
+    count(status, name = "count") |>
+    mutate(status = factor(status, levels = status_order)) |>
+    arrange(status)
+
+  gt(status_summary) |>
+    cols_label(
+      status = "Status",
+      count = "Count"
+    ) |>
+    tab_header(title = "Bills by Individual Status")
+} else {
+  # Fallback to LegiScan status if bill_groups not available
+  status_summary <- bills |>
+    count(status_desc, name = "count") |>
+    arrange(desc(count))
+
+  gt(status_summary) |>
+    cols_label(
+      status_desc = "Status",
+      count = "Count"
+    ) |>
+    tab_header(title = "Bills by Individual Status")
+}
 ```
+:::
+
+::: {.g-col-6}
+```{r}
+if (nrow(bill_groups) > 0) {
+  group_status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
+                          "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
+
+  group_status_summary <- bill_groups |>
+    count(group_status, name = "count") |>
+    mutate(group_status = factor(group_status, levels = group_status_order)) |>
+    arrange(group_status)
+
+  gt(group_status_summary) |>
+    cols_label(
+      group_status = "Group Status",
+      count = "Count"
+    ) |>
+    tab_header(title = "Bills by Group Status") |>
+    tab_footnote("Group status reflects the furthest progress of any related bill.")
+} else {
+  cat("Group status data not yet available. Run `update_bill_groups()` to generate.")
+}
+```
+:::
+
+:::
 
 ---
 
@@ -84,16 +146,21 @@ Bills with the most recent activity:
 recent_bills <- bills |>
   arrange(desc(last_action_date)) |>
   head(25) |>
-  mutate(
-    bill_link = str_glue("<a href='{bill_number}.html'>{bill_number}</a>")
+  left_join(
+    bill_groups |> select(bill, bill_status = status),
+    by = c("bill_number" = "bill")
   ) |>
-  select(bill_link, title, status_desc, last_action_date, last_action)
+  mutate(
+    bill_link = format_bill_link(bill_number),
+    display_status = coalesce(bill_status, status_desc)
+  ) |>
+  select(bill_link, title, display_status, last_action_date, last_action)
 
 gt(recent_bills) |>
   cols_label(
     bill_link = "Bill",
     title = "Title",
-    status_desc = "Status",
+    display_status = "Status",
     last_action_date = "Last Action Date",
     last_action = "Last Action"
   ) |>
@@ -105,7 +172,7 @@ gt(recent_bills) |>
   cols_width(
     bill_link ~ px(80),
     title ~ px(300),
-    status_desc ~ px(100),
+    display_status ~ px(120),
     last_action_date ~ px(100),
     last_action ~ px(250)
   )
@@ -117,6 +184,8 @@ gt(recent_bills) |>
 
 Use the interactive table below to search and filter all bills.
 
+*Group Status shows the furthest progress of any related bill. An asterisk (\*) indicates the group has progressed further than this individual bill.*
+
 ```{r}
 # Get primary sponsor for each bill
 primary_sponsors <- sponsors |>
@@ -125,16 +194,27 @@ primary_sponsors <- sponsors |>
 
 all_bills <- bills |>
   left_join(primary_sponsors, by = "bill_id") |>
+  left_join(
+    bill_groups |> select(bill, bill_status = status, group_status, group_size),
+    by = c("bill_number" = "bill")
+  ) |>
   mutate(
-    bill_link = str_glue("<a href='{bill_number}.html'>{bill_number}</a>"),
+    bill_link = format_bill_link(bill_number),
     chamber = case_when(
       str_detect(bill_number, "^H") ~ "House",
       str_detect(bill_number, "^S") ~ "Senate",
       TRUE ~ "Other"
+    ),
+    display_status = coalesce(bill_status, status_desc),
+    group_status_display = case_when(
+      is.na(group_status) ~ NA_character_,
+      group_size == 1 ~ group_status,
+      group_status == display_status ~ group_status,
+      TRUE ~ paste0(group_status, "*")
     )
   ) |>
   arrange(desc(last_action_date)) |>
-  select(bill_link, title, chamber, sponsor_name, status_desc, last_action_date)
+  select(bill_link, title, chamber, sponsor_name, display_status, group_status_display, last_action_date)
 
 gt(all_bills) |>
   cols_label(
@@ -142,7 +222,8 @@ gt(all_bills) |>
     title = "Title",
     chamber = "Chamber",
     sponsor_name = "Primary Sponsor",
-    status_desc = "Status",
+    display_status = "Status",
+    group_status_display = "Group Status",
     last_action_date = "Last Action"
   ) |>
   fmt_markdown(columns = bill_link) |>
@@ -151,12 +232,13 @@ gt(all_bills) |>
     data_row.padding = px(4)
   ) |>
   cols_width(
-    bill_link ~ px(80),
-    title ~ px(350),
-    chamber ~ px(70),
-    sponsor_name ~ px(150),
-    status_desc ~ px(100),
-    last_action_date ~ px(100)
+    bill_link ~ px(70),
+    title ~ px(280),
+    chamber ~ px(60),
+    sponsor_name ~ px(120),
+    display_status ~ px(110),
+    group_status_display ~ px(120),
+    last_action_date ~ px(90)
   ) |>
   opt_interactive(
     use_search = TRUE,
@@ -174,18 +256,30 @@ gt(all_bills) |>
 house_files <- bills |>
   filter(str_detect(bill_number, "^HF")) |>
   left_join(primary_sponsors, by = "bill_id") |>
+  left_join(
+    bill_groups |> select(bill, bill_status = status, group_status, group_size),
+    by = c("bill_number" = "bill")
+  ) |>
   mutate(
-    bill_link = str_glue("<a href='{bill_number}.html'>{bill_number}</a>")
+    bill_link = format_bill_link(bill_number),
+    display_status = coalesce(bill_status, status_desc),
+    group_status_display = case_when(
+      is.na(group_status) ~ NA_character_,
+      group_size == 1 ~ group_status,
+      group_status == display_status ~ group_status,
+      TRUE ~ paste0(group_status, "*")
+    )
   ) |>
   arrange(as.numeric(str_extract(bill_number, "\\d+"))) |>
-  select(bill_link, title, sponsor_name, status_desc, last_action_date)
+  select(bill_link, title, sponsor_name, display_status, group_status_display, last_action_date)
 
 gt(house_files) |>
   cols_label(
     bill_link = "Bill",
     title = "Title",
     sponsor_name = "Primary Sponsor",
-    status_desc = "Status",
+    display_status = "Status",
+    group_status_display = "Group Status",
     last_action_date = "Last Action"
   ) |>
   fmt_markdown(columns = bill_link) |>
@@ -209,18 +303,30 @@ gt(house_files) |>
 senate_files <- bills |>
   filter(str_detect(bill_number, "^SF")) |>
   left_join(primary_sponsors, by = "bill_id") |>
+  left_join(
+    bill_groups |> select(bill, bill_status = status, group_status, group_size),
+    by = c("bill_number" = "bill")
+  ) |>
   mutate(
-    bill_link = str_glue("<a href='{bill_number}.html'>{bill_number}</a>")
+    bill_link = format_bill_link(bill_number),
+    display_status = coalesce(bill_status, status_desc),
+    group_status_display = case_when(
+      is.na(group_status) ~ NA_character_,
+      group_size == 1 ~ group_status,
+      group_status == display_status ~ group_status,
+      TRUE ~ paste0(group_status, "*")
+    )
   ) |>
   arrange(as.numeric(str_extract(bill_number, "\\d+"))) |>
-  select(bill_link, title, sponsor_name, status_desc, last_action_date)
+  select(bill_link, title, sponsor_name, display_status, group_status_display, last_action_date)
 
 gt(senate_files) |>
   cols_label(
     bill_link = "Bill",
     title = "Title",
     sponsor_name = "Primary Sponsor",
-    status_desc = "Status",
+    display_status = "Status",
+    group_status_display = "Group Status",
     last_action_date = "Last Action"
   ) |>
   fmt_markdown(columns = bill_link) |>
