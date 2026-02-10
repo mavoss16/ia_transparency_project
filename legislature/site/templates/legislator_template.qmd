@@ -21,6 +21,9 @@ library(purrr)
 library(stringr)
 library(tidyr)
 library(gt)
+library(sf)
+library(leaflet)
+library(htmltools)
 source(here::here("R/utils.R"))
 ```
 
@@ -64,6 +67,15 @@ vote_records <- read_rds(here::here("data/vote_records_91st_ga.rds"))
 
 leg_stats <- legislator_stats |> filter(people_id == params$people_id)
 leg_vote_records <- vote_records |> filter(people_id == params$people_id)
+
+# Load district shapefiles for map
+senate_districts <- st_read(here::here("data/Districts/Plan2_Senate.shp"), quiet = TRUE) |>
+  st_transform(crs = 4326) |>
+  transmute(District = as.numeric(DISTRICT))
+
+house_districts <- st_read(here::here("data/Districts/Plan2_House.shp"), quiet = TRUE) |>
+  st_transform(crs = 4326) |>
+  transmute(District = as.numeric(DISTRICT))
 ```
 
 # `r legislator$name` (`r legislator$party`-`r legislator$district`)
@@ -99,6 +111,40 @@ gt(profile_data) |>
 
 - [Ballotpedia Profile](https://ballotpedia.org/`r legislator$ballotpedia`){target="_blank"}
 - [VoteSmart Profile](https://justfacts.votesmart.org/candidate/`r legislator$votesmart_id`){target="_blank"}
+
+### District Map
+
+```{r}
+district_num <- parse_district_number(legislator$district)
+districts_sf <- if (legislator$role == "Sen") senate_districts else house_districts
+
+highlight <- districts_sf |> filter(District == district_num)
+others <- districts_sf |> filter(District != district_num)
+
+party_color <- if (legislator$party == "D") "#2320E6" else "#DC0309"
+
+bbox <- st_bbox(highlight)
+
+leaflet() |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    data = others,
+    fillColor = "#CCCCCC",
+    fillOpacity = 0.2,
+    color = "#999999",
+    weight = 1,
+    label = ~paste("District", District)
+  ) |>
+  addPolygons(
+    data = highlight,
+    fillColor = party_color,
+    fillOpacity = 0.6,
+    color = party_color,
+    weight = 3,
+    label = ~paste(legislator$name, "-", legislator$district)
+  ) |>
+  fitBounds(bbox[["xmin"]], bbox[["ymin"]], bbox[["xmax"]], bbox[["ymax"]])
+```
 
 ---
 

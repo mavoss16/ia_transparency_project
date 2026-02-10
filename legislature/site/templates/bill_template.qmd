@@ -23,6 +23,9 @@ library(stringr)
 library(tidyr)
 
 library(gt)
+library(sf)
+library(leaflet)
+library(htmltools)
 
 source(here::here("R/utils.R"))
 
@@ -82,22 +85,34 @@ if (file.exists(bill_groups_path)) {
     group_members = list(params$bill_num)
   )
 }
+
+# Load district shapefiles for vote maps
+senate_districts <- st_read(here::here("data/Districts/Plan2_Senate.shp"), quiet = TRUE) |>
+  st_transform(crs = 4326) |>
+  transmute(District = as.numeric(DISTRICT))
+
+house_districts <- st_read(here::here("data/Districts/Plan2_House.shp"), quiet = TRUE) |>
+  st_transform(crs = 4326) |>
+  transmute(District = as.numeric(DISTRICT))
+
+# Scrape lobbyist declarations
+lobby <- tryCatch(
+  scrape_lobbyist_declarations(params$bill_num),
+  error = function(e) {
+    message(paste("Lobbyist scrape failed for", params$bill_num, ":", e$message))
+    NULL
+  }
+)
+
+lobby_for <- if (!is.null(lobby) && nrow(lobby) > 0) sum(lobby$most_recent_declaration == "For", na.rm = TRUE) else 0
+lobby_against <- if (!is.null(lobby) && nrow(lobby) > 0) sum(lobby$most_recent_declaration == "Against", na.rm = TRUE) else 0
+lobby_undecided <- if (!is.null(lobby) && nrow(lobby) > 0) sum(lobby$most_recent_declaration == "Undecided", na.rm = TRUE) else 0
 ```
 
 
 # [`r params$bill_num`](`r bill$state_link`){target="_blank"}
 
 `r bill$title`
-
-## Sponsors
-```{r}
-if (!is.null(sponsors) && nrow(sponsors) > 0) {
-  gt(sponsors |> select(role, name, party, district)) |>
-    cols_label(role = "Role", name = "Name", party = "Party", district = "District")
-} else {
-  cat("No sponsors listed.")
-}
-```
 
 ```{r}
 #| output: asis
@@ -112,9 +127,25 @@ if (nrow(bill_group_info) > 0 && !is.na(bill_group_info$status)) {
 } else {
   cat("**Status:** ", bill$status, "\n\n")
 }
+
+cat(paste0("*Most Recent Action: ", if(!is.null(history) && nrow(history) > 0) history$action[1] else "None", "*\n\n"))
+
+if (!is.null(lobby) && nrow(lobby) > 0) {
+  cat(paste0("**Lobbyist Declarations:** ", lobby_for, " For | ", lobby_against, " Against | ", lobby_undecided, " Undecided\n\n"))
+}
 ```
 
-*Most Recent Action: `r if(!is.null(history) && nrow(history) > 0) history$action[1] else "None"`*
+---
+
+## Sponsors
+```{r}
+if (!is.null(sponsors) && nrow(sponsors) > 0) {
+  gt(sponsors |> select(role, name, party, district)) |>
+    cols_label(role = "Role", name = "Name", party = "Party", district = "District")
+} else {
+  cat("No sponsors listed.")
+}
+```
 
 ---
 
@@ -174,8 +205,10 @@ if (nrow(bill_group_info) > 0 && bill_group_info$group_size > 1) {
 ## Legislation History
 ```{r}
 if (!is.null(history) && nrow(history) > 0) {
-  gt(history |> select(date, action, chamber, importance)) |>
-    cols_label(date = "Date", action = "Action", chamber = "Chamber", importance = "Importance")
+  gt(history |>
+    mutate(chamber = case_when(chamber == "H" ~ "House", chamber == "S" ~ "Senate", .default = chamber)) |>
+    select(date, chamber, action)) |>
+    cols_label(date = "Date", chamber = "Chamber", action = "Action")
 } else {
   cat("No legislative history recorded yet.")
 }
@@ -229,37 +262,98 @@ if (!is.null(votes) && nrow(votes) > 0) {
 if (!is.null(votes) && nrow(votes) > 0) {
   votes_filtered <- votes |> filter(!str_detect(desc, "Report$"))
 
-  for(vote_num in votes_filtered |> pull(roll_call_id)){
+  vote_child_template <- c(
+    "## `r vote_row$chamber` : `r vote_row$date`",
+    "",
+    "#### `r vote_row$desc`",
+    "",
+    "```{r}",
+    "#| echo: false",
+    "#| message: false",
+    "#| warning: false",
+    "vote <- read_json(here::here(paste0('legiscan/files_ga91_json/vote/', vote_num, '.json'))) |>",
+    "  pluck('roll_call') |>",
+    "  pluck('votes') |>",
+    "  items_to_df() |>",
+    "  left_join(people |> select(people_id, name, party, district)) |>",
+    "  select(-people_id, -vote_id) |>",
+    "  arrange(district)",
+    "",
+    "summary_tbl <- vote |>",
+    "  count(party, vote_text) |>",
+    "  mutate(vote_text = factor(vote_text, levels = c('Yea', 'Nay', 'Absent'))) |>",
+    "  arrange(vote_text, party) |>",
+    "  pivot_wider(names_from = vote_text, values_from = n) |>",
+    "  mutate(across(everything(), .fns = function(x){replace_na(x, 0)}))",
+    "",
+    "gt(summary_tbl, rowname_col = 'party') |>",
+    "  tab_stubhead(label = 'Party')",
+    "```",
+    "",
+    "```{r}",
+    "#| echo: false",
+    "#| message: false",
+    "#| warning: false",
+    "vote_chamber <- vote_row$chamber",
+    "districts_sf <- if (vote_chamber == 'H') house_districts else senate_districts",
+    "",
+    "vote_map_data <- vote |>",
+    "  mutate(",
+    "    district_num = parse_district_number(district),",
+    "    vote_category = case_when(",
+    "      party == 'D' & vote_text == 'Yea' ~ 'Democrat: Yea',",
+    "      party == 'D' & vote_text == 'Nay' ~ 'Democrat: Nay',",
+    "      party == 'R' & vote_text == 'Yea' ~ 'Republican: Yea',",
+    "      party == 'R' & vote_text == 'Nay' ~ 'Republican: Nay',",
+    "      .default = 'Absent/NV'",
+    "    ),",
+    "    fill_color = case_when(",
+    "      vote_category == 'Democrat: Yea' ~ '#2320E6',",
+    "      vote_category == 'Democrat: Nay' ~ '#A4A3F6',",
+    "      vote_category == 'Republican: Yea' ~ '#DC0309',",
+    "      vote_category == 'Republican: Nay' ~ '#EE8181',",
+    "      .default = '#CCCCCC'",
+    "    )",
+    "  )",
+    "",
+    "map_sf <- districts_sf |>",
+    "  left_join(vote_map_data |> select(district_num, name, party, vote_text, vote_category, fill_color),",
+    "            by = c('District' = 'district_num'))",
+    "",
+    "leaflet(map_sf) |>",
+    "  addProviderTiles(providers$CartoDB.Positron) |>",
+    "  addPolygons(",
+    "    fillColor = ~ifelse(is.na(fill_color), '#CCCCCC', fill_color),",
+    "    fillOpacity = 0.7,",
+    "    color = '#333333',",
+    "    weight = 1,",
+    "    label = ~paste0(ifelse(is.na(name), paste('District', District), name),",
+    "                    ' (', ifelse(is.na(party), '?', party), '-', District, '): ',",
+    "                    ifelse(is.na(vote_text), 'No vote', vote_text))",
+    "  ) |>",
+    "  addLegend(",
+    "    position = 'bottomright',",
+    "    colors = c('#2320E6', '#A4A3F6', '#DC0309', '#EE8181', '#CCCCCC'),",
+    "    labels = c('Democrat: Yea', 'Democrat: Nay', 'Republican: Yea', 'Republican: Nay', 'Absent/NV'),",
+    "    title = 'Vote'",
+    "  )",
+    "```",
+    "",
+    "```{r}",
+    "#| echo: false",
+    "#| message: false",
+    "#| warning: false",
+    "gt(vote)",
+    "```",
+    ""
+  )
+
+  res <- lapply(votes_filtered |> pull(roll_call_id), function(vote_num) {
     vote_row <- votes |> filter(roll_call_id == vote_num)
+    knitr::knit_child(text = vote_child_template, envir = environment(), quiet = TRUE)
+  })
 
-    cat("##", vote_row$chamber, ": ", vote_row$date, "\n\n")
-
-    cat("#### ", vote_row$desc, "\n\n")
-
-    vote <- read_json(here::here(str_glue("legiscan/files_ga91_json/vote/{vote_num}.json"))) |>
-      pluck("roll_call") |>
-      pluck("votes") |>
-      items_to_df() |>
-      left_join(people |> select(people_id, name, party, district)) |>
-      select(-people_id, -vote_id) |>
-      arrange(district)
-
-    summary <- vote |>
-      count(party, vote_text) |>
-      mutate(vote_text = factor(vote_text, levels = c("Yea", "Nay", "Absent"))) |>
-      arrange(vote_text, party) |>
-      pivot_wider(names_from = vote_text, values_from = n) |>
-      mutate(across(everything(), .fns = function(x){replace_na(x, 0)}))
-
-    gt(summary, rowname_col = "party") |>
-      tab_stubhead(label = "Party") |>
-      as_raw_html() |>
-      cat()
-
-    gt(vote) |>
-      as_raw_html() |>
-      cat()
-  }
+  cat(unlist(res), sep = "\n")
 }
 ```
 
@@ -269,18 +363,29 @@ if (!is.null(votes) && nrow(votes) > 0) {
 ## Lobbyist Declarations
 
 ```{r}
-lobby <- tryCatch(
-  scrape_lobbyist_declarations(params$bill_num),
-  error = function(e) {
-    message(paste("Lobbyist scrape failed for", params$bill_num, ":", e$message))
-    NULL
-  }
-)
-
+#| output: asis
 if (!is.null(lobby) && nrow(lobby) > 0) {
-  gt(lobby |> select(-bill))
+  cat(paste0("**For:** ", lobby_for, " | **Against:** ", lobby_against, " | **Undecided:** ", lobby_undecided, "\n\n"))
 } else {
   cat("Lobbyist declaration data is currently unavailable for this bill.\n")
+}
+```
+
+```{r}
+if (!is.null(lobby) && nrow(lobby) > 0) {
+  gt(lobby |>
+    select(client, most_recent_declaration, date) |>
+    arrange(most_recent_declaration, client)) |>
+    cols_label(
+      client = "Client",
+      most_recent_declaration = "Declaration",
+      date = "Last Updated"
+    ) |>
+    fmt_date(columns = date, date_style = "yMMMd") |>
+    tab_options(
+      table.font.size = px(12),
+      data_row.padding = px(4)
+    )
 }
 ```
 

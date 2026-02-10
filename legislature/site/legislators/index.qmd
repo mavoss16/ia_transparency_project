@@ -129,18 +129,32 @@ if (nrow(former_info) > 0) {
 sponsor_counts <- sponsors |>
   count(people_id, name = "bills_sponsored")
 
+# Count bills where legislator is the only sponsor
+sole_sponsor_counts <- sponsors |>
+  group_by(bill_id) |>
+  filter(n() == 1, position == 1) |>
+  ungroup() |>
+  count(people_id, name = "sole_sponsored")
+
+# Count only floor votes (exclude committee report votes)
+floor_rollcalls <- rollcalls |>
+  filter(!str_detect(description, "Report$")) |>
+  pull(roll_call_id)
+
 vote_counts <- votes |>
+  filter(roll_call_id %in% floor_rollcalls) |>
   count(people_id, name = "votes_cast")
 
 senators <- people |>
   filter(role == "Sen") |>
   left_join(sponsor_counts, by = "people_id") |>
+  left_join(sole_sponsor_counts, by = "people_id") |>
   left_join(vote_counts, by = "people_id") |>
   left_join(
     legislator_stats |> select(people_id, with_party_pct, participation_rate),
     by = "people_id"
   ) |>
-  replace_na(list(bills_sponsored = 0, votes_cast = 0)) |>
+  replace_na(list(bills_sponsored = 0, sole_sponsored = 0, votes_cast = 0)) |>
   rowwise() |>
   mutate(
     filename = get_legislator_filename(people_id, people),
@@ -148,7 +162,7 @@ senators <- people |>
   ) |>
   ungroup() |>
   arrange(district) |>
-  select(name_link, party, district, bills_sponsored, votes_cast, with_party_pct, participation_rate)
+  select(name_link, party, district, bills_sponsored, sole_sponsored, votes_cast, with_party_pct, participation_rate)
 
 gt(senators) |>
   cols_label(
@@ -156,7 +170,8 @@ gt(senators) |>
     party = "Party",
     district = "District",
     bills_sponsored = "Bills Sponsored",
-    votes_cast = "Votes Cast",
+    sole_sponsored = "Sole Sponsor",
+    votes_cast = "Floor Votes",
     with_party_pct = "Party Alignment",
     participation_rate = "Participation"
   ) |>
@@ -176,12 +191,13 @@ gt(senators) |>
 representatives <- people |>
   filter(role == "Rep") |>
   left_join(sponsor_counts, by = "people_id") |>
+  left_join(sole_sponsor_counts, by = "people_id") |>
   left_join(vote_counts, by = "people_id") |>
   left_join(
     legislator_stats |> select(people_id, with_party_pct, participation_rate),
     by = "people_id"
   ) |>
-  replace_na(list(bills_sponsored = 0, votes_cast = 0)) |>
+  replace_na(list(bills_sponsored = 0, sole_sponsored = 0, votes_cast = 0)) |>
   rowwise() |>
   mutate(
     filename = get_legislator_filename(people_id, people),
@@ -189,7 +205,7 @@ representatives <- people |>
   ) |>
   ungroup() |>
   arrange(district) |>
-  select(name_link, party, district, bills_sponsored, votes_cast, with_party_pct, participation_rate)
+  select(name_link, party, district, bills_sponsored, sole_sponsored, votes_cast, with_party_pct, participation_rate)
 
 gt(representatives) |>
   cols_label(
@@ -197,7 +213,8 @@ gt(representatives) |>
     party = "Party",
     district = "District",
     bills_sponsored = "Bills Sponsored",
-    votes_cast = "Votes Cast",
+    sole_sponsored = "Sole Sponsor",
+    votes_cast = "Floor Votes",
     with_party_pct = "Party Alignment",
     participation_rate = "Participation"
   ) |>
@@ -218,12 +235,13 @@ Use the table below to search for legislators by district number.
 ```{r}
 all_legislators <- people |>
   left_join(sponsor_counts, by = "people_id") |>
+  left_join(sole_sponsor_counts, by = "people_id") |>
   left_join(vote_counts, by = "people_id") |>
   left_join(
     legislator_stats |> select(people_id, with_party_pct, participation_rate),
     by = "people_id"
   ) |>
-  replace_na(list(bills_sponsored = 0, votes_cast = 0)) |>
+  replace_na(list(bills_sponsored = 0, sole_sponsored = 0, votes_cast = 0)) |>
   rowwise() |>
   mutate(
     filename = get_legislator_filename(people_id, people),
@@ -232,7 +250,7 @@ all_legislators <- people |>
   ) |>
   ungroup() |>
   arrange(chamber, district) |>
-  select(chamber, district, name_link, party, bills_sponsored, votes_cast, with_party_pct, participation_rate)
+  select(chamber, district, name_link, party, bills_sponsored, sole_sponsored, votes_cast, with_party_pct, participation_rate)
 
 gt(all_legislators) |>
   cols_label(
@@ -241,7 +259,8 @@ gt(all_legislators) |>
     name_link = "Name",
     party = "Party",
     bills_sponsored = "Bills Sponsored",
-    votes_cast = "Votes Cast",
+    sole_sponsored = "Sole Sponsor",
+    votes_cast = "Floor Votes",
     with_party_pct = "Party Alignment",
     participation_rate = "Participation"
   ) |>

@@ -80,6 +80,10 @@ get_committee_filename <- function(people_id, people_df = NULL) {
   paste0(chamber, "-", committee_name, "-", people_id)
 }
 
+parse_district_number <- function(district_str) {
+  as.numeric(stringr::str_extract(district_str, "\\d+$"))
+}
+
 items_to_df <- function(list){
   if(length(list) >= 1){
     map(list, function(item){
