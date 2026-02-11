@@ -139,9 +139,18 @@ if (!is.null(lobby) && nrow(lobby) > 0) {
 
 ## Sponsors
 ```{r}
+#| output: asis
 if (!is.null(sponsors) && nrow(sponsors) > 0) {
-  gt(sponsors |> select(role, name, party, district)) |>
-    cols_label(role = "Role", name = "Name", party = "Party", district = "District")
+  is_committee <- is.null(sponsors$first_name[1]) || sponsors$first_name[1] == ""
+  if (nrow(sponsors) == 1 && is_committee) {
+    chamber <- if (sponsors$role[1] == "Sen") "Senate" else "House"
+    cat(sprintf("**%s %s Committee**\n", chamber, sponsors$name[1]))
+  } else {
+    print(
+      gt(sponsors |> filter(first_name != "") |> select(role, name, party, district)) |>
+        cols_label(role = "Role", name = "Name", party = "Party", district = "District")
+    )
+  }
 } else {
   cat("No sponsors listed.")
 }
@@ -231,12 +240,17 @@ if (!is.null(votes) && nrow(votes) > 0) {
         by = "roll_call_id"
       )
 
-    gt(votes_display |> select(
-      date, chamber, desc, yea, nay, nv, absent,
-      vote_dem_yes, vote_dem_no, vote_gop_yes, vote_gop_no, vote_outcome
+    gt(votes_display |>
+      mutate(
+        desc = simplify_vote_desc(desc),
+        chamber = case_when(chamber == "H" ~ "House", chamber == "S" ~ "Senate", TRUE ~ chamber)
+      ) |>
+      select(
+        date, chamber, desc, yea, nay, nv, absent,
+        vote_dem_yes, vote_dem_no, vote_gop_yes, vote_gop_no, vote_outcome
     )) |>
       cols_label(
-        date = "Date", chamber = "Chamber", desc = "Description",
+        date = "Date", chamber = "Chamber", desc = "Vote Type",
         yea = "Yea", nay = "Nay", nv = "NV", absent = "Absent",
         vote_dem_yes = "D Yea", vote_dem_no = "D Nay",
         vote_gop_yes = "R Yea", vote_gop_no = "R Nay",
@@ -265,7 +279,7 @@ if (!is.null(votes) && nrow(votes) > 0) {
   vote_child_template <- c(
     "## `r vote_row$chamber` : `r vote_row$date`",
     "",
-    "#### `r vote_row$desc`",
+    "#### `r simplify_vote_desc(vote_row$desc)`",
     "",
     "```{r}",
     "#| echo: false",

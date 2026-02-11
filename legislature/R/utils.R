@@ -7,6 +7,20 @@ library(purrr)
 
 library(rvest)
 
+#' Simplify vote descriptions into short category labels
+#' @param desc Character vector of vote descriptions
+#' @return Character vector of simplified labels
+simplify_vote_desc <- function(desc) {
+  case_when(
+    str_detect(desc, "bill pass") ~ "Floor Passage",
+    str_detect(desc, "rules be suspended") ~ "Rule Suspension",
+    str_detect(desc, "resolution be adopted|Resolution.*be adopted") ~ "Resolution",
+    str_detect(desc, "motion") ~ "Motion",
+    str_detect(desc, "amendment") ~ "Amendment",
+    TRUE ~ desc
+  )
+}
+
 fill_empty <- function(x, default = NA) {
   if (is.null(x) || length(x) == 0) default else x
 }

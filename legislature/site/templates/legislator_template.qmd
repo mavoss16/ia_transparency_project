@@ -68,14 +68,21 @@ vote_records <- read_rds(here::here("data/vote_records_91st_ga.rds"))
 leg_stats <- legislator_stats |> filter(people_id == params$people_id)
 leg_vote_records <- vote_records |> filter(people_id == params$people_id)
 
-# Load district shapefiles for map
+# Load district shapefiles for map and join legislator names
+people <- read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE) |>
+  filter(party_id != 0) |>
+  mutate(district_num = parse_district_number(district)) |>
+  select(name, party, district, district_num, role)
+
 senate_districts <- st_read(here::here("data/Districts/Plan2_Senate.shp"), quiet = TRUE) |>
   st_transform(crs = 4326) |>
-  transmute(District = as.numeric(DISTRICT))
+  transmute(District = as.numeric(DISTRICT)) |>
+  left_join(people |> filter(role == "Sen"), by = c("District" = "district_num"))
 
 house_districts <- st_read(here::here("data/Districts/Plan2_House.shp"), quiet = TRUE) |>
   st_transform(crs = 4326) |>
-  transmute(District = as.numeric(DISTRICT))
+  transmute(District = as.numeric(DISTRICT)) |>
+  left_join(people |> filter(role == "Rep"), by = c("District" = "district_num"))
 ```
 
 # `r legislator$name` (`r legislator$party`-`r legislator$district`)
@@ -87,30 +94,22 @@ house_districts <- st_read(here::here("data/Districts/Plan2_House.shp"), quiet =
 
 ---
 
-## Profile
-
-```{r}
-profile_data <- data.frame(
-  Field = c("Full Name", "Party", "Role", "District", "FTM EID", "VoteSmart ID", "Ballotpedia"),
-  Value = c(
-    legislator$name,
-    legislator$party,
-    legislator$role,
-    legislator$district,
-    as.character(legislator$ftm_eid),
-    as.character(legislator$votesmart_id),
-    legislator$ballotpedia
-  )
-)
-
-gt(profile_data) |>
-  cols_label(Field = "", Value = "")
-```
-
 **External Links:**
 
-- [Ballotpedia Profile](https://ballotpedia.org/`r legislator$ballotpedia`){target="_blank"}
-- [VoteSmart Profile](https://justfacts.votesmart.org/candidate/`r legislator$votesmart_id`){target="_blank"}
+```{r}
+#| output: asis
+leg_email <- legislator$bio$social$email
+leg_website <- legislator$bio$links$official$website
+
+if (!is.null(leg_website) && nchar(leg_website) > 0) {
+  cat(sprintf("- [Iowa Legislature Page](%s){target=\"_blank\"}\n", leg_website))
+}
+if (!is.null(leg_email) && nchar(leg_email) > 0) {
+  cat(sprintf("- [%s](mailto:%s)\n", leg_email, leg_email))
+}
+cat(sprintf("- [Ballotpedia Profile](https://ballotpedia.org/%s){target=\"_blank\"}\n", legislator$ballotpedia))
+cat(sprintf("- [VoteSmart Profile](https://justfacts.votesmart.org/candidate/%s){target=\"_blank\"}\n", legislator$votesmart_id))
+```
 
 ### District Map
 
@@ -131,9 +130,9 @@ leaflet() |>
     data = others,
     fillColor = "#CCCCCC",
     fillOpacity = 0.2,
-    color = "#999999",
+    color = "#000000",
     weight = 1,
-    label = ~paste("District", District)
+    label = ~ifelse(!is.na(name), paste0(name, " (", party, "-", district, ")"), paste("District", District))
   ) |>
   addPolygons(
     data = highlight,
@@ -157,16 +156,10 @@ leaflet() |>
 total_sponsored <- nrow(leg_sponsored_bills)
 total_votes <- nrow(leg_votes)
 
-# Vote breakdown
-if(nrow(leg_votes) > 0) {
-  vote_summary <- leg_votes |>
-    count(vote_desc) |>
-    mutate(pct = n / sum(n) * 100)
-} else {
-  vote_summary <- data.frame(vote_desc = character(), n = integer(), pct = numeric())
-}
+# Load bill groups for outcome context
+bill_groups <- read_rds(here::here("data/bill_groups.rds"))
 
-# Sponsorship by role
+# Sponsorship with outcomes
 if(nrow(leg_sponsored_bills) > 0) {
   sponsor_summary <- leg_sponsored_bills |>
     mutate(
@@ -176,10 +169,13 @@ if(nrow(leg_sponsored_bills) > 0) {
         position >= 2 ~ "Co-Sponsor"
       )
     ) |>
-    count(Role) |>
-    select(Role, n)
+    left_join(
+      bill_groups |> select(bill, group_status, group_size),
+      by = c("bill_number" = "bill")
+    ) |>
+    mutate(group_status = coalesce(group_status, status_desc))
 } else {
-  sponsor_summary <- data.frame(Role = character(), n = integer())
+  sponsor_summary <- data.frame()
 }
 ```
 
@@ -189,29 +185,26 @@ if(nrow(leg_sponsored_bills) > 0) {
 
 ```{r}
 if(nrow(sponsor_summary) > 0) {
-  gt(sponsor_summary) |>
-    cols_label(Role = "Sponsorship Type", n = "Count")
+  # Bill outcome by sponsorship role
+  status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
+                     "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
+
+  sponsor_outcome <- sponsor_summary |>
+    mutate(group_status = factor(group_status, levels = status_order)) |>
+    count(Role, group_status, .drop = FALSE) |>
+    pivot_wider(names_from = group_status, values_from = n, values_fill = 0) |>
+    filter(rowSums(pick(-Role)) > 0) |>
+    mutate(Total = rowSums(pick(-Role))) |>
+    arrange(desc(Total))
+
+  gt(sponsor_outcome) |>
+    cols_label(Role = "Sponsorship Role") |>
+    tab_spanner(label = "Bill Group Outcome", columns = c(-Role, -Total))
 } else {
   cat("No sponsorship data available.\n")
 }
 ```
 
-### Voting Record
-
-```{r}
-if(nrow(vote_summary) > 0) {
-  gt(vote_summary) |>
-    cols_label(
-      vote_desc = "Vote",
-      n = "Count",
-      pct = "Percentage"
-    ) |>
-    fmt_number(columns = pct, decimals = 1) |>
-    cols_label(pct = "Percentage (%)")
-} else {
-  cat("No voting data available.\n")
-}
-```
 
 ### Party Alignment
 
@@ -222,18 +215,12 @@ if(nrow(leg_stats) > 0 && leg_stats$total_votes > 0) {
       "Votes With Party",
       "Votes Against Party",
       "Party Alignment Rate",
-      "Party Line Votes",
-      "Bipartisan Votes",
-      "Unanimous Votes",
       "Participation Rate"
     ),
     Value = c(
       as.character(leg_stats$votes_with_party),
       as.character(leg_stats$votes_against_party),
       sprintf("%.1f%%", leg_stats$with_party_pct * 100),
-      as.character(leg_stats$party_line_votes),
-      as.character(leg_stats$bipartisan_votes),
-      as.character(leg_stats$unanimous_votes),
       sprintf("%.1f%%", leg_stats$participation_rate * 100)
     )
   )
@@ -244,6 +231,25 @@ if(nrow(leg_stats) > 0 && leg_stats$total_votes > 0) {
   cat("Insufficient voting data for party alignment analysis.\n")
 }
 ```
+
+<!-- ### Votes by Category
+
+```{r}
+#| eval: false
+if(nrow(leg_vote_records) > 0) {
+  category_breakdown <- leg_vote_records |>
+    filter(vote_text %in% c("Yea", "Nay")) |>
+    count(vote_outcome, vote_text) |>
+    pivot_wider(names_from = vote_outcome, values_from = n, values_fill = 0) |>
+    rename(Vote = vote_text)
+
+  gt(category_breakdown) |>
+    tab_spanner(label = "Vote Category", columns = -Vote)
+} else {
+  cat("Insufficient voting data for category breakdown.\n")
+}
+```
+-->
 
 ## Sponsored Bills
 
@@ -284,13 +290,16 @@ if(nrow(leg_sponsored_bills) > 0) {
 ```{r}
 if(nrow(leg_votes) > 0) {
   gt(leg_votes |>
-    mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
+    mutate(
+      bill_link = format_bill_link(bill_number, "../legislation/"),
+      description = simplify_vote_desc(description)
+    ) |>
     select(bill_link, title, date, description, vote_desc)) |>
     cols_label(
       bill_link = "File #",
       title = "Title",
       date = "Vote Date",
-      description = "Vote Description",
+      description = "Vote Type",
       vote_desc = "Vote"
     ) |>
     fmt_markdown(columns = bill_link)
@@ -337,14 +346,19 @@ if(nrow(leg_vote_records) > 0) {
 if(nrow(leg_vote_records) > 0) {
   against_party <- leg_vote_records |>
     filter(vote_with_party == FALSE) |>
-    mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
-    select(bill_link, vote_date, vote_desc, vote_text, party_position, vote_outcome) |>
+    left_join(bills |> select(bill_id, title), by = "bill_id") |>
+    mutate(
+      bill_link = format_bill_link(bill_number, "../legislation/"),
+      vote_desc = simplify_vote_desc(vote_desc)
+    ) |>
+    select(bill_link, title, vote_date, vote_desc, vote_text, party_position, vote_outcome) |>
     arrange(desc(vote_date))
 
   if(nrow(against_party) > 0) {
     gt(against_party) |>
       cols_label(
         bill_link = "Bill",
+        title = "Title",
         vote_date = "Date",
         vote_desc = "Description",
         vote_text = "Vote",
