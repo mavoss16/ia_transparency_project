@@ -48,8 +48,23 @@ load_manifest <- function() {
   }
 }
 
-#' Save the render manifest
-save_manifest <- function(manifest) {
+#' Save the render manifest (with retry for Windows file locks)
+save_manifest <- function(manifest, max_retries = 5, wait_seconds = 2) {
+  for (i in seq_len(max_retries)) {
+    result <- tryCatch({
+      write_csv(manifest, MANIFEST_FILE)
+      TRUE
+    }, error = function(e) {
+      if (i < max_retries) {
+        message(sprintf("Manifest write failed (attempt %d/%d), retrying in %ds...",
+                        i, max_retries, wait_seconds))
+        Sys.sleep(wait_seconds)
+      }
+      FALSE
+    })
+    if (result) return(invisible(NULL))
+  }
+  # Final attempt — let the error propagate
   write_csv(manifest, MANIFEST_FILE)
 }
 
