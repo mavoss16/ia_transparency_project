@@ -137,17 +137,18 @@ needs_render_legislator <- function(people_id, manifest) {
 #' @param template_path Path to bill_template.qmd
 render_bill <- function(bill_number, template_path = here("site/templates/bill_template.qmd")) {
   output_file <- file.path(LEGISLATION_DIR, paste0(bill_number, ".html"))
+  rendered_file <- here("docs/templates", basename(output_file))
 
   tryCatch({
     quarto_render(
       input = template_path,
       output_file = basename(output_file),
       execute_params = list(bill_num = bill_number),
-      output_format = "html"
+      output_format = "html",
+      metadata = list(search = FALSE)  # Avoid search.json file lock on Windows
     )
 
     # Move rendered file to correct location
-    rendered_file <- here("docs/templates", basename(output_file))
     if (file.exists(rendered_file)) {
       file.rename(rendered_file, output_file)
     }
@@ -166,17 +167,18 @@ render_bill <- function(bill_number, template_path = here("site/templates/bill_t
 render_legislator <- function(people_id, template_path = here("site/templates/legislator_template.qmd")) {
   filename <- get_legislator_filename(people_id)
   output_file <- file.path(LEGISLATORS_DIR, paste0(filename, ".html"))
+  rendered_file <- here("docs/templates", basename(output_file))
 
   tryCatch({
     quarto_render(
       input = template_path,
       output_file = basename(output_file),
       execute_params = list(people_id = people_id),
-      output_format = "html"
+      output_format = "html",
+      metadata = list(search = FALSE)  # Avoid search.json file lock on Windows
     )
 
     # Move rendered file to correct location
-    rendered_file <- here("docs/templates", basename(output_file))
     if (file.exists(rendered_file)) {
       file.rename(rendered_file, output_file)
     }
@@ -213,17 +215,18 @@ needs_render_committee <- function(people_id, manifest) {
 render_committee <- function(people_id, template_path = here("site/templates/committee_template.qmd")) {
   filename <- get_committee_filename(people_id)
   output_file <- file.path(COMMITTEES_DIR, paste0(filename, ".html"))
+  rendered_file <- here("docs/templates", basename(output_file))
 
   tryCatch({
     quarto_render(
       input = template_path,
       output_file = basename(output_file),
       execute_params = list(people_id = people_id),
-      output_format = "html"
+      output_format = "html",
+      metadata = list(search = FALSE)  # Avoid search.json file lock on Windows
     )
 
     # Move rendered file to correct location
-    rendered_file <- here("docs/templates", basename(output_file))
     if (file.exists(rendered_file)) {
       file.rename(rendered_file, output_file)
     }
@@ -325,7 +328,10 @@ render_all_bills <- function(limit = NULL, force = FALSE) {
   success_count <- 0
   fail_count <- 0
 
-  for (bill_number in bills_to_render) {
+  total_to_render <- length(bills_to_render)
+
+  for (i in seq_along(bills_to_render)) {
+    bill_number <- bills_to_render[i]
     success <- render_bill(bill_number)
 
     if (success) {
@@ -338,6 +344,12 @@ render_all_bills <- function(limit = NULL, force = FALSE) {
       fail_count <- fail_count + 1
     }
     gc()
+
+    # Pause every 100 bills to avoid rate-limiting on lobbyist scraping
+    if (i %% 100 == 0 && i < total_to_render) {
+      message(paste0("  Progress: ", i, "/", total_to_render, " — pausing 30s..."))
+      Sys.sleep(30)
+    }
   }
 
   message(paste("\nBills completed:", success_count, "success,", fail_count, "failed"))
@@ -405,7 +417,7 @@ render_all_legislators <- function(limit = NULL, force = FALSE) {
 #' Render the main Quarto site (index pages)
 render_index_pages <- function() {
   message("Rendering main site pages...")
-  quarto_render(here("site"))
+  withr::with_dir(here("site"), quarto_render())
   message("Main site pages complete.")
 }
 
