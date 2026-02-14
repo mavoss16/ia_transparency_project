@@ -156,16 +156,19 @@ scrape_lobbyist_declarations <- function(bill_number, ga = 91, max_retries = 3, 
   df <- target_table %>%
     html_table(fill = TRUE) |>
     clean_names() |>
+    # Filter out "no declarations" placeholder rows
+    filter(!str_detect(bill, "(?i)no declarations")) |>
     mutate(
       date = mdy_hm(date)
     )
+
+  if (nrow(df) == 0) return(df)
 
   # Deduplicate and select relevant columns
   clean_df <- df %>%
     distinct(bill, declaration, client, date) |>
     slice_max(date, by = c(client)) |>
-    rename(most_recent_declaration = declaration)# |>
-  #select(-date)
+    rename(most_recent_declaration = declaration)
 
   return(clean_df)
 }

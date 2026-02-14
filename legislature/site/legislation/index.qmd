@@ -165,16 +165,13 @@ gt(recent_bills) |>
     last_action = "Last Action"
   ) |>
   fmt_markdown(columns = bill_link) |>
+  tab_style(
+    style = cell_text(whitespace = "nowrap"),
+    locations = cells_body(columns = bill_link)
+  ) |>
   tab_options(
     table.font.size = px(12),
     data_row.padding = px(4)
-  ) |>
-  cols_width(
-    bill_link ~ px(80),
-    title ~ px(300),
-    display_status ~ px(120),
-    last_action_date ~ px(100),
-    last_action ~ px(250)
   )
 ```
 
@@ -227,18 +224,13 @@ gt(all_bills) |>
     last_action_date = "Last Action"
   ) |>
   fmt_markdown(columns = bill_link) |>
+  tab_style(
+    style = cell_text(whitespace = "nowrap"),
+    locations = cells_body(columns = bill_link)
+  ) |>
   tab_options(
     table.font.size = px(12),
     data_row.padding = px(4)
-  ) |>
-  cols_width(
-    bill_link ~ px(70),
-    title ~ px(280),
-    chamber ~ px(60),
-    sponsor_name ~ px(120),
-    display_status ~ px(110),
-    group_status_display ~ px(120),
-    last_action_date ~ px(90)
   ) |>
   opt_interactive(
     use_search = TRUE,
@@ -283,6 +275,10 @@ gt(house_files) |>
     last_action_date = "Last Action"
   ) |>
   fmt_markdown(columns = bill_link) |>
+  tab_style(
+    style = cell_text(whitespace = "nowrap"),
+    locations = cells_body(columns = bill_link)
+  ) |>
   tab_options(
     table.font.size = px(12),
     data_row.padding = px(4)
@@ -330,6 +326,10 @@ gt(senate_files) |>
     last_action_date = "Last Action"
   ) |>
   fmt_markdown(columns = bill_link) |>
+  tab_style(
+    style = cell_text(whitespace = "nowrap"),
+    locations = cells_body(columns = bill_link)
+  ) |>
   tab_options(
     table.font.size = px(12),
     data_row.padding = px(4)

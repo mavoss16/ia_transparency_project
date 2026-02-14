@@ -83,16 +83,13 @@ gt(recent_activity) |>
     title = "Title"
   ) |>
   fmt_markdown(columns = bill_link) |>
+  tab_style(
+    style = cell_text(whitespace = "nowrap"),
+    locations = cells_body(columns = bill_link)
+  ) |>
   tab_options(
     table.font.size = px(12),
     data_row.padding = px(4)
-  ) |>
-  cols_width(
-    date ~ px(100),
-    bill_link ~ px(80),
-    chamber ~ px(70),
-    action ~ px(300),
-    title ~ px(350)
   )
 ```
 

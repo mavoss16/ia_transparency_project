@@ -4,6 +4,7 @@
 #'   1. Download LegiScan data (requires LEGISCAN_API_KEY)
 #'   2. Process votes into summary/record/stats RDS files
 #'   3. Scrape bill relationships and build bill groups
+#'   4. Scrape lobbyist declarations for new/changed bills
 #'
 #' Usage:
 #'   source("R/data_pipeline/run_pipeline.R")
@@ -14,7 +15,7 @@
 
 library(here)
 
-run_pipeline <- function(steps = 1:3, use_resume = FALSE, verbose = TRUE) {
+run_pipeline <- function(steps = 1:4, use_resume = FALSE, verbose = TRUE) {
 
   log_msg <- function(...) if (verbose) message("[pipeline] ", ...)
 
@@ -59,6 +60,14 @@ run_pipeline <- function(steps = 1:3, use_resume = FALSE, verbose = TRUE) {
       update_bill_groups()
     }
     log_msg("Step 3 complete. Bill groups saved to data/")
+  }
+
+  # Step 4: Lobbyist declarations
+  if (4 %in% steps) {
+    log_msg("=== Step 4: Scraping lobbyist declarations ===")
+    source(here("R/data_pipeline/04_lobbyist_declarations.R"), local = TRUE)
+    update_lobbyist_declarations()
+    log_msg("Step 4 complete. Lobbyist declarations saved to data/")
   }
 
   log_msg("=== Pipeline finished ===")

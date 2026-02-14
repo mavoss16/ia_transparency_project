@@ -1,5 +1,5 @@
 ---
-# title: "legislator_template"
+pagetitle: "`r jsonlite::read_json(here::here(paste0('legiscan/files_ga91_json/people/', params$people_id, '.json')))$person$name`"
 format: 
   html:
     echo: false
@@ -68,20 +68,16 @@ vote_records <- read_rds(here::here("data/vote_records_91st_ga.rds"))
 leg_stats <- legislator_stats |> filter(people_id == params$people_id)
 leg_vote_records <- vote_records |> filter(people_id == params$people_id)
 
-# Load district shapefiles for map and join legislator names
+# Load simplified district geometries and join legislator names
 people <- read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE) |>
   filter(party_id != 0) |>
   mutate(district_num = parse_district_number(district)) |>
   select(name, party, district, district_num, role)
 
-senate_districts <- st_read(here::here("data/Districts/Plan2_Senate.shp"), quiet = TRUE) |>
-  st_transform(crs = 4326) |>
-  transmute(District = as.numeric(DISTRICT)) |>
+senate_districts <- read_rds(here::here("data/senate_districts.rds")) |>
   left_join(people |> filter(role == "Sen"), by = c("District" = "district_num"))
 
-house_districts <- st_read(here::here("data/Districts/Plan2_House.shp"), quiet = TRUE) |>
-  st_transform(crs = 4326) |>
-  transmute(District = as.numeric(DISTRICT)) |>
+house_districts <- read_rds(here::here("data/house_districts.rds")) |>
   left_join(people |> filter(role == "Rep"), by = c("District" = "district_num"))
 ```
 
@@ -277,6 +273,10 @@ if(nrow(leg_sponsored_bills) > 0) {
       sponsor_num = "# of Sponsors"
     ) |>
     fmt_markdown(columns = bill_link) |>
+    tab_style(
+      style = cell_text(whitespace = "nowrap"),
+      locations = cells_body(columns = bill_link)
+    ) |>
     tab_options(
       table.font.size = px(12)
     )
@@ -302,7 +302,11 @@ if(nrow(leg_votes) > 0) {
       description = "Vote Type",
       vote_desc = "Vote"
     ) |>
-    fmt_markdown(columns = bill_link)
+    fmt_markdown(columns = bill_link) |>
+    tab_style(
+      style = cell_text(whitespace = "nowrap"),
+      locations = cells_body(columns = bill_link)
+    )
 } else {
   cat("No voting record found.\n")
 }
@@ -365,7 +369,11 @@ if(nrow(leg_vote_records) > 0) {
         party_position = "Party Position",
         vote_outcome = "Classification"
       ) |>
-      fmt_markdown(columns = bill_link)
+      fmt_markdown(columns = bill_link) |>
+      tab_style(
+        style = cell_text(whitespace = "nowrap"),
+        locations = cells_body(columns = bill_link)
+      )
   } else {
     cat("This legislator has not voted against their party.\n")
   }

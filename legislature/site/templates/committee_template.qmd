@@ -69,6 +69,10 @@ if (nrow(referred_bills) > 0) {
       last_action = "Last Action"
     ) |>
     fmt_markdown(columns = bill_link) |>
+    tab_style(
+      style = cell_text(whitespace = "nowrap"),
+      locations = cells_body(columns = bill_link)
+    ) |>
     tab_options(
       table.font.size = px(12),
       data_row.padding = px(4)
@@ -105,6 +109,10 @@ if (nrow(sponsored_bills) > 0) {
       last_action = "Last Action"
     ) |>
     fmt_markdown(columns = bill_link) |>
+    tab_style(
+      style = cell_text(whitespace = "nowrap"),
+      locations = cells_body(columns = bill_link)
+    ) |>
     tab_options(
       table.font.size = px(12),
       data_row.padding = px(4)
@@ -148,6 +156,10 @@ if (nrow(committee_votes) > 0) {
       total = "Total"
     ) |>
     fmt_markdown(columns = bill_link) |>
+    tab_style(
+      style = cell_text(whitespace = "nowrap"),
+      locations = cells_body(columns = bill_link)
+    ) |>
     tab_options(
       table.font.size = px(12),
       data_row.padding = px(4)

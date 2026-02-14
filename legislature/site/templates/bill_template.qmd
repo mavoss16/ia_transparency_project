@@ -1,5 +1,5 @@
 ---
-# title: "bill_template"
+pagetitle: "`r sub('([A-Za-z]+)', '\\1 ', params$bill_num)`"
 format: 
   html:
     echo: false
@@ -35,6 +35,7 @@ source(here::here("R/utils.R"))
 ```{r}
 bill <- read_json(here::here(str_glue("legiscan/files_ga91_json/bill/{params$bill_num}.json"))) |>
   pluck("bill")
+
 
 people <- read_csv(here::here(str_glue("legiscan/files_ga91/people.csv")), show_col_types = FALSE)
 bills_csv <- read_csv(here::here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
@@ -86,23 +87,18 @@ if (file.exists(bill_groups_path)) {
   )
 }
 
-# Load district shapefiles for vote maps
-senate_districts <- st_read(here::here("data/Districts/Plan2_Senate.shp"), quiet = TRUE) |>
-  st_transform(crs = 4326) |>
-  transmute(District = as.numeric(DISTRICT))
+# Load simplified district geometries for vote maps
+senate_districts <- read_rds(here::here("data/senate_districts.rds"))
+house_districts <- read_rds(here::here("data/house_districts.rds"))
 
-house_districts <- st_read(here::here("data/Districts/Plan2_House.shp"), quiet = TRUE) |>
-  st_transform(crs = 4326) |>
-  transmute(District = as.numeric(DISTRICT))
-
-# Scrape lobbyist declarations
-lobby <- tryCatch(
-  scrape_lobbyist_declarations(params$bill_num),
-  error = function(e) {
-    message(paste("Lobbyist scrape failed for", params$bill_num, ":", e$message))
-    NULL
-  }
-)
+# Load lobbyist declarations from pre-scraped data
+lobby_path <- here::here("data/lobbyist_declarations.rds")
+lobby <- if (file.exists(lobby_path)) {
+  read_rds(lobby_path) |>
+    filter(bill == params$bill_num, !is.na(client))
+} else {
+  NULL
+}
 
 lobby_for <- if (!is.null(lobby) && nrow(lobby) > 0) sum(lobby$most_recent_declaration == "For", na.rm = TRUE) else 0
 lobby_against <- if (!is.null(lobby) && nrow(lobby) > 0) sum(lobby$most_recent_declaration == "Against", na.rm = TRUE) else 0
@@ -199,6 +195,10 @@ if (nrow(bill_group_info) > 0 && bill_group_info$group_size > 1) {
         status = "Status"
       ) |>
       fmt_markdown(columns = bill_link) |>
+      tab_style(
+        style = cell_text(whitespace = "nowrap"),
+        locations = cells_body(columns = bill_link)
+      ) |>
       tab_options(
         table.font.size = px(12),
         data_row.padding = px(4)
