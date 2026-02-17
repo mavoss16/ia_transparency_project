@@ -506,6 +506,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1965104,1498837,2025-02-25,House,"House Committee On Commerce Report",22,0,0,0,22
 1965145,1487279,2025-02-11,Senate,"Senate Transportation Report",14,4,0,0,18
 1965145,1527956,2025-03-26,Senate,"Shall the bill pass?",40,7,0,3,50
+1965145,1626753,2026-02-09,House,"House Committee On Transportation Report",21,0,0,0,21
 1965160,1507792,2025-03-06,Senate,"Senate Judiciary Report",19,0,0,1,20
 1965160,1516236,2025-03-12,Senate,"Shall the bill pass?",48,0,0,2,50
 1965160,1521873,2025-03-19,House,"Shall the bill pass?",96,0,0,3,99
@@ -725,6 +726,10 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1975463,1501681,2025-02-27,House,"House Committee On Health And Human Services Report",19,0,0,0,19
 1975486,1494426,2025-02-19,Senate,"Senate Education Report",15,1,0,0,16
 1975533,1504499,2025-03-04,House,"House Committee On Natural Resources Report",17,4,0,0,21
+1975603,1629238,2026-02-10,House,"House Committee On Commerce Report",21,0,0,0,21
+1975603,1629239,2026-02-10,House,"House Committee On Commerce Report",21,0,0,0,21
+1975603,1629240,2026-02-10,House,"House Committee On Commerce Report",21,0,0,0,21
+1975603,1629241,2026-02-10,House,"House Committee On Commerce Report",21,0,0,0,21
 1975658,1494384,2025-02-19,Senate,"Senate Transportation Report",15,0,0,0,15
 1975658,1509565,2025-03-10,Senate,"Shall the bill pass?",47,0,0,3,50
 1975658,1517250,2025-03-13,House,"Shall the bill pass?",95,0,0,4,99
@@ -757,6 +762,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1976797,1507432,2025-03-06,House,"House Committee On Judiciary Report",20,1,0,0,21
 1976803,1504954,2025-03-04,House,"House Committee On Health And Human Services Report",14,6,0,0,20
 1976829,1515936,2025-03-12,House,"Shall the bill pass?",81,15,0,3,99
+1976829,1631134,2026-02-11,Senate,"Senate Judiciary Report",17,0,0,3,20
 1976839,1501688,2025-02-27,House,"House Committee On Health And Human Services Report",18,1,0,0,19
 1976859,1535480,2025-04-02,House,"House Committee On Agriculture Report",24,0,0,1,25
 1976865,1514760,2025-03-11,House,"Shall the bill pass?",89,2,0,8,99
@@ -770,6 +776,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1976952,1518967,2025-03-17,House,"Shall the bill pass?",83,13,0,3,99
 1977037,1495563,2025-02-20,Senate,"Senate Transportation Report",15,0,0,0,15
 1977076,1523251,2025-03-20,House,"Shall the bill pass?",89,0,0,10,99
+1977093,1626731,2026-02-09,House,"House Committee On Transportation Report",21,0,0,0,21
 1977104,1495574,2025-02-20,Senate,"Senate Health And Human Services Report",11,6,0,0,17
 1977163,1508397,2025-03-05,House,"House Committee On Agriculture Report",14,9,0,0,23
 1977181,1516303,2025-03-12,House,"Shall the bill pass?",96,0,0,3,99
@@ -889,6 +896,8 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1983424,1499627,2025-02-25,Senate,"Senate Natural Resources And Environment Report",12,0,0,0,12
 1983424,1553860,2025-04-22,Senate,"Shall the bill pass?",46,0,0,4,50
 1983424,1613034,2025-02-25,Senate,"Senate Natural Resources And Environment Report",12,0,0,3,15
+1983915,1629236,2026-02-10,House,"House Committee On Commerce Report",22,0,0,1,23
+1983915,1629237,2026-02-10,House,"House Committee On Commerce Report",22,0,0,1,23
 1983930,1506961,2025-03-05,House,"House Committee On Transportation Report",18,2,0,0,20
 1983971,1500077,2025-02-26,Senate,"Senate Education Report",14,0,0,0,14
 1983992,1506454,2025-03-05,House,"House Committee On Transportation Report",15,5,0,0,20
@@ -1034,6 +1043,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1990564,1506438,2025-03-05,House,"House Committee On Transportation Report",20,0,0,0,20
 1990582,1508269,2025-03-04,Senate,"Senate Transportation Report",16,0,0,2,18
 1990582,1525404,2025-03-24,Senate,"Shall the bill pass?",49,0,0,1,50
+1990582,1626646,2026-02-09,House,"House Committee On Transportation Report",21,0,0,0,21
 1990602,1508359,2025-03-04,Senate,"Senate Local Government Report",11,0,0,2,13
 1990661,1506452,2025-03-05,House,"House Committee On Transportation Report",19,1,0,0,20
 1990670,1508298,2025-03-06,House,"House Committee On Economic Growth And Technology Report",23,0,0,0,23
@@ -1077,6 +1087,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1991636,1518954,2025-03-17,House,"Shall the bill pass?",96,0,0,3,99
 1991636,1536979,2025-04-03,Senate,"Senate Judiciary Report",20,0,0,0,20
 1991636,1555530,2025-04-23,Senate,"Shall the bill pass?",48,0,0,2,50
+1991645,1626648,2026-02-09,House,"House Committee On Transportation Report",20,1,0,0,21
 1991659,1508013,2025-03-05,Senate,"Senate Judiciary Report",20,0,0,0,20
 1991659,1542306,2025-04-09,Senate,"Shall the bill pass?",47,0,0,3,50
 1991665,1570011,2025-05-12,House,"House Committee On Appropriations Report",21,1,0,3,25
@@ -1119,6 +1130,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1991823,1568458,2025-05-08,House,"Shall the bill pass?",83,1,0,15,99
 1991832,1534906,2025-04-02,House,"House Committee On Agriculture Report",17,7,0,1,25
 1991840,1528989,2025-03-25,House,"Shall the bill pass?",72,25,0,3,100
+1991840,1631186,2026-02-11,Senate,"Senate Transportation Report",10,6,0,1,17
 1991853,1529030,2025-03-26,House,"Shall the bill pass?",69,27,0,4,100
 1991865,1549827,2025-04-16,House,"House Committee On Appropriations Report",23,1,0,1,25
 1991876,1542295,2025-04-09,House,"House Committee On Appropriations Report",24,0,0,1,25
@@ -1152,6 +1164,14 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1992478,1519680,2025-03-18,Senate,"Shall the bill pass?",48,0,0,2,50
 1992550,1508295,2025-03-05,Senate,"Senate Judiciary Report",20,0,0,0,20
 1992685,1508002,2025-03-05,Senate,"Senate Agriculture Report",15,0,0,1,16
+1993116,1630736,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
+1993116,1630737,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
+1993116,1630738,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
+1993116,1630739,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
+1993116,1630740,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
+1993116,1630741,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
+1993116,1630742,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
+1993116,1630743,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
 1993145,1508312,2025-03-06,Senate,"Senate State Government Report",18,0,0,1,19
 1993178,1507427,2025-03-06,Senate,"Senate State Government Report",10,8,0,0,18
 1993208,1507797,2025-03-06,Senate,"Senate Health And Human Services Report",15,0,0,3,18
@@ -1227,6 +1247,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1994695,1549365,2025-04-15,Senate,"Shall the bill pass?",47,0,0,3,50
 1994699,1528966,2025-03-24,House,"Shall the bill pass?",95,0,0,5,100
 1994704,1541935,2025-04-09,House,"House Committee On Appropriations Report",24,0,0,1,25
+1994723,1631927,2026-02-12,House,"House Committee On Natural Resources Report",18,2,0,1,21
 1994737,1520299,2025-03-18,House,"Shall amendment H–1094 be adopted?",61,37,0,1,99
 1994737,1520300,2025-03-18,House,"Shall the bill pass?",61,37,0,1,99
 1994737,1539096,2025-04-07,Senate,"Senate Education Report",11,5,0,0,16
@@ -1301,6 +1322,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1996397,1555473,2025-04-23,House,"House Committee On Appropriations Report",25,0,0,0,25
 1996409,1529430,2025-03-27,House,"Shall the bill pass?",93,0,0,7,100
 1996420,1529279,2025-03-27,House,"Shall the bill pass?",92,1,0,7,100
+1996420,1631158,2026-02-11,Senate,"Senate Transportation Report",16,0,0,1,17
 1996432,1509707,2025-03-10,Senate,"Senate Judiciary Report",20,0,0,0,20
 1996432,1520110,2025-03-18,Senate,"Shall the bill pass?",48,0,0,2,50
 1996432,1552657,2025-04-21,House,"Shall the bill pass?",91,0,0,8,99
@@ -1366,6 +1388,18 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2001697,1528686,2025-03-25,House,"Shall the bill pass?",97,0,0,3,100
 2001920,1529019,2025-03-26,House,"Shall amendment H–1196 be adopted?",96,0,0,4,100
 2001920,1529020,2025-03-26,House,"Shall the bill pass?",95,1,0,4,100
+2002032,1631199,2026-02-11,House,"House Committee On Agriculture Report",22,0,0,1,23
+2002032,1631200,2026-02-11,House,"House Committee On Agriculture Report",20,2,0,1,23
+2002032,1631201,2026-02-11,House,"House Committee On Agriculture Report",22,0,0,1,23
+2002032,1631202,2026-02-11,House,"House Committee On Agriculture Report",22,0,0,1,23
+2002032,1631203,2026-02-11,House,"House Committee On Agriculture Report",22,0,0,1,23
+2002032,1631204,2026-02-11,House,"House Committee On Agriculture Report",20,2,0,1,23
+2002032,1631205,2026-02-11,House,"House Committee On Agriculture Report",20,2,0,1,23
+2002032,1631206,2026-02-11,House,"House Committee On Agriculture Report",22,0,0,1,23
+2002032,1631207,2026-02-11,House,"House Committee On Agriculture Report",22,0,0,1,23
+2002032,1631208,2026-02-11,House,"House Committee On Agriculture Report",22,0,0,1,23
+2002032,1631209,2026-02-11,House,"House Committee On Agriculture Report",20,2,0,1,23
+2002032,1631210,2026-02-11,House,"House Committee On Agriculture Report",22,0,0,1,23
 2002255,1528716,2025-03-25,House,"Shall the bill pass?",79,18,0,3,100
 2002255,1536224,2025-04-03,Senate,"Senate Judiciary Report",17,3,0,0,20
 2002255,1538588,2025-04-07,Senate,"Shall the bill pass?",33,14,0,3,50
@@ -1381,6 +1415,8 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2003705,1553112,2025-04-21,House,"Shall the bill pass?",91,0,0,8,99
 2003815,1535486,2025-04-02,House,"House Committee On Agriculture Report",24,0,0,1,25
 2004261,1528779,2025-03-24,House,"Shall the bill pass?",89,6,0,5,100
+2004374,1632113,2026-02-12,House,"House Committee On Education Report",21,0,0,0,21
+2004483,1632022,2026-02-12,House,"House Committee On Education Report",15,6,0,0,21
 2005173,1528878,2025-03-25,House,"Shall amendment H–1162 be adopted?",31,65,0,4,100
 2005173,1528879,2025-03-25,House,"Shall the bill pass?",65,31,0,4,100
 2005173,1535219,2025-04-02,Senate,"Senate State Government Report",12,5,0,2,19
@@ -1481,6 +1517,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2021123,1556865,2025-04-24,House,"Shall the bill pass?",84,5,0,10,99
 2021131,1551643,2025-04-17,House,"Shall the bill pass?",74,19,0,6,99
 2021147,1551622,2025-04-17,House,"Shall the bill pass?",88,4,0,7,99
+2021147,1632012,2026-02-12,Senate,"Senate Ways And Means Report",17,0,0,1,18
 2021158,1570000,2025-05-12,House,"Shall the bill pass?",90,0,0,9,99
 2021182,1552664,2025-04-21,House,"Shall the bill pass?",91,0,0,8,99
 2021198,1551633,2025-04-17,House,"Shall the bill pass?",91,1,0,7,99
@@ -1500,8 +1537,16 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2022792,1548356,2025-04-15,Senate,"Shall the resolution be adopted?",32,15,0,3,50
 2023614,1547472,2025-04-14,Senate,"Senate Ways And Means Report",12,6,0,0,18
 2023634,1553066,2025-04-21,House,"Shall the bill pass?",90,1,0,8,99
+2023634,1632765,2026-02-12,Senate,"Senate Ways And Means Report",17,0,0,1,18
 2023652,1555549,2025-04-23,House,"Shall amendment H–1280 be adopted?",91,2,0,6,99
 2023652,1555550,2025-04-23,House,"Shall the bill pass?",91,2,0,6,99
+2023670,1632333,2026-02-12,House,"House Committee On Education Report",14,7,0,0,21
+2023670,1632334,2026-02-12,House,"House Committee On Education Report",14,7,0,0,21
+2023670,1632335,2026-02-12,House,"House Committee On Education Report",14,7,0,0,21
+2023670,1632336,2026-02-12,House,"House Committee On Education Report",14,7,0,0,21
+2023670,1632337,2026-02-12,House,"House Committee On Education Report",21,0,0,0,21
+2023670,1632338,2026-02-12,House,"House Committee On Education Report",14,7,0,0,21
+2023670,1632339,2026-02-12,House,"House Committee On Education Report",21,0,0,0,21
 2023701,1555553,2025-04-23,House,"Shall the bill pass?",93,0,0,6,99
 2023720,1551635,2025-04-17,House,"Shall the bill pass?",92,1,0,6,99
 2023736,1568685,2025-05-08,House,"Shall the bill pass?",79,5,0,15,99
@@ -1524,8 +1569,10 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2024851,1555258,2025-04-23,House,"Shall the bill pass?",93,0,0,6,99
 2024875,1551983,2025-04-17,Senate,"Senate Appropriations Report",20,0,0,2,22
 2024893,1551984,2025-04-17,Senate,"Senate Ways And Means Report",18,0,0,0,18
+2024893,1631914,2026-02-12,Senate,"Senate Ways And Means Report",17,0,0,1,18
 2024917,1555687,2025-04-23,House,"Shall the bill pass?",81,12,0,6,99
 2024925,1557161,2025-04-24,House,"Shall the bill pass?",89,0,0,10,99
+2024925,1632731,2026-02-12,Senate,"Senate Ways And Means Report",17,0,0,1,18
 2024937,1556878,2025-04-24,House,"Shall the bill pass?",84,5,0,10,99
 2024957,1553616,2025-04-22,House,"Shall the bill pass?",87,5,0,7,99
 2024969,1551986,2025-04-17,Senate,"Senate Ways And Means Report",18,0,0,0,18
@@ -1541,6 +1588,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2025147,1552521,2025-04-21,Senate,"Senate Ways And Means Report",12,6,0,0,18
 2025147,1570654,2025-05-13,Senate,"Shall the bill pass?",31,14,0,5,50
 2025173,1552524,2025-04-21,Senate,"Senate Ways And Means Report",18,0,0,0,18
+2025173,1631934,2026-02-12,Senate,"Senate Ways And Means Report",17,0,0,1,18
 2025200,1552520,2025-04-21,Senate,"Senate Ways And Means Report",18,0,0,0,18
 2025200,1560506,2025-04-29,Senate,"Shall the bill pass?",48,0,0,2,50
 2025200,1568721,2025-05-08,House,"Shall the bill pass?",84,0,0,15,99
@@ -1647,6 +1695,8 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2072154,1621375,2026-01-27,House,"House Committee On Judiciary Report",19,0,0,2,21
 2072154,1621376,2026-01-27,House,"House Committee On Judiciary Report",19,0,0,2,21
 2072154,1621377,2026-01-27,House,"House Committee On Judiciary Report",19,0,0,2,21
+2072160,1629071,2026-02-10,House,"House Committee On Commerce Report",23,0,0,0,23
+2072160,1629072,2026-02-10,House,"House Committee On Commerce Report",23,0,0,0,23
 2072175,1621383,2026-01-28,House,"House Committee On Commerce Report",20,0,0,1,21
 2072190,1621379,2026-01-28,House,"House Committee On Commerce Report",18,1,0,2,21
 2072190,1621380,2026-01-28,House,"House Committee On Commerce Report",18,1,0,2,21
@@ -1665,8 +1715,15 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2072409,1621449,2026-01-29,House,"House Committee On Health And Human Services Report",19,0,0,2,21
 2072409,1621450,2026-01-29,House,"House Committee On Health And Human Services Report",19,0,0,2,21
 2072575,1623799,2026-02-04,Senate,"Senate Rules And Administration Report",8,0,0,2,10
+2072575,1629165,2026-02-10,Senate,"Shall the resolution be adopted?",45,1,0,4,50
 2072894,1623197,2026-02-04,Senate,"Senate Judiciary Report",18,0,0,2,20
 2073156,1621398,2026-01-27,Senate,"Senate Judiciary Report",16,2,0,2,20
+2073400,1632210,2026-02-12,House,"House Committee On Education Report",11,0,0,0,11
+2073400,1632211,2026-02-12,House,"House Committee On Education Report",10,1,0,0,11
+2073400,1632212,2026-02-12,House,"House Committee On Education Report",11,0,0,0,11
+2073400,1632213,2026-02-12,House,"House Committee On Education Report",11,0,0,0,11
+2073400,1632214,2026-02-12,House,"House Committee On Education Report",11,0,0,0,11
+2073400,1632215,2026-02-12,House,"House Committee On Education Report",11,0,0,0,11
 2073831,1621540,2026-01-29,House,"House Committee On Health And Human Services Report",6,4,0,1,11
 2073831,1621541,2026-01-29,House,"House Committee On Health And Human Services Report",6,4,0,1,11
 2073831,1621542,2026-01-29,House,"House Committee On Health And Human Services Report",6,4,0,1,11
@@ -1677,6 +1734,12 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2073831,1621547,2026-01-29,House,"House Committee On Health And Human Services Report",9,1,0,1,11
 2077599,1615402,2026-01-21,House,"House Committee On Commerce Report",14,4,0,3,21
 2077599,1615403,2026-01-21,House,"House Committee On Commerce Report",14,4,0,3,21
+2077656,1626638,2026-02-09,House,"House Committee On State Government Report",20,3,0,0,23
+2077776,1629219,2026-02-10,House,"House Committee On Commerce Report",23,0,0,0,23
+2077776,1629220,2026-02-10,House,"House Committee On Commerce Report",23,0,0,0,23
+2077776,1629221,2026-02-10,House,"House Committee On Commerce Report",23,0,0,0,23
+2077776,1629222,2026-02-10,House,"House Committee On Commerce Report",23,0,0,0,23
+2077776,1629223,2026-02-10,House,"House Committee On Commerce Report",23,0,0,0,23
 2077787,1622047,2026-02-03,House,"House Committee On Judiciary Report",19,2,0,2,23
 2077787,1622048,2026-02-03,House,"House Committee On Judiciary Report",19,2,0,2,23
 2077893,1621555,2026-01-29,House,"House Committee On Health And Human Services Report",19,1,0,1,21
@@ -1699,15 +1762,39 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2082079,1624656,2026-02-05,House,"House Committee On Education Report",22,1,0,0,23
 2082079,1624657,2026-02-05,House,"House Committee On Education Report",22,1,0,0,23
 2082079,1624658,2026-02-05,House,"House Committee On Education Report",22,1,0,0,23
+2082134,1632547,2026-02-12,House,"House Committee On Transportation Report",20,0,0,1,21
 2082355,1615404,2026-01-21,House,"Shall the bill pass?",64,28,0,8,100
 2082355,1621440,2026-01-28,Senate,"Senate Commerce Report",13,5,0,1,19
 2086748,1621982,2026-01-27,House,"House Committee On Judiciary Report",18,2,0,3,23
 2087009,1625795,2026-02-06,House,"House Committee On Agriculture Report",16,6,0,1,23
+2087864,1632590,2026-02-12,House,"House Committee On Veterans Affairs Report",17,0,0,0,17
+2087864,1632591,2026-02-12,House,"House Committee On Veterans Affairs Report",17,0,0,0,17
+2087877,1632298,2026-02-12,House,"House Committee On Education Report",14,9,0,0,23
+2087877,1632299,2026-02-12,House,"House Committee On Education Report",14,9,0,0,23
+2087877,1632300,2026-02-12,House,"House Committee On Education Report",14,9,0,0,23
+2087877,1632301,2026-02-12,House,"House Committee On Education Report",20,3,0,0,23
+2087877,1632302,2026-02-12,House,"House Committee On Education Report",20,3,0,0,23
+2087877,1632303,2026-02-12,House,"House Committee On Education Report",20,3,0,0,23
+2087877,1632304,2026-02-12,House,"House Committee On Education Report",20,3,0,0,23
+2087877,1632305,2026-02-12,House,"House Committee On Education Report",20,3,0,0,23
+2087877,1632306,2026-02-12,House,"House Committee On Education Report",16,7,0,0,23
+2088395,1631071,2026-02-11,Senate,"Senate Judiciary Report",17,0,0,3,20
 2090046,1616083,2026-01-22,Senate,"Senate Workforce Report",11,0,0,1,12
 2090335,1616232,2026-01-22,Senate,"Senate Transportation Report",16,0,0,1,17
 2090353,1616257,2026-01-22,Senate,"Senate Workforce Report",11,0,0,1,12
+2090504,1630734,2026-02-11,House,"House Committee On Agriculture Report",13,6,0,2,21
 2090520,1616291,2026-01-22,Senate,"Senate Health And Human Services Report",14,1,0,2,17
+2090520,1629294,2026-02-10,Senate,"Shall the bill pass?",37,9,0,4,50
 2090625,1616293,2026-01-22,Senate,"Senate Workforce Report",7,4,0,1,12
+2093403,1630710,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
+2093403,1630711,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
+2093403,1630712,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
+2093403,1630713,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
+2093403,1630714,2026-02-11,House,"House Committee On Agriculture Report",21,0,0,0,21
+2093416,1631226,2026-02-11,House,"House Committee On Agriculture Report",15,8,0,0,23
+2093416,1631227,2026-02-11,House,"House Committee On Agriculture Report",15,8,0,0,23
+2093416,1631228,2026-02-11,House,"House Committee On Agriculture Report",15,8,0,0,23
+2093604,1630694,2026-02-11,Senate,"Senate Judiciary Report",18,0,0,2,20
 2094380,1621523,2026-01-27,Senate,"Senate Judiciary Report",18,0,0,2,20
 2094475,1622070,2026-01-27,Senate,"Senate Judiciary Report",18,0,0,2,20
 2097110,1622262,2026-01-28,Senate,"Senate State Government Report",16,0,0,2,18
@@ -1718,13 +1805,29 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2100519,1621791,2026-01-28,Senate,"Senate State Government Report",16,0,0,2,18
 2101180,1621384,2026-01-29,Senate,"Senate Local Government Report",13,0,0,0,13
 2101429,1621378,2026-01-29,Senate,"Senate Education Report",15,0,0,1,16
+2101500,1631081,2026-02-11,House,"House Committee On Agriculture Report",18,2,0,1,21
 2101559,1621526,2026-01-29,Senate,"Senate Local Government Report",13,0,0,0,13
 2101660,1621674,2026-01-29,Senate,"Senate Commerce Report",18,0,0,1,19
+2101684,1631082,2026-02-11,Senate,"Senate Transportation Report",16,0,0,1,17
+2101839,1632447,2026-02-12,Senate,"Senate Health And Human Services Report",17,0,0,1,18
 2101954,1621786,2026-01-29,Senate,"Senate Commerce Report",18,0,0,1,19
+2102661,1632624,2026-02-12,House,"House Committee On Education Report",12,8,0,1,21
+2102661,1632625,2026-02-12,House,"House Committee On Education Report",12,8,0,1,21
+2102661,1632626,2026-02-12,House,"House Committee On Education Report",12,8,0,1,21
+2102661,1632627,2026-02-12,House,"House Committee On Education Report",12,8,0,1,21
+2102661,1632628,2026-02-12,House,"House Committee On Education Report",12,8,0,1,21
+2102661,1632629,2026-02-12,House,"House Committee On Education Report",18,0,0,3,21
 2103298,1620868,2026-02-02,Senate,"Senate Workforce Report",7,0,0,0,7
 2103376,1620864,2026-02-02,Senate,"Senate Workforce Report",7,0,0,0,7
+2104803,1631195,2026-02-11,House,"House Committee On Agriculture Report",20,3,0,0,23
+2104803,1631196,2026-02-11,House,"House Committee On Agriculture Report",12,11,0,0,23
+2104803,1631197,2026-02-11,House,"House Committee On Agriculture Report",12,11,0,0,23
+2104803,1631198,2026-02-11,House,"House Committee On Agriculture Report",12,11,0,0,23
+2104861,1632321,2026-02-12,Senate,"Senate Natural Resources And Environment Report",13,0,0,2,15
 2106428,1622691,2026-02-03,Senate,"Senate Health And Human Services Report",12,0,0,5,17
 2106496,1623804,2026-02-04,Senate,"Senate Rules And Administration Report",5,3,0,2,10
+2106496,1629192,2026-02-10,Senate,"Shall amendment S–5008 be adopted?",30,18,0,2,50
+2106496,1629193,2026-02-10,Senate,"Shall the resolution be adopted?",30,18,0,2,50
 2107122,1623184,2026-02-04,Senate,"Senate Health And Human Services Report",11,1,0,5,17
 2107187,1623208,2026-02-04,Senate,"Senate Judiciary Report",17,1,0,2,20
 2107238,1623215,2026-02-04,Senate,"Senate Judiciary Report",18,0,0,2,20
@@ -1736,6 +1839,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2107770,1623989,2026-02-04,Senate,"Senate Technology Report",11,0,0,0,11
 2108506,1624686,2026-02-05,Senate,"Senate Technology Report",7,4,0,0,11
 2108522,1624662,2026-02-05,Senate,"Senate Education Report",10,5,0,1,16
+2108522,1629268,2026-02-10,Senate,"Shall the bill pass?",28,20,0,2,50
 2108684,1624677,2026-02-05,Senate,"Senate State Government Report",15,3,0,0,18
 2108725,1624927,2026-02-05,Senate,"Senate State Government Report",18,0,0,0,18
 2108752,1624935,2026-02-05,Senate,"Senate Health And Human Services Report",12,0,0,5,17
@@ -1755,3 +1859,39 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2109547,1625197,2026-02-05,Senate,"Senate Commerce Report",17,0,0,2,19
 2109573,1625187,2026-02-05,Senate,"Senate Commerce Report",17,0,0,2,19
 2109648,1624968,2026-02-05,Senate,"Senate Natural Resources And Environment Report",14,0,0,1,15
+2111663,1626218,2026-02-09,Senate,"Senate Education Report",11,4,0,1,16
+2111746,1626470,2026-02-09,Senate,"Senate Education Report",10,5,0,1,16
+2113142,1628819,2026-02-10,Senate,"Senate Natural Resources And Environment Report",14,1,0,0,15
+2114217,1630725,2026-02-11,Senate,"Senate Transportation Report",16,0,0,1,17
+2114247,1630893,2026-02-11,Senate,"Senate Transportation Report",16,0,0,1,17
+2114296,1630890,2026-02-11,Senate,"Senate Judiciary Report",18,0,0,2,20
+2114305,1630860,2026-02-11,Senate,"Senate Judiciary Report",17,0,0,3,20
+2114329,1630882,2026-02-11,Senate,"Senate Transportation Report",10,6,0,1,17
+2114339,1630919,2026-02-11,Senate,"Senate Veterans Affairs Report",10,2,0,0,12
+2114361,1630966,2026-02-11,Senate,"Senate Judiciary Report",12,5,0,3,20
+2114511,1631212,2026-02-11,Senate,"Senate State Government Report",14,2,0,2,18
+2114525,1631234,2026-02-11,Senate,"Senate Transportation Report",16,0,0,1,17
+2114543,1631211,2026-02-11,Senate,"Senate State Government Report",16,0,0,2,18
+2114558,1631238,2026-02-11,Senate,"Senate State Government Report",16,0,0,2,18
+2114595,1631216,2026-02-11,Senate,"Senate State Government Report",16,0,0,2,18
+2114958,1631932,2026-02-12,Senate,"Senate Technology Report",11,0,0,0,11
+2114960,1631920,2026-02-12,Senate,"Senate Commerce Report",16,0,0,3,19
+2114975,1631892,2026-02-12,Senate,"Senate Commerce Report",14,2,0,3,19
+2114977,1631947,2026-02-12,Senate,"Senate Commerce Report",16,0,0,3,19
+2114981,1632192,2026-02-12,Senate,"Senate Education Report",15,0,0,1,16
+2115015,1631937,2026-02-12,Senate,"Senate State Government Report",15,1,0,2,18
+2115025,1631925,2026-02-12,Senate,"Senate Commerce Report",16,0,0,3,19
+2115037,1631966,2026-02-12,Senate,"Senate State Government Report",12,4,0,2,18
+2115052,1631898,2026-02-12,Senate,"Senate Education Report",11,4,0,1,16
+2115066,1632142,2026-02-12,Senate,"Senate State Government Report",16,0,0,2,18
+2115071,1631906,2026-02-12,Senate,"Senate Commerce Report",16,0,0,3,19
+2115087,1631896,2026-02-12,Senate,"Senate Technology Report",11,0,0,0,11
+2115178,1632572,2026-02-12,Senate,"Senate Education Report",15,0,0,1,16
+2115325,1632575,2026-02-12,Senate,"Senate Education Report",15,0,0,1,16
+2115397,1632561,2026-02-12,Senate,"Senate Natural Resources And Environment Report",13,0,0,2,15
+2115495,1632800,2026-02-12,Senate,"Senate Commerce Report",12,4,0,3,19
+2115520,1632900,2026-02-12,Senate,"Senate Natural Resources And Environment Report",13,0,0,2,15
+2115570,1632875,2026-02-12,Senate,"Senate Education Report",15,0,0,1,16
+2115645,1632863,2026-02-12,Senate,"Senate Workforce Report",11,0,0,1,12
+2115825,1632380,2026-02-12,Senate,"Senate Ways And Means Report",17,0,0,1,18
+2115954,1632395,2026-02-12,Senate,"Senate Education Report",15,0,0,1,16
