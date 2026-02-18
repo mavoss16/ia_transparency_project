@@ -440,12 +440,12 @@ render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees
   message("\n")
 
   # Render legislators (incremental unless force = TRUE)
-  render_all_legislators(limit = legislators_limit, force = force)
+  render_all_legislators(limit = legislators_limit, force = TRUE)
 
   message("\n")
 
   # Render committees (incremental unless force = TRUE)
-  render_all_committees(limit = committees_limit, force = force)
+  render_all_committees(limit = committees_limit, force = TRUE)
 
   message("\n=== Site render complete ===")
 }
