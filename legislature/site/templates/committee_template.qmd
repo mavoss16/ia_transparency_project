@@ -30,9 +30,9 @@ committee_data <- read_json(here::here(str_glue("legiscan/files_ga91_json/people
   pluck("person")
 
 # Read related data
-bills <- read_csv(here::here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
-sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"), show_col_types = FALSE)
-rollcalls <- read_csv(here::here("legiscan/files_ga91/rollcalls.csv"), show_col_types = FALSE)
+bills <- read_csv(here::here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
+sponsors <- read_csv(here::here("legiscan/files_ga91_derived/sponsors.csv"), show_col_types = FALSE)
+rollcalls <- read_csv(here::here("legiscan/files_ga91_derived/rollcalls.csv"), show_col_types = FALSE)
 
 # Determine chamber
 chamber_name <- if (committee_data$role == "Sen") "Senate" else "House"

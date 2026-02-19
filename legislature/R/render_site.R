@@ -246,7 +246,7 @@ render_all_committees <- function(limit = NULL, force = FALSE) {
   ensure_dirs()
   manifest <- load_manifest()
 
-  people <- read_csv(here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+  people <- read_csv(here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
   committees <- people |> filter(is.na(first_name) | first_name == "", committee_id > 0)
   committee_ids <- committees$people_id
 
@@ -300,7 +300,7 @@ render_all_bills <- function(limit = NULL, force = FALSE) {
   ensure_dirs()
   manifest <- load_manifest()
 
-  bills <- read_csv(here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
+  bills <- read_csv(here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
   bill_numbers <- bills$bill_number
 
   if (!is.null(limit)) {
@@ -364,7 +364,7 @@ render_all_legislators <- function(limit = NULL, force = FALSE) {
   ensure_dirs()
   manifest <- load_manifest()
 
-  people <- read_csv(here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+  people <- read_csv(here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
   # Exclude committees (have empty first_name/last_name)
   legislators <- people |> filter(!is.na(first_name), first_name != "")
   people_ids <- legislators$people_id
@@ -479,7 +479,7 @@ render_sample <- function(n_bills = 5, n_legislators = 5, n_committees = 3, rand
   }
 
   # Get bills
-  bills <- read_csv(here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
+  bills <- read_csv(here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
   if (random && n_bills < nrow(bills)) {
     bill_numbers <- sample(bills$bill_number, n_bills)
   } else {
@@ -487,7 +487,7 @@ render_sample <- function(n_bills = 5, n_legislators = 5, n_committees = 3, rand
   }
 
   # Get legislators (exclude committees)
-  people <- read_csv(here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+  people <- read_csv(here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
   legislators <- people |> filter(!is.na(first_name), first_name != "")
   if (random && n_legislators < nrow(legislators)) {
     people_ids <- sample(legislators$people_id, n_legislators)
@@ -547,8 +547,8 @@ render_sample <- function(n_bills = 5, n_legislators = 5, n_committees = 3, rand
 render_status <- function() {
   manifest <- load_manifest()
 
-  bills <- read_csv(here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
-  people <- read_csv(here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+  bills <- read_csv(here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
+  people <- read_csv(here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
 
   # Separate legislators from committees
   legislators <- people |> filter(!is.na(first_name), first_name != "")

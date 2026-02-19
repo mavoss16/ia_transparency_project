@@ -40,7 +40,7 @@ format_bill_link <- function(bill_number, path_prefix = "") {
 #' @return Character string like "rep-dave-jacoby-6970" or "sen-jason-schultz-6973"
 get_legislator_filename <- function(people_id, people_df = NULL) {
   if (is.null(people_df)) {
-    people_df <- readr::read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+    people_df <- readr::read_csv(here::here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
   }
 
   person <- people_df |> filter(people_id == !!people_id)
@@ -72,7 +72,7 @@ get_legislator_filename <- function(people_id, people_df = NULL) {
 #' @return Character string like "house-commerce-7061" or "senate-judiciary-7121"
 get_committee_filename <- function(people_id, people_df = NULL) {
   if (is.null(people_df)) {
-    people_df <- readr::read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
+    people_df <- readr::read_csv(here::here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
   }
 
   person <- people_df |> filter(people_id == !!people_id)

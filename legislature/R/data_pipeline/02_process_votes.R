@@ -20,7 +20,7 @@ source(here("R/data_pipeline/02a_vote_analysis_functions.R"))
 
 # Configuration -----------------------------------------------------------
 
-LEGISCAN_CSV_DIR <- here("legiscan/files_ga91")
+LEGISCAN_CSV_DIR <- here("legiscan/files_ga91_derived")
 LEGISCAN_JSON_DIR <- here("legiscan/files_ga91_json")
 OUTPUT_DIR <- here("data")
 

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.legiscan.com)",
+      "WebSearch",
+      "WebFetch(domain:legiscan.com)"
+    ]
+  }
+}

@@ -21,9 +21,9 @@ source(here::here("R/utils.R"))
 
 ```{r}
 # Load data
-bills <- read_csv(here::here("legiscan/files_ga91/bills.csv"), show_col_types = FALSE)
-people <- read_csv(here::here("legiscan/files_ga91/people.csv"), show_col_types = FALSE)
-sponsors <- read_csv(here::here("legiscan/files_ga91/sponsors.csv"), show_col_types = FALSE) |>
+bills <- read_csv(here::here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
+people <- read_csv(here::here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
+sponsors <- read_csv(here::here("legiscan/files_ga91_derived/sponsors.csv"), show_col_types = FALSE) |>
   left_join(people)
 
 # Load bill groups (graceful degradation if not yet generated)

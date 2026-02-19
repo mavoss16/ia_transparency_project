@@ -77,10 +77,17 @@ cleanup_old_logs <- function(log_dir, keep_days) {
 
 PIPELINE_STEPS <- list(
   download = list(
-    name = "Download LegiScan data",
+    name = "Incremental bill update",
     run = function() {
-      source(here("R/data_pipeline/01_download_legiscan_data.R"), local = TRUE)
-      download_legiscan_data()
+      source(here("R/data_pipeline/01_incremental_update.R"), local = TRUE)
+      incremental_update()
+    }
+  ),
+  generate_csvs = list(
+    name = "Generate CSVs from JSON",
+    run = function() {
+      source(here("R/data_pipeline/01c_generate_csvs.R"), local = TRUE)
+      generate_csvs()
     }
   ),
   process_votes = list(
@@ -113,6 +120,10 @@ STEP_OUTPUT_DIRS <- list(
   download = list(
     dirs    = c("legiscan/files_ga91_json"),
     pattern = NULL          # count all files
+  ),
+  generate_csvs = list(
+    dirs    = c("legiscan/files_ga91_derived"),
+    pattern = "\\.csv$"
   ),
   process_votes = list(
     dirs    = c("data"),
