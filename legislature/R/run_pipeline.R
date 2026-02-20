@@ -97,6 +97,13 @@ PIPELINE_STEPS <- list(
       process_votes()
     }
   ),
+  legislator_similarity = list(
+    name = "Compute legislator similarity",
+    run = function() {
+      source(here("R/data_pipeline/02b_legislator_similarity.R"), local = TRUE)
+      compute_legislator_similarity()
+    }
+  ),
   bill_relationships = list(
     name = "Scrape bill relationships & build groups",
     run = function() {
@@ -126,6 +133,10 @@ STEP_OUTPUT_DIRS <- list(
     pattern = "\\.csv$"
   ),
   process_votes = list(
+    dirs    = c("data/votes"),
+    pattern = "\\.rds$"
+  ),
+  legislator_similarity = list(
     dirs    = c("data/votes"),
     pattern = "\\.rds$"
   ),

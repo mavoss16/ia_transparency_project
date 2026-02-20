@@ -1,0 +1,129 @@
+---
+title: "Compare Legislators"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: false
+---
+
+Select two Iowa legislators to see how often they voted the same way. The **vote agreement rate** is the share of roll call votes where both cast the same vote (Yea or Nay). Absences and Not Voting are excluded.
+
+```{r}
+library(readr)
+library(dplyr)
+library(stringr)
+library(here)
+
+people <- read_csv(
+  here("legiscan/files_ga91_derived/people.csv"),
+  show_col_types = FALSE
+) |>
+  filter(party_id != 0) |>
+  select(people_id, name, party, role, district) |>
+  mutate(
+    filename = paste0(
+      if_else(role == "Sen", "sen", "rep"), "-",
+      str_replace_all(tolower(name), "[^a-z0-9]+", "-"), "-",
+      people_id
+    )
+  ) |>
+  arrange(role, name)
+
+pair_data <- read_rds(here("data/votes/pair_lookup.rds"))
+
+ojs_define(legislators = people, pair_data = pair_data)
+```
+
+```{ojs}
+// Build a fast O(1) lookup Map — store both orderings so order of selection doesn't matter
+pairMap = {
+  const m = new Map();
+  for (const p of pair_data) {
+    m.set(`${p.people_id_a}_${p.people_id_b}`, p);
+    m.set(`${p.people_id_b}_${p.people_id_a}`, p);
+  }
+  return m;
+}
+
+// Senators first (alphabetical), then Representatives
+all_sorted = [
+  ...legislators.filter(d => d.role === "Sen").sort((a, b) => a.name.localeCompare(b.name)),
+  ...legislators.filter(d => d.role === "Rep").sort((a, b) => a.name.localeCompare(b.name))
+]
+
+viewof leg_a = Inputs.select(all_sorted, {
+  label: "Legislator A",
+  format: d => `${d.name} (${d.party}-${d.district})`,
+  width: 360
+})
+
+viewof leg_b = Inputs.select(all_sorted, {
+  label: "Legislator B",
+  format: d => `${d.name} (${d.party}-${d.district})`,
+  width: 360
+})
+
+result = {
+  if (!leg_a || !leg_b) return { type: "none" };
+  if (leg_a.people_id === leg_b.people_id) return { type: "same" };
+  const p = pairMap.get(`${leg_a.people_id}_${leg_b.people_id}`);
+  return p ? { type: "found", ...p } : { type: "insufficient" };
+}
+
+scoreColor = result.type === "found"
+  ? (result.similarity >= 0.8 ? "#1565C0"
+   : result.similarity >= 0.5 ? "#E65100"
+   : "#B71C1C")
+  : "#555"
+
+html`<div style="margin-top: 2rem; text-align: center; font-family: sans-serif;">
+  ${result.type === "same"
+    ? html`<p style="color: #888; margin-top: 1rem;">Select two <em>different</em> legislators.</p>`
+
+    : result.type === "insufficient"
+    ? html`<div style="max-width: 520px; margin: 1.5rem auto; padding: 1rem 1.5rem;
+                       background: #f9f9f9; border-radius: 6px; color: #555; font-size: 0.95rem;">
+        <strong>Not enough shared votes</strong><br><br>
+        These two legislators voted together on fewer than 20 roll calls, so a reliable
+        similarity score cannot be computed. They may be in different chambers or have
+        little overlap in the bills they voted on.
+      </div>`
+
+    : result.type === "found"
+    ? html`<div>
+        <div style="margin-bottom: 0.75rem; font-size: 1rem;">
+          <a href="${leg_a.filename}.html" style="font-weight: 600;">${leg_a.name}</a>
+          <span style="color: #aaa; margin: 0 0.6rem;">vs.</span>
+          <a href="${leg_b.filename}.html" style="font-weight: 600;">${leg_b.name}</a>
+        </div>
+        <div style="font-size: 5rem; font-weight: 800; color: ${scoreColor}; line-height: 1.1; margin: 0.25rem 0;">
+          ${(result.similarity * 100).toFixed(1)}%
+        </div>
+        <div style="color: #888; font-size: 0.9rem; margin-bottom: 1.75rem;">vote agreement rate</div>
+        <table style="margin: auto; border-collapse: collapse; font-size: 0.95rem; min-width: 280px;">
+          <tbody>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px 20px; color: #555; text-align: left;">Roll calls both voted on</td>
+              <td style="padding: 8px 20px; font-weight: 600; text-align: right;">${result.n_shared.toLocaleString()}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px 20px; color: #555; text-align: left;">Voted the same</td>
+              <td style="padding: 8px 20px; font-weight: 600; text-align: right;">${result.n_agree.toLocaleString()}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 20px; color: #555; text-align: left;">Voted differently</td>
+              <td style="padding: 8px 20px; font-weight: 600; text-align: right;">${result.n_disagree.toLocaleString()}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top: 1.75rem; font-size: 0.8rem; color: #bbb;">
+          Based on 91st General Assembly floor votes &bull; Minimum 20 shared votes required
+        </div>
+      </div>`
+
+    : ""
+  }
+</div>`
+```

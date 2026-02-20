@@ -2046,3 +2046,34 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2101726,1639052,2026-02-19,Senate,Senate Judiciary Report,10,6,1,3,20
 2120467,1639059,2026-02-19,Senate,Senate Technology Report,10,0,0,1,11
 2120599,1639062,2026-02-19,Senate,Senate Judiciary Report,17,0,0,3,20
+2120120,1639171,2026-02-19,Senate,Senate Education Report,14,0,0,2,16
+2120198,1639181,2026-02-19,Senate,Senate State Government Report,18,0,0,0,18
+2120075,1639185,2026-02-19,Senate,Senate Transportation Report,15,0,0,2,17
+2108522,1639188,2026-02-19,House,"Shall amendment H–8010, to the committee amendment H–8004, be adopted?",30,63,0,7,100
+2108522,1639189,2026-02-19,House,Shall the bill pass?,58,35,0,7,100
+2120011,1639190,2026-02-19,Senate,Senate Education Report,9,5,0,2,16
+2114989,1639194,2026-02-19,House,House Committee On Transportation Report,15,5,0,1,21
+2114989,1639195,2026-02-19,House,House Committee On Transportation Report,15,5,0,1,21
+2114989,1639196,2026-02-19,House,House Committee On Transportation Report,15,5,0,1,21
+2114989,1639197,2026-02-19,House,House Committee On Transportation Report,20,0,0,1,21
+2114989,1639198,2026-02-19,House,House Committee On Transportation Report,20,0,0,1,21
+2114989,1639199,2026-02-19,House,House Committee On Transportation Report,20,0,0,1,21
+2114989,1639200,2026-02-19,House,House Committee On Transportation Report,20,0,0,1,21
+2120051,1639203,2026-02-19,Senate,Senate State Government Report,18,0,0,0,18
+2087724,1639205,2026-02-19,House,House Committee On Agriculture Report,14,7,0,0,21
+2087724,1639206,2026-02-19,House,House Committee On Agriculture Report,14,7,0,0,21
+2120102,1639210,2026-02-19,Senate,Senate Judiciary Report,17,0,0,3,20
+2120026,1639215,2026-02-19,Senate,Senate State Government Report,12,6,0,0,18
+2120167,1639216,2026-02-19,Senate,Senate Education Report,9,5,0,2,16
+2120176,1639229,2026-02-19,Senate,Senate Education Report,9,5,0,2,16
+2120186,1639246,2026-02-19,Senate,Senate Judiciary Report,17,0,0,3,20
+2108858,1639250,2026-02-19,House,House Committee On Agriculture Report,19,4,0,0,23
+2108858,1639251,2026-02-19,House,House Committee On Agriculture Report,23,0,0,0,23
+2108858,1639252,2026-02-19,House,House Committee On Agriculture Report,19,4,0,0,23
+2108858,1639253,2026-02-19,House,House Committee On Agriculture Report,19,4,0,0,23
+2108858,1639254,2026-02-19,House,House Committee On Agriculture Report,19,4,0,0,23
+2108858,1639255,2026-02-19,House,House Committee On Agriculture Report,19,4,0,0,23
+2120040,1639291,2026-02-19,Senate,Senate Education Report,9,4,0,3,16
+2120326,1639373,2026-02-19,Senate,Senate Education Report,14,0,0,2,16
+2120318,1639377,2026-02-19,Senate,Senate Transportation Report,15,0,0,2,17
+2120254,1639393,2026-02-19,Senate,Senate Transportation Report,15,0,0,2,17

@@ -65,6 +65,14 @@ leg_votes <- votes |>
 legislator_stats <- read_rds(here::here("data/votes/legislator_stats_91st_ga.rds"))
 vote_records <- read_rds(here::here("data/votes/records_91st_ga.rds"))
 
+# Load legislator similarity data (graceful degradation if not yet generated)
+similarity_path <- here::here("data/votes/similarity_top_n.rds")
+leg_similarity <- if (file.exists(similarity_path)) {
+  read_rds(similarity_path) |> filter(people_id_a == params$people_id)
+} else {
+  NULL
+}
+
 leg_stats <- legislator_stats |> filter(people_id == params$people_id)
 leg_vote_records <- vote_records |> filter(people_id == params$people_id)
 
@@ -381,6 +389,92 @@ if(nrow(leg_vote_records) > 0) {
   cat("Insufficient voting data for analysis.\n")
 }
 ```
+
+## Similar Legislators
+
+```{r}
+make_leg_link <- function(filename, name) {
+  sprintf("<a href='../%s.html'>%s</a>", filename, name)
+}
+
+make_sim_table <- function(df) {
+  gt(df) |>
+    fmt_markdown(columns = Legislator) |>
+    tab_style(
+      style = cell_text(whitespace = "nowrap"),
+      locations = cells_body(columns = Legislator)
+    ) |>
+    tab_options(table.font.size = px(12), data_row.padding = px(4))
+}
+
+prep_sim_df <- function(data, type) {
+  data |>
+    filter(rank_type == type) |>
+    arrange(rank) |>
+    mutate(
+      Legislator     = make_leg_link(filename_b, name_b),
+      Party          = party_b,
+      District       = district_b,
+      Similarity     = sprintf("%.1f%%", similarity * 100),
+      `Shared Votes` = n_shared
+    ) |>
+    select(Legislator, Party, District, Similarity, `Shared Votes`)
+}
+
+similarity_available <- !is.null(leg_similarity) && nrow(leg_similarity) > 0
+```
+
+::: {.grid}
+
+::: {.g-col-6}
+### Most Similar Overall
+
+```{r}
+if (similarity_available) {
+  make_sim_table(prep_sim_df(leg_similarity, "overall"))
+} else {
+  cat("Similarity data not yet available.\n")
+}
+```
+:::
+
+::: {.g-col-6}
+### Most Similar — Opposite Party
+
+```{r}
+if (similarity_available) {
+  make_sim_table(prep_sim_df(leg_similarity, "cross_party"))
+} else {
+  cat("Similarity data not yet available.\n")
+}
+```
+:::
+
+::: {.g-col-6}
+### Most Dissimilar Overall
+
+```{r}
+if (similarity_available) {
+  make_sim_table(prep_sim_df(leg_similarity, "least_overall"))
+} else {
+  cat("Similarity data not yet available.\n")
+}
+```
+:::
+
+::: {.g-col-6}
+### Most Dissimilar — Own Party
+
+```{r}
+if (similarity_available) {
+  make_sim_table(prep_sim_df(leg_similarity, "least_own_party"))
+} else {
+  cat("Similarity data not yet available.\n")
+}
+```
+:::
+
+:::
 
 :::
 
