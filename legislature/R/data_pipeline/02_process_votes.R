@@ -22,7 +22,7 @@ source(here("R/data_pipeline/02a_vote_analysis_functions.R"))
 
 LEGISCAN_CSV_DIR <- here("legiscan/files_ga91_derived")
 LEGISCAN_JSON_DIR <- here("legiscan/files_ga91_json")
-OUTPUT_DIR <- here("data")
+OUTPUT_DIR <- here("data/votes")
 
 # Ensure output directory exists
 if (!dir.exists(OUTPUT_DIR)) {
@@ -113,15 +113,15 @@ process_votes <- function(
   # Write output files
   if (verbose) message("Writing output files...")
 
-  write_rds(vote_summaries, file.path(output_dir, "vote_summaries_91st_ga.rds"))
-  write_rds(vote_records, file.path(output_dir, "vote_records_91st_ga.rds"))
-  write_rds(legislator_stats, file.path(output_dir, "legislator_voting_stats_91st_ga.rds"))
+  write_rds(vote_summaries, file.path(output_dir, "summaries_91st_ga.rds"))
+  write_rds(vote_records, file.path(output_dir, "records_91st_ga.rds"))
+  write_rds(legislator_stats, file.path(output_dir, "legislator_stats_91st_ga.rds"))
 
   if (verbose) {
     message("Output files written to:")
-    message(sprintf("  - %s", file.path(output_dir, "vote_summaries_91st_ga.rds")))
-    message(sprintf("  - %s", file.path(output_dir, "vote_records_91st_ga.rds")))
-    message(sprintf("  - %s", file.path(output_dir, "legislator_voting_stats_91st_ga.rds")))
+    message(sprintf("  - %s", file.path(output_dir, "summaries_91st_ga.rds")))
+    message(sprintf("  - %s", file.path(output_dir, "records_91st_ga.rds")))
+    message(sprintf("  - %s", file.path(output_dir, "legislator_stats_91st_ga.rds")))
     message("Done!")
   }
 

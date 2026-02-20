@@ -62,8 +62,8 @@ leg_votes <- votes |>
   )
 
 # Load processed vote data for party alignment analysis
-legislator_stats <- read_rds(here::here("data/legislator_voting_stats_91st_ga.rds"))
-vote_records <- read_rds(here::here("data/vote_records_91st_ga.rds"))
+legislator_stats <- read_rds(here::here("data/votes/legislator_stats_91st_ga.rds"))
+vote_records <- read_rds(here::here("data/votes/records_91st_ga.rds"))
 
 leg_stats <- legislator_stats |> filter(people_id == params$people_id)
 leg_vote_records <- vote_records |> filter(people_id == params$people_id)
@@ -74,10 +74,10 @@ people <- read_csv(here::here("legiscan/files_ga91_derived/people.csv"), show_co
   mutate(district_num = parse_district_number(district)) |>
   select(name, party, district, district_num, role)
 
-senate_districts <- read_rds(here::here("data/senate_districts.rds")) |>
+senate_districts <- read_rds(here::here("data/districts/senate.rds")) |>
   left_join(people |> filter(role == "Sen"), by = c("District" = "district_num"))
 
-house_districts <- read_rds(here::here("data/house_districts.rds")) |>
+house_districts <- read_rds(here::here("data/districts/house.rds")) |>
   left_join(people |> filter(role == "Rep"), by = c("District" = "district_num"))
 ```
 
@@ -153,7 +153,7 @@ total_sponsored <- nrow(leg_sponsored_bills)
 total_votes <- nrow(leg_votes)
 
 # Load bill groups for outcome context
-bill_groups <- read_rds(here::here("data/bill_groups.rds"))
+bill_groups <- read_rds(here::here("data/bills/groups.rds"))
 
 # Sponsorship with outcomes
 if(nrow(leg_sponsored_bills) > 0) {

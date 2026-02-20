@@ -143,7 +143,7 @@ load_roll_call_metadata <- function(json_dir) {
     tibble(
       roll_call_id = rc$roll_call_id,
       bill_id = rc$bill_id,
-      vote_date = as.Date(rc$date),
+      vote_date = tryCatch(as.Date(rc$date), error = function(e) as.Date(NA)),
       vote_desc = rc$desc,
       yea_count = rc$yea,
       nay_count = rc$nay,

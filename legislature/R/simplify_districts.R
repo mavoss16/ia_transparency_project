@@ -20,9 +20,9 @@ house <- st_read(here::here("data/Districts/Plan2_House.shp"), quiet = TRUE) |>
   st_simplify(dTolerance = 0.0002, preserveTopology = TRUE) |>
   transmute(District = as.numeric(DISTRICT))
 
-saveRDS(senate, here::here("data/senate_districts.rds"))
-saveRDS(house, here::here("data/house_districts.rds"))
+saveRDS(senate, here::here("data/districts/senate.rds"))
+saveRDS(house, here::here("data/districts/house.rds"))
 
 cat("Senate:", nrow(senate), "districts\n")
 cat("House:", nrow(house), "districts\n")
-cat("Saved to data/senate_districts.rds and data/house_districts.rds\n")
+cat("Saved to data/districts/senate.rds and data/districts/house.rds\n")

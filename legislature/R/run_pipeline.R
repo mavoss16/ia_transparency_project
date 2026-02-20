@@ -126,11 +126,11 @@ STEP_OUTPUT_DIRS <- list(
     pattern = "\\.csv$"
   ),
   process_votes = list(
-    dirs    = c("data"),
+    dirs    = c("data/votes"),
     pattern = "\\.rds$"
   ),
   bill_relationships = list(
-    dirs    = c("data"),
+    dirs    = c("data/bills"),
     pattern = "\\.rds$"
   ),
   render = list(
@@ -167,7 +167,7 @@ count_modified_files <- function(dirs, since_time, pattern = NULL) {
 #' @param run_id  Character run identifier (timestamp string)
 #' @param pipeline_start POSIXct start time of the full pipeline
 save_run_summary <- function(results, run_id, pipeline_start) {
-  summary_path <- here("data/pipeline_runs.rds")
+  summary_path <- here("data/pipeline_internal/pipeline_runs.rds")
 
   new_rows <- do.call(rbind, lapply(results, function(r) {
     data.frame(

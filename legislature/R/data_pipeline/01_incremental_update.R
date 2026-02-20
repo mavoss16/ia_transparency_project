@@ -31,7 +31,7 @@ legiscan_get <- function(base_url, ...) {
 }
 
 # Path to the bill hash cache (bill_number -> change_hash)
-HASH_CACHE_PATH <- here("data/bill_hash_cache.rds")
+HASH_CACHE_PATH <- here("data/pipeline_internal/bill_hash_cache.rds")
 
 #' Build a named list of bill_number -> change_hash from local bill JSON files.
 #' Fallback used when no cache exists yet.

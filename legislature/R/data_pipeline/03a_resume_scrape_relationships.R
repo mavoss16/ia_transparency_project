@@ -20,7 +20,7 @@ library(jsonlite)
 library(here)
 library(purrr)
 
-EDGES_PATH <- here("data/bill_relationship_edges.rds")
+EDGES_PATH <- here("data/bills/relationship_edges.rds")
 JSON_DIR   <- here("legiscan/files_ga91_json/bill")
 
 # --- Core scrape function with session cleanup ---

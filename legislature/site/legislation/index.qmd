@@ -27,7 +27,7 @@ sponsors <- read_csv(here::here("legiscan/files_ga91_derived/sponsors.csv"), sho
   left_join(people)
 
 # Load bill groups (graceful degradation if not yet generated)
-bill_groups_path <- here::here("data/bill_groups.rds")
+bill_groups_path <- here::here("data/bills/groups.rds")
 if (file.exists(bill_groups_path)) {
   bill_groups <- read_rds(bill_groups_path)
 } else {

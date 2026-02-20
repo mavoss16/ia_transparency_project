@@ -97,7 +97,7 @@ scrape_lobby_safe <- function(bill_number, ga = 91) {
 #' Load cached lobbyist declarations or return empty tibble
 #' @param path Path to lobbyist declarations RDS file
 #' @return Tibble with lobbyist declarations
-load_lobbyist_declarations <- function(path = here::here("data/lobbyist_declarations.rds")) {
+load_lobbyist_declarations <- function(path = here::here("data/lobbying/lobbyist_declarations.rds")) {
   if (file.exists(path)) {
     readRDS(path)
   } else {
@@ -115,7 +115,7 @@ load_lobbyist_declarations <- function(path = here::here("data/lobbyist_declarat
 #' Save lobbyist declarations to RDS
 #' @param declarations Tibble with lobbyist data
 #' @param path Path to save
-save_lobbyist_declarations <- function(declarations, path = here::here("data/lobbyist_declarations.rds")) {
+save_lobbyist_declarations <- function(declarations, path = here::here("data/lobbying/lobbyist_declarations.rds")) {
   saveRDS(declarations, path)
   message("Saved ", nrow(declarations), " lobbyist declaration records to ", path)
 }
@@ -156,7 +156,7 @@ bills_needing_scrape <- function(existing, json_dir = here::here("legiscan/files
 update_lobbyist_declarations <- function(
     bill_numbers = NULL,
     limit = NULL,
-    output_path = here::here("data/lobbyist_declarations.rds"),
+    output_path = here::here("data/lobbying/lobbyist_declarations.rds"),
     json_dir = here::here("legiscan/files_ga91_json/bill"),
     ga = 91,
     rate_limit = 1.5,
@@ -289,7 +289,7 @@ update_lobbyist_declarations <- function(
 #' @return Updated declarations tibble
 rescrape_lobbyist_declarations <- function(
     bill_numbers,
-    output_path = here::here("data/lobbyist_declarations.rds"),
+    output_path = here::here("data/lobbying/lobbyist_declarations.rds"),
     ga = 91,
     rate_limit = 1.5
 ) {
@@ -307,7 +307,7 @@ rescrape_lobbyist_declarations <- function(
 
 #' View summary of lobbyist declaration data
 #' @param output_path Path to lobbyist declarations RDS file
-lobbyist_summary <- function(output_path = here::here("data/lobbyist_declarations.rds")) {
+lobbyist_summary <- function(output_path = here::here("data/lobbying/lobbyist_declarations.rds")) {
   if (!file.exists(output_path)) {
     message("No lobbyist data found. Run update_lobbyist_declarations() first.")
     return(invisible(NULL))

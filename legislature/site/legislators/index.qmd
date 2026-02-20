@@ -29,7 +29,7 @@ votes <- read_csv(here::here("legiscan/files_ga91_derived/votes.csv"), show_col_
 rollcalls <- read_csv(here::here("legiscan/files_ga91_derived/rollcalls.csv"), show_col_types = FALSE)
 
 # Load processed voting statistics
-legislator_stats <- read_rds(here::here("data/legislator_voting_stats_91st_ga.rds"))
+legislator_stats <- read_rds(here::here("data/votes/legislator_stats_91st_ga.rds"))
 ```
 
 ```{r}
