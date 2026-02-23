@@ -110,6 +110,68 @@ items_to_df <- function(list){
   }
 }
 
+#' Generate an HTML progress bar showing a bill's position in the legislative process
+#' @param status Character string matching one of the defined status levels, e.g. "Passed Committee"
+#' @return Character string of raw HTML (include via cat() with output: asis)
+render_bill_progress_bar <- function(status) {
+  steps <- c(
+    "Introduced",
+    "Passed Subcommittee",
+    "Passed Committee",
+    "Passed One Chamber",
+    "Passed Both Chambers",
+    "Signed by Governor"
+  )
+
+  status_levels <- c(
+    "Introduced"          = 1,
+    "Passed Subcommittee" = 2,
+    "Passed Committee"    = 3,
+    "Passed One Chamber"  = 4,
+    "Passed Both Chambers"= 5,
+    "Signed by Governor"  = 6
+  )
+
+  current_level <- status_levels[status]
+  if (is.na(current_level)) current_level <- 1L
+
+  n <- length(steps)
+  parts <- character(0)
+
+  for (i in seq_along(steps)) {
+    is_done <- i <= current_level
+    step_class <- if (is_done) "bpb-step done" else "bpb-step"
+    node_content <- if (is_done) "&#10003;" else as.character(i)
+
+    parts <- c(parts, sprintf(
+      '<div class="%s"><div class="bpb-node">%s</div><div class="bpb-label">%s</div></div>',
+      step_class, node_content, steps[i]
+    ))
+
+    if (i < n) {
+      conn_class <- if (i < current_level) "bpb-connector done" else "bpb-connector"
+      parts <- c(parts, sprintf('<div class="%s"></div>', conn_class))
+    }
+  }
+
+  css <- paste0(
+    '<style>',
+    '.bpb{display:flex;align-items:flex-start;margin:1rem 0 1.5rem;}',
+    '.bpb-step{display:flex;flex-direction:column;align-items:center;flex:0 0 90px;}',
+    '.bpb-node{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;',
+    'justify-content:center;font-size:12px;font-weight:700;background:#e2e8f0;color:#94a3b8;}',
+    '.bpb-step.done .bpb-node{background:#1a56db;color:#fff;}',
+    '.bpb-label{font-size:10px;text-align:center;margin-top:5px;color:#94a3b8;',
+    'line-height:1.3;max-width:80px;}',
+    '.bpb-step.done .bpb-label{color:#1a56db;font-weight:600;}',
+    '.bpb-connector{flex:1;height:2px;background:#e2e8f0;margin-top:13px;align-self:flex-start;}',
+    '.bpb-connector.done{background:#1a56db;}',
+    '</style>'
+  )
+
+  paste0(css, '<div class="bpb">', paste(parts, collapse = ""), '</div>')
+}
+
 scrape_lobbyist_declarations <- function(bill_number, ga = 91, max_retries = 3, retry_delay = 2) {
 
   # Construct URL dynamically

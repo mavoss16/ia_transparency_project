@@ -145,7 +145,8 @@ render_bill <- function(bill_number, template_path = here("site/templates/bill_t
       output_file = basename(output_file),
       execute_params = list(bill_num = bill_number),
       output_format = "html",
-      metadata = list(search = FALSE)  # Avoid search.json file lock on Windows
+      metadata = list(search = FALSE),  # Avoid search.json file lock on Windows
+      as_job = FALSE
     )
 
     # Move rendered file to correct location
@@ -175,7 +176,8 @@ render_legislator <- function(people_id, template_path = here("site/templates/le
       output_file = basename(output_file),
       execute_params = list(people_id = people_id),
       output_format = "html",
-      metadata = list(search = FALSE)  # Avoid search.json file lock on Windows
+      metadata = list(search = FALSE),  # Avoid search.json file lock on Windows
+      as_job = FALSE
     )
 
     # Move rendered file to correct location
@@ -223,7 +225,8 @@ render_committee <- function(people_id, template_path = here("site/templates/com
       output_file = basename(output_file),
       execute_params = list(people_id = people_id),
       output_format = "html",
-      metadata = list(search = FALSE)  # Avoid search.json file lock on Windows
+      metadata = list(search = FALSE),  # Avoid search.json file lock on Windows
+      as_job = FALSE
     )
 
     # Move rendered file to correct location
@@ -417,7 +420,7 @@ render_all_legislators <- function(limit = NULL, force = FALSE) {
 #' Render the main Quarto site (index pages)
 render_index_pages <- function() {
   message("Rendering main site pages...")
-  withr::with_dir(here("site"), quarto_render())
+  withr::with_dir(here("site"), quarto_render(as_job = FALSE))
   message("Main site pages complete.")
 }
 

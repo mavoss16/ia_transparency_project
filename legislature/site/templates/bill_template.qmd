@@ -124,11 +124,21 @@ if (nrow(bill_group_info) > 0 && !is.na(bill_group_info$status)) {
   cat("**Status:** ", bill$status, "\n\n")
 }
 
-cat(paste0("*Most Recent Action: ", if(!is.null(history) && nrow(history) > 0) history$action[1] else "None", "*\n\n"))
+cat(paste0("**Most Recent Action:** ", if(!is.null(history) && nrow(history) > 0) history$action[1] else "None", "\n\n"))
 
 if (!is.null(lobby) && nrow(lobby) > 0) {
   cat(paste0("**Lobbyist Declarations:** ", lobby_for, " For | ", lobby_against, " Against | ", lobby_undecided, " Undecided\n\n"))
 }
+```
+
+```{r}
+#| output: asis
+progress_status <- if (nrow(bill_group_info) > 0 && !is.na(bill_group_info$status[1])) {
+  bill_group_info$status[1]
+} else {
+  "Introduced"
+}
+cat(render_bill_progress_bar(progress_status))
 ```
 
 ---
