@@ -2077,3 +2077,77 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2120326,1639373,2026-02-19,Senate,Senate Education Report,14,0,0,2,16
 2120318,1639377,2026-02-19,Senate,Senate Transportation Report,15,0,0,2,17
 2120254,1639393,2026-02-19,Senate,Senate Transportation Report,15,0,0,2,17
+2120294,1639397,2026-02-19,Senate,Senate Education Report,14,0,0,2,16
+2120370,1639407,2026-02-19,Senate,Senate Judiciary Report,17,0,0,3,20
+2120390,1639408,2026-02-19,Senate,Senate Judiciary Report,14,3,0,3,20
+2117374,1639415,2026-02-19,House,House Committee On Agriculture Report,17,6,0,0,23
+2120226,1639421,2026-02-19,Senate,Senate Education Report,14,0,0,2,16
+2120407,1639425,2026-02-19,Senate,Senate Workforce Report,12,0,0,0,12
+2120380,1639430,2026-02-19,Senate,Senate Education Report,9,5,0,2,16
+2120401,1639432,2026-02-19,Senate,Senate State Government Report,18,0,0,0,18
+2120343,1639433,2026-02-19,Senate,Senate Transportation Report,15,0,0,2,17
+2120335,1639449,2026-02-19,Senate,Senate Education Report,9,5,0,2,16
+2093520,1639520,2026-02-19,House,House Committee On Agriculture Report,13,8,0,2,23
+1977128,1639535,2026-02-19,House,House Committee On Transportation Report,20,0,0,1,21
+1977128,1639536,2026-02-19,House,House Committee On Transportation Report,20,0,0,1,21
+1974872,1639546,2026-02-19,House,House Committee On Agriculture Report,16,7,0,0,23
+1974872,1639547,2026-02-19,House,House Committee On Agriculture Report,21,2,0,0,23
+1974872,1639548,2026-02-19,House,House Committee On Agriculture Report,16,7,0,0,23
+1974872,1639549,2026-02-19,House,House Committee On Agriculture Report,16,7,0,0,23
+1974872,1639550,2026-02-19,House,House Committee On Agriculture Report,16,7,0,0,23
+1974872,1639551,2026-02-19,House,House Committee On Agriculture Report,21,2,0,0,23
+1974872,1639552,2026-02-19,House,House Committee On Agriculture Report,21,2,0,0,23
+1974872,1639553,2026-02-19,House,House Committee On Agriculture Report,23,0,0,0,23
+1974872,1639554,2026-02-19,House,House Committee On Agriculture Report,23,0,0,0,23
+1974872,1639555,2026-02-19,House,House Committee On Agriculture Report,23,0,0,0,23
+1974872,1639556,2026-02-19,House,House Committee On Agriculture Report,21,2,0,0,23
+1974872,1639557,2026-02-19,House,House Committee On Agriculture Report,23,0,0,0,23
+2101761,1639559,2026-02-19,House,House Committee On Agriculture Report,19,0,0,2,21
+2101761,1639560,2026-02-19,House,House Committee On Agriculture Report,19,0,0,2,21
+2101761,1639561,2026-02-19,House,House Committee On Agriculture Report,19,0,0,2,21
+2101761,1639562,2026-02-19,House,House Committee On Agriculture Report,19,0,0,2,21
+2118195,1639582,2026-02-19,House,House Committee On Agriculture Report,18,5,0,0,23
+1994689,1640118,2026-02-20,House,House Committee On Judiciary Report,16,5,0,0,21
+1972183,1640206,2026-02-20,House,House Committee On Judiciary Report,20,0,0,1,21
+1972183,1640207,2026-02-20,House,House Committee On Judiciary Report,14,6,0,1,21
+1972183,1640208,2026-02-20,House,House Committee On Judiciary Report,14,6,0,1,21
+1972183,1640209,2026-02-20,House,House Committee On Judiciary Report,20,0,0,1,21
+1972183,1640210,2026-02-20,House,House Committee On Judiciary Report,20,0,0,1,21
+1972183,1640211,2026-02-20,House,House Committee On Judiciary Report,19,1,0,1,21
+1972183,1640212,2026-02-20,House,House Committee On Judiciary Report,19,1,0,1,21
+1972183,1640213,2026-02-20,House,House Committee On Judiciary Report,20,0,0,1,21
+1972183,1640214,2026-02-20,House,House Committee On Judiciary Report,14,6,0,1,21
+1972183,1640215,2026-02-20,House,House Committee On Judiciary Report,14,6,0,1,21
+1972183,1640216,2026-02-20,House,House Committee On Judiciary Report,20,0,0,1,21
+1972183,1640217,2026-02-20,House,House Committee On Judiciary Report,20,0,0,1,21
+1972183,1640218,2026-02-20,House,House Committee On Judiciary Report,20,0,0,1,21
+1972183,1640219,2026-02-20,House,House Committee On Judiciary Report,20,0,0,1,21
+1972183,1640220,2026-02-20,House,House Committee On Judiciary Report,20,0,0,1,21
+1972183,1640221,2026-02-20,House,House Committee On Judiciary Report,14,6,0,1,21
+1972183,1640222,2026-02-20,House,House Committee On Judiciary Report,20,0,0,1,21
+1972183,1640223,2026-02-20,House,House Committee On Judiciary Report,20,0,0,1,21
+2110597,1641540,2026-02-23,House,Shall the bill pass?,89,0,0,11,100
+2117602,1641541,2026-02-23,House,Shall the bill pass?,74,15,0,11,100
+2117725,1641545,2026-02-23,House,Shall the bill pass?,89,0,0,11,100
+2122242,1641548,2026-02-23,Senate,Senate Local Government Report,8,4,0,1,13
+2122377,1641549,2026-02-23,Senate,Senate Local Government Report,7,5,0,1,13
+2122359,1641550,2026-02-23,Senate,Senate Commerce Report,17,0,0,2,19
+2108644,1641551,2026-02-23,House,Shall the bill pass?,89,0,0,11,100
+2122248,1641553,2026-02-23,Senate,Senate Commerce Report,17,0,0,2,19
+1994445,1641557,2026-02-23,House,House Committee On Judiciary Report,14,6,0,1,21
+2122303,1641562,2026-02-23,Senate,Senate Local Government Report,10,2,0,1,13
+2122297,1641565,2026-02-23,Senate,Senate Commerce Report,12,5,0,2,19
+2122288,1641573,2026-02-23,Senate,Senate Local Government Report,12,0,0,1,13
+2090335,1641574,2026-02-23,Senate,Shall the bill pass?,47,0,0,3,50
+2122252,1641577,2026-02-23,Senate,Senate Local Government Report,11,1,0,1,13
+2122236,1641578,2026-02-23,Senate,Senate Commerce Report,17,0,0,2,19
+2117530,1641579,2026-02-23,House,Shall the bill pass?,89,0,0,11,100
+2102536,1641583,2026-02-23,House,Shall the bill pass?,70,19,0,11,100
+1990727,1641590,2026-02-23,Senate,Senate Local Government Report,8,4,0,1,13
+2073156,1641592,2026-02-23,Senate,Shall the bill pass?,36,11,0,3,50
+2122285,1641601,2026-02-23,Senate,Senate Local Government Report,8,4,0,1,13
+2122218,1641607,2026-02-23,Senate,Senate Local Government Report,8,4,0,1,13
+2122268,1641611,2026-02-23,Senate,Senate Commerce Report,17,0,0,2,19
+2122215,1641613,2026-02-23,Senate,Senate Local Government Report,12,0,0,1,13
+2122452,1641765,2026-02-23,Senate,Senate Commerce Report,17,0,0,2,19
+2122485,1641766,2026-02-23,Senate,Senate Local Government Report,12,0,0,1,13
