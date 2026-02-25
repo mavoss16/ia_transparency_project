@@ -107,68 +107,53 @@ get_all_bill_statuses <- function(json_dir = here::here("legiscan/files_ga91_jso
 # Web Scraping Functions
 # =============================================================================
 
-#' Scrape related bills from Iowa Legislature website
+#' Scrape related bills from the Iowa Legislature bill history page
 #' @param bill_number Bill number (e.g., "HF1")
 #' @param ga General Assembly number (default 91)
 #' @return Tibble with bill and related_bills columns
 scrape_bill_relationships <- function(bill_number, ga = 91) {
-  # Construct the URL
-  base_url <- "https://www.legis.iowa.gov/legislation/BillBook"
-  url <- paste0(base_url, "?ba=", bill_number, "&ga=", ga)
+  # Bill history pages are static HTML — no JS/chromote needed.
+  # URL format requires a space between letters and digits: "HF 2511"
+  bill_name_spaced <- str_replace(bill_number, "([A-Z]+)([0-9]+)", "\\1 \\2")
+  url <- paste0(
+    "https://www.legis.iowa.gov/legislation/billTracking/billHistory?billName=",
+    utils::URLencode(bill_name_spaced, repeated = TRUE),
+    "&ga=", ga
+  )
 
-  # Read the HTML with retry logic
   page <- NULL
   for (attempt in 1:3) {
-    page <- tryCatch(
-      read_html_live(url),
-      error = function(e) {
-        NULL
-      }
-    )
+    page <- tryCatch(read_html(url), error = function(e) NULL)
     if (!is.null(page)) break
-    if (is.null(page) & attempt < 3) {
-      message(paste0("  Attempt ", attempt, " failed for ", bill_number, ", retrying..."))
+    if (attempt < 3) {
+      message("  Attempt ", attempt, " failed for ", bill_number, ", retrying...")
       Sys.sleep(2)
-    } else if (attempt == 3) {
-      warning(paste("Failed to read page for", bill_number))
-      return(tibble(
-        bill = bill_number,
-        related_bills = list(character(0))
-      ))
     }
   }
 
-  Sys.sleep(1)
-
-  # Extract the related information section
-  related_info <- page |>
-    html_elements("table") |>
-    html_elements(xpath = "//*[contains(@class, 'billRelatedInfo')]")
-
-  related <- character(0)
-
-  if (length(related_info) > 0) {
-    # Get all bill number links
-    links <- related_info |>
-      html_elements("a") |>
-      html_text(trim = TRUE)
-
-    related <- links[str_detect(links, "^[A-Z]+[0-9]+$")]
-    # Remove spaces and the bill itself
-    related <- str_remove_all(related, "\\s")
-    related <- unique(related[related != bill_number])
+  if (is.null(page)) {
+    warning("Failed to read page for ", bill_number)
+    return(tibble(bill = bill_number, related_bills = list(character(0))))
   }
 
-  result <- tibble(
-    bill = bill_number,
-    related_bills = list(related)
-  )
+  # Links in the "All Related Bills to Selected Bill" section point to BillBook
+  # with a "ba=" query parameter, e.g. href="...BillBook?ba=HF 2158&ga=91"
+  related_links <- page |>
+    html_elements(
+      xpath = "//text()[contains(., 'All Related Bills to Selected Bill')]/following::a[contains(@href, 'BillBook')]"
+    )
 
-  # Close the Chromote session to free memory before returning
-  tryCatch(page$session$close(), error = function(e) NULL)
-  rm(page)
+  related <- character(0)
+  if (length(related_links) > 0) {
+    hrefs <- html_attr(related_links, "href")
+    related <- str_match(hrefs, "[?&]ba=([A-Z]+ ?[0-9]+)")[, 2] |>
+      str_remove_all(" ") |>
+      na.omit() |>
+      unique()
+    related <- related[related != bill_number]
+  }
 
-  result
+  tibble(bill = bill_number, related_bills = list(related))
 }
 
 # =============================================================================

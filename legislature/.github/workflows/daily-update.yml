@@ -41,9 +41,10 @@ jobs:
             libgeos-dev \
             libproj-dev \
             libglpk-dev \
-            libudunits2-dev \
-            chromium-browser
-          echo "CHROMOTE_CHROME=$(which chromium-browser)" >> $GITHUB_ENV
+            libudunits2-dev
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Restore renv cache
         uses: r-lib/actions/setup-renv@v2

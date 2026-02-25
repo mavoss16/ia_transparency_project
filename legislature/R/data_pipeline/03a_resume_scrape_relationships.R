@@ -1,7 +1,6 @@
 # 03a_resume_scrape_relationships.R
 #
 # Picks up relationship scraping where it left off.
-# Manages chromote memory by closing browser sessions after each scrape.
 # Processes in batches with saves + gc() between each batch.
 #
 # Usage:
@@ -23,13 +22,19 @@ library(purrr)
 EDGES_PATH <- here("data/bills/relationship_edges.rds")
 JSON_DIR   <- here("legiscan/files_ga91_json/bill")
 
-# --- Core scrape function with session cleanup ---
-scrape_one_bill <- function(bill_number, ga = 91, wait_for_js = 2) {
-  url <- paste0("https://www.legis.iowa.gov/legislation/BillBook?ba=", bill_number, "&ga=", ga)
+# --- Core scrape function ---
+scrape_one_bill <- function(bill_number, ga = 91) {
+  # Bill history pages are static HTML — no JS/chromote needed.
+  bill_name_spaced <- str_replace(bill_number, "([A-Z]+)([0-9]+)", "\\1 \\2")
+  url <- paste0(
+    "https://www.legis.iowa.gov/legislation/billTracking/billHistory?billName=",
+    utils::URLencode(bill_name_spaced, repeated = TRUE),
+    "&ga=", ga
+  )
 
   page <- NULL
   for (attempt in 1:3) {
-    page <- tryCatch(read_html_live(url), error = function(e) NULL)
+    page <- tryCatch(read_html(url), error = function(e) NULL)
     if (!is.null(page)) break
     if (attempt < 3) {
       message("    Attempt ", attempt, " failed for ", bill_number, ", retrying...")
@@ -45,27 +50,23 @@ scrape_one_bill <- function(bill_number, ga = 91, wait_for_js = 2) {
     ))
   }
 
-  # Wait for JS to render the related bills section
-  Sys.sleep(wait_for_js)
-
-  related_info <- tryCatch(
+  related_links <- tryCatch(
     page |>
-      html_elements("table") |>
-      html_elements(xpath = "//*[contains(@class, 'billRelatedInfo')]"),
+      html_elements(
+        xpath = "//text()[contains(., 'All Related Bills to Selected Bill')]/following::a[contains(@href, 'BillBook')]"
+      ),
     error = function(e) list()
   )
 
   related <- character(0)
-  if (length(related_info) > 0) {
-    links <- related_info |> html_elements("a") |> html_text(trim = TRUE)
-    related <- links[str_detect(links, "^[A-Z]+[0-9]+$")]
-    related <- str_remove_all(related, "\\s")
-    related <- unique(related[related != bill_number])
+  if (length(related_links) > 0) {
+    hrefs <- html_attr(related_links, "href")
+    related <- str_match(hrefs, "[?&]ba=([A-Z]+ ?[0-9]+)")[, 2] |>
+      str_remove_all(" ") |>
+      na.omit() |>
+      unique()
+    related <- related[related != bill_number]
   }
-
-  # CRITICAL: close the chromote session to free memory
-  tryCatch(page$session$close(), error = function(e) NULL)
-  rm(page)
 
   list(
     result = tibble(bill = bill_number, related_bills = list(related)),
@@ -125,7 +126,7 @@ resume_scrape <- function(batch_size = 50, max_bills = Inf, rate_limit = 1.5) {
   cat("Remaining:        ", length(remaining), "\n")
   cat("This session:     ", length(remaining), " bills in ",
       ceiling(length(remaining) / batch_size), " batches of ", batch_size, "\n")
-  cat("Estimated time:   ~", round(length(remaining) * (rate_limit + 2) / 60, 1), " minutes\n")
+  cat("Estimated time:   ~", round(length(remaining) * rate_limit / 60, 1), " minutes\n")
   cat("==================================\n\n")
 
   if (length(remaining) == 0) {
@@ -149,7 +150,7 @@ resume_scrape <- function(batch_size = 50, max_bills = Inf, rate_limit = 1.5) {
       message(sprintf("  [%d/%d] %s", total_processed + i, length(remaining), bn))
 
       out <- tryCatch(
-        scrape_one_bill(bn, wait_for_js = rate_limit),
+        scrape_one_bill(bn),
         error = function(e) {
           message("    ERROR: ", e$message)
           list(
