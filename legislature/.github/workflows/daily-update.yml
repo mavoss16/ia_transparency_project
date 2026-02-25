@@ -31,7 +31,7 @@ jobs:
           use-public-rspm: true  # binary packages from Posit PPM — faster installs
 
       - name: Restore renv cache
-        uses: r-lib/actions/setup-renv@v1
+        uses: r-lib/actions/setup-renv@v2
 
       - name: Install system libraries
         run: |
