@@ -30,9 +30,6 @@ jobs:
         with:
           use-public-rspm: true  # binary packages from Posit PPM — faster installs
 
-      - name: Restore renv cache
-        uses: r-lib/actions/setup-renv@v2
-
       - name: Install system libraries
         run: |
           sudo apt-get update -qq
@@ -43,8 +40,12 @@ jobs:
             libgdal-dev \
             libgeos-dev \
             libproj-dev \
+            libglpk-dev \
             chromium-browser
           echo "CHROMOTE_CHROME=$(which chromium-browser)" >> $GITHUB_ENV
+
+      - name: Restore renv cache
+        uses: r-lib/actions/setup-renv@v2
 
       - name: Run pipeline
         env:
