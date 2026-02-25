@@ -15,14 +15,66 @@ library(readr)
 library(dplyr)
 library(stringr)
 library(gt)
+library(ggplot2)
+library(ggparliament)
 source(here::here("R/utils.R"))
 ```
 
 ```{r}
 # Load data
-bills <- read_csv(here::here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
-people <- read_csv(here::here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
-history <- read_csv(here::here("legiscan/files_ga91_derived/history.csv"), show_col_types = FALSE)
+bills    <- read_csv(here::here("legiscan/files_ga91_derived/bills.csv"),     show_col_types = FALSE)
+history  <- read_csv(here::here("legiscan/files_ga91_derived/history.csv"),   show_col_types = FALSE)
+people   <- read_csv(here::here("legiscan/files_ga91_derived/people.csv"),    show_col_types = FALSE) |>
+  filter(!is.na(first_name), first_name != "")
+votes     <- read_csv(here::here("legiscan/files_ga91_derived/votes.csv"),    show_col_types = FALSE)
+rollcalls <- read_csv(here::here("legiscan/files_ga91_derived/rollcalls.csv"),show_col_types = FALSE)
+
+bill_groups_path <- here::here("data/bills/groups.rds")
+if (file.exists(bill_groups_path)) {
+  bill_groups <- read_rds(bill_groups_path)
+} else {
+  bill_groups <- NULL
+}
+```
+
+```{r}
+# Identify replaced legislators (same logic as legislators/index.qmd)
+last_vote_dates <- votes |>
+  left_join(rollcalls |> select(roll_call_id, date), by = "roll_call_id") |>
+  group_by(people_id) |>
+  summarize(last_vote_date = max(date, na.rm = TRUE), .groups = "drop")
+
+dup_districts <- people |>
+  count(role, district) |>
+  filter(n > 1)
+
+former_ids <- people |>
+  semi_join(dup_districts, by = c("role", "district")) |>
+  left_join(last_vote_dates, by = "people_id") |>
+  group_by(role, district) |>
+  mutate(
+    is_former = case_when(
+      all(!is.na(last_vote_date)) ~ last_vote_date == min(last_vote_date),
+      !is.na(last_vote_date)     ~ TRUE,
+      is.na(last_vote_date)      ~ FALSE
+    )
+  ) |>
+  ungroup() |>
+  filter(is_former) |>
+  pull(people_id)
+
+active_people <- people |> filter(!people_id %in% former_ids)
+
+# Party composition for each chamber
+party_colours <- c("R" = "#C0392B", "D" = "#232066")
+
+house_comp  <- active_people |> filter(role == "Rep") |> count(party, name = "seats") |> arrange(desc(seats))
+senate_comp <- active_people |> filter(role == "Sen") |> count(party, name = "seats") |> arrange(desc(seats))
+
+n_house_R  <- house_comp  |> filter(party == "R") |> pull(seats)
+n_house_D  <- house_comp  |> filter(party == "D") |> pull(seats)
+n_senate_R <- senate_comp |> filter(party == "R") |> pull(seats)
+n_senate_D <- senate_comp |> filter(party == "D") |> pull(seats)
 ```
 
 Welcome to the Iowa Legislature tracker for the **91st General Assembly (2025)**. This site provides access to bill information, legislator profiles, voting records, and lobbyist declarations.
@@ -33,9 +85,6 @@ Welcome to the Iowa Legislature tracker for the **91st General Assembly (2025)**
 n_bills <- nrow(bills)
 n_house_bills <- sum(str_detect(bills$bill_number, "^HF|^HJR|^HR"))
 n_senate_bills <- sum(str_detect(bills$bill_number, "^SF|^SJR|^SR"))
-n_legislators <- nrow(people)
-n_house <- sum(people$role == "Rep")
-n_senate <- sum(people$role == "Sen")
 ```
 
 ::: {.grid}
@@ -49,14 +98,75 @@ n_senate <- sum(people$role == "Sen")
 :::
 
 ::: {.g-col-6}
-**Legislators**
+**Bill Progress**
 
-- **`r n_legislators`** total legislators
-- `r n_house` Representatives
-- `r n_senate` Senators
+```{r}
+#| results: asis
+status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
+                  "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
+
+if (!is.null(bill_groups)) {
+  stage_counts <- bill_groups |>
+    count(status, name = "n") |>
+    mutate(status = factor(status, levels = status_order)) |>
+    arrange(desc(status))
+
+  for (i in seq_len(nrow(stage_counts))) {
+    cat(sprintf("- **%s** %s\n", format(stage_counts$n[i], big.mark = ","),
+                as.character(stage_counts$status[i])))
+  }
+} else {
+  cat("_Bill progress data not yet available._\n")
+}
+```
 :::
 
 :::
+
+---
+
+## Legislature Composition
+
+The Iowa House currently has **`r n_house_R` Republicans** and **`r n_house_D` Democrats**. The Iowa Senate has **`r n_senate_R` Republicans** and **`r n_senate_D` Democrats**.
+
+```{r}
+#| layout-ncol: 2
+#| fig-height: 3.5
+
+house_parl <- parliament_data(
+  election_data = house_comp,
+  type          = "semicircle",
+  parl_rows     = 6,
+  party_seats   = house_comp$seats
+)
+
+ggplot(house_parl, aes(x, y, colour = party)) +
+  geom_parliament_seats(size = 3.5) +
+  scale_colour_manual(
+    values = party_colours,
+    labels = c("R" = "Republican", "D" = "Democrat")
+  ) +
+  theme_ggparliament() +
+  labs(title = "Iowa House (100 seats)", colour = NULL) +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
+
+senate_parl <- parliament_data(
+  election_data = senate_comp,
+  type          = "semicircle",
+  parl_rows     = 4,
+  party_seats   = senate_comp$seats
+)
+
+ggplot(senate_parl, aes(x, y, colour = party)) +
+  geom_parliament_seats(size = 5) +
+  scale_colour_manual(
+    values = party_colours,
+    labels = c("R" = "Republican", "D" = "Democrat")
+  ) +
+  theme_ggparliament() +
+  labs(title = "Iowa Senate (50 seats)", colour = NULL) +
+  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
+```
 
 ---
 

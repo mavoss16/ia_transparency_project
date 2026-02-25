@@ -271,11 +271,12 @@ render_all_committees <- function(limit = NULL, force = FALSE) {
 
   if (length(committees_to_render) == 0) {
     message("No committees need rendering. Use force = TRUE to re-render all.")
-    return(invisible(NULL))
+    return(invisible(list(success = 0, failed = 0, failed_items = character(0))))
   }
 
   success_count <- 0
   fail_count <- 0
+  failed_items <- character(0)
 
   for (people_id in committees_to_render) {
     success <- render_committee(people_id)
@@ -287,13 +288,14 @@ render_all_committees <- function(limit = NULL, force = FALSE) {
       success_count <- success_count + 1
     } else {
       fail_count <- fail_count + 1
+      failed_items <- c(failed_items, as.character(people_id))
     }
     gc()
   }
 
   message(paste("\nCommittees completed:", success_count, "success,", fail_count, "failed"))
 
-  return(invisible(list(success = success_count, failed = fail_count)))
+  return(invisible(list(success = success_count, failed = fail_count, failed_items = failed_items)))
 }
 
 #' Render all bill pages (incremental by default)
@@ -325,11 +327,12 @@ render_all_bills <- function(limit = NULL, force = FALSE) {
 
   if (length(bills_to_render) == 0) {
     message("No bills need rendering. Use force = TRUE to re-render all.")
-    return(invisible(NULL))
+    return(invisible(list(success = 0, failed = 0, failed_items = character(0))))
   }
 
   success_count <- 0
   fail_count <- 0
+  failed_items <- character(0)
 
   total_to_render <- length(bills_to_render)
 
@@ -345,6 +348,7 @@ render_all_bills <- function(limit = NULL, force = FALSE) {
       success_count <- success_count + 1
     } else {
       fail_count <- fail_count + 1
+      failed_items <- c(failed_items, bill_number)
     }
     gc()
 
@@ -357,7 +361,7 @@ render_all_bills <- function(limit = NULL, force = FALSE) {
 
   message(paste("\nBills completed:", success_count, "success,", fail_count, "failed"))
 
-  return(invisible(list(success = success_count, failed = fail_count)))
+  return(invisible(list(success = success_count, failed = fail_count, failed_items = failed_items)))
 }
 
 #' Render all legislator pages (incremental by default)
@@ -391,11 +395,12 @@ render_all_legislators <- function(limit = NULL, force = FALSE) {
 
   if (length(legislators_to_render) == 0) {
     message("No legislators need rendering. Use force = TRUE to re-render all.")
-    return(invisible(NULL))
+    return(invisible(list(success = 0, failed = 0, failed_items = character(0))))
   }
 
   success_count <- 0
   fail_count <- 0
+  failed_items <- character(0)
 
   for (people_id in legislators_to_render) {
     success <- render_legislator(people_id)
@@ -408,13 +413,52 @@ render_all_legislators <- function(limit = NULL, force = FALSE) {
       success_count <- success_count + 1
     } else {
       fail_count <- fail_count + 1
+      failed_items <- c(failed_items, as.character(people_id))
     }
     gc()
   }
 
   message(paste("\nLegislators completed:", success_count, "success,", fail_count, "failed"))
 
-  return(invisible(list(success = success_count, failed = fail_count)))
+  return(invisible(list(success = success_count, failed = fail_count, failed_items = failed_items)))
+}
+
+#' Write a status JSON file to docs/ summarising the most recent render run
+#' @param render_time POSIXct timestamp of when the render started
+#' @param bills_result List with success, failed, failed_items from render_all_bills()
+#' @param legislators_result List with success, failed, failed_items from render_all_legislators()
+#' @param committees_result List with success, failed, failed_items from render_all_committees()
+write_status <- function(render_time, bills_result, legislators_result, committees_result) {
+  normalize <- function(r) {
+    if (is.null(r)) list(success = 0, failed = 0, failed_items = character(0))
+    else r
+  }
+  bills_result       <- normalize(bills_result)
+  legislators_result <- normalize(legislators_result)
+  committees_result  <- normalize(committees_result)
+
+  status <- list(
+    last_render = format(render_time, "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"),
+    bills = list(
+      rendered     = bills_result$success,
+      failed       = bills_result$failed,
+      failed_items = as.list(bills_result$failed_items)
+    ),
+    legislators = list(
+      rendered     = legislators_result$success,
+      failed       = legislators_result$failed,
+      failed_items = as.list(legislators_result$failed_items)
+    ),
+    committees = list(
+      rendered     = committees_result$success,
+      failed       = committees_result$failed,
+      failed_items = as.list(committees_result$failed_items)
+    )
+  )
+
+  status_path <- file.path(OUTPUT_DIR, "status.json")
+  write_json(status, status_path, auto_unbox = TRUE, pretty = TRUE)
+  message(paste("Status written to", status_path))
 }
 
 #' Render the main Quarto site (index pages)
@@ -430,6 +474,7 @@ render_index_pages <- function() {
 #' @param committees_limit Optional limit for committees (NULL for all)
 #' @param force If TRUE, re-render all regardless of hash
 render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees_limit = NULL, force = FALSE) {
+  render_start <- Sys.time()
   message("=== Starting full site render ===\n")
 
   # Render main quarto site first
@@ -438,17 +483,20 @@ render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees
   message("\n")
 
   # Render bills (incremental unless force = TRUE)
-  render_all_bills(limit = bills_limit, force = force)
+  bills_result <- render_all_bills(limit = bills_limit, force = force)
 
   message("\n")
 
   # Render legislators (incremental unless force = TRUE)
-  render_all_legislators(limit = legislators_limit, force = TRUE)
+  legislators_result <- render_all_legislators(limit = legislators_limit, force = TRUE)
 
   message("\n")
 
   # Render committees (incremental unless force = TRUE)
-  render_all_committees(limit = committees_limit, force = TRUE)
+  committees_result <- render_all_committees(limit = committees_limit, force = TRUE)
+
+  # Write status summary for the status page
+  write_status(render_start, bills_result, legislators_result, committees_result)
 
   message("\n=== Site render complete ===")
 }

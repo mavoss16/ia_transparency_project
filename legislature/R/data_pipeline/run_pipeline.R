@@ -1,7 +1,7 @@
 #' Run Full Data Pipeline
 #'
 #' Sources and runs each pipeline step in order:
-#'   1. Download LegiScan data (requires LEGISCAN_API_KEY)
+#'   1. Incrementally update LegiScan JSON files, then regenerate derived CSVs (requires LEGISCAN_API_KEY)
 #'   2. Process votes into summary/record/stats RDS files
 #'   3. Scrape bill relationships and build bill groups
 #'   4. Scrape lobbyist declarations for new/changed bills
@@ -19,9 +19,9 @@ run_pipeline <- function(steps = 1:4, use_resume = FALSE, verbose = TRUE) {
 
   log_msg <- function(...) if (verbose) message("[pipeline] ", ...)
 
-  # Step 1: Download LegiScan data
+  # Step 1: Incrementally update LegiScan JSON files, then regenerate derived CSVs
   if (1 %in% steps) {
-    log_msg("=== Step 1: Downloading LegiScan data ===")
+    log_msg("=== Step 1: Incrementally updating LegiScan data ===")
 
     api_key <- Sys.getenv("LEGISCAN_API_KEY")
     if (api_key == "") {
@@ -29,8 +29,13 @@ run_pipeline <- function(steps = 1:4, use_resume = FALSE, verbose = TRUE) {
            "Set it with Sys.setenv(LEGISCAN_API_KEY = 'your_key') before running.")
     }
 
-    source(here("R/data_pipeline/01_download_legiscan_data.R"), local = TRUE)
-    log_msg("Step 1 complete. Data saved to legiscan/files_ga91/ and legiscan/files_ga91_json/")
+    source(here("R/data_pipeline/01_incremental_update.R"), local = TRUE)
+    incremental_update()
+    log_msg("Step 1a complete. Updated JSON files saved to legiscan/files_ga91_json/")
+
+    source(here("R/data_pipeline/01c_generate_csvs.R"), local = TRUE)
+    generate_csvs()
+    log_msg("Step 1 complete. Derived CSVs written to legiscan/files_ga91_derived/")
   }
 
   # Step 2: Process votes

@@ -159,10 +159,16 @@ scrape_bill_relationships <- function(bill_number, ga = 91) {
     related <- unique(related[related != bill_number])
   }
 
-  tibble(
+  result <- tibble(
     bill = bill_number,
     related_bills = list(related)
   )
+
+  # Close the Chromote session to free memory before returning
+  tryCatch(page$session$close(), error = function(e) NULL)
+  rm(page)
+
+  result
 }
 
 # =============================================================================
@@ -290,10 +296,11 @@ update_relationship_edges <- function(
       failed_bills <- c(failed_bills, bn)
     }
 
-    # Save progress at intervals
+    # Save progress at intervals and free memory
     if (processed_count > 0 && processed_count %% save_interval == 0) {
       message(sprintf("  -- Saving progress (%d bills processed) --", processed_count))
       save_batch()
+      gc()
     }
   }
 

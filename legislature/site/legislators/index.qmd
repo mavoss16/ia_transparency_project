@@ -16,6 +16,9 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(gt)
+library(sf)
+library(leaflet)
+library(htmltools)
 
 source(here::here("R/utils.R"))
 ```
@@ -30,6 +33,10 @@ rollcalls <- read_csv(here::here("legiscan/files_ga91_derived/rollcalls.csv"), s
 
 # Load processed voting statistics
 legislator_stats <- read_rds(here::here("data/votes/legislator_stats_91st_ga.rds"))
+
+# Load simplified district geometries for maps
+senate_districts <- read_rds(here::here("data/districts/senate.rds"))
+house_districts  <- read_rds(here::here("data/districts/house.rds"))
 ```
 
 ```{r}
@@ -119,6 +126,106 @@ if (nrow(former_info) > 0) {
   }
 }
 ```
+
+---
+
+## Find Your Legislator
+
+Click a district on the map to open the legislator's profile. Hover to see their name and party.
+
+```{r}
+party_fill <- function(party) {
+  case_when(party == "R" ~ "#C0392B", party == "D" ~ "#232066", TRUE ~ "#CCCCCC")
+}
+
+house_map_sf <- house_districts |>
+  left_join(
+    active_people |>
+      filter(role == "Rep") |>
+      rowwise() |>
+      mutate(
+        district_num = parse_district_number(district),
+        filename     = get_legislator_filename(people_id, people),
+        fill_color   = party_fill(party)
+      ) |>
+      ungroup() |>
+      select(district_num, name, party, district, filename, fill_color),
+    by = c("District" = "district_num")
+  )
+
+senate_map_sf <- senate_districts |>
+  left_join(
+    active_people |>
+      filter(role == "Sen") |>
+      rowwise() |>
+      mutate(
+        district_num = parse_district_number(district),
+        filename     = get_legislator_filename(people_id, people),
+        fill_color   = party_fill(party)
+      ) |>
+      ungroup() |>
+      select(district_num, name, party, district, filename, fill_color),
+    by = c("District" = "district_num")
+  )
+```
+
+::: {.panel-tabset}
+
+## House Districts
+
+```{r}
+leaflet(house_map_sf, height = 520) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    fillColor   = ~ifelse(is.na(fill_color), "#CCCCCC", fill_color),
+    fillOpacity = 0.7,
+    color       = "#444444",
+    weight      = 1,
+    label       = ~paste0(name, " (", party, ") \u2014 ", district),
+    popup       = ~paste0(
+      "<b>", name, "</b> (", party, ")<br>",
+      "<b>District:</b> ", district, "<br>",
+      "<a href='", filename, ".html'>View Profile \u2192</a>"
+    ),
+    highlightOptions = highlightOptions(weight = 2, fillOpacity = 0.9, bringToFront = TRUE)
+  ) |>
+  addLegend(
+    position = "bottomright",
+    colors   = c("#C0392B", "#232066"),
+    labels   = c("Republican", "Democrat"),
+    title    = "Party",
+    opacity  = 0.9
+  )
+```
+
+## Senate Districts
+
+```{r}
+leaflet(senate_map_sf, height = 520) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    fillColor   = ~ifelse(is.na(fill_color), "#CCCCCC", fill_color),
+    fillOpacity = 0.7,
+    color       = "#444444",
+    weight      = 1,
+    label       = ~paste0(name, " (", party, ") \u2014 ", district),
+    popup       = ~paste0(
+      "<b>", name, "</b> (", party, ")<br>",
+      "<b>District:</b> ", district, "<br>",
+      "<a href='", filename, ".html'>View Profile \u2192</a>"
+    ),
+    highlightOptions = highlightOptions(weight = 2, fillOpacity = 0.9, bringToFront = TRUE)
+  ) |>
+  addLegend(
+    position = "bottomright",
+    colors   = c("#C0392B", "#232066"),
+    labels   = c("Republican", "Democrat"),
+    title    = "Party",
+    opacity  = 0.9
+  )
+```
+
+:::
 
 ---
 
@@ -223,58 +330,6 @@ gt(representatives) |>
   tab_options(
     table.font.size = px(12),
     data_row.padding = px(4)
-  )
-```
-
----
-
-## Find by District
-
-Use the table below to search for legislators by district number.
-
-```{r}
-all_legislators <- people |>
-  left_join(sponsor_counts, by = "people_id") |>
-  left_join(sole_sponsor_counts, by = "people_id") |>
-  left_join(vote_counts, by = "people_id") |>
-  left_join(
-    legislator_stats |> select(people_id, with_party_pct, participation_rate),
-    by = "people_id"
-  ) |>
-  replace_na(list(bills_sponsored = 0, sole_sponsored = 0, votes_cast = 0)) |>
-  rowwise() |>
-  mutate(
-    filename = get_legislator_filename(people_id, people),
-    name_link = str_glue("<a href='{filename}.html'>{name}</a>"),
-    chamber = if_else(role == "Sen", "Senate", "House")
-  ) |>
-  ungroup() |>
-  arrange(chamber, district) |>
-  select(chamber, district, name_link, party, bills_sponsored, sole_sponsored, votes_cast, with_party_pct, participation_rate)
-
-gt(all_legislators) |>
-  cols_label(
-    chamber = "Chamber",
-    district = "District",
-    name_link = "Name",
-    party = "Party",
-    bills_sponsored = "Bills Sponsored",
-    sole_sponsored = "Sole Sponsor",
-    votes_cast = "Floor Votes",
-    with_party_pct = "Party Alignment",
-    participation_rate = "Participation"
-  ) |>
-  fmt_markdown(columns = name_link) |>
-  fmt_percent(columns = c(with_party_pct, participation_rate), decimals = 1) |>
-  tab_options(
-    table.font.size = px(12),
-    data_row.padding = px(4)
-  ) |>
-  opt_interactive(
-    use_search = TRUE,
-    use_filters = TRUE,
-    use_page_size_select = TRUE,
-    page_size_default = 25
   )
 ```
 

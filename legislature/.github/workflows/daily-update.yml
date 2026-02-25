@@ -1,0 +1,72 @@
+name: Daily Pipeline Update
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # 6 AM UTC = midnight CT
+  workflow_dispatch:
+    inputs:
+      force_render:
+        description: 'Force re-render all pages'
+        type: boolean
+        default: false
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false  # let a running job finish rather than cancel it
+
+jobs:
+  update-and-render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true  # binary packages from Posit PPM — faster installs
+
+      - name: Restore renv cache
+        uses: r-lib/actions/setup-renv@v1
+
+      - name: Install system libraries
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libxml2-dev \
+            libgdal-dev \
+            libgeos-dev \
+            libproj-dev \
+            chromium-browser
+          echo "CHROMOTE_CHROME=$(which chromium-browser)" >> $GITHUB_ENV
+
+      - name: Run pipeline
+        env:
+          LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
+        run: |
+          FORCE="${{ github.event.inputs.force_render }}"
+          if [ "$FORCE" = "true" ]; then
+            # Run all steps except render, then force-render separately
+            Rscript -e "
+              source('R/run_pipeline.R')
+              run_pipeline(steps = c('download','generate_csvs','process_votes','legislator_similarity','bill_relationships'))
+            "
+            Rscript -e "source('R/render_site.R'); render_site(force = TRUE)"
+          else
+            Rscript R/run_pipeline.R
+          fi
+
+      - name: Commit and push updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/ data/ legiscan/ render_manifest.csv
+          git diff --staged --quiet || \
+            git commit -m "chore: automated update $(date -u +%Y-%m-%d)"
+          git push

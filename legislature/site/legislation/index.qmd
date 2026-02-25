@@ -177,7 +177,7 @@ gt(recent_bills) |>
 
 ---
 
-## All Legislation
+## Browse Legislation
 
 Use the interactive table below to search and filter all bills.
 
@@ -218,108 +218,6 @@ gt(all_bills) |>
     bill_link = "Bill",
     title = "Title",
     chamber = "Chamber",
-    sponsor_name = "Primary Sponsor",
-    display_status = "Status",
-    group_status_display = "Group Status",
-    last_action_date = "Last Action"
-  ) |>
-  fmt_markdown(columns = bill_link) |>
-  tab_style(
-    style = cell_text(whitespace = "nowrap"),
-    locations = cells_body(columns = bill_link)
-  ) |>
-  tab_options(
-    table.font.size = px(12),
-    data_row.padding = px(4)
-  ) |>
-  opt_interactive(
-    use_search = TRUE,
-    use_filters = TRUE,
-    use_page_size_select = TRUE,
-    page_size_default = 25
-  )
-```
-
----
-
-## House Files
-
-```{r}
-house_files <- bills |>
-  filter(str_detect(bill_number, "^HF")) |>
-  left_join(primary_sponsors, by = "bill_id") |>
-  left_join(
-    bill_groups |> select(bill, bill_status = status, group_status, group_size),
-    by = c("bill_number" = "bill")
-  ) |>
-  mutate(
-    bill_link = format_bill_link(bill_number),
-    display_status = coalesce(bill_status, status_desc),
-    group_status_display = case_when(
-      is.na(group_status) ~ NA_character_,
-      group_size == 1 ~ group_status,
-      group_status == display_status ~ group_status,
-      TRUE ~ paste0(group_status, "*")
-    )
-  ) |>
-  arrange(as.numeric(str_extract(bill_number, "\\d+"))) |>
-  select(bill_link, title, sponsor_name, display_status, group_status_display, last_action_date)
-
-gt(house_files) |>
-  cols_label(
-    bill_link = "Bill",
-    title = "Title",
-    sponsor_name = "Primary Sponsor",
-    display_status = "Status",
-    group_status_display = "Group Status",
-    last_action_date = "Last Action"
-  ) |>
-  fmt_markdown(columns = bill_link) |>
-  tab_style(
-    style = cell_text(whitespace = "nowrap"),
-    locations = cells_body(columns = bill_link)
-  ) |>
-  tab_options(
-    table.font.size = px(12),
-    data_row.padding = px(4)
-  ) |>
-  opt_interactive(
-    use_search = TRUE,
-    use_filters = TRUE,
-    use_page_size_select = TRUE,
-    page_size_default = 25
-  )
-```
-
----
-
-## Senate Files
-
-```{r}
-senate_files <- bills |>
-  filter(str_detect(bill_number, "^SF")) |>
-  left_join(primary_sponsors, by = "bill_id") |>
-  left_join(
-    bill_groups |> select(bill, bill_status = status, group_status, group_size),
-    by = c("bill_number" = "bill")
-  ) |>
-  mutate(
-    bill_link = format_bill_link(bill_number),
-    display_status = coalesce(bill_status, status_desc),
-    group_status_display = case_when(
-      is.na(group_status) ~ NA_character_,
-      group_size == 1 ~ group_status,
-      group_status == display_status ~ group_status,
-      TRUE ~ paste0(group_status, "*")
-    )
-  ) |>
-  arrange(as.numeric(str_extract(bill_number, "\\d+"))) |>
-  select(bill_link, title, sponsor_name, display_status, group_status_display, last_action_date)
-
-gt(senate_files) |>
-  cols_label(
-    bill_link = "Bill",
-    title = "Title",
     sponsor_name = "Primary Sponsor",
     display_status = "Status",
     group_status_display = "Group Status",

@@ -5,3 +5,7 @@
 
 /.quarto/
 logs/
+
+# renv — ignore the library cache, keep renv.lock and activate.R
+renv/library/
+renv/staging/
