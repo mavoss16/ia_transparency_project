@@ -1,0 +1,20 @@
+# .renvignore
+# Tells renv which paths to skip when scanning for package dependencies.
+# renv will only scan: site/, R/*.R, and R/data_pipeline/
+
+# Output and data directories
+docs/
+data/
+legiscan/
+logs/
+
+# Legacy and archived code
+archive/
+R/old_pipeline/
+
+# Other project directories
+analysis/
+scripts/
+session_notes/
+shiny_app/
+test_data_app/
