@@ -41,6 +41,7 @@ jobs:
             libgeos-dev \
             libproj-dev \
             libglpk-dev \
+            libudunits2-dev \
             chromium-browser
           echo "CHROMOTE_CHROME=$(which chromium-browser)" >> $GITHUB_ENV
 
