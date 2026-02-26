@@ -2215,3 +2215,11 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2117487,1643695,2026-02-24,House,Shall the bill pass?,57,34,0,9,100
 2102699,1643714,2026-02-24,House,Shall the bill pass?,86,5,0,9,100
 1996093,1643744,2026-02-24,House,House Committee On Local Government Report,19,1,0,1,21
+2120390,1645116,2026-02-25,Senate,Shall the bill pass?,47,0,0,3,50
+2120407,1645172,2026-02-25,Senate,Shall the bill pass?,47,0,0,3,50
+2122125,1645182,2026-02-25,Senate,Shall the bill pass?,47,0,0,3,50
+2122171,1645219,2026-02-25,Senate,Shall amendment S–5036 be adopted?,16,31,0,3,50
+2122171,1645220,2026-02-25,Senate,Shall the bill pass?,30,17,0,3,50
+2108684,1645454,2026-02-25,Senate,Shall the bill pass?,34,13,0,3,50
+2122303,1645457,2026-02-25,Senate,Shall the bill pass?,38,9,0,3,50
+2107265,1645507,2026-02-25,Senate,Shall the bill pass?,42,5,0,3,50
