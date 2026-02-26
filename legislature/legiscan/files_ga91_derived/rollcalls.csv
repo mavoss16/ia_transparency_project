@@ -2151,3 +2151,67 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2122215,1641613,2026-02-23,Senate,Senate Local Government Report,12,0,0,1,13
 2122452,1641765,2026-02-23,Senate,Senate Commerce Report,17,0,0,2,19
 2122485,1641766,2026-02-23,Senate,Senate Local Government Report,12,0,0,1,13
+2122554,1641767,2026-02-23,Senate,Senate Local Government Report,7,5,0,1,13
+2122417,1641768,2026-02-23,Senate,Senate Local Government Report,12,0,0,1,13
+2122519,1641770,2026-02-23,Senate,Senate Local Government Report,12,0,0,1,13
+2122425,1641771,2026-02-23,Senate,Senate Local Government Report,12,0,0,1,13
+2122561,1641774,2026-02-23,Senate,Senate Commerce Report,17,0,0,2,19
+2122481,1641775,2026-02-23,Senate,Senate Commerce Report,17,0,0,2,19
+2122413,1641777,2026-02-23,Senate,Senate Local Government Report,7,5,0,1,13
+2122531,1641779,2026-02-23,Senate,Senate Commerce Report,17,0,0,2,19
+2122429,1641781,2026-02-23,Senate,Senate Commerce Report,16,1,0,2,19
+2122488,1641785,2026-02-23,Senate,Senate Commerce Report,17,0,0,2,19
+2122525,1641787,2026-02-23,Senate,Senate Commerce Report,12,5,0,2,19
+2122395,1641801,2026-02-23,Senate,Senate Commerce Report,17,0,0,2,19
+2122441,1641805,2026-02-23,Senate,Senate Commerce Report,13,4,0,2,19
+2122125,1641886,2026-02-23,Senate,Senate Transportation Report,15,0,0,2,17
+2109350,1641895,2026-02-23,Senate,Shall amendment S–5022 be adopted?,17,29,0,4,50
+2109350,1641896,2026-02-23,Senate,Shall the bill pass?,46,0,0,4,50
+2117518,1641905,2026-02-23,House,Shall the bill pass?,88,1,0,11,100
+2122197,1641913,2026-02-23,Senate,Senate Agriculture Report,14,2,0,0,16
+2122133,1641916,2026-02-23,Senate,Senate Health And Human Services Report,17,0,0,1,18
+2122146,1641919,2026-02-23,Senate,Senate Education Report,9,4,0,3,16
+2122178,1641920,2026-02-23,Senate,Senate Natural Resources And Environment Report,15,0,0,0,15
+2117408,1641924,2026-02-23,House,Shall the bill pass?,86,3,0,11,100
+2122153,1641926,2026-02-23,Senate,Senate Education Report,9,5,0,2,16
+2108522,1641927,2026-02-23,Senate,Shall the bill pass?,27,20,0,3,50
+2122122,1641928,2026-02-23,Senate,Senate Education Report,14,0,0,2,16
+2122159,1641932,2026-02-23,Senate,Senate Judiciary Report,17,0,0,3,20
+2122189,1641933,2026-02-23,Senate,Senate Health And Human Services Report,9,8,0,1,18
+2122189,1641934,2026-02-23,Senate,Senate Health And Human Services Report,17,0,0,1,18
+2122165,1641938,2026-02-23,Senate,Senate Agriculture Report,16,0,0,0,16
+2122171,1641939,2026-02-23,Senate,Senate Health And Human Services Report,11,6,0,1,18
+2114543,1641942,2026-02-23,Senate,Shall the bill pass?,44,0,0,6,50
+2122185,1641947,2026-02-23,Senate,Senate Transportation Report,13,2,0,2,17
+2117710,1641951,2026-02-23,House,Shall the bill pass?,73,16,0,11,100
+2108792,1641952,2026-02-23,Senate,Shall the bill pass?,31,15,0,4,50
+2117465,1641954,2026-02-23,House,Shall the bill pass?,89,0,0,11,100
+2110348,1641955,2026-02-23,House,Shall the bill pass?,86,3,0,11,100
+2122674,1641959,2026-02-23,Senate,Senate Local Government Report,7,5,0,1,13
+2072575,1641960,2026-02-23,House,House Committee On Administration And Rules Report,13,0,0,2,15
+2101575,1641961,2026-02-23,House,Shall the bill pass?,89,0,0,11,100
+2107287,1641963,2026-02-23,Senate,Shall the bill pass?,47,0,0,3,50
+2107577,1642586,2026-02-24,Senate,Shall the bill pass?,47,0,0,3,50
+2115520,1642593,2026-02-24,Senate,Shall the bill pass?,48,0,0,2,50
+2113411,1642621,2026-02-24,Senate,Shall the bill pass?,35,12,0,3,50
+2101726,1642634,2026-02-24,Senate,Shall the bill pass?,29,17,0,3,49
+2104861,1642638,2026-02-24,Senate,Shall the bill pass?,47,0,0,3,50
+2090046,1642640,2026-02-24,Senate,Shall the bill pass?,47,0,0,3,50
+2120467,1642961,2026-02-24,Senate,Shall the bill pass?,48,0,0,2,50
+2120051,1643021,2026-02-24,Senate,Shall the bill pass?,48,0,0,2,50
+2123368,1643097,2026-02-24,Senate,Senate Health And Human Services Report,17,0,0,1,18
+2101559,1643265,2026-02-24,Senate,Shall the bill pass?,47,0,0,3,50
+2117410,1643278,2026-02-24,House,Shall the bill pass?,90,1,0,9,100
+2071775,1643292,2026-02-24,Senate,Shall the bill pass?,47,0,0,3,50
+2117625,1643294,2026-02-24,House,Shall amendment H–8014 be adopted?,61,29,0,10,100
+2117625,1643295,2026-02-24,House,Shall the bill pass?,90,0,0,10,100
+2114305,1643296,2026-02-24,Senate,Shall the bill pass?,45,2,0,3,50
+2115052,1643303,2026-02-24,Senate,Shall the bill pass?,32,16,0,2,50
+2117414,1643314,2026-02-24,House,Shall the bill pass?,88,3,0,9,100
+2109375,1643320,2026-02-24,Senate,Shall the bill pass?,47,0,0,3,50
+2109573,1643530,2026-02-24,Senate,Shall the bill pass?,46,1,0,3,50
+2102618,1643629,2026-02-24,House,Shall the bill pass?,53,38,0,9,100
+2102674,1643670,2026-02-24,House,Shall the bill pass?,62,29,0,9,100
+2117487,1643695,2026-02-24,House,Shall the bill pass?,57,34,0,9,100
+2102699,1643714,2026-02-24,House,Shall the bill pass?,86,5,0,9,100
+1996093,1643744,2026-02-24,House,House Committee On Local Government Report,19,1,0,1,21
