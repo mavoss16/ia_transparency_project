@@ -1,0 +1,18 @@
+{
+  "last_render": "2026-02-28T06:25:40Z",
+  "bills": {
+    "rendered": 37,
+    "failed": 0,
+    "failed_items": []
+  },
+  "legislators": {
+    "rendered": 155,
+    "failed": 0,
+    "failed_items": []
+  },
+  "committees": {
+    "rendered": 36,
+    "failed": 0,
+    "failed_items": []
+  }
+}
