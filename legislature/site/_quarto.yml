@@ -13,6 +13,8 @@ website:
         text: Legislation
       - href: legislators/index.qmd
         text: Legislators
+      # - href: about.qmd
+      #   text: About
   search: true
 
 format:

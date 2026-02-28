@@ -1,0 +1,51 @@
+---
+title: "About"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+---
+
+```{r}
+last_updated <- file.mtime(here::here("legiscan/files_ga91_derived/bills.csv"))
+last_updated_str <- format(last_updated, "%B %d, %Y at %I:%M %p %Z")
+```
+
+## What This Site Is
+
+This site tracks legislation in the **Iowa 91st General Assembly (2025–2026)**, covering the Iowa House and Senate. It provides browsable pages for individual bills and legislators, including vote records, bill histories, sponsor information, and legislator voting summaries.
+
+The site is built as a static website using [Quarto](https://quarto.org/) and R, and is hosted on GitHub Pages.
+
+## Data Sources
+
+All legislative data is sourced from **[LegiScan](https://legiscan.com/)**, a nonpartisan legislative tracking service that aggregates data from state legislatures across the United States. LegiScan provides:
+
+- **Bill metadata** — bill numbers, titles, subjects, and current status
+- **Bill history** — a record of actions taken on each bill (introductions, committee referrals, floor votes, etc.)
+- **Roll call votes** — individual legislator votes on floor amendments and final passage
+- **Legislator profiles** — party affiliation, district, and contact information
+- **Sponsor relationships** — which legislators sponsored or co-sponsored each bill
+
+LegiScan data is accessed via their [API](https://legiscan.com/legiscan). Raw data is stored locally and processed into summaries before the site is rendered.
+
+## How Often Data Is Updated
+
+The data pipeline runs automatically **every day at midnight CT** via a scheduled GitHub Actions workflow. Each run:
+
+1. Fetches updated data from the LegiScan API
+2. Processes votes and legislator statistics
+3. Re-renders any bill or legislator pages that have changed
+4. Publishes the updated site to GitHub Pages
+
+**Data was last fetched on `r last_updated_str`.**
+
+## Attribution
+
+- Legislative data: [LegiScan](https://legiscan.com/) ([terms of use](https://legiscan.com/terms))
+- Site framework: [Quarto](https://quarto.org/)
+- Hosting: [GitHub Pages](https://pages.github.com/)
+
+This site is an independent project and is not affiliated with the Iowa Legislature or any government agency. Legislative information should be verified against official sources at [legis.iowa.gov](https://www.legis.iowa.gov/).
