@@ -2191,8 +2191,8 @@ bill_id,date,chamber,sequence,action
 2102589,2026-02-26,House,5,Immediate message. H.J. 460.
 2102538,2026-01-30,House,1,"Introduced, placed on calendar. H.J. 190."
 2102538,2026-02-25,House,2,Fiscal note.
-2102538,2026-02-26,House,3,"Passed House, yeas 90, nays 0. H.J. 02/26."
-2102538,2026-02-26,House,4,Immediate message. H.J. 02/26.
+2102538,2026-02-26,House,3,"Passed House, yeas 90, nays 0. H.J. 447."
+2102538,2026-02-26,House,4,Immediate message. H.J. 460.
 2104646,2026-02-03,House,1,"Introduced, referred to Commerce. H.J. 192."
 2104583,2026-02-03,House,1,"Introduced, referred to Commerce. H.J. 192."
 2104542,2026-02-03,House,1,"Introduced, referred to Commerce. H.J. 192."
@@ -3421,6 +3421,7 @@ bill_id,date,chamber,sequence,action
 1959286,2025-04-03,House,3,Referred to Higher Education. H.J. 895.
 2122577,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 381."
 2122577,2026-02-26,House,2,Amendment H-8054 filed. H.J. 461.
+2122577,2026-02-28,House,3,Fiscal note.
 2122653,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 381."
 2122626,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 381."
 2122659,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 381."
@@ -14796,6 +14797,7 @@ bill_id,date,chamber,sequence,action
 1963490,2025-02-11,Senate,4,"Subcommittee: Warme, Donahue, and Zumbach. S.J. 244."
 2115570,2026-02-12,Senate,1,"Introduced, placed on calendar. S.J. 273."
 2115570,2026-02-12,Senate,2,"Committee report, approving bill. S.J. 283."
+2115570,2026-02-28,Senate,3,Fiscal note.
 2115980,2026-02-12,Senate,1,"Introduced, referred to Education. S.J. 273."
 2115980,2026-02-16,Senate,2,"Subcommittee: Sinclair, Rozenboom, and Trone Garriott. S.J. 295."
 2116005,2026-02-12,Senate,1,"Introduced, referred to Commerce. S.J. 273."
@@ -15267,8 +15269,8 @@ bill_id,date,chamber,sequence,action
 2122452,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 365."
 2122452,2026-02-26,Senate,3,"Passed Senate, yeas 44, nays 0. S.J. 416."
 2122452,2026-02-26,Senate,4,Immediate message. S.J. 417.
-2122452,2026-02-26,House,5,Message from Senate. H.J. 02/26.
-2122452,2026-02-26,House,6,"Read first time, referred to Commerce. H.J. 02/26."
+2122452,2026-02-26,House,5,Message from Senate. H.J. 439.
+2122452,2026-02-26,House,6,"Read first time, referred to Commerce. H.J. 440."
 2122561,2026-02-23,Senate,1,"Introduced, placed on calendar. S.J. 360."
 2122561,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 365."
 2122561,2026-02-24,Senate,3,Referred to Appropriations. S.J. 377.
