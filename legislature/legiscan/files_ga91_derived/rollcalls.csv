@@ -2270,3 +2270,55 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2094475,1649897,2026-03-02,Senate,Shall the bill pass?,44,0,0,6,50
 2118765,1649899,2026-03-02,Senate,Shall the bill pass?,29,15,0,0,44
 2111655,1650011,2026-03-02,Senate,Shall the bill pass?,44,0,0,6,50
+2119042,1650013,2026-03-02,Senate,Shall the bill pass?,35,9,0,6,50
+2111647,1650016,2026-03-02,House,Shall the bill pass?,89,1,0,10,100
+2118848,1650018,2026-03-02,Senate,Shall the bill pass?,44,0,0,6,50
+2117667,1650060,2026-03-02,House,Shall the bill pass?,89,0,0,11,100
+2102530,1650078,2026-03-02,House,Shall the bill pass?,90,0,0,10,100
+2109573,1650080,2026-03-02,House,Shall the bill pass?,90,0,0,10,100
+2118748,1650083,2026-03-02,House,Shall the bill pass?,90,0,0,10,100
+2118759,1650088,2026-03-02,House,Shall the bill pass?,90,0,0,10,100
+2122674,1650094,2026-03-02,Senate,Shall the bill pass?,30,14,0,6,50
+2102525,1650095,2026-03-02,House,Shall the bill pass?,90,0,0,10,100
+2120971,1650098,2026-03-02,House,Shall the bill pass?,90,0,0,10,100
+2090520,1650099,2026-03-02,House,Shall the bill pass?,80,10,0,10,100
+2117669,1650108,2026-03-02,House,Shall the bill pass?,57,33,0,10,100
+2120116,1650110,2026-03-02,House,Shall the bill pass?,90,0,0,10,100
+2117700,1650112,2026-03-02,House,Shall the bill pass?,89,1,0,10,100
+2117618,1650114,2026-03-02,House,Shall the bill pass?,90,0,0,10,100
+2118820,1650115,2026-03-02,House,Shall the bill pass?,90,0,0,10,100
+2111773,1650116,2026-03-02,House,Shall the bill pass?,90,0,0,10,100
+1981460,1651366,2026-03-02,House,Shall the bill pass?,90,0,0,10,100
+2110580,1651524,2026-03-03,House,Shall the bill pass?,63,33,0,4,100
+2109490,1651526,2026-03-03,Senate,Shall the bill pass?,44,0,0,6,50
+2123334,1651527,2026-03-03,House,Shall the bill pass?,94,2,0,4,100
+2106428,1651529,2026-03-03,Senate,Shall the bill pass?,44,0,0,6,50
+2122554,1651538,2026-03-03,Senate,Shall the bill pass?,28,16,0,6,50
+2128067,1651541,2026-03-03,Senate,Senate State Government Report,12,5,0,1,18
+2097110,1651543,2026-03-03,Senate,Shall the bill pass?,44,0,0,6,50
+2107122,1651544,2026-03-03,Senate,Shall the bill pass?,37,7,0,6,50
+2122549,1651552,2026-03-03,House,Shall the bill pass?,96,0,0,4,100
+2102585,1651554,2026-03-03,House,Shall the bill pass?,70,26,0,4,100
+2102685,1651555,2026-03-03,House,Shall the bill pass?,96,0,0,4,100
+2122133,1651584,2026-03-03,Senate,Senate Commerce Report,16,0,0,3,19
+2072575,1651588,2026-03-03,House,Shall the resolution be adopted?,94,0,0,6,100
+1951648,1651593,2026-03-03,House,Shall the bill pass?,94,2,0,4,100
+2109547,1651598,2026-03-03,Senate,Shall the bill pass?,44,0,0,6,50
+2122543,1651605,2026-03-03,House,Shall amendment H–8069 be adopted?,67,28,0,5,100
+2122543,1651606,2026-03-03,House,Shall amendment H–8070 be adopted?,93,2,0,5,100
+2122543,1651607,2026-03-03,House,Shall amendment H–8083 be adopted?,35,60,0,5,100
+2122543,1651608,2026-03-03,House,Shall the bill pass?,65,30,0,5,100
+2122543,1651609,2026-03-03,House,Shall the rules be suspended to consider amendment H–8082?,30,65,0,5,100
+2122543,1651610,2026-03-03,House,Shall the rules be suspended to consider amendment H–8089?,29,66,0,5,100
+2102653,1651634,2026-03-03,House,Shall the bill pass?,95,0,0,5,100
+2117553,1651661,2026-03-03,Senate,Shall the bill pass?,44,0,0,6,50
+2122185,1651906,2026-03-03,Senate,Shall the bill pass?,43,1,0,6,50
+2090625,1651912,2026-03-03,Senate,Shall the bill pass?,30,14,0,6,50
+2117648,1651914,2026-03-03,House,Shall the bill pass?,66,30,0,4,100
+1966627,1651921,2026-03-03,House,Shall the bill pass?,83,13,0,4,100
+2117444,1651929,2026-03-03,House,Shall the bill pass?,95,1,0,4,100
+2117542,1651934,2026-03-03,House,Shall amendment H–8088 be adopted?,32,64,0,4,100
+2117542,1651935,2026-03-03,House,Shall the bill pass?,95,1,0,4,100
+2117473,1651940,2026-03-03,House,Shall amendment H–8026 be adopted?,29,65,0,6,100
+2117473,1651941,2026-03-03,House,Shall amendment H–8027 be adopted?,29,66,0,5,100
+2117473,1651942,2026-03-03,House,Shall the bill pass?,68,27,0,5,100
