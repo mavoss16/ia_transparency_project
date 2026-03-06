@@ -2374,3 +2374,38 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2117295,1653850,2026-03-04,Senate,Shall the bill pass?,45,0,0,5,50
 2117551,1653863,2026-03-04,Senate,Shall the bill pass?,44,1,0,5,50
 2122363,1653870,2026-03-04,House,Shall the bill pass?,61,36,0,3,100
+1918708,1654009,2026-03-04,House,Shall the bill pass?,97,0,0,3,100
+2102653,1654011,2026-03-04,Senate,Shall the bill pass?,45,0,0,5,50
+2119791,1654012,2026-03-04,House,Shall the bill pass?,93,4,0,3,100
+2117621,1654014,2026-03-04,House,Shall the bill pass?,94,2,0,4,100
+2119813,1654025,2026-03-04,House,Shall the bill pass?,97,0,0,3,100
+1994181,1654027,2026-03-04,Senate,Shall the bill pass?,45,0,0,5,50
+2102536,1654037,2026-03-04,Senate,Senate Workforce Report,11,0,0,1,12
+2117723,1654101,2026-03-04,House,Shall the bill pass?,65,31,0,4,100
+2129115,1654104,2026-03-04,Senate,Senate Appropriations Report,19,0,0,3,22
+2119946,1654114,2026-03-04,House,Shall the bill pass?,91,6,0,3,100
+2129287,1654129,2026-03-04,Senate,Senate Appropriations Report,12,7,0,3,22
+2115954,1654933,2026-03-05,Senate,Shall the bill pass?,42,0,0,8,50
+2114217,1654944,2026-03-05,Senate,Shall the bill pass?,42,0,0,8,50
+2129607,1655103,2026-03-05,Senate,Senate Appropriations Report,19,0,0,3,22
+2129577,1655230,2026-03-05,Senate,Senate Appropriations Report,19,0,0,3,22
+2117609,1655447,2026-03-05,House,Shall the bill pass?,86,0,0,14,100
+2102716,1655449,2026-03-05,House,Shall the bill pass?,87,0,0,13,100
+1996093,1655450,2026-03-05,House,Shall the bill pass?,60,26,0,14,100
+1996093,1655451,2026-03-05,House,"Shall the rules be suspended to consider 53rd Day                       THURSDAY, MARCH 5, 2026                 599    amendment H–8157?",60,26,0,14,100
+2103376,1655452,2026-03-05,Senate,Shall amendment S–5073 be adopted?,28,14,0,8,50
+2103376,1655453,2026-03-05,Senate,Shall the bill pass?,28,14,0,8,50
+2122497,1655454,2026-03-05,House,Shall the bill pass?,86,0,0,14,100
+2118848,1655456,2026-03-05,House,Shall the bill pass?,85,1,0,14,100
+2111729,1655462,2026-03-05,House,Shall the bill pass?,85,0,0,15,100
+2120148,1655463,2026-03-05,House,Shall the bill pass?,59,26,0,15,100
+2117564,1655472,2026-03-05,House,Shall the bill pass?,85,0,0,15,100
+2122236,1655473,2026-03-05,Senate,Shall the bill pass?,42,0,0,8,50
+2117295,1655477,2026-03-05,House,Shall the bill pass?,85,1,0,14,100
+1990526,1655482,2026-03-05,House,Shall the bill pass?,82,4,0,14,100
+2101221,1655484,2026-03-05,House,Shall the bill pass?,86,0,0,14,100
+2120415,1655488,2026-03-05,House,Shall the bill pass?,87,0,0,13,100
+1991645,1655489,2026-03-05,House,Shall the bill pass?,85,1,0,14,100
+2101144,1655512,2026-03-05,House,Shall the bill pass?,83,2,0,15,100
+2122408,1655789,2026-03-05,House,Shall the bill pass?,86,0,0,14,100
+2122399,1655829,2026-03-05,House,Shall the bill pass?,85,1,0,14,100
