@@ -77,7 +77,7 @@ n_senate_R <- senate_comp |> filter(party == "R") |> pull(seats)
 n_senate_D <- senate_comp |> filter(party == "D") |> pull(seats)
 ```
 
-Welcome to the Iowa Legislature tracker for the **91st General Assembly (2025)**. This site provides access to bill information, legislator profiles, voting records, and lobbyist declarations.
+Welcome to the Iowa Legislature tracker for the **91st General Assembly (2025-2026)**. This site provides access to bill information, legislator profiles, voting records, and lobbyist declarations.
 
 ## Quick Stats
 
@@ -93,8 +93,8 @@ n_senate_bills <- sum(str_detect(bills$bill_number, "^SF|^SJR|^SR"))
 **Legislation**
 
 - **`r format(n_bills, big.mark=",")`** total bills
-- `r format(n_house_bills, big.mark=",")` House bills
-- `r format(n_senate_bills, big.mark=",")` Senate bills
+- **`r format(n_house_bills, big.mark=",")`** House bills
+- **`r format(n_senate_bills, big.mark=",")`** Senate bills
 :::
 
 ::: {.g-col-6}
@@ -195,7 +195,10 @@ gt(recent_activity) |>
   fmt_markdown(columns = bill_link) |>
   tab_style(
     style = cell_text(whitespace = "nowrap"),
-    locations = cells_body(columns = bill_link)
+    locations = list(
+      cells_body(columns = c(date, bill_link)),
+      cells_column_labels(columns = date)
+    )
   ) |>
   tab_options(
     table.font.size = px(12),

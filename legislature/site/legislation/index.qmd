@@ -167,7 +167,10 @@ gt(recent_bills) |>
   fmt_markdown(columns = bill_link) |>
   tab_style(
     style = cell_text(whitespace = "nowrap"),
-    locations = cells_body(columns = bill_link)
+    locations = list(
+      cells_body(columns = c(bill_link, last_action_date)),
+      cells_column_labels(columns = last_action_date)
+    )
   ) |>
   tab_options(
     table.font.size = px(12),
@@ -224,9 +227,20 @@ gt(all_bills) |>
     last_action_date = "Last Action"
   ) |>
   fmt_markdown(columns = bill_link) |>
+  cols_width(
+    bill_link            ~ px(75),
+    chamber              ~ px(65),
+    display_status       ~ px(105),
+    group_status_display ~ px(110),
+    last_action_date     ~ px(90),
+    title                ~ px(400)
+  ) |>
   tab_style(
     style = cell_text(whitespace = "nowrap"),
-    locations = cells_body(columns = bill_link)
+    locations = list(
+      cells_body(columns = c(bill_link, last_action_date)),
+      cells_column_labels(columns = last_action_date)
+    )
   ) |>
   tab_options(
     table.font.size = px(12),
