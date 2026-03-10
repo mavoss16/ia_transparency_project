@@ -2415,3 +2415,8 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2004374,1655888,2026-03-05,House,Shall the bill pass?,86,0,0,14,100
 2120068,1655904,2026-03-05,House,Shall the bill pass?,86,0,0,14,100
 2120599,1655915,2026-03-05,House,Shall the bill pass?,85,0,0,15,100
+2101144,1657466,2026-03-09,Senate,Shall the bill pass?,31,14,0,5,50
+2088395,1657475,2026-03-09,Senate,Shall the bill pass?,28,17,0,5,50
+2118837,1657479,2026-03-09,Senate,Shall the bill pass?,45,0,0,5,50
+2118827,1657503,2026-03-09,Senate,Shall the bill pass?,43,2,0,5,50
+1981672,1657715,2026-03-09,Senate,Shall the bill pass?,30,16,0,4,50
