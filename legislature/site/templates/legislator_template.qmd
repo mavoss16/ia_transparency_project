@@ -283,7 +283,10 @@ if(nrow(leg_sponsored_bills) > 0) {
     fmt_markdown(columns = bill_link) |>
     tab_style(
       style = cell_text(whitespace = "nowrap"),
-      locations = cells_body(columns = bill_link)
+      locations = list(
+        cells_body(columns = c(bill_link, status_date)),
+        cells_column_labels(columns = status_date)
+      )
     ) |>
     tab_options(
       table.font.size = px(12)
@@ -313,7 +316,10 @@ if(nrow(leg_votes) > 0) {
     fmt_markdown(columns = bill_link) |>
     tab_style(
       style = cell_text(whitespace = "nowrap"),
-      locations = cells_body(columns = bill_link)
+      locations = list(
+        cells_body(columns = c(bill_link, date)),
+        cells_column_labels(columns = date)
+      )
     )
 } else {
   cat("No voting record found.\n")
@@ -380,7 +386,10 @@ if(nrow(leg_vote_records) > 0) {
       fmt_markdown(columns = bill_link) |>
       tab_style(
         style = cell_text(whitespace = "nowrap"),
-        locations = cells_body(columns = bill_link)
+        locations = list(
+          cells_body(columns = c(bill_link, vote_date)),
+          cells_column_labels(columns = vote_date)
+        )
       )
   } else {
     cat("This legislator has not voted against their party.\n")

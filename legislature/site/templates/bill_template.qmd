@@ -227,7 +227,11 @@ if (!is.null(history) && nrow(history) > 0) {
   gt(history |>
     mutate(chamber = case_when(chamber == "H" ~ "House", chamber == "S" ~ "Senate", .default = chamber)) |>
     select(date, chamber, action)) |>
-    cols_label(date = "Date", chamber = "Chamber", action = "Action")
+    cols_label(date = "Date", chamber = "Chamber", action = "Action") |>
+    tab_style(
+      style = cell_text(whitespace = "nowrap"),
+      locations = list(cells_body(columns = date), cells_column_labels(columns = date))
+    )
 } else {
   cat("No legislative history recorded yet.")
 }
@@ -267,7 +271,11 @@ if (!is.null(votes) && nrow(votes) > 0) {
         vote_outcome = "Classification"
       ) |>
       tab_spanner(label = "Total", columns = c(yea, nay, nv, absent)) |>
-      tab_spanner(label = "By Party", columns = c(vote_dem_yes, vote_dem_no, vote_gop_yes, vote_gop_no))
+      tab_spanner(label = "By Party", columns = c(vote_dem_yes, vote_dem_no, vote_gop_yes, vote_gop_no)) |>
+      tab_style(
+        style = cell_text(whitespace = "nowrap"),
+        locations = list(cells_body(columns = date), cells_column_labels(columns = date))
+      )
   } else {
     cat("No floor votes recorded yet.")
   }
@@ -407,6 +415,10 @@ if (!is.null(lobby) && nrow(lobby) > 0) {
       date = "Last Updated"
     ) |>
     fmt_date(columns = date, date_style = "yMMMd") |>
+    tab_style(
+      style = cell_text(whitespace = "nowrap"),
+      locations = list(cells_body(columns = date), cells_column_labels(columns = date))
+    ) |>
     tab_options(
       table.font.size = px(12),
       data_row.padding = px(4)
@@ -419,7 +431,11 @@ if (!is.null(lobby) && nrow(lobby) > 0) {
 ```{r}
 if (!is.null(calendar) && nrow(calendar) > 0) {
   gt(calendar |> select(date, time, type, location, description)) |>
-    cols_label_with(fn = stringr::str_to_title)
+    cols_label_with(fn = stringr::str_to_title) |>
+    tab_style(
+      style = cell_text(whitespace = "nowrap"),
+      locations = list(cells_body(columns = date), cells_column_labels(columns = date))
+    )
 } else {
   cat("No calendar items scheduled.")
 }
