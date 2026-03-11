@@ -2420,3 +2420,37 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2118837,1657479,2026-03-09,Senate,Shall the bill pass?,45,0,0,5,50
 2118827,1657503,2026-03-09,Senate,Shall the bill pass?,43,2,0,5,50
 1981672,1657715,2026-03-09,Senate,Shall the bill pass?,30,16,0,4,50
+2122297,1657862,2026-03-09,Senate,Shall the bill pass?,27,18,0,4,49
+2114558,1657962,2026-03-09,Senate,Shall the resolution be adopted?,43,2,0,5,50
+1993320,1657966,2026-03-09,Senate,Shall the bill pass?,29,17,0,4,50
+1996093,1657969,2026-03-09,Senate,Shall amendment S–5081 to amendment S–5075 be adopted?,16,29,0,5,50
+1996093,1657970,2026-03-09,Senate,Shall the bill pass?,29,16,0,5,50
+1996093,1657971,2026-03-09,Senate,Shall the motion to concur be adopted?,29,16,0,5,50
+2118821,1657974,2026-03-09,House,Shall the bill pass?,90,0,0,10,100
+2117600,1657975,2026-03-09,House,Shall the bill pass?,73,17,0,10,100
+2107122,1657978,2026-03-09,House,Shall the bill pass?,90,0,0,10,100
+2110516,1657979,2026-03-09,House,Shall the bill pass?,64,26,0,10,100
+2120986,1657981,2026-03-09,House,Shall the bill pass?,90,0,0,10,100
+2122586,1658965,2026-03-10,House,Shall the bill pass?,67,23,0,10,100
+2122285,1658973,2026-03-10,Senate,Shall the bill pass?,32,13,0,5,50
+2122481,1658980,2026-03-10,Senate,Shall the bill pass?,45,0,0,5,50
+2120335,1658986,2026-03-10,Senate,Shall the bill pass?,32,13,0,5,50
+2114329,1658991,2026-03-10,Senate,Shall the bill pass?,30,15,0,5,50
+2122485,1658993,2026-03-10,Senate,Shall the bill pass?,45,0,0,5,50
+2122288,1659001,2026-03-10,Senate,Shall the bill pass?,45,0,0,5,50
+2117307,1659009,2026-03-10,Senate,Shall the bill pass?,29,17,0,4,50
+1988126,1659034,2026-03-10,Senate,Shall the bill pass?,43,2,0,5,50
+2101954,1659056,2026-03-10,Senate,Shall the bill pass?,46,0,0,4,50
+2129607,1659242,2026-03-10,Senate,Shall the bill pass?,34,12,0,4,50
+2119975,1659386,2026-03-10,House,Shall the bill pass?,93,0,0,7,100
+2129577,1659395,2026-03-10,Senate,Shall the bill pass?,46,0,0,4,50
+2122122,1659461,2026-03-10,Senate,Shall the bill pass?,45,0,0,5,50
+2119833,1659491,2026-03-10,House,Shall the bill pass?,64,30,0,6,100
+1981460,1659499,2026-03-10,Senate,Shall the bill pass?,46,0,0,4,50
+2101485,1659523,2026-03-10,House,Shall the bill pass?,88,4,0,8,100
+2122377,1659526,2026-03-10,Senate,Shall the bill pass?,31,14,0,5,50
+2119849,1659533,2026-03-10,House,Shall the bill pass?,54,38,0,8,100
+2122925,1659553,2026-03-10,House,Shall the bill pass?,62,30,0,8,100
+2122925,1659554,2026-03-10,House,Shall the rules be suspended to consider amendment H–8180?,31,62,0,7,100
+2122782,1659555,2026-03-10,House,Shall the bill pass?,92,0,0,8,100
+2122329,1659575,2026-03-10,House,Shall the bill pass?,59,33,0,8,100
