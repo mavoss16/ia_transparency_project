@@ -221,6 +221,7 @@ bill_id,date,chamber,sequence,action
 2023701,2026-02-24,Senate,14,Referred to Ways and Means. S.J. 377.
 2023701,2026-02-24,Senate,15,"Subcommittee: Taylor, Driscoll, and Quirmbach. S.J. 394."
 2023701,2026-03-05,Senate,16,Subcommittee Meeting: 03/11/2026 12:00PM Room 315.
+2023701,2026-03-11,Senate,17,Subcommittee recommends passage.
 2023670,2025-04-14,House,1,"Introduced, placed on Ways and Means calendar. H.J. 931."
 2023670,2025-04-23,House,2,Fiscal note.
 2023670,2025-05-15,House,3,Rereferred to Judiciary. H.J. 1222.
@@ -1853,6 +1854,7 @@ bill_id,date,chamber,sequence,action
 2087784,2026-03-05,House,3,Amendment H-8163 filed. H.J. 602.
 2087784,2026-03-05,House,4,Amendment H-8168 filed. H.J. 602.
 2087784,2026-03-09,House,5,Amendment H-8176 filed. H.J. 614.
+2087784,2026-03-11,House,6,Amendment H-8202 filed. H.J. 03/11.
 2088157,2026-01-21,House,1,"Introduced, referred to Judiciary. H.J. 133."
 2088157,2026-01-26,House,2,Rereferred to Calendar H.J. 152.
 2088782,2026-01-21,House,1,"Introduced, referred to Judiciary. H.J. 133."
@@ -2031,6 +2033,7 @@ bill_id,date,chamber,sequence,action
 2095642,2026-01-28,House,1,"Introduced, referred to Ways and Means. H.J. 163."
 2095642,2026-03-04,House,2,"Subcommittee: Windschitl, McBurney and Wills, J. H.J. 570."
 2095642,2026-03-09,House,3,Subcommittee Meeting: 03/11/2026 12:30PM House Lounge.
+2095642,2026-03-11,House,4,Subcommittee recommends passage.
 2095691,2026-01-28,House,1,"Introduced, placed on calendar. H.J. 163."
 2095662,2026-01-28,House,1,"Introduced, placed on calendar. H.J. 164."
 2095685,2026-01-28,House,1,"Introduced, referred to Education. H.J. 164."
@@ -2191,6 +2194,7 @@ bill_id,date,chamber,sequence,action
 2102674,2026-03-04,Senate,10,"Subcommittee: Sinclair, Donahue, and Pike. S.J. 476."
 2102674,2026-03-09,Senate,11,"Subcommittee reassigned: Evans, Donahue, and Pike. S.J. 509."
 2102674,2026-03-10,Senate,12,Subcommittee Meeting: 03/11/2026 12:00PM Senate Lounge.
+2102674,2026-03-11,Senate,13,Subcommittee recommends passage.
 2102530,2026-01-30,House,1,"Introduced, placed on calendar. H.J. 186."
 2102530,2026-02-25,House,2,Amendment H-8047 filed. H.J. 436.
 2102530,2026-03-02,House,3,Amendment H-8047 adopted. H.J. 469.
@@ -2200,6 +2204,7 @@ bill_id,date,chamber,sequence,action
 2102530,2026-03-03,Senate,7,"Read first time, referred to Commerce. S.J. 439."
 2102530,2026-03-10,Senate,8,"Subcommittee: Sweeney, Drey, and Driscoll. S.J. 549."
 2102530,2026-03-10,Senate,9,Subcommittee Meeting: 03/11/2026 12:30PM Room 217 Conference Room.
+2102530,2026-03-11,Senate,10,Subcommittee recommends passage.
 2102705,2026-01-30,House,1,"Introduced, placed on calendar. H.J. 186."
 2102705,2026-02-26,House,2,Amendment H-8056 filed. H.J. 461.
 2102705,2026-03-02,House,3,Amendment H-8056 adopted. H.J. 470.
@@ -2284,7 +2289,7 @@ bill_id,date,chamber,sequence,action
 2102685,2026-03-03,House,3,Immediate message. H.J. 523.
 2102685,2026-03-04,Senate,4,Message from House. S.J. 460.
 2102685,2026-03-04,Senate,5,"Read first time, referred to Education. S.J. 460."
-2102685,2026-03-10,Senate,6,"Subcommittee: Taylor, Pike, and Winckler."
+2102685,2026-03-11,Senate,6,"Subcommittee: Taylor, Pike, and Winckler. S.J. 555."
 2103052,2026-01-30,House,1,"Introduced, referred to Ways and Means. H.J. 190."
 2102733,2026-01-30,House,1,"Introduced, placed on calendar. H.J. 190."
 2102733,2026-03-05,House,2,SF 2369 substituted. H.J. 583.
@@ -2306,6 +2311,7 @@ bill_id,date,chamber,sequence,action
 2102536,2026-02-26,Senate,7,Subcommittee Meeting: 03/03/2026 8:00AM Room 315.
 2102536,2026-03-03,Senate,8,Subcommittee recommends amendment and passage.
 2102536,2026-03-04,Senate,9,"Committee report, recommending passage. S.J. 478."
+2102536,2026-03-04,Senate,10,Placed on calendar.
 2102589,2026-01-30,House,1,"Introduced, placed on calendar. H.J. 190."
 2102589,2026-02-23,House,2,Amendment H-8017 filed. H.J. 397.
 2102589,2026-02-26,House,3,"Amendment H-8017, yeas 30, nays 56, lost. H.J. 456."
@@ -2510,6 +2516,8 @@ bill_id,date,chamber,sequence,action
 2110597,2026-02-26,Senate,12,"Subcommittee: Reichman, Green, and Townsend. S.J. 418."
 2110597,2026-03-04,Senate,13,Subcommittee Meeting: 03/05/2026 10:00AM Room 315.
 2110597,2026-03-05,Senate,14,Subcommittee recommends passage.
+2110597,2026-03-11,Senate,15,"Committee report, recommending passage. S.J. 556."
+2110597,2026-03-11,Senate,16,Placed on calendar.
 2110340,2026-02-06,House,1,"Introduced, placed on calendar. H.J. 223."
 2110340,2026-02-26,House,2,Amendment H-8059 filed. H.J. 461.
 2110443,2026-02-06,House,1,"Introduced, placed on calendar. H.J. 223."
@@ -2519,7 +2527,8 @@ bill_id,date,chamber,sequence,action
 2110443,2026-03-05,House,5,Immediate message. H.J. 601.
 2110443,2026-03-09,Senate,6,Message from House. S.J. 493.
 2110443,2026-03-09,Senate,7,"Read first time, referred to Health and Human Services. S.J. 493."
-2110443,2026-03-10,Senate,8,"Subcommittee: Costello, Salmon, and Trone Garriott."
+2110443,2026-03-11,Senate,8,"Subcommittee: Costello, Salmon, and Trone Garriott. S.J. 555."
+2110443,2026-03-11,Senate,9,Subcommittee Meeting: 03/16/2026 12:30PM Room 217 Conference Room.
 2110413,2026-02-06,House,1,"Introduced, referred to Education. H.J. 223."
 2110413,2026-02-10,House,2,"Subcommittee: Hayes, Boden and Ehlert. H.J. 248."
 2110413,2026-02-11,House,3,Subcommittee Meeting: 02/17/2026 12:30PM RM 304.
@@ -2600,14 +2609,15 @@ bill_id,date,chamber,sequence,action
 2110311,2026-02-06,House,1,"Introduced, placed on calendar. H.J. 226."
 2110311,2026-02-23,House,2,Fiscal note.
 2110311,2026-03-09,House,3,Amendment H-8179 filed. H.J. 614.
-2110311,2026-03-10,House,4,Amendment H-8193 filed. H.J. 03/10.
+2110311,2026-03-10,House,4,Amendment H-8193 filed. H.J. 633.
 2110587,2026-02-06,House,1,"Introduced, placed on calendar. H.J. 226."
 2110587,2026-03-04,House,2,"Passed House, yeas 97, nays 0. H.J. 535."
 2110587,2026-03-04,House,3,Immediate message. H.J. 569.
 2110587,2026-03-05,Senate,4,Message from House. S.J. 480.
 2110587,2026-03-05,Senate,5,"Read first time, attached to SF 2142. S.J. 480."
 2110457,2026-02-06,House,1,"Introduced, placed on calendar. H.J. 227."
-2110457,2026-03-10,House,2,Amendment H-8196 filed. H.J. 03/10.
+2110457,2026-03-10,House,2,Amendment H-8196 filed. H.J. 633.
+2110457,2026-03-11,House,3,Amendment H-8199 filed. H.J. 03/11.
 1958974,2025-02-06,House,1,"Introduced, referred to Transportation. H.J. 256."
 1958974,2025-02-18,House,2,"Subcommittee: Young, Golding and Gosa. H.J. 349."
 1958974,2025-02-24,House,3,Subcommittee Meeting: 02/25/2025 12:15PM House Lounge.
@@ -2662,6 +2672,7 @@ bill_id,date,chamber,sequence,action
 2110390,2026-02-06,House,1,"Introduced, referred to Ways and Means. H.J. 228."
 2110390,2026-02-12,House,2,"Subcommittee: Wulf, Hermanson and Kurth. H.J. 278."
 2110390,2026-03-09,House,3,Subcommittee Meeting: 03/11/2026 8:30AM RM 102.
+2110390,2026-03-11,House,4,Subcommittee recommends passage.
 2110500,2026-02-06,House,1,"Introduced, referred to Ways and Means. H.J. 228."
 2110509,2026-02-06,House,1,"Introduced, referred to Ways and Means. H.J. 229."
 2111757,2026-02-09,House,1,"Introduced, referred to Ways and Means. H.J. 232."
@@ -2739,11 +2750,15 @@ bill_id,date,chamber,sequence,action
 2111672,2026-03-05,Senate,6,"Read first time, referred to Judiciary. S.J. 480."
 2111672,2026-03-10,Senate,7,"Subcommittee: Lofgren, Petersen, and Westrich. S.J. 550."
 2111672,2026-03-10,Senate,8,Subcommittee Meeting: 03/11/2026 10:00AM Room 315.
+2111672,2026-03-11,Senate,9,Subcommittee recommends passage.
 2111603,2026-02-09,House,1,"Introduced, placed on calendar. H.J. 235."
 2111603,2026-02-19,House,2,Amendment H-8011 filed. H.J. 364.
+2111603,2026-03-11,House,3,Fiscal note.
+2111603,2026-03-11,House,4,Amendment H-8204 filed. H.J. 03/11.
 2111738,2026-02-09,House,1,"Introduced, placed on calendar. H.J. 235."
 2111738,2026-02-19,House,2,Amendment H-8013 filed. H.J. 364.
 2111738,2026-02-23,House,3,Amendment H-8016 filed. H.J. 397.
+2111738,2026-03-11,House,4,Fiscal note.
 2111647,2026-02-09,House,1,"Introduced, placed on calendar. H.J. 235."
 2111647,2026-02-24,House,2,Fiscal note.
 2111647,2026-03-02,House,3,"Passed House, yeas 89, nays 1. H.J. 467."
@@ -3111,12 +3126,15 @@ bill_id,date,chamber,sequence,action
 2117564,2026-03-09,Senate,7,"Read first time, attached to SF 2408. S.J. 493."
 2117488,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 297."
 2117512,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 297."
+2117512,2026-03-11,House,2,Amendment H-8206 filed. H.J. 03/11.
+2117512,2026-03-11,House,3,Amendment H-8210 filed. H.J. 03/11.
 2117487,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 297."
 2117487,2026-02-24,House,2,"Passed House, yeas 57, nays 34. H.J. 409."
 2117487,2026-02-24,House,3,Immediate message. H.J. 412.
 2117487,2026-02-25,Senate,4,Message from House. S.J. 396.
 2117487,2026-02-25,Senate,5,"Read first time, referred to Education. S.J. 396."
 2117487,2026-03-04,Senate,6,"Subcommittee: Pike, Quirmbach, and Taylor. S.J. 477."
+2117487,2026-03-11,Senate,7,Subcommittee Meeting: 03/16/2026 12:30PM Senate Lounge.
 2117557,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 297."
 1958838,2025-02-06,House,1,"Introduced, placed on calendar. H.J. 259."
 1958838,2025-02-20,House,2,"Passed House, yeas 92, nays 0. H.J. 387."
@@ -3165,6 +3183,8 @@ bill_id,date,chamber,sequence,action
 2117573,2026-03-02,Senate,8,"Read first time, referred to Education. S.J. 423."
 2117573,2026-03-09,Senate,9,"Subcommittee: Kraayenbrink, Shipley, and Winckler. S.J. 509."
 2117573,2026-03-10,Senate,10,Subcommittee Meeting: 03/11/2026 1:00PM Room 315.
+2117573,2026-03-11,Senate,11,Subcommittee recommends passage.
+2117573,2026-03-11,Senate,12,"Committee report, recommending passage."
 2117542,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 298."
 2117542,2026-03-02,House,2,Amendment H-8088 filed. H.J. 486.
 2117542,2026-03-03,House,3,"Amendment H-8088, yeas 32, nays 64, lost. H.J. 500."
@@ -3173,7 +3193,7 @@ bill_id,date,chamber,sequence,action
 2117542,2026-03-03,House,6,Immediate message. H.J. 523.
 2117542,2026-03-04,Senate,7,Message from House. S.J. 460.
 2117542,2026-03-04,Senate,8,"Read first time, referred to Education. S.J. 460."
-2117542,2026-03-10,Senate,9,"Subcommittee: Evans, Taylor, and Trone Garriott."
+2117542,2026-03-11,Senate,9,"Subcommittee: Evans, Taylor, and Trone Garriott. S.J. 555."
 2117422,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 298."
 2117469,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 298."
 2117551,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 298."
@@ -3195,6 +3215,8 @@ bill_id,date,chamber,sequence,action
 2117530,2026-02-26,Senate,6,"Subcommittee: Salmon, Blake, and Green. S.J. 419."
 2117530,2026-03-02,Senate,7,Subcommittee Meeting: 03/03/2026 2:00PM Room 315.
 2117530,2026-03-03,Senate,8,Subcommittee recommends passage.
+2117530,2026-03-11,Senate,9,"Committee report, recommending passage. S.J. 556."
+2117530,2026-03-11,Senate,10,Placed on calendar.
 2117529,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 299."
 2117529,2026-02-23,House,2,NOBA: House State Government
 1917235,2025-01-14,House,1,"Introduced, referred to Public Safety. H.J. 42."
@@ -3263,7 +3285,7 @@ bill_id,date,chamber,sequence,action
 2117459,2026-03-02,House,3,Amendment H-8094 filed. H.J. 486.
 2117459,2026-03-03,House,4,Amendment H-8105 filed. H.J. 525.
 2117459,2026-03-09,House,5,Amendments H-8175 and H-8182 filed. H.J. 614.
-2117459,2026-03-10,House,6,Amendment H-8194 filed. H.J. 03/10.
+2117459,2026-03-10,House,6,Amendment H-8194 filed. H.J. 633.
 2117527,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 300."
 2117527,2026-02-23,House,2,Amendment H-8024 filed. H.J. 397.
 2117527,2026-02-24,House,3,Amendment H-8042 filed. H.J. 414.
@@ -3278,8 +3300,8 @@ bill_id,date,chamber,sequence,action
 2117476,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 300."
 2117476,2026-03-02,House,2,Amendments H-8096 and H-8100 filed. H.J. 486.
 2117476,2026-03-03,House,3,Amendment H-8100 deferred. H.J. 506.
-2117476,2026-03-03,House,4,Amendment H-8109 filed. H.J. 506.
-2117476,2026-03-03,House,5,Amendment H-8109 adopted. H.J. 506.
+2117476,2026-03-03,House,4,"Amendment H-8109 to amendment H-8096 filed, adopted. H.J. 506."
+2117476,2026-03-03,House,5,"Request to divide amendment H-8096, as amended H.J. 506."
 2117476,2026-03-03,House,6,Amendment H-8096A adopted. H.J. 506.
 2117476,2026-03-03,House,7,"Amendment H-8096B, yeas 62, nays 34, adopted, as amended. H.J. 507."
 2117476,2026-03-03,House,8,Amendment H-8100 withdrawn. H.J. 507.
@@ -3287,6 +3309,7 @@ bill_id,date,chamber,sequence,action
 2117476,2026-03-03,House,10,Immediate message. H.J. 523.
 2117476,2026-03-04,Senate,11,Message from House. S.J. 461.
 2117476,2026-03-04,Senate,12,"Read first time, referred to Education. S.J. 461."
+2117476,2026-03-11,Senate,13,"Subcommittee: Sinclair, Quirmbach, and Rozenboom. S.J. 555."
 2117462,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 300."
 2117462,2026-02-24,House,2,Amendment H-8034 filed. H.J. 414.
 2117462,2026-02-25,House,3,"Amendment H-8046 to amendment H-8034 filed, adopted. H.J. 420."
@@ -3312,6 +3335,9 @@ bill_id,date,chamber,sequence,action
 2117473,2026-03-04,Senate,11,"Read first time, referred to Workforce. S.J. 461."
 2117473,2026-03-09,Senate,12,"Subcommittee: Pike, Dickey, and Townsend. S.J. 509."
 2117473,2026-03-09,Senate,13,Subcommittee Meeting: 03/11/2026 8:00AM Senate Lounge.
+2117473,2026-03-11,Senate,14,Subcommittee recommends passage.
+2117473,2026-03-11,Senate,15,"Committee report, recommending passage. S.J. 556."
+2117473,2026-03-11,Senate,16,Placed on calendar.
 2117408,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 301."
 2117408,2026-02-20,House,2,Amendment H-8015 filed. H.J. 372.
 2117408,2026-02-20,House,3,Fiscal note.
@@ -3334,6 +3360,7 @@ bill_id,date,chamber,sequence,action
 2117485,2026-03-05,Senate,9,"Read first time, referred to Judiciary. S.J. 480."
 2117485,2026-03-10,Senate,10,"Subcommittee: Westrich, Bisignano, and Reichman. S.J. 550."
 2117485,2026-03-10,Senate,11,Subcommittee Meeting: 03/11/2026 9:30AM Room 315.
+2117485,2026-03-11,Senate,12,Subcommittee recommends passage.
 2117640,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 301."
 2117640,2026-03-05,House,2,SF 2340 substituted. H.J. 585.
 2117640,2026-03-05,House,3,Withdrawn. H.J. 601.
@@ -3357,6 +3384,7 @@ bill_id,date,chamber,sequence,action
 2117602,2026-02-24,Senate,5,Message from House. S.J. 376.
 2117602,2026-02-24,Senate,6,"Read first time, referred to Health and Human Services. S.J. 376."
 2117602,2026-03-03,Senate,7,"Subcommittee: Pike, Alons, and Petersen. S.J. 456."
+2117602,2026-03-11,Senate,8,Subcommittee Meeting: 03/12/2026 1:00PM Senate Lounge (Cancelled).
 1958795,2025-02-06,House,1,"Introduced, referred to Education. H.J. 259."
 1958795,2025-02-11,House,2,"Subcommittee: Ingels, Kurth and Weldon. H.J. 291."
 1958795,2025-02-17,House,3,Subcommittee Meeting: 02/20/2025 8:00AM RM 19.
@@ -3437,9 +3465,10 @@ bill_id,date,chamber,sequence,action
 2117643,2026-03-04,Senate,10,Subcommittee Meeting: 03/05/2026 8:30AM Senate Lounge.
 2117643,2026-03-05,Senate,11,Subcommittee recommends passage.
 2117671,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 304."
-2117671,2026-03-10,House,2,"Passed House, yeas 93, nays 0. H.J. 03/10."
-2117671,2026-03-10,House,3,Immediate message. H.J. 03/10.
-2117671,2026-03-10,Senate,4,Message from House.
+2117671,2026-03-10,House,2,"Passed House, yeas 93, nays 0. H.J. 619."
+2117671,2026-03-10,House,3,Immediate message. H.J. 630.
+2117671,2026-03-10,Senate,4,Message from House. S.J. 546.
+2117671,2026-03-10,Senate,5,"Read first time, attached to SF 2364. S.J. 546."
 2117681,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 304."
 2117681,2026-02-23,House,2,Fiscal note.
 2117681,2026-03-03,House,3,Amendment H-8112 filed. H.J. 525.
@@ -3474,7 +3503,7 @@ bill_id,date,chamber,sequence,action
 2117648,2026-03-03,House,3,Immediate message. H.J. 523.
 2117648,2026-03-04,Senate,4,Message from House. S.J. 461.
 2117648,2026-03-04,Senate,5,"Read first time, referred to Education. S.J. 461."
-2117648,2026-03-10,Senate,6,"Subcommittee: Gruenhagen, Quirmbach, and Taylor."
+2117648,2026-03-11,Senate,6,"Subcommittee: Gruenhagen, Quirmbach, and Taylor. S.J. 555."
 1958956,2025-02-06,House,1,"Introduced, referred to Health and Human Services. H.J. 260."
 2117611,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 305."
 2117911,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 305."
@@ -3563,6 +3592,7 @@ bill_id,date,chamber,sequence,action
 2117723,2026-03-05,Senate,4,Message from House. S.J. 480.
 2117723,2026-03-05,Senate,5,"Read first time, referred to Judiciary. S.J. 480."
 2117723,2026-03-10,Senate,6,"Subcommittee: Evans, Dickey, and Quirmbach. S.J. 550."
+2117723,2026-03-11,Senate,7,Subcommittee Meeting: 03/12/2026 11:00AM Room 315.
 2117703,2026-02-16,House,1,"Introduced, placed on calendar. H.J. 308."
 2117703,2026-02-25,House,2,"Passed House, yeas 89, nays 2. H.J. 426."
 2117703,2026-02-25,House,3,Immediate message. H.J. 434.
@@ -3632,8 +3662,8 @@ bill_id,date,chamber,sequence,action
 1959211,2025-04-17,House,11,"Committee report approving bill, renumbered as HF 1015."
 1959211,2025-04-28,House,12,Withdrawn. H.J. 1073.
 2118073,2026-02-17,House,1,"Introduced, placed on calendar. H.J. 316."
-2118073,2026-03-10,House,2,SF 2198 substituted. H.J. 03/10.
-2118073,2026-03-10,House,3,Withdrawn. H.J. 03/10.
+2118073,2026-03-10,House,2,SF 2198 substituted. H.J. 618.
+2118073,2026-03-10,House,3,Withdrawn. H.J. 631.
 2118125,2026-02-17,House,1,"Introduced, placed on calendar. H.J. 317."
 2117932,2026-02-17,House,1,"Introduced, placed on calendar. H.J. 317."
 2118842,2026-02-18,House,1,"Introduced, referred to Economic Growth and Technology. H.J. 329."
@@ -3653,6 +3683,7 @@ bill_id,date,chamber,sequence,action
 2118772,2026-02-18,House,1,"Introduced, referred to Ways and Means. H.J. 330."
 2118772,2026-02-25,House,2,"Subcommittee: Nordman, Holt and Kurth. H.J. 435."
 2118772,2026-03-09,House,3,Subcommittee Meeting: 03/11/2026 12:00PM RM 102.
+2118772,2026-03-11,House,4,Subcommittee recommends passage.
 1958964,2025-02-06,House,1,"Introduced, referred to Transportation. H.J. 260."
 2118758,2026-02-18,House,1,"Introduced, placed on calendar. H.J. 330."
 2118799,2026-02-18,House,1,"Introduced, placed on calendar. H.J. 330."
@@ -3663,6 +3694,7 @@ bill_id,date,chamber,sequence,action
 2118759,2026-03-03,Senate,5,"Read first time, referred to Commerce. S.J. 440."
 2118759,2026-03-10,Senate,6,"Subcommittee: Webster, Dickey, and Drey. S.J. 550."
 2118759,2026-03-10,Senate,7,Subcommittee Meeting: 03/11/2026 10:30AM Senate Lounge.
+2118759,2026-03-11,Senate,8,Subcommittee recommends passage.
 2118820,2026-02-18,House,1,"Introduced, placed on calendar. H.J. 330."
 2118820,2026-02-26,House,2,Amendment H-8057 filed. H.J. 461.
 2118820,2026-03-02,House,3,Amendment H-8057 adopted. H.J. 475.
@@ -3672,6 +3704,7 @@ bill_id,date,chamber,sequence,action
 2118820,2026-03-03,Senate,7,"Read first time, referred to Commerce. S.J. 440."
 2118820,2026-03-10,Senate,8,"Subcommittee: Sweeney, Driscoll, and Knox. S.J. 550."
 2118820,2026-03-10,Senate,9,Subcommittee Meeting: 03/11/2026 10:30AM Room 217 Conference Room.
+2118820,2026-03-11,Senate,10,Subcommittee recommends amendment and passage.
 2118881,2026-02-18,House,1,"Introduced, placed on calendar. H.J. 331."
 2118881,2026-02-24,House,2,Amendment H-8035 filed. H.J. 414.
 2118881,2026-02-24,House,3,Fiscal note.
@@ -3684,9 +3717,12 @@ bill_id,date,chamber,sequence,action
 2118881,2026-03-03,Senate,10,"Subcommittee: Schultz, Blake, and Bousselot. S.J. 457."
 2118821,2026-02-18,House,1,"Introduced, placed on calendar. H.J. 331."
 2118821,2026-03-09,House,2,"Passed House, yeas 90, nays 0. H.J. 609."
-2118821,2026-03-09,House,3,Immediate message. H.J. 613.
-2118821,2026-03-10,Senate,4,Message from House. S.J. 528.
-2118821,2026-03-10,Senate,5,"Read first time, referred to Health and Human Services. S.J. 528."
+2118821,2026-03-09,House,3,Explanation of vote. H.J. 631.
+2118821,2026-03-09,House,4,Immediate message. H.J. 613.
+2118821,2026-03-10,Senate,5,Message from House. S.J. 528.
+2118821,2026-03-10,Senate,6,"Read first time, referred to Health and Human Services. S.J. 528."
+2118821,2026-03-11,Senate,7,"Subcommittee: Warme, Sweeney, and Trone Garriott. S.J. 555."
+2118821,2026-03-11,Senate,8,Subcommittee Meeting: 03/12/2026 8:30AM Room 217 Conference Room.
 2118816,2026-02-18,House,1,"Introduced, referred to Transportation. H.J. 331."
 2118873,2026-02-18,House,1,"Introduced, placed on calendar. H.J. 331."
 2118792,2026-02-18,House,1,"Introduced, referred to Appropriations. H.J. 331."
@@ -3705,8 +3741,8 @@ bill_id,date,chamber,sequence,action
 2118748,2026-03-02,House,3,Immediate message. H.J. 483.
 2118748,2026-03-03,Senate,4,Message from House. S.J. 440.
 2118748,2026-03-03,Senate,5,"Read first time, referred to Education. S.J. 440."
-2118748,2026-03-09,Senate,6,"Subcommittee: Shipley, Gruenhagen, and Quirmbach."
-2118748,2026-03-09,Senate,7,"Subcommittee reassigned: Shipley, Gruenhagen, and Zimmer."
+2118748,2026-03-10,Senate,6,"Subcommittee: Shipley, Gruenhagen, and Zimmer. S.J. 550."
+2118748,2026-03-11,Senate,7,Subcommittee Meeting: 03/12/2026 8:30AM Senate Lounge.
 2118862,2026-02-18,House,1,"Introduced, placed on calendar. H.J. 332."
 2118862,2026-03-02,House,2,Amendment H-8064 filed. H.J. 485.
 2118862,2026-03-03,House,3,Amendment H-8136 filed. H.J. 526.
@@ -3723,6 +3759,7 @@ bill_id,date,chamber,sequence,action
 2119793,2026-03-02,Senate,6,Message from House. S.J. 423.
 2119793,2026-03-02,Senate,7,"Read first time, referred to Agriculture. S.J. 423."
 2119793,2026-03-04,Senate,8,"Subcommittee: Gruenhagen, Shipley, and Zimmer. S.J. 477."
+2119793,2026-03-11,Senate,9,Subcommittee Meeting: 03/12/2026 10:30AM Senate Lounge.
 2119823,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 344."
 2119813,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 344."
 2119813,2026-03-03,House,2,Amendment H-8106 filed. H.J. 525.
@@ -3755,7 +3792,9 @@ bill_id,date,chamber,sequence,action
 1958817,2025-03-28,House,13,Signed by Governor. H.J. 872.
 2119898,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 344."
 2119890,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 344."
+2119890,2026-03-11,House,2,Fiscal note.
 2119931,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 344."
+2119931,2026-03-11,House,2,Fiscal note.
 2119965,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 344."
 2119967,2026-02-19,House,1,"Introduced, referred to Judiciary. H.J. 345."
 2119929,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 345."
@@ -3763,13 +3802,14 @@ bill_id,date,chamber,sequence,action
 2119903,2026-02-26,House,2,Amendment H-8062 filed. H.J. 461.
 2119821,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 345."
 2119821,2026-03-09,House,2,Amendments H-8181 and H-8185 filed. H.J. 614.
-2119821,2026-03-10,House,3,Amendment H-8190 filed. H.J. 03/10.
+2119821,2026-03-10,House,3,Amendment H-8190 filed. H.J. 632.
 2119956,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 345."
 2119956,2026-03-03,House,2,Amendment H-8119 filed. H.J. 03/03.
 2119956,2026-03-03,House,3,Amendment H-8129 filed. H.J. 03/03.
 2119956,2026-03-03,House,4,Fiscal note.
 2119954,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 345."
 2119954,2026-02-26,House,2,Amendment H-8058 filed. H.J. 461.
+2119954,2026-03-11,House,3,Fiscal note.
 1958896,2025-02-06,House,1,"Introduced, placed on calendar. H.J. 261."
 1958896,2025-03-04,House,2,SF 162 substituted. H.J. 494.
 1958896,2025-03-04,House,3,Withdrawn. H.J. 498.
@@ -3861,9 +3901,11 @@ bill_id,date,chamber,sequence,action
 2119946,2026-03-05,Senate,5,"Read first time, referred to Transportation. S.J. 481."
 2119946,2026-03-09,Senate,6,"Subcommittee: Kraayenbrink, Hardman, and Lofgren. S.J. 509."
 2119946,2026-03-10,Senate,7,Subcommittee Meeting: 03/11/2026 11:30AM Room 315.
+2119946,2026-03-11,Senate,8,Subcommittee recommends passage.
 2119785,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 348."
 2119785,2026-03-05,House,2,Amendment H-8166 filed. H.J. 602.
 2119785,2026-03-06,House,3,Fiscal note.
+2119785,2026-03-11,House,4,Amendment H-8200 filed. H.J. 03/11.
 1960189,2025-02-06,House,1,"Introduced, referred to Education. H.J. 261."
 1960189,2026-02-09,House,2,"Subcommittee: Kniff McCulla, Ehlert and Larson. H.J. 236."
 1960189,2026-02-11,House,3,Subcommittee Meeting: 02/12/2026 12:30PM House Lounge (Cancelled).
@@ -3877,6 +3919,7 @@ bill_id,date,chamber,sequence,action
 2120116,2026-03-03,Senate,5,"Read first time, referred to Commerce. S.J. 441."
 2120116,2026-03-10,Senate,6,"Subcommittee: Warme, Bisignano, and Zumbach. S.J. 550."
 2120116,2026-03-10,Senate,7,Subcommittee Meeting: 03/11/2026 10:00AM Senate Lounge.
+2120116,2026-03-11,Senate,8,Subcommittee recommends passage.
 2120068,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 349."
 2120068,2026-03-05,House,2,"Passed House, yeas 86, nays 0. H.J. 579."
 2120068,2026-03-05,House,3,Immediate message. H.J. 601.
@@ -3926,6 +3969,7 @@ bill_id,date,chamber,sequence,action
 2120263,2026-03-02,Senate,6,"Read first time, referred to Health and Human Services. S.J. 424."
 2120263,2026-03-04,Senate,7,"Subcommittee: Sweeney, Donahue, and Webster. S.J. 477."
 2120263,2026-03-09,Senate,8,Subcommittee Meeting: 03/11/2026 8:30AM Senate Lounge.
+2120263,2026-03-11,Senate,9,Subcommittee recommends passage.
 2120207,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 351."
 2120207,2026-02-24,House,2,Amendment H-8039 filed. H.J. 414.
 2120207,2026-02-24,House,3,Amendment H-8040 filed. H.J. 414.
@@ -3934,6 +3978,7 @@ bill_id,date,chamber,sequence,action
 2120207,2026-03-05,House,6,Amendment H-8169 filed. H.J. 602.
 2120160,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 351."
 2120160,2026-03-09,House,2,Amendment H-8172 filed. H.J. 614.
+2120160,2026-03-11,House,3,Amendment H-8198 filed. H.J. 03/11.
 2120219,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 351."
 2120352,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 351."
 2120352,2026-03-03,House,2,Amendment H-8135 filed. H.J. 526.
@@ -3946,6 +3991,7 @@ bill_id,date,chamber,sequence,action
 2120352,2026-03-05,Senate,9,"Read first time, referred to Judiciary. S.J. 481."
 2120352,2026-03-10,Senate,10,"Subcommittee: Taylor, Blake, and Lofgren. S.J. 550."
 2120352,2026-03-10,Senate,11,Subcommittee Meeting: 03/11/2026 10:30AM Room 315.
+2120352,2026-03-11,Senate,12,Subcommittee recommends indefinite postponement. [].
 2120245,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 351."
 2120132,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 351."
 2120095,2026-02-19,House,1,"Introduced, placed on calendar. H.J. 352."
@@ -3957,6 +4003,7 @@ bill_id,date,chamber,sequence,action
 2120280,2026-03-04,House,6,Immediate message. H.J. 569.
 2120280,2026-03-05,Senate,7,Message from House. S.J. 482.
 2120280,2026-03-05,Senate,8,"Read first time, referred to Education. S.J. 482."
+2120280,2026-03-10,Senate,9,"Subcommittee: Shipley, Donahue, and Kraayenbrink."
 1959565,2025-02-06,House,1,"Introduced, referred to Public Safety. H.J. 261."
 1959565,2025-02-10,House,2,"Subcommittee: Wengryn, Gosa and Rinker. H.J. 280."
 1959565,2025-02-17,House,3,Subcommittee Meeting: 02/19/2025 12:15PM House Lounge.
@@ -3973,9 +4020,12 @@ bill_id,date,chamber,sequence,action
 2120971,2026-03-03,Senate,4,Message from House. S.J. 441.
 2120971,2026-03-03,Senate,5,"Read first time, referred to Education. S.J. 441."
 2120971,2026-03-10,Senate,6,"Subcommittee: Gruenhagen, Donahue, and Salmon. S.J. 550."
+2120971,2026-03-11,Senate,7,Subcommittee Meeting: 03/12/2026 12:00PM Room 217 Conference Room.
 2120997,2026-02-20,House,1,"Introduced, placed on calendar. H.J. 365."
 2121075,2026-02-20,House,1,"Introduced, placed on calendar. H.J. 366."
 2121023,2026-02-20,House,1,"Introduced, placed on calendar. H.J. 366."
+2121023,2026-03-11,House,2,Amendment H-8201 filed. H.J. 03/11.
+2121023,2026-03-11,House,3,Amendment H-8208 filed. H.J. 03/11.
 2121049,2026-02-20,House,1,"Introduced, placed on calendar. H.J. 366."
 2121049,2026-03-04,House,2,Amendment H-8160 filed. H.J. 571.
 2121062,2026-02-20,House,1,"Introduced, placed on calendar. H.J. 366."
@@ -4032,6 +4082,7 @@ bill_id,date,chamber,sequence,action
 2122399,2026-03-09,Senate,9,"Read first time, attached to SF 2387. S.J. 494."
 2122315,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 375."
 2122315,2026-03-09,House,2,Amendment H-8171 filed. H.J. 614.
+2122315,2026-03-11,House,3,Amendment H-8209 filed. H.J. 03/11.
 2122257,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 375."
 2122257,2026-03-04,House,2,Amendment H-8150 filed. H.J. 571.
 2122461,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 375."
@@ -4067,7 +4118,8 @@ bill_id,date,chamber,sequence,action
 2122497,2026-03-05,House,3,Immediate message. H.J. 601.
 2122497,2026-03-09,Senate,4,Message from House. S.J. 494.
 2122497,2026-03-09,Senate,5,"Read first time, referred to Transportation. S.J. 494."
-2122497,2026-03-10,Senate,6,"Subcommittee: Costello, Bennett, and Lofgren."
+2122497,2026-03-10,Senate,6,"Subcommittee: Costello, Bennett, and Lofgren. S.J. 551."
+2122497,2026-03-11,Senate,7,Subcommittee Meeting: 03/16/2026 12:00PM Senate Lounge.
 1959342,2025-02-06,House,1,"Introduced, referred to Ways and Means. H.J. 262."
 1959342,2025-02-20,House,2,"Subcommittee: Young, Behn and Wichtendahl. H.J. 406."
 1959342,2025-02-24,House,3,Subcommittee Meeting: 02/25/2025 12:45PM House Lounge 2.
@@ -4083,6 +4135,8 @@ bill_id,date,chamber,sequence,action
 2122408,2026-03-09,Senate,4,Message from House. S.J. 494.
 2122408,2026-03-09,Senate,5,"Read first time, attached to SF 2366. S.J. 494."
 2122272,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 376."
+2122272,2026-03-11,House,2,Amendment H-8211 filed. H.J. 03/11.
+2122272,2026-03-11,House,3,Fiscal note.
 2122342,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 376."
 2122372,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 376."
 2122549,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 377."
@@ -4110,6 +4164,9 @@ bill_id,date,chamber,sequence,action
 1959793,2025-03-27,Senate,12,Subcommittee Meeting: 03/31/2025 12:30PM Senate Lounge.
 1959793,2025-03-31,Senate,13,Subcommittee recommends passage.
 2122505,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 378."
+2122505,2026-03-11,House,2,Amendment H-8203 filed. H.J. 03/11.
+2122505,2026-03-11,House,3,Amendment H-8205 filed. H.J. 03/11.
+2122505,2026-03-11,House,4,Amendment H-8207 filed. H.J. 03/11.
 2122465,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 378."
 2122606,2026-02-23,House,1,"Introduced, referred to State Government. H.J. 379."
 2122589,2026-02-23,House,1,"Introduced, placed on calendar. H.J. 380."
@@ -4200,19 +4257,21 @@ bill_id,date,chamber,sequence,action
 2122858,2026-02-24,House,1,"Introduced, referred to Ways and Means. H.J. 401."
 2122858,2026-03-04,House,2,"Subcommittee: Vondran, Judge and Lundgren. H.J. 570."
 2122858,2026-03-05,House,3,Subcommittee Meeting: 03/11/2026 8:15AM House Lounge.
+2122858,2026-03-11,House,4,Subcommittee recommends passage.
 2122832,2026-02-24,House,1,"Introduced, placed on calendar. H.J. 401."
 2122925,2026-02-24,House,1,"Introduced, placed on calendar. H.J. 401."
 2122925,2026-03-09,House,2,Amendment H-8180 filed. H.J. 614.
 2122925,2026-03-09,House,3,Amendment H-8188 filed. H.J. 615.
 2122925,2026-03-10,House,4,Fiscal note.
-2122925,2026-03-10,House,5,"Point of order raised on amendment H-8180, ruled not germane. H.J. 03/10."
-2122925,2026-03-10,House,6,"Motion to suspend rules for immediate consideration of amendment H-8180, yeas, 31, nays, 62. H.J. 03/10."
-2122925,2026-03-10,House,7,Motion to suspend rules failed. H.J. 03/10.
-2122925,2026-03-10,House,8,Amendment H-8188 adopted. H.J. 03/10.
-2122925,2026-03-10,House,9,"Passed House, yeas 62, nays 30. H.J. 03/10."
-2122925,2026-03-10,House,10,Immediate message. H.J. 03/10.
+2122925,2026-03-10,House,5,"Point of order raised on amendment H-8180, ruled not germane. H.J. 627."
+2122925,2026-03-10,House,6,"Motion to suspend rules for immediate consideration of amendment H-8180, yeas, 31, nays, 62. H.J. 627."
+2122925,2026-03-10,House,7,Motion to suspend rules failed. H.J. 628.
+2122925,2026-03-10,House,8,Amendment H-8188 adopted. H.J. 628.
+2122925,2026-03-10,House,9,"Passed House, yeas 62, nays 30. H.J. 628."
+2122925,2026-03-10,House,10,Immediate message. H.J. 630.
 2122925,2026-03-10,Senate,11,Message from House. S.J. 547.
 2122925,2026-03-10,Senate,12,"Read first time, referred to Health and Human Services. S.J. 547."
+2122925,2026-03-11,Senate,13,"Subcommittee: Webster, Trone Garriott, and Warme. S.J. 555."
 2122847,2026-02-24,House,1,"Introduced, placed on calendar. H.J. 401."
 2122757,2026-02-24,House,1,"Introduced, placed on calendar. H.J. 401."
 2122757,2026-03-04,House,2,"Passed House, yeas 67, nays 29. H.J. 548."
@@ -4236,7 +4295,7 @@ bill_id,date,chamber,sequence,action
 2122782,2026-03-10,Senate,4,Message from House. S.J. 547.
 2122782,2026-03-10,Senate,5,"Read first time, referred to Judiciary. S.J. 547."
 2122936,2026-02-24,House,1,"Introduced, placed on calendar. H.J. 402."
-2122936,2026-03-10,House,2,Amendment H-8195 filed. H.J. 03/10.
+2122936,2026-03-10,House,2,Amendment H-8195 filed. H.J. 633.
 2123480,2026-02-24,House,1,"Introduced, referred to State Government. H.J. 402."
 2123301,2026-02-24,House,1,"Introduced, referred to Ways and Means. H.J. 402."
 2123334,2026-02-24,House,1,"Introduced, placed on calendar. H.J. 402."
@@ -6890,6 +6949,8 @@ bill_id,date,chamber,sequence,action
 1988126,2026-03-10,Senate,13,"Amendment S-5085 filed, adopted. S.J. 545."
 1988126,2026-03-10,Senate,14,"Passed Senate, yeas 43, nays 2. S.J. 545."
 1988126,2026-03-10,Senate,15,Immediate message. S.J. 545.
+1988126,2026-03-11,House,16,Message from Senate. H.J. 03/11.
+1988126,2026-03-11,House,17,Senate amendment H-8197 filed. H.J. 03/11.
 1988257,2025-02-28,House,1,"Introduced, placed on calendar. H.J. 482."
 1988257,2025-03-17,House,2,"Passed House, yeas 79, nays 17. H.J. 670."
 1988257,2025-03-19,House,3,Explanation of vote. H.J. 751.
@@ -7439,6 +7500,7 @@ bill_id,date,chamber,sequence,action
 1991645,2026-03-09,Senate,13,Message from House. S.J. 492.
 1991645,2026-03-09,Senate,14,"Read first time, referred to Transportation. S.J. 492."
 1991645,2026-03-10,Senate,15,"Subcommittee: Dickey, Pike, and Townsend. S.J. 549."
+1991645,2026-03-11,Senate,16,Subcommittee Meeting: 03/12/2026 2:00PM Senate Lounge (Cancelled).
 1991922,2025-03-05,House,1,"Introduced, placed on calendar. H.J. 519."
 1991922,2025-03-25,House,2,Amendment H-1197 filed. H.J. 815.
 1991922,2025-04-03,House,3,Referred to Education. H.J. 896.
@@ -8436,6 +8498,7 @@ bill_id,date,chamber,sequence,action
 1999532,2026-03-05,Senate,12,"Read first time, referred to Judiciary. S.J. 480."
 1999532,2026-03-10,Senate,13,"Subcommittee: Dickey, Blake, and Webster. S.J. 549."
 1999532,2026-03-10,Senate,14,Subcommittee Meeting: 03/11/2026 12:30PM Senate Lounge.
+1999532,2026-03-11,Senate,15,Subcommittee recommends amendment and passage.
 1999468,2025-03-11,House,1,"Introduced, placed on calendar. H.J. 594."
 1999468,2025-03-24,House,2,Amendments H-1154 and H-1166 filed. H.J. 791.
 1999468,2025-03-24,House,3,Fiscal note.
@@ -8840,6 +8903,7 @@ bill_id,date,chamber,sequence,action
 2006350,2025-06-16,Senate,7,Referred to Ways and Means. S.J. 1058.
 2006350,2026-01-25,Senate,8,"Subcommittee: Gruenhagen, Bisignano, and Dawson."
 2006350,2026-03-10,Senate,9,Subcommittee Meeting: 03/11/2026 12:00PM Room 217 Conference Room.
+2006350,2026-03-11,Senate,10,Subcommittee recommends passage.
 2006473,2025-03-13,House,1,"Introduced, placed on Ways and Means calendar. H.J. 656."
 2006473,2025-03-21,House,2,Fiscal note.
 2006473,2025-05-15,House,3,Rereferred to Ways and Means. H.J. 1221.
@@ -13502,6 +13566,7 @@ bill_id,date,chamber,sequence,action
 2123883,2026-02-25,House,2,"Introduced, referred to Ways and Means. H.J. 435."
 2123883,2026-02-25,House,3,"Subcommittee: Windschitl, Jacoby and Wills, J. H.J. 436."
 2123883,2026-03-09,House,4,Subcommittee Meeting: 03/11/2026 12:15PM House Lounge.
+2123883,2026-03-11,House,5,Subcommittee recommends amendment and passage.
 2124092,2026-02-25,House,1,By COMMITTEE ON WAYS AND MEANS
 2124092,2026-02-25,House,2,"Introduced, referred to Ways and Means. H.J. 435."
 2124092,2026-02-25,House,3,"Subcommittee: Johnson, C., Boden and Kurth. H.J. 436."
@@ -13524,15 +13589,17 @@ bill_id,date,chamber,sequence,action
 2128316,2026-03-03,House,2,"Introduced, referred to State Government. H.J. 524."
 2128316,2026-03-03,House,3,"Subcommittee: Siegrist, Jones and Srinivas. H.J. 525."
 2128316,2026-03-04,House,4,Subcommittee Meeting: 03/11/2026 8:15AM RM 103.
+2128316,2026-03-11,House,5,Subcommittee recommends passage.
 2129549,2026-03-05,House,1,By COMMITTEE ON WAYS AND MEANS
 2129549,2026-03-05,House,2,"Introduced, referred to Ways and Means. H.J. 601."
 2129549,2026-03-05,House,3,"Subcommittee: Bloomingdale, Jones and Wilson. H.J. 602."
 2129549,2026-03-05,House,4,Subcommittee Meeting: 03/10/2026 8:15AM House Lounge 2.
 2129549,2026-03-10,House,5,Subcommittee recommends amendment and passage.
 2131602,2026-03-10,House,1,By COMMITTEE ON WAYS AND MEANS
-2131602,2026-03-10,House,2,"Introduced, referred to Ways and Means. H.J. 03/10."
-2131602,2026-03-10,House,3,"Subcommittee: Lundgren, Judge and Windschitl. H.J. 03/10."
+2131602,2026-03-10,House,2,"Introduced, referred to Ways and Means. H.J. 631."
+2131602,2026-03-10,House,3,"Subcommittee: Lundgren, Judge and Windschitl. H.J. 632."
 2131602,2026-03-10,House,4,Subcommittee Meeting: 03/11/2026 12:00PM RM 103.
+2131602,2026-03-11,House,5,Subcommittee recommends passage.
 1937133,2025-01-23,House,1,By COMMITTEE ON STATE GOVERNMENT
 1937133,2025-01-23,House,2,"Introduced, referred to State Government. H.J. 121."
 1937133,2025-01-23,House,3,"Subcommittee: Wilz, H., Smith and Wilburn. H.J. 124."
@@ -14729,7 +14796,7 @@ bill_id,date,chamber,sequence,action
 2088395,2026-03-09,Senate,8,"Passed Senate, yeas 28, nays 17. S.J. 504."
 2088395,2026-03-09,Senate,9,Immediate message. S.J. 505.
 2088395,2026-03-09,House,10,Message from Senate. H.J. 605.
-2088395,2026-03-10,House,11,"Read first time, referred to Judiciary. H.J. 03/10."
+2088395,2026-03-10,House,11,"Read first time, referred to Judiciary. H.J. 630."
 2088755,2026-01-21,Senate,1,"Introduced, referred to Health and Human Services. S.J. 120."
 2088755,2026-01-22,Senate,2,"Subcommittee: Sweeney, Donahue, and Webster. S.J. 133."
 2088633,2026-01-21,Senate,1,"Introduced, referred to Education. S.J. 120."
@@ -14772,6 +14839,8 @@ bill_id,date,chamber,sequence,action
 2088938,2026-01-21,Senate,1,"Introduced, referred to Ways and Means. S.J. 122."
 2088938,2026-01-22,Senate,2,"Subcommittee: Dawson, Quirmbach, and Taylor. S.J. 133."
 2088938,2026-03-09,Senate,3,Subcommittee Meeting: 03/11/2026 1:00PM Senate Lounge.
+2088938,2026-03-11,Senate,4,Subcommittee recommends amendment and passage.
+2088938,2026-03-11,Senate,5,"Committee report approving bill, renumbered as []."
 2090046,2026-01-22,Senate,1,"Introduced, placed on calendar. S.J. 128."
 2090046,2026-01-22,Senate,2,"Committee report, approving bill. S.J. 135."
 2090046,2026-02-24,Senate,3,"Amendment S-5025 filed, adopted. S.J. 378."
@@ -14803,6 +14872,7 @@ bill_id,date,chamber,sequence,action
 2090625,2026-03-03,Senate,4,Immediate message. S.J. 450.
 2090625,2026-03-03,House,5,Message from Senate. H.J. 514.
 2090625,2026-03-04,House,6,"Read first time, referred to Labor and Workforce. H.J. 527."
+2090625,2026-03-11,House,7,"Subcommittee: Bradley, Cooling and Kniff McCulla. H.J. 03/11."
 1955123,2025-02-04,Senate,1,"Introduced, referred to Commerce. S.J. 189."
 1955123,2025-02-05,Senate,2,"Subcommittee: Schultz, Rowley, and Trone Garriott. S.J. 203."
 2090312,2026-01-22,Senate,1,"Introduced, referred to Education. S.J. 129."
@@ -15004,6 +15074,7 @@ bill_id,date,chamber,sequence,action
 2097110,2026-03-10,House,9,Subcommittee recommends passage.
 2099189,2026-01-28,Senate,1,"Introduced, placed on calendar. S.J. 157."
 2099189,2026-01-28,Senate,2,"Committee report, approving bill. S.J. 163."
+2099189,2026-03-10,Senate,3,Attached to HF 2200. S.J. 546.
 2098845,2026-01-28,Senate,1,"Introduced, placed on calendar. S.J. 157."
 2098845,2026-01-28,Senate,2,"Committee report, approving bill. S.J. 163."
 1956167,2025-02-05,Senate,1,"Introduced, placed on calendar. S.J. 201."
@@ -15018,6 +15089,7 @@ bill_id,date,chamber,sequence,action
 2100380,2026-02-04,Senate,4,"Subcommittee: Green, Sweeney, and Townsend. S.J. 199."
 2100380,2026-02-05,Senate,5,Subcommittee Meeting: 02/09/2026 3:00PM Room 315.
 2100380,2026-02-09,Senate,6,Subcommittee recommends passage.
+2100380,2026-03-11,Senate,7,"Committee report approving bill, renumbered as []."
 2100244,2026-01-28,Senate,1,"Introduced, placed on calendar. S.J. 157."
 2100244,2026-01-28,Senate,2,"Committee report, approving bill. S.J. 164."
 2100244,2026-02-02,Senate,3,Referred to Appropriations. S.J. 175.
@@ -15055,6 +15127,7 @@ bill_id,date,chamber,sequence,action
 2101954,2026-01-29,Senate,2,"Committee report, approving bill. S.J. 172."
 2101954,2026-03-10,Senate,3,"Passed Senate, yeas 46, nays 0. S.J. 532."
 2101954,2026-03-10,Senate,4,Immediate message. S.J. 533.
+2101954,2026-03-10,House,5,Message from Senate. H.J. 629.
 2101660,2026-01-29,Senate,1,"Introduced, placed on calendar. S.J. 167."
 2101660,2026-01-29,Senate,2,"Committee report, approving bill. S.J. 172."
 2101660,2026-02-02,Senate,3,Referred to Ways and Means. S.J. 175.
@@ -15267,6 +15340,7 @@ bill_id,date,chamber,sequence,action
 2107278,2026-02-09,Senate,3,Referred to Ways and Means. S.J. 221.
 2107278,2026-02-10,Senate,4,"Subcommittee: Taylor, Dotzler, and Gruenhagen. S.J. 243."
 2107278,2026-03-10,Senate,5,Subcommittee Meeting: 03/11/2026 11:00AM Room 315.
+2107278,2026-03-11,Senate,6,Subcommittee recommends passage.
 2107352,2026-02-04,Senate,1,"Introduced, placed on calendar. S.J. 196."
 2107352,2026-02-04,Senate,2,"Committee report, approving bill. S.J. 204."
 2107352,2026-02-25,Senate,3,"Passed Senate, yeas 47, nays 0. S.J. 399."
@@ -15290,8 +15364,9 @@ bill_id,date,chamber,sequence,action
 2107122,2026-03-04,House,6,"Read first time, passed on file. H.J. 528."
 2107122,2026-03-09,House,7,Substituted for HF 2269. H.J. 607.
 2107122,2026-03-09,House,8,"Passed House, yeas 90, nays 0. H.J. 608."
-2107122,2026-03-09,House,9,Immediate message. H.J. 613.
-2107122,2026-03-10,Senate,10,Message from House. S.J. 527.
+2107122,2026-03-09,House,9,Explanation of vote. H.J. 631.
+2107122,2026-03-09,House,10,Immediate message. H.J. 613.
+2107122,2026-03-10,Senate,11,Message from House. S.J. 527.
 2107238,2026-02-04,Senate,1,"Introduced, placed on calendar. S.J. 196."
 2107238,2026-02-04,Senate,2,"Committee report, approving bill. S.J. 202."
 2107238,2026-02-09,Senate,3,Referred to Ways and Means. S.J. 221.
@@ -15325,10 +15400,10 @@ bill_id,date,chamber,sequence,action
 2107577,2026-02-24,Senate,4,Immediate message. S.J. 383.
 2107577,2026-02-24,House,5,Message from Senate. H.J. 399.
 2107577,2026-02-25,House,6,"Read first time, passed on file. H.J. 416."
-2107577,2026-03-10,House,7,HF 2570 substituted. H.J. 03/10.
-2107577,2026-03-10,House,8,"Passed House, yeas 93, nays 0. H.J. 03/10."
-2107577,2026-03-10,House,9,Immediate message. H.J. 03/10.
-2107577,2026-03-10,Senate,10,Message from House.
+2107577,2026-03-10,House,7,Substituted for HF 2570. H.J. 618.
+2107577,2026-03-10,House,8,"Passed House, yeas 93, nays 0. H.J. 618."
+2107577,2026-03-10,House,9,Immediate message. H.J. 630.
+2107577,2026-03-10,Senate,10,Message from House. S.J. 546.
 2107770,2026-02-04,Senate,1,"Introduced, placed on calendar. S.J. 198."
 2107770,2026-02-04,Senate,2,"Committee report, approving bill. S.J. 204."
 1918552,2025-01-14,Senate,1,"Introduced, referred to Judiciary. S.J. 66."
@@ -15518,7 +15593,8 @@ bill_id,date,chamber,sequence,action
 2109490,2026-03-03,Senate,5,Immediate message. S.J. 448.
 2109490,2026-03-03,House,6,Message from Senate. H.J. 514.
 2109490,2026-03-04,House,7,"Read first time, referred to Education. H.J. 528."
-2109490,2026-03-10,House,8,"Subcommittee: Gehlbach, Bradley and Ramirez. H.J. 03/10."
+2109490,2026-03-10,House,8,"Subcommittee: Gehlbach, Bradley and Ramirez. H.J. 632."
+2109490,2026-03-11,House,9,Subcommittee Meeting: 03/12/2026 8:30AM House Lounge.
 2109461,2026-02-05,Senate,1,"Introduced, placed on calendar. S.J. 211."
 2109461,2026-02-05,Senate,2,"Committee report, approving bill. S.J. 217."
 2109461,2026-03-04,Senate,3,Attached to HF 2724. S.J. 462.
@@ -15631,6 +15707,7 @@ bill_id,date,chamber,sequence,action
 2113272,2026-02-10,Senate,1,"Introduced, referred to Ways and Means. S.J. 238."
 2113272,2026-02-16,Senate,2,"Subcommittee: Sweeney, Driscoll, and Quirmbach. S.J. 294."
 2113272,2026-03-10,Senate,3,Subcommittee Meeting: 03/11/2026 1:30PM Room 315.
+2113272,2026-03-11,Senate,4,Subcommittee recommends amendment and passage.
 2113575,2026-02-10,Senate,1,"Introduced, referred to Judiciary. S.J. 238."
 2113575,2026-02-11,Senate,2,"Subcommittee: Schultz, Quirmbach, and Westrich. S.J. 257."
 2113575,2026-02-16,Senate,3,Subcommittee Meeting: 02/17/2026 11:30AM Room 315.
@@ -15743,6 +15820,7 @@ bill_id,date,chamber,sequence,action
 2114329,2026-03-10,Senate,5,"Amendment S-5092 adopted, as amended. S.J. 537."
 2114329,2026-03-10,Senate,6,"Passed Senate, yeas 30, nays 15. S.J. 537."
 2114329,2026-03-10,Senate,7,Immediate message. S.J. 541.
+2114329,2026-03-11,House,8,Message from Senate. H.J. 03/11.
 2114480,2026-02-11,Senate,1,"Introduced, referred to Ways and Means. S.J. 253."
 2114480,2026-02-16,Senate,2,"Subcommittee: Dawson, Bisignano, and Gruenhagen. S.J. 295."
 2114511,2026-02-11,Senate,1,"Introduced, placed on calendar. S.J. 253."
@@ -15821,6 +15899,8 @@ bill_id,date,chamber,sequence,action
 2115052,2026-03-05,House,7,"Subcommittee: Stone, Henderson and Kurth. H.J. 601."
 2115052,2026-03-09,House,8,Subcommittee Meeting: 03/10/2026 8:15AM RM 19.
 2115052,2026-03-10,House,9,Subcommittee recommends passage.
+2115052,2026-03-11,House,10,"Committee Vote: Yeas, 14. Nays, 5. Excused, 4. H.J. 03/11."
+2115052,2026-03-11,House,11,Placed on calendar. H.J. 03/11.
 1918888,2025-01-14,Senate,1,"Introduced, referred to Transportation. S.J. 66."
 1918888,2025-01-15,Senate,2,"Subcommittee: Shipley, Webster, and Winckler. S.J. 90."
 1918888,2025-01-23,Senate,3,Subcommittee Meeting: 01/27/2025 2:30PM Senate Lounge.
@@ -15888,6 +15968,7 @@ bill_id,date,chamber,sequence,action
 2115397,2026-02-18,Senate,4,"Subcommittee: Sweeney, Reichman, and Townsend. S.J. 314."
 2115397,2026-03-05,Senate,5,Subcommittee Meeting: 03/10/2026 8:00AM Room 315.
 2115397,2026-03-10,Senate,6,Subcommittee recommends passage.
+2115397,2026-03-11,Senate,7,"Committee report approving bill, renumbered as []."
 2115520,2026-02-12,Senate,1,"Introduced, placed on calendar. S.J. 273."
 2115520,2026-02-12,Senate,2,"Committee report, approving bill. S.J. 284."
 2115520,2026-02-24,Senate,3,"Passed Senate, yeas 48, nays 0. S.J. 389."
@@ -15903,7 +15984,7 @@ bill_id,date,chamber,sequence,action
 2115325,2026-03-03,Senate,4,Immediate message. S.J. 448.
 2115325,2026-03-03,House,5,Message from Senate. H.J. 515.
 2115325,2026-03-04,House,6,"Read first time, referred to Education. H.J. 528."
-2115325,2026-03-10,House,7,"Subcommittee: Larson, Ehlert and Stone. H.J. 03/10."
+2115325,2026-03-10,House,7,"Subcommittee: Larson, Ehlert and Stone. H.J. 632."
 1963490,2025-02-10,Senate,1,"Introduced, placed on calendar. S.J. 214."
 1963490,2025-02-10,Senate,2,"Committee report, approving bill. S.J. 218."
 1963490,2025-02-11,Senate,3,Referred to Appropriations. S.J. 231.
@@ -15918,6 +15999,8 @@ bill_id,date,chamber,sequence,action
 2115570,2026-03-05,House,8,"Subcommittee: Gehlbach, Johnson, C. and Kurth. H.J. 601."
 2115570,2026-03-10,House,9,Subcommittee Meeting: 03/11/2026 12:30PM RM 304 (Cancelled).
 2115570,2026-03-10,House,10,Subcommittee Meeting: 03/11/2026 8:00AM RM 305.
+2115570,2026-03-11,House,11,Subcommittee recommends passage.
+2115570,2026-03-11,House,12,"Committee vote: Yeas, 19. Nays, 0. Excused, 4. H.J. 03/11."
 2115980,2026-02-12,Senate,1,"Introduced, referred to Education. S.J. 273."
 2115980,2026-02-16,Senate,2,"Subcommittee: Sinclair, Rozenboom, and Trone Garriott. S.J. 295."
 2116005,2026-02-12,Senate,1,"Introduced, referred to Commerce. S.J. 273."
@@ -16012,9 +16095,10 @@ bill_id,date,chamber,sequence,action
 2117307,2026-03-02,Senate,3,Amendment S-5037 filed. S.J. 437.
 2117307,2026-03-04,Senate,4,Amendment S-5065 filed. S.J. 478.
 2117307,2026-03-10,Senate,5,"Amendment S-5089 filed, adopted. S.J. 533."
-2117307,2026-03-10,Senate,6,Amendments S-5065 and S-5037 out of order. S.J. 533.
+2117307,2026-03-10,Senate,6,Amendments S-5037 and S-5065 out of order. S.J. 533.
 2117307,2026-03-10,Senate,7,"Passed Senate, yeas 29, nays 17. S.J. 534."
 2117307,2026-03-10,Senate,8,Immediate message. S.J. 536.
+2117307,2026-03-11,House,9,Message from Senate. H.J. 03/11.
 2117268,2026-02-16,Senate,1,"Introduced, placed on calendar. S.J. 292."
 2117268,2026-02-16,Senate,2,"Committee report, approving bill. S.J. 298."
 2117268,2026-03-02,Senate,3,Amendment S-5039 filed. S.J. 437.
@@ -16118,7 +16202,8 @@ bill_id,date,chamber,sequence,action
 2118827,2026-03-09,Senate,3,"Passed Senate, yeas 43, nays 2. S.J. 502."
 2118827,2026-03-09,Senate,4,Immediate message. S.J. 502.
 2118827,2026-03-09,House,5,Message from Senate. H.J. 606.
-2118827,2026-03-10,House,6,"Read first time, referred to Local Government. H.J. 03/10."
+2118827,2026-03-10,House,6,"Read first time, referred to Local Government. H.J. 630."
+2118827,2026-03-11,House,7,"Subcommittee: Watkins, Smith and Zabner. H.J. 03/11."
 2118848,2026-02-18,Senate,1,"Introduced, placed on calendar. S.J. 311."
 2118848,2026-02-18,Senate,2,"Committee report, approving bill. S.J. 319."
 2118848,2026-03-02,Senate,3,"Passed Senate, yeas 44, nays 0. S.J. 427."
@@ -16166,7 +16251,8 @@ bill_id,date,chamber,sequence,action
 2118806,2026-03-02,Senate,5,Immediate message. S.J. 429.
 2118806,2026-03-02,House,6,Message from Senate. H.J. 463.
 2118806,2026-03-02,House,7,"Read first time, referred to Local Government. H.J. 465."
-2118806,2026-03-10,House,8,"Subcommittee: Bloomingdale, Gosa and Williams. H.J. 03/10."
+2118806,2026-03-10,House,8,"Subcommittee: Bloomingdale, Gosa and Williams. H.J. 632."
+2118806,2026-03-11,House,9,Subcommittee Meeting: 03/12/2026 8:15AM RM 102.
 2119122,2026-02-18,Senate,1,"Introduced, referred to Natural Resources and Environment. S.J. 312."
 2119122,2026-02-19,Senate,2,"Subcommittee: Shipley, Pike, and Staed. S.J. 331."
 2119042,2026-02-18,Senate,1,"Introduced, placed on calendar. S.J. 313."
@@ -16187,6 +16273,7 @@ bill_id,date,chamber,sequence,action
 2119484,2026-03-10,Senate,3,"Amendment S-5083 filed, adopted. S.J. 534."
 2119484,2026-03-10,Senate,4,"Passed Senate, yeas 46, nays 0. S.J. 535."
 2119484,2026-03-10,Senate,5,Immediate message. S.J. 536.
+2119484,2026-03-11,House,6,Message from Senate. H.J. 03/11.
 2119393,2026-02-18,Senate,1,"Introduced, referred to Health and Human Services. S.J. 313."
 2119393,2026-02-19,Senate,2,"Subcommittee: Sweeney, Trone Garriott, and Webster. S.J. 331."
 2119804,2026-02-19,Senate,1,"Introduced, placed on calendar. S.J. 325."
@@ -16295,8 +16382,9 @@ bill_id,date,chamber,sequence,action
 2120186,2026-03-03,Senate,5,Immediate message. S.J. 454.
 2120186,2026-03-03,House,6,Message from Senate. H.J. 515.
 2120186,2026-03-09,House,7,"Read first time, referred to Judiciary. H.J. 604."
-2120186,2026-03-10,House,8,"Subcommittee: Williams, Fett and Wichtendahl. H.J. 03/10."
+2120186,2026-03-10,House,8,"Subcommittee: Williams, Fett and Wichtendahl. H.J. 632."
 2120186,2026-03-10,House,9,Subcommittee Meeting: 03/11/2026 8:15AM House Lounge 2.
+2120186,2026-03-11,House,10,Subcommittee recommends passage.
 2120102,2026-02-19,Senate,1,"Introduced, placed on calendar. S.J. 328."
 2120102,2026-02-19,Senate,2,"Committee report, approving bill. S.J. 336."
 2120370,2026-02-19,Senate,1,"Introduced, placed on calendar. S.J. 328."
@@ -16311,6 +16399,7 @@ bill_id,date,chamber,sequence,action
 2120335,2026-03-10,Senate,5,"Amendment S-5084 filed, ruled out of order. S.J. 536."
 2120335,2026-03-10,Senate,6,"Passed Senate, yeas 32, nays 13. S.J. 536."
 2120335,2026-03-10,Senate,7,Immediate message. S.J. 536.
+2120335,2026-03-11,House,8,Message from Senate. H.J. 03/11.
 2120040,2026-02-19,Senate,1,"Introduced, placed on calendar. S.J. 328."
 2120040,2026-02-19,Senate,2,"Committee report, approving bill. S.J. 333."
 2120011,2026-02-19,Senate,1,"Introduced, placed on calendar. S.J. 329."
@@ -16347,6 +16436,7 @@ bill_id,date,chamber,sequence,action
 2120051,2026-02-25,House,8,"Read first time, referred to State Government. H.J. 417."
 2120051,2026-03-03,House,9,"Subcommittee: Siegrist, McBurney and Wilz, H. H.J. 525."
 2120051,2026-03-04,House,10,Subcommittee Meeting: 03/11/2026 12:00PM House Lounge.
+2120051,2026-03-11,House,11,Subcommittee recommends passage.
 2120407,2026-02-19,Senate,1,"Introduced, placed on calendar. S.J. 330."
 2120407,2026-02-19,Senate,2,"Committee report, approving bill. S.J. 342."
 2120407,2026-02-25,Senate,3,Amendment S-5031 filed. S.J. 405.
@@ -16384,9 +16474,10 @@ bill_id,date,chamber,sequence,action
 2122178,2026-02-23,Senate,1,"Introduced, placed on calendar. S.J. 354."
 2122178,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 372."
 2122178,2026-03-05,Senate,3,Amendment S-5074 filed. S.J. 490.
-2122178,2026-03-10,Senate,4,Amendment S-5074 adopted.
-2122178,2026-03-10,Senate,5,"Passed Senate, yeas 45, nays 0."
-2122178,2026-03-10,Senate,6,Immediate message.
+2122178,2026-03-10,Senate,4,Amendment S-5074 adopted. S.J. 538.
+2122178,2026-03-10,Senate,5,"Passed Senate, yeas 45, nays 0. S.J. 538."
+2122178,2026-03-10,Senate,6,Immediate message. S.J. 541.
+2122178,2026-03-11,House,7,Message from Senate. H.J. 03/11.
 2122159,2026-02-23,Senate,1,"Introduced, placed on calendar. S.J. 354."
 2122159,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 368."
 2122159,2026-03-05,Senate,3,Referred to Ways and Means. S.J. 479.
@@ -16437,6 +16528,7 @@ bill_id,date,chamber,sequence,action
 2122153,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 366."
 2122153,2026-03-10,Senate,3,Referred to Appropriations. S.J. 527.
 2122153,2026-03-10,Senate,4,"Subcommittee: Green, Gruenhagen, and Winckler. S.J. 549."
+2122153,2026-03-11,Senate,5,Subcommittee Meeting: 03/12/2026 10:00AM Senate Lounge.
 2122125,2026-02-23,Senate,1,"Introduced, placed on calendar. S.J. 355."
 2122125,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 373."
 2122125,2026-02-25,Senate,3,Fiscal note.
@@ -16463,6 +16555,7 @@ bill_id,date,chamber,sequence,action
 2122122,2026-03-10,Senate,5,"Amendment S-5087 adopted, as amended. S.J. 539."
 2122122,2026-03-10,Senate,6,"Passed Senate, yeas 45, nays 0. S.J. 540."
 2122122,2026-03-10,Senate,7,Immediate message. S.J. 541.
+2122122,2026-03-11,House,8,Message from Senate. H.J. 03/11.
 2122185,2026-02-23,Senate,1,"Introduced, placed on calendar. S.J. 356."
 2122185,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 373."
 2122185,2026-03-03,Senate,3,"Passed Senate, yeas 43, nays 1. S.J. 453."
@@ -16484,11 +16577,13 @@ bill_id,date,chamber,sequence,action
 2122218,2026-02-24,Senate,3,Referred to Ways and Means. S.J. 376.
 2122218,2026-02-26,Senate,4,"Subcommittee: Driscoll, Gruenhagen, and Townsend. S.J. 418."
 2122218,2026-03-04,Senate,5,Subcommittee Meeting: 03/11/2026 8:30AM Room 315.
+2122218,2026-03-11,Senate,6,Subcommittee recommends amendment and passage.
 2122285,2026-02-23,Senate,1,"Introduced, placed on calendar. S.J. 356."
 2122285,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 369."
 2122285,2026-03-10,Senate,3,"Amendment S-5094 filed, adopted. S.J. 540."
 2122285,2026-03-10,Senate,4,"Passed Senate, yeas 32, nays 13. S.J. 541."
 2122285,2026-03-10,Senate,5,Immediate message. S.J. 541.
+2122285,2026-03-11,House,6,Message from Senate. H.J. 03/11.
 2122417,2026-02-23,Senate,1,"Introduced, placed on calendar. S.J. 356."
 2122417,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 369."
 2122417,2026-03-02,Senate,3,Amendment S-5040 filed. S.J. 437.
@@ -16499,6 +16594,7 @@ bill_id,date,chamber,sequence,action
 2122377,2026-03-10,Senate,5,"Amendment S-5093 filed, ruled out of order. S.J. 548."
 2122377,2026-03-10,Senate,6,"Passed Senate, yeas 31, nays 14. S.J. 548."
 2122377,2026-03-10,Senate,7,Immediate message. S.J. 549.
+2122377,2026-03-11,House,8,Message from Senate. H.J. 03/11.
 2122519,2026-02-23,Senate,1,"Introduced, placed on calendar. S.J. 357."
 2122519,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 370."
 2122519,2026-02-24,Senate,3,Referred to Ways and Means. S.J. 376.
@@ -16516,7 +16612,8 @@ bill_id,date,chamber,sequence,action
 2122485,2026-03-04,Senate,3,Amendment S-5066 filed. S.J. 478.
 2122485,2026-03-10,Senate,4,Amendment S-5066 adopted. S.J. 542.
 2122485,2026-03-10,Senate,5,"Passed Senate, yeas 45, nays 0. S.J. 542."
-2122485,2026-03-10,Senate,6,Immediate message.
+2122485,2026-03-10,Senate,6,Immediate message. S.J. 545.
+2122485,2026-03-11,House,7,Message from Senate. H.J. 03/11.
 2122674,2026-02-23,Senate,1,"Introduced, placed on calendar. S.J. 357."
 2122674,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 371."
 2122674,2026-03-02,Senate,3,"Amendment S-5046 filed, adopted. S.J. 431."
@@ -16549,7 +16646,8 @@ bill_id,date,chamber,sequence,action
 2122288,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 372."
 2122288,2026-03-10,Senate,3,"Amendment S-5090 filed, adopted. S.J. 543."
 2122288,2026-03-10,Senate,4,"Passed Senate, yeas 45, nays 0. S.J. 543."
-2122288,2026-03-10,Senate,5,Immediate message.
+2122288,2026-03-10,Senate,5,Immediate message. S.J. 545.
+2122288,2026-03-11,House,6,Message from Senate. H.J. 03/11.
 2122297,2026-02-23,Senate,1,"Introduced, placed on calendar. S.J. 358."
 2122297,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 362."
 2122297,2026-03-04,Senate,3,Amendment S-5063 filed. S.J. 478.
@@ -16577,8 +16675,9 @@ bill_id,date,chamber,sequence,action
 2122236,2026-03-05,House,6,"Read first time, referred to Commerce. H.J. 573."
 2122236,2026-03-09,House,7,"Subcommittee: Young, Blom and McBurney. H.J. 614."
 2122236,2026-03-10,House,8,Subcommittee Meeting: 03/12/2026 8:00AM RM 304 (Cancelled).
-2122236,2026-03-10,House,9,"Subcommittee reassigned: Nordman, Judge and Young. H.J. 03/10."
+2122236,2026-03-10,House,9,"Subcommittee reassigned: Nordman, Judge and Young. H.J. 632."
 2122236,2026-03-10,House,10,Subcommittee Meeting: 03/11/2026 12:30PM RM 102.
+2122236,2026-03-11,House,11,Subcommittee recommends passage.
 2122525,2026-02-23,Senate,1,"Introduced, placed on calendar. S.J. 359."
 2122525,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 363."
 1964427,2025-02-10,Senate,1,"Introduced, referred to Commerce. S.J. 216."
@@ -16606,6 +16705,7 @@ bill_id,date,chamber,sequence,action
 2122481,2026-03-10,Senate,5,"Amendment S-5091 filed, adopted. S.J. 544."
 2122481,2026-03-10,Senate,6,"Passed Senate, yeas 45, nays 0. S.J. 544."
 2122481,2026-03-10,Senate,7,Immediate message. S.J. 545.
+2122481,2026-03-11,House,8,Message from Senate. H.J. 03/11.
 2122531,2026-02-23,Senate,1,"Introduced, placed on calendar. S.J. 360."
 2122531,2026-02-23,Senate,2,"Committee report, approving bill. S.J. 364."
 2122531,2026-03-03,Senate,3,Attached to HF 2232. S.J. 439.
@@ -16652,6 +16752,7 @@ bill_id,date,chamber,sequence,action
 2129287,2026-03-05,Senate,4,"Subcommittee: Green, Petersen, and Schultz. S.J. 489."
 2129287,2026-03-06,Senate,5,Subcommittee Meeting: 03/09/2026 4:00PM Room 315.
 2129287,2026-03-09,Senate,6,Subcommittee recommends passage.
+2129287,2026-03-11,Senate,7,"Committee report, recommending passage."
 2129115,2026-03-04,Senate,1,"Introduced, placed on Appropriations calendar. S.J. 476."
 2129115,2026-03-04,Senate,2,"Committee report, approving bill. S.J. 478."
 2129607,2026-03-05,Senate,1,"Introduced, placed on Appropriations calendar. S.J. 489."
@@ -16659,11 +16760,13 @@ bill_id,date,chamber,sequence,action
 2129607,2026-03-09,Senate,3,NOBA: Senate Full Approps
 2129607,2026-03-10,Senate,4,"Passed Senate, yeas 34, nays 12. S.J. 530."
 2129607,2026-03-10,Senate,5,Immediate message. S.J. 533.
+2129607,2026-03-10,House,6,Message from Senate. H.J. 630.
 2129577,2026-03-05,Senate,1,"Introduced, placed on Appropriations calendar. S.J. 489."
 2129577,2026-03-05,Senate,2,"Committee report, approving bill. S.J. 490."
 2129577,2026-03-09,Senate,3,NOBA: Senate Full Approps
 2129577,2026-03-10,Senate,4,"Passed Senate, yeas 46, nays 0. S.J. 531."
 2129577,2026-03-10,Senate,5,Immediate message. S.J. 533.
+2129577,2026-03-10,House,6,Message from Senate. H.J. 630.
 1964307,2025-02-10,Senate,1,"Introduced, referred to Natural Resources and Environment. S.J. 217."
 1964307,2025-02-11,Senate,2,"Subcommittee: Shipley, Staed, and Zumbach. S.J. 244."
 1964307,2025-02-20,Senate,3,Subcommittee Meeting: 02/20/2025 8:30AM Room 217 Conference Room.
@@ -17572,6 +17675,7 @@ bill_id,date,chamber,sequence,action
 1975909,2026-03-05,House,12,"Subcommittee reassigned: Jones, Gosa and Siegrist. H.J. 601."
 1975909,2026-03-07,House,13,Subcommittee Meeting: 03/09/2026 12:00PM House Lounge 2 (Cancelled).
 1975909,2026-03-09,House,14,Subcommittee Meeting: 03/11/2026 12:00PM RM 304.
+1975909,2026-03-11,House,15,Subcommittee recommends passage.
 1975998,2025-02-19,Senate,1,"Introduced, placed on calendar. S.J. 312."
 1975998,2025-02-19,Senate,2,"Committee report, approving bill. S.J. 318."
 1975998,2025-02-20,Senate,3,Referred to Ways and Means. S.J. 319.
@@ -17832,6 +17936,7 @@ bill_id,date,chamber,sequence,action
 1981460,2026-03-10,Senate,19,Senate concurred with S-5052. S.J. 529.
 1981460,2026-03-10,Senate,20,"Passed Senate, yeas 46, nays 0. S.J. 529."
 1981460,2026-03-10,Senate,21,Immediate message. S.J. 533.
+1981460,2026-03-10,House,22,Message from Senate. H.J. 629.
 1981340,2025-02-24,Senate,1,"Introduced, referred to State Government. S.J. 339."
 1981340,2025-02-26,Senate,2,"Subcommittee: Rozenboom, Schultz, and Townsend. S.J. 367."
 1981172,2025-02-24,Senate,1,"Introduced, referred to Judiciary. S.J. 339."
@@ -18274,8 +18379,9 @@ bill_id,date,chamber,sequence,action
 1987061,2025-04-02,House,12,Placed on calendar. H.J. 885.
 1987061,2025-04-10,House,13,Placed on calendar under unfinished business. H.J. 928.
 1987061,2025-05-15,House,14,Rereferred to Judiciary. H.J. 1222.
-1987061,2026-03-10,House,15,"Subcommittee: Holt, Olson and Thomson, C. H.J. 03/10."
+1987061,2026-03-10,House,15,"Subcommittee: Holt, Olson and Thomson, C. H.J. 631."
 1987061,2026-03-10,House,16,Subcommittee Meeting: 03/11/2026 12:30PM RM 103.
+1987061,2026-03-11,House,17,Subcommittee recommends passage.
 1987669,2025-02-27,Senate,1,"Introduced, placed on calendar. S.J. 381."
 1987669,2025-02-27,Senate,2,"Committee report, approving bill. S.J. 384."
 1987669,2025-03-25,Senate,3,"Amendment S-3047 filed, adopted. S.J. 629."
@@ -18368,6 +18474,7 @@ bill_id,date,chamber,sequence,action
 1990822,2026-03-04,Senate,10,Immediate message. S.J. 468.
 1990822,2026-03-04,House,11,Message from Senate. H.J. 552.
 1990822,2026-03-09,House,12,"Read first time, referred to Labor and Workforce. H.J. 604."
+1990822,2026-03-11,House,13,"Subcommittee: Weldon, Croken and Jeneary. H.J. 03/11."
 1990475,2025-03-04,Senate,1,"Introduced, placed on calendar. S.J. 400."
 1990475,2025-03-04,Senate,2,"Committee report, approving bill. S.J. 409."
 1990475,2025-03-06,Senate,3,Referred to Ways and Means. S.J. 427.
@@ -18755,8 +18862,9 @@ bill_id,date,chamber,sequence,action
 1993436,2025-04-02,House,14,Placed on calendar. H.J. 886.
 1993436,2025-04-10,House,15,Placed on calendar under unfinished business. H.J. 928.
 1993436,2025-05-15,House,16,Rereferred to Judiciary. H.J. 1222.
-1993436,2026-03-10,House,17,"Subcommittee: Gustoff, Bagniewski and Holt. H.J. 03/10."
+1993436,2026-03-10,House,17,"Subcommittee: Gustoff, Bagniewski and Holt. H.J. 632."
 1993436,2026-03-10,House,18,Subcommittee Meeting: 03/11/2026 8:15AM RM 304.
+1993436,2026-03-11,House,19,Subcommittee recommends passage.
 1993145,2025-03-06,Senate,1,"Introduced, placed on calendar. S.J. 429."
 1993145,2025-03-06,Senate,2,"Committee report, approving bill. S.J. 441."
 1993145,2025-03-26,Senate,3,Attached to HF 928. S.J. 643.
@@ -18799,7 +18907,7 @@ bill_id,date,chamber,sequence,action
 1993320,2026-03-09,Senate,9,"Passed Senate, yeas 29, nays 17. S.J. 505."
 1993320,2026-03-09,Senate,10,Immediate message. S.J. 505.
 1993320,2026-03-09,House,11,Message from Senate. H.J. 605.
-1993320,2026-03-10,House,12,"Read first time, referred to Natural Resources. H.J. 03/10."
+1993320,2026-03-10,House,12,"Read first time, referred to Natural Resources. H.J. 630."
 1993374,2025-03-06,Senate,1,"Introduced, placed on calendar. S.J. 430."
 1993374,2025-03-06,Senate,2,"Committee report, approving bill. S.J. 439."
 1993374,2025-06-16,Senate,3,Referred to Natural Resources and Environment. S.J. 1057.
@@ -19075,7 +19183,7 @@ bill_id,date,chamber,sequence,action
 1996093,2026-03-09,Senate,37,Immediate message. S.J. 508.
 1996093,2026-03-09,House,38,Message from Senate. H.J. 605.
 1996093,2026-03-10,Senate,39,"Reported correctly enrolled, signed by President and Speaker, and sent to Governor. S.J. 551."
-1996093,2026-03-10,House,40,Signed by Governor.
+1996093,2026-03-10,Senate,40,Signed by Governor. S.J. 557.
 1923940,2025-01-16,Senate,1,"Introduced, referred to Education. S.J. 105."
 1923940,2025-01-28,Senate,2,"Subcommittee: Rozenboom, Evans, and Winckler. S.J. 151."
 1996106,2025-03-10,Senate,1,"Introduced, placed on calendar. S.J. 461."
@@ -19943,6 +20051,7 @@ bill_id,date,chamber,sequence,action
 2030145,2026-01-13,House,6,"Read first time, referred to Ways and Means. H.J. 45."
 2030145,2026-01-29,House,7,"Subcommittee: Wulf, Gjerde and Hermanson. H.J. 179."
 2030145,2026-03-09,House,8,Subcommittee Meeting: 03/11/2026 12:00PM House Lounge 2.
+2030145,2026-03-11,House,9,Subcommittee recommends passage.
 2030142,2025-05-09,Senate,1,"Introduced, placed on Ways and Means calendar. S.J. 955."
 2030142,2025-05-09,Senate,2,"Committee report, approving bill. S.J. 956."
 2030142,2025-05-14,Senate,3,Attached to HF 1008. S.J. 1043.
@@ -20218,7 +20327,7 @@ bill_id,date,chamber,sequence,action
 2114558,2026-03-09,Senate,4,"Passed Senate, yeas 43, nays 2. S.J. 500."
 2114558,2026-03-09,Senate,5,Immediate message. S.J. 502.
 2114558,2026-03-09,House,6,Message from Senate. H.J. 605.
-2114558,2026-03-10,House,7,"Read first time, referred to Agriculture. H.J. 03/10."
+2114558,2026-03-10,House,7,"Read first time, referred to Agriculture. H.J. 630."
 2118131,2026-02-17,Senate,1,"Introduced, referred to State Government. S.J. 301."
 2118131,2026-02-17,Senate,2,"Subcommittee: Rozenboom, Schultz, and Staed. S.J. 304."
 2120167,2026-02-19,Senate,1,"Introduced, placed on calendar. S.J. 324."
@@ -21660,6 +21769,7 @@ bill_id,date,chamber,sequence,action
 2070961,2026-02-16,Senate,5,"Subcommittee reassigned: Dawson, Bisignano, Driscoll, Schultz, and Winckler."
 2070961,2026-02-24,Senate,6,Subcommittee Meeting: 03/03/2026 12:30PM Room G15.
 2070961,2026-03-04,Senate,7,Subcommittee recommends amendment and passage.
+2070961,2026-03-11,Senate,8,"Committee report approving bill, renumbered as []."
 2071467,2026-01-12,Senate,1,By COMMITTEE ON STATE GOVERNMENT
 2071467,2026-01-12,Senate,2,"Introduced, referred to State Government."
 2071467,2026-01-13,Senate,3,"Subcommittee: Rozenboom, Drey, and Schultz."
@@ -22688,3 +22798,12 @@ bill_id,date,chamber,sequence,action
 2128185,2026-03-03,Senate,1,By COMMITTEE ON APPROPRIATIONS
 2128185,2026-03-03,Senate,2,"Introduced, referred to Appropriations."
 2128185,2026-03-05,Senate,3,"Subcommittee: Green, Guth, and Petersen."
+2132342,2026-03-11,Senate,1,By COMMITTEE ON APPROPRIATIONS
+2132342,2026-03-11,Senate,2,"Introduced, referred to Appropriations."
+2132342,2026-03-11,Senate,3,"Subcommittee: Kraayenbrink, Knox, and Reichman."
+2132315,2026-03-11,Senate,1,By COMMITTEE ON APPROPRIATIONS
+2132315,2026-03-11,Senate,2,"Introduced, referred to Appropriations."
+2132315,2026-03-11,Senate,3,"Subcommittee: Kraayenbrink, Knox, and Reichman."
+2132374,2026-03-11,Senate,1,By COMMITTEE ON APPROPRIATIONS
+2132374,2026-03-11,Senate,2,"Introduced, referred to Appropriations."
+2132374,2026-03-11,Senate,3,"Subcommittee: Koelker, Bousselot, and Petersen."

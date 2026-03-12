@@ -2454,3 +2454,11 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2122925,1659554,2026-03-10,House,Shall the rules be suspended to consider amendment H–8180?,31,62,0,7,100
 2122782,1659555,2026-03-10,House,Shall the bill pass?,92,0,0,8,100
 2122329,1659575,2026-03-10,House,Shall the bill pass?,59,33,0,8,100
+2117671,1659583,2026-03-10,House,Shall the bill pass?,93,0,0,7,100
+2122178,1659591,2026-03-10,Senate,Shall the bill pass?,45,0,0,5,50
+2107577,1659601,2026-03-10,House,Shall the bill pass?,93,0,0,7,100
+2119484,1659627,2026-03-10,Senate,Shall the bill pass?,46,0,0,4,50
+2115052,1659977,2026-03-11,House,House Committee On Education Report,14,5,0,4,23
+2117530,1660542,2026-03-11,Senate,Senate State Government Report,17,0,0,1,18
+2117473,1660545,2026-03-11,Senate,Senate Workforce Report,7,4,0,1,12
+2110597,1660581,2026-03-11,Senate,Senate State Government Report,17,0,0,1,18
