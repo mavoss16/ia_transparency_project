@@ -2462,3 +2462,31 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2117530,1660542,2026-03-11,Senate,Senate State Government Report,17,0,0,1,18
 2117473,1660545,2026-03-11,Senate,Senate Workforce Report,7,4,0,1,12
 2110597,1660581,2026-03-11,Senate,Senate State Government Report,17,0,0,1,18
+2115570,1661145,2026-03-11,House,House Committee On Education Report,19,0,0,4,23
+2117408,1661761,2026-03-12,Senate,Senate Health And Human Services Report,13,0,0,5,18
+2118821,1661824,2026-03-12,Senate,Senate Health And Human Services Report,13,0,0,5,18
+2102527,1661843,2026-03-12,House,Shall the bill pass?,63,27,0,10,100
+2120207,1661849,2026-03-12,House,Shall the bill pass?,90,1,0,9,100
+2132789,1661857,2026-03-12,Senate,Senate Ways And Means Report,16,0,0,2,18
+2120298,1661860,2026-03-12,House,Shall the bill pass?,91,0,0,9,100
+2122461,1661869,2026-03-12,House,Shall the bill pass?,88,3,0,9,100
+2111738,1661870,2026-03-12,House,Shall the bill pass?,87,4,0,9,100
+2129287,1661876,2026-03-12,Senate,Senate Ways And Means Report,10,6,0,2,18
+2101575,1661884,2026-03-12,Senate,Senate Judiciary Report,15,0,0,5,20
+2117725,1661887,2026-03-12,Senate,Senate Judiciary Report,15,0,0,5,20
+2095670,1661889,2026-03-12,House,Shall the bill pass?,90,1,0,9,100
+2117663,1661907,2026-03-12,Senate,Senate Health And Human Services Report,13,0,0,5,18
+2117512,1661950,2026-03-12,House,Shall amendment H–8206 be adopted?,27,62,0,11,100
+2117512,1661951,2026-03-12,House,Shall the bill pass?,62,27,0,11,100
+2110457,1661981,2026-03-12,House,Shall the bill pass?,62,29,0,9,100
+2110457,1661982,2026-03-12,House,Shall the rules be suspended to consider amendment H–8199?,28,63,0,9,100
+2132909,1662064,2026-03-12,Senate,Senate Ways And Means Report,16,0,0,2,18
+2133039,1662066,2026-03-12,Senate,Senate Ways And Means Report,16,0,0,2,18
+2111603,1662078,2026-03-12,House,Shall amendment H–8204 be adopted?,27,62,0,11,100
+2111603,1662079,2026-03-12,House,Shall the bill pass?,58,33,0,9,100
+1988126,1662100,2026-03-12,House,Shall the bill pass?,90,1,0,9,100
+2117573,1662110,2026-03-12,Senate,Senate Education Report,14,0,0,2,16
+2122649,1662134,2026-03-12,House,Shall the bill pass?,90,0,0,10,100
+2131602,1662141,2026-03-12,House,House Committee On Ways And Means Report,16,7,0,2,25
+2119954,1662152,2026-03-12,House,Shall the bill pass?,89,2,0,9,100
+2110375,1662161,2026-03-12,House,Shall the bill pass?,90,1,0,9,100
