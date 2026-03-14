@@ -2490,3 +2490,10 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2131602,1662141,2026-03-12,House,House Committee On Ways And Means Report,16,7,0,2,25
 2119954,1662152,2026-03-12,House,Shall the bill pass?,89,2,0,9,100
 2110375,1662161,2026-03-12,House,Shall the bill pass?,90,1,0,9,100
+2120160,1662174,2026-03-12,House,Shall the bill pass?,91,0,0,9,100
+2119785,1662183,2026-03-12,House,Shall the bill pass?,89,2,0,9,100
+2119931,1662187,2026-03-12,House,Shall the bill pass?,83,8,0,9,100
+2121023,1662197,2026-03-12,House,Shall the bill pass?,90,1,0,9,100
+2108741,1662198,2026-03-12,House,Shall the bill pass?,87,4,0,9,100
+2109547,1662208,2026-03-12,House,Shall the bill pass?,91,0,0,9,100
+2108996,1662676,2026-03-13,House,House Committee On Education Report,17,3,0,3,23
