@@ -2497,3 +2497,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2108741,1662198,2026-03-12,House,Shall the bill pass?,87,4,0,9,100
 2109547,1662208,2026-03-12,House,Shall the bill pass?,91,0,0,9,100
 2108996,1662676,2026-03-13,House,House Committee On Education Report,17,3,0,3,23
+2134035,1663385,2026-03-16,Senate,Senate Ways And Means Report,15,0,1,2,18
+1999532,1663391,2026-03-16,Senate,Senate Judiciary Report,15,0,0,5,20
+2134043,1663417,2026-03-16,Senate,Senate Ways And Means Report,16,0,0,2,18
+2133646,1663819,2026-03-16,House,House Committee On Appropriations Report,14,10,0,1,25
