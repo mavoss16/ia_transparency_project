@@ -2501,3 +2501,15 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1999532,1663391,2026-03-16,Senate,Senate Judiciary Report,15,0,0,5,20
 2134043,1663417,2026-03-16,Senate,Senate Ways And Means Report,16,0,0,2,18
 2133646,1663819,2026-03-16,House,House Committee On Appropriations Report,14,10,0,1,25
+2117625,1664197,2026-03-17,Senate,Senate Education Report,15,0,0,1,16
+1982720,1664226,2026-03-17,Senate,Shall the bill pass?,43,0,0,7,50
+1994445,1664292,2026-03-17,House,Shall the bill pass?,76,19,0,5,100
+2117564,1664590,2026-03-17,Senate,Shall the bill pass?,41,2,0,7,50
+2108996,1664664,2026-03-17,House,Shall the bill pass?,78,16,0,6,100
+2119300,1664679,2026-03-17,Senate,Shall the bill pass?,42,1,0,7,50
+2087784,1664685,2026-03-17,House,"Shall amendment H–8168, as amended, be adopted?",44,51,0,5,100
+2087784,1664686,2026-03-17,House,"Shall amendment H–8176, to amendment H–8168, be adopted?",63,32,0,5,100
+2087784,1664687,2026-03-17,House,Shall the bill pass?,69,26,0,5,100
+2122435,1664722,2026-03-17,House,Shall the bill pass?,95,0,0,5,100
+2117541,1664742,2026-03-17,Senate,Senate Veterans Affairs Report,11,0,0,1,12
+2118748,1665051,2026-03-17,Senate,Senate Education Report,15,0,0,1,16
