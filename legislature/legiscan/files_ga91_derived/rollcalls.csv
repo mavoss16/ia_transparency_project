@@ -2513,3 +2513,18 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2122435,1664722,2026-03-17,House,Shall the bill pass?,95,0,0,5,100
 2117541,1664742,2026-03-17,Senate,Senate Veterans Affairs Report,11,0,0,1,12
 2118748,1665051,2026-03-17,Senate,Senate Education Report,15,0,0,1,16
+2114361,1665386,2026-03-18,House,House Committee On Judiciary Report,14,6,0,1,21
+2128316,1665409,2026-03-18,House,House Committee On State Government Report,21,0,0,2,23
+1987669,1665447,2026-03-18,House,House Committee On Judiciary Report,14,6,0,1,21
+2107265,1665476,2026-03-18,House,House Committee On State Government Report,18,0,0,3,21
+1993282,1665622,2026-03-18,Senate,Senate Judiciary Report,17,0,0,3,20
+2118759,1665624,2026-03-18,Senate,Senate Commerce Report,17,0,0,2,19
+2114329,1665628,2026-03-18,House,House Committee On State Government Report,17,2,0,2,21
+2122595,1665630,2026-03-18,Senate,Senate Judiciary Report,17,0,0,3,20
+1975909,1665651,2026-03-18,House,House Committee On State Government Report,19,0,0,2,21
+2120986,1665662,2026-03-18,Senate,Senate Judiciary Report,17,0,0,3,20
+2107352,1665694,2026-03-18,House,House Committee On State Government Report,17,2,0,2,21
+2102694,1665695,2026-03-18,Senate,Senate Judiciary Report,14,3,0,3,20
+2122481,1665706,2026-03-18,House,House Committee On Higher Education Report,7,4,0,0,11
+1935813,1665839,2026-03-18,House,House Committee On Veterans Affairs Report,13,1,0,3,17
+2117723,1665916,2026-03-18,Senate,Senate Judiciary Report,12,5,0,3,20
