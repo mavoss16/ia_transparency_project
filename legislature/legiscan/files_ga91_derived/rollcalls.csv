@@ -2528,3 +2528,64 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2122481,1665706,2026-03-18,House,House Committee On Higher Education Report,7,4,0,0,11
 1935813,1665839,2026-03-18,House,House Committee On Veterans Affairs Report,13,1,0,3,17
 2117723,1665916,2026-03-18,Senate,Senate Judiciary Report,12,5,0,3,20
+2117485,1665927,2026-03-18,Senate,Senate Judiciary Report,17,0,0,3,20
+2119793,1665949,2026-03-18,Senate,Senate Agriculture Report,10,4,0,2,16
+1994723,1665959,2026-03-18,Senate,Senate Natural Resources And Environment Report,15,0,0,0,15
+1991645,1665964,2026-03-18,Senate,Senate Transportation Report,16,0,0,1,17
+2122497,1665966,2026-03-18,Senate,Senate Transportation Report,16,0,0,1,17
+2102530,1665969,2026-03-18,Senate,Senate Commerce Report,17,0,0,2,19
+2120116,1665970,2026-03-18,Senate,Senate Commerce Report,17,0,0,2,19
+2111672,1665974,2026-03-18,Senate,Senate Judiciary Report,17,0,0,3,20
+2122782,1665988,2026-03-18,Senate,Senate Judiciary Report,17,0,0,3,20
+2110375,1666275,2026-03-19,Senate,Senate Judiciary Report,18,0,0,2,20
+2118820,1666276,2026-03-19,Senate,Senate Commerce Report,17,0,0,2,19
+2117648,1666278,2026-03-19,Senate,Senate Education Report,11,4,0,1,16
+1991979,1666279,2026-03-19,Senate,Senate Transportation Report,16,0,0,1,17
+2108831,1666282,2026-03-19,Senate,Senate Local Government Report,9,4,0,0,13
+2120971,1666285,2026-03-19,Senate,Senate Education Report,15,0,0,1,16
+2111647,1666321,2026-03-19,Senate,Senate Education Report,15,0,0,1,16
+2122649,1666342,2026-03-19,Senate,Senate Judiciary Report,18,0,0,2,20
+2122582,1666358,2026-03-19,Senate,Senate Judiciary Report,18,0,0,2,20
+2117518,1666391,2026-03-19,Senate,Senate State Government Report,16,0,0,2,18
+2117600,1666475,2026-03-19,Senate,Senate Education Report,15,0,0,1,16
+2119946,1666496,2026-03-19,Senate,Senate Transportation Report,16,0,0,1,17
+2121023,1666523,2026-03-19,Senate,Senate Transportation Report,16,0,0,1,17
+2111765,1666525,2026-03-19,House,House Committee On Appropriations Report,23,0,0,2,25
+2115954,1666527,2026-03-19,House,House Committee On Education Report,22,1,0,0,23
+2115058,1666528,2026-03-19,Senate,Senate Commerce Report,17,0,0,2,19
+2122329,1666530,2026-03-19,Senate,Senate Education Report,10,5,0,1,16
+1966389,1666531,2026-03-19,House,House Committee On Education Report,23,0,0,0,23
+2119918,1666535,2026-03-19,Senate,Senate State Government Report,12,6,0,0,18
+2122236,1666539,2026-03-19,House,House Committee On Appropriations Report,22,0,0,1,23
+2117631,1666540,2026-03-19,Senate,Senate Health And Human Services Report,17,0,0,1,18
+1993320,1666541,2026-03-19,House,House Committee On Natural Resources Report,13,6,0,2,21
+2102538,1666543,2026-03-19,Senate,Senate Health And Human Services Report,17,0,0,1,18
+2016010,1666544,2026-03-19,Senate,Senate Health And Human Services Report,16,1,0,1,18
+2108741,1666546,2026-03-19,Senate,Senate State Government Report,16,0,0,2,18
+2110443,1666548,2026-03-19,Senate,Senate Health And Human Services Report,17,0,0,1,18
+1993436,1666552,2026-03-19,House,House Committee On Judiciary Report,20,0,0,1,21
+2120263,1666563,2026-03-19,Senate,Senate Health And Human Services Report,17,0,0,1,18
+2109350,1666565,2026-03-19,House,House Committee On Education Report,22,1,0,0,23
+2104816,1666566,2026-03-19,House,House Committee On Appropriations Report,23,0,0,2,25
+2133646,1666572,2026-03-19,House,Shall amendment H–8233 be adopted?,29,62,0,9,100
+2133646,1666573,2026-03-19,House,"Shall amendment H–8239, to amendment H–8233, be adopted?",31,62,0,7,100
+2133646,1666574,2026-03-19,House,Shall amendment H–8240 to amendment H–8233 be adopted?,27,64,0,9,100
+2133646,1666575,2026-03-19,House,"Shall amendment H–8241, to amendment H–8234, be adopted?",29,63,0,8,100
+2133646,1666576,2026-03-19,House,Shall the bill pass?,53,40,0,7,100
+2133646,1666577,2026-03-19,House,"Shall the rules be suspended to consider amendment H–8236, to amendment H–8233?",33,60,0,7,100
+2133646,1666578,2026-03-19,House,"Shall the rules be suspended to consider amendment H–8237, to amendment H–8233?",33,60,0,7,100
+2133646,1666579,2026-03-19,House,"Shall the rules be suspended to consider amendment H–8238, to amendment H–8233?",28,63,0,9,100
+2117234,1666581,2026-03-19,House,House Committee On Appropriations Report,23,0,0,2,25
+2109490,1666588,2026-03-19,House,House Committee On Education Report,14,9,0,0,23
+2117410,1666592,2026-03-19,Senate,Senate State Government Report,16,0,0,2,18
+2122122,1666594,2026-03-19,House,House Committee On Education Report,16,7,0,0,23
+2073156,1666600,2026-03-19,House,House Committee On Judiciary Report,14,6,0,1,21
+2090625,1666616,2026-03-19,House,House Committee On Labor And Workforce Report,10,5,0,2,17
+2115325,1666630,2026-03-19,House,House Committee On Education Report,22,1,0,0,23
+2120051,1666685,2026-03-19,House,House Committee On State Government Report,18,3,0,2,23
+2107287,1666727,2026-03-19,House,House Committee On Veterans Affairs Report,14,0,0,3,17
+2117307,1666753,2026-03-19,House,House Committee On Local Government Report,15,6,0,0,21
+2113411,1666758,2026-03-19,House,House Committee On Judiciary Report,15,5,0,1,21
+2122171,1666762,2026-03-19,House,House Committee On Health And Human Services Report,13,8,0,0,21
+2117700,1666776,2026-03-19,Senate,Senate Education Report,11,4,0,1,16
+2114958,1666777,2026-03-19,House,House Committee On Appropriations Report,22,0,0,1,23
