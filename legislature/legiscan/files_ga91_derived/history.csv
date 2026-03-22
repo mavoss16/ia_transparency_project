@@ -5298,6 +5298,7 @@ bill_id,date,chamber,sequence,action
 1918997,2025-01-30,House,5,"Committee report, recommending passage. H.J. 174."
 1918997,2025-01-30,House,6,"Committee vote: Yeas, 15. Nays, 6. H.J. 174."
 1918997,2025-03-07,House,7,"Committee report approving bill, renumbered as HF 853."
+1918997,2026-03-20,House,8,Withdrawn. H.J. 714.
 1966374,2025-02-12,House,1,"Introduced, referred to Ways and Means. H.J. 305."
 1966536,2025-02-12,House,1,"Introduced, referred to Ways and Means. H.J. 305."
 1966293,2025-02-12,House,1,"Introduced, referred to Ways and Means. H.J. 305."
@@ -19919,6 +19920,8 @@ bill_id,date,chamber,sequence,action
 1996080,2026-02-04,House,21,"Committee report, recommending passage. H.J. 229."
 1996080,2026-02-04,House,22,"Committee vote: Yeas, 23. Nays, 0. Excused, 0. H.J. 229."
 1996080,2026-02-06,House,23,Placed on calendar. H.J. 229.
+1996080,2026-03-20,House,24,Amendment H-8249 filed. H.J. 714.
+1996080,2026-03-20,House,25,Amendment H-8251 filed. H.J. 714.
 1996276,2025-03-10,Senate,1,"Introduced, placed on calendar. S.J. 460."
 1996276,2025-03-10,Senate,2,"Committee report, approving bill. S.J. 468."
 1996276,2025-03-19,Senate,3,"Passed Senate, yeas 47, nays 0. S.J. 580."
