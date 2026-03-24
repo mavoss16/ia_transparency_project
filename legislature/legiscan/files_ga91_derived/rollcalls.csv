@@ -2605,3 +2605,16 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2115520,1666843,2026-03-19,House,House Committee On Natural Resources Report,19,0,0,2,21
 2088395,1666847,2026-03-19,House,House Committee On Judiciary Report,20,0,0,1,21
 2097110,1666848,2026-03-19,House,House Committee On State Government Report,21,0,0,2,23
+1981672,1667402,2026-03-23,House,Shall the bill pass?,63,27,0,10,100
+2094475,1667404,2026-03-23,House,Shall the bill pass?,90,0,0,10,100
+1996080,1667405,2026-03-23,House,Shall the bill pass?,90,0,0,10,100
+1996080,1667406,2026-03-23,House,Shall the rules be suspended to consider amendment H–8249?,28,62,0,10,100
+1996080,1667407,2026-03-23,House,Shall the rules be suspended to consider amendment H–8251?,28,62,0,10,100
+2122586,1667762,2026-03-23,Senate,Senate State Government Report,10,8,0,0,18
+2119890,1667786,2026-03-23,House,Shall amendment H–8218 be adopted?,29,61,0,10,100
+2119890,1667787,2026-03-23,House,Shall the bill pass?,90,0,0,10,100
+2117609,1667810,2026-03-23,Senate,Shall the bill pass?,47,0,0,3,50
+1991840,1667844,2026-03-23,Senate,Shall the bill pass?,31,16,0,3,50
+1988397,1668151,2026-03-23,Senate,Shall the bill pass?,47,0,0,3,50
+2101221,1668197,2026-03-23,Senate,Shall the bill pass?,47,0,0,3,50
+2102525,1668213,2026-03-23,Senate,Shall the bill pass?,47,0,0,3,50
