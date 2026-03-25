@@ -2618,3 +2618,31 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 1988397,1668151,2026-03-23,Senate,Shall the bill pass?,47,0,0,3,50
 2101221,1668197,2026-03-23,Senate,Shall the bill pass?,47,0,0,3,50
 2102525,1668213,2026-03-23,Senate,Shall the bill pass?,47,0,0,3,50
+2111782,1668359,2026-03-23,Senate,Shall the bill pass?,47,0,0,3,50
+2117414,1668369,2026-03-23,Senate,Shall the bill pass?,47,0,0,3,50
+2120160,1668370,2026-03-23,Senate,Shall the bill pass?,47,0,0,3,50
+2119975,1668421,2026-03-23,Senate,Shall the bill pass?,47,0,0,3,50
+2102640,1668615,2026-03-24,House,Shall amendment H–8250 be adopted?,94,2,0,4,100
+2102640,1668616,2026-03-24,House,Shall the bill pass?,94,2,0,4,100
+2123440,1668625,2026-03-24,House,Shall the bill pass?,90,6,0,4,100
+1994181,1668626,2026-03-24,House,Shall the bill pass?,89,7,0,4,100
+2097110,1668635,2026-03-24,House,Shall the bill pass?,95,0,0,5,100
+2118125,1668921,2026-03-24,House,Shall the bill pass?,96,0,0,4,100
+2122236,1668925,2026-03-24,House,Shall the bill pass?,95,0,0,5,100
+2129287,1668933,2026-03-24,Senate,Shall the bill be moved to the Unfinished Business Calendar?,31,15,0,4,50
+2137573,1668934,2026-03-24,Senate,Senate Appropriations Report,19,0,0,3,22
+2118820,1668937,2026-03-24,Senate,Shall the bill pass?,45,0,0,5,50
+2117643,1668955,2026-03-24,Senate,Senate Local Government Report,13,0,0,0,13
+2117485,1668962,2026-03-24,Senate,Shall the bill pass?,46,0,0,4,50
+2114958,1668976,2026-03-24,House,Shall the bill pass?,95,0,0,5,100
+2122178,1669053,2026-03-24,House,Shall the bill pass?,95,0,0,5,100
+2137637,1669058,2026-03-24,Senate,Senate Appropriations Report,19,0,0,3,22
+2106428,1669061,2026-03-24,House,Shall the bill pass?,95,0,0,5,100
+2108792,1669066,2026-03-24,House,Shall the bill pass?,90,5,0,5,100
+2117628,1669081,2026-03-24,Senate,Senate Judiciary Report,12,6,0,2,20
+2090046,1669090,2026-03-24,House,Shall the bill pass?,95,0,0,5,100
+2109490,1669112,2026-03-24,House,Shall the bill pass?,84,11,0,5,100
+2133646,1669288,2026-03-24,Senate,Shall the bill pass?,26,19,0,5,50
+2122871,1669310,2026-03-24,Senate,Senate Judiciary Report,12,6,0,2,20
+2117655,1669334,2026-03-24,Senate,Shall the bill pass?,33,13,0,4,50
+2102589,1669339,2026-03-24,Senate,Senate Local Government Report,13,0,0,0,13
