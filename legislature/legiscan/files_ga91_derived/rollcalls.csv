@@ -2646,3 +2646,7 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2122871,1669310,2026-03-24,Senate,Senate Judiciary Report,12,6,0,2,20
 2117655,1669334,2026-03-24,Senate,Shall the bill pass?,33,13,0,4,50
 2102589,1669339,2026-03-24,Senate,Senate Local Government Report,13,0,0,0,13
+2119984,1669342,2026-03-24,Senate,Senate Local Government Report,11,2,0,0,13
+2102530,1669345,2026-03-24,Senate,Shall the bill pass?,45,0,0,5,50
+1999532,1669390,2026-03-24,Senate,Shall the bill pass?,45,0,0,5,50
+2138027,1669932,2026-03-25,Senate,Senate Appropriations Report,19,0,0,3,22
