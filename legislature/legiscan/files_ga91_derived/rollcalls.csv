@@ -2656,3 +2656,6 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2095707,1671335,2026-03-26,House,House Committee On Ways And Means Report,22,0,0,3,25
 2127725,1671350,2026-03-26,House,House Committee On Ways And Means Report,22,0,0,3,25
 2072558,1671603,2026-03-26,House,House Committee On Ways And Means Report,22,0,0,3,25
+2117408,1673046,2026-03-30,Senate,Shall the bill pass?,46,0,0,4,50
+2117618,1673300,2026-03-30,Senate,Shall the bill pass?,46,0,0,4,50
+1996420,1673348,2026-03-30,Senate,Shall the bill pass?,46,0,0,4,50
