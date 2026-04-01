@@ -2659,3 +2659,26 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2117408,1673046,2026-03-30,Senate,Shall the bill pass?,46,0,0,4,50
 2117618,1673300,2026-03-30,Senate,Shall the bill pass?,46,0,0,4,50
 1996420,1673348,2026-03-30,Senate,Shall the bill pass?,46,0,0,4,50
+2110375,1673391,2026-03-30,Senate,Shall the bill pass?,46,0,0,4,50
+2118759,1673413,2026-03-30,Senate,Shall the bill pass?,46,0,0,4,50
+2122782,1673416,2026-03-30,Senate,Shall the bill pass?,46,0,0,4,50
+2117621,1673417,2026-03-30,Senate,Shall the bill pass?,46,0,0,4,50
+2118125,1673418,2026-03-30,Senate,Shall the bill pass?,45,0,0,5,50
+2117541,1673429,2026-03-30,Senate,Shall the bill pass?,46,0,0,4,50
+2118820,1673662,2026-03-31,House,Shall the bill pass?,92,0,0,8,100
+2132909,1673665,2026-03-31,Senate,Shall the bill pass?,45,1,0,4,50
+2122481,1673673,2026-03-31,House,Shall the bill pass?,55,37,0,8,100
+1990582,1673868,2026-03-31,House,Shall the bill pass?,92,0,0,8,100
+2122363,1673885,2026-03-31,Senate,Shall the bill pass?,28,18,0,4,50
+2115495,1673974,2026-03-31,Senate,Shall the bill pass?,46,0,0,4,50
+2122185,1673977,2026-03-31,House,Shall the bill pass?,91,1,0,8,100
+2122399,1673981,2026-03-31,Senate,Shall the bill pass?,46,0,0,4,50
+2136525,1673983,2026-03-31,House,Shall the bill pass?,92,0,0,8,100
+2122125,1673984,2026-03-31,House,"Shall amendment H–8273, to amendment H–8265, be adopted?",63,28,0,9,100
+2122125,1673985,2026-03-31,House,Shall the bill pass?,68,24,0,8,100
+1988397,1673986,2026-03-31,House,Shall the bill pass?,92,0,0,8,100
+1999532,1673991,2026-03-31,House,Shall the bill pass?,93,0,0,7,100
+1994723,1673994,2026-03-31,Senate,Shall the bill pass?,46,0,0,4,50
+2136480,1674011,2026-03-31,House,Shall the bill pass?,93,0,0,7,100
+1976829,1674013,2026-03-31,Senate,Shall the bill pass?,46,0,0,4,50
+2136464,1674200,2026-03-31,House,Shall the bill pass?,93,0,0,7,100
