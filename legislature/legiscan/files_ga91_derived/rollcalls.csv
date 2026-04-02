@@ -2682,3 +2682,29 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2136480,1674011,2026-03-31,House,Shall the bill pass?,93,0,0,7,100
 1976829,1674013,2026-03-31,Senate,Shall the bill pass?,46,0,0,4,50
 2136464,1674200,2026-03-31,House,Shall the bill pass?,93,0,0,7,100
+2110375,1674838,2026-04-01,House,Shall the bill pass?,89,3,0,8,100
+2111627,1674840,2026-04-01,Senate,Shall the bill pass?,46,0,0,4,50
+2095662,1674841,2026-04-01,House,Shall the bill pass?,92,0,0,8,100
+2122637,1674847,2026-04-01,House,Shall the bill pass?,84,8,0,8,100
+2110531,1674854,2026-04-01,House,Shall the bill pass?,90,2,0,8,100
+2030617,1674863,2026-04-01,House,House Committee On Appropriations Report,20,5,0,0,25
+2025021,1674865,2026-04-01,House,Shall the bill pass?,90,2,0,8,100
+2030480,1674926,2026-04-01,House,House Committee On Appropriations Report,23,0,0,2,25
+2102694,1675066,2026-04-01,Senate,Shall the bill pass?,40,6,0,4,50
+2137416,1675095,2026-04-01,House,House Committee On Appropriations Report,24,1,0,0,25
+2122399,1675131,2026-04-01,House,Shall the bill pass?,92,0,0,8,100
+2120051,1675132,2026-04-01,House,Shall the bill pass?,92,0,0,8,100
+2101485,1675134,2026-04-01,Senate,Shall the bill pass?,43,3,0,4,50
+2122595,1675135,2026-04-01,Senate,Shall the bill pass?,44,0,0,6,50
+2117667,1675184,2026-04-01,Senate,Shall amendment S–5145 be adopted?,29,16,0,5,50
+2117667,1675185,2026-04-01,Senate,Shall the bill pass?,46,0,0,4,50
+1996420,1675199,2026-04-01,House,Shall the bill pass?,91,1,0,8,100
+2118748,1675209,2026-04-01,Senate,Shall the bill pass?,46,0,0,4,50
+2111611,1675214,2026-04-01,House,House Committee On Appropriations Report,24,1,0,0,25
+2110397,1675248,2026-04-01,House,House Committee On Appropriations Report,24,1,0,0,25
+2122858,1675270,2026-04-01,House,House Committee On Appropriations Report,25,0,0,0,25
+1975909,1675277,2026-04-01,House,Shall the bill pass?,76,16,0,8,100
+2117360,1675287,2026-04-01,House,House Committee On Appropriations Report,23,0,0,2,25
+2137637,1675290,2026-04-01,Senate,Shall the bill pass?,45,0,0,5,50
+2122891,1675369,2026-04-01,House,House Committee On Appropriations Report,17,6,0,2,25
+2122408,1675428,2026-04-01,Senate,Shall the bill pass?,46,0,0,4,50
