@@ -4667,6 +4667,7 @@ bill_id,date,chamber,sequence,action
 2122138,2026-03-04,House,5,Subcommittee recommends passage.
 2122333,2026-02-23,House,1,"Introduced, referred to Appropriations. H.J. 373."
 2122333,2026-03-31,House,2,"Subcommittee: Lohse, Meyer, A. and Wilburn. H.J. 785."
+2122333,2026-04-03,House,3,Subcommittee Meeting: 04/07/2026 12:00PM RM 304.
 2122350,2026-02-23,House,1,"Introduced, referred to Appropriations. H.J. 373."
 2122558,2026-02-23,House,1,"Introduced, referred to Ways and Means. H.J. 374."
 2122311,2026-02-23,House,1,"Introduced, referred to Ways and Means. H.J. 374."
@@ -5168,6 +5169,7 @@ bill_id,date,chamber,sequence,action
 2139384,2026-03-30,House,1,"Introduced, placed on Ways and Means calendar. H.J. 764."
 2139333,2026-03-30,House,1,"Introduced, placed on Ways and Means calendar. H.J. 764."
 2139357,2026-03-30,House,1,"Introduced, placed on Ways and Means calendar. H.J. 764."
+2139357,2026-04-03,House,2,Fiscal note.
 2139497,2026-03-30,House,1,"Introduced, placed on Ways and Means calendar. H.J. 765."
 1963615,2025-02-10,House,1,"Introduced, referred to Education. H.J. 273."
 2139470,2026-03-30,House,1,"Introduced, placed on Ways and Means calendar. H.J. 765."
@@ -7166,6 +7168,7 @@ bill_id,date,chamber,sequence,action
 1981264,2025-03-20,House,5,"Committee report, recommending passage. H.J. 768."
 1981264,2025-03-20,House,6,"Committee vote: Yeas, 22. Nays, 0. Excused, 3. H.J. 768."
 1981264,2025-03-21,House,7,"Committee report approving bill, renumbered as HF 971."
+1981264,2026-04-02,House,8,Withdrawn. H.J. 805.
 1981413,2025-02-24,House,1,"Introduced, referred to State Government. H.J. 417."
 1981888,2025-02-24,House,1,"Introduced, placed on calendar. H.J. 418."
 1981888,2025-02-26,House,2,"Amendments H-1027, H-1028 and H-1029 filed. H.J. 451."
@@ -14583,12 +14586,12 @@ bill_id,date,chamber,sequence,action
 2134850,2026-03-17,House,2,"Introduced, referred to Appropriations. H.J. 683."
 2134850,2026-03-17,House,3,"Subcommittee: Wilz, H., Brown-Powers, Gosa, Kurth, Mohr, G., Sieck, Sorensen, Stone and Thomson, C.. H.J. 684."
 2134850,2026-04-01,House,4,Subcommittee Meeting: 04/06/2026 12:00PM RM 103 (Cancelled).
-2134850,2026-04-01,House,5,Subcommittee Meeting: 04/07/2026 8:00AM RM 103.
+2134850,2026-04-03,House,5,Subcommittee Meeting: 04/07/2026 8:00AM RM 103.
 2134901,2026-03-17,House,1,By COMMITTEE ON APPROPRIATIONS
 2134901,2026-03-17,House,2,"Introduced, referred to Appropriations. H.J. 683."
 2134901,2026-03-17,House,3,"Subcommittee: Wilz, H., Brown-Powers, Gosa, Kurth, Mohr, G., Sieck, Sorensen, Stone and Thomson, C.. H.J. 684."
 2134901,2026-04-01,House,4,Subcommittee Meeting: 04/06/2026 12:30PM RM 103 (Cancelled).
-2134901,2026-04-01,House,5,Subcommittee Meeting: 04/07/2026 8:30AM RM 103.
+2134901,2026-04-03,House,5,Subcommittee Meeting: 04/07/2026 8:30AM RM 103.
 2135788,2026-03-18,House,1,By COMMITTEE ON APPROPRIATIONS
 2135788,2026-03-18,House,2,"Introduced, referred to Appropriations. H.J. 685."
 2135788,2026-03-18,House,3,"Subcommittee: Sorensen, Meyer, A. and Zabner. H.J. 686."
@@ -18290,10 +18293,13 @@ bill_id,date,chamber,sequence,action
 2140388,2026-04-01,Senate,1,"Introduced, referred to Ways and Means. S.J. 708."
 2140731,2026-04-02,Senate,1,"Introduced, placed on Appropriations calendar. S.J. 711."
 2140731,2026-04-02,Senate,2,"Committee report, approving bill. S.J. 712."
+2140731,2026-04-03,Senate,3,Fiscal note.
 2140762,2026-04-02,Senate,1,"Introduced, placed on Appropriations calendar. S.J. 712."
 2140762,2026-04-02,Senate,2,"Committee report, approving bill. S.J. 713."
+2140762,2026-04-03,Senate,3,NOBA: Senate Full Approps
 2140794,2026-04-02,Senate,1,"Introduced, placed on Appropriations calendar. S.J. 712."
 2140794,2026-04-02,Senate,2,"Committee report, approving bill. S.J. 713."
+2140794,2026-04-03,Senate,3,NOBA: Senate Full Approps
 1964348,2025-02-10,Senate,1,"Introduced, referred to Health and Human Services. S.J. 217."
 1964348,2025-02-13,Senate,2,"Subcommittee: Klimesh, Costello, and Petersen. S.J. 269."
 1964389,2025-02-10,Senate,1,"Introduced, referred to Commerce. S.J. 217."
@@ -24443,6 +24449,8 @@ bill_id,date,chamber,sequence,action
 2135160,2026-03-17,Senate,2,"Introduced, referred to Appropriations."
 2135160,2026-03-17,Senate,3,"Subcommittee: Gruenhagen, Dawson, and Dotzler."
 2135160,2026-04-01,Senate,4,Subcommittee Meeting: 04/02/2026 10:00AM Senate Lounge.
+2135160,2026-04-03,Senate,5,Subcommittee recommends passage.
+2135160,2026-04-03,Senate,6,NOBA: Senate Sub
 2135082,2026-03-17,Senate,1,By COMMITTEE ON APPROPRIATIONS
 2135082,2026-03-17,Senate,2,"Introduced, referred to Appropriations."
 2135082,2026-03-17,Senate,3,"Subcommittee: Guth, Blake, and Dawson."
