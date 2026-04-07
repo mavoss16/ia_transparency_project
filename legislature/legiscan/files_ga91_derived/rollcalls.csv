@@ -2711,3 +2711,14 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2140731,1675903,2026-04-02,Senate,Senate Appropriations Report,20,0,0,2,22
 2140794,1676158,2026-04-02,Senate,Senate Appropriations Report,13,7,0,2,22
 2140762,1676181,2026-04-02,Senate,Senate Appropriations Report,20,0,0,2,22
+2110597,1676872,2026-04-06,Senate,Shall the bill pass?,47,0,0,3,50
+2106428,1676875,2026-04-06,Senate,Shall the bill pass?,47,0,0,3,50
+2139384,1676878,2026-04-06,House,Shall the bill pass?,92,0,0,8,100
+2030617,1676880,2026-04-06,House,House Committee On Ways And Means Report,20,5,0,0,25
+2111773,1676882,2026-04-06,Senate,Shall the bill pass?,47,0,0,3,50
+2102538,1676885,2026-04-06,Senate,Shall the bill pass?,47,0,0,3,50
+1966389,1677024,2026-04-06,House,Shall the bill pass?,92,0,0,8,100
+2111672,1677087,2026-04-06,Senate,Shall the bill pass?,47,0,0,3,50
+2117631,1677124,2026-04-06,Senate,Shall the bill pass?,47,0,0,3,50
+2115495,1677130,2026-04-06,House,Shall the bill pass?,92,0,0,8,100
+2115058,1677155,2026-04-06,Senate,Shall the bill pass?,47,0,0,3,50
