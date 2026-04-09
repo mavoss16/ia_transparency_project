@@ -2748,3 +2748,33 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2111663,1678116,2026-04-07,House,House Committee On Ways And Means Report,17,8,0,0,25
 2109350,1678365,2026-04-07,House,Shall the bill pass?,85,8,0,7,100
 2117553,1678374,2026-04-07,House,Shall the bill pass?,63,29,0,8,100
+1988339,1678382,2026-04-07,House,Shall the bill pass?,92,0,0,8,100
+2115058,1678384,2026-04-07,House,Shall the bill pass?,92,0,0,8,100
+2122122,1678406,2026-04-07,House,Shall the bill pass?,89,4,0,7,100
+2118851,1678671,2026-04-08,Senate,Shall the bill pass?,45,0,0,5,50
+2122543,1678672,2026-04-08,Senate,Shall the bill pass?,30,15,0,5,50
+2128067,1678690,2026-04-08,Senate,Shall the bill pass?,30,15,0,5,50
+2114511,1678713,2026-04-08,Senate,Shall the bill pass?,32,13,0,5,50
+2134035,1679010,2026-04-08,Senate,Shall the bill pass?,41,4,0,5,50
+2114305,1679016,2026-04-08,House,Shall the bill pass?,91,2,0,7,100
+2122125,1679031,2026-04-08,Senate,Shall the bill pass?,39,5,0,6,50
+2139357,1679032,2026-04-08,House,"Shall amendment H–8293, as amended, be 87th Day                       WEDNESDAY, APRIL 8, 2026               857    adopted?",41,48,0,11,100
+2139357,1679033,2026-04-08,House,"Shall amendment H–8342, to amendment H–8292, be adopted?",56,35,0,9,100
+2139357,1679034,2026-04-08,House,Shall the bill pass?,81,8,0,11,100
+2001585,1679039,2026-04-08,Senate,Shall the bill pass?,45,0,0,5,50
+2141151,1679093,2026-04-08,House,Shall the bill pass?,91,1,0,8,100
+1991979,1679177,2026-04-08,Senate,Shall the bill pass?,45,0,0,5,50
+2128067,1679190,2026-04-08,House,Shall the bill pass?,93,0,0,7,100
+2030617,1679303,2026-04-08,House,Shall the bill pass?,91,1,0,8,100
+2141215,1679363,2026-04-08,House,Shall the bill pass?,89,3,0,8,100
+2119042,1679428,2026-04-08,House,Shall the bill pass?,75,18,0,7,100
+2122815,1679429,2026-04-08,House,House Committee On Appropriations Report,18,7,0,0,25
+2123741,1679438,2026-04-08,House,House Committee On Appropriations Report,25,0,0,0,25
+2122229,1679439,2026-04-08,House,House Committee On Appropriations Report,22,3,0,0,25
+2110422,1679441,2026-04-08,House,House Committee On Appropriations Report,24,0,0,1,25
+2139470,1679452,2026-04-08,House,"Shall amendment H–8333, as amended, be adopted?",30,63,0,7,100
+2139470,1679453,2026-04-08,House,Shall the bill pass?,60,32,0,8,100
+2140081,1679457,2026-04-08,House,House Committee On Appropriations Report,25,0,0,0,25
+2117329,1679458,2026-04-08,House,House Committee On Appropriations Report,24,0,0,1,25
+2129577,1679491,2026-04-08,House,House Committee On Appropriations Report,24,0,0,1,25
+2117374,1679494,2026-04-08,House,House Committee On Appropriations Report,20,5,0,0,25
