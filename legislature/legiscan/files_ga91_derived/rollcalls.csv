@@ -2778,3 +2778,24 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2117329,1679458,2026-04-08,House,House Committee On Appropriations Report,24,0,0,1,25
 2129577,1679491,2026-04-08,House,House Committee On Appropriations Report,24,0,0,1,25
 2117374,1679494,2026-04-08,House,House Committee On Appropriations Report,20,5,0,0,25
+2141365,1679501,2026-04-08,House,House Committee On Appropriations Report,25,0,0,0,25
+2110405,1679502,2026-04-08,House,House Committee On Appropriations Report,24,0,0,1,25
+2119947,1679508,2026-04-08,House,House Committee On Appropriations Report,24,1,0,0,25
+2141363,1679519,2026-04-08,House,Shall the bill pass?,92,0,0,8,100
+2111663,1679520,2026-04-08,House,Shall the bill pass?,63,25,0,12,100
+2111663,1679521,2026-04-08,House,"Shall the rules be suspended to consider amendment H–8268, as amended?",64,24,0,12,100
+2111663,1679522,2026-04-08,House,Shall the rules be suspended to consider amendment H–8313?,23,65,0,12,100
+2141146,1679527,2026-04-08,House,Shall the bill pass?,92,0,0,8,100
+2117650,1679530,2026-04-08,House,House Committee On Appropriations Report,14,10,0,1,25
+2141962,1679740,2026-04-09,Senate,Senate Appropriations Report,12,6,0,4,22
+2141975,1679742,2026-04-09,Senate,Senate Appropriations Report,13,6,0,3,22
+2141985,1679743,2026-04-09,Senate,Senate Appropriations Report,13,6,0,3,22
+2141950,1679754,2026-04-09,Senate,Senate Appropriations Report,12,6,0,4,22
+2141969,1679756,2026-04-09,Senate,Senate Appropriations Report,13,6,0,3,22
+2141953,1679764,2026-04-09,Senate,Senate Appropriations Report,13,6,0,3,22
+2141984,1679778,2026-04-09,Senate,Senate Appropriations Report,13,6,0,3,22
+2142171,1679890,2026-04-09,Senate,Senate Appropriations Report,13,6,0,3,22
+2114543,1679955,2026-04-09,House,House Committee On Appropriations Report,25,0,0,0,25
+2141992,1680086,2026-04-09,Senate,Senate Appropriations Report,12,6,0,4,22
+2129607,1680131,2026-04-09,House,House Committee On Appropriations Report,23,1,0,1,25
+2103376,1680134,2026-04-09,House,House Committee On Appropriations Report,24,0,0,1,25
