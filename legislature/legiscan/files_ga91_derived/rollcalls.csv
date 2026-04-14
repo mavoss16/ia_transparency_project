@@ -2799,3 +2799,10 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2141992,1680086,2026-04-09,Senate,Senate Appropriations Report,12,6,0,4,22
 2129607,1680131,2026-04-09,House,House Committee On Appropriations Report,23,1,0,1,25
 2103376,1680134,2026-04-09,House,House Committee On Appropriations Report,24,0,0,1,25
+1935813,1681020,2026-04-13,House,Shall the bill pass?,89,1,0,10,100
+2102538,1681026,2026-04-13,House,Shall the bill pass?,90,0,0,10,100
+2117667,1681205,2026-04-13,House,Shall the bill pass?,90,0,0,10,100
+2102536,1681341,2026-04-13,House,Shall the bill pass?,70,20,0,10,100
+2102536,1681342,2026-04-13,House,"Shall the rules be suspended to consider amendment H–8350, to amendment H–8319?",34,56,0,10,100
+1993436,1681346,2026-04-13,House,Shall the bill pass?,90,0,0,10,100
+2119300,1681379,2026-04-13,House,Shall the bill pass?,78,12,0,10,100
