@@ -2820,3 +2820,32 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2117648,1682518,2026-04-14,Senate,Shall the bill pass?,30,17,0,3,50
 2122329,1682564,2026-04-14,Senate,Shall the bill pass?,30,17,0,3,50
 2132789,1682900,2026-04-14,Senate,Shall the bill pass?,47,0,0,3,50
+2143009,1682907,2026-04-14,Senate,Senate Appropriations Report,19,0,0,3,22
+2143043,1682908,2026-04-14,Senate,Senate Ways And Means Report,10,5,0,3,18
+2103376,1683465,2026-04-15,House,Shall the bill pass?,95,0,0,5,100
+2024992,1683466,2026-04-15,Senate,Senate Ways And Means Report,15,0,0,3,18
+2117553,1683467,2026-04-15,Senate,Shall the bill pass?,31,16,0,3,50
+2141387,1683474,2026-04-15,House,Shall the bill pass?,94,1,0,5,100
+2090335,1683475,2026-04-15,Senate,Shall the bill pass?,47,0,0,3,50
+2139497,1683477,2026-04-15,Senate,Senate Ways And Means Report,15,0,0,3,18
+1991683,1683484,2026-04-15,Senate,Shall the bill pass?,47,0,0,3,50
+2120116,1683486,2026-04-15,Senate,Shall the bill pass?,47,0,0,3,50
+2109350,1683540,2026-04-15,Senate,Shall the bill pass?,47,0,0,3,50
+2141953,1683569,2026-04-15,Senate,Senate Ways And Means Report,15,0,0,3,18
+2107265,1683581,2026-04-15,House,Shall the bill pass?,87,8,0,5,100
+1991979,1683585,2026-04-15,House,Shall the bill pass?,95,0,0,5,100
+2120467,1683618,2026-04-15,House,Shall the bill pass?,95,0,0,5,100
+2142453,1683869,2026-04-15,House,House Committee On Appropriations Report,17,7,0,1,25
+2122622,1683892,2026-04-15,House,Shall the bill pass?,94,1,0,5,100
+2118821,1683894,2026-04-15,Senate,Shall the bill pass?,47,0,0,3,50
+2141930,1683896,2026-04-15,House,House Committee On Appropriations Report,24,0,0,1,25
+2107300,1683898,2026-04-15,House,House Committee On Appropriations Report,24,0,0,1,25
+2141548,1683899,2026-04-15,House,House Committee On Appropriations Report,17,7,0,1,25
+2143390,1683902,2026-04-15,Senate,Senate Ways And Means Report,14,1,0,3,18
+2122125,1683903,2026-04-15,House,Shall the bill pass?,73,22,0,5,100
+2123883,1683905,2026-04-15,House,House Committee On Appropriations Report,24,0,0,1,25
+2143373,1683906,2026-04-15,Senate,Senate Ways And Means Report,15,0,0,3,18
+2141624,1683907,2026-04-15,House,House Committee On Appropriations Report,17,7,0,1,25
+2129549,1683908,2026-04-15,House,House Committee On Appropriations Report,16,8,0,1,25
+2141602,1683912,2026-04-15,House,House Committee On Appropriations Report,17,7,0,1,25
+2122906,1683914,2026-04-15,House,House Committee On Appropriations Report,24,0,0,1,25
