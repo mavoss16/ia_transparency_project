@@ -2847,5 +2847,38 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2143373,1683906,2026-04-15,Senate,Senate Ways And Means Report,15,0,0,3,18
 2141624,1683907,2026-04-15,House,House Committee On Appropriations Report,17,7,0,1,25
 2129549,1683908,2026-04-15,House,House Committee On Appropriations Report,16,8,0,1,25
+1927016,1683911,2026-04-15,House,House Committee On Appropriations Report,23,0,0,2,25
 2141602,1683912,2026-04-15,House,House Committee On Appropriations Report,17,7,0,1,25
+2117635,1683913,2026-04-15,House,House Committee On Appropriations Report,24,0,0,1,25
 2122906,1683914,2026-04-15,House,House Committee On Appropriations Report,24,0,0,1,25
+2109597,1683915,2026-04-15,House,House Committee On Appropriations Report,17,7,0,1,25
+1991874,1683916,2026-04-15,House,House Committee On Appropriations Report,17,7,0,1,25
+2073156,1683917,2026-04-15,House,Shall the bill pass?,71,24,0,5,100
+2073156,1683918,2026-04-15,House,Shall the rules be suspended to consider amendment H–8286?,67,27,0,6,100
+2120068,1683919,2026-04-15,Senate,Senate Ways And Means Report,15,0,0,3,18
+2006350,1683920,2026-04-15,Senate,Senate Ways And Means Report,12,3,0,3,18
+2143043,1683923,2026-04-15,Senate,Senate Appropriations Report,15,5,0,2,22
+2143187,1683924,2026-04-15,Senate,Senate Ways And Means Report,15,0,0,3,18
+2142447,1683925,2026-04-15,House,Shall the bill pass?,95,0,0,5,100
+2143404,1683926,2026-04-15,Senate,Senate Ways And Means Report,10,5,0,3,18
+2142404,1683927,2026-04-15,House,Shall the bill pass?,95,0,0,5,100
+2143204,1683928,2026-04-15,Senate,Senate Ways And Means Report,11,4,0,3,18
+2095662,1683929,2026-04-15,Senate,Shall the bill pass?,47,0,0,3,50
+2143195,1683930,2026-04-15,Senate,Senate Ways And Means Report,15,0,0,3,18
+2143219,1683931,2026-04-15,Senate,Senate Ways And Means Report,15,0,0,3,18
+2143009,1683932,2026-04-15,Senate,Shall the bill pass?,47,0,0,3,50
+2143211,1683933,2026-04-15,Senate,Senate Ways And Means Report,15,0,0,3,18
+2143227,1683934,2026-04-15,Senate,Senate Ways And Means Report,15,0,0,3,18
+2143232,1683936,2026-04-15,Senate,Senate Ways And Means Report,15,0,0,3,18
+2141130,1684387,2026-04-16,House,"Shall amendment H–8372, to amendment H–8371, be adopted?",54,34,0,12,100
+2141130,1684388,2026-04-16,House,"Shall amendment H–8373, to amendment H–8371, be adopted?",27,60,0,13,100
+2141130,1684389,2026-04-16,House,Shall the bill pass?,53,34,0,13,100
+2107352,1684441,2026-04-16,House,Shall the bill pass?,81,6,0,13,100
+2113411,1684550,2026-04-16,House,Shall the bill pass?,60,26,0,14,100
+2119300,1684616,2026-04-16,Senate,Shall the bill pass?,47,0,0,3,50
+2143667,1684622,2026-04-16,Senate,Senate Appropriations Report,13,7,0,2,22
+2114329,1684662,2026-04-16,House,Shall the bill pass?,77,11,0,12,100
+2117410,1684734,2026-04-16,Senate,Shall the bill pass?,47,0,0,3,50
+2021050,1684851,2026-04-16,Senate,Shall the bill pass?,42,5,0,3,50
+2109490,1684865,2026-04-16,Senate,Shall the bill pass?,44,3,0,3,50
+2143043,1684866,2026-04-16,Senate,Shall the bill pass?,32,15,0,3,50
