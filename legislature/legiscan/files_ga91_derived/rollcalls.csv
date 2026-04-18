@@ -2882,3 +2882,5 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2021050,1684851,2026-04-16,Senate,Shall the bill pass?,42,5,0,3,50
 2109490,1684865,2026-04-16,Senate,Shall the bill pass?,44,3,0,3,50
 2143043,1684866,2026-04-16,Senate,Shall the bill pass?,32,15,0,3,50
+2122622,1684868,2026-04-16,Senate,Shall the bill pass?,32,15,0,3,50
+2110443,1684871,2026-04-16,Senate,Shall the bill pass?,47,0,0,3,50
