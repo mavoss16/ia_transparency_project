@@ -2884,3 +2884,19 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2143043,1684866,2026-04-16,Senate,Shall the bill pass?,32,15,0,3,50
 2122622,1684868,2026-04-16,Senate,Shall the bill pass?,32,15,0,3,50
 2110443,1684871,2026-04-16,Senate,Shall the bill pass?,47,0,0,3,50
+2006350,1685672,2026-04-20,Senate,Shall the bill pass?,33,11,0,6,50
+2122847,1685676,2026-04-20,House,Shall the bill pass?,60,32,0,8,100
+2143232,1685679,2026-04-20,Senate,Shall the bill pass?,44,0,0,6,50
+2142409,1685691,2026-04-20,House,Shall the bill pass?,91,1,0,8,100
+2142409,1685692,2026-04-20,House,"Shall the rules be suspended to consider amendment H–8385, to amendment H–8382?",32,60,0,8,100
+2143195,1685706,2026-04-20,Senate,Shall the bill pass?,44,0,0,6,50
+1987669,1685741,2026-04-20,House,Shall the bill pass?,58,34,0,8,100
+1987669,1685742,2026-04-20,House,Shall the rules be suspended to consider amendment H–8320?,39,53,0,8,100
+2111663,1685746,2026-04-20,Senate,Shall the bill pass?,28,16,0,6,50
+2137637,1685767,2026-04-20,House,House Committee On Appropriations Report,21,0,0,4,25
+2122543,1685805,2026-04-20,House,Shall the bill pass?,61,31,0,8,100
+2122543,1685806,2026-04-20,House,"Shall the rules be suspended to consider amendment H–8386, to the Senate amendment H–8335?",31,60,0,9,100
+2143227,1685904,2026-04-20,Senate,Shall the bill pass?,44,0,0,6,50
+2142526,1685969,2026-04-20,House,Shall the bill pass?,91,1,0,8,100
+1966627,1685995,2026-04-20,Senate,Shall the bill pass?,44,0,0,6,50
+2117637,1686013,2026-04-20,House,House Committee On Appropriations Report,14,7,0,4,25
