@@ -2923,3 +2923,11 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2142526,1687221,2026-04-21,Senate,Shall the bill pass?,44,0,0,6,50
 2024925,1687263,2026-04-21,Senate,Shall the bill pass?,44,0,0,6,50
 2117410,1687318,2026-04-21,House,Shall the bill pass?,90,3,0,7,100
+2114543,1687551,2026-04-21,House,Shall the bill pass?,93,0,0,7,100
+2117631,1687556,2026-04-21,Senate,Shall the bill pass?,44,0,0,6,50
+2077666,1687583,2026-04-21,House,House Committee On Ways And Means Report,24,0,0,1,25
+2115052,1687602,2026-04-21,Senate,Shall the bill pass?,33,12,0,5,50
+2119890,1687641,2026-04-21,Senate,Shall the bill pass?,44,0,0,6,50
+2109320,1687649,2026-04-21,House,House Committee On Ways And Means Report,24,0,0,1,25
+2121023,1687683,2026-04-21,House,Shall the bill pass?,93,0,0,7,100
+2118851,1687695,2026-04-21,House,Shall the bill pass?,93,0,0,7,100
