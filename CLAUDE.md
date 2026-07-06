@@ -6,13 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `ia_transparency_project` — an umbrella project promoting political transparency in Iowa by making publicly-available data more accessible and highlighting relationships between datasets. Domains:
 
-- **Iowa Legislature** — bill tracking, legislator voting records, lobbyist declarations (Phase 1; migration from `iowa_legislature` in progress)
+- **Iowa Legislature** — bill tracking, legislator voting records, lobbyist declarations (Phase 1; migrated from `iowa_legislature` 2026-07-05 with full git history)
 - **Iowa Elections** — election results and candidate data
 - **Campaign Finance** — donor-candidate relationships
 
 ## Current Folder Structure
 
-As of 2026-05-09:
+As of 2026-07-05 (legislature migration complete):
 
 ```
 ia_transparency_project/
@@ -42,13 +42,30 @@ ia_transparency_project/
 │   │   └── _test_scrape_urls.R
 │   ├── exploratory/
 │   │   ├── campaign_finance_explore.R
-│   │   └── elections/
-│   │       ├── clean_precinct_election_2020.R
-│   │       ├── election_2020_precincts.R
-│   │       ├── precinct_elections.R
-│   │       ├── precinct_fuzzy_matching_2020.R
-│   │       └── precinct_places.R
-│   └── legislature/                      (empty — awaiting migration)
+│   │   ├── elections/
+│   │   │   ├── clean_precinct_election_2020.R
+│   │   │   ├── election_2020_precincts.R
+│   │   │   ├── precinct_elections.R
+│   │   │   ├── precinct_fuzzy_matching_2020.R
+│   │   │   └── precinct_places.R
+│   │   └── legislature/                  ← contributions_explore, legislation_analysis, network_analysis
+│   ├── legislature/
+│   │   ├── 01_incremental_update.R       ← LegiScan API incremental pull (needs LEGISCAN_API_KEY)
+│   │   ├── 01c_generate_csvs.R           ← JSON → legiscan/files_ga91_derived/*.csv
+│   │   ├── 02_process_votes.R            ← vote summaries/records/stats (uses 02a functions)
+│   │   ├── 02a_vote_analysis_functions.R
+│   │   ├── 02b_legislator_similarity.R
+│   │   ├── 03_bill_relationships.R       ← scrape relationships → bill groups
+│   │   ├── 03a_resume_scrape_relationships.R
+│   │   ├── 04_lobbyist_declarations.R
+│   │   ├── 04a_legislator_lobbyist_alignment.R
+│   │   ├── 05_salience_scores.R          ← bill salience index (0–100)
+│   │   ├── render.R                      ← incremental site render orchestrator
+│   │   ├── run_pipeline.R                ← pipeline orchestrator (01 → 03 + render)
+│   │   ├── utils.R
+│   │   ├── simplify_districts.R
+│   │   └── archive/                      ← deprecated scripts incl. old_pipeline/
+│   └── render_all.R                      ← top-level orchestrator (all domains)
 ├── data/
 │   ├── campaign_finance/
 │   │   ├── campaign_finance.duckdb       ← analytical database (derived)
@@ -72,14 +89,26 @@ ia_transparency_project/
 │   │       ├── precinct_elections_2024/  ← county-level xlsx files (populated by election_results_2024.R)
 │   │       └── [precinct match files]
 │   ├── general/                          (empty — for cross-domain reference data)
-│   └── legislature/                      (empty — awaiting migration)
+│   └── legislature/                      ← processed .rds: bills/, votes/, lobbying/, districts/, pipeline_internal/, analysis/, archive/
+├── legiscan/                             ← raw LegiScan source data (files_ga91/, files_ga91_derived/, files_ga91_json/)
 ├── site/
+│   ├── _quarto.yml                       ← unified site config ("Iowa Political Transparency"); campaign_finance/ excluded from project renders
+│   ├── index.qmd                         ← unified home page (legislature section is the live content)
+│   ├── about.qmd / status.qmd / styles.css / _vote-table.qmd
+│   ├── legislation/                      ← bill browse page
+│   ├── legislators/                      ← legislator browse + compare pages
+│   ├── templates/                        ← bill / legislator / committee parameterized templates
 │   └── campaign_finance/
 │       └── templates/
 │           ├── recipient_template.qmd        ← per-committee contribution report (static R/gt)
 │           ├── donor_template.qmd            ← per-donor contribution report (static R/gt)
 │           └── recipient_template_ojs.qmd    ← OJS experimental version with reactive year filter
+├── docs/                                 ← rendered site output (GitHub Pages; gitignored artifacts re-render)
+├── .github/workflows/daily-update.yml    ← daily legislature pipeline + render
+├── renv.lock / renv/ / .Rprofile         ← renv dependency management (R 4.5)
+├── render_manifest.csv                   ← incremental render manifest (LegiScan content hashes)
 ├── notes/
+│   ├── legislature/                      ← migrated session notes + plan_bill_groups_integration.md
 │   ├── 2026-03-06_migration-plan.md
 │   ├── 2026-03-08_file-migration-map.md
 │   ├── 2026-03-10_precinct-shapefiles-download.md
@@ -91,34 +120,56 @@ ia_transparency_project/
 └── CLAUDE.md
 ```
 
-## Phase 1: Iowa Legislature
+## Iowa Legislature
 
-The first phase currently lives in a separate repository (`iowa_legislature`) and serves as the architectural reference for subsequent phases. Migration into this monorepo is planned; see `notes/2026-03-08_file-migration-map.md` for the detailed file map. Key patterns to carry forward:
+Tracker for the 91st General Assembly (2025–2026). Migrated from the standalone `iowa_legislature` repo on 2026-07-05 via `git filter-repo` + merge, so full git history is in this repo (`git log --follow` works across the move). The old repo can be archived. This domain is the architectural reference for the others.
 
 ### Tech Stack
 - **R** — primary language for data pipelines and site generation
 - **Quarto** — static site generation via parameterized templates
-- **LegiScan API** — legislative data source
+- **LegiScan API** — legislative data source (`LEGISCAN_API_KEY` env var)
 - **GitHub Pages** — hosting (`docs/` output directory)
 - **renv** — R dependency management
 
-### Data Flow Pattern
+### Data Flow
 ```
-External API → download script → raw data files (CSV + JSON)
-                                         ↓
-                               processing scripts → .rds files
-                                         ↓
-                         Quarto parameterized templates → static HTML
+LegiScan API → 01_incremental_update.R → legiscan/files_ga91_json/
+               01c_generate_csvs.R     → legiscan/files_ga91_derived/*.csv
+                                              ↓
+               02_process_votes.R           → data/legislature/votes/*.rds
+               02b_legislator_similarity.R  → data/legislature/votes/similarity_*.rds
+               03_bill_relationships.R      → data/legislature/bills/groups.rds
+               04_lobbyist_declarations.R   → data/legislature/lobbying/*.rds
+               05_salience_scores.R         → data/legislature/bills/salience_scores.rds
+                                              ↓
+               site/templates/*.qmd (parameterized bill/legislator/committee pages)
+                                              ↓
+               R/legislature/render.R (incremental rendering) → docs/
 ```
 
-### Site Generation Pattern
-- Parameterized `.qmd` templates render one page per entity (bill, legislator, etc.)
-- An incremental rendering system (`render_manifest.csv`) tracks content hashes to avoid re-rendering unchanged pages
-- `R/legislature/render.R` is the main orchestrator exposing: `render_status()`, `render_site()`, `render_site(force = TRUE)`, `test_render()`, `render_index_pages()`, `clear_manifest()`
+`R/legislature/run_pipeline.R` orchestrates steps 01→03 plus render; logs to `logs/legislature/`. `.github/workflows/daily-update.yml` runs it daily (paths already updated for the monorepo).
+
+### Rendering Commands
+```r
+source("R/legislature/render.R")
+render_status()             # what needs rendering
+render_site()               # incremental render (only changed items)
+render_site(force = TRUE)   # full re-render
+test_render()               # quick test: 5 bills, 5 legislators, 3 committees
+render_index_pages()        # only the index pages
+clear_manifest()            # force full re-render next time
+
+source("R/render_all.R")    # top-level: render_all() spans all domains
+```
+
+- `render_manifest.csv` (repo root) tracks LegiScan `change_hash` (bills) and `person_hash` (legislators); only changed items re-render
 - Preview locally with `quarto preview site/` from the terminal
 
-### Key R Packages (Phase 1)
-`readr`, `dplyr`, `tidyr`, `stringr`, `purrr`, `jsonlite`, `gt`, `quarto`, `here`, `rvest`
+### Salience Score
+`05_salience_scores.R` produces a 0–100 index of how contested/impactful each bill is, computed at the **bill group level** (signals pooled across companion bills; every group member shares the score). Components: lobby volume (0.20), lobby opposition (0.20), floor vote (0.15), party division (0.15), hearings (0.12), amendments (0.08), fiscal note (0.05), co-sponsors (0.03), companion count (0.02). See `notes/legislature/2026-05-17_salience-score.md` for design rationale.
+
+### Key R Packages (Legislature)
+`readr`, `dplyr`, `tidyr`, `stringr`, `purrr`, `jsonlite`, `gt`, `quarto`, `here`, `rvest`, `ggparliament`
 
 ## Campaign Finance
 
@@ -294,7 +345,7 @@ An experimental version that adds client-side year-range filtering using Observa
 
 ## Target Monorepo Structure
 
-After migration, the full layout will be:
+The legislature migration (2026-07-05) realized most of this layout. Still to be built: `R/elections/render.R`, `R/campaign_finance/render.R`, `site/elections/`, and a campaign finance section in the site navbar (currently commented out in `site/_quarto.yml`).
 
 ```
 ia_transparency_project/

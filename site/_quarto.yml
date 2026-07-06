@@ -2,6 +2,12 @@
 project:
   type: website
   output-dir: ../docs
+  render:
+    - "**/*.qmd"
+    # Campaign finance templates are parameterized and rendered explicitly
+    # (with -P params) by the future R/campaign_finance/render.R — not as
+    # part of project-wide renders.
+    - "!campaign_finance/"
 
 website:
   title: "Iowa Political Transparency"

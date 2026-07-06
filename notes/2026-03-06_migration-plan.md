@@ -86,7 +86,7 @@ ia_politics_transparency/
 
 ## Status
 
-- [ ] Repo initialized
-- [ ] Migration executed
-- [ ] Legislature site verified in new repo
+- [x] Repo initialized
+- [x] Migration executed (2026-07-05 — history merged via filter-repo, files reorganized per migration map)
+- [x] Legislature site verified in new repo (2026-07-05 — test_render(): 5 bills, 5 legislators, 3 committees, 0 failures)
 - [ ] iowa_legislature repo archived
