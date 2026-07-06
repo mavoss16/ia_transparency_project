@@ -1,0 +1,13 @@
+
+
+
+Order of data scripts:
+scrape_legislators.R
+scrape_lobbyists.R & read_file_actions.R & scrape_vote_results.R
+|>
+lobbyist_declarations.R
+legislation_clean.R
+clean_contributions.R
+
+
+clean_legislators_90.R

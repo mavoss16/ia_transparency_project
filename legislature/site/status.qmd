@@ -1,0 +1,128 @@
+---
+title: "Site Status"
+search: false
+format:
+  html:
+    echo: false
+    toc: false
+---
+
+<div id="status-loading" style="color: #6c757d;">Loading status&hellip;</div>
+<div id="status-content" style="display: none;">
+
+<p id="status-timestamp" style="color: #6c757d; font-size: 0.9em;"></p>
+
+<div class="grid" style="margin-top: 1rem;">
+  <div class="g-col-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Bills</h5>
+        <p class="card-text">
+          <span id="bills-rendered" class="fs-4 fw-bold"></span> updated<br>
+          <span id="bills-failed"></span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="g-col-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Legislators</h5>
+        <p class="card-text">
+          <span id="legislators-rendered" class="fs-4 fw-bold"></span> updated<br>
+          <span id="legislators-failed"></span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="g-col-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Committees</h5>
+        <p class="card-text">
+          <span id="committees-rendered" class="fs-4 fw-bold"></span> updated<br>
+          <span id="committees-failed"></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="errors-section" style="display: none; margin-top: 1.5rem;">
+  <h3>Failed Pages</h3>
+  <ul id="errors-list"></ul>
+</div>
+
+</div>
+
+<div id="status-error" style="display: none; color: #dc3545;">
+  Could not load status data. Run <code>render_site()</code> to generate it.
+</div>
+
+<script>
+(function () {
+  function fmt(dateStr) {
+    const d = new Date(dateStr);
+    return d.toLocaleString('en-US', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+      hour: 'numeric', minute: '2-digit', timeZoneName: 'short'
+    });
+  }
+
+  function failedHtml(n, items) {
+    if (n === 0) return '<span style="color:#198754;">No failures</span>';
+    return '<span style="color:#dc3545;">' + n + ' failed</span>';
+  }
+
+  fetch('./status.json')
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function (data) {
+      document.getElementById('status-loading').style.display = 'none';
+      document.getElementById('status-content').style.display = 'block';
+
+      document.getElementById('status-timestamp').textContent =
+        'Last rendered: ' + fmt(data.last_render);
+
+      document.getElementById('bills-rendered').textContent = data.bills.rendered;
+      document.getElementById('bills-failed').innerHTML =
+        failedHtml(data.bills.failed, data.bills.failed_items);
+
+      document.getElementById('legislators-rendered').textContent = data.legislators.rendered;
+      document.getElementById('legislators-failed').innerHTML =
+        failedHtml(data.legislators.failed, data.legislators.failed_items);
+
+      document.getElementById('committees-rendered').textContent = data.committees.rendered;
+      document.getElementById('committees-failed').innerHTML =
+        failedHtml(data.committees.failed, data.committees.failed_items);
+
+      // Collect all failed items
+      var allFailed = [];
+      (data.bills.failed_items || []).forEach(function (id) {
+        allFailed.push({ type: 'Bill', id: id, href: 'legislation/' + id + '.html' });
+      });
+      (data.legislators.failed_items || []).forEach(function (id) {
+        allFailed.push({ type: 'Legislator', id: id, href: null });
+      });
+      (data.committees.failed_items || []).forEach(function (id) {
+        allFailed.push({ type: 'Committee', id: id, href: null });
+      });
+
+      if (allFailed.length > 0) {
+        var list = document.getElementById('errors-list');
+        allFailed.forEach(function (item) {
+          var li = document.createElement('li');
+          li.textContent = item.type + ': ' + item.id;
+          list.appendChild(li);
+        });
+        document.getElementById('errors-section').style.display = 'block';
+      }
+    })
+    .catch(function () {
+      document.getElementById('status-loading').style.display = 'none';
+      document.getElementById('status-error').style.display = 'block';
+    });
+})();
+</script>

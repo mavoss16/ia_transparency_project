@@ -1,0 +1,25 @@
+# _quarto.yml
+project:
+  type: website
+  output-dir: ../docs
+
+website:
+  title: "Iowa Legislature"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: legislation/index.qmd
+        text: Legislation
+      - href: legislators/index.qmd
+        text: Legislators
+      # - href: about.qmd
+      #   text: About
+  search: true
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-expand: 2

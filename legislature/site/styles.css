@@ -1,0 +1,5 @@
+/* Force TOC visibility - Bootstrap's .collapse class hides the TOC list
+   when Quarto's JS hasn't run (e.g., file:// protocol blocks modules) */
+nav#TOC ul.collapse {
+  display: block !important;
+}

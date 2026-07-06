@@ -1,0 +1,1520 @@
+chamber,name,district,party,county,email,ga_num,start_date,end_date,link,person_id
+House,John H. Wills,1,Republican,Dickinson,John.Wills@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=13794,13794
+House,Megan Jones,2,Republican,Clay,megan.jones@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10747,10747
+House,Dennis Bush,3,Republican,Cherokee,Dennis.Bush@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30644,30644
+House,Skyler Wheeler,4,Republican,Sioux,Skyler.Wheeler@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18040,18040
+House,Tom Jeneary,5,Republican,Plymouth,Tom.Jeneary@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27018,27018
+House,Jacob Bossman,6,Republican,Woodbury,Jacob.Bossman@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=25497,25497
+House,Henry Stone,7,Republican,Winnebago,Henry.Stone@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30645,30645
+House,Terry C. Baxter,8,Republican,Hancock,Terry.Baxter@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=13796,13796
+House,Ann Meyer,9,Republican,Webster,Ann.Meyer@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27019,27019
+House,Mike Sexton,10,Republican,Calhoun,Mike.Sexton@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=1153,1153
+House,Gary Worthan,11,Republican,Buena Vista,gary.worthan@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=6324,6324
+House,Brian Best,12,Republican,Carroll,Brian.Best@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=14800,14800
+House,Chris Hall,13,Democrat,Woodbury,chris.hall@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9388,9388
+House,Steven Hansen,14,Democrat,Woodbury,Steve.Hansen@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30658,30658
+House,Charlie McConkey,15,Democrat,Pottawattamie,Charlie.McConkey@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=14801,14801
+House,Brent Siegrist,16,Republican,Pottawattamie,Brent.Siegrist@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30646,30646
+House,Matt W. Windschitl,17,Republican,Harrison,matt.windschitl@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=6282,6282
+House,Steven Holt,18,Republican,Crawford,Steven.Holt@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=14802,14802
+House,Carter F. Nordman,19,Republican,Dallas,Carter.Nordman@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30647,30647
+House,Ray Sorensen,20,Republican,Adair,Ray.Sorensen@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27020,27020
+House,Thomas Jay Moore,21,Republican,Cass,Tom.Moore@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=17112,17112
+House,Jon Jacobsen,22,Republican,Pottawattamie,Jon.Jacobsen@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=22321,22321
+House,David Sieck,23,Republican,Mills,David.Sieck@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=15920,15920
+House,Cecil Dolecheck,24,Republican,Ringgold,cecil.dolecheck@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=88,88
+House,Stan Gustafson,25,Republican,Warren,stan.gustafson@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=12712,12712
+House,Brooke Boden,26,Republican,Warren,Brooke.Boden@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30648,30648
+House,Joel Fry,27,Republican,Clarke,joel.fry@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9409,9409
+House,Jon Thorup,28,Republican,Marion,Jon.Thorup@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27021,27021
+House,Wes Breckenridge,29,Democrat,Jasper,NA,89,2021-01-11,2021-09-10,/legislators/legislator?ga=89&personID=18033,18033
+House,Jon Dunwell,29,Republican,Jasper,Jon.Dunwell@legis.iowa.gov,89,2021-09-11,2023-01-08,/legislators/legislator?ga=89&personID=32165,32165
+House,Brian K. Lohse,30,Republican,Polk,Brian.Lohse@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27022,27022
+House,Rick L. Olson,31,Democrat,Polk,rick.olson@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=776,776
+House,Ruth Ann Gaines,32,Democrat,Polk,ruthann.gaines@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9413,9413
+House,Brian Meyer,33,Democrat,Polk,brian.meyer@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=6377,6377
+House,Bruce Hunter,34,Democrat,Polk,bruce.hunter@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=317,317
+House,Ako Abdul-Samad,35,Democrat,Polk,ako.abdul-samad@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=6284,6284
+House,Marti Anderson,36,Democrat,Polk,marti.anderson@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10736,10736
+House,John R. Landon,37,Republican,Polk,NA,89,2021-01-11,2021-07-29,/legislators/legislator?ga=89&personID=10751,10751
+House,Mike Bousselot,37,Republican,Polk,Mike.Bousselot@legis.iowa.gov,89,2021-07-30,2023-01-08,/legislators/legislator?ga=89&personID=32076,32076
+House,Garrett Gobble,38,Republican,Polk,Garrett.Gobble@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30649,30649
+House,Eddie Andrews,39,Republican,Polk,Eddie.Andrews@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30650,30650
+House,John Forbes,40,Democrat,Polk,john.forbes@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10739,10739
+House,Jo Oldson,41,Democrat,Polk,jo.oldson@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=228,228
+House,Kristin Sunde,42,Democrat,Polk,Kristin.Sunde@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27025,27025
+House,Jennifer Konfrst,43,Democrat,Polk,Jennifer.Konfrst@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27026,27026
+House,Kenan Judge,44,Democrat,Dallas,Kenan.Judge@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27027,27027
+House,Beth Wessel-Kroeschell,45,Democrat,Story,beth.wessel-kroeschell@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=774,774
+House,Ross Wilburn,46,Democrat,Story,Ross.Wilburn@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=28701,28701
+House,Phil Thompson,47,Republican,Boone,Phil.Thompson@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27028,27028
+House,Robert P. Bacon,48,Republican,Story,rob.bacon@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9384,9384
+House,Dave Deyoe,49,Republican,Story,dave.deyoe@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=6289,6289
+House,Pat Grassley,50,Republican,Butler,pat.grassley@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=6277,6277
+House,Jane Bloomingdale,51,Republican,Worth,Jane.Bloomingdale@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18043,18043
+House,Todd Prichard,52,Democrat,Floyd,todd.prichard@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=12235,12235
+House,Sharon Sue Steckman,53,Democrat,Cerro Gordo,sharon.steckman@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=6580,6580
+House,Shannon Latham,54,Republican,Franklin,Shannon.Latham@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30651,30651
+House,Michael R. Bergan,55,Republican,Winneshiek,Michael.Bergan@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18044,18044
+House,Anne Osmundson,56,Republican,Clayton,Anne.Osmundson@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27029,27029
+House,Shannon Lundgren,57,Republican,Dubuque,Shannon.Lundgren@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18046,18046
+House,Steven P. Bradley,58,Republican,Jones,Steven.Bradley@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30652,30652
+House,Bob Kressig,59,Democrat,Black Hawk,bob.kressig@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=781,781
+House,Dave Williams,60,Democrat,Black Hawk,Dave.Williams@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27030,27030
+House,Timi Brown-Powers,61,Democrat,Black Hawk,Timi.Brown-Powers@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=14805,14805
+House,RasTafari Smith,62,Democrat,Black Hawk,Ras.Smith@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18048,18048
+House,Sandy Salmon,63,Republican,Black Hawk,sandy.salmon@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10754,10754
+House,Chad Ingels,64,Republican,Fayette,Chad.Ingels@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30653,30653
+House,Liz Bennett,65,Democrat,Linn,Liz.Bennett@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=14806,14806
+House,Art Staed,66,Democrat,Linn,art.staed@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10743,10743
+House,Eric Gjerde,67,Democrat,Linn,Eric.Gjerde@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30659,30659
+House,Molly Donahue,68,Democrat,Linn,Molly.Donahue@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27031,27031
+House,Kirsten Running-Marquardt,69,Democrat,Linn,kirsten.running-marquardt@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9198,9198
+House,Tracy Ehlert,70,Democrat,Linn,Tracy.Ehlert@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27032,27032
+House,Sue Cahill,71,Democrat,Marshall,Sue.Cahill@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30660,30660
+House,Dean Fisher,72,Republican,Tama,dean.fisher@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10755,10755
+House,Bobby Kaufmann,73,Republican,Cedar,bobby.kaufmann@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10756,10756
+House,Dave Jacoby,74,Democrat,Johnson,david.jacoby@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=320,320
+House,Thomas D. Gerhold,75,Republican,Benton,Thomas.Gerhold@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27033,27033
+House,David E. Maxwell,76,Republican,Poweshiek,dave.maxwell@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10757,10757
+House,Amy Nielsen,77,Democrat,Johnson,Amy.Nielsen@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18050,18050
+House,Jarad J. Klein,78,Republican,Washington,jarad.klein@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9408,9408
+House,Dustin D. Hite,79,Republican,Mahaska,Dustin.Hite@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27034,27034
+House,Holly Brink,80,Republican,Mahaska,Holly.Brink@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27035,27035
+House,Cherielynn Westrich,81,Republican,Wapello,Cherielynn.Westrich@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30654,30654
+House,Jeff Shipley,82,Republican,Van Buren,Jeff.Shipley@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27036,27036
+House,Martin L. Graber,83,Republican,Lee,Martin.Graber@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30655,30655
+House,Joe Mitchell,84,Republican,Henry,Joe.Mitchell@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27038,27038
+House,Christina Bohannan,85,Democrat,Johnson,Christina.Bohannan@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30661,30661
+House,Mary Mascher,86,Democrat,Johnson,mary.mascher@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=46,46
+House,Dennis M. Cohoon,87,Democrat,Des Moines,dennis.cohoon@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=100,100
+House,David Kerr,88,Republican,Louisa,David.Kerr@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18051,18051
+House,Monica Kurth,89,Democrat,Scott,Monica.Kurth@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18614,18614
+House,Cindy Winckler,90,Democrat,Scott,cindy.winckler@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=44,44
+House,Mark Cisneros,91,Republican,Muscatine,Mark.Cisneros@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30656,30656
+House,Ross C. Paustian,92,Republican,Scott,Ross.Paustian@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9407,9407
+House,Phyllis Thede,93,Democrat,Scott,phyllis.thede@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=6577,6577
+House,Gary M. Mohr,94,Republican,Scott,Gary.Mohr@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18038,18038
+House,Charlie McClintock,95,Republican,Linn,Charlie.McClintock@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30657,30657
+House,Lee Hein,96,Republican,Jones,lee.hein@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9398,9398
+House,Norlin Mommsen,97,Republican,Clinton,Norlin.Mommsen@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=14810,14810
+House,Mary Lynn Wolfe,98,Democrat,Clinton,mary.wolfe@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9397,9397
+House,Lindsay James,99,Democrat,Dubuque,Lindsay.James@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27039,27039
+House,Charles Isenhart,100,Democrat,Dubuque,charles.isenhart@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=6575,6575
+House,John H. Wills,1,Republican,Dickinson,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=13794,13794
+House,Megan Jones,2,Republican,Clay,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10747,10747
+House,Daniel Adair Huseman,3,Republican,Cherokee,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10,10
+House,Skyler Wheeler,4,Republican,Sioux,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18040,18040
+House,Tom Jeneary,5,Republican,Plymouth,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27018,27018
+House,Jacob Bossman,6,Republican,Woodbury,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=25497,25497
+House,Tedd Gassman,7,Republican,Winnebago,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10748,10748
+House,Terry C. Baxter,8,Republican,Hancock,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=13796,13796
+House,Ann Meyer,9,Republican,Webster,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27019,27019
+House,Mike Sexton,10,Republican,Calhoun,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=1153,1153
+House,Gary Worthan,11,Republican,Buena Vista,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6324,6324
+House,Brian Best,12,Republican,Carroll,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=14800,14800
+House,Chris Hall,13,Democrat,Woodbury,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9388,9388
+House,Timothy Kacena,14,Democrat,Woodbury,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18042,18042
+House,Charlie McConkey,15,Democrat,Pottawattamie,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=14801,14801
+House,Mary Ann Hanusa,16,Republican,Pottawattamie,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9412,9412
+House,Matt W. Windschitl,17,Republican,Harrison,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6282,6282
+House,Steven Holt,18,Republican,Crawford,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=14802,14802
+House,Chris Hagenow,19,Republican,Dallas,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6584,6584
+House,Ray Sorensen,20,Republican,Adair,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27020,27020
+House,Tom Moore,21,Republican,Cass,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=17112,17112
+House,Jon Jacobsen,22,Republican,Pottawattamie,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=22321,22321
+House,David Sieck,23,Republican,Mills,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=15920,15920
+House,Cecil Dolecheck,24,Republican,Ringgold,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=88,88
+House,Stan Gustafson,25,Republican,Madison,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=12712,12712
+House,Scott D. Ourth,26,Democrat,Warren,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10742,10742
+House,Joel Fry,27,Republican,Clarke,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9409,9409
+House,Jon Thorup,28,Republican,Marion,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27021,27021
+House,Wes Breckenridge,29,Democrat,Jasper,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18033,18033
+House,Brian K. Lohse,30,Republican,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27022,27022
+House,Rick L. Olson,31,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=776,776
+House,Ruth Ann Gaines,32,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9413,9413
+House,Brian Meyer,33,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6377,6377
+House,Bruce Hunter,34,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=317,317
+House,Ako Abdul-Samad,35,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6284,6284
+House,Marti Anderson,36,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10736,10736
+House,John Landon,37,Republican,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10751,10751
+House,Heather Matson,38,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27023,27023
+House,Karin Derry,39,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27024,27024
+House,John Forbes,40,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10739,10739
+House,Jo Oldson,41,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=228,228
+House,Kristin Sunde,42,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27025,27025
+House,Jennifer Konfrst,43,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27026,27026
+House,Kenan Judge,44,Democrat,Dallas,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27027,27027
+House,Beth Wessel-Kroeschell,45,Democrat,Story,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=774,774
+House,Lisa Heddens,46,Democrat,Story,NA,88,2019-01-14,2019-06-17,/legislators/legislator?ga=88&personID=213,213
+House,Ross Wilburn,46,Democrat,Story,NA,88,2019-06-18,2021-01-10,/legislators/legislator?ga=88&personID=28701,28701
+House,Phil Thompson,47,Republican,Greene,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27028,27028
+House,Robert P. Bacon,48,Republican,Story,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9384,9384
+House,Dave Deyoe,49,Republican,Story,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6289,6289
+House,Pat Grassley,50,Republican,Butler,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6277,6277
+House,Jane Bloomingdale,51,Republican,Worth,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18043,18043
+House,Todd Prichard,52,Democrat,Floyd,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=12235,12235
+House,Sharon S. Steckman,53,Democrat,Cerro Gordo,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6580,6580
+House,Linda L. Upmeyer,54,Republican,Cerro Gordo,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=180,180
+House,Michael R. Bergan,55,Republican,Winneshiek,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18044,18044
+House,Anne Osmundson,56,Republican,Clayton,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27029,27029
+House,Shannon Lundgren,57,Republican,Dubuque,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18046,18046
+House,Andy McKean,58,Democrat,Jones,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=1073,1073
+House,Bob Kressig,59,Democrat,Black Hawk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=781,781
+House,Dave Williams,60,Democrat,Black Hawk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27030,27030
+House,Timi Brown-Powers,61,Democrat,Black Hawk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=14805,14805
+House,RasTafari I. Smith,62,Democrat,Black Hawk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18048,18048
+House,Sandy Salmon,63,Republican,Black Hawk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10754,10754
+House,Bruce Bearinger,64,Democrat,Fayette,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10738,10738
+House,Liz Bennett,65,Democrat,Linn,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=14806,14806
+House,Art Staed,66,Democrat,Linn,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10743,10743
+House,Ashley Hinson,67,Republican,Linn,NA,88,2019-01-14,2021-01-02,/legislators/legislator?ga=88&personID=18049,18049
+House,Molly Donahue,68,Democrat,Linn,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27031,27031
+House,Kirsten Running-Marquardt,69,Democrat,Linn,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9198,9198
+House,Tracy Ehlert,70,Democrat,Linn,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27032,27032
+House,Mark Smith,71,Democrat,Marshall,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=64,64
+House,Dean Fisher,72,Republican,Tama,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10755,10755
+House,Bobby Kaufmann,73,Republican,Cedar,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10756,10756
+House,Dave Jacoby,74,Democrat,Johnson,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=320,320
+House,Thomas D. Gerhold,75,Republican,Benton,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27033,27033
+House,David E. Maxwell,76,Republican,Poweshiek,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10757,10757
+House,Amy Nielsen,77,Democrat,Johnson,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18050,18050
+House,Jarad Klein,78,Republican,Washington,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9408,9408
+House,Dustin D. Hite,79,Republican,Mahaska,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27034,27034
+House,Holly Brink,80,Republican,Mahaska,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27035,27035
+House,Mary A. Gaskill,81,Democrat,Wapello,NA,88,2019-01-14,2021-01-01,/legislators/legislator?ga=88&personID=255,255
+House,Jeff Shipley,82,Republican,Van Buren,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27036,27036
+House,Jeff Kurtz,83,Democrat,Lee,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27037,27037
+House,Joe Mitchell,84,Republican,Henry,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27038,27038
+House,Vicki Lensing,85,Democrat,Johnson,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=45,45
+House,Mary Mascher,86,Democrat,Johnson,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=46,46
+House,Dennis M. Cohoon,87,Democrat,Des Moines,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=100,100
+House,David Kerr,88,Republican,Louisa,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18051,18051
+House,Monica Kurth,89,Democrat,Scott,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18614,18614
+House,Cindy Winckler,90,Democrat,Scott,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=44,44
+House,Gary L. Carlson,91,Republican,Muscatine,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=14808,14808
+House,Ross C. Paustian,92,Republican,Scott,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9407,9407
+House,Phyllis Thede,93,Democrat,Scott,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6577,6577
+House,Gary M. Mohr,94,Republican,Scott,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18038,18038
+House,Louis J. Zumbach,95,Republican,Linn,NA,88,2019-01-14,2020-12-30,/legislators/legislator?ga=88&personID=18053,18053
+House,Lee Hein,96,Republican,Jones,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9398,9398
+House,Norlin G. Mommsen,97,Republican,Clinton,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=14810,14810
+House,Mary Lynn Wolfe,98,Democrat,Clinton,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9397,9397
+House,Lindsay James,99,Democrat,Dubuque,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27039,27039
+House,Charles Isenhart,100,Democrat,Dubuque,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6575,6575
+House,John H. Wills,1,Republican,Dickinson,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=13794,13794
+House,Megan Jones,2,Republican,Clay,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10747,10747
+House,Daniel A. Huseman,3,Republican,Cherokee,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10,10
+House,Skyler Wheeler,4,Republican,Sioux,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18040,18040
+House,Chuck Holz,5,Republican,Plymouth,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=17102,17102
+House,Jacob Bossman,6,Republican,Woodbury,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=25497,25497
+House,Tedd Gassman,7,Republican,Winnebago,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10748,10748
+House,Terry C. Baxter,8,Republican,Hancock,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=13796,13796
+House,Helen Miller,9,Democrat,Webster,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=219,219
+House,Mike Sexton,10,Republican,Calhoun,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=1153,1153
+House,Gary Worthan,11,Republican,Buena Vista,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6324,6324
+House,Brian Best,12,Republican,Carroll,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=14800,14800
+House,Chris Hall,13,Democrat,Woodbury,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9388,9388
+House,Timothy Kacena,14,Democrat,Woodbury,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18042,18042
+House,Charlie McConkey,15,Democrat,Pottawattamie,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=14801,14801
+House,Mary Ann Hanusa,16,Republican,Pottawattamie,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9412,9412
+House,Matt W. Windschitl,17,Republican,Harrison,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6282,6282
+House,Steven Holt,18,Republican,Crawford,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=14802,14802
+House,Ralph C. Watts,19,Republican,Dallas,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=216,216
+House,Clel Baudler,20,Republican,Adair,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=78,78
+House,Tom Moore,21,Republican,Cass,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=17112,17112
+House,Greg Forristall,22,Republican,Pottawattamie,NA,87,2017-01-09,2017-05-10,/legislators/legislator?ga=87&personID=6288,6288
+House,Jon A. Jacobsen,22,Republican,Pottawattamie,NA,87,2017-05-11,2019-01-13,/legislators/legislator?ga=87&personID=22321,22321
+House,David Sieck,23,Republican,Mills,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=15920,15920
+House,Cecil Dolecheck,24,Republican,Ringgold,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=88,88
+House,Stan Gustafson,25,Republican,Madison,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=12712,12712
+House,Scott Ourth,26,Democrat,Warren,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10742,10742
+House,Joel Fry,27,Republican,Clarke,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9409,9409
+House,Greg Heartsill,28,Republican,Marion,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10750,10750
+House,Wes Breckenridge,29,Democrat,Jasper,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18033,18033
+House,Zach Nunn,30,Republican,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=14803,14803
+House,Rick Olson,31,Democrat,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=776,776
+House,Ruth Ann Gaines,32,Democrat,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9413,9413
+House,Brian Meyer,33,Democrat,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6377,6377
+House,Bruce L. Hunter,34,Democrat,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=317,317
+House,Ako Abdul-Samad,35,Democrat,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6284,6284
+House,Marti Anderson,36,Democrat,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10736,10736
+House,John Landon,37,Republican,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10751,10751
+House,Kevin Koester,38,Republican,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6582,6582
+House,Jake Highfill,39,Republican,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10752,10752
+House,John Forbes,40,Democrat,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10739,10739
+House,Jo Oldson,41,Democrat,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=228,228
+House,Peter Cownie,42,Republican,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6583,6583
+House,Chris Hagenow,43,Republican,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6584,6584
+House,Rob Taylor,44,Republican,Dallas,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10753,10753
+House,Beth Wessel-Kroeschell,45,Democrat,Story,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=774,774
+House,Lisa Heddens,46,Democrat,Story,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=213,213
+House,Chip Baltimore,47,Republican,Boone,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9401,9401
+House,Rob Bacon,48,Republican,Story,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9384,9384
+House,Dave Deyoe,49,Republican,Story,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6289,6289
+House,Pat Grassley,50,Republican,Butler,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6277,6277
+House,Jane Bloomingdale,51,Republican,Worth,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18043,18043
+House,Todd Prichard,52,Democrat,Floyd,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=12235,12235
+House,Sharon S. Steckman,53,Democrat,Cerro Gordo,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6580,6580
+House,Linda L. Upmeyer,54,Republican,Cerro Gordo,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=180,180
+House,Michael Bergan,55,Republican,Winneshiek,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18044,18044
+House,Kristi Hager,56,Republican,Allamakee,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18045,18045
+House,Shannon Lundgren,57,Republican,Dubuque,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18046,18046
+House,Andy McKean,58,Republican,Jones,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=1073,1073
+House,Bob Kressig,59,Democrat,Black Hawk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=781,781
+House,Walt Rogers,60,Republican,Black Hawk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9394,9394
+House,Timi Brown-Powers,61,Democrat,Black Hawk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=14805,14805
+House,Ras Smith,62,Democrat,Black Hawk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18048,18048
+House,Sandy Salmon,63,Republican,Black Hawk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10754,10754
+House,Bruce Bearinger,64,Democrat,Fayette,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10738,10738
+House,Liz Bennett,65,Democrat,Linn,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=14806,14806
+House,Art Staed,66,Democrat,Linn,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10743,10743
+House,Ashley Hinson,67,Republican,Linn,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18049,18049
+House,Ken Rizer,68,Republican,Linn,NA,87,2017-01-09,2018-05-25,/legislators/legislator?ga=87&personID=14807,14807
+House,Kirsten Running-Marquardt,69,Democrat,Linn,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9198,9198
+House,Todd E. Taylor,70,Democrat,Linn,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=54,54
+House,Mark Smith,71,Democrat,Marshall,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=64,64
+House,Dean Fisher,72,Republican,Tama,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10755,10755
+House,Bobby Kaufmann,73,Republican,Cedar,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10756,10756
+House,Dave Jacoby,74,Democrat,Johnson,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=320,320
+House,Dawn E. Pettengill,75,Republican,Benton,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=773,773
+House,Dave Maxwell,76,Republican,Poweshiek,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10757,10757
+House,Amy Nielsen,77,Democrat,Johnson,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18050,18050
+House,Jarad J. Klein,78,Republican,Washington,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9408,9408
+House,Guy Vander Linden,79,Republican,Mahaska,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9411,9411
+House,Larry Sheets,80,Republican,Appanoose,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10758,10758
+House,Mary Gaskill,81,Democrat,Wapello,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=255,255
+House,Curt Hanson,82,Democrat,Jefferson,NA,87,2017-01-09,2017-06-16,/legislators/legislator?ga=87&personID=9018,9018
+House,Phil Miller,82,Democrat,Jefferson,NA,87,2017-06-17,2019-01-13,/legislators/legislator?ga=87&personID=24448,24448
+House,Jerry A. Kearns,83,Democrat,Lee,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6579,6579
+House,David E. Heaton,84,Republican,Henry,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=97,97
+House,Vicki S. Lensing,85,Democrat,Johnson,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=45,45
+House,Mary Mascher,86,Democrat,Johnson,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=46,46
+House,Dennis M. Cohoon,87,Democrat,Des Moines,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=100,100
+House,David Kerr,88,Republican,Louisa,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18051,18051
+House,Monica Kurth,89,Democrat,Scott,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18614,18614
+House,Cindy Winckler,90,Democrat,Scott,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=44,44
+House,Gary Carlson,91,Republican,Muscatine,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=14808,14808
+House,Ross Paustian,92,Republican,Scott,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9407,9407
+House,Phyllis Thede,93,Democrat,Scott,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6577,6577
+House,Gary Mohr,94,Republican,Scott,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18038,18038
+House,Louie Zumbach,95,Republican,Linn,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18053,18053
+House,Lee Hein,96,Republican,Jones,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9398,9398
+House,Norlin Mommsen,97,Republican,Clinton,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=14810,14810
+House,Mary Lynn Wolfe,98,Democrat,Clinton,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9397,9397
+House,Abby Finkenauer,99,Democrat,Dubuque,NA,87,2017-01-09,2019-01-02,/legislators/legislator?ga=87&personID=14811,14811
+House,Charles Isenhart,100,Democrat,Dubuque,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6575,6575
+House,John H. Wills,1,Republican,Dickinson,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=13794,13794
+House,Megan Jones,2,Republican,Clay,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10747,10747
+House,Daniel A. Huseman,3,Republican,Cherokee,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10,10
+House,John Kooiker,4,Republican,Sioux,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=15891,15891
+House,Chuck Soderberg,5,Republican,Plymouth,NA,86,2015-01-12,2015-09-14,/legislators/legislator?ga=86&personID=779,779
+House,Chuck Holz,5,Republican,Plymouth,NA,86,2015-09-15,2017-01-08,/legislators/legislator?ga=86&personID=17102,17102
+House,Ron Jorgensen,6,Republican,Woodbury,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9403,9403
+House,Tedd Gassman,7,Republican,Winnebago,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10748,10748
+House,Terry C. Baxter,8,Republican,Hancock,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=13796,13796
+House,Helen Miller,9,Democrat,Webster,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=219,219
+House,Mike Sexton,10,Republican,Calhoun,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=1153,1153
+House,Gary Worthan,11,Republican,Buena Vista,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6324,6324
+House,Brian Best,12,Republican,Carroll,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14800,14800
+House,Chris Hall,13,Democrat,Woodbury,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9388,9388
+House,Dave Dawson,14,Democrat,Woodbury,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10740,10740
+House,Charlie McConkey,15,Democrat,Pottawattamie,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14801,14801
+House,Mary Ann Hanusa,16,Republican,Pottawattamie,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9412,9412
+House,Matt W. Windschitl,17,Republican,Harrison,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6282,6282
+House,Steven Holt,18,Republican,Crawford,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14802,14802
+House,Ralph C. Watts,19,Republican,Dallas,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=216,216
+House,Clel Baudler,20,Republican,Adair,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=78,78
+House,Jack Drake,21,Republican,Cass,NA,86,2015-01-12,2015-10-11,/legislators/legislator?ga=86&personID=81,81
+House,Tom Moore,21,Republican,Cass,NA,86,2015-10-12,2017-01-08,/legislators/legislator?ga=86&personID=17112,17112
+House,Greg Forristall,22,Republican,Pottawattamie,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6288,6288
+House,David Sieck,23,Republican,Mills,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=15920,15920
+House,Cecil Dolecheck,24,Republican,Ringgold,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=88,88
+House,Stan Gustafson,25,Republican,Madison,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=12712,12712
+House,Scott Ourth,26,Democrat,Warren,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10742,10742
+House,Joel Fry,27,Republican,Clarke,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9409,9409
+House,Greg Heartsill,28,Republican,Marion,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10750,10750
+House,Daniel Kelley,29,Democrat,Jasper,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9399,9399
+House,Zach Nunn,30,Republican,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14803,14803
+House,Rick Olson,31,Democrat,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=776,776
+House,Ruth Ann Gaines,32,Democrat,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9413,9413
+House,Brian Meyer,33,Democrat,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6377,6377
+House,Bruce L. Hunter,34,Democrat,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=317,317
+House,Ako Abdul-Samad,35,Democrat,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6284,6284
+House,Marti Anderson,36,Democrat,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10736,10736
+House,John Landon,37,Republican,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10751,10751
+House,Kevin Koester,38,Republican,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6582,6582
+House,Jake Highfill,39,Republican,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10752,10752
+House,John Forbes,40,Democrat,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10739,10739
+House,Jo Oldson,41,Democrat,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=228,228
+House,Peter Cownie,42,Republican,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6583,6583
+House,Chris Hagenow,43,Republican,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6584,6584
+House,Rob Taylor,44,Republican,Dallas,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10753,10753
+House,Beth Wessel-Kroeschell,45,Democrat,Story,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=774,774
+House,Lisa Heddens,46,Democrat,Story,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=213,213
+House,Chip Baltimore,47,Republican,Boone,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9401,9401
+House,Rob Bacon,48,Republican,Story,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9384,9384
+House,Dave Deyoe,49,Republican,Story,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6289,6289
+House,Pat Grassley,50,Republican,Butler,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6277,6277
+House,Josh Byrnes,51,Republican,Mitchell,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9392,9392
+House,Todd Prichard,52,Democrat,Floyd,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=12235,12235
+House,Sharon S. Steckman,53,Democrat,Cerro Gordo,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6580,6580
+House,Linda L. Upmeyer,54,Republican,Cerro Gordo,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=180,180
+House,Darrel Branhagen,55,Republican,Winneshiek,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14804,14804
+House,Patti Ruff,56,Democrat,Clayton,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10746,10746
+House,Nancy Dunkel,57,Democrat,Dubuque,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10737,10737
+House,Brian Moore,58,Republican,Jackson,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9396,9396
+House,Bob Kressig,59,Democrat,Black Hawk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=781,781
+House,Walt Rogers,60,Republican,Black Hawk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9394,9394
+House,Timi Brown-Powers,61,Democrat,Black Hawk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14805,14805
+House,Deborah L. Berry,62,Democrat,Black Hawk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=298,298
+House,Sandy Salmon,63,Republican,Black Hawk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10754,10754
+House,Bruce Bearinger,64,Democrat,Fayette,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10738,10738
+House,Liz Bennett,65,Democrat,Linn,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14806,14806
+House,Art Staed,66,Democrat,Linn,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10743,10743
+House,Kraig Paulsen,67,Republican,Linn,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=199,199
+House,Ken Rizer,68,Republican,Linn,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14807,14807
+House,Kirsten Running-Marquardt,69,Democrat,Linn,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9198,9198
+House,Todd E. Taylor,70,Democrat,Linn,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=54,54
+House,Mark D. Smith,71,Democrat,Marshall,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=64,64
+House,Dean Fisher,72,Republican,Tama,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10755,10755
+House,Bobby Kaufmann,73,Republican,Cedar,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10756,10756
+House,Dave Jacoby,74,Democrat,Johnson,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=320,320
+House,Dawn E. Pettengill,75,Republican,Benton,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=773,773
+House,Dave Maxwell,76,Republican,Poweshiek,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10757,10757
+House,Sally Stutsman,77,Democrat,Johnson,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10745,10745
+House,Jarad J. Klein,78,Republican,Washington,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9408,9408
+House,Guy Vander Linden,79,Republican,Mahaska,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9411,9411
+House,Larry Sheets,80,Republican,Appanoose,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10758,10758
+House,Mary Gaskill,81,Democrat,Wapello,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=255,255
+House,Curt Hanson,82,Democrat,Jefferson,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9018,9018
+House,Jerry A. Kearns,83,Democrat,Lee,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6579,6579
+House,David E. Heaton,84,Republican,Henry,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=97,97
+House,Vicki S. Lensing,85,Democrat,Johnson,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=45,45
+House,Mary Mascher,86,Democrat,Johnson,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=46,46
+House,Dennis M. Cohoon,87,Democrat,Des Moines,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=100,100
+House,Thomas R. Sands,88,Republican,Louisa,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=249,249
+House,Jim Lykam,89,Democrat,Scott,NA,86,2015-01-12,2017-01-02,/legislators/legislator?ga=86&personID=246,246
+House,Cindy Winckler,90,Democrat,Scott,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=44,44
+House,Gary Carlson,91,Republican,Muscatine,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14808,14808
+House,Ross Paustian,92,Republican,Scott,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9407,9407
+House,Phyllis Thede,93,Democrat,Scott,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6577,6577
+House,Linda J. Miller,94,Republican,Scott,NA,86,2015-01-12,2016-12-16,/legislators/legislator?ga=86&personID=6286,6286
+House,Quentin Stanerson,95,Republican,Linn,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10759,10759
+House,Lee Hein,96,Republican,Jones,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9398,9398
+House,Norlin Mommsen,97,Republican,Clinton,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14810,14810
+House,Mary Lynn Wolfe,98,Democrat,Clinton,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9397,9397
+House,Abby Finkenauer,99,Democrat,Dubuque,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14811,14811
+House,Charles Isenhart,100,Democrat,Dubuque,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6575,6575
+House,Jeff Smith,1,Republican,Dickinson,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9389,9389
+House,Megan Jones,2,Republican,Clay,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10747,10747
+House,Daniel A. Huseman,3,Republican,Cherokee,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10,10
+House,Dwayne Alons,4,Republican,Sioux,NA,85,2013-01-14,2014-11-29,/legislators/legislator?ga=85&personID=6,6
+House,Chuck Soderberg,5,Republican,Plymouth,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=779,779
+House,Ron Jorgensen,6,Republican,Woodbury,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9403,9403
+House,Tedd Gassman,7,Republican,Winnebago,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10748,10748
+House,Henry V. Rayhons,8,Republican,Hancock,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=17,17
+House,Helen Miller,9,Democrat,Webster,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=219,219
+House,Tom Shaw,10,Republican,Pocahontas,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9391,9391
+House,Gary Worthan,11,Republican,Buena Vista,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6324,6324
+House,Daniel Muhlbauer,12,Democrat,Crawford,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9402,9402
+House,Chris Hall,13,Democrat,Woodbury,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9388,9388
+House,Dave Dawson,14,Democrat,Woodbury,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10740,10740
+House,Mark Brandenburg,15,Republican,Pottawattamie,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9410,9410
+House,Mary Ann Hanusa,16,Republican,Pottawattamie,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9412,9412
+House,Matt W. Windschitl,17,Republican,Harrison,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6282,6282
+House,Jason Schultz,18,Republican,Crawford,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6588,6588
+House,Ralph C. Watts,19,Republican,Dallas,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=216,216
+House,Clel Baudler,20,Republican,Adair,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=78,78
+House,Jack Drake,21,Republican,Cass,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=81,81
+House,Greg Forristall,22,Republican,Pottawattamie,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6288,6288
+House,Mark Costello,23,Republican,Mills,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10749,10749
+House,Cecil Dolecheck,24,Republican,Ringgold,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=88,88
+House,Stan Gustafson,25,Republican,Madison,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=12712,12712
+House,Scott Ourth,26,Democrat,Warren,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10742,10742
+House,Joel Fry,27,Republican,Clarke,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9409,9409
+House,Greg Heartsill,28,Republican,Marion,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10750,10750
+House,Daniel Kelley,29,Democrat,Jasper,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9399,9399
+House,Joe Riding,30,Democrat,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10744,10744
+House,Rick Olson,31,Democrat,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=776,776
+House,Ruth Ann Gaines,32,Democrat,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9413,9413
+House,Kevin M. McCarthy,33,Democrat,Polk,NA,85,2013-01-14,2013-08-11,/legislators/legislator?ga=85&personID=300,300
+House,Brian Meyer,33,Democrat,Polk,NA,85,2013-08-12,2015-01-11,/legislators/legislator?ga=85&personID=6377,6377
+House,Bruce L. Hunter,34,Democrat,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=317,317
+House,Ako Abdul-Samad,35,Democrat,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6284,6284
+House,Marti Anderson,36,Democrat,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10736,10736
+House,John Landon,37,Republican,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10751,10751
+House,Kevin Koester,38,Republican,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6582,6582
+House,Jake Highfill,39,Republican,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10752,10752
+House,John Forbes,40,Democrat,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10739,10739
+House,Jo Oldson,41,Democrat,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=228,228
+House,Peter Cownie,42,Republican,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6583,6583
+House,Chris Hagenow,43,Republican,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6584,6584
+House,Rob Taylor,44,Republican,Dallas,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10753,10753
+House,Beth Wessel-Kroeschell,45,Democrat,Story,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=774,774
+House,Lisa Heddens,46,Democrat,Story,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=213,213
+House,Chip Baltimore,47,Republican,Boone,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9401,9401
+House,Rob Bacon,48,Republican,Story,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9384,9384
+House,Dave Deyoe,49,Republican,Story,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6289,6289
+House,Pat Grassley,50,Republican,Butler,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6277,6277
+House,Josh Byrnes,51,Republican,Mitchell,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9392,9392
+House,Todd Prichard,52,Democrat,Floyd,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=12235,12235
+House,Sharon S. Steckman,53,Democrat,Cerro Gordo,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6580,6580
+House,Linda L. Upmeyer,54,Republican,Cerro Gordo,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=180,180
+House,Roger Thomas,55,Democrat,Clayton,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=192,192
+House,Patti Ruff,56,Democrat,Clayton,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10746,10746
+House,Nancy Dunkel,57,Democrat,Dubuque,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10737,10737
+House,Brian Moore,58,Republican,Jackson,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9396,9396
+House,Bob Kressig,59,Democrat,Black Hawk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=781,781
+House,Walt Rogers,60,Republican,Black Hawk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9394,9394
+House,Anesa Kajtazovic,61,Democrat,Black Hawk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9395,9395
+House,Deborah L. Berry,62,Democrat,Black Hawk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=298,298
+House,Sandy Salmon,63,Republican,Black Hawk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10754,10754
+House,Bruce Bearinger,64,Democrat,Fayette,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10738,10738
+House,Tyler Olson,65,Democrat,Linn,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6281,6281
+House,Art Staed,66,Democrat,Linn,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10743,10743
+House,Kraig Paulsen,67,Republican,Linn,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=199,199
+House,Daniel Lundby,68,Democrat,Linn,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10741,10741
+House,Kirsten Running-Marquardt,69,Democrat,Linn,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9198,9198
+House,Todd E. Taylor,70,Democrat,Linn,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=54,54
+House,Mark D. Smith,71,Democrat,Marshall,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=64,64
+House,Dean Fisher,72,Republican,Tama,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10755,10755
+House,Bobby Kaufmann,73,Republican,Cedar,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10756,10756
+House,Dave Jacoby,74,Democrat,Johnson,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=320,320
+House,Dawn E. Pettengill,75,Republican,Benton,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=773,773
+House,Dave Maxwell,76,Republican,Poweshiek,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10757,10757
+House,Sally Stutsman,77,Democrat,Johnson,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10745,10745
+House,Jarad J. Klein,78,Republican,Washington,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9408,9408
+House,Guy Vander Linden,79,Republican,Mahaska,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9411,9411
+House,Larry Sheets,80,Republican,Appanoose,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10758,10758
+House,Mary Gaskill,81,Democrat,Wapello,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=255,255
+House,Curt Hanson,82,Democrat,Jefferson,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9018,9018
+House,Jerry A. Kearns,83,Democrat,Lee,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6579,6579
+House,David E. Heaton,84,Republican,Henry,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=97,97
+House,Vicki S. Lensing,85,Democrat,Johnson,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=45,45
+House,Mary Mascher,86,Democrat,Johnson,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=46,46
+House,Dennis M. Cohoon,87,Democrat,Des Moines,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=100,100
+House,Thomas R. Sands,88,Republican,Louisa,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=249,249
+House,Jim Lykam,89,Democrat,Scott,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=246,246
+House,Cindy Winckler,90,Democrat,Scott,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=44,44
+House,Mark S. Lofgren,91,Republican,Muscatine,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9406,9406
+House,Frank Wood,92,Democrat,Scott,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=791,791
+House,Phyllis Thede,93,Democrat,Scott,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6577,6577
+House,Linda J. Miller,94,Republican,Scott,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6286,6286
+House,Quentin Stanerson,95,Republican,Linn,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10759,10759
+House,Lee Hein,96,Republican,Jones,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9398,9398
+House,Steven N. Olson,97,Republican,Clinton,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=243,243
+House,Mary Lynn Wolfe,98,Democrat,Clinton,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9397,9397
+House,Patrick Murphy,99,Democrat,Dubuque,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=36,36
+House,Charles Isenhart,100,Democrat,Dubuque,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6575,6575
+House,Jeremy J. Taylor,1,Republican,Woodbury,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9387,9387
+House,Chris Hall,2,Democrat,Woodbury,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9388,9388
+House,Chuck Soderberg,3,Republican,Plymouth,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=779,779
+House,Dwayne Alons,4,Republican,Sioux,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6,6
+House,Royd E. Chambers,5,Republican,O’Brien,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=297,297
+House,Jeff Smith,6,Republican,Dickinson,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9389,9389
+House,John Wittneben,7,Democrat,Emmet,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9390,9390
+House,Tom Shaw,8,Republican,Pocahontas,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9391,9391
+House,"Stewart E. Iverson, Jr.",9,Republican,Wright,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=109,109
+House,Dave Deyoe,10,Republican,Story,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6289,6289
+House,Henry V. Rayhons,11,Republican,Hancock,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=17,17
+House,Linda L. Upmeyer,12,Republican,Hancock,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=180,180
+House,Sharon S. Steckman,13,Democrat,Cerro Gordo,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6580,6580
+House,Joshua Byrnes,14,Republican,Mitchell,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9392,9392
+House,Brian J. Quirk,15,Democrat,Chickasaw,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=31,31
+House,Robert A. Hager,16,Republican,Allamakee,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9393,9393
+House,Pat Grassley,17,Republican,Butler,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6277,6277
+House,Andrew J. Wenthe,18,Democrat,Fayette,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6278,6278
+House,Bob M. Kressig,19,Democrat,Black Hawk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=781,781
+House,Walt Rogers,20,Republican,Black Hawk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9394,9394
+House,Anesa Kajtazovic,21,Democrat,Black Hawk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9395,9395
+House,Deborah L. Berry,22,Democrat,Black Hawk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=298,298
+House,Dan Judd Rasmussen,23,Republican,Buchanan,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=299,299
+House,Roger Thomas,24,Democrat,Clayton,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=192,192
+House,Brian Moore,25,Republican,Jackson,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9396,9396
+House,Mary Lynn Wolfe,26,Democrat,Clinton,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9397,9397
+House,Charles Isenhart,27,Democrat,Dubuque,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6575,6575
+House,Patrick Murphy,28,Democrat,Dubuque,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=36,36
+House,Nathan Willems,29,Democrat,Linn,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6576,6576
+House,Dave Jacoby,30,Democrat,Johnson,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=320,320
+House,Lee Hein,31,Republican,Jones,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9398,9398
+House,Steven F. Lukan,32,Republican,Dubuque,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=195,195
+House,Kirsten Running-Marquardt,33,Democrat,Linn,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9198,9198
+House,Todd E. Taylor,34,Democrat,Linn,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=54,54
+House,Kraig Paulsen,35,Republican,Linn,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=199,199
+House,Nick Wagner,36,Republican,Linn,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6587,6587
+House,Renee Schulte,37,Republican,Linn,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6586,6586
+House,Tyler Olson,38,Democrat,Linn,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6281,6281
+House,Dawn E. Pettengill,39,Republican,Benton,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=773,773
+House,Lance J. Horbach,40,Republican,Tama,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=60,60
+House,Daniel Kelley,41,Democrat,Jasper,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9399,9399
+House,Kim L. Pearson,42,Republican,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9400,9400
+House,Mark D. Smith,43,Democrat,Marshall,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=64,64
+House,Annette Sweeney,44,Republican,Hardin,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6585,6585
+House,Beth Wessel-Kroeschell,45,Democrat,Story,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=774,774
+House,Lisa Heddens,46,Democrat,Story,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=213,213
+House,Ralph C. Watts,47,Republican,Dallas,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=216,216
+House,Chip Baltimore,48,Republican,Boone,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9401,9401
+House,Helen Miller,49,Democrat,Webster,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=219,219
+House,David A. Tjepkes,50,Republican,Webster,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=222,222
+House,Daniel Muhlbauer,51,Democrat,Crawford,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9402,9402
+House,Gary Worthan,52,Republican,Buena Vista,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6324,6324
+House,Daniel A. Huseman,53,Republican,Cherokee,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=10,10
+House,Ron Jorgensen,54,Republican,Woodbury,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9403,9403
+House,Jason Schultz,55,Republican,Crawford,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6588,6588
+House,Matt W. Windschitl,56,Republican,Harrison,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6282,6282
+House,Jack Drake,57,Republican,Cass,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=81,81
+House,Clel Baudler,58,Republican,Adair,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=78,78
+House,Chris Hagenow,59,Republican,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6584,6584
+House,Peter Cownie,60,Republican,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6583,6583
+House,Jo Oldson,61,Democrat,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=228,228
+House,Bruce L. Hunter,62,Democrat,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=317,317
+House,J. Scott Raecker,63,Republican,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=76,76
+House,Janet A. Petersen,64,Democrat,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=72,72
+House,Ruth Ann Gaines,65,Democrat,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9413,9413
+House,Ako Abdul-Samad,66,Democrat,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6284,6284
+House,Kevin M. McCarthy,67,Democrat,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=300,300
+House,Rick Olson,68,Democrat,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=776,776
+House,Erik Helland,69,Republican,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6589,6589
+House,Kevin Koester,70,Republican,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6582,6582
+House,James L. Van Engelenhoven,71,Republican,Marion,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=95,95
+House,Richard D. Arnold,72,Republican,Lucas,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=91,91
+House,Julian B. Garrett,73,Republican,Warren,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9404,9404
+House,Glen H. Massie,74,Republican,Warren,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9405,9405
+House,Guy Vander Linden,75,Republican,Mahaska,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9411,9411
+House,Betty R. De Boef,76,Republican,Keokuk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=96,96
+House,Mary Mascher,77,Democrat,Johnson,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=46,46
+House,Vicki S. Lensing,78,Democrat,Johnson,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=45,45
+House,Jeff Kaufmann,79,Republican,Cedar,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=775,775
+House,Mark S. Lofgren,80,Republican,Muscatine,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9406,9406
+House,Phyllis Thede,81,Democrat,Scott,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6577,6577
+House,Linda J. Miller,82,Republican,Scott,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6286,6286
+House,Steven N. Olson,83,Republican,Clinton,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=243,243
+House,Ross C. Paustian,84,Republican,Scott,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9407,9407
+House,Jim Lykam,85,Democrat,Scott,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=246,246
+House,Cindy Winckler,86,Democrat,Scott,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=44,44
+House,Thomas R. Sands,87,Republican,Louisa,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=249,249
+House,Dennis M. Cohoon,88,Democrat,Des Moines,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=100,100
+House,Jarad J. Klein,89,Republican,Washington,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9408,9408
+House,Curtis Hanson,90,Democrat,Jefferson,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9018,9018
+House,David E. Heaton,91,Republican,Henry,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=97,97
+House,Jerry A. Kearns,92,Democrat,Lee,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6579,6579
+House,Mary Gaskill,93,Democrat,Wapello,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=255,255
+House,Kurt Swaim,94,Democrat,Davis,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=256,256
+House,Joel Fry,95,Republican,Clarke,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9409,9409
+House,Cecil Dolecheck,96,Republican,Ringgold,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=88,88
+House,Richard T. Anderson,97,Republican,Page,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=772,772
+House,Greg Forristall,98,Republican,Pottawattamie,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6288,6288
+House,Mary Ann Hanusa,99,Republican,Pottawattamie,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9412,9412
+House,Mark Brandenburg,100,Republican,Pottawattamie,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9410,9410
+House,Wesley E. Whitead,1,Democrat,Woodbury,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=167,167
+House,Roger F. Wendt,2,Democrat,Woodbury,NA,83,2009-01-12,2010-02-01,/legislators/legislator?ga=83&personID=170,170
+House,Chuck Soderberg,3,Republican,Plymouth,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=779,779
+House,Dwayne Alons,4,Republican,Sioux,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6,6
+House,Royd E. Chambers,5,Republican,O’Brien,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=297,297
+House,Mike May,6,Republican,Dickinson,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=780,780
+House,Marcella R. Frevert,7,Democrat,Palo Alto,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=9,9
+House,Dolores M. Mertz,8,Democrat,Kossuth,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=16,16
+House,McKinley D. Bailey,9,Democrat,Hamilton,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6276,6276
+House,Dave Deyoe,10,Republican,Story,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6289,6289
+House,Henry V. Rayhons,11,Republican,Hancock,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=17,17
+House,Linda L. Upmeyer,12,Republican,Hancock,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=180,180
+House,Sharon S. Steckman,13,Democrat,Cerro Gordo,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6580,6580
+House,Mark A. Kuhn,14,Democrat,Floyd,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=30,30
+House,Brian J. Quirk,15,Democrat,Chickasaw,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=31,31
+House,John W. Beard,16,Democrat,Winneshiek,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6572,6572
+House,Pat Grassley,17,Republican,Butler,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6277,6277
+House,Andrew J. Wenthe,18,Democrat,Fayette,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6278,6278
+House,Bob M. Kressig,19,Democrat,Black Hawk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=781,781
+House,Doris J. Kelley,20,Democrat,Black Hawk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6279,6279
+House,Kerry Burt,21,Democrat,Black Hawk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6573,6573
+House,Deborah L. Berry,22,Democrat,Black Hawk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=298,298
+House,Gene Ficken,23,Democrat,Buchanan,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6574,6574
+House,Roger Thomas,24,Democrat,Clayton,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=192,192
+House,Tom J. Schueller,25,Democrat,Jackson,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=782,782
+House,Polly Bukta,26,Democrat,Clinton,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=38,38
+House,Charles Isenhart,27,Democrat,Dubuque,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6575,6575
+House,Patrick Murphy,28,Democrat,Dubuque,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=36,36
+House,Nathan Willems,29,Democrat,Linn,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6576,6576
+House,Dave Jacoby,30,Democrat,Johnson,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=320,320
+House,Ray S. Zirkelbach,31,Democrat,Jones,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=778,778
+House,Steven F. Lukan,32,Republican,Dubuque,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=195,195
+House,Dick D. Taylor,33,Democrat,Linn,NA,83,2009-01-12,2009-10-01,/legislators/legislator?ga=83&personID=53,53
+House,Kirsten Running-Marquardt,33,Democrat,Linn,NA,83,2009-10-02,2011-01-09,/legislators/legislator?ga=83&personID=9198,9198
+House,Todd E. Taylor,34,Democrat,Linn,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=54,54
+House,Kraig Paulsen,35,Republican,Linn,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=199,199
+House,Nick Wagner,36,Republican,Linn,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6587,6587
+House,Renee Schulte,37,Republican,Linn,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6586,6586
+House,Tyler Olson,38,Democrat,Linn,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6281,6281
+House,Dawn E. Pettengill,39,Republican,Benton,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=773,773
+House,Lance J. Horbach,40,Republican,Tama,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=60,60
+House,Paul A. Bell,41,Democrat,Jasper,NA,83,2009-01-12,2010-06-07,/legislators/legislator?ga=83&personID=57,57
+House,Geri D. Huser,42,Democrat,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=66,66
+House,Mark D. Smith,43,Democrat,Marshall,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=64,64
+House,Annette Sweeney,44,Republican,Hardin,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6585,6585
+House,Beth Wessel-Kroeschell,45,Democrat,Story,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=774,774
+House,Lisa Heddens,46,Democrat,Story,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=213,213
+House,Ralph C. Watts,47,Republican,Dallas,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=216,216
+House,Donovan Olson,48,Democrat,Boone,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=217,217
+House,Helen Miller,49,Democrat,Webster,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=219,219
+House,David A. Tjepkes,50,Republican,Webster,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=222,222
+House,Rod A. Roberts,51,Republican,Carroll,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=80,80
+House,Gary Worthan,52,Republican,Buena Vista,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6324,6324
+House,Daniel A. Huseman,53,Republican,Cherokee,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=10,10
+House,Christopher C. Rants,54,Republican,Woodbury,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=4,4
+House,Jason Schultz,55,Republican,Crawford,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6588,6588
+House,Matt W. Windschitl,56,Republican,Harrison,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6282,6282
+House,Jack Drake,57,Republican,Cass,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=81,81
+House,Clel Baudler,58,Republican,Adair,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=78,78
+House,Chris Hagenow,59,Republican,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6584,6584
+House,Peter Cownie,60,Republican,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6583,6583
+House,Jo Oldson,61,Democrat,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=228,228
+House,Bruce L. Hunter,62,Democrat,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=317,317
+House,J. Scott Raecker,63,Republican,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=76,76
+House,Janet A. Petersen,64,Democrat,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=72,72
+House,Wayne W. Ford,65,Democrat,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=71,71
+House,Ako Abdul-Samad,66,Democrat,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6284,6284
+House,Kevin M. McCarthy,67,Democrat,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=300,300
+House,Rick Olson,68,Democrat,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=776,776
+House,Erik Helland,69,Republican,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6589,6589
+House,Kevin Koester,70,Republican,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6582,6582
+House,James L. Van Engelenhoven,71,Republican,Marion,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=95,95
+House,Richard D. Arnold,72,Republican,Lucas,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=91,91
+House,Jodi S. Tymeson,73,Republican,Madison,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=77,77
+House,Kent Sorenson,74,Republican,Warren,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6581,6581
+House,Eric J. Palmer,75,Democrat,Mahaska,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6285,6285
+House,Betty R. De Boef,76,Republican,Keokuk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=96,96
+House,Mary Mascher,77,Democrat,Johnson,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=46,46
+House,Vicki S. Lensing,78,Democrat,Johnson,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=45,45
+House,Jeff Kaufmann,79,Republican,Cedar,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=775,775
+House,Nathan K. Reichert,80,Democrat,Muscatine,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=783,783
+House,Phyllis Thede,81,Democrat,Scott,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6577,6577
+House,Linda J. Miller,82,Republican,Scott,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6286,6286
+House,Steven N. Olson,83,Republican,Clinton,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=243,243
+House,Elesha L. Gayman,84,Democrat,Scott,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6287,6287
+House,Jim Lykam,85,Democrat,Scott,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=246,246
+House,Cindy Winckler,86,Democrat,Scott,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=44,44
+House,Thomas R. Sands,87,Republican,Louisa,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=249,249
+House,Dennis M. Cohoon,88,Democrat,Des Moines,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=100,100
+House,Larry K. Marek,89,Democrat,Washington,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6578,6578
+House,John R. Whitaker,90,Democrat,Van Buren,NA,83,2009-01-12,2009-07-01,/legislators/legislator?ga=83&personID=296,296
+House,Curtis Hanson,90,Democrat,Jefferson,NA,83,2009-07-02,2011-01-09,/legislators/legislator?ga=83&personID=9018,9018
+House,David E. Heaton,91,Republican,Henry,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=97,97
+House,Jerry A. Kearns,92,Democrat,Lee,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6579,6579
+House,Mary Gaskill,93,Democrat,Wapello,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=255,255
+House,Kurt Swaim,94,Democrat,Davis,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=256,256
+House,Michael J. Reasoner,95,Democrat,Union,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=258,258
+House,Cecil Dolecheck,96,Republican,Ringgold,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=88,88
+House,Richard T. Anderson,97,Republican,Page,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=772,772
+House,Greg Forristall,98,Republican,Pottawattamie,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6288,6288
+House,Doug L. Struyk,99,Republican,Pottawattamie,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=262,262
+House,Paul C. Shomshor,100,Democrat,Pottawattamie,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=319,319
+House,Wesley E. Whitead,1,Democrat,Woodbury,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=167,167
+House,Roger F. Wendt,2,Democrat,Woodbury,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=170,170
+House,Chuck Soderberg,3,Republican,Plymouth,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=779,779
+House,Dwayne Alons,4,Republican,Sioux,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6,6
+House,Royd E. Chambers,5,Republican,O’Brien,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=297,297
+House,Mike May,6,Republican,Dickinson,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=780,780
+House,Marcella R. Frevert,7,Democrat,Palo Alto,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=9,9
+House,Dolores M. Mertz,8,Democrat,Kossuth,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=16,16
+House,McKinley D. Bailey,9,Democrat,Hamilton,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6276,6276
+House,Dave Deyoe,10,Republican,Story,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6289,6289
+House,Henry V. Rayhons,11,Republican,Hancock,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=17,17
+House,Linda L. Upmeyer,12,Republican,Hancock,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=180,180
+House,William Schickel,13,Republican,Cerro Gordo,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=182,182
+House,Mark A. Kuhn,14,Democrat,Floyd,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=30,30
+House,Brian J. Quirk,15,Democrat,Chickasaw,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=31,31
+House,Chuck R. Gipp,16,Republican,Winneshiek,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=32,32
+House,Pat Grassley,17,Republican,Butler,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6277,6277
+House,Andrew J. Wenthe,18,Democrat,Fayette,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6278,6278
+House,Bob M. Kressig,19,Democrat,Black Hawk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=781,781
+House,Doris J. Kelley,20,Democrat,Black Hawk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6279,6279
+House,Tami J. Wiencek,21,Republican,Black Hawk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6280,6280
+House,Deborah L. Berry,22,Democrat,Black Hawk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=298,298
+House,Daniel Judd Rasmussen,23,Republican,Buchanan,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=299,299
+House,Roger Thomas,24,Democrat,Clayton,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=192,192
+House,Tom J. Schueller,25,Democrat,Jackson,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=782,782
+House,Polly Bukta,26,Democrat,Clinton,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=38,38
+House,Pam Jochum,27,Democrat,Dubuque,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=35,35
+House,Patrick Murphy,28,Democrat,Dubuque,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=36,36
+House,Ro H. Foege,29,Democrat,Linn,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=50,50
+House,Dave Jacoby,30,Democrat,Johnson,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=320,320
+House,Ray S. Zirkelbach,31,Democrat,Jones,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=778,778
+House,Steven F. Lukan,32,Republican,Dubuque,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=195,195
+House,Dick D. Taylor,33,Democrat,Linn,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=53,53
+House,Todd E. Taylor,34,Democrat,Linn,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=54,54
+House,Kraig Paulsen,35,Republican,Linn,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=199,199
+House,Swati A. Dandekar,36,Democrat,Linn,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=200,200
+House,Art Staed,37,Democrat,Linn,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=10743,10743
+House,Tyler Olson,38,Democrat,Linn,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6281,6281
+House,Dawn E. Pettengill,39,Republican,Benton,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=773,773
+House,Lance J. Horbach,40,Republican,Tama,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=60,60
+House,Paul A. Bell,41,Democrat,Jasper,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=57,57
+House,Geri D. Huser,42,Democrat,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=66,66
+House,Mark D. Smith,43,Democrat,Marshall,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=64,64
+House,Polly A. Granzow,44,Republican,Hardin,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=211,211
+House,Beth Wessel-Kroeschell,45,Democrat,Story,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=774,774
+House,Lisa Heddens,46,Democrat,Story,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=213,213
+House,Ralph C. Watts,47,Republican,Dallas,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=216,216
+House,Donovan Olson,48,Democrat,Boone,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=217,217
+House,Helen Miller,49,Democrat,Webster,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=219,219
+House,David A. Tjepkes,50,Republican,Webster,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=222,222
+House,Rod A. Roberts,51,Republican,Carroll,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=80,80
+House,Gary Worthan,52,Republican,Buena Vista,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6324,6324
+House,Daniel A. Huseman,53,Republican,Cherokee,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=10,10
+House,Christopher C. Rants,54,Republican,Woodbury,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=4,4
+House,Clarence C. Hoffman,55,Republican,Crawford,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=13,13
+House,Matt W. Windschitl,56,Republican,Harrison,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6282,6282
+House,Jack Drake,57,Republican,Pottawattamie,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=81,81
+House,Clel Baudler,58,Republican,Adair,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=78,78
+House,Dan Clute,59,Republican,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6283,6283
+House,Elizabeth (Libby) S. Jacobs,60,Republican,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=74,74
+House,Jo Oldson,61,Democrat,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=228,228
+House,Bruce L. Hunter,62,Democrat,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=317,317
+House,J. Scott Raecker,63,Republican,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=76,76
+House,Janet A. Petersen,64,Democrat,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=72,72
+House,Wayne W. Ford,65,Democrat,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=71,71
+House,Ako Abdul-Samad,66,Democrat,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6284,6284
+House,Kevin M. McCarthy,67,Democrat,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=300,300
+House,Rick Olson,68,Democrat,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=776,776
+House,Walt Tomenga,69,Republican,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=777,777
+House,Carmine R. Boal,70,Republican,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=65,65
+House,James L. Van Engelenhoven,71,Republican,Marion,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=95,95
+House,Richard D. Arnold,72,Republican,Lucas,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=91,91
+House,Jodi S. Tymeson,73,Republican,Madison,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=77,77
+House,Mark Davitt,74,Democrat,Warren,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=301,301
+House,Eric J. Palmer,75,Democrat,Mahaska,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6285,6285
+House,Betty R. De Boef,76,Republican,Keokuk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=96,96
+House,Mary Mascher,77,Democrat,Johnson,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=46,46
+House,Vicki S. Lensing,78,Democrat,Johnson,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=45,45
+House,Jeff Kaufmann,79,Republican,Cedar,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=775,775
+House,Nathan K. Reichert,80,Democrat,Muscatine,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=783,783
+House,James (Jamie) K. Van Fossen,81,Republican,Scott,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=42,42
+House,Linda J. Miller,82,Republican,Scott,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6286,6286
+House,Steven N. Olson,83,Republican,Clinton,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=243,243
+House,Elesha L. Gayman,84,Democrat,Scott,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6287,6287
+House,Jim Lykam,85,Democrat,Scott,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=246,246
+House,Cindy Winckler,86,Democrat,Scott,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=44,44
+House,Thomas R. Sands,87,Republican,Louisa,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=249,249
+House,Dennis M. Cohoon,88,Democrat,Des Moines,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=100,100
+House,Sandra Greiner,89,Republican,Washington,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=251,251
+House,John R. Whitaker,90,Democrat,Van Buren,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=296,296
+House,David E. Heaton,91,Republican,Henry,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=97,97
+House,Philip L. Wise,92,Democrat,Lee,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=98,98
+House,Mary Gaskill,93,Democrat,Wapello,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=255,255
+House,Kurt Swaim,94,Democrat,Davis,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=256,256
+House,Michael J. Reasoner,95,Democrat,Union,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=258,258
+House,Cecil Dolecheck,96,Republican,Ringgold,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=88,88
+House,Richard T. Anderson,97,Republican,Page,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=772,772
+House,Greg Forristall,98,Republican,Pottawattamie,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6288,6288
+House,Doug L. Struyk,99,Republican,Pottawattamie,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=262,262
+House,Paul C. Shomshor,100,Democrat,Pottawattamie,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=319,319
+House,Wesley E. Whitead,1,Democrat,Woodbury,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=167,167
+House,Roger F. Wendt,2,Democrat,Woodbury,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=170,170
+House,Chuck Soderberg,3,Republican,Plymouth,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=779,779
+House,Dwayne Alons,4,Republican,Sioux,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=6,6
+House,Royd E. Chambers,5,Republican,O’Brien,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=297,297
+House,Mike May,6,Republican,Dickinson,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=780,780
+House,Marcella R. Frevert,7,Democrat,Palo Alto,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=9,9
+House,Dolores M. Mertz,8,Democrat,Kossuth,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=16,16
+House,George S. Eichhorn,9,Republican,Hamilton,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=15,15
+House,James M. Kurtenbach,10,Republican,Story,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=178,178
+House,Henry V. Rayhons,11,Republican,Hancock,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=17,17
+House,Linda L. Upmeyer,12,Republican,Hancock,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=180,180
+House,William Schickel,13,Republican,Cerro Gordo,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=182,182
+House,Mark A. Kuhn,14,Democrat,Floyd,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=30,30
+House,Brian J. Quirk,15,Democrat,Chickasaw,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=31,31
+House,Chuck R. Gipp,16,Republican,Winneshiek,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=32,32
+House,Bill C. Dix,17,Republican,Butler,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=22,22
+House,David Lalk,18,Republican,Fayette,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=183,183
+House,Bob M. Kressig,19,Democrat,Black Hawk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=781,781
+House,Willard G. Jenkins,20,Republican,Black Hawk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=25,25
+House,Donald L. Shoultz,21,Democrat,Black Hawk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=26,26
+House,Deborah L. Berry,22,Democrat,Black Hawk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=298,298
+House,Daniel Judd Rasmussen,23,Republican,Buchanan,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=299,299
+House,Roger Thomas,24,Democrat,Clayton,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=192,192
+House,Tom J. Schueller,25,Democrat,Jackson,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=782,782
+House,Polly Bukta,26,Democrat,Clinton,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=38,38
+House,Pam Jochum,27,Democrat,Dubuque,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=35,35
+House,Patrick Murphy,28,Democrat,Dubuque,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=36,36
+House,Ro H. Foege,29,Democrat,Linn,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=50,50
+House,Dave Jacoby,30,Democrat,Johnson,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=320,320
+House,Ray S. Zirkelbach,31,Democrat,Jones,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=778,778
+House,Steven F. Lukan,32,Republican,Dubuque,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=195,195
+House,Dick D. Taylor,33,Democrat,Linn,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=53,53
+House,Todd E. Taylor,34,Democrat,Linn,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=54,54
+House,Kraig Paulsen,35,Republican,Linn,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=199,199
+House,Swati A. Dandekar,36,Democrat,Linn,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=200,200
+House,Jeff C. Elgin,37,Republican,Linn,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=51,51
+House,Robert M. Hogg,38,Democrat,Linn,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=6257,6257
+House,Dawn E. Pettengill,39,Democrat,Benton,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=773,773
+House,Lance J. Horbach,40,Republican,Tama,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=60,60
+House,Paul A. Bell,41,Democrat,Jasper,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=57,57
+House,Geri D. Huser,42,Democrat,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=66,66
+House,Mark D. Smith,43,Democrat,Marshall,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=64,64
+House,Polly A. Granzow,44,Republican,Hardin,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=211,211
+House,Beth Wessel-Kroeschell,45,Democrat,Story,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=774,774
+House,Lisa Heddens,46,Democrat,Story,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=213,213
+House,Ralph C. Watts,47,Republican,Dallas,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=216,216
+House,Donovan Olson,48,Democrat,Boone,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=217,217
+House,Helen Miller,49,Democrat,Webster,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=219,219
+House,David A. Tjepkes,50,Republican,Webster,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=222,222
+House,Rod A. Roberts,51,Republican,Carroll,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=80,80
+House,Mary Lou Freeman,52,Republican,Buena Vista,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=223,223
+House,Daniel A. Huseman,53,Republican,Cherokee,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=10,10
+House,Christopher C. Rants,54,Republican,Woodbury,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=4,4
+House,Clarence C. Hoffman,55,Republican,Crawford,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=13,13
+House,Paul A. Wilderdyke,56,Republican,Harrison,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=82,82
+House,Jack Drake,57,Republican,Pottawattamie,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=81,81
+House,Clel Baudler,58,Republican,Adair,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=78,78
+House,O. Gene Maddox,59,Republican,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=227,227
+House,Elizabeth (Libby) S. Jacobs,60,Republican,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=74,74
+House,Jo Oldson,61,Democrat,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=228,228
+House,Bruce L. Hunter,62,Democrat,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=317,317
+House,J. Scott Raecker,63,Republican,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=76,76
+House,Janet A. Petersen,64,Democrat,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=72,72
+House,Wayne W. Ford,65,Democrat,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=71,71
+House,Ed S. Fallon,66,Democrat,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=70,70
+House,Kevin M. McCarthy,67,Democrat,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=300,300
+House,Rick Olson,68,Democrat,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=776,776
+House,Walt Tomenga,69,Republican,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=777,777
+House,Carmine R. Boal,70,Republican,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=65,65
+House,James L. Van Engelenhoven,71,Republican,Marion,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=95,95
+House,Richard D. Arnold,72,Republican,Lucas,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=91,91
+House,Jodi S. Tymeson,73,Republican,Madison,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=77,77
+House,Mark Davitt,74,Democrat,Warren,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=301,301
+House,Danny C. Carroll,75,Republican,Poweshiek,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=58,58
+House,Betty R. De Boef,76,Republican,Keokuk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=96,96
+House,Mary Mascher,77,Democrat,Johnson,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=46,46
+House,Vicki S. Lensing,78,Democrat,Johnson,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=45,45
+House,Jeff Kaufmann,79,Republican,Cedar,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=775,775
+House,Nathan K. Reichert,80,Democrat,Muscatine,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=783,783
+House,James (Jamie) K. Van Fossen,81,Republican,Scott,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=42,42
+House,Joseph I. Hutter,82,Republican,Scott,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=241,241
+House,Steven N. Olson,83,Republican,Clinton,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=243,243
+House,James R. Van Fossen,84,Republican,Scott,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=295,295
+House,Jim Lykam,85,Democrat,Scott,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=246,246
+House,Cindy Winckler,86,Democrat,Scott,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=44,44
+House,Thomas R. Sands,87,Republican,Louisa,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=249,249
+House,Dennis M. Cohoon,88,Democrat,Des Moines,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=100,100
+House,Sandra Greiner,89,Republican,Washington,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=251,251
+House,John R. Whitaker,90,Democrat,Van Buren,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=296,296
+House,David E. Heaton,91,Republican,Henry,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=97,97
+House,Philip L. Wise,92,Democrat,Lee,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=98,98
+House,Mary Gaskill,93,Democrat,Wapello,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=255,255
+House,Kurt Swaim,94,Democrat,Davis,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=256,256
+House,Michael J. Reasoner,95,Democrat,Union,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=258,258
+House,Cecil Dolecheck,96,Republican,Ringgold,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=88,88
+House,Richard T. Anderson,97,Republican,Page,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=772,772
+House,Gerald D. Jones,98,Republican,Mills,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=85,85
+House,Doug L. Struyk,99,Republican,Pottawattamie,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=262,262
+House,Paul C. Shomshor,100,Democrat,Pottawattamie,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=319,319
+House,Wesley E. Whitead,1,Democrat,Woodbury,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=167,167
+House,Roger F. Wendt,2,Democrat,Woodbury,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=170,170
+House,Ralph F. Klemme,3,Republican,Plymouth,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=5,5
+House,Dwayne Alons,4,Republican,Sioux,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=6,6
+House,Royd E. Chambers,5,Republican,O’Brien,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=297,297
+House,Greg R. Stevens,6,Democrat,Dickinson,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=8,8
+House,Marcella R. Frevert,7,Democrat,Palo Alto,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=9,9
+House,Dolores M. Mertz,8,Democrat,Kossuth,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=16,16
+House,George S. Eichhorn,9,Republican,Hamilton,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=15,15
+House,James M. Kurtenbach,10,Republican,Story,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=178,178
+House,Henry V. Rayhons,11,Republican,Hancock,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=17,17
+House,Linda L. Upmeyer,12,Republican,Hancock,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=180,180
+House,William Schickel,13,Republican,Cerro Gordo,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=182,182
+House,Mark A. Kuhn,14,Democrat,Floyd,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=30,30
+House,Brian J. Quirk,15,Democrat,Chickasaw,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=31,31
+House,Chuck R. Gipp,16,Republican,Winneshiek,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=32,32
+House,Bill C. Dix,17,Republican,Butler,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=22,22
+House,David Lalk,18,Republican,Fayette,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=183,183
+House,Ervin A. Dennis,19,Republican,Black Hawk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=185,185
+House,Willard G. Jenkins,20,Republican,Black Hawk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=25,25
+House,Donald L. Shoultz,21,Democrat,Black Hawk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=26,26
+House,Deborah L. Berry,22,Democrat,Black Hawk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=298,298
+House,Daniel Judd Rasmussen,23,Republican,Buchanan,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=299,299
+House,Roger Thomas,24,Democrat,Clayton,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=192,192
+House,Robert J. Osterhaus,25,Democrat,Jackson,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=34,34
+House,Polly Bukta,26,Democrat,Clinton,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=38,38
+House,Pam Jochum,27,Democrat,Dubuque,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=35,35
+House,Patrick Murphy,28,Democrat,Dubuque,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=36,36
+House,Ro H. Foege,29,Democrat,Linn,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=50,50
+House,Richard E. Myers,30,Democrat,Johnson,NA,80,2003-01-13,2003-08-25,/legislators/legislator?ga=80&personID=49,49
+House,Dave Jacoby,30,Democrat,Johnson,NA,80,2003-08-26,2005-01-09,/legislators/legislator?ga=80&personID=320,320
+House,Gene A. Manternach,31,Republican,Jones,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=56,56
+House,Steven F. Lukan,32,Republican,Dubuque,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=195,195
+House,Dick D. Taylor,33,Democrat,Linn,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=53,53
+House,Todd E. Taylor,34,Democrat,Linn,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=54,54
+House,Kraig Paulsen,35,Republican,Linn,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=199,199
+House,Swati A. Dandekar,36,Democrat,Linn,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=200,200
+House,Jeff C. Elgin,37,Republican,Linn,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=51,51
+House,Robert M. Hogg,38,Democrat,Linn,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=6257,6257
+House,Dell Hanson,39,Republican,Benton,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=206,206
+House,Lance J. Horbach,40,Republican,Tama,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=60,60
+House,Paul A. Bell,41,Democrat,Jasper,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=57,57
+House,Geri D. Huser,42,Democrat,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=66,66
+House,Mark D. Smith,43,Democrat,Marshall,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=64,64
+House,Polly A. Granzow,44,Republican,Hardin,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=211,211
+House,Jane L. Greimann,45,Democrat,Story,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=61,61
+House,Lisa Heddens,46,Democrat,Story,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=213,213
+House,Ralph C. Watts,47,Republican,Dallas,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=216,216
+House,Donovan Olson,48,Democrat,Boone,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=217,217
+House,Helen Miller,49,Democrat,Webster,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=219,219
+House,David A. Tjepkes,50,Republican,Webster,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=222,222
+House,Rod A. Roberts,51,Republican,Carroll,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=80,80
+House,Mary Lou Freeman,52,Republican,Buena Vista,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=223,223
+House,Daniel A. Huseman,53,Republican,Cherokee,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=10,10
+House,Christopher C. Rants,54,Republican,Woodbury,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=4,4
+House,Clarence C. Hoffman,55,Republican,Crawford,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=13,13
+House,Paul A. Wilderdyke,56,Republican,Harrison,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=82,82
+House,Jack Drake,57,Republican,Pottawattamie,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=81,81
+House,Clel Baudler,58,Republican,Adair,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=78,78
+House,O. Gene Maddox,59,Republican,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=227,227
+House,Elizabeth (Libby) S. Jacobs,60,Republican,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=74,74
+House,Jo Oldson,61,Democrat,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=228,228
+House,Frank J. Chiodo,62,Democrat,Polk,NA,80,2003-01-13,2003-01-14,/legislators/legislator?ga=80&personID=67,67
+House,Bruce L. Hunter,62,Democrat,Polk,NA,80,2003-01-15,2005-01-09,/legislators/legislator?ga=80&personID=317,317
+House,J. Scott Raecker,63,Republican,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=76,76
+House,Janet A. Petersen,64,Democrat,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=72,72
+House,Wayne W. Ford,65,Democrat,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=71,71
+House,Ed S. Fallon,66,Democrat,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=70,70
+House,Kevin M. McCarthy,67,Democrat,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=300,300
+House,John H. Connors,68,Democrat,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=69,69
+House,Kent A. Kramer,69,Republican,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=232,232
+House,Carmine R. Boal,70,Republican,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=65,65
+House,James L. Van Engelenhoven,71,Republican,Marion,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=95,95
+House,Richard D. Arnold,72,Republican,Lucas,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=91,91
+House,Jodi S. Tymeson,73,Republican,Madison,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=77,77
+House,Mark Davitt,74,Democrat,Warren,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=301,301
+House,Danny C. Carroll,75,Republican,Poweshiek,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=58,58
+House,Betty R. De Boef,76,Republican,Keokuk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=96,96
+House,Mary Mascher,77,Democrat,Johnson,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=46,46
+House,Vicki S. Lensing,78,Democrat,Johnson,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=45,45
+House,Dan J. Boddicker,79,Republican,Cedar,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=39,39
+House,James F. Hahn,80,Republican,Muscatine,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=790,790
+House,James (Jamie) K. Van Fossen,81,Republican,Scott,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=42,42
+House,Joseph I. Hutter,82,Republican,Scott,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=241,241
+House,Steven N. Olson,83,Republican,Clinton,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=243,243
+House,James R. Van Fossen,84,Republican,Scott,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=295,295
+House,Jim Lykam,85,Democrat,Scott,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=246,246
+House,Cindy Winckler,86,Democrat,Scott,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=44,44
+House,Thomas R. Sands,87,Republican,Louisa,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=249,249
+House,Dennis M. Cohoon,88,Democrat,Des Moines,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=100,100
+House,Sandra Greiner,89,Republican,Washington,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=251,251
+House,John R. Whitaker,90,Democrat,Van Buren,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=296,296
+House,David E. Heaton,91,Republican,Henry,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=97,97
+House,Philip L. Wise,92,Democrat,Lee,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=98,98
+House,Mary Gaskill,93,Democrat,Wapello,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=255,255
+House,Kurt Swaim,94,Democrat,Davis,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=256,256
+House,Michael J. Reasoner,95,Democrat,Union,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=258,258
+House,Cecil Dolecheck,96,Republican,Ringgold,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=88,88
+House,Effie Lee Boggess,97,Republican,Page,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=87,87
+House,Gerald D. Jones,98,Republican,Mills,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=85,85
+House,Doug L. Struyk,99,Republican,Pottawattamie,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=262,262
+House,Brad L. Hansen,100,Republican,Pottawattamie,NA,80,2003-01-13,2003-08-04,/legislators/legislator?ga=80&personID=83,83
+House,Paul C. Shomshor,100,Democrat,Pottawattamie,NA,80,2003-08-05,2005-01-09,/legislators/legislator?ga=80&personID=319,319
+Senate,Zach Whiting,1,Republican,Dickinson,NA,89,2021-01-11,2021-10-30,/legislators/legislator?ga=89&personID=26997,26997
+Senate,David D. Rowley,1,Republican,Dickinson,david.rowley@legis.iowa.gov,89,2021-10-31,2023-01-08,/legislators/legislator?ga=89&personID=32458,32458
+Senate,Jeff Taylor,2,Republican,Sioux,jeff.taylor@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30544,30544
+Senate,Jim Carlin,3,Republican,Woodbury,jim.carlin@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18041,18041
+Senate,Dennis Guth,4,Republican,Hancock,dennis.guth@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10726,10726
+Senate,Tim Kraayenbrink,5,Republican,Webster,tim.kraayenbrink@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=14812,14812
+Senate,Craig Steven Williams,6,Republican,Carroll,craig.williams@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30545,30545
+Senate,Jackie Smith,7,Democrat,Woodbury,jackie.smith@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=26998,26998
+Senate,Dan Dawson,8,Republican,Pottawattamie,dan.dawson@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18072,18072
+Senate,Jason Schultz,9,Republican,Crawford,jason.schultz@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=6588,6588
+Senate,Jake Chapman,10,Republican,Dallas,jake.chapman@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10728,10728
+Senate,Tom Shipley,11,Republican,Adams,tom.shipley@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=14814,14814
+Senate,Mark Costello,12,Republican,Mills,mark.costello@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10749,10749
+Senate,Julian B. Garrett,13,Republican,Warren,julian.garrett@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9404,9404
+Senate,Amy Sinclair,14,Republican,Wayne,amy.sinclair@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10729,10729
+Senate,Zach Nunn,15,Republican,Polk,zach.nunn@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=14803,14803
+Senate,Nate Boulton,16,Democrat,Polk,nate.boulton@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18073,18073
+Senate,Tony Bisignano,17,Democrat,Polk,tony.bisignano@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=906,906
+Senate,Janet Petersen,18,Democrat,Polk,janet.petersen@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=72,72
+Senate,Jack Whitver,19,Republican,Polk,jack.whitver@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9768,9768
+Senate,Brad Zaun,20,Republican,Polk,brad.zaun@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=788,788
+Senate,Claire Celsi,21,Democrat,Polk,claire.celsi@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27000,27000
+Senate,Sarah Trone Garriott,22,Democrat,Dallas,sarah.trone.garriott@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30551,30551
+Senate,Herman C. Quirmbach,23,Democrat,Story,herman.quirmbach@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=161,161
+Senate,Jesse Green,24,Republican,Boone,jesse.green@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30546,30546
+Senate,Annette Sweeney,25,Republican,Hardin,annette.sweeney@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=6585,6585
+Senate,Waylon Brown,26,Republican,Mitchell,waylon.brown@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18074,18074
+Senate,Amanda Ragan,27,Democrat,Cerro Gordo,amanda.ragan@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=110,110
+Senate,Mike Klimesh,28,Republican,Winneshiek,mike.klimesh@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30547,30547
+Senate,Carrie Koelker,29,Republican,Dubuque,carrie.koelker@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27001,27001
+Senate,Eric Giddens,30,Democrat,Black Hawk,eric.giddens@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=28254,28254
+Senate,William A. Dotzler Jr.,31,Democrat,Black Hawk,bill.dotzler@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=157,157
+Senate,Craig Johnson,32,Republican,Buchanan,craig.johnson@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18075,18075
+Senate,Robert Hogg,33,Democrat,Linn,rob.hogg@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=6257,6257
+Senate,Liz Mathis,34,Democrat,Linn,liz.mathis@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10318,10318
+Senate,Todd E. Taylor,35,Democrat,Linn,todd.taylor@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=54,54
+Senate,Jeff Edler,36,Republican,Marshall,jeff.edler@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=18076,18076
+Senate,Zach Wahls,37,Democrat,Johnson,zach.wahls@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27002,27002
+Senate,Dawn Driscoll,38,Republican,Iowa,dawn.driscoll@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30548,30548
+Senate,Kevin Kinney,39,Democrat,Johnson,kevin.kinney@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=14817,14817
+Senate,Ken Rozenboom,40,Republican,Mahaska,ken.rozenboom@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10731,10731
+Senate,Adrian Dickey,41,Republican,Jefferson,adrian.dickey@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=31094,31094
+Senate,Jeff Reichman,42,Republican,Lee,jeff.reichman@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30549,30549
+Senate,Joe Bolkcom,43,Democrat,Johnson,joe.bolkcom@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=123,123
+Senate,Tim Goodwin,44,Republican,Des Moines,tim.goodwin@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=30550,30550
+Senate,Jim Lykam,45,Democrat,Scott,jim.lykam@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=246,246
+Senate,Mark S. Lofgren,46,Republican,Muscatine,mark.lofgren@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9406,9406
+Senate,Roby Smith,47,Republican,Scott,roby.smith@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=9386,9386
+Senate,Dan Zumbach,48,Republican,Delaware,dan.zumbach@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=10733,10733
+Senate,Chris Cournoyer,49,Republican,Scott,chris.cournoyer@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=27004,27004
+Senate,Pam Jochum,50,Democrat,Dubuque,pam.jochum@legis.iowa.gov,89,2021-01-11,2023-01-08,/legislators/legislator?ga=89&personID=35,35
+Senate,Zach Whiting,1,Republican,Dickinson,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=26997,26997
+Senate,Randy Feenstra,2,Republican,Sioux,NA,88,2019-01-14,2021-01-02,/legislators/legislator?ga=88&personID=6565,6565
+Senate,Jim Carlin,3,Republican,Woodbury,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18041,18041
+Senate,Dennis Guth,4,Republican,Hancock,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10726,10726
+Senate,Tim Kraayenbrink,5,Republican,Webster,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=14812,14812
+Senate,Mark Segebart,6,Republican,Crawford,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10727,10727
+Senate,Jackie Smith,7,Democrat,Woodbury,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=26998,26998
+Senate,Dan Dawson,8,Republican,Pottawattamie,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18072,18072
+Senate,Jason Schultz,9,Republican,Crawford,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6588,6588
+Senate,Jake Chapman,10,Republican,Dallas,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10728,10728
+Senate,Tom Shipley,11,Republican,Adams,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=14814,14814
+Senate,Mark Costello,12,Republican,Mills,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10749,10749
+Senate,Julian B. Garrett,13,Republican,Warren,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9404,9404
+Senate,Amy Sinclair,14,Republican,Wayne,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10729,10729
+Senate,Zach Nunn,15,Republican,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=14803,14803
+Senate,Nate Boulton,16,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18073,18073
+Senate,Tony Bisignano,17,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=906,906
+Senate,Janet Petersen,18,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=72,72
+Senate,Jack Whitver,19,Republican,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9768,9768
+Senate,Brad Zaun,20,Republican,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=788,788
+Senate,Claire Celsi,21,Democrat,Polk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27000,27000
+Senate,Charles Schneider,22,Republican,Dallas,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10829,10829
+Senate,Herman C. Quirmbach,23,Democrat,Story,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=161,161
+Senate,Jerry Behn,24,Republican,Boone,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=140,140
+Senate,Annette Sweeney,25,Republican,Hardin,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6585,6585
+Senate,Waylon Brown,26,Republican,Mitchell,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18074,18074
+Senate,Amanda Ragan,27,Democrat,Cerro Gordo,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=110,110
+Senate,Michael Breitbach,28,Republican,Clayton,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10730,10730
+Senate,Carrie Koelker,29,Republican,Dubuque,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27001,27001
+Senate,Jeff Danielson,30,Democrat,Black Hawk,NA,88,2019-01-14,2019-02-14,/legislators/legislator?ga=88&personID=785,785
+Senate,Eric Giddens,30,Democrat,Black Hawk,NA,88,2019-02-15,2021-01-10,/legislators/legislator?ga=88&personID=28254,28254
+Senate,William A. Dotzler Jr.,31,Democrat,Black Hawk,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=157,157
+Senate,Craig Johnson,32,Republican,Buchanan,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18075,18075
+Senate,Robert Hogg,33,Democrat,Linn,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6257,6257
+Senate,Liz Mathis,34,Democrat,Linn,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10318,10318
+Senate,Todd E. Taylor,35,Democrat,Linn,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=54,54
+Senate,Jeff Edler,36,Republican,Marshall,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18076,18076
+Senate,Zach Wahls,37,Democrat,Johnson,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27002,27002
+Senate,Tim L. Kapucian,38,Republican,Benton,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=6567,6567
+Senate,Kevin Kinney,39,Democrat,Johnson,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=14817,14817
+Senate,Ken Rozenboom,40,Republican,Mahaska,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10731,10731
+Senate,Mariannette Miller-Meeks,41,Republican,Wapello,NA,88,2019-01-14,2021-01-02,/legislators/legislator?ga=88&personID=27003,27003
+Senate,Rich Taylor,42,Democrat,Henry,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10735,10735
+Senate,Joe Bolkcom,43,Democrat,Johnson,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=123,123
+Senate,Thomas A. Greene,44,Republican,Des Moines,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=18077,18077
+Senate,Jim Lykam,45,Democrat,Scott,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=246,246
+Senate,Mark S. Lofgren,46,Republican,Muscatine,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9406,9406
+Senate,Roby Smith,47,Republican,Scott,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=9386,9386
+Senate,Dan Zumbach,48,Republican,Delaware,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=10733,10733
+Senate,Chris Cournoyer,49,Republican,Scott,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=27004,27004
+Senate,Pam Jochum,50,Democrat,Dubuque,NA,88,2019-01-14,2021-01-10,/legislators/legislator?ga=88&personID=35,35
+Senate,David Johnson,1,No Party Specified,Osceola,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=155,155
+Senate,Randy Feenstra,2,Republican,Sioux,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6565,6565
+Senate,Bill Anderson,3,Republican,Woodbury,NA,87,2017-01-09,2017-11-01,/legislators/legislator?ga=87&personID=9385,9385
+Senate,Jim Carlin,3,Republican,Woodbury,NA,87,2017-11-02,2019-01-13,/legislators/legislator?ga=87&personID=18041,18041
+Senate,Dennis Guth,4,Republican,Hancock,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10726,10726
+Senate,Tim Kraayenbrink,5,Republican,Webster,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=14812,14812
+Senate,Mark Segebart,6,Republican,Crawford,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10727,10727
+Senate,Rick Bertrand,7,Republican,Woodbury,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9383,9383
+Senate,Dan Dawson,8,Republican,Pottawattamie,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18072,18072
+Senate,Jason Schultz,9,Republican,Crawford,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6588,6588
+Senate,Jake Chapman,10,Republican,Dallas,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10728,10728
+Senate,Tom Shipley,11,Republican,Adams,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=14814,14814
+Senate,Mark Costello,12,Republican,Mills,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10749,10749
+Senate,Julian B. Garrett,13,Republican,Warren,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9404,9404
+Senate,Amy Sinclair,14,Republican,Wayne,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10729,10729
+Senate,Chaz Allen,15,Democrat,Jasper,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=14815,14815
+Senate,Nate Boulton,16,Democrat,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18073,18073
+Senate,Tony Bisignano,17,Democrat,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=906,906
+Senate,Janet Petersen,18,Democrat,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=72,72
+Senate,Jack Whitver,19,Republican,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9768,9768
+Senate,Brad Zaun,20,Republican,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=788,788
+Senate,Matt McCoy,21,Democrat,Polk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=134,134
+Senate,Charles Schneider,22,Republican,Dallas,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10829,10829
+Senate,Herman C. Quirmbach,23,Democrat,Story,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=161,161
+Senate,Jerry Behn,24,Republican,Boone,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=140,140
+Senate,Bill Dix,25,Republican,Butler,NA,87,2017-01-09,2018-03-12,/legislators/legislator?ga=87&personID=22,22
+Senate,Annette Sweeney,25,Republican,Hardin,NA,87,2018-03-13,2019-01-13,/legislators/legislator?ga=87&personID=6585,6585
+Senate,Waylon Brown,26,Republican,Mitchell,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18074,18074
+Senate,Amanda Ragan,27,Democrat,Cerro Gordo,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=110,110
+Senate,Michael Breitbach,28,Republican,Clayton,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10730,10730
+Senate,Tod R. Bowman,29,Democrat,Jackson,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9665,9665
+Senate,Jeff Danielson,30,Democrat,Black Hawk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=785,785
+Senate,William A. Dotzler Jr.,31,Democrat,Black Hawk,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=157,157
+Senate,Craig Johnson,32,Republican,Buchanan,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18075,18075
+Senate,Robert Hogg,33,Democrat,Linn,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6257,6257
+Senate,Liz Mathis,34,Democrat,Linn,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10318,10318
+Senate,Wally E. Horn,35,Democrat,Linn,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=127,127
+Senate,Jeff Edler,36,Republican,Marshall,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18076,18076
+Senate,Robert E. Dvorsky,37,Democrat,Johnson,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=125,125
+Senate,Tim L. Kapucian,38,Republican,Benton,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=6567,6567
+Senate,Kevin Kinney,39,Democrat,Johnson,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=14817,14817
+Senate,Ken Rozenboom,40,Republican,Mahaska,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10731,10731
+Senate,Mark Chelgren,41,Republican,Wapello,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9664,9664
+Senate,Rich Taylor,42,Democrat,Henry,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10735,10735
+Senate,Joe Bolkcom,43,Democrat,Johnson,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=123,123
+Senate,Thomas A. Greene,44,Republican,Des Moines,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=18077,18077
+Senate,Jim Lykam,45,Democrat,Scott,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=246,246
+Senate,Mark S. Lofgren,46,Republican,Muscatine,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9406,9406
+Senate,Roby Smith,47,Republican,Scott,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=9386,9386
+Senate,Dan Zumbach,48,Republican,Delaware,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10733,10733
+Senate,Rita Hart,49,Democrat,Clinton,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=10734,10734
+Senate,Pam Jochum,50,Democrat,Dubuque,NA,87,2017-01-09,2019-01-13,/legislators/legislator?ga=87&personID=35,35
+Senate,David Johnson,1,No Party Specified,Osceola,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=155,155
+Senate,Randy Feenstra,2,Republican,Sioux,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6565,6565
+Senate,Bill Anderson,3,Republican,Woodbury,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9385,9385
+Senate,Dennis Guth,4,Republican,Hancock,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10726,10726
+Senate,Tim Kraayenbrink,5,Republican,Webster,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14812,14812
+Senate,Mark Segebart,6,Republican,Crawford,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10727,10727
+Senate,Rick Bertrand,7,Republican,Woodbury,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9383,9383
+Senate,Michael E. Gronstal,8,Democrat,Pottawattamie,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=142,142
+Senate,Jason Schultz,9,Republican,Crawford,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6588,6588
+Senate,Jake Chapman,10,Republican,Dallas,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10728,10728
+Senate,Tom Shipley,11,Republican,Adams,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14814,14814
+Senate,Mark Costello,12,Republican,Mills,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10749,10749
+Senate,Julian B. Garrett,13,Republican,Warren,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9404,9404
+Senate,Amy Sinclair,14,Republican,Wayne,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10729,10729
+Senate,Chaz Allen,15,Democrat,Jasper,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14815,14815
+Senate,Dick L. Dearden,16,Democrat,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=135,135
+Senate,Tony Bisignano,17,Democrat,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=906,906
+Senate,Janet Petersen,18,Democrat,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=72,72
+Senate,Jack Whitver,19,Republican,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9768,9768
+Senate,Brad Zaun,20,Republican,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=788,788
+Senate,Matt McCoy,21,Democrat,Polk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=134,134
+Senate,Charles Schneider,22,Republican,Dallas,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10829,10829
+Senate,Herman C. Quirmbach,23,Democrat,Story,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=161,161
+Senate,Jerry Behn,24,Republican,Boone,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=140,140
+Senate,Bill Dix,25,Republican,Butler,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=22,22
+Senate,Mary Jo Wilhelm,26,Democrat,Howard,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6570,6570
+Senate,Amanda Ragan,27,Democrat,Cerro Gordo,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=110,110
+Senate,Michael Breitbach,28,Republican,Clayton,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10730,10730
+Senate,Tod R. Bowman,29,Democrat,Jackson,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9665,9665
+Senate,Jeff Danielson,30,Democrat,Black Hawk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=785,785
+Senate,William A. Dotzler Jr.,31,Democrat,Black Hawk,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=157,157
+Senate,Brian Schoenjahn,32,Democrat,Fayette,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=786,786
+Senate,Robert Hogg,33,Democrat,Linn,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6257,6257
+Senate,Liz Mathis,34,Democrat,Linn,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10318,10318
+Senate,Wally E. Horn,35,Democrat,Linn,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=127,127
+Senate,Steven J. Sodders,36,Democrat,Marshall,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6568,6568
+Senate,Robert E. Dvorsky,37,Democrat,Johnson,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=125,125
+Senate,Tim L. Kapucian,38,Republican,Benton,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=6567,6567
+Senate,Kevin Kinney,39,Democrat,Johnson,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=14817,14817
+Senate,Ken Rozenboom,40,Republican,Mahaska,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10731,10731
+Senate,Mark Chelgren,41,Republican,Wapello,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9664,9664
+Senate,Rich Taylor,42,Democrat,Henry,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10735,10735
+Senate,Joe Bolkcom,43,Democrat,Johnson,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=123,123
+Senate,Thomas G. Courtney,44,Democrat,Des Moines,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=282,282
+Senate,Dr. Joe M. Seng,45,Democrat,Scott,NA,86,2015-01-12,2016-09-16,/legislators/legislator?ga=86&personID=164,164
+Senate,Chris Brase,46,Democrat,Muscatine,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10732,10732
+Senate,Roby Smith,47,Republican,Scott,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=9386,9386
+Senate,Dan Zumbach,48,Republican,Delaware,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10733,10733
+Senate,Rita Hart,49,Democrat,Clinton,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=10734,10734
+Senate,Pam Jochum,50,Democrat,Dubuque,NA,86,2015-01-12,2017-01-08,/legislators/legislator?ga=86&personID=35,35
+Senate,David Johnson,1,Republican,Osceola,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=155,155
+Senate,Randy Feenstra,2,Republican,Sioux,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6565,6565
+Senate,Bill Anderson,3,Republican,Woodbury,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9385,9385
+Senate,Dennis Guth,4,Republican,Hancock,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10726,10726
+Senate,Daryl Beall,5,Democrat,Webster,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=273,273
+Senate,Mark Segebart,6,Republican,Crawford,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10727,10727
+Senate,Rick Bertrand,7,Republican,Woodbury,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9383,9383
+Senate,Michael E. Gronstal,8,Democrat,Pottawattamie,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=142,142
+Senate,Nancy J. Boettger,9,Republican,Shelby,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=141,141
+Senate,Jake Chapman,10,Republican,Dallas,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10728,10728
+Senate,Hubert Houser,11,Republican,Pottawattamie,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=143,143
+Senate,Joni K. Ernst,12,Republican,Montgomery,NA,85,2013-01-14,2014-11-28,/legislators/legislator?ga=85&personID=9761,9761
+Senate,Kent Sorenson,13,Republican,Warren,NA,85,2013-01-14,2013-10-02,/legislators/legislator?ga=85&personID=6581,6581
+Senate,Julian B. Garrett,13,Republican,Warren,NA,85,2013-10-03,2015-01-11,/legislators/legislator?ga=85&personID=9404,9404
+Senate,Amy Sinclair,14,Republican,Wayne,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10729,10729
+Senate,Dennis H. Black,15,Democrat,Jasper,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=129,129
+Senate,Dick L. Dearden,16,Democrat,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=135,135
+Senate,Jack Hatch,17,Democrat,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=162,162
+Senate,Janet Petersen,18,Democrat,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=72,72
+Senate,Jack Whitver,19,Republican,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9768,9768
+Senate,Brad Zaun,20,Republican,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=788,788
+Senate,Matt McCoy,21,Democrat,Polk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=134,134
+Senate,Charles Schneider,22,Republican,Dallas,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10829,10829
+Senate,Herman C. Quirmbach,23,Democrat,Story,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=161,161
+Senate,Jerry Behn,24,Republican,Boone,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=140,140
+Senate,Bill Dix,25,Republican,Butler,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=22,22
+Senate,Mary Jo Wilhelm,26,Democrat,Howard,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6570,6570
+Senate,Amanda Ragan,27,Democrat,Cerro Gordo,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=110,110
+Senate,Michael Breitbach,28,Republican,Clayton,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10730,10730
+Senate,Tod Bowman,29,Democrat,Jackson,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9665,9665
+Senate,Jeff Danielson,30,Democrat,Black Hawk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=785,785
+Senate,William A. Dotzler Jr.,31,Democrat,Black Hawk,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=157,157
+Senate,Brian Schoenjahn,32,Democrat,Fayette,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=786,786
+Senate,Robert Hogg,33,Democrat,Linn,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6257,6257
+Senate,Liz Mathis,34,Democrat,Linn,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10318,10318
+Senate,Wally E. Horn,35,Democrat,Linn,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=127,127
+Senate,Steven J. Sodders,36,Democrat,Marshall,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6568,6568
+Senate,Robert E. Dvorsky,37,Democrat,Johnson,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=125,125
+Senate,Tim L. Kapucian,38,Republican,Benton,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=6567,6567
+Senate,Sandra H. Greiner,39,Republican,Washington,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=251,251
+Senate,Ken Rozenboom,40,Republican,Mahaska,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10731,10731
+Senate,Mark Chelgren,41,Republican,Wapello,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9664,9664
+Senate,Rich Taylor,42,Democrat,Henry,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10735,10735
+Senate,Joe Bolkcom,43,Democrat,Johnson,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=123,123
+Senate,Thomas G. Courtney,44,Democrat,Des Moines,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=282,282
+Senate,Joe M. Seng,45,Democrat,Scott,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=164,164
+Senate,Chris Brase,46,Democrat,Muscatine,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10732,10732
+Senate,Roby Smith,47,Republican,Scott,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=9386,9386
+Senate,Dan Zumbach,48,Republican,Delaware,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10733,10733
+Senate,Rita Hart,49,Democrat,Clinton,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=10734,10734
+Senate,Pam Jochum,50,Democrat,Dubuque,NA,85,2013-01-14,2015-01-11,/legislators/legislator?ga=85&personID=35,35
+Senate,Rick Bertrand,1,Republican,Woodbury,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9383,9383
+Senate,Randy Feenstra,2,Republican,Sioux,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6565,6565
+Senate,David Johnson,3,Republican,Osceola,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=155,155
+Senate,John P. (Jack) Kibbie,4,Democrat,Palo Alto,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=104,104
+Senate,Robert Bacon,5,Republican,Story,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9384,9384
+Senate,Merlin Bartz,6,Republican,Worth,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6566,6566
+Senate,Amanda Ragan,7,Democrat,Cerro Gordo,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=110,110
+Senate,Mary Jo Wilhelm,8,Democrat,Howard,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6570,6570
+Senate,Bill Dix,9,Republican,Butler,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=22,22
+Senate,Jeff Danielson,10,Democrat,Black Hawk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=785,785
+Senate,William A. Dotzler Jr.,11,Democrat,Black Hawk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=157,157
+Senate,Brian Schoenjahn,12,Democrat,Fayette,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=786,786
+Senate,Tod Bowman,13,Democrat,Jackson,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9665,9665
+Senate,Pam Jochum,14,Democrat,Dubuque,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=35,35
+Senate,Robert E. Dvorsky,15,Democrat,Johnson,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=125,125
+Senate,Tom Hancock,16,Democrat,Dubuque,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=787,787
+Senate,Wally E. Horn,17,Democrat,Linn,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=127,127
+Senate,Swati A. Dandekar,18,Democrat,Linn,NA,84,2011-01-10,2011-09-16,/legislators/legislator?ga=84&personID=200,200
+Senate,Liz Mathis,18,Democrat,Linn,NA,84,2011-09-17,2013-01-13,/legislators/legislator?ga=84&personID=10318,10318
+Senate,Robert M. Hogg,19,Democrat,Linn,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6257,6257
+Senate,Tim L. Kapucian,20,Republican,Benton,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6567,6567
+Senate,Dennis Black,21,Democrat,Jasper,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=129,129
+Senate,Steven J. Sodders,22,Democrat,Marshall,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6568,6568
+Senate,Herman Quirmbach,23,Democrat,Story,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=161,161
+Senate,Jerry Behn,24,Republican,Boone,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=140,140
+Senate,Daryl Beall,25,Democrat,Webster,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=273,273
+Senate,Steve Kettering,26,Republican,Sac,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=315,315
+Senate,Bill Anderson,27,Republican,Woodbury,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9385,9385
+Senate,James A. Seymour,28,Republican,Harrison,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=278,278
+Senate,Nancy J. Boettger,29,Republican,Shelby,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=141,141
+Senate,Matt W. McCoy,31,Democrat,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=134,134
+Senate,Brad Zaun,32,Republican,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=788,788
+Senate,Jack Hatch,33,Democrat,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=162,162
+Senate,Dick L. Dearden,34,Democrat,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=135,135
+Senate,Jack Whitver,35,Republican,Polk,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9768,9768
+Senate,Paul McKinley,36,Republican,Lucas,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=146,146
+Senate,Kent Sorenson,37,Republican,Warren,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6581,6581
+Senate,Tom Rielly,38,Democrat,Mahaska,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=789,789
+Senate,Joe Bolkcom,39,Democrat,Johnson,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=123,123
+Senate,James F. Hahn,40,Republican,Muscatine,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=790,790
+Senate,Roby Smith,41,Republican,Scott,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9386,9386
+Senate,Shawn Hamerlinck,42,Republican,Scott,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=6571,6571
+Senate,Joseph Seng,43,Democrat,Scott,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=164,164
+Senate,Thomas G. Courtney,44,Democrat,Des Moines,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=282,282
+Senate,Sandra Greiner,45,Republican,Washington,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=251,251
+Senate,Gene Fraise,46,Democrat,Lee,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=150,150
+Senate,Mark Chelgren,47,Republican,Wapello,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9664,9664
+Senate,Joni Ernst,48,Republican,Montgomery,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=9761,9761
+Senate,Hubert Houser,49,Republican,Pottawattamie,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=143,143
+Senate,Michael E. Gronstal,50,Democrat,Pottawattamie,NA,84,2011-01-10,2013-01-13,/legislators/legislator?ga=84&personID=142,142
+Senate,Steven H. Warnstadt,1,Democrat,Woodbury,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=154,154
+Senate,Randy Feenstra,2,Republican,Sioux,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6565,6565
+Senate,David Johnson,3,Republican,Osceola,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=155,155
+Senate,John P. (Jack) Kibbie,4,Democrat,Palo Alto,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=104,104
+Senate,Rich Olive,5,Democrat,Story,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6255,6255
+Senate,Merlin E. Bartz,6,Republican,Worth,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6566,6566
+Senate,Amanda Ragan,7,Democrat,Cerro Gordo,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=110,110
+Senate,Mary Jo Wilhelm,8,Democrat,Howard,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6570,6570
+Senate,William M. Heckroth,9,Democrat,Bremer,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6256,6256
+Senate,Jeff Danielson,10,Democrat,Black Hawk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=785,785
+Senate,William A. Dotzler Jr.,11,Democrat,Black Hawk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=157,157
+Senate,Brian Schoenjahn,12,Democrat,Fayette,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=786,786
+Senate,Roger Stewart,13,Democrat,Jackson,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=267,267
+Senate,Pam Jochum,14,Democrat,Dubuque,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=35,35
+Senate,Robert E. Dvorsky,15,Democrat,Johnson,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=125,125
+Senate,Tom Hancock,16,Democrat,Dubuque,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=787,787
+Senate,Wally E. Horn,17,Democrat,Linn,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=127,127
+Senate,Swati A. Dandekar,18,Democrat,Linn,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=200,200
+Senate,Robert M. Hogg,19,Democrat,Linn,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6257,6257
+Senate,Tim L. Kapucian,20,Republican,Benton,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6567,6567
+Senate,Dennis Black,21,Democrat,Jasper,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=129,129
+Senate,Steven J. Sodders,22,Democrat,Marshall,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6568,6568
+Senate,Herman Quirmbach,23,Democrat,Story,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=161,161
+Senate,Jerry Behn,24,Republican,Boone,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=140,140
+Senate,Daryl Beall,25,Democrat,Webster,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=273,273
+Senate,Steve Kettering,26,Republican,Sac,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=315,315
+Senate,Ron Wieck,27,Republican,Woodbury,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=276,276
+Senate,James A. Seymour,28,Republican,Harrison,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=278,278
+Senate,Nancy J. Boettger,29,Republican,Shelby,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=141,141
+Senate,Pat Ward,30,Republican,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=680,680
+Senate,Matthew W. McCoy,31,Democrat,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=134,134
+Senate,Brad Zaun,32,Republican,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=788,788
+Senate,Jack G. Hatch,33,Democrat,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=162,162
+Senate,Dick L. Dearden,34,Democrat,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=135,135
+Senate,Larry L. Noble,35,Republican,Polk,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6258,6258
+Senate,Paul McKinley,36,Republican,Lucas,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=146,146
+Senate,Staci Appel,37,Democrat,Warren,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6259,6259
+Senate,Tom Rielly,38,Democrat,Mahaska,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=789,789
+Senate,Joe Bolkcom,39,Democrat,Johnson,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=123,123
+Senate,James F. Hahn,40,Republican,Muscatine,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=790,790
+Senate,David Hartsuch,41,Republican,Scott,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6260,6260
+Senate,Shawn Hamerlinck,42,Republican,Scott,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6571,6571
+Senate,Joseph Seng,43,Democrat,Scott,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=164,164
+Senate,Thomas G. Courtney,44,Democrat,Des Moines,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=282,282
+Senate,Becky Schmitz,45,Democrat,Jefferson,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6254,6254
+Senate,Gene Fraise,46,Democrat,Lee,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=150,150
+Senate,Keith A. Kreiman,47,Democrat,Davis,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=165,165
+Senate,Kim Reynolds,48,Republican,Clarke,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=6569,6569
+Senate,Hubert Houser,49,Republican,Pottawattamie,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=143,143
+Senate,Michael E. Gronstal,50,Democrat,Pottawattamie,NA,83,2009-01-12,2011-01-09,/legislators/legislator?ga=83&personID=142,142
+Senate,Steven H. Warnstadt,1,Democrat,Woodbury,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=154,154
+Senate,Dave Mulder,2,Republican,Sioux,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=784,784
+Senate,David Johnson,3,Republican,Osceola,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=155,155
+Senate,"John P. ""Jack"" Kibbie",4,Democrat,Palo Alto,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=104,104
+Senate,Rich Olive,5,Democrat,Story,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6255,6255
+Senate,E. Thurman Gaskill,6,Republican,Hancock,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=108,108
+Senate,Amanda Ragan,7,Democrat,Cerro Gordo,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=110,110
+Senate,Mark Zieman,8,Republican,Allamakee,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=116,116
+Senate,William M. Heckroth,9,Democrat,Bremer,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6256,6256
+Senate,Jeff Danielson,10,Democrat,Black Hawk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=785,785
+Senate,William A. Dotzler Jr.,11,Democrat,Black Hawk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=157,157
+Senate,Brian Schoenjahn,12,Democrat,Fayette,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=786,786
+Senate,Roger Stewart,13,Democrat,Jackson,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=267,267
+Senate,Michael W. Connolly,14,Democrat,Dubuque,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=118,118
+Senate,Robert E. Dvorsky,15,Democrat,Johnson,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=125,125
+Senate,Tom Hancock,16,Democrat,Dubuque,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=787,787
+Senate,Wally E. Horn,17,Democrat,Linn,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=127,127
+Senate,Mary A. Lundby,18,Republican,Linn,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=126,126
+Senate,Robert M. Hogg,19,Democrat,Linn,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6257,6257
+Senate,John Putney,20,Republican,Tama,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=271,271
+Senate,Dennis Black,21,Democrat,Jasper,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=129,129
+Senate,Larry E. McKibben,22,Republican,Marshall,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=132,132
+Senate,Herman Quirmbach,23,Democrat,Story,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=161,161
+Senate,Jerry Behn,24,Republican,Boone,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=140,140
+Senate,Daryl Beall,25,Democrat,Webster,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=273,273
+Senate,Steve Kettering,26,Republican,Sac,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=315,315
+Senate,Ron Wieck,27,Republican,Woodbury,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=276,276
+Senate,James A. Seymour,28,Republican,Harrison,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=278,278
+Senate,Nancy J. Boettger,29,Republican,Shelby,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=141,141
+Senate,Pat Ward,30,Republican,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=680,680
+Senate,Matthew W. McCoy,31,Democrat,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=134,134
+Senate,Brad Zaun,32,Republican,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=788,788
+Senate,Jack G. Hatch,33,Democrat,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=162,162
+Senate,Dick L. Dearden,34,Democrat,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=135,135
+Senate,Larry L. Noble,35,Republican,Polk,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6258,6258
+Senate,Paul McKinley,36,Republican,Lucas,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=146,146
+Senate,Staci Appel,37,Democrat,Warren,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6259,6259
+Senate,Tom Rielly,38,Democrat,Mahaska,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=789,789
+Senate,Joe Bolkcom,39,Democrat,Johnson,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=123,123
+Senate,James F. Hahn,40,Republican,Muscatine,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=790,790
+Senate,David Hartsuch,41,Republican,Scott,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6260,6260
+Senate,Frank Wood,42,Democrat,Scott,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=791,791
+Senate,Joseph Seng,43,Democrat,Scott,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=164,164
+Senate,Thomas G. Courtney,44,Democrat,Des Moines,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=282,282
+Senate,Becky Schmitz,45,Democrat,Jefferson,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=6254,6254
+Senate,Gene Fraise,46,Democrat,Lee,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=150,150
+Senate,Keith A. Kreiman,47,Democrat,Davis,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=165,165
+Senate,Jeff Angelo,48,Republican,Union,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=144,144
+Senate,Hubert Houser,49,Republican,Pottawattamie,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=143,143
+Senate,Michael E. Gronstal,50,Democrat,Pottawattamie,NA,82,2007-01-08,2009-01-11,/legislators/legislator?ga=82&personID=142,142
+Senate,Steven H. Warnstadt,1,Democrat,Woodbury,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=154,154
+Senate,Dave Mulder,2,Republican,Sioux,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=784,784
+Senate,David Johnson,3,Republican,Osceola,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=155,155
+Senate,"John P. ""Jack"" Kibbie",4,Democrat,Palo Alto,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=104,104
+Senate,Stewart E. Iverson Jr.,5,Republican,Wright,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=109,109
+Senate,E. Thurman Gaskill,6,Republican,Hancock,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=108,108
+Senate,Amanda Ragan,7,Democrat,Cerro Gordo,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=110,110
+Senate,Mark Zieman,8,Republican,Allamakee,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=116,116
+Senate,Robert J. Brunkhorst,9,Republican,Bremer,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=156,156
+Senate,Jeff Danielson,10,Democrat,Black Hawk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=785,785
+Senate,William A. Dotzler Jr.,11,Democrat,Black Hawk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=157,157
+Senate,Brian Schoenjahn,12,Democrat,Fayette,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=786,786
+Senate,Roger Stewart,13,Democrat,Jackson,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=267,267
+Senate,Michael W. Connolly,14,Democrat,Dubuque,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=118,118
+Senate,Robert E. Dvorsky,15,Democrat,Johnson,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=125,125
+Senate,Tom Hancock,16,Democrat,Dubuque,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=787,787
+Senate,Wally E. Horn,17,Democrat,Linn,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=127,127
+Senate,Mary A. Lundby,18,Republican,Linn,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=126,126
+Senate,Charles W. Larson,19,Republican,Linn,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=158,158
+Senate,John Putney,20,Republican,Tama,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=271,271
+Senate,Dennis Black,21,Democrat,Jasper,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=129,129
+Senate,Larry E. McKibben,22,Republican,Marshall,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=132,132
+Senate,Herman Quirmbach,23,Democrat,Story,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=161,161
+Senate,Jerry Behn,24,Republican,Boone,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=140,140
+Senate,Daryl Beall,25,Democrat,Webster,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=273,273
+Senate,Steve Kettering,26,Republican,Sac,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=315,315
+Senate,Ron Wieck,27,Republican,Woodbury,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=276,276
+Senate,James A. Seymour,28,Republican,Harrison,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=278,278
+Senate,Nancy J. Boettger,29,Republican,Shelby,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=141,141
+Senate,Pat Ward,30,Republican,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=680,680
+Senate,Matthew W. McCoy,31,Democrat,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=134,134
+Senate,Brad Zaun,32,Republican,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=788,788
+Senate,Jack G. Hatch,33,Democrat,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=162,162
+Senate,Dick L. Dearden,34,Democrat,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=135,135
+Senate,Jeffrey M. Lamberti,35,Republican,Polk,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=133,133
+Senate,Paul McKinley,36,Republican,Lucas,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=146,146
+Senate,Douglas K. Shull,37,Republican,Warren,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=279,279
+Senate,Tom Rielly,38,Democrat,Mahaska,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=789,789
+Senate,Joe Bolkcom,39,Democrat,Johnson,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=123,123
+Senate,James F. Hahn,40,Republican,Muscatine,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=790,790
+Senate,Maggie Tinsman,41,Republican,Scott,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=121,121
+Senate,Frank Wood,42,Democrat,Scott,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=791,791
+Senate,Joseph Seng,43,Democrat,Scott,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=164,164
+Senate,Thomas G. Courtney,44,Democrat,Des Moines,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=282,282
+Senate,David P. Miller,45,Republican,Jefferson,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=147,147
+Senate,Gene Fraise,46,Democrat,Lee,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=150,150
+Senate,Keith A. Kreiman,47,Democrat,Davis,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=165,165
+Senate,Jeff Angelo,48,Republican,Union,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=144,144
+Senate,Hubert Houser,49,Republican,Pottawattamie,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=143,143
+Senate,Michael E. Gronstal,50,Democrat,Pottawattamie,NA,81,2005-01-10,2007-01-07,/legislators/legislator?ga=81&personID=142,142
+Senate,Steven H. Warnstadt,1,Democrat,Woodbury,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=154,154
+Senate,Ken Veenstra,2,Republican,Sioux,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=103,103
+Senate,David Johnson,3,Republican,Osceola,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=155,155
+Senate,"John P. ""Jack"" Kibbie",4,Democrat,Palo Alto,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=104,104
+Senate,Stewart E. Iverson Jr.,5,Republican,Wright,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=109,109
+Senate,E. Thurman Gaskill,6,Republican,Hancock,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=108,108
+Senate,Amanda Ragan,7,Democrat,Cerro Gordo,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=110,110
+Senate,Mark Zieman,8,Republican,Allamakee,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=116,116
+Senate,Robert J. Brunkhorst,9,Republican,Bremer,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=156,156
+Senate,Donald B. Redfern,10,Republican,Black Hawk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=112,112
+Senate,William A. Dotzler Jr.,11,Democrat,Black Hawk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=157,157
+Senate,Kathleen Rehberg,12,Republican,Buchanan,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=114,114
+Senate,Roger Stewart,13,Democrat,Jackson,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=267,267
+Senate,Michael W. Connolly,14,Democrat,Dubuque,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=118,118
+Senate,Robert E. Dvorsky,15,Democrat,Johnson,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=125,125
+Senate,Julie M. Hosch,16,Republican,Jones,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=289,289
+Senate,Wally E. Horn,17,Democrat,Linn,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=127,127
+Senate,Mary A. Lundby,18,Republican,Linn,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=126,126
+Senate,Charles W. Larson,19,Republican,Linn,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=158,158
+Senate,John Putney,20,Republican,Tama,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=271,271
+Senate,Dennis Black,21,Democrat,Jasper,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=129,129
+Senate,Larry E. McKibben,22,Republican,Marshall,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=132,132
+Senate,Herman Quirmbach,23,Democrat,Story,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=161,161
+Senate,Jerry Behn,24,Republican,Boone,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=140,140
+Senate,Daryl Beall,25,Democrat,Webster,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=273,273
+Senate,Steve Kettering,26,Republican,Sac,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=315,315
+Senate,Ron Wieck,27,Republican,Woodbury,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=276,276
+Senate,James A. Seymour,28,Republican,Harrison,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=278,278
+Senate,Nancy J. Boettger,29,Republican,Shelby,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=141,141
+Senate,Mary E. Kramer,30,Republican,Polk,NA,80,2003-01-13,2004-01-14,/legislators/legislator?ga=80&personID=137,137
+Senate,Pat Ward,30,Republican,Polk,NA,80,2004-01-15,2005-01-09,/legislators/legislator?ga=80&personID=680,680
+Senate,Matthew W. McCoy,31,Democrat,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=134,134
+Senate,Jack Holveck,32,Democrat,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=136,136
+Senate,Jack G. Hatch,33,Democrat,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=162,162
+Senate,Dick L. Dearden,34,Democrat,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=135,135
+Senate,Jeffrey M. Lamberti,35,Republican,Polk,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=133,133
+Senate,Paul McKinley,36,Republican,Lucas,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=146,146
+Senate,Douglas K. Shull,37,Republican,Warren,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=279,279
+Senate,Neal Schuerer,38,Republican,Iowa,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=130,130
+Senate,Joe Bolkcom,39,Democrat,Johnson,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=123,123
+Senate,Richard F. Drake,40,Republican,Muscatine,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=124,124
+Senate,Maggie Tinsman,41,Republican,Scott,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=121,121
+Senate,Bryan J. Sievers,42,Republican,Scott,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=163,163
+Senate,Joseph Seng,43,Democrat,Scott,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=164,164
+Senate,Thomas G. Courtney,44,Democrat,Des Moines,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=282,282
+Senate,David P. Miller,45,Republican,Jefferson,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=147,147
+Senate,Gene Fraise,46,Democrat,Lee,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=150,150
+Senate,Keith A. Kreiman,47,Democrat,Davis,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=165,165
+Senate,Jeff Angelo,48,Republican,Union,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=144,144
+Senate,Hubert Houser,49,Republican,Pottawattamie,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=143,143
+Senate,Michael E. Gronstal,50,Democrat,Pottawattamie,NA,80,2003-01-13,2005-01-09,/legislators/legislator?ga=80&personID=142,142

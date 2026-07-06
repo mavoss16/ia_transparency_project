@@ -1,0 +1,261 @@
+---
+title: "Legislation - 91st General Assembly"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    toc-location: right
+    toc-depth: 2
+---
+
+```{r}
+library(readr)
+library(dplyr)
+library(stringr)
+library(tidyr)
+library(gt)
+source(here::here("R/utils.R"))
+```
+
+```{r}
+# Load data
+bills <- read_csv(here::here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
+people <- read_csv(here::here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
+sponsors <- read_csv(here::here("legiscan/files_ga91_derived/sponsors.csv"), show_col_types = FALSE) |>
+  left_join(people)
+
+# Load bill groups (graceful degradation if not yet generated)
+bill_groups_path <- here::here("data/bills/groups.rds")
+if (file.exists(bill_groups_path)) {
+  bill_groups <- read_rds(bill_groups_path)
+} else {
+  bill_groups <- tibble(
+    bill = character(),
+    group_status = character(),
+    group_size = integer(),
+    lead_bill = character()
+  )
+}
+```
+
+## Overview
+
+The 91st Iowa General Assembly has introduced **`r format(nrow(bills), big.mark=",")`** bills and resolutions.
+
+```{r}
+# Bill type breakdown
+bill_types <- bills |>
+  mutate(
+    bill_type = case_when(
+      str_detect(bill_number, "^HF") ~ "House File (HF)",
+      str_detect(bill_number, "^SF") ~ "Senate File (SF)",
+      str_detect(bill_number, "^HJR") ~ "House Joint Resolution (HJR)",
+      str_detect(bill_number, "^SJR") ~ "Senate Joint Resolution (SJR)",
+      str_detect(bill_number, "^HR") ~ "House Resolution (HR)",
+      str_detect(bill_number, "^SR") ~ "Senate Resolution (SR)",
+      str_detect(bill_number, "^HCR") ~ "House Concurrent Resolution (HCR)",
+      str_detect(bill_number, "^SCR") ~ "Senate Concurrent Resolution (SCR)",
+      str_detect(bill_number, "^SSB") ~ "Senate Study Bill (SSB)",
+      str_detect(bill_number, "^HSB") ~ "House Study Bill (HSB)",
+      TRUE ~ "Other"
+    )
+  ) |>
+  count(bill_type, name = "count") |>
+  arrange(desc(count))
+
+gt(bill_types) |>
+  cols_label(
+    bill_type = "Bill Type",
+    count = "Count"
+  ) |>
+  tab_header(title = "Bills by Type")
+```
+
+### Status Summary
+
+::: {.grid}
+
+::: {.g-col-6}
+```{r}
+if (nrow(bill_groups) > 0) {
+  status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
+                    "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
+
+  status_summary <- bill_groups |>
+    count(status, name = "count") |>
+    mutate(status = factor(status, levels = status_order)) |>
+    arrange(status)
+
+  gt(status_summary) |>
+    cols_label(
+      status = "Status",
+      count = "Count"
+    ) |>
+    tab_header(title = "Bills by Individual Status")
+} else {
+  # Fallback to LegiScan status if bill_groups not available
+  status_summary <- bills |>
+    count(status_desc, name = "count") |>
+    arrange(desc(count))
+
+  gt(status_summary) |>
+    cols_label(
+      status_desc = "Status",
+      count = "Count"
+    ) |>
+    tab_header(title = "Bills by Individual Status")
+}
+```
+:::
+
+::: {.g-col-6}
+```{r}
+if (nrow(bill_groups) > 0) {
+  group_status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
+                          "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
+
+  group_status_summary <- bill_groups |>
+    count(group_status, name = "count") |>
+    mutate(group_status = factor(group_status, levels = group_status_order)) |>
+    arrange(group_status)
+
+  gt(group_status_summary) |>
+    cols_label(
+      group_status = "Group Status",
+      count = "Count"
+    ) |>
+    tab_header(title = "Bills by Group Status") |>
+    tab_footnote("Group status reflects the furthest progress of any related bill.")
+} else {
+  cat("Group status data not yet available. Run `update_bill_groups()` to generate.")
+}
+```
+:::
+
+:::
+
+---
+
+## Recent Bills
+
+Bills with the most recent activity:
+
+```{r}
+recent_bills <- bills |>
+  arrange(desc(last_action_date)) |>
+  head(25) |>
+  left_join(
+    bill_groups |> select(bill, bill_status = status),
+    by = c("bill_number" = "bill")
+  ) |>
+  mutate(
+    bill_link = format_bill_link(bill_number),
+    display_status = coalesce(bill_status, status_desc)
+  ) |>
+  select(bill_link, title, display_status, last_action_date, last_action)
+
+gt(recent_bills) |>
+  cols_label(
+    bill_link = "Bill",
+    title = "Title",
+    display_status = "Status",
+    last_action_date = "Last Action Date",
+    last_action = "Last Action"
+  ) |>
+  fmt_markdown(columns = bill_link) |>
+  tab_style(
+    style = cell_text(whitespace = "nowrap"),
+    locations = list(
+      cells_body(columns = c(bill_link, last_action_date)),
+      cells_column_labels(columns = last_action_date)
+    )
+  ) |>
+  tab_options(
+    table.font.size = px(12),
+    data_row.padding = px(4)
+  )
+```
+
+---
+
+## Browse Legislation
+
+Use the interactive table below to search and filter all bills.
+
+*Group Status shows the furthest progress of any related bill. An asterisk (\*) indicates the group has progressed further than this individual bill.*
+
+```{r}
+# Get primary sponsor for each bill
+primary_sponsors <- sponsors |>
+  filter(position == 1) |>
+  select(bill_id, sponsor_name = name)
+
+all_bills <- bills |>
+  left_join(primary_sponsors, by = "bill_id") |>
+  left_join(
+    bill_groups |> select(bill, bill_status = status, group_status, group_size),
+    by = c("bill_number" = "bill")
+  ) |>
+  mutate(
+    bill_link = format_bill_link(bill_number),
+    chamber = case_when(
+      str_detect(bill_number, "^H") ~ "House",
+      str_detect(bill_number, "^S") ~ "Senate",
+      TRUE ~ "Other"
+    ),
+    display_status = coalesce(bill_status, status_desc),
+    group_status_display = case_when(
+      is.na(group_status) ~ NA_character_,
+      group_size == 1 ~ group_status,
+      group_status == display_status ~ group_status,
+      TRUE ~ paste0(group_status, "*")
+    )
+  ) |>
+  arrange(desc(last_action_date)) |>
+  select(bill_link, title, chamber, sponsor_name, display_status, group_status_display, last_action_date)
+
+gt(all_bills) |>
+  cols_label(
+    bill_link = "Bill",
+    title = "Title",
+    chamber = "Chamber",
+    sponsor_name = "Primary Sponsor",
+    display_status = "Status",
+    group_status_display = "Group Status",
+    last_action_date = "Last Action"
+  ) |>
+  fmt_markdown(columns = bill_link) |>
+  cols_width(
+    bill_link            ~ px(75),
+    chamber              ~ px(65),
+    display_status       ~ px(105),
+    group_status_display ~ px(110),
+    last_action_date     ~ px(90),
+    title                ~ px(400)
+  ) |>
+  tab_style(
+    style = cell_text(whitespace = "nowrap"),
+    locations = list(
+      cells_body(columns = c(bill_link, last_action_date)),
+      cells_column_labels(columns = last_action_date)
+    )
+  ) |>
+  tab_options(
+    table.font.size = px(12),
+    data_row.padding = px(4)
+  ) |>
+  opt_interactive(
+    use_search = TRUE,
+    use_filters = TRUE,
+    use_page_size_select = TRUE,
+    page_size_default = 25
+  )
+```
+
+---
+
+[Back to Home](../index.html)
+
+*Last updated: `r Sys.Date()`*

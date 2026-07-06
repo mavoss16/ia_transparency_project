@@ -1,0 +1,495 @@
+---
+pagetitle: "`r jsonlite::read_json(here::here(paste0('legiscan/files_ga91_json/people/', params$people_id, '.json')))$person$name`"
+format: 
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    toc-location: right
+    toc-depth: 2
+    
+params:
+  people_id: 19548
+---
+
+```{r}
+library(jsonlite)
+library(readr)
+library(dplyr)
+library(purrr)
+library(stringr)
+library(tidyr)
+library(gt)
+library(sf)
+library(leaflet)
+library(htmltools)
+source(here::here("R/utils.R"))
+```
+
+```{r}
+items_to_df <- function(list){
+  map(list, as.data.frame) |>
+    bind_rows()
+}
+```
+
+```{r}
+# Read legislator data
+legislator <- read_json(here::here(str_glue("legiscan/files_ga91_json/people/{params$people_id}.json"))) |>
+  pluck("person")
+
+# Read related data
+bills <- read_csv(here::here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
+sponsors <- read_csv(here::here("legiscan/files_ga91_derived/sponsors.csv"), show_col_types = FALSE)
+votes <- read_csv(here::here("legiscan/files_ga91_derived/votes.csv"), show_col_types = FALSE)
+rollcalls <- read_csv(here::here("legiscan/files_ga91_derived/rollcalls.csv"), show_col_types = FALSE)
+
+votes <- left_join(votes, rollcalls, by = join_by(roll_call_id)) |>
+  left_join(bills |> select(bill_id, bill_number, title), by = join_by(bill_id))
+
+# Filter to this legislator's activity
+leg_sponsored_bills <- sponsors |>
+  mutate(sponsor_num = n(), .by = bill_id) |>
+  filter(people_id == params$people_id) |>
+  left_join(bills, by = "bill_id") |>
+  arrange(desc(status_date))
+
+leg_votes <- votes |>
+  filter(
+    people_id == params$people_id,
+    !str_detect(description, "Report$")
+  )
+
+# Load processed vote data for party alignment analysis
+legislator_stats <- read_rds(here::here("data/votes/legislator_stats_91st_ga.rds"))
+vote_records <- read_rds(here::here("data/votes/records_91st_ga.rds"))
+
+# Load legislator similarity data (graceful degradation if not yet generated)
+similarity_path <- here::here("data/votes/similarity_top_n.rds")
+leg_similarity <- if (file.exists(similarity_path)) {
+  read_rds(similarity_path) |> filter(people_id_a == params$people_id)
+} else {
+  NULL
+}
+
+leg_stats <- legislator_stats |> filter(people_id == params$people_id)
+leg_vote_records <- vote_records |> filter(people_id == params$people_id)
+
+# Load simplified district geometries and join legislator names
+people <- read_csv(here::here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE) |>
+  filter(party_id != 0) |>
+  mutate(district_num = parse_district_number(district)) |>
+  select(name, party, district, district_num, role)
+
+senate_districts <- read_rds(here::here("data/districts/senate.rds")) |>
+  left_join(people |> filter(role == "Sen"), by = c("District" = "district_num"))
+
+house_districts <- read_rds(here::here("data/districts/house.rds")) |>
+  left_join(people |> filter(role == "Rep"), by = c("District" = "district_num"))
+```
+
+# `r legislator$name` (`r legislator$party`-`r legislator$district`)
+
+**Role:** `r legislator$role`  
+**Party:** `r legislator$party`  
+**District:** `r legislator$district`  
+**State:** Iowa
+
+---
+
+**External Links:**
+
+```{r}
+#| output: asis
+leg_email <- legislator$bio$social$email
+leg_website <- legislator$bio$links$official$website
+
+if (!is.null(leg_website) && nchar(leg_website) > 0) {
+  cat(sprintf("- [Iowa Legislature Page](%s){target=\"_blank\"}\n", leg_website))
+}
+if (!is.null(leg_email) && nchar(leg_email) > 0) {
+  cat(sprintf("- [%s](mailto:%s)\n", leg_email, leg_email))
+}
+cat(sprintf("- [Ballotpedia Profile](https://ballotpedia.org/%s){target=\"_blank\"}\n", legislator$ballotpedia))
+cat(sprintf("- [VoteSmart Profile](https://justfacts.votesmart.org/candidate/%s){target=\"_blank\"}\n", legislator$votesmart_id))
+```
+
+### District Map
+
+```{r}
+district_num <- parse_district_number(legislator$district)
+districts_sf <- if (legislator$role == "Sen") senate_districts else house_districts
+
+highlight <- districts_sf |> filter(District == district_num)
+others <- districts_sf |> filter(District != district_num)
+
+party_color <- if (legislator$party == "D") "#2320E6" else "#DC0309"
+
+bbox <- st_bbox(highlight)
+
+leaflet() |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    data = others,
+    fillColor = "#CCCCCC",
+    fillOpacity = 0.2,
+    color = "#000000",
+    weight = 1,
+    label = ~ifelse(!is.na(name), paste0(name, " (", party, "-", district, ")"), paste("District", District))
+  ) |>
+  addPolygons(
+    data = highlight,
+    fillColor = party_color,
+    fillOpacity = 0.6,
+    color = party_color,
+    weight = 3,
+    label = ~paste(legislator$name, "-", legislator$district)
+  ) |>
+  fitBounds(bbox[["xmin"]], bbox[["ymin"]], bbox[["xmax"]], bbox[["ymax"]])
+```
+
+---
+
+::: {.panel-tabset}
+
+## Legislative Summary
+
+```{r}
+# Calculate summary statistics
+total_sponsored <- nrow(leg_sponsored_bills)
+total_votes <- nrow(leg_votes)
+
+# Load bill groups for outcome context
+bill_groups <- read_rds(here::here("data/bills/groups.rds"))
+
+# Sponsorship with outcomes
+if(nrow(leg_sponsored_bills) > 0) {
+  sponsor_summary <- leg_sponsored_bills |>
+    mutate(
+      Role = case_when(
+        position == 1 & sponsor_num == 1 ~ "Sole Sponsor",
+        position == 1 ~ "Primary Sponsor",
+        position >= 2 ~ "Co-Sponsor"
+      )
+    ) |>
+    left_join(
+      bill_groups |> select(bill, group_status, group_size),
+      by = c("bill_number" = "bill")
+    ) |>
+    mutate(group_status = coalesce(group_status, status_desc))
+} else {
+  sponsor_summary <- data.frame()
+}
+```
+
+### Sponsorship Activity
+
+**Total Bills Sponsored:** `r total_sponsored`
+
+```{r}
+if(nrow(sponsor_summary) > 0) {
+  # Bill outcome by sponsorship role
+  status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
+                     "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
+
+  sponsor_outcome <- sponsor_summary |>
+    mutate(group_status = factor(group_status, levels = status_order)) |>
+    count(Role, group_status, .drop = FALSE) |>
+    pivot_wider(names_from = group_status, values_from = n, values_fill = 0) |>
+    filter(rowSums(pick(-Role)) > 0) |>
+    mutate(Total = rowSums(pick(-Role))) |>
+    arrange(desc(Total))
+
+  gt(sponsor_outcome) |>
+    cols_label(Role = "Sponsorship Role") |>
+    tab_spanner(label = "Bill Group Outcome", columns = c(-Role, -Total))
+} else {
+  cat("No sponsorship data available.\n")
+}
+```
+
+
+### Party Alignment
+
+```{r}
+if(nrow(leg_stats) > 0 && leg_stats$total_votes > 0) {
+  party_alignment <- data.frame(
+    Metric = c(
+      "Votes With Party",
+      "Votes Against Party",
+      "Party Alignment Rate",
+      "Participation Rate"
+    ),
+    Value = c(
+      as.character(leg_stats$votes_with_party),
+      as.character(leg_stats$votes_against_party),
+      sprintf("%.1f%%", leg_stats$with_party_pct * 100),
+      sprintf("%.1f%%", leg_stats$participation_rate * 100)
+    )
+  )
+
+  gt(party_alignment) |>
+    cols_label(Metric = "", Value = "")
+} else {
+  cat("Insufficient voting data for party alignment analysis.\n")
+}
+```
+
+<!-- ### Votes by Category
+
+```{r}
+#| eval: false
+if(nrow(leg_vote_records) > 0) {
+  category_breakdown <- leg_vote_records |>
+    filter(vote_text %in% c("Yea", "Nay")) |>
+    count(vote_outcome, vote_text) |>
+    pivot_wider(names_from = vote_outcome, values_from = n, values_fill = 0) |>
+    rename(Vote = vote_text)
+
+  gt(category_breakdown) |>
+    tab_spanner(label = "Vote Category", columns = -Vote)
+} else {
+  cat("Insufficient voting data for category breakdown.\n")
+}
+```
+-->
+
+## Sponsored Bills
+
+```{r}
+if(nrow(leg_sponsored_bills) > 0) {
+  leg_sponsored_bills |>
+    mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
+    select(bill_link, title, status_desc, status_date, position, sponsor_num) |>
+    mutate(
+      Sponsor_Role = case_when(
+        position == 1 & sponsor_num == 1 ~ "Sole Sponsor",
+        position == 1 ~ "Primary Sponsor",
+        position >= 2 ~ "Co-Sponsor"
+      )
+    ) |>
+    select(-position) |>
+    relocate(sponsor_num, .after = Sponsor_Role) |>
+    gt() |>
+    cols_label(
+      bill_link = "Bill",
+      title = "Title",
+      status_desc = "Status",
+      status_date = "Status Date",
+      Sponsor_Role = "Role",
+      sponsor_num = "# of Sponsors"
+    ) |>
+    fmt_markdown(columns = bill_link) |>
+    tab_style(
+      style = cell_text(whitespace = "nowrap"),
+      locations = list(
+        cells_body(columns = c(bill_link, status_date)),
+        cells_column_labels(columns = status_date)
+      )
+    ) |>
+    tab_options(
+      table.font.size = px(12)
+    )
+} else {
+  cat("No sponsored bills found.\n")
+}
+```
+
+## Voting Record
+
+```{r}
+if(nrow(leg_votes) > 0) {
+  gt(leg_votes |>
+    mutate(
+      bill_link = format_bill_link(bill_number, "../legislation/"),
+      description = simplify_vote_desc(description)
+    ) |>
+    select(bill_link, title, date, description, vote_desc)) |>
+    cols_label(
+      bill_link = "File #",
+      title = "Title",
+      date = "Vote Date",
+      description = "Vote Type",
+      vote_desc = "Vote"
+    ) |>
+    fmt_markdown(columns = bill_link) |>
+    tab_style(
+      style = cell_text(whitespace = "nowrap"),
+      locations = list(
+        cells_body(columns = c(bill_link, date)),
+        cells_column_labels(columns = date)
+      )
+    )
+} else {
+  cat("No voting record found.\n")
+}
+```
+
+## Vote Analysis
+
+### Votes by Classification
+
+```{r}
+if(nrow(leg_vote_records) > 0) {
+  outcome_breakdown <- leg_vote_records |>
+    filter(vote_text %in% c("Yea", "Nay")) |>
+    group_by(vote_outcome) |>
+    summarize(
+      count = n(),
+      with_party = sum(vote_with_party == TRUE, na.rm = TRUE),
+      against_party = sum(vote_with_party == FALSE, na.rm = TRUE),
+      .groups = "drop"
+    ) |>
+    mutate(pct_of_total = count / sum(count) * 100) |>
+    arrange(desc(count))
+
+  gt(outcome_breakdown) |>
+    cols_label(
+      vote_outcome = "Vote Type",
+      count = "Total",
+      with_party = "With Party",
+      against_party = "Against Party",
+      pct_of_total = "% of Votes"
+    ) |>
+    fmt_number(columns = pct_of_total, decimals = 1)
+} else {
+  cat("Insufficient voting data for analysis.\n")
+}
+```
+
+### Votes Against Party
+
+```{r}
+if(nrow(leg_vote_records) > 0) {
+  against_party <- leg_vote_records |>
+    filter(vote_with_party == FALSE) |>
+    left_join(bills |> select(bill_id, title), by = "bill_id") |>
+    mutate(
+      bill_link = format_bill_link(bill_number, "../legislation/"),
+      vote_desc = simplify_vote_desc(vote_desc)
+    ) |>
+    select(bill_link, title, vote_date, vote_desc, vote_text, party_position, vote_outcome) |>
+    arrange(desc(vote_date))
+
+  if(nrow(against_party) > 0) {
+    gt(against_party) |>
+      cols_label(
+        bill_link = "Bill",
+        title = "Title",
+        vote_date = "Date",
+        vote_desc = "Description",
+        vote_text = "Vote",
+        party_position = "Party Position",
+        vote_outcome = "Classification"
+      ) |>
+      fmt_markdown(columns = bill_link) |>
+      tab_style(
+        style = cell_text(whitespace = "nowrap"),
+        locations = list(
+          cells_body(columns = c(bill_link, vote_date)),
+          cells_column_labels(columns = vote_date)
+        )
+      )
+  } else {
+    cat("This legislator has not voted against their party.\n")
+  }
+} else {
+  cat("Insufficient voting data for analysis.\n")
+}
+```
+
+## Similar Legislators
+
+```{r}
+make_leg_link <- function(filename, name) {
+  sprintf("<a href='../%s.html'>%s</a>", filename, name)
+}
+
+make_sim_table <- function(df) {
+  gt(df) |>
+    fmt_markdown(columns = Legislator) |>
+    tab_style(
+      style = cell_text(whitespace = "nowrap"),
+      locations = cells_body(columns = Legislator)
+    ) |>
+    tab_options(table.font.size = px(12), data_row.padding = px(4))
+}
+
+prep_sim_df <- function(data, type) {
+  data |>
+    filter(rank_type == type) |>
+    arrange(rank) |>
+    mutate(
+      Legislator     = make_leg_link(filename_b, name_b),
+      Party          = party_b,
+      District       = district_b,
+      Similarity     = sprintf("%.1f%%", similarity * 100),
+      `Shared Votes` = n_shared
+    ) |>
+    select(Legislator, Party, District, Similarity, `Shared Votes`)
+}
+
+similarity_available <- !is.null(leg_similarity) && nrow(leg_similarity) > 0
+```
+
+::: {.grid}
+
+::: {.g-col-6}
+### Most Similar Overall
+
+```{r}
+if (similarity_available) {
+  make_sim_table(prep_sim_df(leg_similarity, "overall"))
+} else {
+  cat("Similarity data not yet available.\n")
+}
+```
+:::
+
+::: {.g-col-6}
+### Most Similar — Opposite Party
+
+```{r}
+if (similarity_available) {
+  make_sim_table(prep_sim_df(leg_similarity, "cross_party"))
+} else {
+  cat("Similarity data not yet available.\n")
+}
+```
+:::
+
+::: {.g-col-6}
+### Most Dissimilar Overall
+
+```{r}
+if (similarity_available) {
+  make_sim_table(prep_sim_df(leg_similarity, "least_overall"))
+} else {
+  cat("Similarity data not yet available.\n")
+}
+```
+:::
+
+::: {.g-col-6}
+### Most Dissimilar — Own Party
+
+```{r}
+if (similarity_available) {
+  make_sim_table(prep_sim_df(leg_similarity, "least_own_party"))
+} else {
+  cat("Similarity data not yet available.\n")
+}
+```
+:::
+
+:::
+
+:::
+
+---
+
+## Notes
+
+This profile was generated from LegiScan data for the Iowa Legislature.  
+Last updated: `r Sys.Date()`
