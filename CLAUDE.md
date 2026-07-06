@@ -116,13 +116,20 @@ ia_transparency_project/
 │   ├── 2026-04-21_campaign-finance-pipeline.md
 │   ├── 2026-04-22_elections-download-scripts.md
 │   ├── 2026-05-09_federal-campaign-finance.md
-│   └── 2026-05-09_campaign-finance-templates-ojs.md
+│   ├── 2026-05-09_campaign-finance-templates-ojs.md
+│   └── 2026-07-05_legislature-migration.md
 └── CLAUDE.md
 ```
 
 ## Iowa Legislature
 
-Tracker for the 91st General Assembly (2025–2026). Migrated from the standalone `iowa_legislature` repo on 2026-07-05 via `git filter-repo` + merge, so full git history is in this repo (`git log --follow` works across the move). The old repo can be archived. This domain is the architectural reference for the others.
+Tracker for the 91st General Assembly (2025–2026). Migrated from the standalone `iowa_legislature` repo on 2026-07-05 via `git filter-repo` + merge, so full git history is in this repo (`git log --follow` works across the move). Verified with `test_render()` (5 bills / 5 legislators / 3 committees, 0 failures). See `notes/2026-07-05_legislature-migration.md` for the full session log. This domain is the architectural reference for the others.
+
+**Post-migration follow-ups (open as of 2026-07-05):**
+- Archive the old `iowa_legislature` GitHub repo; delete the throwaway `../iowa_legislature-filtered` clone
+- `docs/` holds only partial test-render output — run `render_site(force = TRUE)` before publishing
+- `renv::status()` reports out-of-sync; needs a status/snapshot cleanup pass
+- No git remote configured yet (GitHub repo + Pages setup pending)
 
 ### Tech Stack
 - **R** — primary language for data pipelines and site generation
