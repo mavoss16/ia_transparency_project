@@ -75,5 +75,5 @@ Also:
 - [ ] Archive the `iowa_legislature` GitHub repo (last unchecked item in the migration plan)
 - [ ] Delete the throwaway clone `../iowa_legislature-filtered`
 - [ ] Run `render_site(force = TRUE)` — `docs/` currently holds only the partial test-render output
-- [ ] `renv::status()` reported out-of-sync during render; do a status/snapshot cleanup pass
+- [x] ~~`renv::status()` out-of-sync~~ — resolved same day by `renv::snapshot()` (commit `5e5529cd`)
 - [ ] Configure a git remote + GitHub Pages for this repo (none exists yet)

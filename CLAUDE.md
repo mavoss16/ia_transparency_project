@@ -128,8 +128,9 @@ Tracker for the 91st General Assembly (2025–2026). Migrated from the standalon
 **Post-migration follow-ups (open as of 2026-07-05):**
 - Archive the old `iowa_legislature` GitHub repo; delete the throwaway `../iowa_legislature-filtered` clone
 - `docs/` holds only partial test-render output — run `render_site(force = TRUE)` before publishing
-- `renv::status()` reports out-of-sync; needs a status/snapshot cleanup pass
 - No git remote configured yet (GitHub repo + Pages setup pending)
+
+(The renv out-of-sync issue flagged during verification was resolved by a `renv::snapshot()` the same day.)
 
 ### Tech Stack
 - **R** — primary language for data pipelines and site generation
