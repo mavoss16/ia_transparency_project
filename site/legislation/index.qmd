@@ -16,7 +16,7 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(gt)
-source(here::here("R/utils.R"))
+source(here::here("R/legislature/utils.R"))
 ```
 
 ```{r}
@@ -27,7 +27,7 @@ sponsors <- read_csv(here::here("legiscan/files_ga91_derived/sponsors.csv"), sho
   left_join(people)
 
 # Load bill groups (graceful degradation if not yet generated)
-bill_groups_path <- here::here("data/bills/groups.rds")
+bill_groups_path <- here::here("data/legislature/bills/groups.rds")
 if (file.exists(bill_groups_path)) {
   bill_groups <- read_rds(bill_groups_path)
 } else {

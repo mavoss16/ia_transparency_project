@@ -9,20 +9,20 @@
 #'   - data/legislator_voting_stats_91st_ga.rds: Per-legislator voting statistics
 #'
 #' Usage:
-#'   source("R/data_pipeline/02_process_votes.R")
+#'   source("R/legislature/02_process_votes.R")
 #'   # Or call process_votes() directly
 
 library(here)
 
 # Source the vote analysis functions
-source(here("R/data_pipeline/02a_vote_analysis_functions.R"))
+source(here("R/legislature/02a_vote_analysis_functions.R"))
 
 
 # Configuration -----------------------------------------------------------
 
 LEGISCAN_CSV_DIR <- here("legiscan/files_ga91_derived")
 LEGISCAN_JSON_DIR <- here("legiscan/files_ga91_json")
-OUTPUT_DIR <- here("data/votes")
+OUTPUT_DIR <- here("data/legislature/votes")
 
 # Ensure output directory exists
 if (!dir.exists(OUTPUT_DIR)) {

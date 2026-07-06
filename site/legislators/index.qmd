@@ -20,7 +20,7 @@ library(sf)
 library(leaflet)
 library(htmltools)
 
-source(here::here("R/utils.R"))
+source(here::here("R/legislature/utils.R"))
 ```
 
 ```{r}
@@ -32,11 +32,11 @@ votes <- read_csv(here::here("legiscan/files_ga91_derived/votes.csv"), show_col_
 rollcalls <- read_csv(here::here("legiscan/files_ga91_derived/rollcalls.csv"), show_col_types = FALSE)
 
 # Load processed voting statistics
-legislator_stats <- read_rds(here::here("data/votes/legislator_stats_91st_ga.rds"))
+legislator_stats <- read_rds(here::here("data/legislature/votes/legislator_stats_91st_ga.rds"))
 
 # Load simplified district geometries for maps
-senate_districts <- read_rds(here::here("data/districts/senate.rds"))
-house_districts  <- read_rds(here::here("data/districts/house.rds"))
+senate_districts <- read_rds(here::here("data/legislature/districts/senate.rds"))
+house_districts  <- read_rds(here::here("data/legislature/districts/house.rds"))
 ```
 
 ```{r}

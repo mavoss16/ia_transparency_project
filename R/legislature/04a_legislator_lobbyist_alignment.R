@@ -18,10 +18,10 @@
 # Note: a single bill can contribute two bill-votes if it passed both chambers,
 # so n_shared counts bill-votes, not unique bills.
 #
-# Output saved to data/lobbying/legislator_client_alignment.rds
+# Output saved to data/legislature/lobbying/legislator_client_alignment.rds
 #
 # Usage:
-#   source("R/data_pipeline/04a_legislator_lobbyist_alignment.R")
+#   source("R/legislature/04a_legislator_lobbyist_alignment.R")
 #   compute_legislator_lobbyist_alignment()
 
 library(dplyr)
@@ -44,10 +44,10 @@ TOP_N            <- 5   # most/least aligned clients to keep per legislator
 #' @param verbose       Print progress messages
 #' @return Invisible tibble of top-N alignment rows
 compute_legislator_lobbyist_alignment <- function(
-    records_path = here("data/votes/records_91st_ga.rds"),
-    lobby_path   = here("data/lobbying/lobbyist_declarations.rds"),
+    records_path = here("data/legislature/votes/records_91st_ga.rds"),
+    lobby_path   = here("data/legislature/lobbying/lobbyist_declarations.rds"),
     people_path  = here("legiscan/files_ga91_derived/people.csv"),
-    output_path  = here("data/lobbying/legislator_client_alignment.rds"),
+    output_path  = here("data/legislature/lobbying/legislator_client_alignment.rds"),
     min_shared   = MIN_SHARED_BILLS,
     top_n        = TOP_N,
     verbose      = TRUE

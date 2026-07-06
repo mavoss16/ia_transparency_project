@@ -58,12 +58,12 @@ jobs:
           if [ "$FORCE" = "true" ]; then
             # Run all steps except render, then force-render separately
             Rscript -e "
-              source('R/run_pipeline.R')
+              source('R/legislature/run_pipeline.R')
               run_pipeline(steps = c('download','generate_csvs','process_votes','legislator_similarity','bill_relationships'))
             "
-            Rscript -e "source('R/render_site.R'); render_site(force = TRUE)"
+            Rscript -e "source('R/legislature/render.R'); render_site(force = TRUE)"
           else
-            Rscript R/run_pipeline.R
+            Rscript R/legislature/run_pipeline.R
           fi
 
       - name: Upload pipeline logs

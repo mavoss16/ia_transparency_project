@@ -3,7 +3,7 @@
 # Supports incremental rendering using LegiScan hash values
 #
 # Usage: Run this script from the project root directory
-#   source("R/render_site.R")
+#   source("R/legislature/render.R")
 #
 # Or run specific functions:
 #   render_all_bills()
@@ -17,7 +17,7 @@ library(jsonlite)
 library(quarto)
 library(here)
 
-source(here("R/utils.R"))
+source(here("R/legislature/utils.R"))
 
 # Configuration
 OUTPUT_DIR <- here("docs")

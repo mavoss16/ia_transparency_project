@@ -14,7 +14,7 @@
 #   legiscan/files_ga91_derived/documents.csv
 #
 # Usage:
-#   source("R/data_pipeline/01c_generate_csvs.R")
+#   source("R/legislature/01c_generate_csvs.R")
 #   generate_csvs()
 
 library(dplyr)

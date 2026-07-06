@@ -1,5 +1,5 @@
 ---
-title: "Iowa Legislature - 91st General Assembly"
+title: "Iowa Political Transparency"
 format:
   html:
     echo: false
@@ -17,7 +17,7 @@ library(stringr)
 library(gt)
 library(ggplot2)
 library(ggparliament)
-source(here::here("R/utils.R"))
+source(here::here("R/legislature/utils.R"))
 ```
 
 ```{r}
@@ -29,7 +29,7 @@ people   <- read_csv(here::here("legiscan/files_ga91_derived/people.csv"),    sh
 votes     <- read_csv(here::here("legiscan/files_ga91_derived/votes.csv"),    show_col_types = FALSE)
 rollcalls <- read_csv(here::here("legiscan/files_ga91_derived/rollcalls.csv"),show_col_types = FALSE)
 
-bill_groups_path <- here::here("data/bills/groups.rds")
+bill_groups_path <- here::here("data/legislature/bills/groups.rds")
 if (file.exists(bill_groups_path)) {
   bill_groups <- read_rds(bill_groups_path)
 } else {
@@ -77,7 +77,11 @@ n_senate_R <- senate_comp |> filter(party == "R") |> pull(seats)
 n_senate_D <- senate_comp |> filter(party == "D") |> pull(seats)
 ```
 
-Welcome to the Iowa Legislature tracker for the **91st General Assembly (2025-2026)**. This site provides access to bill information, legislator profiles, voting records, and lobbyist declarations.
+This site makes publicly available data on Iowa politics more accessible — legislation, legislator voting records, and lobbyist declarations today, with election results and campaign finance data planned.
+
+# Iowa Legislature — 91st General Assembly
+
+The legislature tracker for the **91st General Assembly (2025-2026)** provides access to bill information, legislator profiles, voting records, and lobbyist declarations.
 
 ## Quick Stats
 

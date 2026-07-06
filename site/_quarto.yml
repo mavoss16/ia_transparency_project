@@ -4,7 +4,7 @@ project:
   output-dir: ../docs
 
 website:
-  title: "Iowa Legislature"
+  title: "Iowa Political Transparency"
   navbar:
     left:
       - href: index.qmd
@@ -13,6 +13,11 @@ website:
         text: Legislation
       - href: legislators/index.qmd
         text: Legislators
+      # Future domains — uncomment as each section gets an index page
+      # - href: elections/index.qmd
+      #   text: Elections
+      # - href: campaign_finance/index.qmd
+      #   text: Campaign Finance
       # - href: about.qmd
       #   text: About
   search: true

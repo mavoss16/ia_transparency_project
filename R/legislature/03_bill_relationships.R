@@ -163,7 +163,7 @@ scrape_bill_relationships <- function(bill_number, ga = 91) {
 #' Load cached relationship edges or return empty tibble
 #' @param edges_path Path to edges RDS file
 #' @return Tibble with from_bill and to_bill columns
-load_relationship_edges <- function(edges_path = here::here("data/bills/relationship_edges.rds")) {
+load_relationship_edges <- function(edges_path = here::here("data/legislature/bills/relationship_edges.rds")) {
   if (file.exists(edges_path)) {
     readRDS(edges_path)
   } else {
@@ -174,7 +174,7 @@ load_relationship_edges <- function(edges_path = here::here("data/bills/relation
 #' Save relationship edges to RDS file
 #' @param edges Tibble with from_bill and to_bill columns
 #' @param edges_path Path to save edges RDS file
-save_relationship_edges <- function(edges, edges_path = here::here("data/bills/relationship_edges.rds")) {
+save_relationship_edges <- function(edges, edges_path = here::here("data/legislature/bills/relationship_edges.rds")) {
   saveRDS(edges, edges_path)
   message("Saved ", nrow(edges), " relationship edges to ", edges_path)
 }
@@ -188,7 +188,7 @@ save_relationship_edges <- function(edges, edges_path = here::here("data/bills/r
 #' @return Updated edges tibble
 update_relationship_edges <- function(
     bill_numbers = NULL,
-    edges_path = here::here("data/bills/relationship_edges.rds"),
+    edges_path = here::here("data/legislature/bills/relationship_edges.rds"),
     json_dir = here::here("legiscan/files_ga91_json/bill"),
     ga = 91,
     rate_limit = 1.5,
@@ -318,7 +318,7 @@ update_relationship_edges <- function(
 #' @return Updated edges tibble
 rescrape_bills <- function(
     bill_numbers,
-    edges_path = here::here("data/bills/relationship_edges.rds"),
+    edges_path = here::here("data/legislature/bills/relationship_edges.rds"),
     ga = 91,
     rate_limit = 1.5
 ) {
@@ -370,7 +370,7 @@ get_group_status <- function(bill_statuses, group_members) {
 #' @param json_dir Directory containing bill JSON files
 #' @return Tibble with bills, groups, and group status
 build_bill_groups <- function(
-    edges_path = here::here("data/bills/relationship_edges.rds"),
+    edges_path = here::here("data/legislature/bills/relationship_edges.rds"),
     json_dir = here::here("legiscan/files_ga91_json/bill")
 ) {
   # Load edges
@@ -461,8 +461,8 @@ build_bill_groups <- function(
 #' @param edges_path Path to edges RDS file
 #' @param json_dir Directory containing bill JSON files
 save_bill_groups <- function(
-    output_path = here::here("data/bills/groups.rds"),
-    edges_path = here::here("data/bills/relationship_edges.rds"),
+    output_path = here::here("data/legislature/bills/groups.rds"),
+    edges_path = here::here("data/legislature/bills/relationship_edges.rds"),
     json_dir = here::here("legiscan/files_ga91_json/bill")
 ) {
   groups <- build_bill_groups(edges_path, json_dir)
@@ -482,8 +482,8 @@ save_bill_groups <- function(
 #' @param ga General Assembly number
 #' @param rate_limit Seconds between scrape requests
 update_bill_groups <- function(
-    edges_path = here::here("data/bills/relationship_edges.rds"),
-    groups_path = here::here("data/bills/groups.rds"),
+    edges_path = here::here("data/legislature/bills/relationship_edges.rds"),
+    groups_path = here::here("data/legislature/bills/groups.rds"),
     json_dir = here::here("legiscan/files_ga91_json/bill"),
     ga = 91,
     rate_limit = 1.5
@@ -503,7 +503,7 @@ update_bill_groups <- function(
 
 #' View summary of current bill groups
 #' @param groups_path Path to groups RDS file
-bill_groups_summary <- function(groups_path = here::here("data/bills/groups.rds")) {
+bill_groups_summary <- function(groups_path = here::here("data/legislature/bills/groups.rds")) {
   if (!file.exists(groups_path)) {
     message("No bill groups file found. Run update_bill_groups() first.")
     return(invisible(NULL))
@@ -548,5 +548,5 @@ bill_groups_summary <- function(groups_path = here::here("data/bills/groups.rds"
 # bill_groups_summary()
 #
 # # Load and use the groups data
-# groups <- readRDS(here::here("data/bills/groups.rds"))
+# groups <- readRDS(here::here("data/legislature/bills/groups.rds"))
 # groups |> filter(bill == "HF1")

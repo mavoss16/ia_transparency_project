@@ -8,13 +8,13 @@
 # Only floor votes (Yea/Nay) count; Absent/NV are treated as non-participation.
 # Pairs sharing fewer than MIN_SHARED_VOTES get NA rather than an unreliable score.
 #
-# Outputs saved to data/votes/:
+# Outputs saved to data/legislature/votes/:
 #   similarity_top_n.rds    — per-legislator top-N most similar, overall and cross-party
 #   similarity_matrix.rds   — full n_leg × n_leg named matrix (for future comparison tool)
 #   pair_lookup.rds         — flat table of all valid pairs with agree/disagree counts (for compare page)
 #
 # Usage:
-#   source("R/data_pipeline/02b_legislator_similarity.R")
+#   source("R/legislature/02b_legislator_similarity.R")
 #   compute_legislator_similarity()
 
 library(dplyr)
@@ -40,9 +40,9 @@ TOP_N_LEAST       <- 5    # least similar legislators to keep per person
 #' @param verbose      Print progress messages
 #' @return Invisible list with similarity_matrix and top_n tibble
 compute_legislator_similarity <- function(
-    records_path = here("data/votes/records_91st_ga.rds"),
+    records_path = here("data/legislature/votes/records_91st_ga.rds"),
     people_path  = here("legiscan/files_ga91_derived/people.csv"),
-    output_dir   = here("data/votes"),
+    output_dir   = here("data/legislature/votes"),
     min_shared   = MIN_SHARED_VOTES,
     top_n        = TOP_N_OVERALL,
     top_n_cross  = TOP_N_CROSS_PARTY,

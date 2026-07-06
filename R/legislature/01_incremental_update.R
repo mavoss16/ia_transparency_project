@@ -9,7 +9,7 @@
 # (or weekly) bulk load so the CSV files stay current.
 #
 # Usage:
-#   source("R/data_pipeline/01b_incremental_update.R")
+#   source("R/legislature/01b_incremental_update.R")
 #   incremental_update()
 
 library(httr2)
@@ -31,7 +31,7 @@ legiscan_get <- function(base_url, ...) {
 }
 
 # Path to the bill hash cache (bill_number -> change_hash)
-HASH_CACHE_PATH <- here("data/pipeline_internal/bill_hash_cache.rds")
+HASH_CACHE_PATH <- here("data/legislature/pipeline_internal/bill_hash_cache.rds")
 
 #' Build a named list of bill_number -> change_hash from local bill JSON files.
 #' Fallback used when no cache exists yet.

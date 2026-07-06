@@ -31,7 +31,7 @@ people <- read_csv(
   ) |>
   arrange(role, name)
 
-pair_data <- read_rds(here("data/votes/pair_lookup.rds"))
+pair_data <- read_rds(here("data/legislature/votes/pair_lookup.rds"))
 
 ojs_define(legislators = people, pair_data = pair_data)
 ```

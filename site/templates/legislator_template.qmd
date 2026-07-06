@@ -24,7 +24,7 @@ library(gt)
 library(sf)
 library(leaflet)
 library(htmltools)
-source(here::here("R/utils.R"))
+source(here::here("R/legislature/utils.R"))
 ```
 
 ```{r}
@@ -62,11 +62,11 @@ leg_votes <- votes |>
   )
 
 # Load processed vote data for party alignment analysis
-legislator_stats <- read_rds(here::here("data/votes/legislator_stats_91st_ga.rds"))
-vote_records <- read_rds(here::here("data/votes/records_91st_ga.rds"))
+legislator_stats <- read_rds(here::here("data/legislature/votes/legislator_stats_91st_ga.rds"))
+vote_records <- read_rds(here::here("data/legislature/votes/records_91st_ga.rds"))
 
 # Load legislator similarity data (graceful degradation if not yet generated)
-similarity_path <- here::here("data/votes/similarity_top_n.rds")
+similarity_path <- here::here("data/legislature/votes/similarity_top_n.rds")
 leg_similarity <- if (file.exists(similarity_path)) {
   read_rds(similarity_path) |> filter(people_id_a == params$people_id)
 } else {
@@ -82,10 +82,10 @@ people <- read_csv(here::here("legiscan/files_ga91_derived/people.csv"), show_co
   mutate(district_num = parse_district_number(district)) |>
   select(name, party, district, district_num, role)
 
-senate_districts <- read_rds(here::here("data/districts/senate.rds")) |>
+senate_districts <- read_rds(here::here("data/legislature/districts/senate.rds")) |>
   left_join(people |> filter(role == "Sen"), by = c("District" = "district_num"))
 
-house_districts <- read_rds(here::here("data/districts/house.rds")) |>
+house_districts <- read_rds(here::here("data/legislature/districts/house.rds")) |>
   left_join(people |> filter(role == "Rep"), by = c("District" = "district_num"))
 ```
 
@@ -161,7 +161,7 @@ total_sponsored <- nrow(leg_sponsored_bills)
 total_votes <- nrow(leg_votes)
 
 # Load bill groups for outcome context
-bill_groups <- read_rds(here::here("data/bills/groups.rds"))
+bill_groups <- read_rds(here::here("data/legislature/bills/groups.rds"))
 
 # Sponsorship with outcomes
 if(nrow(leg_sponsored_bills) > 0) {

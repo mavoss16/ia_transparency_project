@@ -4,7 +4,7 @@
 # Runs all steps in order: download → process votes → bill relationships → render site
 #
 # Usage (interactive):
-#   source("R/run_pipeline.R")
+#   source("R/legislature/run_pipeline.R")
 #   run_pipeline()                          # full pipeline
 #   run_pipeline(steps = c("download", "process_votes"))  # subset of steps
 #   run_pipeline(stop_on_error = TRUE)      # halt on first failure
@@ -19,7 +19,7 @@ library(here)
 # Logging
 # =============================================================================
 
-LOG_DIR <- here("logs")
+LOG_DIR <- here("logs/legislature")
 
 #' Set up logging to a timestamped file
 #' @param log_dir Directory to write log files
@@ -79,42 +79,42 @@ PIPELINE_STEPS <- list(
   download = list(
     name = "Incremental bill update",
     run = function() {
-      source(here("R/data_pipeline/01_incremental_update.R"), local = TRUE)
+      source(here("R/legislature/01_incremental_update.R"), local = TRUE)
       incremental_update()
     }
   ),
   generate_csvs = list(
     name = "Generate CSVs from JSON",
     run = function() {
-      source(here("R/data_pipeline/01c_generate_csvs.R"), local = TRUE)
+      source(here("R/legislature/01c_generate_csvs.R"), local = TRUE)
       generate_csvs()
     }
   ),
   process_votes = list(
     name = "Process votes",
     run = function() {
-      source(here("R/data_pipeline/02_process_votes.R"), local = TRUE)
+      source(here("R/legislature/02_process_votes.R"), local = TRUE)
       process_votes()
     }
   ),
   legislator_similarity = list(
     name = "Compute legislator similarity",
     run = function() {
-      source(here("R/data_pipeline/02b_legislator_similarity.R"), local = TRUE)
+      source(here("R/legislature/02b_legislator_similarity.R"), local = TRUE)
       compute_legislator_similarity()
     }
   ),
   bill_relationships = list(
     name = "Scrape bill relationships & build groups",
     run = function() {
-      source(here("R/data_pipeline/03_bill_relationships.R"), local = TRUE)
+      source(here("R/legislature/03_bill_relationships.R"), local = TRUE)
       update_bill_groups()
     }
   ),
   render = list(
     name = "Render site",
     run = function() {
-      source(here("R/render_site.R"), local = TRUE)
+      source(here("R/legislature/render.R"), local = TRUE)
       render_site()
     }
   )
@@ -133,15 +133,15 @@ STEP_OUTPUT_DIRS <- list(
     pattern = "\\.csv$"
   ),
   process_votes = list(
-    dirs    = c("data/votes"),
+    dirs    = c("data/legislature/votes"),
     pattern = "\\.rds$"
   ),
   legislator_similarity = list(
-    dirs    = c("data/votes"),
+    dirs    = c("data/legislature/votes"),
     pattern = "\\.rds$"
   ),
   bill_relationships = list(
-    dirs    = c("data/bills"),
+    dirs    = c("data/legislature/bills"),
     pattern = "\\.rds$"
   ),
   render = list(
@@ -178,7 +178,7 @@ count_modified_files <- function(dirs, since_time, pattern = NULL) {
 #' @param run_id  Character run identifier (timestamp string)
 #' @param pipeline_start POSIXct start time of the full pipeline
 save_run_summary <- function(results, run_id, pipeline_start) {
-  summary_path <- here("data/pipeline_internal/pipeline_runs.rds")
+  summary_path <- here("data/legislature/pipeline_internal/pipeline_runs.rds")
 
   new_rows <- do.call(rbind, lapply(results, function(r) {
     data.frame(

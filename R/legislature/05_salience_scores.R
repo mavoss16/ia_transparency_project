@@ -21,7 +21,7 @@
 # All raw inputs are preserved in the output for display/debugging.
 #
 # Usage:
-#   source("R/data_pipeline/05_salience_scores.R")
+#   source("R/legislature/05_salience_scores.R")
 #   scores <- compute_salience_scores()
 #   salience_summary(scores)
 
@@ -39,8 +39,8 @@ library(here)
 
 JSON_DIR    <- here("legiscan/files_ga91_json/bill")
 CSV_DIR     <- here("legiscan/files_ga91_derived")
-DATA_DIR    <- here("data")
-OUTPUT_PATH <- here("data/bills/salience_scores.rds")
+DATA_DIR    <- here("data/legislature")
+OUTPUT_PATH <- here("data/legislature/bills/salience_scores.rds")
 
 WEIGHTS <- c(
   lobby_volume     = 0.20,

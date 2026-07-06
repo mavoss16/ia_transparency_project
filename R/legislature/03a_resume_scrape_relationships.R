@@ -4,7 +4,7 @@
 # Processes in batches with saves + gc() between each batch.
 #
 # Usage:
-#   source("R/data_pipeline/03a_resume_scrape_relationships.R")
+#   source("R/legislature/03a_resume_scrape_relationships.R")
 #   resume_scrape()                    # default 50-bill batches, all remaining
 #   resume_scrape(batch_size = 25)     # smaller batches if still crashing
 #   resume_scrape(max_bills = 200)     # cap at 200 bills this session
@@ -19,7 +19,7 @@ library(jsonlite)
 library(here)
 library(purrr)
 
-EDGES_PATH <- here("data/bills/relationship_edges.rds")
+EDGES_PATH <- here("data/legislature/bills/relationship_edges.rds")
 JSON_DIR   <- here("legiscan/files_ga91_json/bill")
 
 # --- Core scrape function ---
