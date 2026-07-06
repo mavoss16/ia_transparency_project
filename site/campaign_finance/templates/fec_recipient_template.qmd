@@ -1,0 +1,555 @@
+---
+pagetitle: "`r if (nchar(params$committee_name) > 0) params$committee_name else params$CMTE_ID`"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    toc-location: right
+    toc-depth: 2
+
+params:
+  CMTE_ID: "C00401224"   # default: Chuck Grassley for Senate (example)
+  committee_name: ""     # optional display name; auto-populated by render.R
+---
+
+```{r}
+library(duckdb)
+library(DBI)
+library(dplyr)
+library(dbplyr)
+library(ggplot2)
+library(gt)
+library(scales)
+library(stringr)
+library(here)
+library(sf)
+library(tigris)
+```
+
+```{r}
+con <- dbConnect(duckdb(), here("data/campaign_finance/campaign_finance.duckdb"), read_only = TRUE)
+
+comm_meta <- tbl(con, "fec_committees") |>
+  filter(CMTE_ID == params$CMTE_ID) |>
+  collect()
+
+comm_stats <- tbl(con, "fec_committee_summary") |>
+  filter(CMTE_ID == params$CMTE_ID) |>
+  collect()
+
+by_year <- tbl(con, "fec_committee_year") |>
+  filter(CMTE_ID == params$CMTE_ID) |>
+  collect() |>
+  mutate(donor_type = str_to_title(donor_type))
+
+by_donor <- tbl(con, "fec_committee_donor") |>
+  filter(CMTE_ID == params$CMTE_ID) |>
+  collect()
+
+all_contributions <- tbl(con, "fec_contributions") |>
+  filter(CMTE_ID == params$CMTE_ID) |>
+  select(date, cycle, donor_display, donor_type,
+         CITY, STATE, EMPLOYER, OCCUPATION,
+         contribution_amount, TRANSACTION_TP) |>
+  arrange(desc(date)) |>
+  collect()
+
+dbDisconnect(con)
+
+has_meta          <- nrow(comm_meta) > 0
+has_contributions <- nrow(comm_stats) > 0
+
+display_name <- if (nchar(params$committee_name) > 0) {
+  params$committee_name
+} else if (has_contributions) {
+  comm_stats$committee_name[1]
+} else if (has_meta) {
+  comm_meta$committee_name[1]
+} else {
+  params$CMTE_ID
+}
+```
+
+# `r display_name`
+
+```{r}
+#| output: asis
+ci <- if (has_contributions) comm_stats[1, ] else NULL
+mi <- if (has_meta) comm_meta[1, ] else NULL
+
+show_field <- function(label, val) {
+  if (!is.null(val) && !is.na(val) && nchar(as.character(val)) > 0)
+    cat(sprintf("**%s:** %s  \n", label, val))
+}
+
+src <- if (!is.null(ci)) ci else mi
+
+if (!is.null(src)) {
+  show_field("Candidate",    src$candidate_name)
+  show_field("Party",        src$party)
+  show_field("Office",       src$office)
+  show_field("District",     src$office_district)
+  show_field("Election Year", src$election_year)
+} else {
+  cat("\n*Committee not found in FEC records.*\n")
+}
+cat(sprintf("**FEC Committee ID:** %s  \n", params$CMTE_ID))
+```
+
+---
+
+## Summary
+
+### Contributions Received
+
+```{r}
+if (has_contributions) {
+  cs <- comm_stats[1, ]
+  summary_df <- data.frame(
+    Metric = c(
+      "Total Raised", "Number of Transactions", "Unique Donors",
+      "Average Contribution", "Earliest Contribution", "Latest Contribution"
+    ),
+    Value = c(
+      dollar(cs$total_raised),
+      comma(cs$n_transactions),
+      comma(cs$n_unique_donors),
+      dollar(cs$avg_contribution),
+      format(as.Date(cs$first_contribution), "%B %d, %Y"),
+      format(as.Date(cs$last_contribution),  "%B %d, %Y")
+    )
+  )
+  gt(summary_df) |>
+    cols_label(Metric = "", Value = "") |>
+    tab_options(column_labels.hidden = TRUE)
+} else {
+  cat("No contribution data found for this committee.\n")
+}
+```
+
+### Top Donors
+
+```{r}
+if (nrow(by_donor) > 0) {
+  top_n <- min(10, nrow(by_donor))
+  by_donor |>
+    arrange(desc(total)) |>
+    slice_head(n = top_n) |>
+    mutate(donor_type = str_to_title(donor_type)) |>
+    select(donor_display, donor_type, city, state, total, transactions) |>
+    gt() |>
+    cols_label(
+      donor_display = "Donor",
+      donor_type    = "Type",
+      city          = "City",
+      state         = "State",
+      total         = "Total Given",
+      transactions  = "Transactions"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_integer(columns = transactions) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+### Donor Type Breakdown
+
+```{r}
+if (nrow(by_donor) > 0) {
+  grand_total <- sum(by_donor$total, na.rm = TRUE)
+
+  by_donor |>
+    mutate(donor_type = str_to_title(donor_type)) |>
+    group_by(donor_type) |>
+    summarize(
+      total        = sum(total, na.rm = TRUE),
+      transactions = sum(transactions, na.rm = TRUE),
+      donors       = n(),
+      .groups      = "drop"
+    ) |>
+    arrange(desc(total)) |>
+    mutate(pct = total / grand_total) |>
+    gt() |>
+    cols_label(
+      donor_type   = "Donor Type",
+      total        = "Total Given",
+      pct          = "Share",
+      transactions = "Transactions",
+      donors       = "Unique Donors"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_percent(columns = pct, decimals = 1) |>
+    fmt_integer(columns = c(transactions, donors)) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+---
+
+::: {.panel-tabset}
+
+## Contributions Over Time
+
+```{r}
+if (has_contributions) {
+  totals_by_year <- by_year |>
+    group_by(year) |>
+    summarize(total = sum(total, na.rm = TRUE), .groups = "drop")
+
+  ggplot(totals_by_year, aes(x = year, y = total)) +
+    geom_col(fill = "#2C5F8A") +
+    scale_y_continuous(labels = dollar_format()) +
+    scale_x_continuous(breaks = breaks_pretty()) +
+    labs(title = "Contributions Received by Year", x = NULL, y = "Total Amount") +
+    theme_minimal(base_size = 13) +
+    theme(plot.title = element_text(face = "bold"))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+```{r}
+if (has_contributions) {
+  by_year_type <- by_year |>
+    filter(donor_type %in% c("Individual", "Organization"))
+
+  if (nrow(by_year_type) > 0) {
+    ggplot(by_year_type, aes(x = year, y = total, fill = donor_type)) +
+      geom_col() +
+      scale_y_continuous(labels = dollar_format()) +
+      scale_x_continuous(breaks = breaks_pretty()) +
+      scale_fill_manual(values = c("Individual" = "#2C5F8A", "Organization" = "#E07B2A")) +
+      labs(
+        title = "Contributions by Donor Type", x = NULL, y = "Total Amount",
+        fill  = "Donor Type"
+      ) +
+      theme_minimal(base_size = 13) +
+      theme(plot.title = element_text(face = "bold"), legend.position = "bottom")
+  }
+}
+```
+
+## Top Donors
+
+### Top Individual Donors
+
+```{r}
+if (nrow(by_donor) > 0) {
+  top_individuals <- by_donor |>
+    filter(donor_type == "individual") |>
+    arrange(desc(total)) |>
+    slice_head(n = 25)
+
+  if (nrow(top_individuals) > 0) {
+    gt(top_individuals |> select(donor_display, city, state, total, transactions)) |>
+      cols_label(
+        donor_display = "Donor", city = "City", state = "State",
+        total = "Total Given", transactions = "Transactions"
+      ) |>
+      fmt_currency(columns = total, currency = "USD") |>
+      fmt_integer(columns = transactions) |>
+      tab_options(table.font.size = px(12))
+  } else {
+    cat("No individual contribution data found.\n")
+  }
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+### Top Organization Donors
+
+```{r}
+if (nrow(by_donor) > 0) {
+  top_orgs <- by_donor |>
+    filter(donor_type %in% c("organization", "committee")) |>
+    arrange(desc(total)) |>
+    slice_head(n = 25)
+
+  if (nrow(top_orgs) > 0) {
+    gt(top_orgs |> select(donor_display, city, state, total, transactions)) |>
+      cols_label(
+        donor_display = "Organization", city = "City", state = "State",
+        total = "Total Given", transactions = "Transactions"
+      ) |>
+      fmt_currency(columns = total, currency = "USD") |>
+      fmt_integer(columns = transactions) |>
+      tab_options(table.font.size = px(12))
+  } else {
+    cat("No organization contribution data found.\n")
+  }
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+## Donor Geography
+
+### Contributions by State
+
+```{r}
+if (nrow(by_donor) > 0) {
+  grand_total <- sum(by_donor$total, na.rm = TRUE)
+
+  by_state <- by_donor |>
+    filter(!is.na(state), nchar(state) > 0) |>
+    group_by(state) |>
+    summarize(
+      total        = sum(total, na.rm = TRUE),
+      transactions = sum(transactions, na.rm = TRUE),
+      donors       = n(),
+      .groups      = "drop"
+    ) |>
+    arrange(desc(total)) |>
+    mutate(pct = total / grand_total)
+
+  by_state |>
+    slice_head(n = 20) |>
+    gt() |>
+    cols_label(
+      state        = "State",
+      total        = "Total Given",
+      pct          = "Share",
+      transactions = "Transactions",
+      donors       = "Unique Donors"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_percent(columns = pct, decimals = 1) |>
+    fmt_integer(columns = c(transactions, donors)) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+### Iowa Donors
+
+```{r}
+#| fig-width: 8
+#| fig-height: 5
+options(tigris_use_cache = TRUE)
+
+iowa_cities_agg <- by_donor |>
+  filter(state == "IA", !is.na(city), nchar(city) > 0) |>
+  group_by(city) |>
+  summarize(
+    total        = sum(total, na.rm = TRUE),
+    transactions = sum(transactions, na.rm = TRUE),
+    donors       = n(),
+    .groups      = "drop"
+  ) |>
+  mutate(city_upper = str_to_upper(str_trim(city)))
+
+if (nrow(iowa_cities_agg) > 0) {
+  ia_counties <- counties(state = "IA", cb = TRUE, progress_bar = FALSE)
+  ia_places   <- places(state = "IA", cb = TRUE, progress_bar = FALSE) |>
+    mutate(city_upper = str_to_upper(str_trim(NAME))) |>
+    st_centroid()
+
+  city_pts <- ia_places |>
+    inner_join(iowa_cities_agg, by = "city_upper")
+
+  if (nrow(city_pts) > 0) {
+    county_totals <- city_pts |>
+      st_join(ia_counties |> select(county = NAME)) |>
+      st_drop_geometry() |>
+      group_by(county) |>
+      summarize(total = sum(total, na.rm = TRUE), .groups = "drop")
+
+    county_map <- ia_counties |>
+      left_join(county_totals, by = c("NAME" = "county"))
+
+    ggplot() +
+      geom_sf(data = county_map, aes(fill = total), color = "white", linewidth = 0.3) +
+      geom_sf(data = city_pts, aes(size = total), color = "#FF8C00", alpha = 0.75) +
+      scale_fill_gradient(
+        low = "#D6E8F5", high = "#0D3A5C",
+        na.value = "gray92",
+        labels = dollar_format(),
+        name = "County Total"
+      ) +
+      scale_size_continuous(
+        range = c(1, 9), labels = dollar_format(), name = "City Total"
+      ) +
+      labs(title = "Contributions from Iowa Donors") +
+      theme_void(base_size = 12) +
+      theme(
+        plot.title      = element_text(face = "bold", hjust = 0.5),
+        legend.position = "right"
+      )
+  } else {
+    cat("No Iowa donor cities could be matched to geographic locations.\n")
+  }
+} else {
+  cat("No Iowa donor data available.\n")
+}
+```
+
+```{r}
+if (nrow(iowa_cities_agg) > 0) {
+  iowa_cities_agg |>
+    arrange(desc(total)) |>
+    slice_head(n = 20) |>
+    select(-city_upper) |>
+    gt() |>
+    cols_label(
+      city         = "City",
+      total        = "Total Given",
+      transactions = "Transactions",
+      donors       = "Unique Donors"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_integer(columns = c(transactions, donors)) |>
+    tab_options(table.font.size = px(12))
+}
+```
+
+## Employers & Occupations
+
+```{r}
+# Filter out entries that don't represent a real employer affiliation
+non_employers <- c(
+  "RETIRED", "SELF-EMPLOYED", "SELF EMPLOYED", "NOT EMPLOYED",
+  "NONE", "N/A", "NA", "HOMEMAKER", "STUDENT", "UNEMPLOYED",
+  "INFORMATION REQUESTED", "INFORMATION REQUESTED PER BEST EFFORTS"
+)
+
+employer_agg <- all_contributions |>
+  filter(
+    !is.na(EMPLOYER),
+    !str_to_upper(str_trim(EMPLOYER)) %in% non_employers,
+    nchar(str_trim(EMPLOYER)) > 0
+  ) |>
+  mutate(employer_clean = str_to_title(str_squish(EMPLOYER))) |>
+  group_by(employer_clean) |>
+  summarize(
+    total        = sum(contribution_amount, na.rm = TRUE),
+    donors       = n_distinct(donor_display),
+    transactions = n(),
+    .groups      = "drop"
+  ) |>
+  arrange(desc(total))
+```
+
+### Top Employers by Amount Given
+
+```{r}
+if (nrow(employer_agg) > 0) {
+  employer_agg |>
+    slice_head(n = 25) |>
+    gt() |>
+    cols_label(
+      employer_clean = "Employer",
+      total          = "Total Given",
+      donors         = "Unique Donors",
+      transactions   = "Transactions"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_integer(columns = c(donors, transactions)) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No employer data available.\n")
+}
+```
+
+```{r}
+if (nrow(employer_agg) >= 5) {
+  employer_agg |>
+    slice_head(n = 15) |>
+    ggplot(aes(x = reorder(employer_clean, total), y = total)) +
+    geom_col(fill = "#2C5F8A") +
+    coord_flip() +
+    scale_y_continuous(labels = dollar_format()) +
+    labs(title = "Top Employers of Donors", x = NULL, y = "Total Given") +
+    theme_minimal(base_size = 12) +
+    theme(plot.title = element_text(face = "bold"))
+}
+```
+
+### Top Occupations
+
+```{r}
+occ_agg <- all_contributions |>
+  filter(
+    !is.na(OCCUPATION),
+    !str_to_upper(str_trim(OCCUPATION)) %in% non_employers,
+    nchar(str_trim(OCCUPATION)) > 0
+  ) |>
+  mutate(occ_clean = str_to_title(str_squish(OCCUPATION))) |>
+  group_by(occ_clean) |>
+  summarize(
+    total        = sum(contribution_amount, na.rm = TRUE),
+    donors       = n_distinct(donor_display),
+    transactions = n(),
+    .groups      = "drop"
+  ) |>
+  arrange(desc(total))
+
+if (nrow(occ_agg) > 0) {
+  occ_agg |>
+    slice_head(n = 25) |>
+    gt() |>
+    cols_label(
+      occ_clean    = "Occupation",
+      total        = "Total Given",
+      donors       = "Unique Donors",
+      transactions = "Transactions"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_integer(columns = c(donors, transactions)) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No occupation data available.\n")
+}
+```
+
+## All Contributions
+
+```{r}
+#| output: asis
+max_rows <- 1000L
+n_total  <- nrow(all_contributions)
+if (n_total > max_rows)
+  cat(sprintf(
+    "*Showing the %s most recent of %s total transactions.*\n\n",
+    scales::comma(max_rows), scales::comma(n_total)
+  ))
+```
+
+```{r}
+if (nrow(all_contributions) > 0) {
+  all_contributions |>
+    slice_head(n = max_rows) |>
+    mutate(donor_type = str_to_title(donor_type)) |>
+    select(date, cycle, donor_display, donor_type,
+           CITY, STATE, contribution_amount, TRANSACTION_TP) |>
+    gt() |>
+    cols_label(
+      date                = "Date",
+      cycle               = "Cycle",
+      donor_display       = "Donor",
+      donor_type          = "Type",
+      CITY                = "City",
+      STATE               = "State",
+      contribution_amount = "Amount",
+      TRANSACTION_TP      = "Transaction Type"
+    ) |>
+    fmt_date(columns = date, date_style = "yMMMd") |>
+    fmt_currency(columns = contribution_amount, currency = "USD") |>
+    tab_options(table.font.size = px(11))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+:::
+
+---
+
+*Data sourced from the Federal Election Commission (FEC). Includes contributions to Iowa House and Senate candidate committees. Last updated: `r Sys.Date()`*

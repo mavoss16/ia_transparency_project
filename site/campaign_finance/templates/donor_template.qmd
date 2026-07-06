@@ -1,0 +1,311 @@
+---
+pagetitle: "`r params$donor_key`"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    toc-location: right
+    toc-depth: 2
+
+params:
+  donor_key: "IND|SMITH|JOHN|DES MOINES|IA"   # stable key from contributions table
+---
+
+```{r}
+library(duckdb)
+library(DBI)
+library(dplyr)
+library(dbplyr)
+library(ggplot2)
+library(gt)
+library(scales)
+library(stringr)
+library(here)
+```
+
+```{r}
+con <- dbConnect(duckdb(), here("data/campaign_finance/campaign_finance.duckdb"), read_only = TRUE)
+
+# params <- list(donor_key = "IND|SMITH|JOHN|DES MOINES|IA")
+
+donor_info <- tbl(con, "donor_summary") |>
+  filter(donor_key == params$donor_key) |>
+  collect()
+
+by_year <- tbl(con, "donor_year") |>
+  filter(donor_key == params$donor_key) |>
+  collect()
+
+by_committee <- tbl(con, "donor_committee") |>
+  filter(donor_key == params$donor_key) |>
+  collect()
+
+all_contributions <- tbl(con, "contributions") |>
+  filter(donor_key == params$donor_key) |>
+  select(date, committee_name, committee_code, contribution_amount, transaction_type) |>
+  arrange(desc(date)) |>
+  collect()
+
+dbDisconnect(con)
+
+has_donor         <- nrow(donor_info) > 0
+has_contributions <- nrow(all_contributions) > 0
+
+display_name <- if (has_donor) donor_info$donor_display[1] else params$donor_key
+```
+
+# `r display_name`
+
+```{r}
+#| output: asis
+if (has_donor) {
+  di <- donor_info[1, ]
+  cat(sprintf("**Donor Type:** %s  \n", str_to_title(di$donor_type)))
+  if (!is.na(di$city) && nchar(di$city) > 0) {
+    loc <- di$city
+    if (!is.na(di$state) && nchar(di$state) > 0) loc <- paste0(loc, ", ", di$state)
+    cat(sprintf("**Location:** %s  \n", loc))
+  }
+} else {
+  cat(sprintf("**Donor Key:** `%s`  \n", params$donor_key))
+  cat("\n*No contribution records found for this donor.*\n")
+}
+```
+
+## Summary
+
+```{r}
+if (has_donor) {
+  di <- donor_info[1, ]
+  summary_df <- data.frame(
+    Metric = c(
+      "Total Donated", "Number of Transactions", "Unique Recipient Committees",
+      "Average Contribution", "First Contribution", "Most Recent Contribution"
+    ),
+    Value = c(
+      dollar(di$total_given),
+      comma(di$n_transactions),
+      comma(di$n_committees),
+      dollar(di$avg_contribution),
+      format(as.Date(di$first_contribution), "%B %d, %Y"),
+      format(as.Date(di$last_contribution),  "%B %d, %Y")
+    )
+  )
+  gt(summary_df) |>
+    cols_label(Metric = "", Value = "") |>
+    tab_options(column_labels.hidden = TRUE)
+} else {
+  cat("No data available.\n")
+}
+```
+
+### Top Recipients
+
+```{r}
+if (nrow(by_committee) > 0) {
+  top_n <- min(10, nrow(by_committee))
+  by_committee |>
+    arrange(desc(total)) |>
+    slice_head(n = top_n) |>
+    select(committee_name, party, office_sought, total, transactions) |>
+    gt() |>
+    cols_label(
+      committee_name = "Committee",
+      party          = "Party",
+      office_sought  = "Office",
+      total          = "Total Donated",
+      transactions   = "Transactions"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_integer(columns = transactions) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No data available.\n")
+}
+```
+
+### Party Breakdown
+
+```{r}
+if (nrow(by_committee) > 0) {
+  grand_total <- sum(by_committee$total, na.rm = TRUE)
+
+  by_party <- by_committee |>
+    mutate(party = if_else(is.na(party) | nchar(party) == 0, "(Unknown)", party)) |>
+    group_by(party) |>
+    summarize(
+      total        = sum(total, na.rm = TRUE),
+      transactions = sum(transactions, na.rm = TRUE),
+      committees   = n(),
+      .groups      = "drop"
+    ) |>
+    arrange(desc(total)) |>
+    mutate(pct = total / grand_total)
+
+  gt(by_party) |>
+    cols_label(
+      party        = "Party",
+      total        = "Total Donated",
+      pct          = "Share",
+      transactions = "Transactions",
+      committees   = "Committees"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_percent(columns = pct, decimals = 1) |>
+    fmt_integer(columns = c(transactions, committees)) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No data available.\n")
+}
+```
+
+---
+
+::: {.panel-tabset}
+
+## Donations Over Time
+
+```{r}
+if (has_contributions) {
+  totals_by_year <- by_year |>
+    group_by(year) |>
+    summarize(total = sum(total, na.rm = TRUE), .groups = "drop")
+
+  ggplot(totals_by_year, aes(x = year, y = total)) +
+    geom_col(fill = "#2C5F8A") +
+    scale_y_continuous(labels = dollar_format()) +
+    scale_x_continuous(breaks = breaks_pretty()) +
+    labs(title = "Contributions by Year", x = NULL, y = "Total Amount") +
+    theme_minimal(base_size = 13) +
+    theme(plot.title = element_text(face = "bold"))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+```{r}
+if (has_contributions) {
+  by_year_party <- by_year |>
+    filter(!is.na(party) & party != "(Unknown)")
+
+  if (nrow(by_year_party) > 0) {
+    party_colors <- c(
+      "Republican"  = "#DC0309",
+      "Democratic"  = "#2320E6",
+      "Libertarian" = "#FFCC00",
+      "Green"       = "#17AA5C",
+      "Independent" = "#888888"
+    )
+    known   <- intersect(unique(by_year_party$party), names(party_colors))
+    extra   <- setdiff(unique(by_year_party$party), names(party_colors))
+    color_map <- c(
+      party_colors[known],
+      ifelse(length(extra) == 0, no = setNames(hue_pal()(length(extra)), extra), yes = character(0))
+    )
+
+    ggplot(by_year_party, aes(x = year, y = total, fill = party)) +
+      geom_col() +
+      scale_y_continuous(labels = dollar_format()) +
+      scale_x_continuous(breaks = breaks_pretty()) +
+      scale_fill_manual(values = color_map, na.value = "#AAAAAA") +
+      labs(
+        title = "Contributions by Year and Party",
+        x = NULL, y = "Total Amount", fill = "Party"
+      ) +
+      theme_minimal(base_size = 13) +
+      theme(plot.title = element_text(face = "bold"), legend.position = "bottom")
+  }
+}
+```
+
+## Recipients
+
+### By Committee
+
+```{r}
+if (nrow(by_committee) > 0) {
+  gt(
+    by_committee |>
+      arrange(desc(total)) |>
+      select(committee_code, committee_name, committee_type, party, office_sought,
+             total, transactions, first_date, last_date)
+  ) |>
+    cols_label(
+      committee_code = "Code", committee_name = "Committee",
+      committee_type = "Type", party = "Party", office_sought = "Office",
+      total = "Total", transactions = "Transactions",
+      first_date = "First", last_date = "Last"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_integer(columns = transactions) |>
+    fmt_date(columns = c(first_date, last_date), date_style = "yMMMd") |>
+    tab_style(
+      style     = cell_text(whitespace = "nowrap"),
+      locations = cells_body(columns = c(first_date, last_date))
+    ) |>
+    tab_options(table.font.size = px(11))
+} else {
+  cat("No data available.\n")
+}
+```
+
+### By Office
+
+```{r}
+if (nrow(by_committee) > 0) {
+  by_office <- by_committee |>
+    mutate(office_sought = if_else(
+      is.na(office_sought) | nchar(office_sought) == 0, "(Unknown)", office_sought
+    )) |>
+    group_by(office_sought) |>
+    summarize(
+      total        = sum(total, na.rm = TRUE),
+      transactions = sum(transactions, na.rm = TRUE),
+      .groups      = "drop"
+    ) |>
+    arrange(desc(total))
+
+  ggplot(by_office, aes(x = reorder(office_sought, total), y = total)) +
+    geom_col(fill = "#2C5F8A") +
+    coord_flip() +
+    scale_y_continuous(labels = dollar_format()) +
+    labs(title = "Donations by Office Sought", x = NULL, y = "Total Amount") +
+    theme_minimal(base_size = 12) +
+    theme(plot.title = element_text(face = "bold"))
+} else {
+  cat("No data available.\n")
+}
+```
+
+## All Contributions
+
+```{r}
+if (has_contributions) {
+  all_contributions |>
+    gt() |>
+    cols_label(
+      date                = "Date",
+      committee_name      = "Recipient Committee",
+      committee_code      = "Code",
+      contribution_amount = "Amount",
+      transaction_type    = "Transaction Type"
+    ) |>
+    fmt_date(columns = date, date_style = "yMMMd") |>
+    fmt_currency(columns = contribution_amount, currency = "USD") |>
+    tab_style(
+      style     = cell_text(whitespace = "nowrap"),
+      locations = cells_body(columns = date)
+    ) |>
+    tab_options(table.font.size = px(11))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+:::
+
+---
+
+*Data sourced from the Iowa Ethics and Campaign Disclosure Board (IECDB). Last updated: `r Sys.Date()`*

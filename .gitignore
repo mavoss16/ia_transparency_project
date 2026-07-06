@@ -1,0 +1,29 @@
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json
+
+# RStudio / R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# renv
+renv/library/
+renv/staging/
+
+# Quarto local render artifacts under site/ (docs/ is the published GH Pages output and IS tracked)
+site/**/*.html
+site/**/*_files/
+site/.quarto/
+/.quarto/
+
+# Logs
+logs/
+
+# Campaign finance: raw source + large derived files not committed (see CLAUDE.md)
+data/campaign_finance/source/
+data/campaign_finance/processed/
+data/campaign_finance/*.duckdb
+
+# Elections: raw downloaded data (shapefiles, precinct results) — reproducible via download scripts
+data/elections/raw/

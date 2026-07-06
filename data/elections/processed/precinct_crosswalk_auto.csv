@@ -1,0 +1,406 @@
+county,elec_name,shp_name,match_method
+Adair,1NW,1NW,exact
+Adair,2NE,2NE,exact
+Adair,3SW,3SW,exact
+Adair,4SE,4SE,exact
+Adair,5GF,5GF,exact
+Benton,Belle Plaine 1,Belle Plaine 1,exact
+Benton,Belle Plaine 2,Belle Plaine 2,exact
+Benton,Belle Plaine 3,Belle Plaine 3,exact
+Benton,Benton-Canton-Shellsburg,Benton-Canton-Shellsburg,exact
+Benton,Big Grove-Union-Van Horne,Big Grove-Union-Van Horne,exact
+Benton,Eden-Harrison-Taylor-Jackson-Garrison,Eden-Harrison-Taylor-Jackson-Garrison,exact
+Benton,Eldorado-Newhall,Eldorado-Newhall,exact
+Benton,Fremont-Atkins,Fremont-Atkins,exact
+Benton,Homer-Kane-Keystone,Homer-Kane-Keystone,exact
+Benton,Iowa-Leroy-Luzerne-Blairstown,Iowa-Leroy-Luzerne-Blairstown,exact
+Benton,Polk-Urbana,Polk-Urbana,exact
+Benton,Vinton 1,Vinton 1,exact
+Benton,Vinton 2,Vinton 2,exact
+Benton,Vinton 3,Vinton 3,exact
+Benton,Vinton 4,Vinton 4,exact
+Benton,Walford,Walford,exact
+Black Hawk,Black Hawk/Cedar Falls/Lincoln,Black Hawk/Cedar Falls/Lincoln,exact
+Black Hawk,Eagle/Orange,Eagle/Orange,exact
+Black Hawk,Elk Run Heights,Elk Run Heights,exact
+Black Hawk,Hudson,Hudson,exact
+Black Hawk,Mt. Vernon,Mt. Vernon,exact
+Cedar,Inland,Inland,exact
+Cedar,Tipton 1,Tipton 1,exact
+Cedar,Tipton 2,Tipton 2,exact
+Cedar,Tipton 3,Tipton 3,exact
+Cedar,West Branch 1,West Branch 1,exact
+Clay,Spencer Ward 4,Spencer Ward 4,exact
+Crawford,Charter Oak,Charter Oak,exact
+Crawford,Denison 1st Ward,Denison 1st Ward,exact
+Dallas,Adams/Colfax,Adams/Colfax,exact
+Dallas,Beaver/Des Moines,Beaver/Des Moines,exact
+Dallas,Waukee 1,Waukee 1,exact
+Dallas,Waukee 2,Waukee 2,exact
+Franklin,Geneva/Ingham/East Mott,Geneva/Ingham/East Mott,exact
+Franklin,Grant/Osceola,Grant/Osceola,exact
+Franklin,Hamilton/Reeve,Hamilton/Reeve,exact
+Franklin,Marion,Marion,exact
+Franklin,Oakland/Morgan/Lee,Oakland/Morgan/Lee,exact
+Franklin,Richland/Ross/West Fork,Richland/Ross/West Fork,exact
+Franklin,West Mott,West Mott,exact
+Franklin,Wisner/Scott,Wisner/Scott,exact
+Fremont,Farragut,Farragut,exact
+Fremont,Green/Riverside/Scott,Green/Riverside/Scott,exact
+Fremont,Riverton,Riverton,exact
+Fremont,Sidney,Sidney,exact
+Grundy,Precinct 1,Precinct 1,exact
+Grundy,Precinct 2,Precinct 2,exact
+Grundy,Precinct 3,Precinct 3,exact
+Grundy,Precinct 4,Precinct 4,exact
+Grundy,Precinct 5,Precinct 5,exact
+Grundy,Precinct 6,Precinct 6,exact
+Grundy,Precinct 7,Precinct 7,exact
+Henry,Precinct 1,Precinct 1,exact
+Henry,Precinct 2,Precinct 2,exact
+Henry,Precinct 3,Precinct 3,exact
+Henry,Precinct 8,Precinct 8,exact
+Henry,Precinct 9,Precinct 9,exact
+Howard,Cresco 1A,Cresco 1A,exact
+Howard,Cresco 2,Cresco 2,exact
+Howard,Cresco 3,Cresco 3,exact
+Howard,Vernon Springs/Cresco 1B,Vernon Springs/Cresco 1B,exact
+Humboldt,Precinct 1,Precinct 1,exact
+Humboldt,Precinct 2,Precinct 2,exact
+Humboldt,Precinct 3,Precinct 3,exact
+Humboldt,Precinct 4,Precinct 4,exact
+Humboldt,Precinct 5,Precinct 5,exact
+Humboldt,Precinct 6,Precinct 6,exact
+Jasper,Buena Vista-Elk Creek,Buena Vista-Elk Creek,exact
+Jasper,Clear Creek-Independence,Clear Creek-Independence,exact
+Jasper,Des Moines,Des Moines,exact
+Jasper,Fairview,Fairview,exact
+Jefferson,Blackhawk-Polk-Packwood,Blackhawk-Polk-Packwood,exact
+Jefferson,Buchanan,Buchanan,exact
+Jefferson,Center-Cedar-Round Prairie-Maharishi Vedic City,Center-Cedar-Round Prairie-Maharishi Vedic City,exact
+Jefferson,Des Moines-Liberty-Libertyville,Des Moines-Liberty-Libertyville,exact
+Jefferson,Lockridge-City of Lockridge,Lockridge-City of Lockridge,exact
+Jefferson,Locust Grove-Batavia,Locust Grove-Batavia,exact
+Jefferson,Penn-Walnut-Pleasant Plain-Coppock,Penn-Walnut-Pleasant Plain-Coppock,exact
+Linn,Cedar Rapids 01,Cedar Rapids 01,exact
+Linn,Cedar Rapids 02,Cedar Rapids 02,exact
+Linn,Cedar Rapids 03,Cedar Rapids 03,exact
+Linn,Cedar Rapids 04,Cedar Rapids 04,exact
+Linn,Cedar Rapids 05,Cedar Rapids 05,exact
+Linn,Cedar Rapids 06,Cedar Rapids 06,exact
+Linn,Cedar Rapids 07,Cedar Rapids 07,exact
+Linn,Cedar Rapids 08,Cedar Rapids 08,exact
+Linn,Cedar Rapids 09,Cedar Rapids 09,exact
+Linn,Cedar Rapids 10,Cedar Rapids 10,exact
+Linn,Cedar Rapids 11,Cedar Rapids 11,exact
+Linn,Cedar Rapids 12,Cedar Rapids 12,exact
+Linn,Cedar Rapids 13,Cedar Rapids 13,exact
+Linn,Cedar Rapids 14,Cedar Rapids 14,exact
+Linn,Cedar Rapids 15,Cedar Rapids 15,exact
+Linn,Cedar Rapids 16,Cedar Rapids 16,exact
+Linn,Cedar Rapids 17,Cedar Rapids 17,exact
+Linn,Cedar Rapids 18,Cedar Rapids 18,exact
+Linn,Cedar Rapids 19,Cedar Rapids 19,exact
+Linn,Cedar Rapids 20,Cedar Rapids 20,exact
+Linn,Cedar Rapids 21,Cedar Rapids 21,exact
+Linn,Cedar Rapids 22,Cedar Rapids 22,exact
+Linn,Cedar Rapids 23,Cedar Rapids 23,exact
+Linn,Cedar Rapids 24,Cedar Rapids 24,exact
+Linn,Cedar Rapids 25,Cedar Rapids 25,exact
+Linn,Cedar Rapids 26,Cedar Rapids 26,exact
+Linn,Cedar Rapids 27,Cedar Rapids 27,exact
+Linn,Cedar Rapids 28,Cedar Rapids 28,exact
+Linn,Cedar Rapids 29,Cedar Rapids 29,exact
+Linn,Cedar Rapids 30,Cedar Rapids 30,exact
+Linn,Cedar Rapids 31,Cedar Rapids 31,exact
+Linn,Cedar Rapids 32,Cedar Rapids 32,exact
+Linn,Cedar Rapids 33,Cedar Rapids 33,exact
+Linn,Cedar Rapids 34,Cedar Rapids 34,exact
+Linn,Cedar Rapids 35,Cedar Rapids 35,exact
+Linn,Cedar Rapids 36,Cedar Rapids 36,exact
+Linn,Cedar Rapids 37,Cedar Rapids 37,exact
+Linn,Cedar Rapids 38,Cedar Rapids 38,exact
+Linn,Cedar Rapids 39,Cedar Rapids 39,exact
+Linn,Cedar Rapids 40,Cedar Rapids 40,exact
+Linn,Cedar Rapids 41,Cedar Rapids 41,exact
+Linn,Cedar Rapids 42,Cedar Rapids 42,exact
+Linn,Cedar Rapids 43,Cedar Rapids 43,exact
+Linn,Cedar Rapids 44,Cedar Rapids 44,exact
+Linn,Cedar Rapids 45,Cedar Rapids 45,exact
+Linn,Cedar Rapids 46,Cedar Rapids 46,exact
+Linn,Cedar Rapids 47,Cedar Rapids 47,exact
+Linn,Cedar Rapids 48,Cedar Rapids 48,exact
+Linn,Cedar Rapids 49,Cedar Rapids 49,exact
+Linn,Cedar Rapids 50,Cedar Rapids 50,exact
+Linn,Cedar Rapids 51,Cedar Rapids 51,exact
+Linn,Fairfax,Fairfax,exact
+Linn,Hiawatha 01,Hiawatha 01,exact
+Linn,Hiawatha 02,Hiawatha 02,exact
+Linn,Hiawatha 03,Hiawatha 03,exact
+Linn,Marion 01,Marion 01,exact
+Linn,Marion 02,Marion 02,exact
+Linn,Marion 03,Marion 03,exact
+Linn,Marion 04,Marion 04,exact
+Linn,Marion 05,Marion 05,exact
+Linn,Marion 06,Marion 06,exact
+Linn,Marion 07,Marion 07,exact
+Linn,Marion 08,Marion 08,exact
+Linn,Marion 09,Marion 09,exact
+Linn,Marion 10,Marion 10,exact
+Linn,Marion 11,Marion 11,exact
+Linn,Marion 12,Marion 12,exact
+Linn,Marion 13,Marion 13,exact
+Linn,Marion 14,Marion 14,exact
+Linn,Marion 15,Marion 15,exact
+Linn,Marion 16,Marion 16,exact
+Linn,Marion 17,Marion 17,exact
+Linn,Marion 18,Marion 18,exact
+Linn,Mount Vernon 01,Mount Vernon 01,exact
+Linn,Mount Vernon 02,Mount Vernon 02,exact
+Linn,Robins,Robins,exact
+Linn,Bertram Township,Bertram Township,exact
+Linn,Clinton Township,Clinton Township,exact
+Linn,Fairfax Township,Fairfax Township,exact
+Linn,Fayette Township,Fayette Township,exact
+Linn,Franklin Township,Franklin Township,exact
+Linn,Grant Township,Grant Township,exact
+Linn,Jackson Township,Jackson Township,exact
+Linn,Maine Township,Maine Township,exact
+Linn,Marion Township 01,Marion Township 01,exact
+Linn,Marion Township 02,Marion Township 02,exact
+Linn,Monroe Township 01,Monroe Township 01,exact
+Linn,Monroe Township 02,Monroe Township 02,exact
+Linn,Otter Creek Township,Otter Creek Township,exact
+Linn,Putnam Township,Putnam Township,exact
+Linn,Spring Grove Township,Spring Grove Township,exact
+Linn,Washington Township,Washington Township,exact
+Marshall,EDEN/LOGAN/WASHINGTON,EDEN/LOGAN/WASHINGTON,exact
+Pottawattamie,CB 01,CB 01,exact
+Pottawattamie,CB 02,CB 02,exact
+Pottawattamie,CB 03,CB 03,exact
+Pottawattamie,CB 04,CB 04,exact
+Pottawattamie,CB 05,CB 05,exact
+Pottawattamie,CB 06,CB 06,exact
+Pottawattamie,CB 07,CB 07,exact
+Pottawattamie,CB 08,CB 08,exact
+Pottawattamie,CB 09,CB 09,exact
+Pottawattamie,CB 11,CB 11,exact
+Pottawattamie,CB 12,CB 12,exact
+Pottawattamie,CB 13,CB 13,exact
+Pottawattamie,CB 14,CB 14,exact
+Pottawattamie,CB 15,CB 15,exact
+Pottawattamie,CB 16,CB 16,exact
+Pottawattamie,CB 17,CB 17,exact
+Pottawattamie,CB 18,CB 18,exact
+Pottawattamie,CB 19,CB 19,exact
+Pottawattamie,CB 20,CB 20,exact
+Pottawattamie,CB 21,CB 21,exact
+Pottawattamie,CB 22,CB 22,exact
+Poweshiek,BMWJ,BMWJ,exact
+Poweshiek,DRL,DRL,exact
+Poweshiek,MS,MS,exact
+Poweshiek,CGWS,CGWS,exact
+Poweshiek,JUPS,JUPS,exact
+Ringgold,Athens,Athens,exact
+Ringgold,Clinton,Clinton,exact
+Ringgold,Mount Ayr 2,Mount Ayr 2,exact
+Ringgold,Tingley,Tingley,exact
+Dallas,LINCOLN/WASHINGTON/LINN,Lincoln/Washington/Linn,normalized
+Dallas,UNION,Union,normalized
+Dallas,WAUKEE 7,Waukee 7,normalized
+Dallas,WAUKEE 8,Waukee 8,normalized
+Dallas,WAUKEE 10,Waukee 10,normalized
+Davis,BLOOMFIELD WARD 1,Bloomfield Ward 1,normalized
+Davis,BLOOMFIELD WARD 2,Bloomfield Ward 2,normalized
+Davis,BLOOMFIELD WARD 3,Bloomfield Ward 3,normalized
+Linn,Boulder-Buffalo,Boulder - Buffalo,normalized
+Linn,Brown-Linn,Brown - Linn,normalized
+Marion,Indiana Township,Indiana Twp,normalized
+Marion,Knoxville Township,Knoxville Twp,normalized
+Marion,Lake Prairie Township,Lake Prairie Twp,normalized
+Marion,Washington Township,Washington Twp,normalized
+Marshall,Bangor/Liscomb/Taylor,BANGOR/LISCOMB/TAYLOR,normalized
+Marshall,Green Castle/LeGrand,GREEN CASTLE/LEGRAND,normalized
+Marshall,Jefferson/Timber Creek,JEFFERSON/TIMBER CREEK,normalized
+Marshall,Liberty/Marietta/Minerva,LIBERTY/MARIETTA/MINERVA,normalized
+Marshall,Marion/Vienna,MARION/VIENNA,normalized
+Marshall,State Center,STATE CENTER,normalized
+Pottawattamie,CB 10,CB-10,normalized
+Pottawattamie,CARTER LAKE 1,Carter Lake 1,normalized
+Pottawattamie,CARTER LAKE 2,Carter Lake 2,normalized
+Pottawattamie,AVOCA,Avoca,normalized
+Pottawattamie,BOOMER,Boomer,normalized
+Pottawattamie,CARSON,Carson,normalized
+Pottawattamie,CRESCENT,Crescent,normalized
+Pottawattamie,GARNER,Garner,normalized
+Pottawattamie,HANCOCK,Hancock,normalized
+Pottawattamie,LEWIS 1,Lewis 1 (N of 92),normalized
+Pottawattamie,LEWIS 2,Lewis 2 (S of 92),normalized
+Pottawattamie,MACEDONIA,Macedonia,normalized
+Pottawattamie,MCCLELLAND,McClelland,normalized
+Pottawattamie,MINDEN,Minden,normalized
+Pottawattamie,NEOLA,Neola,normalized
+Pottawattamie,OAKLAND,Oakland,normalized
+Pottawattamie,TREYNOR,Treynor,normalized
+Pottawattamie,UNDERWOOD,Underwood,normalized
+Pottawattamie,WALNUT,Walnut,normalized
+Poweshiek,Montezuma,MONTEZUMA,normalized
+Scott,(BU) Buffalo Township,Buffalo TWP,normalized
+Scott,(LCT) LeClaire Township,LeClaire TWP,normalized
+Scott,(MC) McCausland,McCausland,normalized
+Scott,(WC) Walcott,Walcott,normalized
+Shelby,HARLAN WARD 1,Harlan Ward 1,normalized
+Shelby,HARLAN WARD 3,Harlan Ward 3,normalized
+Shelby,HARLAN WARD 4,Harlan Ward 4,normalized
+Shelby,CASS-LINCOLN,Cass Lincoln,normalized
+Shelby,GREELEY JEFFERSON,Greeley Jefferson,normalized
+Shelby,GROVE-UNION-WASHINGTON-WESTPHALIA,Grove Union Washington Westphalia,normalized
+Shelby,CENTER-JACKSON,Center Jackson,normalized
+Shelby,FAIRVIEW SHELBY,Fairview Shelby,normalized
+Shelby,DOUGLAS POLK,Douglas Polk,normalized
+Sioux,West Branch,WEST BRANCH,normalized
+Story,AMES 1,Ames 1,normalized
+Story,AMES 2,Ames 2,normalized
+Story,AMES 3/GRANT TWP,Ames 3/Grant Twp,normalized
+Story,AMES 4,Ames 4,normalized
+Story,AMES 6,Ames 6,normalized
+Story,AMES 8,Ames 8,normalized
+Story,AMES 9,Ames 9,normalized
+Story,AMES 10,Ames 10,normalized
+Story,AMES 11,Ames 11,normalized
+Story,AMES 12,Ames 12,normalized
+Story,AMES 13,Ames 13,normalized
+Story,AMES 14,Ames 14,normalized
+Story,AMES 15,Ames 15,normalized
+Story,AMES 17,Ames 17,normalized
+Story,AMES 18,Ames 18,normalized
+Story,AMES 19,Ames 19,normalized
+Story,AMES 20,Ames 20,normalized
+Story,AMES 21,Ames 21,normalized
+Story,AMES 22,Ames 22,normalized
+Story,AMES 23,Ames 23,normalized
+Story,AMES 24,Ames 24,normalized
+Story,COLLINS/COLLINS TWP,Collins/Collins Twp,normalized
+Story,COLO/NEW ALBANY TWP,Colo/New Albany Twp,normalized
+Story,FRANKLIN TWP,Franklin Twp,normalized
+Story,GILBERT,Gilbert,normalized
+Story,HUXLEY 2/PALESTINE TWP,Huxley 2/Palestine Twp,normalized
+Story,KELLEY,Kelley,normalized
+Story,MCCALLSBURG/WARREN TWP,McCallsburg/Warren Twp,normalized
+Story,MILFORD TWP,Milford Twp,normalized
+Story,NEVADA 1/RICHLAND TWP,Nevada 1/Richland Twp,normalized
+Story,NEVADA 3,Nevada 3,normalized
+Story,NEVADA 4/NEVADA TWP,Nevada 4/Nevada Twp,normalized
+Story,ROLAND/HOWARD TWP,Roland/Howard Twp,normalized
+Story,SLATER/SHELDAHL,Slater/Sheldahl,normalized
+Story,STORY CITY 1,Story City 1,normalized
+Story,WASHINGTON TWP,Washington Twp,normalized
+Washington,AINSWORTH,Ainsworth,normalized
+Washington,BRIGHTON,Brighton,normalized
+Washington,KALONA,Kalona,normalized
+Washington,RICHMOND,Richmond,normalized
+Washington,RIVERSIDE,Riverside,normalized
+Clarke,MIDDLE PRECINCT,Middle,strip_1
+Clarke,MURRAY PRECINCT,Murray,strip_1
+Clarke,WOODBURN PRECINCT,woodburn,strip_1
+Clinton,CAMANCHE 1,Camanche,strip_1
+Clinton,CAMANCHE 2,Camanche,strip_1
+Clinton,CAMANCHE TWP,Camanche,strip_1
+Clinton,DEWITT 1,DeWitt,strip_1
+Clinton,DEWITT 2,DeWitt,strip_1
+Clinton,DEWITT TWP,DeWitt,strip_1
+Crawford,DCAB Precinct,DCAB,strip_1
+Crawford,SRK Precinct,SRK,strip_1
+Dallas,ADEL 1 A1,Adel 1,strip_1
+Dallas,ADEL TWP AT,Adel Township,strip_1
+Dallas,ADEL 2 A2,Adel 2,strip_1
+Dallas,ADEL 3 A3,Adel 3,strip_1
+Dallas,CLIVE 5 C5,Clive 5,strip_1
+Dallas,CLIVE 6 C6,Clive 6,strip_1
+Dallas,CLIVE 7 C7,Clive 7,strip_1
+Dallas,CLIVE 8 C8,Clive 8,strip_1
+Dallas,DESOTO DS,DeSoto,strip_1
+Dallas,GRANT/GRANGER GG,Grant/Granger,strip_1
+Dallas,PERRY 1 P1,Perry 1,strip_1
+Dallas,PERRY 2 P2,Perry 2,strip_1
+Dallas,PERRY 3 P3,Perry 3,strip_1
+Dallas,SUGAR GROVE/DALLAS CENTER SGDC,Sugar Grove/Dallas Center,strip_1
+Dallas,SPRING VALLEY/DALLAS SVD,Spring Valley/Dallas,strip_1
+Dallas,VAN METER CITY VM,Van Meter City,strip_1
+Des Moines,TAMA TWP,Tama,strip_1
+Fayette,Auburn-Eden Township,Auburn-Eden,strip_1
+Fayette,Banks-Fremont Township,Banks-Fremont,strip_1
+Fayette,Bethel-Windsor Township,Bethel-Windsor,strip_1
+Fayette,Center-Harlan Township,Center-Harlan,strip_1
+Fayette,Clermont Township,Clermont,strip_1
+Fayette,Dover Township,Dover,strip_1
+Fayette,Fairfield-Putnam Township,Fairfield-Putnam,strip_1
+Fayette,Illyria Township,Illyria,strip_1
+Fayette,Jefferson-Scott Township,Jefferson-Scott,strip_1
+Fayette,Oran Township,Oran,strip_1
+Fayette,Pleasant Valley Township,Pleasant Valley,strip_1
+Fayette,Smithfield-Westfield Town,Smithfield-Westfield,strip_1
+Fayette,Union Township,Union,strip_1
+Henry,Precinct 4 MP1,Precinct 4,strip_1
+Henry,Precinct 5 MP2,Precinct 5,strip_1
+Henry,Precinct 6 MP3,Precinct 6,strip_1
+Henry,Precinct 7 MP4,Precinct 7,strip_1
+Poweshiek,1st Ward - GR,1ST WARD,strip_1
+Poweshiek,2nd Ward - GR,2ND WARD,strip_1
+Poweshiek,3rd Ward - GR,3RD WARD,strip_1
+Poweshiek,4th Ward - GR,4TH WARD,strip_1
+Ringgold,Union Precinct,Union,strip_1
+Ringgold,Washington Precinct,Washington,strip_1
+Story,CAMBRIDGE/UNION TWP 1,Cambridge/Union Twp,strip_1
+Washington,WELLMAN PRECINCT,Wellman,strip_1
+Benton,Bruce-Cedar-Monroe-Mt Auburn,Bruce-Cedar-Monroe,strip_2
+Cerro Gordo,Clear Lake Ward 1 -,Clear Lake,strip_2
+Cerro Gordo,Clear Lake Ward 2 -,Clear Lake,strip_2
+Cerro Gordo,Clear Lake Ward 3 -,Clear Lake,strip_2
+Cerro Gordo,Falls Twp Pct,Falls,strip_2
+Cerro Gordo,Grimes Twp Pct,Grimes,strip_2
+Dallas,GRIMES/WALNUT TWP GWT,Grimes/Walnut,strip_2
+Dallas,URBANDALE 15 URB 15,Urbandale 15,strip_2
+Dallas,URBANDALE 16 URB 16,Urbandale 16,strip_2
+Dallas,URBANDALE 17 URB 17,Urbandale 17,strip_2
+Dallas,URBANDALE 18 URB 18,Urbandale 18,strip_2
+Dallas,VAN METER TWP VM TWP,Van Meter Township,strip_2
+Dallas,WAUKEE 3 WK 3,Waukee 3,strip_2
+Dallas,WAUKEE 4 WK 4,Waukee 4,strip_2
+Dallas,WAUKEE 5 WK 5,Waukee 5,strip_2
+Dallas,WAUKEE 6 WK 6,Waukee 6,strip_2
+Dallas,WAUKEE 9 WK 9,Waukee 9,strip_2
+Dallas,WEST DES MOINES 221 WDM 221,West Des Moines 221,strip_2
+Dallas,WEST DES MOINES 222 WDM 222,West Des Moines 222,strip_2
+Dallas,WEST DES MOINES 224 WDM 224,West Des Moines 224,strip_2
+Dallas,WEST DES MOINES 225 WDM 225,West Des Moines 225,strip_2
+Dallas,WEST DES MOINES 226 WDM 226,West Des Moines 226,strip_2
+Dallas,WEST DES MOINES 227 WDM 227,West Des Moines 227,strip_2
+Dallas,WEST DES MOINES 322 WDM 322,West Des Moines 322,strip_2
+Marion,CLAY,Clay Twp,drop_twp
+Marion,DALLAS,Dallas Twp,drop_twp
+Marion,LIBERTY,Liberty Twp,drop_twp
+Scott,(AG) Allens Grove,Allens Grove TWP,drop_twp
+Scott,(BF) Buffalo,Buffalo TWP,drop_twp
+Scott,(BG) Blue Grass,Blue Grass TWP,drop_twp
+Scott,(HG) Hickory Grove,Hickory Grove TWP,drop_twp
+Scott,(LB) Liberty,Liberty TWP,drop_twp
+Scott,(LS) Lincoln Sheridan,Lincoln-Sheridan TWP,drop_twp
+Scott,(PR) Princeton,Princeton TWP,drop_twp
+Scott,(PV) Pleasant Valley,Pleasant Valley TWP,drop_twp
+Scott,(WF) Winfield,Winfield TWP,drop_twp
+Story,HUXLEY 1/UNION TWP 2,Huxley 1/Union 2,drop_twp
+Des Moines,PCT 1,Precinct 1,expand_pct
+Des Moines,PCT 2,Precinct 2,expand_pct
+Des Moines,PCT 3,Precinct 3,expand_pct
+Des Moines,PCT 4,Precinct 4,expand_pct
+Des Moines,PCT 5,Precinct 5,expand_pct
+Des Moines,PCT 6,Precinct 6,expand_pct
+Des Moines,PCT 7,Precinct 7,expand_pct
+Des Moines,PCT 8,Precinct 8,expand_pct
+Des Moines,PCT DM,DM,strip_pct
+Des Moines,PCT FM,FM,strip_pct
+Des Moines,PCT BHJ,BHJ,strip_pct
+Des Moines,PCT MYF,MYF,strip_pct
+Des Moines,PCT PW,PW,strip_pct
+Des Moines,PCT WB,WB,strip_pct

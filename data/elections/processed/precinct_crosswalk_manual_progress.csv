@@ -1,0 +1,888 @@
+county,elec_name,shp_longname
+Adams,Adams 1,Precinct 1
+Adams,Adams 2,Precinct 2
+Adams,Adams 3,Precinct 3
+Adams,Adams 4,Precinct 4
+Adams,Adams 5,Precinct 5
+Allamakee,Pct 1 - WL/HV,District 1
+Allamakee,Pct 10 - Waukon Ward 3,District 10
+Allamakee,Pct 2 - FC/JK/LL/MK/UP,District 2
+Allamakee,Pct 3 - PO/FK/PV City,District 3
+Allamakee,Pct 4 - LT/PC/WV City,District 4
+Allamakee,Pct 5 - FV/TL/HF City,District 5
+Allamakee,Pct 6 - CN/LF/LS/LS City,District 6
+Allamakee,Pct 7 - IA/UC/NA City,District 7
+Allamakee,Pct 8 - Waukon Ward 1,District 8
+Allamakee,Pct 9 - Waukon Ward 2,District 9
+Appanoose,Caldwell,District 3
+Appanoose,Centerville Ward 1,District 9
+Appanoose,Centerville Ward 2,District 10
+Appanoose,Centerville Ward 3,District 11
+Appanoose,Johns/Independence/Lincoln,District 5
+Appanoose,Pleasant/Franklin,District 4
+Appanoose,Taylor/Chariton,District 6
+Appanoose,Union/Udell,District 1
+Appanoose,Vermillion/Douglas/Sharon/Bellair,District 8
+Appanoose,Walnut,District 7
+Appanoose,Washington/Wells,District 2
+Audubon,#1 Audubon,Precinct 1
+Audubon,#2 Exira,Precinct 2
+Benton,Florence-St Clair-Norway,Florence-St. Clair-Norway
+Boone,Boone 1st Ward,District 7
+Boone,Boone 2nd Ward,District 8
+Boone,Boone 3rd Ward,District 9
+Boone,Boone 4th Ward,District 10
+Boone,Boone 5th Ward,District 11
+Boone,Madrid 1st Ward,District 12
+Boone,Madrid 2nd Ward,District 13
+Boone,Madrid 3rd Ward,District 14
+Boone,Ogden,District 15
+Boone,Rural Precinct 1,District 1
+Boone,Rural Precinct 2,District 2
+Boone,Rural Precinct 3,District 3
+Boone,Rural Precinct 4,District 4
+Boone,Rural Precinct 5,District 5
+Boone,Rural Precinct 6,District 6
+Bremer,#1 Polk Twp/City of Plainfield,Precinct 1
+Bremer,#10 City of Waverly Ward 1,Precinct 10
+Bremer,#11 City of Waverly Ward 2,Precinct 11
+Bremer,#12 City of Waverly Ward 3,Precinct 12
+Bremer,#13 City of Waverly Ward 4,Precinct 13
+Bremer,#14 City of Waverly Ward 5,Precinct 14
+Bremer,#2 Douglas/Frederika/Leroy/City of Frederika,Precinct 2
+Bremer,#3 Dayton Twp/Sumner No. 2 Twp/City of Sumner,Precinct 3
+Bremer,#4 Warren Twp/Fremont Twp/City of Tripoli,Precinct 4
+Bremer,#5 Lafayette Twp/Washington Twp,Precinct 5
+Bremer,#6 Jackson Twp/City of Janesville,Precinct 6
+Bremer,#7 Jefferson Twp,Precinct 7
+Bremer,#8 City of Denver,Precinct 8
+Bremer,#9 Maxfield Twp/Franklin Twp/City of Readlyn,Precinct 9
+Buchanan,Aurora,District 3
+Buchanan,Brandon,District 6
+Buchanan,Fairbank,District 1
+Buchanan,Hazleton,District 2
+Buchanan,Independence 1st Ward,District 10
+Buchanan,Independence 2nd Ward,District 11
+Buchanan,Independence 3rd Ward,District 12
+Buchanan,Independence 4th Ward,District 13
+Buchanan,Independence 5th Ward,District 14
+Buchanan,Jesup,District 5
+Buchanan,Perry-Washington,District 4
+Buchanan,Quasqueton,District 9
+Buchanan,Rowley,District 7
+Buchanan,Winthrop,District 8
+Buena Vista,BBLL,Precinct 3
+Buena Vista,CFNP,Precinct 1
+Buena Vista,EMNS,Precinct 2
+Buena Vista,GHPW,Precinct 4
+Buena Vista,SL01 Storm Lake 01 City,Precinct 8
+Buena Vista,SL02 Storm Lake 02 City,Precinct 6
+Buena Vista,SL03,Precinct 5
+Buena Vista,SL04 Storm Lake 04 City,Precinct 7
+Butler,1-GR,Precinct 1
+Butler,2-CL,Precinct 2
+Butler,3-DU,Precinct 3
+Butler,4-AL,Precinct 4
+Butler,5-AP,Precinct 5
+Butler,6-SR,Precinct 6
+Butler,7-PB,Precinct 7
+Butler,8-NH,Precinct 8
+Calhoun,01 Butler and Williams,"Butler, Williams"
+Calhoun,02 Lincoln-Manson-Sherman and N Greenfield,"Lincoln, Manson, Sherman, North Greenfield"
+Calhoun,03 Cen-Garf-Twin Lks-N Lake Crk-N Logan-Rockwell C,"Center, Garfield, Twin Lakes, North Lake Creek, No"
+Calhoun,04 Cedar and S Greenfield,"Cedar, South Greenfield"
+Calhoun,05 Calhoun-Elm Grove-Jackson-S Lake Crk-Lake City,"Calhoun, Elm Grove, Jackson, South Lake Creek, Lak"
+Calhoun,06 Reading-Union and S Logan,"Reading, Union, South Logan"
+Carroll,Arcadia Precinct,Precinct 7
+Carroll,Carroll Ward Four,Precinct 4
+Carroll,Carroll Ward One Precinct,Precinct 1
+Carroll,Carroll Ward Three and S1/2 Maple River Township,Precinct 3
+Carroll,Carroll Ward Two and N1/2 Maple River Township,Precinct 2
+Carroll,Eden Precinct,Precinct 12
+Carroll,Ewoldt Precinct,Precinct 11
+Carroll,Glidden-Richland Precinct,Precinct 8
+Carroll,Pleasant Valley-Newton Precinct,Precinct 10
+Carroll,Sheridan-Grant-Jasper Precinct,Precinct 6
+Carroll,Union Precinct,Precinct 13
+Carroll,Washington-Roselle Precinct,Precinct 9
+Carroll,Wheatland-Kniest Precinct,Precinct 5
+Cass,Atlantic Ward 1,Precinct 1
+Cass,Atlantic Ward 2,Precinct 2
+Cass,Atlantic Ward 3,Precinct 3
+Cass,Atlantic Ward 4,Precinct 4
+Cass,Atlantic Ward 5,Precinct 5
+Cass,Bear Grove/Cass Twp/Lewis,Precinct 6
+Cass,Brighton/Marne/Grove/Pymosa/Washington Twp,Precinct 8
+Cass,Grant/Anita/Lincoln/Benton/Franklin/Wiota,Precinct 7
+Cass,Noble Twp/Pleasant Twp/Griswold,Precinct 9
+Cass,Union Twp/Cumberland,Precinct 10
+Cass,Victoria/Edna/East Side of Massena Twp,Precinct 11
+Cass,West Massena Township/Massena,Precinct 12
+Cedar,Cass-Center-Iowa-Rochester,Cass/Center/Iowa/Rochester
+Cedar,Dayton-Fairfield,Dayton/Fairfield
+Cedar,Farmington-Sugar Creek,Farmington/Sugar Creek
+Cedar,Fremont-Red Oak,Fremont/Red Oak
+Cedar,Gower-Springdale,Gower/Springdale
+Cedar,Linn-Pioneer,Linn/Pioneer
+Cedar,Massillon-Springfield,Massillon/Springfield
+Cerro Gordo,Clear Lake / Grant / Union Twps Pct,Clear Lake-Grant-Union
+Cerro Gordo,Geneseo / Dougherty Twps Pct,Geneseo-Dougherty
+Cerro Gordo,Lake / Lincoln Twps Pct,Lake-Lincoln
+Cerro Gordo,Lime Creek / Mason North Twps Pct,Lime-Mason N
+Cerro Gordo,Mason South / Bath / Portland / Owen Twps Pct,Mason S-Bath-Portland-Owen
+Cerro Gordo,Mt Vernon / Pleasant Valley Twps Pct,Mount Vernon-Pleasant Valley
+Cherokee,1 - Cherokee Ward 1,Precinct 1
+Cherokee,2 - Cherokee Ward 2,Precinct 2
+Cherokee,3 - Cherokee Ward 3,Precinct 3
+Cherokee,4 - Cherokee,Precinct 4
+Cherokee,5 - Aurelia,Precinct 5
+Cherokee,6 - Quimby,Precinct 6
+Cherokee,7 - Marcus,Precinct 7
+Chickasaw,Bradford,Precinct 6
+Chickasaw,Chickasaw North,Precinct 9
+Chickasaw,Dayton/Richland,Precinct 7
+Chickasaw,Lawler/Fredericksburg,Precinct 5
+Chickasaw,New Hampton Rural,Precinct 8
+Chickasaw,New Hampton Ward 1,Precinct 1
+Chickasaw,New Hampton Ward 2,Precinct 2
+Chickasaw,New Hampton Ward 3,Precinct 3
+Chickasaw,New Hampton Ward 4,Precinct 4
+Clarke,NORTH PRECINCT,Northern
+Clarke,OSCEOLA 1ST WARD,1st
+Clarke,OSCEOLA 2ND WARD,2nd
+Clarke,OSCEOLA 3RD WARD,3rd
+Clay,City of Spencer Ward 1,Spencer Ward 1
+Clay,City of Spencer Ward 2,Spencer Ward 2
+Clay,City of Spencer Ward 3,Spencer Ward 3
+Clay,City of Spencer Ward 5,Spencer Ward 5
+Clay,Douglas-Peterson,Douglas/Peterson
+Clay,Garfield-Herdland,Garfield/Herdland
+Clay,Lake-Freeman,Lake/Freeman
+Clay,Lincoln-Clay-Lone Tree-Riverton,Lincoln/Clay/Lone Tree/Riverton
+Clay,Logan-Gillett Grove,Logan/Gillett Grove
+Clay,Summit-Meadow-Sioux,Summit/Meadow/Sioux
+Clay,Waterford-City of Everly,Waterford/Everly
+Clayton,BOARDMAN-HIGHLAND-READ,Precinct 6
+Clayton,BUENA VISTA-MILLVILLE,Precinct 12
+Clayton,CASS,Precinct 10
+Clayton,CLAYTON-GARNAVILLO,Precinct 5
+Clayton,COX CREEK-SPERRY,Precinct 7
+Clayton,ELK-MALLORY-VOLGA,Precinct 8
+Clayton,FARMERSBURG-WAGNER,Precinct 4
+Clayton,GIARD-MONONA,Precinct 2
+Clayton,GRAND MEADOW-MARION,Precinct 1
+Clayton,JEFFERSON,Precinct 9
+Clayton,LODOMILLO,Precinct 11
+Clayton,MENDON,Precinct 3
+Clinton,BLOOMFIELD BROOKFIELD DELMAR,"Bloomfield, Brookfield, Delmar"
+Clinton,CENTER DEEP CREEK GOOSE LAKE,"Center, Deep Creek, Goose Lake"
+Clinton,EDEN LOW MOOR,"Eden, Low Moor"
+Clinton,ELK RIVER HAMPSHIRE ANDOVER,"Elk River, Hampshire, Andover"
+Clinton,LBRTY SPRNG RCK TRNTO WHTLND,"Liberty, Spring Rock, Toronto, Wheatland"
+Clinton,OLIVE GRANT CALAMUS,"Olive, Grant, Calamus"
+Clinton,ORANGE GRAND MOUND,"Orange, Grand Mound"
+Clinton,SHARON LOST NATION,"Sharon, Lost Nation"
+Clinton,WATERFORD CHARLOTTE,"Waterford, Charlotte"
+Clinton,WELTON WASHINGTON WELTON,"Welton, Washington, Welton"
+Crawford,Denison 2nd Ward / Denison TWP,Denison 2nd/Denison TWP
+Crawford,Denison 3rd Ward / Goodrich TWP,Denison 3rd/Goodrich TWP
+Crawford,Northeast Precinct,NE
+Crawford,Southeast Precinct,SE
+Dallas,URBANDALE 14 URB 14,Urbnadale 14
+Dallas,WEST DES MOINES 223 WDM 223,West Des Moine 223
+Dallas,WEST DES MOINES 321 WDM 321,West Des Moines321
+Davis,CENTRAL,Central Precinct
+Davis,NORTHEAST,Northeast Precinct
+Davis,NORTHWEST,Northwest Precinct
+Davis,SOUTHEAST,Southeast Precinct
+Davis,SOUTHWEST,Southwest Precinct
+Decatur,Davis,District 4
+Decatur,Lamoni,District 3
+Decatur,Leon,District 2
+Decatur,Van Wert,District 1
+Delaware,Adams/Hazel Green,Precinct 1
+Delaware,Colony,Precinct 2
+Delaware,Delaware,Precinct 3
+Delaware,Delhi/Delaware Corp,Precinct 4
+Delaware,Honey Creek/Elk,Precinct 5
+Delaware,Manchester Ward 1,Precinct 6
+Delaware,Manchester Ward 2,Precinct 7
+Delaware,Manchester Ward 3,Precinct 8
+Delaware,Milo/Prairie,Precinct 9
+Delaware,Oneida/N Fork/Bremen,Precinct 10
+Delaware,Richland/Coffins Grove,Precinct 11
+Delaware,South Fork/Union,Precinct 12
+Des Moines,CONCORDIA TWP,CC
+Des Moines,PCT UNION,UN
+Dickinson,Precinct No. 1,Precinct 1
+Dickinson,Precinct No. 10,Precinct 10
+Dickinson,Precinct No. 11,Precinct 11
+Dickinson,Precinct No. 12,Precinct 12
+Dickinson,Precinct No. 2,Precinct 2
+Dickinson,Precinct No. 3,Precinct 3
+Dickinson,Precinct No. 4,Precinct 4
+Dickinson,Precinct No. 5,Precinct 5
+Dickinson,Precinct No. 6,Precinct 6
+Dickinson,Precinct No. 7,Precinct 7
+Dickinson,Precinct No. 8,Precinct 8
+Dickinson,Precinct No. 9,Precinct 9
+Dubuque,1 Tri-State Blind,Precinct 1
+Dubuque,10 Westminster Presbyterian Church,Precinct 10
+Dubuque,11 U.A.W. Union Hall,Precinct 11
+Dubuque,12 Windsor Park,Precinct 12
+Dubuque,13 Comiskey Park,Precinct 13
+Dubuque,14 Sacred Heart Church,Precinct 14
+Dubuque,15 Holy Trinity Church,Precinct 15
+Dubuque,16 Depot at the River Museum,Precinct 16
+Dubuque,17 St. John's Parish House,Precinct 17
+Dubuque,18 Dubuque Museum of Art,Precinct 18
+Dubuque,19 St. Elias Church,Precinct 19
+Dubuque,2 Tri State Blind,Precinct 2
+Dubuque,20 Fogarty Hall Center,Precinct 20
+Dubuque,21 Asbury City Hall,Precinct 21
+Dubuque,22 Dubuque County West Campus,Precinct 22
+Dubuque,23 Hope Evangelical Church,Precinct 23
+Dubuque,24 St. Joseph's Catholic Church,Precinct 24
+Dubuque,25 Holy Cross City Hall,Precinct 25
+Dubuque,26 New Vienna City Hall,Precinct 26
+Dubuque,27 Dyersville Social Center,Precinct 27
+Dubuque,28 Dyersville Social Center,Precinct 28
+Dubuque,29 Farley City Hall,Precinct 29
+Dubuque,3 Area Residential Care,Precinct 3
+Dubuque,30 Cascade City Hall,Precinct 30
+Dubuque,31 Epworth Council Chambers,Precinct 31
+Dubuque,32 Peosta Community Center,Precinct 32
+Dubuque,33 Swiss Valley Nature Center,Precinct 33
+Dubuque,34 Key West Fire Station,Precinct 34
+Dubuque,4 Dubuque County Fairgrounds,Precinct 4
+Dubuque,5 Resurrection Catholic Church,Precinct 5
+Dubuque,6 Summit Congregational Church,Precinct 6
+Dubuque,7 St. Peter Lutheran Church,Precinct 7
+Dubuque,8 Emmaus Bible College,Precinct 8
+Dubuque,9 Westminster Presbyterian Church,Precinct 9
+Emmet,"ARMSTRONG, ARMSTRONG GROVE-IOWA LAKE TWP",Precinct 1
+Emmet,"CITY OF RINGSTED, DENMARK-JACK CREEK TWP",Precinct 3
+Emmet,"DOLLIVER, ELLSWORTH-LINCOLN TWP",Precinct 4
+Emmet,EMMET-ESTHERVILLE TWP,Precinct 5
+Emmet,ESTHERVILLE WARD 1,Precinct 6
+Emmet,ESTHERVILLE WARD 2,Precinct 7
+Emmet,ESTHERVILLE WARD 3,Precinct 8
+Emmet,ESTHERVILLE WARD 4,Precinct 9
+Emmet,ESTHERVILLE WARD 5,Precinct 10
+Emmet,"GRUVER, CENTER-SWAN LAKE TWP",Precinct 2
+Emmet,"WALLINGFORD, TWELVE MILE LAKE-HIGH LAKE TWP",Precinct 11
+Fayette,Oelwein Ward 1,Oelwein W1
+Fayette,Oelwein Ward 2,Oelwein W2
+Fayette,Oelwein Ward 3,Oelwein W3
+Fayette,Oelwein Ward 4,Oelwein W4
+Fayette,West Union Ward 1,W Union 1
+Fayette,West Union Ward 2,W Union 2
+Fayette,West Union Ward 3,W Union 3
+Floyd,CC1 - Courthouse,District 1
+Floyd,CC2 - Messiah Lutheran Church,District 2
+Floyd,CC3 / St Charles N-Trinity United Methodist Church,District 3
+Floyd,Rock Grove,District 4
+Floyd,Rockford,District 5
+Floyd,Rudd- Floyd - Cedar - Niles,District 7
+Floyd,Scott - Union - Pleasant Grove,District 6
+Floyd,Ulster - St. Charles - Riverton,District 8
+Fremont,Hamburg/Washington,Hamburg
+Greene,Central Precinct,Precinct 3
+Greene,East Precinct,Precinct 4
+Greene,Jefferson 1 Precinct,Precinct 5
+Greene,Jefferson 2 Precinct,Precinct 6
+Greene,North Precinct,Precinct 1
+Greene,West Precinct,Precinct 2
+Guthrie,Bayard,Bayard Precinct
+Guthrie,Casey,Casey Precinct
+Guthrie,Guthrie Center,Guthrie Center Precinct
+Guthrie,Panora,Panora Precinct
+Guthrie,Stuart,Stuart Precinct
+Guthrie,Yale,Yale Precinct
+Hamilton,Precinct 1 WC 1,District 1
+Hamilton,Precinct 2 WC 2,District 2
+Hamilton,Precinct 4 Northwest,District 4
+Hamilton,Precinct 5 Northeast,District 5
+Hamilton,Precinct 6 Southwest,District 6
+Hamilton,Precinct 7 Southeast,District 7
+Hamilton,Precninct 3 WC 3,District 3
+Hancock,Precinct #1,Precinct 1
+Hancock,Precinct #10,Precinct 10
+Hancock,Precinct #2,Precinct 2
+Hancock,Precinct #3,Precinct 3
+Hancock,Precinct #4,Precinct 4
+Hancock,Precinct #5,Precinct 5
+Hancock,Precinct #6,Precinct 6
+Hancock,Precinct #7,Precinct 7
+Hancock,Precinct #8,Precinct 8
+Hancock,Precinct #9,Precinct 9
+Hardin,Alden/Buckeye,Precinct 1
+Hardin,Concord/Sherman/Grant/Tipton,Precinct 3
+Hardin,Eldora City,Precinct 4
+Hardin,Eldora/Pleasant/Providence/Union,Precinct 2
+Hardin,Etna/Clay,Precinct 5
+Hardin,Hardin/Ellis/Jackson,Precinct 6
+Hardin,Iowa Falls #1,Precinct 7
+Hardin,Iowa Falls #2,Precinct 8
+Harrison,Precinct # 2 Pisgah,District 2
+Harrison,Precinct #1 Little Sioux,District 1
+Harrison,Precinct #10 Missouri Valley,District 10
+Harrison,Precinct #11 Persia,District 11
+Harrison,Precinct #3 Dunlap,District 3
+Harrison,Precinct #4 Mondamin,District 4
+Harrison,Precinct #5 Magnolia,District 5
+Harrison,Precinct #6 Woodbine,District 6
+Harrison,Precinct #7 Modale,District 7
+Harrison,Precinct #8 Logan,District 8
+Harrison,Precinct #9 St John,District 9
+Howard,Albion/Forest City/Lime Springs,Albion twp/Forest city Twp/Lime Springs
+Howard,Jamestown/Oakdale/Riceville,Jamestown Twp/Oakdale Twp/Riceville
+Howard,New Oregon/Protivin,New Oregon Twp/Protivin
+Howard,Paris/Afton/Howard/Elma,Paris Twp/Afton Twp/Howard Twp/Elma
+Howard,Saratoga/Howard Center/Chester/Chester City,Saratoga Twp/Howard Center Twp/Chester Twp/Chester
+Ida,Blaine/Hayes/Silver Creek Twp/Arthur City,District 4
+Ida,Galva Twp/Galva City,District 5
+Ida,Griggs/Pt. Douglas Twps/Holstein City,District 6
+Ida,Ida Grove Ward 1,District 1
+Ida,Ida Grove Ward 2,District 2
+Ida,Ida Grove Ward 3/Corwin/Pt Grant Twps,District 3
+Ida,Maple/Garfield/Pt.Grant/Battle/Logan/Pt.Douglas/BC,District 7
+Iowa,Dayton/English 1,District 1
+Iowa,English 2,District 2
+Iowa,Fillmore/ Greene,District 3
+Iowa,Hartford 1/ Sumner,District 7
+Iowa,Hartford 2/ Lincoln,District 4
+Iowa,Hilton/ Washington,District 10
+Iowa,Honey Creek/Marengo Rural,District 8
+Iowa,Lenox/ Iowa,District 11
+Iowa,Marengo City,District 9
+Iowa,Pilot/ Troy/ York,District 5
+Iowa,Williamsburg,District 6
+Jones,ANN_ANAMOSA NORTH-CASS,Anamosa North/Cass
+Jones,ANS_ANAMOSA SOUTH-JACKSON,Anamosa South/Jackson
+Jones,CGLW_CASTLE GRV-LOV-WAYN,Castle Grove/Lovell/Wayne
+Jones,FV_FAIRVIEW 8,Fairview
+Jones,GF_GREENFIELD,Greenfield
+Jones,MN1_MONTICELLO 1,Monticello 1
+Jones,MN2_MONTICELLO 2,Monticello 2
+Jones,MN3_MONTICELLO 3,Monticello 3
+Jones,MN4_MONTICELLO 4,Monticello 4
+Jones,OX_OXFORD,Oxford
+Jones,RLWS_RICHLAND-WASHINGTON,Richland/Washington
+Jones,ROHA_ROME-HALE,Rome/Hale
+Jones,SGMC_SC GRV-MADISON-CLAY,Scotch Grove/Madison/Clay
+Jones,WY_WYOMING,Wyoming
+Keokuk,AD-PR-WS,District 1
+Keokuk,BN-SR,District 2
+Keokuk,EL-WL-WN,District 6
+Keokuk,ER-LB,District 3
+Keokuk,JA-RL,District 4
+Keokuk,LF-CC,District 5
+Keokuk,SG-PL-VB,District 7
+Keokuk,SG1,District 8
+Keokuk,SG2,District 9
+Keokuk,SG3,District 10
+Keokuk,SG4,District 11
+Lee,CE CH,Precinct 15
+Lee,DM JK,Precinct 18
+Lee,FM1,Precinct 1
+Lee,FM2,Precinct 2
+Lee,FM3,Precinct 3
+Lee,FM5,Precinct 6
+Lee,GBDNPR,Precinct 22
+Lee,JF WMO,Precinct 16
+Lee,KE1,Precinct 7
+Lee,KE2A,Precinct 8
+Lee,KE2B,Precinct 8
+Lee,KE3,Precinct 9
+Lee,KE4,Precinct 10
+Lee,KE5,Precinct 11
+Lee,KE6,Precinct 12
+Lee,KE7,Precinct 13
+Lee,MR FR,Precinct 19
+Lee,WP,Precinct 20
+Lee,WS-WS,Precinct 21
+Louisa,Columbus Junction,District 1
+Louisa,Grandview Port Louisa,District 5
+Louisa,Morning Sun Marshall,District 3
+Louisa,Southeast Louisa,District 4
+Louisa,West Louisa,District 2
+Lucas,Chariton City Hall Precinct,Precinct 2
+Lucas,Chariton Community Center Precinct,Precinct 1
+Lucas,L.C. Extension Precinct,Precinct 3
+Lucas,Lucas Community Center Precinct,Precinct 4
+Lucas,Pin Oak Marsh Precinct,Precinct 5
+Lucas,Russell Community Center Precinct,Precinct 6
+Lucas,Williamson Community Center Precinct,Precinct 7
+Madison,Grand River - Monroe - Webster -Lincoln SW,Precinct 1
+Madison,Jackson - Douglas - Lincoln NW,Precinct 2
+Madison,Jefferson - Lee,Precinct 3
+Madison,Lincoln NE,Precinct 10
+Madison,Penn - Madison,Precinct 4
+Madison,South,Precinct 5
+Madison,Union - Crawford - Scott - Lincoln SE,Precinct 6
+Madison,Walnut - Ohio,Precinct 7
+Madison,Winterset I,Precinct 8
+Madison,Winterset II,Precinct 9
+Mahaska,AD/LN/MN/SP/KE/UP,Precinct 1
+Mahaska,BO/RL/ST/LT/PL,Precinct 2
+Mahaska,CE/HA/WO/EV/FM/RH,Precinct 3
+Mahaska,EDM/GF/JF/WDM/BE,Precinct 4
+Mahaska,MD/PG/PR/UN/BC/NS,Precinct 5
+Mahaska,OS1,Ward 1
+Mahaska,OS2,Ward 2
+Mahaska,OS3,Ward 3
+Mahaska,OS4,Ward 4
+Marion,Franklin Township,Franklin Precinct
+Marion,Knoxville Four,Knoxville Precinct 4
+Marion,Knoxville One,Knoxville Precinct 1
+Marion,Knoxville Three,Knoxville Precinct 3
+Marion,Knoxville Two,Knoxville Precinct 2
+Marion,OTLEY,Otley Precinct
+Marion,PLEASANTVILLE,Pleasantville Precinct
+Marion,Pella Four,Pella Precinct 4
+Marion,Pella One,Pella Precinct 1
+Marion,Pella Three,Pella Precinct 3
+Marion,Pella Two,Pella Precinct 2
+Marion,Union Township,Union Precinct
+Mills,Deer Creek/White Cloud,District 6
+Mills,Emerson/Hastings/Indian Creek,District 1
+Mills,Glenwood Township,District 2
+Mills,Glenwood Ward 1,District 3
+Mills,Glenwood Ward 2,District 4
+Mills,Glenwood Ward 3,District 5
+Mills,Henderson/Anderson,District 7
+Mills,Malvern/Tabor/Silver Creek/Center/Rawles,District 8
+Mills,Oak/St. Mary,District 9
+Mills,Pacific Junction/Lyons/Plattville,District 10
+Mills,Silver City/Ingraham,District 11
+Mitchell,Precinct #1,District 1
+Mitchell,Precinct #10,District 10
+Mitchell,Precinct #11,District 11
+Mitchell,Precinct #12,District 12
+Mitchell,Precinct #2,District 2
+Mitchell,Precinct #3,District 3
+Mitchell,Precinct #4,District 4
+Mitchell,Precinct #5,District 5
+Mitchell,Precinct #6,District 6
+Mitchell,Precinct #7,District 7
+Mitchell,Precinct #8,District 8
+Mitchell,Precinct #9,District 9
+Monona,AS-BV-CS-CN-KB-TU,District 1
+Monona,BL-FR-SH-SX,District 9
+Monona,CP-MA-MT,District 2
+Monona,FV-GT-LK-LN-RO-WF-WT,District 3
+Monona,JO-MH-SO-SOC-SV-WL,District 4
+Monona,Onawa Ward 1,District 5
+Monona,Onawa Ward 2,District 6
+Monona,Onawa Ward 3,District 7
+Monona,Onawa Ward 4,District 8
+Monona,SC-UT,District 10
+Monroe,No. 1 - Albia First Ward,Precinct 1
+Monroe,No. 2 - Albia Second Ward,Precinct 2
+Monroe,No. 3 - Albia Third Ward,Precinct 3
+Monroe,No. 4 - Albia Fourth Ward,Precinct 4
+Monroe,"No. 5 - Courthouse (PL,GL,TR,MT,UR and MN)",Precinct 5
+Monroe,"No. 6 - Lovilia Comm Center (LV City,BC,CE,UN)",Precinct 6
+Monroe,"No. 7 - St. Patrick's Church (ML City,FR,JK,WY)",Precinct 7
+Montgomery,Elliott Community Building Precinct #4,Precinct 4
+Montgomery,Elliott Community Building Precinct #5,Precinct 5
+Montgomery,First Christian Church Precinct #3,Precinct 3
+Montgomery,Gold Fair Building Precinct #1,Precinct 1
+Montgomery,Gold Fair Building Precinct #2,Precinct 2
+Montgomery,Stanton Community Building Precinct #6,Precinct 6
+Montgomery,Villisca Community Building Precinct #7,Precinct 7
+Muscatine,76/CEDAR,76CE
+Muscatine,Bloomington/Fruitland 2,BLF2
+Muscatine,FUMO/Stockton/Blue Grass,FUMO
+Muscatine,Fruitland 1,F1
+Muscatine,Goshen/City of Atalissa,GO
+Muscatine,Lake,LA
+Muscatine,Moscow,MW
+Muscatine,Muscatine Eighth,M8
+Muscatine,Muscatine Fifth,M5
+Muscatine,Muscatine First,M1
+Muscatine,Muscatine Fourth,M4
+Muscatine,Muscatine Ninth,M9
+Muscatine,Muscatine Second,M2
+Muscatine,Muscatine Seventh,M7
+Muscatine,Muscatine Sixth,M6
+Muscatine,Muscatine Tenth,M10
+Muscatine,Muscatine Third,M3
+Muscatine,Orono/City of Conesville,OR
+Muscatine,Pike/City of Nichols,PI
+Muscatine,Sweetland,SW
+Muscatine,Wapsi Township,WA
+Muscatine,West Liberty 1,WL1
+Muscatine,West Liberty 2,WL2
+Muscatine,Wilton City,WC
+Muscatine,Wilton Township,WI
+O'brien,Carroll-Floyd,Precinct 1
+O'brien,Franklin,Precinct 2
+O'brien,Hartley-Lincoln-Omega,Precinct 3
+O'brien,Sheldon 1st Ward,Precinct 4
+O'brien,Sheldon 2nd Ward,Precinct 5
+O'brien,Sheldon 3rd Ward,Precinct 6
+O'brien,Summit-Center-Dale-Highland,Precinct 7
+O'brien,Union-Baker-Caledonia,Precinct 8
+O'brien,Waterman-Grant-Liberty,Precinct 9
+Osceola,ASHTON,Precinct 5
+Osceola,HARRIS,Precinct 8
+Osceola,MAY CITY,Precinct 7
+Osceola,MELVIN,Precinct 6
+Osceola,OCHEYEDAN,Precinct 4
+Osceola,OSCEOLA 1,Precinct 1
+Osceola,OSCEOLA 2,Precinct 2
+Osceola,OSCEOLA 3,Precinct 3
+Page,Clarinda 1,Precinct 5
+Page,Clarinda 2,Precinct 6
+Page,Essex City Hall,Precinct 3
+Page,Page County Courthouse 1,Precinct 1
+Page,Page County Courthouse 2,Precinct 2
+Page,Shenandoah 1,Precinct 7
+Page,Shenandoah 2,Precinct 8
+Page,Shenandoah 3,Precinct 9
+Page,Shenandoah Fire Station,Precinct 4
+Palo Alto,"EM Ward 3/EM/pts SL,HL,LI,WL",District 3
+Palo Alto,"EMWard4/FR/NV/ptsFV,FF,VN,IN",District 4
+Palo Alto,Emmetsburg Ward 1,District 1
+Palo Alto,Emmetsburg Ward 2,District 2
+Palo Alto,GR/pt WL/pt LI,District 6
+Palo Alto,ML/EL/RL/BO/GO/pt SL,District 7
+Palo Alto,RV/pt HL,District 8
+Palo Alto,WB/pt FV,District 5
+Plymouth,#1-Le Mars Convention Center,Precinct 1
+Plymouth,#10-Kingsley Community Center,Precinct 10
+Plymouth,#11-Wesley United Methodist Church,Precinct 11
+Plymouth,#2-Le Mars Convention Center,Precinct 2
+Plymouth,#3-Le Mars Convention Center,Precinct 3
+Plymouth,#4-Courthouse Annex,Precinct 4
+Plymouth,#5-Remsen Public Library,Precinct 5
+Plymouth,#6-Brunsville Legion Club,Precinct 6
+Plymouth,#7-Kissinger Community Center,Precinct 7
+Plymouth,#8-Perry Township Hall,Precinct 8
+Plymouth,#9-Hinton Community Center,Precinct 9
+Pocahontas,Courthouse,Pocahontas #1
+Pocahontas,Fonda,"S Swan Lake, Marshall, Dover, Cedar, Grant, Colfax"
+Pocahontas,Havelock,"Cummins, Powhattan, Sherman, Pt Center"
+Pocahontas,Hinde Center,"N Lincoln, N Lake, Pocahontas #2, Pt Center"
+Pocahontas,Laurens,North Swan Lake
+Pocahontas,Palmer,"S Lincoln, S. Lake, Bellville, Lizard"
+Pocahontas,Rolfe,"Des Moines, Roosevelt, North Garfield, Pt Center"
+Polk,ALTOONA 1,Altoona Precinct 1
+Polk,ALTOONA 2,Altoona Precinct 2
+Polk,ALTOONA 3,Altoona Precinct 3
+Polk,ALTOONA 4,Altoona Precinct 4
+Polk,ALTOONA 5,Altoona Precinct 5
+Polk,ALTOONA 6,Altoona Precinct 6
+Polk,ANKENY 1,Ankeny Precinct 1
+Polk,ANKENY 10,Ankeny Precinct 10
+Polk,ANKENY 11,Ankeny Precinct 11
+Polk,ANKENY 12,Ankeny Precinct 12
+Polk,ANKENY 13,Ankeny Precinct 13
+Polk,ANKENY 14,Ankeny Precinct 14
+Polk,ANKENY 15,Ankeny Precinct 15
+Polk,ANKENY 16,Ankeny Precinct 16
+Polk,ANKENY 17,Ankeny Precinct 17
+Polk,ANKENY 18,Ankeny Precinct 18
+Polk,ANKENY 19,Ankeny Precinct 19
+Polk,ANKENY 2,Ankeny Precinct 2
+Polk,ANKENY 20,Ankeny Precinct 20
+Polk,ANKENY 21,Ankeny Precinct 21
+Polk,ANKENY 22,Ankeny Precinct 22
+Polk,ANKENY 3,Ankeny Precinct 3
+Polk,ANKENY 4,Ankeny Precinct 4
+Polk,ANKENY 5,Ankeny Precinct 5
+Polk,ANKENY 6,Ankeny Precinct 6
+Polk,ANKENY 7,Ankeny Precinct 7
+Polk,ANKENY 8,Ankeny Precinct 8
+Polk,ANKENY 9,Ankeny Precinct 9
+Polk,CLIVE 1,Clive District 1
+Polk,CLIVE 2,Clive District 2
+Polk,CLIVE 3,Clive District 3
+Polk,CLIVE 4,Clive District 4
+Polk,GRIMES 1,Grimes District 1
+Polk,GRIMES 2,Grimes District 2
+Polk,GRIMES 3,Grimes District 3
+Polk,GRIMES 4,Grimes District 4
+Polk,GRIMES 5,Grimes District 5
+Polk,JOHNSTON 1,Johnston District 1
+Polk,JOHNSTON 2,Johnston District 2
+Polk,JOHNSTON 3,Johnston District 3
+Polk,JOHNSTON 4,Johnston District 4
+Polk,JOHNSTON 5,Johnston District 5
+Polk,JOHNSTON 6,Johnston District 6
+Polk,JOHNSTON 7,Johnston District 7
+Polk,JOHNSTON 8,Johnston District 8
+Polk,POLK CITY 1,Polk Precinct 1
+Polk,POLK CITY 2,Polk Precinct 2
+Polk,URBANDALE 1,Urbandale 12142021 Precinct 1
+Polk,URBANDALE 10,Urbandale 12142021 Precinct 10
+Polk,URBANDALE 11,Urbandale 12142021 Precinct 11
+Polk,URBANDALE 12,Urbandale 12142021 Precinct 12
+Polk,URBANDALE 2,Urbandale 12142021 Precinct 2
+Polk,URBANDALE 3,Urbandale 12142021 Precinct 3
+Polk,URBANDALE 4,Urbandale 12142021 Precinct 4
+Polk,URBANDALE 5,Urbandale 12142021 Precinct 5
+Polk,URBANDALE 6,Urbandale 12142021 Precinct 6
+Polk,URBANDALE 7,Urbandale 12142021 Precinct 7
+Polk,URBANDALE 8,Urbandale 12142021 Precinct 8
+Polk,URBANDALE 9,Urbandale 12142021 Precinct 9
+Polk,WEST DES MOINES 111,111
+Polk,WEST DES MOINES 112,112
+Polk,WEST DES MOINES 113,113
+Polk,WEST DES MOINES 114,114
+Polk,WEST DES MOINES 115,115
+Polk,WEST DES MOINES 116,116
+Polk,WEST DES MOINES 117,117
+Polk,WEST DES MOINES 118,118
+Polk,WEST DES MOINES 211,211
+Polk,WEST DES MOINES 212,212
+Polk,WEST DES MOINES 311,311
+Polk,WEST DES MOINES 312,312
+Polk,WEST DES MOINES 313,313
+Polk,WEST DES MOINES 314,314
+Polk,WEST DES MOINES 315,315
+Polk,WEST DES MOINES 316,316
+Polk,WINDSOR HEIGHTS 1,Windsor Heights Precinct 1
+Polk,WINDSOR HEIGHTS 2,Windsor Heights Precinct 2
+Ringgold,Mount Ayr,Mount Ayr 1
+Sac,Auburn,District 8
+Sac,Early,District 3
+Sac,Lake View,District 7
+Sac,Lytton,District 5
+Sac,Nemaha,District 2
+Sac,Odebolt,District 6
+Sac,Sac City,District 4
+Sac,Schaller,District 1
+Sac,Wall Lake,District 9
+Scott,(B11) City of Bettendorf,Bettendorf B11
+Scott,(B12) City of Bettendorf,Bettendorf B12
+Scott,(B13) City of Bettendorf,Bettendorf B13
+Scott,(B21) City of Bettendorf,Bettendorf B21
+Scott,(B22) City of Bettendorf,Bettendorf B22
+Scott,(B23) City of Bettendorf,Bettendorf B23
+Scott,(B31) City of Bettendorf,Bettendorf B31
+Scott,(B32) City of Bettendorf,Bettendorf B32
+Scott,(B33) City of Bettendorf,Bettendorf B33
+Scott,(B41) City of Bettendorf,Bettendorf B41
+Scott,(B42) City of Bettendorf,Bettendorf B42
+Scott,(B43) City of Bettendorf,Bettendorf B43
+Scott,(B51) City of Bettendorf,Bettendorf B51
+Scott,(B52) City of Bettendorf,Bettendorf B52
+Scott,(B53) City of Bettendorf,Bettendorf B53
+Scott,(D11) City of Davenport,Davenport D11
+Scott,(D12) City of Davenport,Davenport D12
+Scott,(D13) City of Davenport,Davenport D13
+Scott,(D14) City of Davenport,Davenport D14
+Scott,(D21) City of Davenport,Davenport D21
+Scott,(D22) City of Davenport,Davenport D22
+Scott,(D23) City of Davenport,Davenport D23
+Scott,(D24) City of Davenport,Davenport D24
+Scott,(D31) City of Davenport,Davenport D31
+Scott,(D32) City of Davenport,Davenport D32
+Scott,(D33) City of Davenport,Davenport D33
+Scott,(D34) City of Davenport,Davenport D34
+Scott,(D41) City of Davenport,Davenport D41
+Scott,(D42) City of Davenport,Davenport D42
+Scott,(D43) City of Davenport,Davenport D43
+Scott,(D44) City of Davenport,Davenport D44
+Scott,(D51) City of Davenport,Davenport D51
+Scott,(D52) City of Davenport,Davenport D52
+Scott,(D53) City of Davenport,Davenport D53
+Scott,(D54) City of Davenport,Davenport D54
+Scott,(D61) City of Davenport,Davenport D61
+Scott,(D62) City of Davenport,Davenport D62
+Scott,(D63) City of Davenport,Davenport D63
+Scott,(D64) City of Davenport,Davenport D64
+Scott,(D71) City of Davenport,Davenport D71
+Scott,(D72) City of Davenport,Davenport D72
+Scott,(D73) City of Davenport,Davenport D73
+Scott,(D74) City of Davenport,Davenport D74
+Scott,(D81) City of Davenport,Davenport D81
+Scott,(D82) City of Davenport,Davenport D82
+Scott,(D83) City of Davenport,Davenport D83
+Scott,(D84) City of Davenport,Davenport D84
+Scott,(EL1) City of Eldridge,Eldridge 1
+Scott,(EL2) City of Eldridge,Eldridge 2
+Scott,(LC1) City of LeClaire,LeClaire 1
+Scott,(LC2) City of LeClaire,LeClaire 2
+Scott,(PKV) Park View,Parkview
+Scott,(RV) City of Riverdale,Riverdale
+Shelby,CLAY MONROE,Monroe Clay
+Shelby,HARLAN WARD 2,District 7
+Sioux,Alton/Nassau,"ALTON, NASSAU"
+Sioux,Capel/Grant/Lynn/Sheridan,"CAPEL, SHERIDAN, GRANT & LYNN"
+Sioux,East Orange/Floyd/Holland North 1/2,"EAST ORANGE, FLOYD & N1/2 HOLLAND"
+Sioux,HW/BC/EW/GF/LG/WW,"HAWARDEN, GARFIELD, & WEST GARFIELD, LOGAN, EAGLE"
+Sioux,Hull/Lincoln,"HULL, LINCOLN"
+Sioux,Ireton/Center/Eagle East/Reading/WE,"IRETON, CENTER, READING, WASHINGTON E 1/2 & EAGLE"
+Sioux,Maurice/Sherman,"MAURICE, SHERMAN"
+Sioux,Orange City #1/Holland SW,ORANGE CITY 1 & S1/2 W1/2 HOLLAND
+Sioux,Orange City #2/Holland SE,ORANGE CITY 2 & S1/2 E1/2 HOLLAND
+Sioux,Plato/Rock/Settlers/Sioux,"SIOUX,SETTLERS, ROCK & PLATO"
+Sioux,Rock Valley #1,ROCK VALLEY 1
+Sioux,Rock Valley #2,ROCK VALLEY 2
+Sioux,Sioux Center #1/Welcome,SIOUX CENTER 1 & WELCOME
+Sioux,Sioux Center #2,SIOUX CENTER 2
+Sioux,Sioux Center #3,SIOUX CENTER 3
+Sioux,Sioux Center #4,SIOUX CENTER 4
+Story,AMES 16/WASH TWP 3,Ames 16
+Story,AMES 5/WASH TWP 2,Ames 5
+Story,AMES 7/FRANKLIN TWP 2,Ames 7
+Story,MAXWELL/INDIAN CRK TWP,Maxwell/Indian Creek Twp
+Story,NEVADA 2/GRANT TWP 2,Nevada 2
+Story,STORY CITY 2/LAFAYETTE/HOWARD 2,Lafayette Twp/Story City 2/ Howard 2
+Story,ZEARING/LINCOLN/SHERMAN,Zearing/Lincoln Twp/Sherman Twp
+Tama,Chelsea,District 12
+Tama,Clutier,District 7
+Tama,Dysart,District 3
+Tama,Elberon,District 10
+Tama,Garwin,District 5
+Tama,Gladbrook,District 4
+Tama,Indian Settlement,District 13
+Tama,Lincoln,District 1
+Tama,Montour,District 8
+Tama,Tama,District 9
+Tama,Toledo,District 6
+Tama,Traer,District 2
+Taylor,COURTHOUSE PRECINCT 1,District 1
+Taylor,COURTHOUSE PRECINCT 2,District 2
+Taylor,GRAVITY PRECINCT 4,District 4
+Taylor,LENOX PRECINCT 3,District 3
+Taylor,NEW MARKEY PRECINCT 5,District 5
+Union,AF - Afton United Methodist Church,District 2
+Union,AR - Arispe United Methodist Church,District 3
+Union,CS1 - Salem Lutheran Church,District 4
+Union,CS2 - SWCC,District 5
+Union,CS3 - Trinity Lutheran Church,District 6
+Union,CS4 - Supertel,District 7
+Union,CS5 - Crest Baptist Church,District 8
+Union,LNT - Lincoln Township,District 8
+Union,LR - Lorimor,District 1
+Van Buren,Central,District 3
+Van Buren,East,District 4
+Van Buren,North,District 2
+Van Buren,Southwest,District 1
+Wapello,AD/BL/PO,Adams Precinct
+Wapello,AGT/AGC/PL,Agency Precinct
+Wapello,CB/EV,Columbia Precinct
+Wapello,CN,Center Precinct
+Wapello,CP,Competine Precinct
+Wapello,CS/CH,Cass Precinct
+Wapello,DA,Dahlonega Precinct
+Wapello,GR,Green Precinct
+Wapello,HI,Highland Precinct
+Wapello,KE,Keokuk Precinct
+Wapello,RL/KV,Richland Precinct
+Wapello,WA/EL,Washington Precinct
+Washington,WARD 1,Washington Ward 1
+Washington,WARD 2 PRECINCT,Washington Ward 2
+Washington,WARD 3 PRECINCT,Washington Ward 3
+Washington,WARD 4 PRECINCT,Washington Ward 4
+Wayne,A01 Allerton,District 5
+Wayne,C02 Corydon,District 11
+Wayne,H03 Humeston,District 13
+Wayne,S04 Seymour,District 1
+Webster,Badger-Cooper-Newark,Precinct 5
+Webster,Burnside-Elkhorn-Otho-Pleasant Valley-Sumner,Precinct 3
+Webster,Clay-Fulton-Johnson-Roland,Precinct 2
+Webster,Colfax-Hardin-Washington-Webster-Yell,Precinct 6
+Webster,Dayton,Precinct 7
+Webster,Deer Creek-Jackson,Precinct 1
+Webster,Fort Dodge #1,Precinct 8
+Webster,Fort Dodge #10,Precinct 17
+Webster,Fort Dodge #11,Precinct 18
+Webster,Fort Dodge #12,Precinct 19
+Webster,Fort Dodge #2,Precinct 9
+Webster,Fort Dodge #3,Precinct 10
+Webster,Fort Dodge #4-Douglas,Precinct 11
+Webster,Fort Dodge #5,Precinct 12
+Webster,Fort Dodge #6,Precinct 13
+Webster,Fort Dodge #7,Precinct 14
+Webster,Fort Dodge #8,Precinct 15
+Webster,Fort Dodge #9,Precinct 16
+Webster,Gowrie-Lost Grove,Precinct 4
+Winnebago,Buffalo Grant Lincoln,District 1
+Winnebago,Center,District 4
+Winnebago,Eden Logan Norway,District 3
+Winnebago,FC3 Forest S3,District 7
+Winnebago,Forest City Ward 1,District 10
+Winnebago,Forest City Ward 2,District 8
+Winnebago,Forest City Ward 4,District 9
+Winnebago,King Linden,District 2
+Winnebago,Mt Valley,District 5
+Winnebago,Newton Forest,District 6
+Winneshiek,PCT 1 - FM/BO/OR/BLF/MA,"Fremont, Bluffton, Burr Oak, Madison, Orleans"
+Winneshiek,PCT 10 - FK/BM/MI,"Frankville, Bloomfield, Military"
+Winneshiek,PCT 11 - CA/WA/JA,"Calmar, Washington, Jackson"
+Winneshiek,PCT 12 - LI/SU,Lincoln and Summer Twp
+Winneshiek,PCT 2 - HE/HI/CN/PL/GL,"Canoe, Hesper, Highland, Glenwood, Pleasant"
+Winneshiek,PCT 3 - DEW1/DETSUP2,Decorah Ward 1
+Winneshiek,PCT 4 - DEW2,Decorah Ward 2
+Winneshiek,PCT 5 - DEW3A,Decorah Ward 3-P3a
+Winneshiek,PCT 6 - DEW3B,Decorah Ward 3-P3
+Winneshiek,PCT 7 - DEW4,Decorah Ward 4
+Winneshiek,PCT 8 - DEW5,Decorah Ward 5
+Winneshiek,PCT 9 - DETSUP4/SP,Decorah Twp pt; Springfield
+Woodbury,1 Riverside Elementary School,Precinct 1
+Woodbury,10 Loess Hills Elementary Scho,Precinct 10
+Woodbury,11 Liberty Elementary School,Precinct 11
+Woodbury,12 Perry Creek Elementary Scho,Precinct 12
+Woodbury,13 North Middle School,Precinct 13
+Woodbury,14 North Middle School,Precinct 14
+Woodbury,15 Leeds Elementary School,Precinct 15
+Woodbury,16 Unity Elementary School,Precinct 16
+Woodbury,17 Lawton -,Precinct 17
+Woodbury,18 Bryant Elementary School,Precinct 18
+Woodbury,19 Bryant Elementary School,Precinct 19
+Woodbury,2 West Middle School,Precinct 2
+Woodbury,20 Irving Elementary School,Precinct 20
+Woodbury,21 Unity Elementary School,Precinct 21
+Woodbury,22 Spalding Elementary School,Precinct 22
+Woodbury,23 Morningside Branch Library,Precinct 23
+Woodbury,24 Morningside Branch Library,Precinct 24
+Woodbury,25 East Middle School,Precinct 25
+Woodbury,26 Morningside Elementary Scho,Precinct 26
+Woodbury,27 Morningside Elementary Scho,Precinct 27
+Woodbury,28 East High School,Precinct 28
+Woodbury,29 East High School,Precinct 29
+Woodbury,3 Loess Hills Elementary Schoo,Precinct 3
+Woodbury,30 Sgt Bluff West,Precinct 30
+Woodbury,31 Sgt Bluff East,Precinct 31
+Woodbury,32 Woodbury Township,Precinct 32
+Woodbury,33 Salix,Precinct 33
+Woodbury,34 Moville,Precinct 34
+Woodbury,35 Pierson,Precinct 35
+Woodbury,36 Correctionville,Precinct 36
+Woodbury,37 Bronson,Precinct 37
+Woodbury,38 Cushing,Precinct 38
+Woodbury,39 Hornick,Precinct 39
+Woodbury,4 Hunt Elementary School,Precinct 4
+Woodbury,40 Anthon,Precinct 40
+Woodbury,41 Danbury,Precinct 41
+Woodbury,42 Sloan,Precinct 42
+Woodbury,43 Smithland,Precinct 43
+Woodbury,44 Oto,Precinct 44
+Woodbury,5 Liberty Elementary School,Precinct 5
+Woodbury,6 Hunt Elementary School,Precinct 6
+Woodbury,7 Loess Hills Elementary Schoo,Precinct 7
+Woodbury,8 Liberty Elementary School,Precinct 8
+Woodbury,9 Hunt Elementary School,Precinct 9
+Worth,Brookfield Kensett,Precinct 4
+Worth,Danville Hanlontown,Precinct 5
+Worth,Deer Creek Barton Union Grove Grafton,Precinct 1
+Worth,Fertile,Precinct 6
+Worth,Hartland Grove Northwood,Precinct 7
+Worth,Lincoln Manly,Precinct 2
+Worth,Silver Lake Bristol Hartland Joice,Precinct 3
+Wright,Belmond Precinct,"Belmond -3,212"
+Wright,Clarion Precinct,"Clarion - 2,810"
+Wright,Dows Precinct,"Dows - 1,302"
+Wright,EG #1 Precinct,E.G. Ward #1 - 890
+Wright,EG #2 Precinct,E.G. Ward #2 - 896
+Wright,EG #3 Precinct,E.G. Ward #3 - 877
+Wright,EG #4 Precinct,E.G. Ward #4 - 938
+Wright,Goldfield Precinct,Goldfield - 886
+Wright,Rural Clarion Precinct,Rural Clarion - 729
+Wright,Rural Eagle Grove Precinct,Rural Eagle Grove - 403

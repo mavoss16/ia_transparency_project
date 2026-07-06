@@ -1,0 +1,533 @@
+---
+pagetitle: "`r if (nchar(params$committee_name) > 0) params$committee_name else params$committee_code`"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    toc-location: right
+    toc-depth: 2
+
+params:
+  committee_code: "5185"
+  committee_name: ""        # optional display name; auto-populated by render.R
+---
+
+```{r}
+library(duckdb)
+library(DBI)
+library(dplyr)
+library(dbplyr)
+library(ggplot2)
+library(gt)
+library(scales)
+library(stringr)
+library(here)
+library(sf)
+library(tigris)
+```
+
+```{r}
+con <- dbConnect(duckdb(), here("data/campaign_finance/campaign_finance.duckdb"), read_only = TRUE)
+
+comm_meta <- tbl(con, "committees") |>
+  filter(committee_code == params$committee_code) |>
+  collect()
+
+comm_stats <- tbl(con, "committee_summary") |>
+  filter(committee_code == params$committee_code) |>
+  collect()
+
+by_year <- tbl(con, "committee_year") |>
+  filter(committee_code == params$committee_code) |>
+  collect() |>
+  mutate(donor_type = str_to_title(donor_type))
+
+by_donor <- tbl(con, "committee_donor") |>
+  filter(committee_code == params$committee_code) |>
+  collect()
+
+all_contributions <- tbl(con, "contributions") |>
+  filter(committee_code == params$committee_code) |>
+  select(date, donor_display, donor_type, clean_city, norm_state,
+         contribution_amount, transaction_type) |>
+  arrange(desc(date)) |>
+  collect()
+
+all_expenditures <- tbl(con, "expenditures") |>
+  filter(committee_code == params$committee_code) |>
+  select(date, year, expenditure_amount, transaction_type,
+         recipient_display, city, state) |>
+  collect()
+
+dbDisconnect(con)
+
+has_meta          <- nrow(comm_meta) > 0
+has_contributions <- nrow(comm_stats) > 0
+has_expenditures  <- nrow(all_expenditures) > 0
+
+display_name <- if (nchar(params$committee_name) > 0) {
+  params$committee_name
+} else if (has_contributions) {
+  comm_stats$committee_name[1]
+} else if (has_meta) {
+  comm_meta$committee_name[1]
+} else {
+  params$committee_code
+}
+```
+
+# `r display_name`
+
+```{r}
+#| output: asis
+# Use comm_stats for enriched metadata (party from API join); comm_meta for county
+ci <- if (has_contributions) comm_stats[1, ] else NULL
+mi <- if (has_meta) comm_meta[1, ] else NULL
+
+show_field <- function(label, val) {
+  if (!is.null(val) && !is.na(val) && nchar(as.character(val)) > 0)
+    cat(sprintf("**%s:** %s  \n", label, val))
+}
+
+if (!is.null(ci)) {
+  show_field("Candidate",    ci$candidate_name)
+  show_field("Committee Type", ci$committee_type)
+  show_field("Party",        ci$party)
+  show_field("Office Sought", ci$office_sought)
+  show_field("District",     ci$district)
+  show_field("Election Year", ci$election_year)
+  show_field("County",       if (!is.null(mi)) mi$county else NA)
+} else if (!is.null(mi)) {
+  show_field("Committee Type", mi$committee_type)
+  show_field("Party",        mi$party)
+  show_field("County",       mi$county)
+} else {
+  cat("\n*Committee not found in the Iowa IECDB registry.*\n")
+}
+cat(sprintf("**Committee Code:** %s  \n", params$committee_code))
+```
+
+---
+
+## Summary
+
+### Contributions Received
+
+```{r}
+if (has_contributions) {
+  cs <- comm_stats[1, ]
+  summary_df <- data.frame(
+    Metric = c(
+      "Total Raised", "Number of Transactions", "Unique Donors",
+      "Average Contribution", "Earliest Contribution", "Latest Contribution"
+    ),
+    Value = c(
+      dollar(cs$total_raised),
+      comma(cs$n_transactions),
+      comma(cs$n_unique_donors),
+      dollar(cs$avg_contribution),
+      format(as.Date(cs$first_contribution), "%B %d, %Y"),
+      format(as.Date(cs$last_contribution),  "%B %d, %Y")
+    )
+  )
+  gt(summary_df) |>
+    cols_label(Metric = "", Value = "") |>
+    tab_options(column_labels.hidden = TRUE)
+} else {
+  cat("No contribution data found for this committee.\n")
+}
+```
+
+### Expenditures Made
+
+```{r}
+if (has_expenditures) {
+  exp_summary_df <- data.frame(
+    Metric = c("Total Spent", "Number of Expenditures"),
+    Value  = c(
+      dollar(sum(all_expenditures$expenditure_amount, na.rm = TRUE)),
+      comma(nrow(all_expenditures))
+    )
+  )
+  gt(exp_summary_df) |>
+    cols_label(Metric = "", Value = "") |>
+    tab_options(column_labels.hidden = TRUE)
+} else {
+  cat("No expenditure data found for this committee.\n")
+}
+```
+
+### Top Donors
+
+```{r}
+if (nrow(by_donor) > 0) {
+  top_n <- min(10, nrow(by_donor))
+  by_donor |>
+    arrange(desc(total)) |>
+    slice_head(n = top_n) |>
+    mutate(donor_type = str_to_title(donor_type)) |>
+    select(donor_display, donor_type, city, state, total, transactions) |>
+    gt() |>
+    cols_label(
+      donor_display = "Donor",
+      donor_type    = "Type",
+      city          = "City",
+      state         = "State",
+      total         = "Total Given",
+      transactions  = "Transactions"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_integer(columns = transactions) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+### Donor Type Breakdown
+
+```{r}
+if (nrow(by_donor) > 0) {
+  grand_total <- sum(by_donor$total, na.rm = TRUE)
+
+  by_type <- by_donor |>
+    mutate(donor_type = str_to_title(donor_type)) |>
+    group_by(donor_type) |>
+    summarize(
+      total        = sum(total, na.rm = TRUE),
+      transactions = sum(transactions, na.rm = TRUE),
+      donors       = n(),
+      .groups      = "drop"
+    ) |>
+    arrange(desc(total)) |>
+    mutate(pct = total / grand_total)
+
+  gt(by_type) |>
+    cols_label(
+      donor_type   = "Donor Type",
+      total        = "Total Given",
+      pct          = "Share",
+      transactions = "Transactions",
+      donors       = "Unique Donors"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_percent(columns = pct, decimals = 1) |>
+    fmt_integer(columns = c(transactions, donors)) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+---
+
+::: {.panel-tabset}
+
+## Contributions Over Time
+
+```{r}
+if (has_contributions) {
+  totals_by_year <- by_year |>
+    group_by(year) |>
+    summarize(total = sum(total, na.rm = TRUE), .groups = "drop")
+
+  ggplot(totals_by_year, aes(x = year, y = total)) +
+    geom_col(fill = "#2C5F8A") +
+    scale_y_continuous(labels = dollar_format()) +
+    scale_x_continuous(breaks = breaks_pretty()) +
+    labs(title = "Contributions Received by Year", x = NULL, y = "Total Amount") +
+    theme_minimal(base_size = 13) +
+    theme(plot.title = element_text(face = "bold"))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+```{r}
+if (has_contributions) {
+  by_year_type <- by_year |>
+    filter(donor_type %in% c("Individual", "Organization"))
+
+  if (nrow(by_year_type) > 0) {
+    ggplot(by_year_type, aes(x = year, y = total, fill = donor_type)) +
+      geom_col() +
+      scale_y_continuous(labels = dollar_format()) +
+      scale_x_continuous(breaks = breaks_pretty()) +
+      scale_fill_manual(values = c("Individual" = "#2C5F8A", "Organization" = "#E07B2A")) +
+      labs(
+        title = "Contributions by Donor Type", x = NULL, y = "Total Amount",
+        fill  = "Donor Type"
+      ) +
+      theme_minimal(base_size = 13) +
+      theme(plot.title = element_text(face = "bold"), legend.position = "bottom")
+  }
+}
+```
+
+## Top Donors
+
+### Top Individual Donors
+
+```{r}
+if (nrow(by_donor) > 0) {
+  top_individuals <- by_donor |>
+    filter(donor_type == "individual") |>
+    arrange(desc(total)) |>
+    slice_head(n = 25)
+
+  if (nrow(top_individuals) > 0) {
+    gt(top_individuals |> select(donor_display, city, state, total, transactions)) |>
+      cols_label(
+        donor_display = "Donor", city = "City", state = "State",
+        total = "Total Given", transactions = "Transactions"
+      ) |>
+      fmt_currency(columns = total, currency = "USD") |>
+      fmt_integer(columns = transactions) |>
+      tab_options(table.font.size = px(12))
+  } else {
+    cat("No individual contribution data found.\n")
+  }
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+### Top Organization Donors
+
+```{r}
+if (nrow(by_donor) > 0) {
+  top_orgs <- by_donor |>
+    filter(donor_type %in% c("organization", "committee")) |>
+    arrange(desc(total)) |>
+    slice_head(n = 25)
+
+  if (nrow(top_orgs) > 0) {
+    gt(top_orgs |> select(donor_display, city, state, total, transactions)) |>
+      cols_label(
+        donor_display = "Organization", city = "City", state = "State",
+        total = "Total Given", transactions = "Transactions"
+      ) |>
+      fmt_currency(columns = total, currency = "USD") |>
+      fmt_integer(columns = transactions) |>
+      tab_options(table.font.size = px(12))
+  } else {
+    cat("No organization contribution data found.\n")
+  }
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+## Donor Geography
+
+### Iowa vs. Outside Iowa
+
+```{r}
+if (nrow(by_donor) > 0) {
+  grand_total <- sum(by_donor$total, na.rm = TRUE)
+
+  ia_summary <- by_donor |>
+    mutate(region = if_else(state == "IA", "Iowa", "Outside Iowa")) |>
+    group_by(region) |>
+    summarize(
+      total        = sum(total, na.rm = TRUE),
+      transactions = sum(transactions, na.rm = TRUE),
+      donors       = n(),
+      .groups      = "drop"
+    ) |>
+    arrange(desc(total)) |>
+    mutate(pct = total / grand_total)
+
+  gt(ia_summary) |>
+    cols_label(
+      region       = "",
+      total        = "Total Given",
+      pct          = "Share",
+      transactions = "Transactions",
+      donors       = "Unique Donors"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_percent(columns = pct, decimals = 1) |>
+    fmt_integer(columns = c(transactions, donors)) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+### Iowa Deep Dive
+
+```{r}
+#| fig-width: 8
+#| fig-height: 5
+options(tigris_use_cache = TRUE)
+
+iowa_cities_agg <- by_donor |>
+  filter(state == "IA", !is.na(city), nchar(city) > 0) |>
+  group_by(city) |>
+  summarize(
+    total        = sum(total, na.rm = TRUE),
+    transactions = sum(transactions, na.rm = TRUE),
+    donors       = n(),
+    .groups      = "drop"
+  ) |>
+  mutate(city_upper = str_to_upper(str_trim(city)))
+
+if (nrow(iowa_cities_agg) > 0) {
+  ia_counties <- counties(state = "IA", cb = TRUE, progress_bar = FALSE)
+  ia_places   <- places(state = "IA", cb = TRUE, progress_bar = FALSE) |>
+    mutate(city_upper = str_to_upper(str_trim(NAME))) |>
+    st_centroid()
+
+  city_pts <- ia_places |>
+    inner_join(iowa_cities_agg, by = "city_upper")
+
+  if (nrow(city_pts) == 0) {
+    cat("No Iowa donor cities could be matched to geographic locations.\n")
+    return(invisible(NULL))
+  }
+
+  # Aggregate to county level for choropleth
+  county_totals <- city_pts |>
+    st_join(ia_counties |> select(county = NAME)) |>
+    st_drop_geometry() |>
+    group_by(county) |>
+    summarize(total = sum(total, na.rm = TRUE), .groups = "drop")
+
+  county_map <- ia_counties |>
+    left_join(county_totals, by = c("NAME" = "county"))
+
+  ggplot() +
+    geom_sf(data = county_map, aes(fill = total), color = "white", linewidth = 0.3) +
+    geom_sf(data = city_pts, aes(size = total), color = "#FF8C00", alpha = 0.75) +
+    scale_fill_gradient(
+      low = "#D6E8F5", high = "#0D3A5C",
+      na.value = "gray92",
+      labels = dollar_format(),
+      name = "County Total"
+    ) +
+    scale_size_continuous(
+      range = c(1, 9), labels = dollar_format(), name = "City Total"
+    ) +
+    labs(title = "Contributions from Iowa Donors") +
+    theme_void(base_size = 12) +
+    theme(
+      plot.title      = element_text(face = "bold", hjust = 0.5),
+      legend.position = "right"
+    )
+} else {
+  cat("No Iowa contribution data available.\n")
+}
+```
+
+```{r}
+if (nrow(iowa_cities_agg) > 0) {
+  iowa_cities_agg |>
+    arrange(desc(total)) |>
+    slice_head(n = 20) |>
+    gt() |>
+    cols_label(
+      city         = "City",
+      total        = "Total Given",
+      transactions = "Transactions",
+      donors       = "Unique Donors"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_integer(columns = c(transactions, donors)) |>
+    tab_options(table.font.size = px(12))
+}
+```
+
+## All Contributions
+
+```{r}
+#| output: asis
+max_rows <- 1000L
+n_total  <- nrow(all_contributions)
+if (n_total > max_rows)
+  cat(sprintf(
+    "*Showing the %s most recent of %s total transactions.*\n\n",
+    scales::comma(max_rows), scales::comma(n_total)
+  ))
+```
+
+```{r}
+if (nrow(all_contributions) > 0) {
+  all_contributions |>
+    slice_head(n = max_rows) |>
+    mutate(donor_type = str_to_title(donor_type)) |>
+    gt() |>
+    cols_label(
+      date                = "Date",
+      donor_display       = "Donor",
+      donor_type          = "Type",
+      clean_city          = "City",
+      norm_state          = "State",
+      contribution_amount = "Amount",
+      transaction_type    = "Transaction Type"
+    ) |>
+    fmt_date(columns = date, date_style = "yMMMd") |>
+    fmt_currency(columns = contribution_amount, currency = "USD") |>
+    tab_options(table.font.size = px(11))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+## Expenditures
+
+```{r}
+if (has_expenditures) {
+  exp_by_type <- all_expenditures |>
+    group_by(transaction_type) |>
+    summarize(
+      total = sum(expenditure_amount, na.rm = TRUE),
+      count = n(),
+      .groups = "drop"
+    ) |>
+    arrange(desc(total))
+
+  ggplot(exp_by_type, aes(x = reorder(transaction_type, total), y = total)) +
+    geom_col(fill = "#C04A2A") +
+    coord_flip() +
+    scale_y_continuous(labels = dollar_format()) +
+    labs(title = "Expenditures by Transaction Type", x = NULL, y = "Total Amount") +
+    theme_minimal(base_size = 12) +
+    theme(plot.title = element_text(face = "bold"))
+} else {
+  cat("No expenditure data available.\n")
+}
+```
+
+```{r}
+if (has_expenditures) {
+  top_recipients <- all_expenditures |>
+    group_by(recipient_display, city, state) |>
+    summarize(
+      total        = sum(expenditure_amount, na.rm = TRUE),
+      transactions = n(),
+      .groups      = "drop"
+    ) |>
+    arrange(desc(total)) |>
+    slice_head(n = 25)
+
+  gt(top_recipients) |>
+    cols_label(
+      recipient_display = "Recipient", city = "City", state = "State",
+      total = "Total", transactions = "Transactions"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_integer(columns = transactions) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No expenditure data available.\n")
+}
+```
+
+:::
+
+---
+
+*Data sourced from the Iowa Ethics and Campaign Disclosure Board (IECDB). Last updated: `r Sys.Date()`*

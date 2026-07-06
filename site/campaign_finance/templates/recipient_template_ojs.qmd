@@ -1,0 +1,665 @@
+---
+pagetitle: "`r if (nchar(params$committee_name) > 0) params$committee_name else params$committee_code`"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    toc-location: right
+    toc-depth: 2
+    include-in-header:
+      - text: |
+          <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+params:
+  committee_code: "5185"
+  committee_name: ""        # optional display name; auto-populated by render.R
+---
+
+```{r}
+library(duckdb)
+library(DBI)
+library(dplyr)
+library(dbplyr)
+library(ggplot2)
+library(gt)
+library(scales)
+library(stringr)
+library(here)
+library(sf)
+library(tigris)
+library(jsonlite)
+```
+
+```{r}
+con <- dbConnect(duckdb(), here("data/campaign_finance/campaign_finance.duckdb"), read_only = TRUE)
+
+comm_meta <- tbl(con, "committees") |>
+  filter(committee_code == params$committee_code) |>
+  collect()
+
+comm_stats <- tbl(con, "committee_summary") |>
+  filter(committee_code == params$committee_code) |>
+  collect()
+
+by_year <- tbl(con, "committee_year") |>
+  filter(committee_code == params$committee_code) |>
+  collect() |>
+  mutate(donor_type = str_to_title(donor_type))
+
+by_donor <- tbl(con, "committee_donor") |>
+  filter(committee_code == params$committee_code) |>
+  collect()
+
+all_contributions <- tbl(con, "contributions") |>
+  filter(committee_code == params$committee_code) |>
+  select(date, year, donor_display, donor_type, clean_city, norm_state,
+         contribution_amount, transaction_type) |>
+  arrange(desc(date)) |>
+  collect()
+
+all_expenditures <- tbl(con, "expenditures") |>
+  filter(committee_code == params$committee_code) |>
+  select(date, year, expenditure_amount, transaction_type,
+         recipient_display, city, state) |>
+  collect()
+
+dbDisconnect(con)
+
+# Pass data to OJS. Dates formatted as strings; donor_type title-cased for display.
+ojs_define(
+  by_year_ojs = by_year,
+  contributions_ojs = all_contributions |>
+    mutate(
+      date       = format(date, "%b %d, %Y"),
+      donor_type = str_to_title(donor_type)
+    ) |>
+    rename(city = clean_city, state = norm_state)
+)
+
+has_meta          <- nrow(comm_meta) > 0
+has_contributions <- nrow(comm_stats) > 0
+has_expenditures  <- nrow(all_expenditures) > 0
+
+display_name <- if (nchar(params$committee_name) > 0) {
+  params$committee_name
+} else if (has_contributions) {
+  comm_stats$committee_name[1]
+} else if (has_meta) {
+  comm_meta$committee_name[1]
+} else {
+  params$committee_code
+}
+```
+
+# `r display_name`
+
+```{r}
+#| output: asis
+# Use comm_stats for enriched metadata (party from API join); comm_meta for county
+ci <- if (has_contributions) comm_stats[1, ] else NULL
+mi <- if (has_meta) comm_meta[1, ] else NULL
+
+show_field <- function(label, val) {
+  if (!is.null(val) && !is.na(val) && nchar(as.character(val)) > 0)
+    cat(sprintf("**%s:** %s  \n", label, val))
+}
+
+if (!is.null(ci)) {
+  show_field("Candidate",    ci$candidate_name)
+  show_field("Committee Type", ci$committee_type)
+  show_field("Party",        ci$party)
+  show_field("Office Sought", ci$office_sought)
+  show_field("District",     ci$district)
+  show_field("Election Year", ci$election_year)
+  show_field("County",       if (!is.null(mi)) mi$county else NA)
+} else if (!is.null(mi)) {
+  show_field("Committee Type", mi$committee_type)
+  show_field("Party",        mi$party)
+  show_field("County",       mi$county)
+} else {
+  cat("\n*Committee not found in the Iowa IECDB registry.*\n")
+}
+cat(sprintf("**Committee Code:** %s  \n", params$committee_code))
+```
+
+---
+
+## Summary
+
+### Contributions Received
+
+```{r}
+if (has_contributions) {
+  cs <- comm_stats[1, ]
+  summary_df <- data.frame(
+    Metric = c(
+      "Total Raised", "Number of Transactions", "Unique Donors",
+      "Average Contribution", "Earliest Contribution", "Latest Contribution"
+    ),
+    Value = c(
+      dollar(cs$total_raised),
+      comma(cs$n_transactions),
+      comma(cs$n_unique_donors),
+      dollar(cs$avg_contribution),
+      format(as.Date(cs$first_contribution), "%B %d, %Y"),
+      format(as.Date(cs$last_contribution),  "%B %d, %Y")
+    )
+  )
+  gt(summary_df) |>
+    cols_label(Metric = "", Value = "") |>
+    tab_options(column_labels.hidden = TRUE)
+} else {
+  cat("No contribution data found for this committee.\n")
+}
+```
+
+### Expenditures Made
+
+```{r}
+if (has_expenditures) {
+  exp_summary_df <- data.frame(
+    Metric = c("Total Spent", "Number of Expenditures"),
+    Value  = c(
+      dollar(sum(all_expenditures$expenditure_amount, na.rm = TRUE)),
+      comma(nrow(all_expenditures))
+    )
+  )
+  gt(exp_summary_df) |>
+    cols_label(Metric = "", Value = "") |>
+    tab_options(column_labels.hidden = TRUE)
+} else {
+  cat("No expenditure data found for this committee.\n")
+}
+```
+
+### Top Donors
+
+```{r}
+if (nrow(by_donor) > 0) {
+  top_n <- min(10, nrow(by_donor))
+  by_donor |>
+    arrange(desc(total)) |>
+    slice_head(n = top_n) |>
+    mutate(donor_type = str_to_title(donor_type)) |>
+    select(donor_display, donor_type, city, state, total, transactions) |>
+    gt() |>
+    cols_label(
+      donor_display = "Donor",
+      donor_type    = "Type",
+      city          = "City",
+      state         = "State",
+      total         = "Total Given",
+      transactions  = "Transactions"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_integer(columns = transactions) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+### Donor Type Breakdown
+
+```{r}
+if (nrow(by_donor) > 0) {
+  grand_total <- sum(by_donor$total, na.rm = TRUE)
+
+  by_type <- by_donor |>
+    mutate(donor_type = str_to_title(donor_type)) |>
+    group_by(donor_type) |>
+    summarize(
+      total        = sum(total, na.rm = TRUE),
+      transactions = sum(transactions, na.rm = TRUE),
+      donors       = n(),
+      .groups      = "drop"
+    ) |>
+    arrange(desc(total)) |>
+    mutate(pct = total / grand_total)
+
+  gt(by_type) |>
+    cols_label(
+      donor_type   = "Donor Type",
+      total        = "Total Given",
+      pct          = "Share",
+      transactions = "Transactions",
+      donors       = "Unique Donors"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_percent(columns = pct, decimals = 1) |>
+    fmt_integer(columns = c(transactions, donors)) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No contribution data available.\n")
+}
+```
+
+---
+
+```{ojs}
+// Arquero: use the Observable-native module which exports {aq, op} as named bindings.
+// "import * as aq" is NOT valid OJS syntax (namespace imports unsupported).
+import { aq, op } from "@uwdata/arquero"
+```
+
+```{ojs}
+// Leaflet: require() handles CJS modules reliably; default "import L from" is unreliable in OJS.
+L = require("leaflet@1.9.4")
+```
+
+
+```{ojs}
+// ── Data setup ───────────────────────────────────────────────────────────────
+contributions_rows = transpose(contributions_ojs)
+by_year_rows       = transpose(by_year_ojs)
+
+contribs_tbl = aq.from(contributions_rows)
+by_year_tbl  = aq.from(by_year_rows)
+```
+
+```{ojs}
+// ── Shared year range filter ──────────────────────────────────────────────────
+yearMin = d3.min(contributions_rows, d => d.year)
+yearMax = d3.max(contributions_rows, d => d.year)
+
+viewof shared_start = Inputs.range([yearMin, yearMax], {
+  label: "From year", step: 1, value: yearMin, format: d3.format("d"), width: 200
+})
+
+viewof shared_end = Inputs.range([yearMin, yearMax], {
+  label: "To year", step: 1, value: yearMax, format: d3.format("d"), width: 200
+})
+```
+
+```{ojs}
+// ── Shared currency / integer formatters (used across all tabs) ───────────────
+fmt_usd = x => x == null ? "" : "$" + x.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2})
+fmt_int = x => x == null ? "" : x.toLocaleString("en-US")
+```
+
+::: {.panel-tabset}
+
+## Contributions Over Time
+
+```{ojs}
+// Filter by_year (one row per year × donor_type) to the selected range
+ot_tbl = by_year_tbl.filter(aq.escape(d => d.year >= shared_start && d.year <= shared_end))
+
+// Roll up to one total per year across all donor types
+ot_totals = ot_tbl
+  .groupby("year")
+  .rollup({total: d => op.sum(d.total)})
+  .orderby("year")
+  .objects()
+
+Plot.plot({
+  title: "Contributions Received by Year",
+  x: {tickFormat: "d", label: null},
+  y: {tickFormat: "$,", label: "Total Amount", grid: true},
+  marks: [
+    Plot.barY(ot_totals, {x: "year", y: "total", fill: "#2C5F8A", tip: true}),
+    Plot.ruleY([0])
+  ],
+  width: 640
+})
+```
+
+```{ojs}
+ot_by_type = ot_tbl
+  .filter(aq.escape(d => d.donor_type === "Individual" || d.donor_type === "Organization"))
+  .objects()
+
+Plot.plot({
+  title: "Contributions by Donor Type",
+  color: {
+    legend: true,
+    domain: ["Individual", "Organization"],
+    range:  ["#2C5F8A", "#E07B2A"]
+  },
+  x: {tickFormat: "d", label: null},
+  y: {tickFormat: "$,", label: "Total Amount", grid: true},
+  marks: [
+    Plot.barY(ot_by_type, {x: "year", y: "total", fill: "donor_type", tip: true}),
+    Plot.ruleY([0])
+  ],
+  width: 640
+})
+```
+
+## Top Donors
+
+```{ojs}
+// Row-level contributions filtered to the selected year range
+range_tbl = contribs_tbl.filter(aq.escape(d => d.year >= shared_start && d.year <= shared_end))
+
+// Arquero-based aggregation: group by donor, sum contributions, take top 25
+function aggregateDonors(tbl) {
+  return tbl
+    .groupby("donor_display")
+    .rollup({
+      total:        d => op.sum(d.contribution_amount),
+      transactions: op.count(),
+      cities:       op.array_agg('city'),
+      states:       op.array_agg('state')
+    })
+    .derive({
+      city:  aq.escape(d => (d.cities || [])[0] || ""),
+      state: aq.escape(d => (d.states || [])[0] || "")
+    })
+    .orderby(aq.desc("total"))
+    .slice(0, 25)
+    .objects()
+}
+
+top_individuals = aggregateDonors(range_tbl.filter(aq.escape(d => d.donor_type === "Individual")))
+top_orgs        = aggregateDonors(range_tbl.filter(aq.escape(d => d.donor_type === "Organization" || d.donor_type === "Committee")))
+```
+
+### Top Individual Donors
+
+```{ojs}
+Inputs.table(top_individuals, {
+  columns: ["donor_display", "city", "state", "total", "transactions"],
+  header:  {donor_display: "Donor", city: "City", state: "State", total: "Total Given", transactions: "Transactions"},
+  format:  {total: fmt_usd, transactions: fmt_int},
+  sort: "total", reverse: true, rows: 25
+})
+```
+
+### Top Organization Donors
+
+```{ojs}
+Inputs.table(top_orgs, {
+  columns: ["donor_display", "city", "state", "total", "transactions"],
+  header:  {donor_display: "Organization", city: "City", state: "State", total: "Total Given", transactions: "Transactions"},
+  format:  {total: fmt_usd, transactions: fmt_int},
+  sort: "total", reverse: true, rows: 25
+})
+```
+
+## Donor Geography
+
+### Iowa vs. Outside Iowa
+
+```{ojs}
+geo_grand_total = range_tbl
+  .rollup({t: d => op.sum(d.contribution_amount)})
+  .get("t", 0) || 1
+
+ia_vs_outside = range_tbl
+  .derive({region: aq.escape(d => d.state === "IA" ? "Iowa" : "Outside Iowa")})
+  .groupby("region")
+  .rollup({
+    total:        d => op.sum(d.contribution_amount),
+    transactions: op.count(),
+    donors:       op.array_agg('donor_display')
+  })
+  .derive({donors: aq.escape(d => new Set(d.donors).size)})
+  .orderby(aq.desc("total"))
+  .objects()
+  .map(d => ({...d, pct: d.total / geo_grand_total}))
+
+Inputs.table(ia_vs_outside, {
+  columns: ["region", "total", "pct", "transactions", "donors"],
+  header:  {region: "", total: "Total Given", pct: "Share", transactions: "Transactions", donors: "Unique Donors"},
+  format:  {total: fmt_usd, pct: x => (x * 100).toFixed(1) + "%", transactions: fmt_int, donors: fmt_int}
+})
+```
+
+### Iowa Deep Dive
+
+```{r}
+#| output: false
+options(tigris_use_cache = TRUE)
+
+city_pts <- NULL
+
+iowa_cities_agg <- by_donor |>
+  filter(state == "IA", !is.na(city), nchar(city) > 0) |>
+  group_by(city) |>
+  summarize(
+    total        = sum(total, na.rm = TRUE),
+    transactions = sum(transactions, na.rm = TRUE),
+    donors       = n(),
+    .groups      = "drop"
+  ) |>
+  mutate(city_upper = str_to_upper(str_trim(city)))
+
+if (nrow(iowa_cities_agg) > 0) {
+  ia_counties <- counties(state = "IA", cb = TRUE, progress_bar = FALSE)
+  ia_places   <- places(state = "IA", cb = TRUE, progress_bar = FALSE) |>
+    mutate(city_upper = str_to_upper(str_trim(NAME))) |>
+    st_centroid()
+  city_pts <- ia_places |>
+    inner_join(iowa_cities_agg, by = "city_upper")
+}
+
+if (!is.null(city_pts) && nrow(city_pts) > 0) {
+  city_county_lookup <- city_pts |>
+    st_join(ia_counties |> select(county = NAME)) |>
+    st_drop_geometry() |>
+    select(city = city_upper, county) |>
+    distinct()
+
+  tmp_geo <- tempfile(fileext = ".geojson")
+  ia_counties |>
+    select(county = NAME) |>
+    st_transform(4326) |>
+    st_write(tmp_geo, quiet = TRUE, delete_dsn = TRUE)
+
+  city_coords_df <- city_pts |>
+    st_transform(4326) |>
+    mutate(
+      lon = st_coordinates(geometry)[, 1],
+      lat = st_coordinates(geometry)[, 2]
+    ) |>
+    st_drop_geometry() |>
+    select(city = city_upper, lon, lat)
+
+  ojs_define(
+    county_geojson  = fromJSON(tmp_geo, simplifyVector = FALSE),
+    city_coords_ojs = city_coords_df,
+    city_county_ojs = city_county_lookup
+  )
+} else {
+  ojs_define(
+    county_geojson  = list(type = "FeatureCollection", features = list()),
+    city_coords_ojs = data.frame(city = character(), lon = numeric(), lat = numeric()),
+    city_county_ojs = data.frame(city = character(), county = character())
+  )
+}
+```
+
+```{ojs}
+city_coords_rows = transpose(city_coords_ojs)
+city_county_rows = transpose(city_county_ojs)
+
+// Static city → county lookup from R spatial join
+city_to_county = new Map(city_county_rows.map(d => [d.city, d.county]))
+
+// Arquero: re-aggregate Iowa contributions for the selected year range
+iowa_tbl = range_tbl.filter(aq.escape(d => d.state === "IA" && d.city))
+
+iowa_city_totals = iowa_tbl
+  .groupby("city")
+  .rollup({
+    total:        d => op.sum(d.contribution_amount),
+    transactions: op.count(),
+    donors:       op.array_agg('donor_display')
+  })
+  .derive({donors: aq.escape(d => new Set(d.donors).size)})
+  .orderby(aq.desc("total"))
+  .objects()
+
+// Roll city totals up to county level for the choropleth
+// city_to_county keys are UPPERCASE (from city_upper in R); iowa_city_totals.city is title-cased
+county_totals_map = aq.from(iowa_city_totals)
+  .derive({county: aq.escape(d => city_to_county.get(d.city ? d.city.toUpperCase() : null))})
+  .filter(aq.escape(d => d.county != null))
+  .groupby("county")
+  .rollup({total: d => op.sum(d.total)})
+  .objects()
+
+// city_coords_rows[].city is UPPERCASE; iowa_city_totals[].city is title-cased
+// Use title-cased city name from iowa_city_totals for popup display
+city_dot_data = city_coords_rows
+  .map(d => {
+    const m = iowa_city_totals.find(c => c.city && c.city.toUpperCase() === d.city);
+    return m ? {lat: d.lat, lon: d.lon, city: m.city, total: m.total} : null;
+  })
+  .filter(Boolean)
+```
+
+```{ojs}
+// Leaflet interactive map — re-renders when county_totals_map or city_dot_data changes
+{
+  const div = document.createElement("div");
+  div.style.cssText = "height: 460px; width: 100%; border-radius: 4px;";
+  yield div;
+
+  const map = L.map(div, {scrollWheelZoom: false})
+    .fitBounds([[40.3, -96.7], [43.5, -90.1]]);
+
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> &copy; <a href='https://carto.com/'>CARTO</a>",
+    subdomains: "abcd",
+    maxZoom: 19
+  }).addTo(map);
+
+  // County choropleth — blue gradient scaled to max county total
+  const maxCounty = Math.max(...county_totals_map.map(d => d.total), 1);
+  const countyColor = t => t == null
+    ? "#f0f0f0"
+    : d3.interpolateBlues(0.15 + (t / maxCounty) * 0.85);
+
+  L.geoJSON(county_geojson, {
+    style: f => {
+      const m = county_totals_map.find(d => d.county === f.properties.county);
+      return {fillColor: countyColor(m?.total ?? null), weight: 1, color: "white", fillOpacity: 0.75};
+    },
+    onEachFeature: (f, layer) => {
+      const m = county_totals_map.find(d => d.county === f.properties.county);
+      layer.bindPopup(`<b>${f.properties.county} County</b><br>${m ? fmt_usd(m.total) : "No data"}`);
+    }
+  }).addTo(map);
+
+  // City dots — orange circles scaled to donation total
+  const maxCity = Math.max(...city_dot_data.map(d => d.total), 1);
+  for (const city of city_dot_data) {
+    L.circleMarker([city.lat, city.lon], {
+      radius:      Math.max(3, Math.sqrt(city.total / maxCity) * 20),
+      fillColor:   "#FF8C00",
+      color:       "white",
+      weight:      1,
+      fillOpacity: 0.85
+    })
+    .bindPopup(`<b>${city.city}</b><br>${fmt_usd(city.total)}`)
+    .addTo(map);
+  }
+
+  // Fix for Quarto tabset: map initializes while the div is hidden (zero dimensions),
+  // so fitBounds() does nothing. ResizeObserver fires when the tab becomes visible.
+  // Re-fit to Iowa once on first real resize; subsequent resizes only invalidate size.
+  let fittedIowa = false;
+  new ResizeObserver(() => {
+    map.invalidateSize();
+    if (!fittedIowa && div.offsetWidth > 0) {
+      map.fitBounds([[40.3, -96.7], [43.5, -90.1]]);
+      fittedIowa = true;
+    }
+  }).observe(div);
+}
+```
+
+```{ojs}
+Inputs.table(iowa_city_totals.slice(0, 20), {
+  columns: ["city", "total", "transactions", "donors"],
+  header:  {city: "City", total: "Total Given", transactions: "Transactions", donors: "Unique Donors"},
+  format:  {total: fmt_usd, transactions: fmt_int, donors: fmt_int}
+})
+```
+
+## All Contributions
+
+```{ojs}
+ac_filtered = range_tbl.objects()
+
+viewof ac_search = Inputs.search(ac_filtered, {
+  label: "Search contributions",
+  columns: ["donor_display", "city", "state", "transaction_type", "date"]
+})
+```
+
+```{ojs}
+html`<p style="font-size:0.85em;color:#666;margin-bottom:0.5em">
+  ${ac_search.length.toLocaleString()} of ${ac_filtered.length.toLocaleString()} contribution${ac_filtered.length === 1 ? "" : "s"}
+</p>`
+
+Inputs.table(ac_search, {
+  columns: ["date", "donor_display", "donor_type", "city", "state", "contribution_amount", "transaction_type"],
+  header: {
+    date: "Date", donor_display: "Donor", donor_type: "Type",
+    city: "City", state: "State", contribution_amount: "Amount", transaction_type: "Transaction Type"
+  },
+  format: {contribution_amount: fmt_usd},
+  rows: 25
+})
+```
+
+## Expenditures
+
+```{r}
+if (has_expenditures) {
+  exp_by_type <- all_expenditures |>
+    group_by(transaction_type) |>
+    summarize(
+      total = sum(expenditure_amount, na.rm = TRUE),
+      count = n(),
+      .groups = "drop"
+    ) |>
+    arrange(desc(total))
+
+  ggplot(exp_by_type, aes(x = reorder(transaction_type, total), y = total)) +
+    geom_col(fill = "#C04A2A") +
+    coord_flip() +
+    scale_y_continuous(labels = dollar_format()) +
+    labs(title = "Expenditures by Transaction Type", x = NULL, y = "Total Amount") +
+    theme_minimal(base_size = 12) +
+    theme(plot.title = element_text(face = "bold"))
+} else {
+  cat("No expenditure data available.\n")
+}
+```
+
+```{r}
+if (has_expenditures) {
+  top_recipients <- all_expenditures |>
+    group_by(recipient_display, city, state) |>
+    summarize(
+      total        = sum(expenditure_amount, na.rm = TRUE),
+      transactions = n(),
+      .groups      = "drop"
+    ) |>
+    arrange(desc(total)) |>
+    slice_head(n = 25)
+
+  gt(top_recipients) |>
+    cols_label(
+      recipient_display = "Recipient", city = "City", state = "State",
+      total = "Total", transactions = "Transactions"
+    ) |>
+    fmt_currency(columns = total, currency = "USD") |>
+    fmt_integer(columns = transactions) |>
+    tab_options(table.font.size = px(12))
+} else {
+  cat("No expenditure data available.\n")
+}
+```
+
+:::
+
+---
+
+*Data sourced from the Iowa Ethics and Campaign Disclosure Board (IECDB). Last updated: `r Sys.Date()`*
