@@ -26,6 +26,7 @@ Detailed file-by-file mapping for migrating `iowa_legislature` and `iowa_electio
 | `R/data_pipeline/03a_resume_scrape_relationships.R` | `R/legislature/03a_resume_scrape_relationships.R` |
 | `R/data_pipeline/04_lobbyist_declarations.R` | `R/legislature/04_lobbyist_declarations.R` |
 | `R/data_pipeline/04a_legislator_lobbyist_alignment.R` | `R/legislature/04a_legislator_lobbyist_alignment.R` |
+| `R/data_pipeline/05_salience_scores.R` | `R/legislature/05_salience_scores.R` |
 | `R/render_site.R` | `R/legislature/render.R` |
 | `R/run_pipeline.R` | `R/legislature/run_pipeline.R` |
 | `R/utils.R` | `R/legislature/utils.R` |
@@ -88,17 +89,19 @@ Detailed file-by-file mapping for migrating `iowa_legislature` and `iowa_electio
 | `google-analytics.html` | `google-analytics.html` | |
 | `session_notes/` | `notes/legislature/` | |
 | `logs/` | `logs/legislature/` | Consider gitignoring |
+| `plan_bill_groups_integration.md` | `notes/legislature/plan_bill_groups_integration.md` | Added after this map was first written (2026-05-xx); planning doc, not code |
 
 ### Skip / Do Not Transfer
 
 - `scripts/` — superseded by `R/data_pipeline/`; skip entirely
 - `shiny_app/` — skip for now
 - `.Rproj.user/` — RStudio IDE state, machine-specific
+- `.claude/` — Claude Code tool config, machine/tool-specific (same treatment as `.Rproj.user/`)
 - `.quarto/` — generated freeze cache, rebuilds automatically
 - `docs/` — generated output, will re-render
 - `archive/legislation_dashboard.*` — superseded
 - `test_data_app/`, `test_gt.html` — scratch artifacts
-- `iowa_legislature.Rproj` — replaced by `ia_politics_transparency.Rproj`
+- `iowa_legislature.Rproj` — replaced by `ia_transparency_project.Rproj`
 - `CLAUDE.md` — consolidate into monorepo CLAUDE.md
 
 ---

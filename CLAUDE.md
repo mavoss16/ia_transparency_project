@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-`ia_politics_transparency` — an umbrella project promoting political transparency in Iowa by making publicly-available data more accessible and highlighting relationships between datasets. Domains:
+`ia_transparency_project` — an umbrella project promoting political transparency in Iowa by making publicly-available data more accessible and highlighting relationships between datasets. Domains:
 
 - **Iowa Legislature** — bill tracking, legislator voting records, lobbyist declarations (Phase 1; migration from `iowa_legislature` in progress)
 - **Iowa Elections** — election results and candidate data
@@ -15,7 +15,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 As of 2026-05-09:
 
 ```
-ia_politics_transparency/
+ia_transparency_project/
 ├── R/
 │   ├── campaign_finance/
 │   │   ├── download/
@@ -297,7 +297,7 @@ An experimental version that adds client-side year-range filtering using Observa
 After migration, the full layout will be:
 
 ```
-ia_politics_transparency/
+ia_transparency_project/
 ├── R/
 │   ├── legislature/          ← from iowa_legislature/R/data_pipeline/ + utils
 │   ├── elections/            ← production pipeline (to be built)
@@ -324,7 +324,7 @@ ia_politics_transparency/
 ├── docs/                     ← rendered output (GitHub Pages)
 ├── notes/
 ├── renv.lock
-└── ia_politics_transparency.Rproj
+└── ia_transparency_project.Rproj
 ```
 
 Each domain has its own render function under `R/{domain}/render.R`; a top-level `R/render_all.R` orchestrator calls all of them. See `notes/2026-03-06_migration-plan.md` for architecture decisions and `notes/2026-03-08_file-migration-map.md` for the detailed file-by-file migration map.

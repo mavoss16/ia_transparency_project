@@ -49,18 +49,21 @@ ia_politics_transparency/
 
 ## Migration Steps
 
-1. **Preserve git history (optional)** — use `git filter-repo` to extract iowa_legislature history and merge into this repo:
+1. **Preserve git history (decided 2026-07-05)** — use `git filter-repo` on a copy of `iowa_legislature` to rewrite paths to `legislature/`, then merge that history into this repo:
    ```bash
-   # In iowa_legislature clone:
+   # Work on a fresh clone, not the working iowa_legislature repo, since
+   # filter-repo rewrites history in place and is destructive to that clone
+   git clone ../iowa_legislature ../iowa_legislature-filtered
+   cd ../iowa_legislature-filtered
    git filter-repo --to-subdirectory-filter legislature/
 
-   # In ia_politics_transparency:
-   git remote add legislature ../iowa_legislature
+   # In ia_transparency_project:
+   git remote add legislature ../iowa_legislature-filtered
    git fetch legislature
    git merge legislature/main --allow-unrelated-histories
    git remote remove legislature
    ```
-   If history doesn't matter, a straight file copy is fine.
+   Only files on the migration map get merged in the working tree afterward — filter-repo brings over the whole repo's history under `legislature/`, but files on the "skip" list still get deleted from the working tree post-merge (history remains, just no longer checked out).
 
 2. **Set up repo skeleton** — `.Rproj`, `renv`, `_quarto.yml`
 

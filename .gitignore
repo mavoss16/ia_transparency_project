@@ -16,6 +16,7 @@ site/**/*.html
 site/**/*_files/
 site/.quarto/
 /.quarto/
+**/*.quarto_ipynb
 
 # Logs
 logs/
