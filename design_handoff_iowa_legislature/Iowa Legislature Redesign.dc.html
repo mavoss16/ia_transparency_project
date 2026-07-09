@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #ecebe6; font-family: 'Public Sans', sans-serif; color: #23211d; }
+    a { color: #3F5B93; text-decoration: none; }
+    a:hover { color: #2c4370; text-decoration: underline; }
+  </style>
+</helmet>
+
+<section style="display: flex; align-items: flex-start; gap: 64px; padding: 48px 48px 0;">
+
+  <!-- ============ 2a: LEGISLATION OVERVIEW ============ -->
+  <div id="2a" style="flex: 0 0 auto;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+      <a href="#2a" style="display: inline-block; background: #23211d; color: #fff; font: 700 13px 'Public Sans', sans-serif; padding: 3px 9px; border-radius: 5px; text-decoration: none;">2a</a>
+      <span style="font: 500 13px 'Public Sans', sans-serif; color: #6d6a62;">Legislation overview — real data</span>
+    </div>
+    <div style="width: 1360px; background: #f7f6f3; border: 1px solid #dcdad2; border-radius: 10px; overflow: hidden; box-shadow: 0 12px 32px rgba(35,33,29,0.10);">
+      <div style="display: flex; align-items: center; gap: 32px; padding: 0 40px; height: 64px; background: #fff; border-bottom: 1px solid #e4e2da;">
+        <div style="display: flex; align-items: baseline; gap: 10px;">
+          <span style="font: 700 20px 'Source Serif 4', serif;">Iowa Legislature</span>
+          <span style="font: 500 12px 'Public Sans', sans-serif; color: #6d6a62; letter-spacing: 0.04em;">91ST GENERAL ASSEMBLY</span>
+        </div>
+        <div style="display: flex; gap: 26px; margin-left: auto; align-items: center;">
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Home</span>
+          <span style="font: 600 14px 'Public Sans', sans-serif; color: #23211d; border-bottom: 2px solid #A8433A; padding: 20px 0 18px;">Legislation</span>
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Legislators</span>
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Search</span>
+        </div>
+      </div>
+
+      <div style="padding: 36px 40px 48px;">
+        <div style="margin-bottom: 26px;">
+          <h1 style="font: 700 34px/1.15 'Source Serif 4', serif; margin: 0 0 8px;">Legislation</h1>
+          <p style="font: 400 15px/1.5 'Public Sans', sans-serif; color: #55524a; margin: 0;">The 91st General Assembly has introduced <strong style="color: #23211d;">4,224</strong> bills and resolutions.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 16px; margin-bottom: 20px;">
+          <!-- Bills by type -->
+          <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 24px 26px;">
+            <div style="font: 700 18px 'Source Serif 4', serif; margin-bottom: 18px;">Bills by type</div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <sc-for list="{{ billTypes }}" as="bt" hint-placeholder-count="10">
+                <div style="display: grid; grid-template-columns: 44px 1fr 52px; align-items: center; gap: 12px;">
+                  <div style="font: 700 12px 'Public Sans', sans-serif; color: #55524a;">{{ bt.abbr }}</div>
+                  <div style="height: 14px; background: #f0efe9; border-radius: 3px; overflow: hidden;">
+                    <div style="height: 100%; width: {{ bt.w }}; background: #8f8b80; border-radius: 3px; min-width: 2px;"></div>
+                  </div>
+                  <div style="font: 600 13px 'Public Sans', sans-serif; color: #23211d; text-align: right;">{{ bt.count }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="font: 400 12px 'Public Sans', sans-serif; color: #8a877e; margin-top: 16px;">HF House File · SF Senate File · HSB/SSB study bills · HR/SR resolutions · HJR/SJR joint · HCR/SCR concurrent</div>
+          </div>
+
+          <!-- Status summary: individual vs group -->
+          <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 24px 26px;">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px;">
+              <div style="font: 700 18px 'Source Serif 4', serif;">Status summary</div>
+              <div style="display: flex; gap: 16px;">
+                <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #55524a; display: inline-block;"></span><span style="font: 500 12px 'Public Sans', sans-serif; color: #55524a;">Individual bill</span></span>
+                <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #c5c1b4; display: inline-block;"></span><span style="font: 500 12px 'Public Sans', sans-serif; color: #55524a;">Bill group</span></span>
+              </div>
+            </div>
+            <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62; margin-bottom: 18px;">Group status reflects the furthest progress of any related bill</div>
+            <div style="display: flex; flex-direction: column; gap: 13px;">
+              <sc-for list="{{ statusPairs }}" as="sp" hint-placeholder-count="6">
+                <div style="display: grid; grid-template-columns: 168px 1fr; gap: 14px; align-items: center;">
+                  <div style="font: 500 13px 'Public Sans', sans-serif; color: #55524a; text-align: right;">{{ sp.label }}</div>
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <div style="height: 11px; background: #55524a; border-radius: 2px; width: {{ sp.indW }}; min-width: 2px;"></div>
+                      <span style="font: 600 12px 'Public Sans', sans-serif; color: #23211d;">{{ sp.ind }}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <div style="height: 11px; background: #c5c1b4; border-radius: 2px; width: {{ sp.grpW }}; min-width: 2px;"></div>
+                      <span style="font: 500 12px 'Public Sans', sans-serif; color: #8a877e;">{{ sp.grp }}</span>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent bills -->
+        <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 24px 26px; margin-bottom: 20px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px;">
+            <div style="font: 700 18px 'Source Serif 4', serif;">Recent bills</div>
+            <span style="font: 400 13px 'Public Sans', sans-serif; color: #8a877e;">Most recent activity · June 2, 2026</span>
+          </div>
+          <div style="display: flex; flex-direction: column;">
+            <sc-for list="{{ recentBills2 }}" as="r" hint-placeholder-count="6">
+              <div style="display: grid; grid-template-columns: 84px 1fr 190px 96px; align-items: center; gap: 18px; padding: 12px 4px; border-top: 1px solid #efeee8;">
+                <a href="#1b" style="font: 700 14px 'Public Sans', sans-serif;">{{ r.bill }}</a>
+                <div>
+                  <div style="font: 500 14px/1.35 'Public Sans', sans-serif; color: #23211d;">{{ r.title }}</div>
+                  <div style="font: 400 12px 'Public Sans', sans-serif; color: #8a877e; margin-top: 3px;">{{ r.meta }}</div>
+                </div>
+                <div><span style="display: inline-block; font: 600 12px 'Public Sans', sans-serif; padding: 4px 10px; border-radius: 99px; background: {{ r.pillBg }}; color: {{ r.pillFg }};">{{ r.action }}</span></div>
+                <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62; text-align: right;">{{ r.date }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- Browse -->
+        <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 24px 26px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 16px;">
+            <div style="font: 700 18px 'Source Serif 4', serif;">Browse all 4,224 bills</div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 8px; border: 1px solid #dcdad2; border-radius: 8px; padding: 8px 14px; width: 260px; background: #fbfaf8;">
+                <span style="color: #8a877e; font-size: 13px;">⌕</span>
+                <span style="font: 400 13px 'Public Sans', sans-serif; color: #8a877e;">Search bills…</span>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
+            <span style="font: 600 12px 'Public Sans', sans-serif; padding: 6px 12px; border-radius: 99px; background: #23211d; color: #fff;">All</span>
+            <span style="font: 500 12px 'Public Sans', sans-serif; padding: 6px 12px; border-radius: 99px; border: 1px solid #dcdad2; color: #55524a; background: #fff;">Chamber ▾</span>
+            <span style="font: 500 12px 'Public Sans', sans-serif; padding: 6px 12px; border-radius: 99px; border: 1px solid #dcdad2; color: #55524a; background: #fff;">Status ▾</span>
+            <span style="font: 500 12px 'Public Sans', sans-serif; padding: 6px 12px; border-radius: 99px; border: 1px solid #dcdad2; color: #55524a; background: #fff;">Sponsor ▾</span>
+            <span style="font: 500 12px 'Public Sans', sans-serif; padding: 6px 12px; border-radius: 99px; border: 1px solid #dcdad2; color: #55524a; background: #fff;">Bill type ▾</span>
+          </div>
+          <div style="font: 400 12px 'Public Sans', sans-serif; color: #8a877e;">Filter chips replace the per-column filter inputs; an asterisk (*) on group status indicates the group has progressed further than the individual bill.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2b: LEGISLATORS OVERVIEW ============ -->
+  <div id="2b" style="flex: 0 0 auto;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+      <a href="#2b" style="display: inline-block; background: #23211d; color: #fff; font: 700 13px 'Public Sans', sans-serif; padding: 3px 9px; border-radius: 5px; text-decoration: none;">2b</a>
+      <span style="font: 500 13px 'Public Sans', sans-serif; color: #6d6a62;">Legislators overview — real data</span>
+    </div>
+    <div style="width: 1360px; background: #f7f6f3; border: 1px solid #dcdad2; border-radius: 10px; overflow: hidden; box-shadow: 0 12px 32px rgba(35,33,29,0.10);">
+      <div style="display: flex; align-items: center; gap: 32px; padding: 0 40px; height: 64px; background: #fff; border-bottom: 1px solid #e4e2da;">
+        <div style="display: flex; align-items: baseline; gap: 10px;">
+          <span style="font: 700 20px 'Source Serif 4', serif;">Iowa Legislature</span>
+          <span style="font: 500 12px 'Public Sans', sans-serif; color: #6d6a62; letter-spacing: 0.04em;">91ST GENERAL ASSEMBLY</span>
+        </div>
+        <div style="display: flex; gap: 26px; margin-left: auto; align-items: center;">
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Home</span>
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Legislation</span>
+          <span style="font: 600 14px 'Public Sans', sans-serif; color: #23211d; border-bottom: 2px solid #A8433A; padding: 20px 0 18px;">Legislators</span>
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Search</span>
+        </div>
+      </div>
+
+      <div style="padding: 36px 40px 48px;">
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 26px;">
+          <div>
+            <h1 style="font: 700 34px/1.15 'Source Serif 4', serif; margin: 0 0 8px;">Legislators</h1>
+            <p style="font: 400 15px/1.5 'Public Sans', sans-serif; color: #55524a; margin: 0;"><strong style="color: #23211d;">150</strong> members serving in the House and Senate.</p>
+          </div>
+          <div style="display: flex; gap: 28px;">
+            <div style="text-align: right;">
+              <div style="font: 600 12px 'Public Sans', sans-serif; color: #8a877e; letter-spacing: 0.05em; margin-bottom: 6px;">HOUSE</div>
+              <div style="display: flex; height: 14px; width: 180px; border-radius: 4px; overflow: hidden;"><div style="width: 67%; background: #A8433A;"></div><div style="width: 33%; background: #3F5B93;"></div></div>
+              <div style="font: 600 12px 'Public Sans', sans-serif; margin-top: 5px;"><span style="color: #A8433A;">67 R</span> · <span style="color: #3F5B93;">33 D</span></div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font: 600 12px 'Public Sans', sans-serif; color: #8a877e; letter-spacing: 0.05em; margin-bottom: 6px;">SENATE</div>
+              <div style="display: flex; height: 14px; width: 180px; border-radius: 4px; overflow: hidden;"><div style="width: 66%; background: #A8433A;"></div><div style="width: 34%; background: #3F5B93;"></div></div>
+              <div style="font: 600 12px 'Public Sans', sans-serif; margin-top: 5px;"><span style="color: #A8433A;">33 R</span> · <span style="color: #3F5B93;">17 D</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Find your legislator -->
+        <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 24px 26px; margin-bottom: 16px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px;">
+            <div style="font: 700 18px 'Source Serif 4', serif;">Find your legislator</div>
+            <div style="display: flex; gap: 4px; background: #f0efe9; border-radius: 8px; padding: 3px;">
+              <span style="font: 600 13px 'Public Sans', sans-serif; padding: 6px 16px; border-radius: 6px; background: #fff; box-shadow: 0 1px 2px rgba(35,33,29,0.1);">House districts</span>
+              <span style="font: 500 13px 'Public Sans', sans-serif; padding: 6px 16px; color: #6d6a62;">Senate districts</span>
+            </div>
+          </div>
+          <div style="height: 240px; border-radius: 8px; background: repeating-linear-gradient(45deg, #f0efe9, #f0efe9 10px, #e9e7de 10px, #e9e7de 20px); display: flex; align-items: center; justify-content: center;">
+            <span style="font: 500 13px ui-monospace, monospace; color: #6d6a62; background: #fff; padding: 8px 14px; border-radius: 6px; border: 1px solid #dcdad2;">interactive district map — click a district to open the profile</span>
+          </div>
+        </div>
+
+        <!-- Senate table -->
+        <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 24px 26px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px;">
+            <div style="font: 700 18px 'Source Serif 4', serif;">Senate</div>
+            <span style="font: 400 13px 'Public Sans', sans-serif; color: #8a877e;">Click a column header to sort</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1.5fr 80px 110px 90px 90px 1.1fr 1.1fr; gap: 14px; padding: 10px 4px 8px; border-bottom: 2px solid #e4e2da;">
+            <div style="font: 600 12px 'Public Sans', sans-serif; color: #8a877e; letter-spacing: 0.04em;">NAME</div>
+            <div style="font: 600 12px 'Public Sans', sans-serif; color: #23211d; letter-spacing: 0.04em;">DISTRICT ▲</div>
+            <div style="font: 600 12px 'Public Sans', sans-serif; color: #8a877e; letter-spacing: 0.04em; text-align: right;">SPONSORED</div>
+            <div style="font: 600 12px 'Public Sans', sans-serif; color: #8a877e; letter-spacing: 0.04em; text-align: right;">SOLE</div>
+            <div style="font: 600 12px 'Public Sans', sans-serif; color: #8a877e; letter-spacing: 0.04em; text-align: right;">VOTES</div>
+            <div style="font: 600 12px 'Public Sans', sans-serif; color: #8a877e; letter-spacing: 0.04em;">PARTY ALIGNMENT</div>
+            <div style="font: 600 12px 'Public Sans', sans-serif; color: #8a877e; letter-spacing: 0.04em;">PARTICIPATION</div>
+          </div>
+          <sc-for list="{{ senators }}" as="sen" hint-placeholder-count="12">
+            <div style="display: grid; grid-template-columns: 1.5fr 80px 110px 90px 90px 1.1fr 1.1fr; gap: 14px; align-items: center; padding: 9px 4px; border-bottom: 1px solid #efeee8;">
+              <div style="display: flex; align-items: center; gap: 9px;">
+                <span style="width: 9px; height: 9px; border-radius: 50%; background: {{ sen.dot }}; flex: 0 0 auto;"></span>
+                <a href="#2c" style="font: 600 14px 'Public Sans', sans-serif;">{{ sen.name }}</a>
+                <sc-if value="{{ sen.former }}" hint-placeholder-val="{{ false }}">
+                  <span style="font: 600 10px 'Public Sans', sans-serif; padding: 2px 7px; border-radius: 99px; background: #eeede7; color: #8a877e; letter-spacing: 0.04em;">FORMER</span>
+                </sc-if>
+              </div>
+              <div style="font: 500 13px 'Public Sans', sans-serif; color: #55524a;">{{ sen.district }}</div>
+              <div style="font: 500 13px 'Public Sans', sans-serif; color: #23211d; text-align: right;">{{ sen.bills }}</div>
+              <div style="font: 500 13px 'Public Sans', sans-serif; color: #55524a; text-align: right;">{{ sen.sole }}</div>
+              <div style="font: 500 13px 'Public Sans', sans-serif; color: #55524a; text-align: right;">{{ sen.votes }}</div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="flex: 1; height: 7px; background: #f0efe9; border-radius: 99px; overflow: hidden;"><div style="height: 100%; width: {{ sen.align }}; background: #8f8b80; border-radius: 99px;"></div></div>
+                <span style="font: 600 12px 'Public Sans', sans-serif; color: #23211d; width: 44px; text-align: right;">{{ sen.align }}</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="flex: 1; height: 7px; background: #f0efe9; border-radius: 99px; overflow: hidden;"><div style="height: 100%; width: {{ sen.part }}; background: {{ sen.partColor }}; border-radius: 99px;"></div></div>
+                <span style="font: 600 12px 'Public Sans', sans-serif; color: {{ sen.partTextColor }}; width: 44px; text-align: right;">{{ sen.part }}</span>
+              </div>
+            </div>
+          </sc-for>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 14px;">
+            <span style="font: 400 13px 'Public Sans', sans-serif; color: #8a877e;">Showing 12 of 52 senators (incl. 2 replaced mid-session) · House table follows the same pattern</span>
+            <span style="font: 600 13px 'Public Sans', sans-serif; color: #3F5B93;">Show all ↓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2c: LEGISLATOR DETAIL ============ -->
+  <div id="2c" style="flex: 0 0 auto;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+      <a href="#2c" style="display: inline-block; background: #23211d; color: #fff; font: 700 13px 'Public Sans', sans-serif; padding: 3px 9px; border-radius: 5px; text-decoration: none;">2c</a>
+      <span style="font: 500 13px 'Public Sans', sans-serif; color: #6d6a62;">Legislator detail — Rocky De Witt</span>
+    </div>
+    <div style="width: 1360px; background: #f7f6f3; border: 1px solid #dcdad2; border-radius: 10px; overflow: hidden; box-shadow: 0 12px 32px rgba(35,33,29,0.10);">
+      <div style="display: flex; align-items: center; gap: 32px; padding: 0 40px; height: 64px; background: #fff; border-bottom: 1px solid #e4e2da;">
+        <div style="display: flex; align-items: baseline; gap: 10px;">
+          <span style="font: 700 20px 'Source Serif 4', serif;">Iowa Legislature</span>
+          <span style="font: 500 12px 'Public Sans', sans-serif; color: #6d6a62; letter-spacing: 0.04em;">91ST GENERAL ASSEMBLY</span>
+        </div>
+        <div style="display: flex; gap: 26px; margin-left: auto; align-items: center;">
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Home</span>
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Legislation</span>
+          <span style="font: 600 14px 'Public Sans', sans-serif; color: #23211d; border-bottom: 2px solid #A8433A; padding: 20px 0 18px;">Legislators</span>
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Search</span>
+        </div>
+      </div>
+
+      <div style="padding: 32px 40px 48px;">
+        <div style="font: 500 13px 'Public Sans', sans-serif; color: #8a877e; margin-bottom: 18px;"><a href="#2b">Legislators</a> <span style="margin: 0 4px;">/</span> Rocky De Witt</div>
+
+        <!-- Profile header -->
+        <div style="background: #fff; border: 1px solid #e4e2da; border-left: 4px solid #A8433A; border-radius: 10px; padding: 26px 30px; margin-bottom: 16px;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 24px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                <h1 style="font: 700 32px/1.1 'Source Serif 4', serif; margin: 0;">Rocky De Witt</h1>
+                <span style="display: inline-block; font: 700 12px 'Public Sans', sans-serif; padding: 4px 11px; border-radius: 99px; background: #A8433A; color: #fff;">REPUBLICAN</span>
+              </div>
+              <div style="font: 400 15px 'Public Sans', sans-serif; color: #55524a;">Senator · District SD-001 · Sioux City area, Iowa</div>
+              <div style="display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; background: #f7f3e8; border: 1px solid #e8dfc8; border-radius: 8px; padding: 8px 14px;">
+                <span style="font: 400 13px 'Public Sans', sans-serif; color: #7d5c17;">No longer serving — succeeded by <a href="#2b" style="font-weight: 600;">Catelin Drey (D)</a> in SD-001 this session.</span>
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px; flex: 0 0 auto;">
+              <span style="font: 600 13px 'Public Sans', sans-serif; padding: 9px 16px; border-radius: 8px; border: 1px solid #dcdad2; color: #55524a; background: #fff;">✉ Email</span>
+              <span style="font: 600 13px 'Public Sans', sans-serif; padding: 9px 16px; border-radius: 8px; border: 1px solid #dcdad2; color: #55524a; background: #fff;">Ballotpedia ↗</span>
+              <span style="font: 600 13px 'Public Sans', sans-serif; padding: 9px 16px; border-radius: 8px; border: 1px solid #dcdad2; color: #55524a; background: #fff;">VoteSmart ↗</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats + map -->
+        <div style="display: grid; grid-template-columns: 1fr 380px; gap: 16px; margin-bottom: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <sc-for list="{{ dwStats }}" as="ds" hint-placeholder-count="4">
+              <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 20px 22px;">
+                <div style="font: 600 12px 'Public Sans', sans-serif; letter-spacing: 0.06em; color: #8a877e; margin-bottom: 8px;">{{ ds.label }}</div>
+                <div style="font: 700 32px/1 'Source Serif 4', serif; color: #23211d;">{{ ds.value }}</div>
+                <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62; margin-top: 8px;">{{ ds.sub }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 18px 20px;">
+            <div style="font: 700 15px 'Source Serif 4', serif; margin-bottom: 12px;">District SD-001</div>
+            <div style="height: 180px; border-radius: 8px; background: repeating-linear-gradient(45deg, #f0efe9, #f0efe9 10px, #e9e7de 10px, #e9e7de 20px); display: flex; align-items: center; justify-content: center;">
+              <span style="font: 500 12px ui-monospace, monospace; color: #6d6a62; background: #fff; padding: 6px 12px; border-radius: 6px; border: 1px solid #dcdad2;">district map — Sioux City</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs: sponsored + voting -->
+        <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; overflow: hidden; margin-bottom: 16px;">
+          <div style="display: flex; gap: 4px; padding: 0 18px; border-bottom: 1px solid #e4e2da; background: #fbfaf8;">
+            <span style="font: 600 14px 'Public Sans', sans-serif; color: #23211d; padding: 14px 14px 12px; border-bottom: 2px solid #A8433A;">Sponsored bills</span>
+            <span style="font: 500 14px 'Public Sans', sans-serif; color: #6d6a62; padding: 14px 14px;">Voting record</span>
+            <span style="font: 500 14px 'Public Sans', sans-serif; color: #6d6a62; padding: 14px 14px;">Vote analysis</span>
+            <span style="font: 500 14px 'Public Sans', sans-serif; color: #6d6a62; padding: 14px 14px;">Similar legislators</span>
+          </div>
+          <div style="padding: 12px 24px 20px;">
+            <sc-for list="{{ dwSponsored }}" as="sb" hint-placeholder-count="3">
+              <div style="display: grid; grid-template-columns: 76px 1fr 130px 110px 110px; gap: 16px; align-items: center; padding: 12px 2px; border-bottom: 1px solid #efeee8;">
+                <a href="#1b" style="font: 700 14px 'Public Sans', sans-serif;">{{ sb.bill }}</a>
+                <div style="font: 500 14px/1.35 'Public Sans', sans-serif; color: #23211d;">{{ sb.title }}</div>
+                <div><span style="display: inline-block; font: 600 12px 'Public Sans', sans-serif; padding: 4px 10px; border-radius: 99px; background: #eeede7; color: #55524a;">{{ sb.status }}</span></div>
+                <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62;">{{ sb.role }}</div>
+                <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62; text-align: right;">{{ sb.date }}</div>
+              </div>
+            </sc-for>
+            <div style="font: 400 13px 'Public Sans', sans-serif; color: #8a877e; padding-top: 12px;">All 3 sponsored bills shown · co-sponsor on each</div>
+          </div>
+        </div>
+
+        <!-- Voting record preview -->
+        <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 24px 26px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px;">
+            <div style="font: 700 18px 'Source Serif 4', serif;">Voting record</div>
+            <span style="font: 400 13px 'Public Sans', sans-serif; color: #8a877e;">290 floor votes · 98.7% with party · 81.0% participation</span>
+          </div>
+          <sc-for list="{{ dwVotes }}" as="v" hint-placeholder-count="6">
+            <div style="display: grid; grid-template-columns: 76px 1fr 120px 110px 84px; gap: 16px; align-items: center; padding: 11px 2px; border-top: 1px solid #efeee8;">
+              <a href="#1b" style="font: 700 14px 'Public Sans', sans-serif;">{{ v.bill }}</a>
+              <div style="font: 500 14px/1.35 'Public Sans', sans-serif; color: #23211d;">{{ v.title }}</div>
+              <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62;">{{ v.type }}</div>
+              <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62;">{{ v.date }}</div>
+              <div style="text-align: right;"><span style="display: inline-block; font: 700 12px 'Public Sans', sans-serif; padding: 4px 12px; border-radius: 99px; background: {{ v.pillBg }}; color: {{ v.pillFg }};">{{ v.vote }}</span></div>
+            </div>
+          </sc-for>
+          <div style="display: flex; justify-content: flex-end; padding-top: 14px;">
+            <span style="font: 600 13px 'Public Sans', sans-serif; color: #3F5B93;">All 290 votes ↓</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section style="display: flex; align-items: flex-start; gap: 64px; padding: 48px;">
+
+  <!-- ============ 1a: HOME PAGE ============ -->
+  <div id="1a" style="flex: 0 0 auto;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+      <a href="#1a" style="display: inline-block; background: #23211d; color: #fff; font: 700 13px 'Public Sans', sans-serif; padding: 3px 9px; border-radius: 5px; text-decoration: none;">1a</a>
+      <span style="font: 500 13px 'Public Sans', sans-serif; color: #6d6a62;">Home — dashboard treatment</span>
+    </div>
+    <div style="width: 1360px; background: #f7f6f3; border: 1px solid #dcdad2; border-radius: 10px; overflow: hidden; box-shadow: 0 12px 32px rgba(35,33,29,0.10);">
+
+      <!-- Nav -->
+      <div style="display: flex; align-items: center; gap: 32px; padding: 0 40px; height: 64px; background: #fff; border-bottom: 1px solid #e4e2da;">
+        <div style="display: flex; align-items: baseline; gap: 10px;">
+          <span style="font: 700 20px 'Source Serif 4', serif;">Iowa Legislature</span>
+          <span style="font: 500 12px 'Public Sans', sans-serif; color: #6d6a62; letter-spacing: 0.04em;">91ST GENERAL ASSEMBLY</span>
+        </div>
+        <div style="display: flex; gap: 26px; margin-left: auto; align-items: center;">
+          <span style="font: 600 14px 'Public Sans', sans-serif; color: #23211d; border-bottom: 2px solid #A8433A; padding: 20px 0 18px;">Home</span>
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Legislation</span>
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Legislators</span>
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Search</span>
+        </div>
+      </div>
+
+      <div style="padding: 40px 40px 48px;">
+
+        <!-- Hero -->
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 28px;">
+          <div>
+            <div style="font: 600 13px 'Public Sans', sans-serif; letter-spacing: 0.08em; color: #A8433A; margin-bottom: 8px;">2025–2026 SESSION</div>
+            <h1 style="font: 700 40px/1.1 'Source Serif 4', serif; margin: 0 0 10px;">Tracking the 91st General Assembly</h1>
+            <p style="font: 400 16px/1.5 'Public Sans', sans-serif; color: #55524a; margin: 0; max-width: 640px;">Bill information, legislator profiles, voting records, and lobbyist declarations — aggregated from LegiScan and the official Iowa Legislature site.</p>
+          </div>
+          <div style="font: 400 13px 'Public Sans', sans-serif; color: #8a877e; white-space: nowrap;">Last updated July 7, 2026</div>
+        </div>
+
+        <!-- Stat cards -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px;">
+          <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+            <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 20px 22px;">
+              <div style="font: 600 12px 'Public Sans', sans-serif; letter-spacing: 0.06em; color: #8a877e; margin-bottom: 8px;">{{ s.label }}</div>
+              <div style="font: 700 36px/1 'Source Serif 4', serif; color: #23211d;">{{ s.value }}</div>
+              <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62; margin-top: 8px;">{{ s.sub }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- Two-column: funnel + composition -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+
+          <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 24px 26px;">
+            <div style="font: 700 18px 'Source Serif 4', serif; margin-bottom: 4px;">Where bills stand</div>
+            <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62; margin-bottom: 20px;">Current status of all 4,224 bills and resolutions</div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <sc-for list="{{ funnel }}" as="f" hint-placeholder-count="6">
+                <div style="display: grid; grid-template-columns: 168px 1fr 56px; align-items: center; gap: 12px;">
+                  <div style="font: 500 13px 'Public Sans', sans-serif; color: #55524a; text-align: right;">{{ f.label }}</div>
+                  <div style="height: 18px; background: #f0efe9; border-radius: 4px; overflow: hidden;">
+                    <div style="height: 100%; width: {{ f.w }}; background: {{ f.color }}; border-radius: 4px;"></div>
+                  </div>
+                  <div style="font: 600 14px 'Public Sans', sans-serif; color: #23211d;">{{ f.count }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="font: 400 12px 'Public Sans', sans-serif; color: #8a877e; margin-top: 18px;">Green marks bills signed into law. Counts reflect each bill's furthest individual progress.</div>
+          </div>
+
+          <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 24px 26px;">
+            <div style="display: flex; align-items: baseline; justify-content: space-between;">
+              <div>
+                <div style="font: 700 18px 'Source Serif 4', serif; margin-bottom: 4px;">Who holds the chambers</div>
+                <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62;">Party composition, 150 seats</div>
+              </div>
+              <div style="display: flex; gap: 16px;">
+                <div style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #A8433A; display: inline-block;"></span><span style="font: 500 12px 'Public Sans', sans-serif; color: #55524a;">Republican</span></div>
+                <div style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #3F5B93; display: inline-block;"></span><span style="font: 500 12px 'Public Sans', sans-serif; color: #55524a;">Democrat</span></div>
+              </div>
+            </div>
+
+            <sc-if value="{{ isHemicycle }}" hint-placeholder-val="{{ true }}">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px;">
+                <div>
+                  <div style="position: relative; width: 290px; height: 152px; margin: 0 auto;">
+                    <sc-for list="{{ houseSeats }}" as="seat" hint-placeholder-count="0">
+                      <div style="position: absolute; width: 9px; height: 9px; border-radius: 50%; left: {{ seat.x }}px; top: {{ seat.y }}px; background: {{ seat.color }};"></div>
+                    </sc-for>
+                  </div>
+                  <div style="text-align: center; margin-top: 10px;">
+                    <div style="font: 700 22px 'Source Serif 4', serif;"><span style="color: #A8433A;">67</span> <span style="color: #b5b2a8; font-size: 16px;">–</span> <span style="color: #3F5B93;">33</span></div>
+                    <div style="font: 500 12px 'Public Sans', sans-serif; color: #8a877e; letter-spacing: 0.05em;">HOUSE · 100 SEATS</div>
+                  </div>
+                </div>
+                <div>
+                  <div style="position: relative; width: 290px; height: 152px; margin: 0 auto;">
+                    <sc-for list="{{ senateSeats }}" as="seat" hint-placeholder-count="0">
+                      <div style="position: absolute; width: 9px; height: 9px; border-radius: 50%; left: {{ seat.x }}px; top: {{ seat.y }}px; background: {{ seat.color }};"></div>
+                    </sc-for>
+                  </div>
+                  <div style="text-align: center; margin-top: 10px;">
+                    <div style="font: 700 22px 'Source Serif 4', serif;"><span style="color: #A8433A;">33</span> <span style="color: #b5b2a8; font-size: 16px;">–</span> <span style="color: #3F5B93;">17</span></div>
+                    <div style="font: 500 12px 'Public Sans', sans-serif; color: #8a877e; letter-spacing: 0.05em;">SENATE · 50 SEATS</div>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isBars }}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; flex-direction: column; gap: 26px; margin-top: 34px;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; font: 600 13px 'Public Sans', sans-serif; margin-bottom: 8px;"><span>House · 100 seats</span><span><span style="color: #A8433A;">67 R</span> &nbsp;·&nbsp; <span style="color: #3F5B93;">33 D</span></span></div>
+                  <div style="display: flex; height: 26px; border-radius: 6px; overflow: hidden;">
+                    <div style="width: 67%; background: #A8433A;"></div>
+                    <div style="width: 33%; background: #3F5B93;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font: 600 13px 'Public Sans', sans-serif; margin-bottom: 8px;"><span>Senate · 50 seats</span><span><span style="color: #A8433A;">33 R</span> &nbsp;·&nbsp; <span style="color: #3F5B93;">17 D</span></span></div>
+                  <div style="display: flex; height: 26px; border-radius: 6px; overflow: hidden;">
+                    <div style="width: 66%; background: #A8433A;"></div>
+                    <div style="width: 34%; background: #3F5B93;"></div>
+                  </div>
+                </div>
+                <div style="font: 400 12px 'Public Sans', sans-serif; color: #8a877e;">Republicans hold a two-thirds majority in both chambers.</div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <!-- Recent activity -->
+        <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 24px 26px; margin-bottom: 20px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px;">
+            <div style="font: 700 18px 'Source Serif 4', serif;">Recent activity</div>
+            <a href="#1a" style="font: 600 13px 'Public Sans', sans-serif;">All legislation →</a>
+          </div>
+          <div style="display: flex; flex-direction: column;">
+            <sc-for list="{{ recent }}" as="r" hint-placeholder-count="4">
+              <div style="display: grid; grid-template-columns: 84px 1fr 190px 96px; align-items: center; gap: 18px; padding: 13px 4px; border-top: 1px solid #efeee8;">
+                <a href="#1b" style="font: 700 14px 'Public Sans', sans-serif;">{{ r.bill }}</a>
+                <div>
+                  <div style="font: 500 14px/1.35 'Public Sans', sans-serif; color: #23211d;">{{ r.title }}</div>
+                  <div style="font: 400 12px 'Public Sans', sans-serif; color: #8a877e; margin-top: 3px;">{{ r.meta }}</div>
+                </div>
+                <div><span style="display: inline-block; font: 600 12px 'Public Sans', sans-serif; padding: 4px 10px; border-radius: 99px; background: {{ r.pillBg }}; color: {{ r.pillFg }};">{{ r.action }}</span></div>
+                <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62; text-align: right;">{{ r.date }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- Browse cards + sources -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div style="background: #2b354c; border-radius: 10px; padding: 22px 24px; color: #fff;">
+            <div style="font: 700 18px 'Source Serif 4', serif; margin-bottom: 6px;">Browse all legislation</div>
+            <div style="font: 400 13px/1.5 'Public Sans', sans-serif; color: #c3c9d8;">Search and filter 4,224 bills by chamber, sponsor, status, and subject.</div>
+          </div>
+          <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 22px 24px;">
+            <div style="font: 700 18px 'Source Serif 4', serif; margin-bottom: 6px;">Find your legislator</div>
+            <div style="font: 400 13px/1.5 'Public Sans', sans-serif; color: #6d6a62;">Profiles, sponsorship records, and voting analysis for all 150 members.</div>
+          </div>
+        </div>
+
+        <div style="font: 400 12px 'Public Sans', sans-serif; color: #8a877e; margin-top: 24px;">Data sources: <a href="#1a">LegiScan</a> (bill text, votes, sponsors) · <a href="#1a">Iowa Legislature</a> (lobbyist declarations)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 1b: BILL DETAIL ============ -->
+  <div id="1b" style="flex: 0 0 auto;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+      <a href="#1b" style="display: inline-block; background: #23211d; color: #fff; font: 700 13px 'Public Sans', sans-serif; padding: 3px 9px; border-radius: 5px; text-decoration: none;">1b</a>
+      <span style="font: 500 13px 'Public Sans', sans-serif; color: #6d6a62;">Bill detail — HF 1023</span>
+    </div>
+    <div style="width: 1360px; background: #f7f6f3; border: 1px solid #dcdad2; border-radius: 10px; overflow: hidden; box-shadow: 0 12px 32px rgba(35,33,29,0.10);">
+
+      <!-- Nav -->
+      <div style="display: flex; align-items: center; gap: 32px; padding: 0 40px; height: 64px; background: #fff; border-bottom: 1px solid #e4e2da;">
+        <div style="display: flex; align-items: baseline; gap: 10px;">
+          <span style="font: 700 20px 'Source Serif 4', serif;">Iowa Legislature</span>
+          <span style="font: 500 12px 'Public Sans', sans-serif; color: #6d6a62; letter-spacing: 0.04em;">91ST GENERAL ASSEMBLY</span>
+        </div>
+        <div style="display: flex; gap: 26px; margin-left: auto; align-items: center;">
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Home</span>
+          <span style="font: 600 14px 'Public Sans', sans-serif; color: #23211d; border-bottom: 2px solid #A8433A; padding: 20px 0 18px;">Legislation</span>
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Legislators</span>
+          <span style="font: 500 14px 'Public Sans', sans-serif; color: #55524a;">Search</span>
+        </div>
+      </div>
+
+      <div style="padding: 32px 40px 48px;">
+
+        <div style="font: 500 13px 'Public Sans', sans-serif; color: #8a877e; margin-bottom: 18px;"><a href="#1a">Legislation</a> <span style="margin: 0 4px;">/</span> HF 1023</div>
+
+        <!-- Bill header -->
+        <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 28px 30px; margin-bottom: 16px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <span style="font: 700 15px 'Public Sans', sans-serif; color: #A8433A; letter-spacing: 0.02em;">HOUSE FILE 1023</span>
+            <span style="display: inline-block; font: 600 12px 'Public Sans', sans-serif; padding: 4px 12px; border-radius: 99px; background: #e3efe6; color: #256a43;">Signed by Governor</span>
+          </div>
+          <h1 style="font: 700 30px/1.25 'Source Serif 4', serif; margin: 0 0 12px; max-width: 900px;">Benefits and contributions for public employees' retirement system members employed in protection occupations</h1>
+          <div style="display: flex; gap: 22px; flex-wrap: wrap; font: 400 13px 'Public Sans', sans-serif; color: #6d6a62;">
+            <span><strong style="color: #23211d;">Sponsor</strong> &nbsp;House Ways and Means Committee</span>
+            <span><strong style="color: #23211d;">Effective</strong> &nbsp;July 1, 2026</span>
+            <span><strong style="color: #23211d;">Formerly</strong> &nbsp;HF 967 · HSB 265</span>
+            <span><strong style="color: #23211d;">Last action</strong> &nbsp;Signed by Governor. H.J. 1165 — June 2, 2026</span>
+          </div>
+
+          <!-- Progress stepper -->
+          <div style="display: flex; align-items: flex-start; margin-top: 28px;">
+            <sc-for list="{{ steps }}" as="st" hint-placeholder-count="6">
+              <div style="display: flex; align-items: flex-start; flex: 1;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 120px; flex: 0 0 auto;">
+                  <div style="width: 30px; height: 30px; border-radius: 50%; background: #256a43; color: #fff; display: flex; align-items: center; justify-content: center; font: 700 15px 'Public Sans', sans-serif;">✓</div>
+                  <div style="font: 600 12px/1.3 'Public Sans', sans-serif; color: #23211d; text-align: center; margin-top: 8px;">{{ st.label }}</div>
+                  <div style="font: 400 11px 'Public Sans', sans-serif; color: #8a877e; margin-top: 2px;">{{ st.date }}</div>
+                </div>
+                <sc-if value="{{ st.hasLine }}" hint-placeholder-val="{{ true }}">
+                  <div style="flex: 1; height: 3px; background: #256a43; margin-top: 14px; border-radius: 2px; min-width: 24px;"></div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- Lobbyists + related -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 22px 24px;">
+            <div style="font: 700 17px 'Source Serif 4', serif; margin-bottom: 4px;">Lobbyist declarations</div>
+            <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62; margin-bottom: 16px;">22 declarations filed on this bill</div>
+            <div style="display: flex; height: 22px; border-radius: 6px; overflow: hidden; margin-bottom: 12px;">
+              <div style="width: 54.5%; background: #256a43;"></div>
+              <div style="width: 45.5%; background: #cfccc2;"></div>
+            </div>
+            <div style="display: flex; gap: 20px; font: 500 13px 'Public Sans', sans-serif;">
+              <span style="color: #256a43;">● 12 For</span>
+              <span style="color: #A8433A;">● 0 Against</span>
+              <span style="color: #6d6a62;">● 10 Undecided</span>
+            </div>
+          </div>
+          <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; padding: 22px 24px;">
+            <div style="font: 700 17px 'Source Serif 4', serif; margin-bottom: 4px;">Related legislation</div>
+            <div style="font: 400 13px 'Public Sans', sans-serif; color: #6d6a62; margin-bottom: 12px;">Part of a group of 3 related bills</div>
+            <div style="display: flex; flex-direction: column;">
+              <sc-for list="{{ related }}" as="rb" hint-placeholder-count="2">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 2px; border-top: 1px solid #efeee8;">
+                  <div style="display: flex; align-items: baseline; gap: 12px;">
+                    <a href="#1b" style="font: 700 13px 'Public Sans', sans-serif;">{{ rb.bill }}</a>
+                    <span style="font: 400 13px 'Public Sans', sans-serif; color: #55524a;">{{ rb.note }}</span>
+                  </div>
+                  <span style="display: inline-block; font: 600 11px 'Public Sans', sans-serif; padding: 3px 10px; border-radius: 99px; background: #f0e9d8; color: #7d5c17; white-space: nowrap;">Passed Committee</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs + history -->
+        <div style="background: #fff; border: 1px solid #e4e2da; border-radius: 10px; overflow: hidden;">
+          <div style="display: flex; gap: 4px; padding: 0 18px; border-bottom: 1px solid #e4e2da; background: #fbfaf8;">
+            <span style="font: 600 14px 'Public Sans', sans-serif; color: #23211d; padding: 14px 14px 12px; border-bottom: 2px solid #A8433A;">History</span>
+            <span style="font: 500 14px 'Public Sans', sans-serif; color: #6d6a62; padding: 14px 14px;">Votes</span>
+            <span style="font: 500 14px 'Public Sans', sans-serif; color: #6d6a62; padding: 14px 14px;">Lobbyist declarations</span>
+            <span style="font: 500 14px 'Public Sans', sans-serif; color: #6d6a62; padding: 14px 14px;">Calendar items</span>
+          </div>
+          <div style="padding: 10px 24px 18px;">
+            <sc-for list="{{ history }}" as="h" hint-placeholder-count="6">
+              <div style="display: grid; grid-template-columns: 110px 76px 1fr; gap: 18px; align-items: baseline; padding: 11px 2px; border-top: 1px solid #efeee8;">
+                <div style="font: 500 13px 'Public Sans', sans-serif; color: #6d6a62;">{{ h.date }}</div>
+                <div style="font: 600 12px 'Public Sans', sans-serif; color: {{ h.chamberColor }};">{{ h.chamber }}</div>
+                <div style="font: 400 14px/1.4 'Public Sans', sans-serif; color: #23211d;">{{ h.action }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;chartStyle&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;hemicycle&quot;, &quot;bars&quot;], &quot;default&quot;: &quot;hemicycle&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Home page&quot; }
+}">
+class Component extends DCLogic {
+  parliament(rowCounts, firstCount, w, h, r0, dr, dot) {
+    const cx = w / 2, cy = h - 6;
+    const seats = [];
+    rowCounts.forEach((n, ri) => {
+      const r = r0 + ri * dr;
+      for (let i = 0; i < n; i++) {
+        const a = Math.PI - (Math.PI * i) / (n - 1);
+        seats.push({ a, x: Math.round(cx + r * Math.cos(a) - dot / 2), y: Math.round(cy - r * Math.sin(a) - dot / 2) });
+      }
+    });
+    seats.sort((p, q) => q.a - p.a);
+    return seats.map((s, i) => ({ x: s.x, y: s.y, color: i < firstCount ? '#A8433A' : '#3F5B93' }));
+  }
+
+  renderVals() {
+    const chartStyle = this.props.chartStyle ?? 'hemicycle';
+    const green = { pillBg: '#e3efe6', pillFg: '#256a43' };
+    const gray = { pillBg: '#eeede7', pillFg: '#55524a' };
+    return {
+      isHemicycle: chartStyle === 'hemicycle',
+      isBars: chartStyle === 'bars',
+      houseSeats: this.parliament([11, 13, 15, 17, 20, 24], 67, 290, 152, 56, 17, 9),
+      senateSeats: this.parliament([9, 12, 14, 15], 33, 290, 152, 62, 25, 9),
+      stats: [
+        { label: 'TOTAL BILLS', value: '4,224', sub: '1,917 House · 1,220 Senate' },
+        { label: 'SIGNED BY GOVERNOR', value: '364', sub: '8.6% of all bills introduced' },
+        { label: 'AWAITING GOVERNOR', value: '24', sub: 'Passed both chambers' },
+        { label: 'LEGISLATORS', value: '150', sub: '100 R · 50 D across both chambers' },
+      ],
+      funnel: [
+        { label: 'Introduced', count: '1,528', w: '95%', color: '#8f8b80' },
+        { label: 'Passed Subcommittee', count: '434', w: '27%', color: '#8f8b80' },
+        { label: 'Passed Committee', count: '1,604', w: '100%', color: '#8f8b80' },
+        { label: 'Passed One Chamber', count: '270', w: '17%', color: '#8f8b80' },
+        { label: 'Passed Both Chambers', count: '24', w: '2%', color: '#8f8b80' },
+        { label: 'Signed by Governor', count: '364', w: '23%', color: '#256a43' },
+      ],
+      recent: [
+        { bill: 'SF 2168', title: 'Workforce matters: apprenticeships, career training, unemployment insurance, and the state workforce development board', meta: 'Senate · Formerly SSB 3044 · Effective 06/30/2026', action: 'Signed by Governor', date: 'Jun 2, 2026', ...green },
+        { bill: 'SF 2378', title: 'Ability of property owners to protest proposed changes in zoning districts', meta: 'Senate · Formerly SF 2091 · Effective 07/01/2026', action: 'Signed by Governor', date: 'Jun 2, 2026', ...green },
+        { bill: 'HF 2781', title: 'Allocations of moneys from the juvenile detention home fund', meta: 'House · Formerly HF 2537, HF 2315 · Effective 07/01/2026', action: 'Signed by Governor', date: 'Jun 2, 2026', ...green },
+        { bill: 'HF 2706', title: 'Judicial officers: magistrate appointments, senior magistrates, and judicial officer compensation', meta: 'House · Formerly HSB 722 · Effective 07/01/2026', action: 'Fiscal note', date: 'Jun 2, 2026', ...gray },
+      ],
+      steps: [
+        { label: 'Introduced', date: 'Apr 17, 2025', hasLine: true },
+        { label: 'Passed Subcommittee', date: '', hasLine: true },
+        { label: 'Passed Committee', date: '', hasLine: true },
+        { label: 'Passed One Chamber', date: 'Apr 24, 2025', hasLine: true },
+        { label: 'Passed Both Chambers', date: 'May 2026', hasLine: true },
+        { label: 'Signed by Governor', date: 'Jun 2, 2026', hasLine: false },
+      ],
+      related: [
+        { bill: 'HF 967', note: 'Predecessor bill — see HF 1023' },
+        { bill: 'HSB 265', note: 'Original study bill — see HF 967' },
+      ],
+      history: [
+        { date: 'Jun 2, 2026', chamber: 'HOUSE', chamberColor: '#A8433A', action: 'Signed by Governor. H.J. 1165.' },
+        { date: 'Apr 28, 2025', chamber: 'SENATE', chamberColor: '#3F5B93', action: 'Message from House. S.J. 886.' },
+        { date: 'Apr 24, 2025', chamber: 'HOUSE', chamberColor: '#A8433A', action: 'Immediate message. H.J. 1069.' },
+        { date: 'Apr 24, 2025', chamber: 'HOUSE', chamberColor: '#A8433A', action: 'Passed House, yeas 89, nays 0. H.J. 1066.' },
+        { date: 'Apr 23, 2025', chamber: 'HOUSE', chamberColor: '#A8433A', action: 'Fiscal note.' },
+        { date: 'Apr 17, 2025', chamber: 'HOUSE', chamberColor: '#A8433A', action: 'Introduced, placed on Ways and Means calendar. H.J. 987.' },
+      ],
+      billTypes: [
+        { abbr: 'HF', count: '1,855', w: '100%' },
+        { abbr: 'SF', count: '1,167', w: '63%' },
+        { abbr: 'HSB', count: '629', w: '34%' },
+        { abbr: 'SSB', count: '440', w: '24%' },
+        { abbr: 'HR', count: '39', w: '2.1%' },
+        { abbr: 'SR', count: '30', w: '1.6%' },
+        { abbr: 'HJR', count: '23', w: '1.2%' },
+        { abbr: 'SJR', count: '23', w: '1.2%' },
+        { abbr: 'HCR', count: '12', w: '0.6%' },
+        { abbr: 'SCR', count: '6', w: '0.3%' },
+      ],
+      statusPairs: [
+        { label: 'Introduced', ind: '1,528', indW: '95%', grp: '1,027', grpW: '64%' },
+        { label: 'Passed Subcommittee', ind: '434', indW: '27%', grp: '401', grpW: '25%' },
+        { label: 'Passed Committee', ind: '1,604', indW: '100%', grp: '805', grpW: '50%' },
+        { label: 'Passed One Chamber', ind: '270', indW: '17%', grp: '702', grpW: '44%' },
+        { label: 'Passed Both Chambers', ind: '24', indW: '1.5%', grp: '63', grpW: '4%' },
+        { label: 'Signed by Governor', ind: '364', indW: '23%', grp: '1,226', grpW: '76%' },
+      ],
+      recentBills2: [
+        { bill: 'HF 2667', title: 'Project design standards: statewide urban design and specifications board', meta: 'House · Formerly HSB 744', action: 'Vetoed by Governor', date: 'Jun 2, 2026', pillBg: '#f4e3e1', pillFg: '#8f3a31' },
+        { bill: 'HF 2601', title: 'Campaign finance: foreign nationals in ballot issue campaigns, election misconduct investigations', meta: 'House · Formerly HF 2044 · Effective 07/01/2026', action: 'Signed by Governor', date: 'Jun 2, 2026', pillBg: '#e3efe6', pillFg: '#256a43' },
+        { bill: 'HF 2610', title: 'Education programs: CTE expenditures, general education framework, corequisite model', meta: 'House · Formerly HSB 675 · Effective 07/01/2026', action: 'Signed by Governor', date: 'Jun 2, 2026', pillBg: '#e3efe6', pillFg: '#256a43' },
+        { bill: 'HF 2591', title: 'Open enrollment, student transfers, and interscholastic athletic eligibility', meta: 'House · Formerly HF 2034 · Effective 06/02/2026, 08/01/2026', action: 'Signed by Governor', date: 'Jun 2, 2026', pillBg: '#e3efe6', pillFg: '#256a43' },
+        { bill: 'HF 2542', title: 'Habitual offenders — penalties', meta: 'House · Formerly HSB 666 · Effective 07/01/2026', action: 'Signed by Governor', date: 'Jun 2, 2026', pillBg: '#e3efe6', pillFg: '#256a43' },
+        { bill: 'HF 2493', title: 'Statewide preschool program: eligibility, funding, and compulsory attendance', meta: 'House · Formerly HF 2092 · Effective 07/01/2026', action: 'Signed by Governor', date: 'Jun 2, 2026', pillBg: '#e3efe6', pillFg: '#256a43' },
+      ],
+      senators: [
+        { name: 'Rocky De Witt', dot: '#A8433A', district: 'SD-001', bills: '3', sole: '0', votes: '290', align: '98.7%', part: '81.0%', former: true, partColor: '#8f8b80', partTextColor: '#23211d' },
+        { name: 'Catelin Drey', dot: '#3F5B93', district: 'SD-001', bills: '22', sole: '2', votes: '299', align: '95.2%', part: '98.0%', former: false, partColor: '#8f8b80', partTextColor: '#23211d' },
+        { name: 'Jeff Taylor', dot: '#A8433A', district: 'SD-002', bills: '36', sole: '16', votes: '589', align: '97.3%', part: '93.2%', former: false, partColor: '#8f8b80', partTextColor: '#23211d' },
+        { name: 'Lynn Evans', dot: '#A8433A', district: 'SD-003', bills: '40', sole: '17', votes: '589', align: '99.5%', part: '98.5%', former: false, partColor: '#8f8b80', partTextColor: '#23211d' },
+        { name: 'Tim Kraayenbrink', dot: '#A8433A', district: 'SD-004', bills: '4', sole: '0', votes: '589', align: '99.8%', part: '99.7%', former: false, partColor: '#8f8b80', partTextColor: '#23211d' },
+        { name: 'Dave Rowley', dot: '#A8433A', district: 'SD-005', bills: '34', sole: '13', votes: '588', align: '99.3%', part: '49.3%', former: false, partColor: '#b07d24', partTextColor: '#7d5c17' },
+        { name: 'Jason Schultz', dot: '#A8433A', district: 'SD-006', bills: '13', sole: '9', votes: '589', align: '99.8%', part: '96.8%', former: false, partColor: '#8f8b80', partTextColor: '#23211d' },
+        { name: 'Kevin Alons', dot: '#A8433A', district: 'SD-007', bills: '32', sole: '8', votes: '589', align: '98.6%', part: '100.0%', former: false, partColor: '#8f8b80', partTextColor: '#23211d' },
+        { name: 'Mark Costello', dot: '#A8433A', district: 'SD-008', bills: '10', sole: '4', votes: '589', align: '98.6%', part: '100.0%', former: false, partColor: '#8f8b80', partTextColor: '#23211d' },
+        { name: 'Tom Shipley', dot: '#A8433A', district: 'SD-009', bills: '28', sole: '19', votes: '589', align: '99.3%', part: '100.0%', former: false, partColor: '#8f8b80', partTextColor: '#23211d' },
+        { name: 'Dan Dawson', dot: '#A8433A', district: 'SD-010', bills: '7', sole: '4', votes: '589', align: '99.7%', part: '99.2%', former: false, partColor: '#8f8b80', partTextColor: '#23211d' },
+        { name: 'Julian Garrett', dot: '#A8433A', district: 'SD-011', bills: '2', sole: '1', votes: '588', align: '99.2%', part: '41.3%', former: false, partColor: '#b07d24', partTextColor: '#7d5c17' },
+      ],
+      dwStats: [
+        { label: 'BILLS SPONSORED', value: '3', sub: 'Co-sponsor on all 3 · 0 sole-sponsored' },
+        { label: 'PARTY ALIGNMENT', value: '98.7%', sub: '232 votes with party · 3 against' },
+        { label: 'PARTICIPATION', value: '81.0%', sub: 'Of eligible floor votes' },
+        { label: 'FLOOR VOTES', value: '290', sub: 'Cast this session' },
+      ],
+      dwSponsored: [
+        { bill: 'SF 112', title: 'Transactional currency based on gold and silver held in a bullion depository', status: 'Introduced', role: 'Co-sponsor · 16 total', date: 'Jan 23, 2025' },
+        { bill: 'SF 95', title: 'Common carriers; effective date and applicability provisions', status: 'Introduced', role: 'Co-sponsor · 11 total', date: 'Jan 22, 2025' },
+        { bill: 'SF 74', title: 'Repealing land survey provisions for hazardous liquid pipeline projects', status: 'Introduced', role: 'Co-sponsor · 9 total', date: 'Jan 21, 2025' },
+      ],
+      dwVotes: [
+        { bill: 'SF 146', title: 'Bots purchasing event tickets online; civil penalties', type: 'Floor Passage', date: 'Feb 11, 2025', vote: 'Yea', pillBg: '#e3efe6', pillFg: '#256a43' },
+        { bill: 'SF 167', title: 'School funding: state percent of growth for FY 2026', type: 'Amendment', date: 'Feb 11, 2025', vote: 'Yea', pillBg: '#e3efe6', pillFg: '#256a43' },
+        { bill: 'SF 278', title: 'Robotics extracurricular activities; technical assistance to districts', type: 'Floor Passage', date: 'Feb 18, 2025', vote: 'Absent', pillBg: '#eeede7', pillFg: '#6d6a62' },
+        { bill: 'SF 418', title: 'Sex and gender: statutory construction, vital records, civil rights Act', type: 'Amendment', date: 'Feb 27, 2025', vote: 'Nay', pillBg: '#f4e3e1', pillFg: '#8f3a31' },
+        { bill: 'SF 418', title: 'Sex and gender: statutory construction, vital records, civil rights Act', type: 'Floor Passage', date: 'Feb 27, 2025', vote: 'Yea', pillBg: '#e3efe6', pillFg: '#256a43' },
+        { bill: 'HF 639', title: 'Hazardous liquid pipelines: common carrier requirements, IUC proceedings', type: 'Floor Passage', date: 'May 12, 2025', vote: 'Nay', pillBg: '#f4e3e1', pillFg: '#8f3a31' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -5,9 +5,7 @@ format:
     echo: false
     message: false
     warning: false
-    toc: true
-    toc-location: right
-    toc-depth: 2
+    toc: false
 ---
 
 ```{r}
@@ -135,7 +133,7 @@ Click a district on the map to open the legislator's profile. Hover to see their
 
 ```{r}
 party_fill <- function(party) {
-  case_when(party == "R" ~ "#C0392B", party == "D" ~ "#232066", TRUE ~ "#CCCCCC")
+  case_when(party == "R" ~ "#A8433A", party == "D" ~ "#3F5B93", TRUE ~ "#CCCCCC")
 }
 
 house_map_sf <- house_districts |>
@@ -191,7 +189,7 @@ leaflet(house_map_sf, height = 520) |>
   ) |>
   addLegend(
     position = "bottomright",
-    colors   = c("#C0392B", "#232066"),
+    colors   = c("#A8433A", "#3F5B93"),
     labels   = c("Republican", "Democrat"),
     title    = "Party",
     opacity  = 0.9
@@ -218,7 +216,7 @@ leaflet(senate_map_sf, height = 520) |>
   ) |>
   addLegend(
     position = "bottomright",
-    colors   = c("#C0392B", "#232066"),
+    colors   = c("#A8433A", "#3F5B93"),
     labels   = c("Republican", "Democrat"),
     title    = "Party",
     opacity  = 0.9

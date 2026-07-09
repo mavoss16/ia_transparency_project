@@ -5,9 +5,7 @@ format:
     echo: false
     message: false
     warning: false
-    toc: true
-    toc-location: right
-    toc-depth: 2
+    toc: false
 ---
 
 ```{r}
@@ -66,7 +64,7 @@ former_ids <- people |>
 active_people <- people |> filter(!people_id %in% former_ids)
 
 # Party composition for each chamber
-party_colours <- c("R" = "#C0392B", "D" = "#232066")
+party_colours <- c("R" = "#A8433A", "D" = "#3F5B93")
 
 house_comp  <- active_people |> filter(role == "Rep") |> count(party, name = "seats") |> arrange(desc(seats))
 senate_comp <- active_people |> filter(role == "Sen") |> count(party, name = "seats") |> arrange(desc(seats))

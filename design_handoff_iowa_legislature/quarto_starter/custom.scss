@@ -1,0 +1,232 @@
+/*-- scss:defaults --*/
+
+// ============================================================
+// Iowa Political Transparency — custom theme
+// Use with: format > html > theme: [cosmo, custom.scss]
+// ============================================================
+
+// Fonts (Google Fonts, loaded by Quarto automatically via mainfont/etc
+// won't fetch — import explicitly below in rules)
+$font-family-sans-serif: "Public Sans", -apple-system, "Segoe UI", sans-serif;
+$headings-font-family: "Source Serif 4", Georgia, serif;
+$headings-font-weight: 700;
+
+// Palette
+$ink:        #23211d;
+$ink-soft:   #55524a;
+$muted:      #6d6a62;
+$faint:      #8a877e;
+$bg:         #f7f6f3;
+$card-bg:    #ffffff;
+$border:     #e4e2da;
+$border-soft:#efeee8;
+
+$party-r:    #A8433A;
+$party-d:    #3F5B93;
+$green:      #256a43;
+$green-bg:   #e3efe6;
+$red-bg:     #f4e3e1;
+$red-fg:     #8f3a31;
+$amber-fg:   #7d5c17;
+$amber-bg:   #f7f3e8;
+$neutral-bg: #eeede7;
+$bar-fill:   #8f8b80;
+$bar-track:  #f0efe9;
+
+// Bootstrap overrides
+$body-bg: $bg;
+$body-color: $ink;
+$link-color: $party-d;
+$navbar-bg: $card-bg;
+$navbar-fg: $ink-soft;
+
+/*-- scss:rules --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&display=swap');
+
+// ------------------------------------------------------------
+// Global
+// ------------------------------------------------------------
+.navbar {
+  border-bottom: 1px solid $border;
+  .navbar-brand { font-family: $headings-font-family; font-weight: 700; }
+  .nav-link.active { border-bottom: 2px solid $party-r; }
+}
+
+h1 { font-size: 2.1rem; }
+h2 { font-size: 1.4rem; margin-top: 2rem; }
+
+// Kill the heavy <hr>-style section rules; cards do the grouping
+.content hr { border-color: $border-soft; opacity: 1; }
+
+// ------------------------------------------------------------
+// Cards — wrap sections with ::: {.ia-card}
+// ------------------------------------------------------------
+.ia-card {
+  background: $card-bg;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1.1rem;
+
+  > h2:first-child, > h3:first-child { margin-top: 0; }
+}
+
+.ia-card-title {
+  font-family: $headings-font-family;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+.ia-card-sub { font-size: 0.85rem; color: $muted; margin-bottom: 1rem; }
+
+// ------------------------------------------------------------
+// Stat cards — emitted by ui_stat_card() / ui_stat_grid()
+// ------------------------------------------------------------
+.ia-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 1.25rem;
+}
+.ia-stat-card {
+  background: $card-bg;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+}
+.ia-stat-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: $faint; margin-bottom: 0.4rem;
+}
+.ia-stat-value {
+  font-family: $headings-font-family;
+  font-size: 2.1rem; font-weight: 700; line-height: 1; color: $ink;
+}
+.ia-stat-sub { font-size: 0.8rem; color: $muted; margin-top: 0.45rem; }
+
+// ------------------------------------------------------------
+// Status pills — emitted by ui_pill() / status_pill()
+// ------------------------------------------------------------
+.ia-pill {
+  display: inline-block;
+  font-size: 0.72rem; font-weight: 600;
+  padding: 0.22rem 0.65rem; border-radius: 99px;
+  white-space: nowrap;
+}
+.ia-pill-signed   { background: $green-bg;   color: $green; }
+.ia-pill-vetoed   { background: $red-bg;     color: $red-fg; }
+.ia-pill-progress { background: #f0e9d8;     color: $amber-fg; }
+.ia-pill-neutral  { background: $neutral-bg; color: $ink-soft; }
+.ia-pill-yea      { background: $green-bg;   color: $green; font-weight: 700; }
+.ia-pill-nay      { background: $red-bg;     color: $red-fg; font-weight: 700; }
+.ia-pill-absent   { background: $neutral-bg; color: $muted;  font-weight: 700; }
+.ia-pill-r        { background: $party-r; color: #fff; font-weight: 700; }
+.ia-pill-d        { background: $party-d; color: #fff; font-weight: 700; }
+
+// ------------------------------------------------------------
+// Horizontal bar lists — emitted by ui_bar_list() / ui_paired_bars()
+// ------------------------------------------------------------
+.ia-bar-list { display: flex; flex-direction: column; gap: 0.8rem; }
+.ia-bar-row {
+  display: grid;
+  grid-template-columns: 170px 1fr 60px;
+  align-items: center; gap: 0.8rem;
+}
+.ia-bar-label { font-size: 0.82rem; font-weight: 500; color: $ink-soft; text-align: right; }
+.ia-bar-track { height: 15px; background: $bar-track; border-radius: 4px; overflow: hidden; }
+.ia-bar-fill  { height: 100%; background: $bar-fill; border-radius: 4px; min-width: 2px; }
+.ia-bar-fill-green { background: $green; }
+.ia-bar-fill-light { background: #c5c1b4; }
+.ia-bar-count { font-size: 0.85rem; font-weight: 600; }
+.ia-bar-count-soft { font-size: 0.78rem; font-weight: 500; color: $faint; }
+
+// Paired (individual vs group) variant
+.ia-bar-pair { display: flex; flex-direction: column; gap: 3px; }
+.ia-bar-pair .ia-bar-track { height: 11px; }
+.ia-bar-inline { display: flex; align-items: center; gap: 0.5rem; }
+.ia-bar-inline .ia-bar-track { flex: 1; }
+
+// Legend chips
+.ia-legend { display: flex; gap: 1rem; font-size: 0.78rem; color: $ink-soft; }
+.ia-legend-swatch {
+  display: inline-block; width: 10px; height: 10px;
+  border-radius: 2px; margin-right: 0.35rem; vertical-align: baseline;
+}
+
+// ------------------------------------------------------------
+// Progress stepper (bill detail) — emitted by ui_stepper()
+// ------------------------------------------------------------
+.ia-stepper { display: flex; align-items: flex-start; margin: 1.5rem 0 0.5rem; }
+.ia-step { display: flex; align-items: flex-start; flex: 1; }
+.ia-step:last-child { flex: 0 0 auto; }
+.ia-step-node { display: flex; flex-direction: column; align-items: center; width: 108px; flex: 0 0 auto; }
+.ia-step-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; font-weight: 700;
+}
+.ia-step-done .ia-step-dot { background: $green; color: #fff; }
+.ia-step-todo .ia-step-dot { background: $bar-track; color: $faint; border: 2px solid $border; }
+.ia-step-label { font-size: 0.72rem; font-weight: 600; text-align: center; margin-top: 0.45rem; line-height: 1.3; }
+.ia-step-date  { font-size: 0.68rem; color: $faint; margin-top: 2px; }
+.ia-step-line  { flex: 1; height: 3px; border-radius: 2px; margin-top: 13px; min-width: 16px; }
+.ia-step-line-done { background: $green; }
+.ia-step-line-todo { background: $border; }
+
+// ------------------------------------------------------------
+// Stacked share bar (lobbyists, party splits) — ui_share_bar()
+// ------------------------------------------------------------
+.ia-share-bar { display: flex; height: 20px; border-radius: 6px; overflow: hidden; margin: 0.5rem 0; }
+.ia-share-legend { display: flex; gap: 1.1rem; font-size: 0.82rem; font-weight: 500; }
+
+// ------------------------------------------------------------
+// gt / reactable polish
+// ------------------------------------------------------------
+.gt_table { font-size: 0.85rem !important; }
+.gt_table a { font-weight: 600; }
+
+.reactable { font-size: 0.85rem; }
+
+// Inline mini-bar used inside reactable cells (see legislator_table())
+.ia-cellbar { display: flex; align-items: center; gap: 8px; }
+.ia-cellbar-track { flex: 1; height: 7px; background: $bar-track; border-radius: 99px; overflow: hidden; }
+.ia-cellbar-fill { height: 100%; border-radius: 99px; background: $bar-fill; }
+.ia-cellbar-fill.low { background: #b07d24; }
+.ia-cellbar-num { width: 48px; text-align: right; font-weight: 600; font-size: 0.8rem; }
+
+// Party dot before legislator names
+.ia-dot {
+  display: inline-block; width: 9px; height: 9px; border-radius: 50%;
+  margin-right: 6px; vertical-align: baseline;
+}
+.ia-dot-r { background: $party-r; }
+.ia-dot-d { background: $party-d; }
+
+// ------------------------------------------------------------
+// Profile header (legislator detail) — ui_profile_header()
+// ------------------------------------------------------------
+.ia-profile-header {
+  background: $card-bg; border: 1px solid $border;
+  border-left: 4px solid $party-r; border-radius: 10px;
+  padding: 1.5rem 1.75rem; margin-bottom: 1.1rem;
+}
+.ia-profile-header.party-d { border-left-color: $party-d; }
+.ia-profile-name-row { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.ia-profile-name-row h1 { margin: 0; font-size: 1.9rem; }
+.ia-profile-meta { color: $ink-soft; font-size: 0.95rem; margin-top: 0.3rem; }
+.ia-notice {
+  display: inline-block; margin-top: 0.8rem;
+  background: $amber-bg; border: 1px solid #e8dfc8; border-radius: 8px;
+  padding: 0.5rem 0.9rem; font-size: 0.82rem; color: $amber-fg;
+}
+
+// ------------------------------------------------------------
+// Map placeholder (only used while iterating without leaflet)
+// ------------------------------------------------------------
+.ia-map-placeholder {
+  height: 240px; border-radius: 8px;
+  background: repeating-linear-gradient(45deg, $bar-track, $bar-track 10px, #e9e7de 10px, #e9e7de 20px);
+  display: flex; align-items: center; justify-content: center;
+  font-family: ui-monospace, monospace; font-size: 0.8rem; color: $muted;
+}

@@ -30,7 +30,9 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: [cosmo, custom.scss]
     css: styles.css
-    toc: true
-    toc-expand: 2
+    # Index pages read better full-width with no right TOC rail (redesign);
+    # the detail templates opt back in with toc: true in their own front matter.
+    toc: false
+    page-layout: full

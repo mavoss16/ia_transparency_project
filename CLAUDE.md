@@ -63,6 +63,7 @@ ia_transparency_project/
 │   │   ├── render.R                      ← incremental site render orchestrator
 │   │   ├── run_pipeline.R                ← pipeline orchestrator (01 → 03 + render)
 │   │   ├── utils.R
+│   │   ├── ui_helpers.R                  ← htmltools emitters for redesign components (pills, stat cards, bars, stepper)
 │   │   ├── simplify_districts.R
 │   │   └── archive/                      ← deprecated scripts incl. old_pipeline/
 │   └── render_all.R                      ← top-level orchestrator (all domains)
@@ -95,6 +96,7 @@ ia_transparency_project/
 │   ├── _quarto.yml                       ← unified site config ("Iowa Political Transparency"); campaign_finance/ excluded from project renders
 │   ├── index.qmd                         ← unified home page (legislature section is the live content)
 │   ├── about.qmd / status.qmd / styles.css / _vote-table.qmd
+│   ├── custom.scss                       ← redesign SCSS theme (.ia-* classes; theme: [cosmo, custom.scss])
 │   ├── legislation/                      ← bill browse page
 │   ├── legislators/                      ← legislator browse + compare pages
 │   ├── templates/                        ← bill / legislator / committee parameterized templates
@@ -104,6 +106,7 @@ ia_transparency_project/
 │           ├── donor_template.qmd            ← per-donor contribution report (static R/gt)
 │           └── recipient_template_ojs.qmd    ← OJS experimental version with reactive year filter
 ├── docs/                                 ← rendered site output (GitHub Pages; gitignored artifacts re-render)
+├── design_handoff_iowa_legislature/      ← redesign mockups + quarto_starter/ (source of custom.scss & ui_helpers.R)
 ├── .github/workflows/daily-update.yml    ← daily legislature pipeline + render
 ├── renv.lock / renv/ / .Rprofile         ← renv dependency management (R 4.5)
 ├── render_manifest.csv                   ← incremental render manifest (LegiScan content hashes)
@@ -117,7 +120,8 @@ ia_transparency_project/
 │   ├── 2026-04-22_elections-download-scripts.md
 │   ├── 2026-05-09_federal-campaign-finance.md
 │   ├── 2026-05-09_campaign-finance-templates-ojs.md
-│   └── 2026-07-05_legislature-migration.md
+│   ├── 2026-07-05_legislature-migration.md
+│   └── 2026-07-08_legislature-redesign.md
 └── CLAUDE.md
 ```
 
@@ -131,6 +135,8 @@ Tracker for the 91st General Assembly (2025–2026). Migrated from the standalon
 - No git remote configured yet (GitHub repo + Pages setup pending)
 
 (The renv out-of-sync issue flagged during verification was resolved by a `renv::snapshot()` the same day.)
+
+**Site redesign (in progress; foundation done 2026-07-08):** A high-fidelity visual/UX redesign of the five main pages (home, legislation overview, legislators overview, bill detail, legislator detail), delivered as a design handoff in `design_handoff_iowa_legislature/`. The **foundation is live**: `site/custom.scss` (SCSS theme, `.ia-*` classes) + `R/legislature/ui_helpers.R` (htmltools component emitters) are in place, `_quarto.yml` uses `theme: [cosmo, custom.scss]` with `toc: false` / `page-layout: full` (index pages dropped their front-matter TOCs; detail templates keep theirs), and party colors are swapped site-wide to R `#A8433A` / D `#3F5B93` (vote-map Nay tints: R `#DCB4B0`, D `#B2BDD4`). Verified with `test_render()` (5/5/3, 0 failures). **Remaining:** Phase 2 — wire helpers into the three index pages (stat cards, bar lists, paired bars, reactable legislator table); Phase 3 — detail templates (profile header + former-legislator logic port, bill stepper/meta row, share bar); Phase 4 — polish (navbar brand, breadcrumbs, dated stepper, FORMER chips); then full `render_site(force = TRUE)` before publishing. Plan, per-page wiring, data-logic gaps, and the executed session log are all in `notes/2026-07-08_legislature-redesign.md`. `.claude/launch.json` has a `docs-preview` static server (port 8642) for visual QA of rendered output.
 
 ### Tech Stack
 - **R** — primary language for data pipelines and site generation

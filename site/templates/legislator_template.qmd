@@ -124,7 +124,7 @@ districts_sf <- if (legislator$role == "Sen") senate_districts else house_distri
 highlight <- districts_sf |> filter(District == district_num)
 others <- districts_sf |> filter(District != district_num)
 
-party_color <- if (legislator$party == "D") "#2320E6" else "#DC0309"
+party_color <- if (legislator$party == "D") "#3F5B93" else "#A8433A"
 
 bbox <- st_bbox(highlight)
 
