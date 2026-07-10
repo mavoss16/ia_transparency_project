@@ -10,7 +10,7 @@ project:
     - "!campaign_finance/"
 
 website:
-  title: "Iowa Political Transparency"
+  title: "Iowa Transparency Project"
   navbar:
     left:
       - href: index.qmd

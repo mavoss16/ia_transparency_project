@@ -1,5 +1,5 @@
 ---
-title: "Legislators - 91st General Assembly"
+pagetitle: "Legislators - 91st General Assembly"
 format:
   html:
     echo: false
@@ -13,12 +13,12 @@ library(readr)
 library(dplyr)
 library(stringr)
 library(tidyr)
-library(gt)
 library(sf)
 library(leaflet)
 library(htmltools)
 
 source(here::here("R/legislature/utils.R"))
+source(here::here("R/legislature/ui_helpers.R"))
 ```
 
 ```{r}
@@ -38,98 +38,49 @@ house_districts  <- read_rds(here::here("data/legislature/districts/house.rds"))
 ```
 
 ```{r}
-# Identify former legislators via duplicate districts.
-# When a legislator resigns or passes away, LegiScan adds their replacement
-# to the same district, creating duplicate entries. We determine who is former
-# by comparing last vote dates within each duplicate pair.
-last_vote_dates <- votes |>
-  left_join(rollcalls |> select(roll_call_id, date), by = "roll_call_id") |>
-  group_by(people_id) |>
-  summarize(last_vote_date = max(date, na.rm = TRUE), .groups = "drop")
-
-dup_districts <- people |>
-  count(role, district) |>
-  filter(n > 1)
-
-former_ids <- people |>
-  semi_join(dup_districts, by = c("role", "district")) |>
-  left_join(last_vote_dates, by = "people_id") |>
-  group_by(role, district) |>
-  mutate(
-    is_former = case_when(
-      # Both have votes: the one who voted earlier is former
-      all(!is.na(last_vote_date)) ~ last_vote_date == min(last_vote_date),
-      # One has votes, one doesn't: the voter left and was replaced
-      !is.na(last_vote_date) ~ TRUE,
-      # No votes yet: this is the new replacement
-      is.na(last_vote_date) ~ FALSE
-    )
-  ) |>
-  ungroup() |>
+# Identify former legislators via duplicate districts (shared helper in utils.R).
+# When a legislator resigns or passes away, LegiScan adds their replacement to
+# the same district; the member who stopped voting first is the former one.
+former_ids <- classify_district_turnover(people, votes, rollcalls) |>
   filter(is_former) |>
   pull(people_id)
 
-former_info <- people |>
-  semi_join(dup_districts, by = c("role", "district")) |>
-  mutate(is_former = people_id %in% former_ids) |>
-  arrange(role, district, is_former) |>
-  group_by(role, district) |>
-  summarize(
-    former = name[is_former],
-    former_party = party[is_former],
-    replacement = name[!is_former],
-    replacement_party = party[!is_former],
-    .groups = "drop"
-  ) |>
-  mutate(
-    chamber = if_else(role == "Sen", "Senate", "House"),
-    note = str_glue("{former} ({former_party}) replaced by {replacement} ({replacement_party}), {district}")
-  )
-
 active_people <- people |> filter(!people_id %in% former_ids)
-```
 
-## Overview
-
-The 91st Iowa General Assembly currently has **`r nrow(active_people)`** legislators serving in the House and Senate.
-
-```{r}
-# Party breakdown by chamber (active legislators only)
-chamber_party <- active_people |>
-  count(role, party) |>
-  pivot_wider(names_from = party, values_from = n, values_fill = 0) |>
-  mutate(
-    Chamber = case_when(
-      role == "Rep" ~ "House",
-      role == "Sen" ~ "Senate"
-    )
-  ) |>
-  select(Chamber, R, D) |>
-  mutate(Total = R + D)
-
-gt(chamber_party) |>
-  cols_label(
-    R = "Republican",
-    D = "Democrat"
-  ) |>
-  tab_header(title = "Party Composition by Chamber")
+# Chamber party counts (active members only)
+n_house_R  <- active_people |> filter(role == "Rep", party == "R") |> nrow()
+n_house_D  <- active_people |> filter(role == "Rep", party == "D") |> nrow()
+n_senate_R <- active_people |> filter(role == "Sen", party == "R") |> nrow()
+n_senate_D <- active_people |> filter(role == "Sen", party == "D") |> nrow()
 ```
 
 ```{r}
-#| output: asis
-if (nrow(former_info) > 0) {
-  cat("**Note:** The following legislators are no longer serving and have been replaced this session:\n\n")
-  for (i in seq_len(nrow(former_info))) {
-    cat(str_glue("- {former_info$note[i]}"), "\n")
-  }
+# Header: hero + chamber party-split bars
+party_split_bar <- function(label, r, d) {
+  total <- r + d
+  div(style = "text-align:right",
+    div(class = "ia-split-label", label),
+    div(class = "ia-split-track",
+      div(style = sprintf("width:%.1f%%; background:#A8433A", 100 * r / total)),
+      div(style = sprintf("width:%.1f%%; background:#3F5B93", 100 * d / total))
+    ),
+    div(class = "ia-split-count",
+      HTML(sprintf('<span style="color:#A8433A">%d R</span> &middot; <span style="color:#3F5B93">%d D</span>', r, d)))
+  )
 }
+
+div(class = "ia-hero-row",
+  div(
+    h1("Legislators"),
+    HTML(sprintf("<p class='ia-lead'><strong>%d</strong> members serving in the House and Senate.</p>",
+                 nrow(active_people)))
+  ),
+  div(style = "display:flex; gap:1.75rem",
+    party_split_bar("House",  n_house_R,  n_house_D),
+    party_split_bar("Senate", n_senate_R, n_senate_D)
+  )
+)
 ```
-
----
-
-## Find Your Legislator
-
-Click a district on the map to open the legislator's profile. Hover to see their name and party.
 
 ```{r}
 party_fill <- function(party) {
@@ -167,81 +118,19 @@ senate_map_sf <- senate_districts |>
   )
 ```
 
-::: {.panel-tabset}
-
-## House Districts
-
 ```{r}
-leaflet(house_map_sf, height = 520) |>
-  addProviderTiles(providers$CartoDB.Positron) |>
-  addPolygons(
-    fillColor   = ~ifelse(is.na(fill_color), "#CCCCCC", fill_color),
-    fillOpacity = 0.7,
-    color       = "#444444",
-    weight      = 1,
-    label       = ~paste0(name, " (", party, ") \u2014 ", district),
-    popup       = ~paste0(
-      "<b>", name, "</b> (", party, ")<br>",
-      "<b>District:</b> ", district, "<br>",
-      "<a href='", filename, ".html'>View Profile \u2192</a>"
-    ),
-    highlightOptions = highlightOptions(weight = 2, fillOpacity = 0.9, bringToFront = TRUE)
-  ) |>
-  addLegend(
-    position = "bottomright",
-    colors   = c("#A8433A", "#3F5B93"),
-    labels   = c("Republican", "Democrat"),
-    title    = "Party",
-    opacity  = 0.9
-  )
-```
-
-## Senate Districts
-
-```{r}
-leaflet(senate_map_sf, height = 520) |>
-  addProviderTiles(providers$CartoDB.Positron) |>
-  addPolygons(
-    fillColor   = ~ifelse(is.na(fill_color), "#CCCCCC", fill_color),
-    fillOpacity = 0.7,
-    color       = "#444444",
-    weight      = 1,
-    label       = ~paste0(name, " (", party, ") \u2014 ", district),
-    popup       = ~paste0(
-      "<b>", name, "</b> (", party, ")<br>",
-      "<b>District:</b> ", district, "<br>",
-      "<a href='", filename, ".html'>View Profile \u2192</a>"
-    ),
-    highlightOptions = highlightOptions(weight = 2, fillOpacity = 0.9, bringToFront = TRUE)
-  ) |>
-  addLegend(
-    position = "bottomright",
-    colors   = c("#A8433A", "#3F5B93"),
-    labels   = c("Republican", "Democrat"),
-    title    = "Party",
-    opacity  = 0.9
-  )
-```
-
-:::
-
----
-
-## Senate
-
-```{r}
-# Calculate activity stats for each legislator
+# Activity stats for each legislator
 sponsor_counts <- sponsors |>
   count(people_id, name = "bills_sponsored")
 
-# Count bills where legislator is the only sponsor
+# Bills where legislator is the only sponsor
 sole_sponsor_counts <- sponsors |>
   group_by(bill_id) |>
   filter(n() == 1, position == 1) |>
   ungroup() |>
   count(people_id, name = "sole_sponsored")
 
-# Count only floor votes (exclude committee report votes)
+# Floor votes only (exclude committee report votes)
 floor_rollcalls <- rollcalls |>
   filter(!str_detect(description, "Report$")) |>
   pull(roll_call_id)
@@ -250,89 +139,91 @@ vote_counts <- votes |>
   filter(roll_call_id %in% floor_rollcalls) |>
   count(people_id, name = "votes_cast")
 
-senators <- people |>
-  filter(role == "Sen") |>
-  left_join(sponsor_counts, by = "people_id") |>
-  left_join(sole_sponsor_counts, by = "people_id") |>
-  left_join(vote_counts, by = "people_id") |>
-  left_join(
-    legislator_stats |> select(people_id, with_party_pct, participation_rate),
-    by = "people_id"
-  ) |>
-  replace_na(list(bills_sponsored = 0, sole_sponsored = 0, votes_cast = 0)) |>
-  rowwise() |>
-  mutate(
-    filename = get_legislator_filename(people_id, people),
-    name_link = str_glue("<a href='{filename}.html'>{name}</a>")
-  ) |>
-  ungroup() |>
-  arrange(district) |>
-  select(name_link, party, district, bills_sponsored, sole_sponsored, votes_cast, with_party_pct, participation_rate)
+build_chamber <- function(role_code) {
+  people |>
+    filter(role == role_code) |>
+    left_join(sponsor_counts, by = "people_id") |>
+    left_join(sole_sponsor_counts, by = "people_id") |>
+    left_join(vote_counts, by = "people_id") |>
+    left_join(
+      legislator_stats |> select(people_id, with_party_pct, participation_rate),
+      by = "people_id"
+    ) |>
+    replace_na(list(bills_sponsored = 0, sole_sponsored = 0, votes_cast = 0)) |>
+    rowwise() |>
+    mutate(
+      filename  = get_legislator_filename(people_id, people),
+      name_link = str_glue("<a href='{filename}.html'>{name}</a>"),
+      is_former = people_id %in% former_ids
+    ) |>
+    ungroup() |>
+    arrange(district) |>
+    select(name_link, party, district, bills_sponsored, sole_sponsored,
+           votes_cast, with_party_pct, participation_rate, is_former)
+}
 
-gt(senators) |>
-  cols_label(
-    name_link = "Name",
-    party = "Party",
-    district = "District",
-    bills_sponsored = "Bills Sponsored",
-    sole_sponsored = "Sole Sponsor",
-    votes_cast = "Floor Votes",
-    with_party_pct = "Party Alignment",
-    participation_rate = "Participation"
-  ) |>
-  fmt_markdown(columns = name_link) |>
-  fmt_percent(columns = c(with_party_pct, participation_rate), decimals = 1) |>
-  tab_options(
-    table.font.size = px(12),
-    data_row.padding = px(4)
-  )
+senators        <- build_chamber("Sen")
+representatives  <- build_chamber("Rep")
+
+chamber_map <- function(map_sf) {
+  leaflet(map_sf, height = 460) |>
+    addProviderTiles(providers$CartoDB.Positron) |>
+    addPolygons(
+      fillColor   = ~ifelse(is.na(fill_color), "#CCCCCC", fill_color),
+      fillOpacity = 0.7,
+      color       = "#444444",
+      weight      = 1,
+      label       = ~paste0(name, " (", party, ") — ", district),
+      popup       = ~paste0(
+        "<b>", name, "</b> (", party, ")<br>",
+        "<b>District:</b> ", district, "<br>",
+        "<a href='", filename, ".html'>View Profile →</a>"
+      ),
+      highlightOptions = highlightOptions(weight = 2, fillOpacity = 0.9, bringToFront = TRUE)
+    ) |>
+    addLegend(
+      position = "bottomright",
+      colors   = c("#A8433A", "#3F5B93"),
+      labels   = c("Republican", "Democrat"),
+      title    = "Party",
+      opacity  = 0.9
+    )
+}
 ```
 
----
+::: {.ia-card}
+::: {.ia-card-title}
+Find your legislator
+:::
+::: {.ia-card-sub}
+Pick a chamber, then click a district to open a profile — or search and sort the table below the map.
+:::
 
-## House of Representatives
+::: {.panel-tabset}
+
+## Senate
 
 ```{r}
-representatives <- people |>
-  filter(role == "Rep") |>
-  left_join(sponsor_counts, by = "people_id") |>
-  left_join(sole_sponsor_counts, by = "people_id") |>
-  left_join(vote_counts, by = "people_id") |>
-  left_join(
-    legislator_stats |> select(people_id, with_party_pct, participation_rate),
-    by = "people_id"
-  ) |>
-  replace_na(list(bills_sponsored = 0, sole_sponsored = 0, votes_cast = 0)) |>
-  rowwise() |>
-  mutate(
-    filename = get_legislator_filename(people_id, people),
-    name_link = str_glue("<a href='{filename}.html'>{name}</a>")
-  ) |>
-  ungroup() |>
-  arrange(district) |>
-  select(name_link, party, district, bills_sponsored, sole_sponsored, votes_cast, with_party_pct, participation_rate)
-
-gt(representatives) |>
-  cols_label(
-    name_link = "Name",
-    party = "Party",
-    district = "District",
-    bills_sponsored = "Bills Sponsored",
-    sole_sponsored = "Sole Sponsor",
-    votes_cast = "Floor Votes",
-    with_party_pct = "Party Alignment",
-    participation_rate = "Participation"
-  ) |>
-  fmt_markdown(columns = name_link) |>
-  fmt_percent(columns = c(with_party_pct, participation_rate), decimals = 1) |>
-  tab_options(
-    table.font.size = px(12),
-    data_row.padding = px(4)
-  )
+chamber_map(senate_map_sf)
 ```
 
----
+```{r}
+senators |> legislator_table()
+```
 
-[Back to Home](../index.html)
+## House
 
-*Last updated: `r Sys.Date()`*
+```{r}
+chamber_map(house_map_sf)
+```
+
+```{r}
+representatives |> legislator_table()
+```
+
+:::
+:::
+
+::: {.ia-sources}
+Party alignment and participation are shares of eligible floor votes. A gray **FORMER** chip marks members replaced mid-session. &middot; [Back to Home](../index.html) &middot; Last updated `r format(Sys.Date(), "%B %e, %Y") |> str_squish()`
+:::

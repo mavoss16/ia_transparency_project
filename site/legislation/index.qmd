@@ -1,5 +1,5 @@
 ---
-title: "Legislation - 91st General Assembly"
+pagetitle: "Legislation - 91st General Assembly"
 format:
   html:
     echo: false
@@ -14,7 +14,9 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(gt)
+library(htmltools)
 source(here::here("R/legislature/utils.R"))
+source(here::here("R/legislature/ui_helpers.R"))
 ```
 
 ```{r}
@@ -31,158 +33,162 @@ if (file.exists(bill_groups_path)) {
 } else {
   bill_groups <- tibble(
     bill = character(),
+    status = character(),
     group_status = character(),
     group_size = integer(),
     lead_bill = character()
   )
 }
+
+n_bills <- nrow(bills)
 ```
 
-## Overview
-
-The 91st Iowa General Assembly has introduced **`r format(nrow(bills), big.mark=",")`** bills and resolutions.
+```{r}
+# Header
+div(class = "ia-hero-row",
+  div(
+    h1("Legislation"),
+    HTML(sprintf(
+      "<p class='ia-lead'>The 91st General Assembly has introduced <strong>%s</strong> bills and resolutions.</p>",
+      format(n_bills, big.mark = ",")))
+  )
+)
+```
 
 ```{r}
-# Bill type breakdown
+# Bill type breakdown (compact abbreviations)
 bill_types <- bills |>
   mutate(
-    bill_type = case_when(
-      str_detect(bill_number, "^HF") ~ "House File (HF)",
-      str_detect(bill_number, "^SF") ~ "Senate File (SF)",
-      str_detect(bill_number, "^HJR") ~ "House Joint Resolution (HJR)",
-      str_detect(bill_number, "^SJR") ~ "Senate Joint Resolution (SJR)",
-      str_detect(bill_number, "^HR") ~ "House Resolution (HR)",
-      str_detect(bill_number, "^SR") ~ "Senate Resolution (SR)",
-      str_detect(bill_number, "^HCR") ~ "House Concurrent Resolution (HCR)",
-      str_detect(bill_number, "^SCR") ~ "Senate Concurrent Resolution (SCR)",
-      str_detect(bill_number, "^SSB") ~ "Senate Study Bill (SSB)",
-      str_detect(bill_number, "^HSB") ~ "House Study Bill (HSB)",
+    abbr = case_when(
+      str_detect(bill_number, "^HF")  ~ "HF",
+      str_detect(bill_number, "^SF")  ~ "SF",
+      str_detect(bill_number, "^HSB") ~ "HSB",
+      str_detect(bill_number, "^SSB") ~ "SSB",
+      str_detect(bill_number, "^HJR") ~ "HJR",
+      str_detect(bill_number, "^SJR") ~ "SJR",
+      str_detect(bill_number, "^HCR") ~ "HCR",
+      str_detect(bill_number, "^SCR") ~ "SCR",
+      str_detect(bill_number, "^HR")  ~ "HR",
+      str_detect(bill_number, "^SR")  ~ "SR",
       TRUE ~ "Other"
     )
   ) |>
-  count(bill_type, name = "count") |>
+  count(abbr, name = "count") |>
   arrange(desc(count))
 
-gt(bill_types) |>
-  cols_label(
-    bill_type = "Bill Type",
-    count = "Count"
-  ) |>
-  tab_header(title = "Bills by Type")
-```
+# Status summary (individual vs group)
+status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
+                  "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
 
-### Status Summary
+has_groups <- nrow(bill_groups) > 0
 
-::: {.grid}
-
-::: {.g-col-6}
-```{r}
-if (nrow(bill_groups) > 0) {
-  status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
-                    "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
-
+if (has_groups) {
   status_summary <- bill_groups |>
     count(status, name = "count") |>
     mutate(status = factor(status, levels = status_order)) |>
     arrange(status)
 
-  gt(status_summary) |>
-    cols_label(
-      status = "Status",
-      count = "Count"
-    ) |>
-    tab_header(title = "Bills by Individual Status")
-} else {
-  # Fallback to LegiScan status if bill_groups not available
-  status_summary <- bills |>
-    count(status_desc, name = "count") |>
-    arrange(desc(count))
-
-  gt(status_summary) |>
-    cols_label(
-      status_desc = "Status",
-      count = "Count"
-    ) |>
-    tab_header(title = "Bills by Individual Status")
-}
-```
-:::
-
-::: {.g-col-6}
-```{r}
-if (nrow(bill_groups) > 0) {
-  group_status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
-                          "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
-
   group_status_summary <- bill_groups |>
     count(group_status, name = "count") |>
-    mutate(group_status = factor(group_status, levels = group_status_order)) |>
+    mutate(group_status = factor(group_status, levels = status_order)) |>
     arrange(group_status)
 
-  gt(group_status_summary) |>
-    cols_label(
-      group_status = "Group Status",
-      count = "Count"
-    ) |>
-    tab_header(title = "Bills by Group Status") |>
-    tab_footnote("Group status reflects the furthest progress of any related bill.")
-} else {
-  cat("Group status data not yet available. Run `update_bill_groups()` to generate.")
+  status_pairs <- status_summary |>
+    rename(ind = count) |>
+    left_join(group_status_summary |> rename(grp = count),
+              by = c("status" = "group_status")) |>
+    transmute(label = as.character(status), ind, grp = coalesce(grp, 0L))
 }
 ```
+
+::::: {.grid}
+
+:::: {.g-col-5}
+::: {.ia-card}
+::: {.ia-card-title}
+Bills by type
 :::
 
+```{r}
+bill_types |>
+  rename(label = abbr) |>
+  ui_bar_list()
+```
+
+::: {.ia-footnote}
+HF House File &middot; SF Senate File &middot; HSB/SSB study bills &middot; HR/SR resolutions &middot; HJR/SJR joint &middot; HCR/SCR concurrent
+:::
+:::
+::::
+
+:::: {.g-col-7}
+::: {.ia-card}
+::: {.ia-card-title}
+Status summary
+:::
+::: {.ia-card-sub}
+Group status reflects the furthest progress of any related bill.
 :::
 
----
+```{r}
+if (has_groups) {
+  ui_paired_bars(status_pairs)
+} else {
+  htmltools::div(class = "ia-card-sub", "Bill status data not yet available.")
+}
+```
 
-## Recent Bills
+:::
+::::
 
-Bills with the most recent activity:
+:::::
+
+::: {.ia-card}
+
+```{r}
+# Recent bills header
+div(class = "ia-card-head",
+  div(class = "ia-card-title", "Recent bills"),
+  span(class = "ia-card-sub", style = "margin-bottom:0",
+       paste("Most recent activity ·",
+             str_squish(format(max(bills$last_action_date, na.rm = TRUE), "%B %e, %Y"))))
+)
+```
 
 ```{r}
 recent_bills <- bills |>
   arrange(desc(last_action_date)) |>
-  head(25) |>
-  left_join(
-    bill_groups |> select(bill, bill_status = status),
-    by = c("bill_number" = "bill")
-  ) |>
+  head(8) |>
+  left_join(bill_groups |> select(bill, bill_status = status),
+            by = c("bill_number" = "bill")) |>
   mutate(
-    bill_link = format_bill_link(bill_number),
-    display_status = coalesce(bill_status, status_desc)
-  ) |>
-  select(bill_link, title, display_status, last_action_date, last_action)
-
-gt(recent_bills) |>
-  cols_label(
-    bill_link = "Bill",
-    title = "Title",
-    display_status = "Status",
-    last_action_date = "Last Action Date",
-    last_action = "Last Action"
-  ) |>
-  fmt_markdown(columns = bill_link) |>
-  tab_style(
-    style = cell_text(whitespace = "nowrap"),
-    locations = list(
-      cells_body(columns = c(bill_link, last_action_date)),
-      cells_column_labels(columns = last_action_date)
-    )
-  ) |>
-  tab_options(
-    table.font.size = px(12),
-    data_row.padding = px(4)
+    display_status = coalesce(bill_status, status_desc),
+    short_title    = vapply(title, \(t) clean_bill_title(t)$title, character(1))
   )
+
+rows <- lapply(seq_len(nrow(recent_bills)), function(i) {
+  div(class = "ia-recent-row",
+    div(class = "ia-recent-bill", HTML(format_bill_link(recent_bills$bill_number[i]))),
+    div(
+      div(class = "ia-recent-title", recent_bills$short_title[i]),
+      div(class = "ia-recent-meta",  recent_bills$last_action[i])
+    ),
+    status_pill(recent_bills$display_status[i]),
+    div(class = "ia-recent-date", str_squish(format(recent_bills$last_action_date[i], "%b %e, %Y")))
+  )
+})
+div(class = "ia-recent-list", rows)
 ```
 
----
+:::
 
-## Browse Legislation
-
-Use the interactive table below to search and filter all bills.
-
-*Group Status shows the furthest progress of any related bill. An asterisk (\*) indicates the group has progressed further than this individual bill.*
+::: {.ia-card}
+::: {.ia-card-title}
+Browse all `r format(n_bills, big.mark = ",")` bills
+:::
+::: {.ia-card-sub}
+Search and filter by chamber, sponsor, status, and bill type. An asterisk (\*) on group status indicates the group has progressed further than this individual bill.
+:::
 
 ```{r}
 # Get primary sponsor for each bill
@@ -240,6 +246,7 @@ gt(all_bills) |>
       cells_column_labels(columns = last_action_date)
     )
   ) |>
+  gt_theme_ia() |>
   tab_options(
     table.font.size = px(12),
     data_row.padding = px(4)
@@ -252,8 +259,8 @@ gt(all_bills) |>
   )
 ```
 
----
+:::
 
-[Back to Home](../index.html)
-
-*Last updated: `r Sys.Date()`*
+::: {.ia-sources}
+[Back to Home](../index.html) &middot; Last updated `r format(Sys.Date(), "%B %e, %Y") |> str_squish()`
+:::

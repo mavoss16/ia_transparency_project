@@ -270,3 +270,200 @@ updates). `docs/` contains only the test-render output — the full
 grid (derive `n_signed` / `n_passed_both` / `n_R` / `n_D`), bar list, `.ia-card`
 wrappers, recent-activity rows with cleaned titles + status pills, browse cards,
 and drop the in-plot parliament titles.
+
+---
+
+## Executed 2026-07-09 — Phase 2 (all three index pages)
+
+All three index pages wired to the redesign helpers and rendered individually for
+QA (`quarto render site/<page>/index.qmd --to html`; Quarto from the Positron
+bundle, `QUARTO_R` = R-4.5.3). The pre-existing `index_files` "Refusing to remove
+directory" WARN persists and is harmless. Each page switched front matter from
+`title:` to `pagetitle:` so the custom serif hero replaces Quarto's title banner.
+
+### `custom.scss` additions
+
+New "Home / index page layout" section: `.ia-hero-row` / `.ia-eyebrow` /
+`.ia-lead` / `.ia-updated`, `.ia-card-head`, recent-activity rows
+(`.ia-recent-*`), `.ia-browse-grid` / `.ia-browse-card` (+ `.dark` navy variant),
+parliament `.ia-tally-*`, `.ia-sources` / `.ia-footnote`, chamber
+`.ia-split-*` bars, and `.ia-chip-former`.
+
+### `R/legislature/ui_helpers.R` change
+
+`legislator_table()` extended: optional `is_former` logical column renders a gray
+**FORMER** chip after the name (mockup gap #3, done now rather than deferred to
+Phase 4); `pct_bar()` now renders NA as a muted "—" instead of "NA%". Pass the df
+with an `is_former` column; it is stripped from the displayed columns via
+`select(-party, -any_of("is_former"))`.
+
+### Home — `site/index.qmd`
+
+Hero (red eyebrow + serif H1 + lead + right-aligned last-updated) → 4
+`ui_stat_card`s (Total Bills / Signed by Governor / Awaiting Governor /
+Legislators, with `n_signed` = 218 and `n_passed_both` = 113 derived from
+`stage_counts`) → two side-by-side `.ia-card`s: "Where bills stand"
+(`ui_bar_list(highlight = "Signed by Governor")`, stage order Introduced→Signed)
+and "Who holds the chambers" (the two ggparliament hemicycles combined into one
+faceted figure with `facet_wrap(~chamber)`, titles/legends dropped, HTML tally
+numbers "67 – 33" / "33 – 17" below, shared R/D legend in the card head) →
+recent-activity rows via htmltools (`clean_bill_title()` + `status_pill()`) →
+browse cards (navy legislation + white legislator) + data-sources footnote.
+**Parliament in-plot titles are now dropped** (the deferred Phase 1 item).
+
+### Legislation — `site/legislation/index.qmd`
+
+Header (H1 + bill-count lead) → two cards: "Bills by type" (`ui_bar_list` with
+compact abbrev labels HF/SF/HSB/… + key footnote, `.g-col-5`) and "Status
+summary" (`ui_paired_bars` of individual `status_summary` vs `group_status_summary`,
+`.g-col-7`) → "Recent bills" htmltools rows → "Browse all bills" card keeping the
+functional `opt_interactive` gt table with `gt_theme_ia()` applied. The two old
+side-by-side status gt tables and the plain recent/type gt tables are gone.
+
+### Legislators — `site/legislators/index.qmd`
+
+Hero + chamber party-split stacked bars (House 67R/33D, Senate 33R/17D from
+`active_people`) in the header → single "Find your legislator" `.ia-card` with a
+Senate/House `panel-tabset`; **each tab holds that chamber's leaflet map above
+its `legislator_table()` reactable** (revised from the first pass, which had a
+maps-only tabset followed by two stacked full tables). Leaflet calls factored
+into a `chamber_map()` helper (height 460, recolored in Phase 1). The old gt
+"Party Composition by Chamber" table and the bulleted former-legislator note were
+removed — the header bars and FORMER chips convey both. `senators` /
+`representatives` now carry an `is_former` flag; the two pct columns stay 0–1
+(no more `fmt_percent`, as the helper expects proportions). Districts are
+zero-padded (`SD-001`) so the reactable's `defaultSorted = "district"` sorts
+correctly; `with_party_pct` / `participation_rate` confirmed 0–1 with no NAs
+across all 155 members.
+
+### Verification
+
+Grepped each rendered file for the redesign classes: home had the stat grid, bar
+list, faceted hemicycles + tallies, 8 recent rows, navy browse card; legislation
+had 2 bar lists, the 6-row paired-status bars with legend, 8 recent rows, and the
+reactable browse table; legislators had the 2 split bars (67 R / 33 R), 5 FORMER
+chips (2 Sen + 3 Rep, matching the data), 155 party dots (103 R + 52 D), both
+reactables, and both leaflet maps. No stray `:::` fences or unrendered inline R.
+Home + legislation visually reviewed and approved by the user.
+
+### State at session end
+
+Phase 2 changes are uncommitted in the working tree. `docs/` now holds freshly
+rendered index pages (home / legislation / legislators) plus the earlier
+test-render of a few detail pages; a full `render_site(force = TRUE)` is still
+pending before publishing. **Next: Phase 3 detail templates** —
+`site/templates/bill_template.qmd` (clean_bill_title H1 + meta row, `ui_stepper`
+replacing `render_bill_progress_bar()`, `ui_share_bar` for lobbyists, related-bill
+pills) and `site/templates/legislator_template.qmd` (`ui_profile_header` with the
+former/successor notice ported from the index logic, 2×2 `ui_stat_grid`,
+`vote_pill` on vote tables).
+
+---
+
+## Executed 2026-07-09 — Phase 3 (detail templates)
+
+Both detail templates rewritten to the redesign and rendered with `-P` params for
+QA. **Both switched to `toc: false`** (were `toc: true` with a right rail) — the
+mockups are full-width card layouts with no rail, and after the rewrite almost
+every heading lives inside a tabset (so a TOC would be near-empty anyway). This
+revises the Phase 1 decision to keep the detail TOCs.
+
+### Shared helper (gap #2, DRY)
+
+`classify_district_turnover(people, votes, rollcalls)` added to
+`R/legislature/utils.R` — returns one row per person in a duplicated role+district
+with `is_former` and `counterpart_id`. It replaced the ~25-line inline
+former-legislator block in **both** `site/index.qmd` and
+`site/legislators/index.qmd` (re-rendered, output identical: home still 150
+active legislators, legislators page still 5 FORMER chips) and powers the new
+succession notice in the legislator template. This avoids the "third copy" the
+plan warned about. The dead `render_bill_progress_bar()` (old blue stepper) was
+removed from `utils.R`.
+
+### `custom.scss` additions
+
+New "Detail pages" section: `.ia-breadcrumb`, `.ia-bill-eyebrow-row` /
+`.ia-bill-eyebrow` / `.ia-bill-title` / `.ia-bill-meta`, `.ia-related-list` /
+`.ia-related-row`, `.ia-profile-actions` (external-link buttons), and
+`.ia-stats-2col` (forces the legislator stat grid to 2×2 beside the map).
+
+### Bill template — `site/templates/bill_template.qmd`
+
+Breadcrumb → header `.ia-card`: red eyebrow (spelled-out type + number, e.g.
+"HOUSE FILE 856") + `status_pill`, `clean_bill_title()` serif H1 (boilerplate
+stripped), meta row (Sponsor · Effective · Formerly · Last action · Full-text
+link), and `ui_stepper(status_order, match(bill_status, status_order))`. Then a
+two-card grid: lobbyist `ui_share_bar` (For green / Against red / Undecided gray,
+with a filed-count sub) and a "Related legislation" htmltools row list (bill link
++ cleaned note + `status_pill`). The old standalone Status/Sponsors/Related
+sections and the `render_bill_progress_bar()` call are gone. The tabset
+(renamed **History / Votes / Lobbyist declarations / Calendar items**) is wrapped
+in an `.ia-card`; `gt_theme_ia()` applied to the history/lobby/calendar tables.
+**The Votes tab's `knit_child` vote-map machinery is preserved verbatim.**
+Meta "Last action" now takes the latest history row by date (the old
+`history$action[1]` was actually the *oldest* — JSON history is ascending).
+Verified: HF856 → 6/6 stepper + green "Signed by Governor" pill + one related
+bill; HCR1 → 1/6 stepper + neutral "Introduced" pill + both empty-state messages.
+
+### Legislator template — `site/templates/legislator_template.qmd`
+
+Breadcrumb → `ui_profile_header()` (name + party pill, "Senator · District … ·
+Iowa" meta, amber succession notice, external-link buttons via the `links` slot).
+Below: `::: .grid` with a 2×2 `ui_stat_grid` (Bills Sponsored / Party Alignment /
+Participation / Floor Votes) in `.g-col-7` wrapped in `.ia-stats-2col`, and the
+district-map leaflet in a `.g-col-5` `.ia-card` (height 340). Tabset wrapped in a
+card: **Sponsored bills / Voting record / Vote analysis / Similar legislators**;
+the old "Legislative Summary" tab was dropped (its counts moved to the stat
+cards). Voting record now renders `vote_pill()` on a `vote_html` column via
+`fmt_markdown`; `gt_theme_ia()` applied across the tab tables. Succession detection
+uses `classify_district_turnover()` + a fresh `people_full` (with `people_id`)
+read before the votes/bills join. Verified: De Witt (24516, former) → Republican
+pill + amber "succeeded by Catelin Drey (D)" (link `sen-catelin-drey-26571.html`)
++ stat cards 3 / 98.7% / 81.0% / 290 (matches the overview + mockup); a current
+member (19548) → no notice, all four stat cards present; no escaped anchors or
+stray fences in either.
+
+### State at session end
+
+Phases 2 + 3 changes are uncommitted in the working tree. `docs/` holds the
+re-rendered index pages and the QA renders of a few detail templates (in
+`docs/templates/`, since I rendered the templates directly rather than via
+`render_bill()`/`render_legislator()`). **Remaining: Phase 4 polish** — navbar
+brand ("Iowa Legislature" + "91ST GENERAL ASSEMBLY" eyebrow), optional dated
+stepper steps — then a full `render_site(force = TRUE)` before publishing. The
+`test_render()`/`render_*` interfaces are unchanged (templates still take
+`bill_num` / `people_id` params). Pre-existing harmless WARN unrelated to this
+work: bills with no floor votes emit "No tabs found in tabset" from the empty
+nested Individual-Votes tabset.
+
+---
+
+## Executed 2026-07-09 — Phase 4 (polish)
+
+**Navbar brand.** Asked the user how to resolve the umbrella-vs-mockup tension;
+they chose to **rebrand to "Iowa Transparency Project", serif, no eyebrow**
+(neither the mockup's "Iowa Legislature" nor the old "Iowa Political
+Transparency"). Changed `website.title` in `site/_quarto.yml` and the `pagetitle`
+in `site/index.qmd`; bumped `.navbar-brand` to `font-size: 1.35rem` / `color:
+$ink` in custom.scss (the serif family/weight were already set in Phase 1). No
+`91ST GENERAL ASSEMBLY` eyebrow — so no `include-in-header` HTML snippet was
+needed; the plain Quarto navbar title carries it. Verified the rendered
+`docs/index.html` navbar shows `<span class="navbar-title">Iowa Transparency
+Project</span>` and `<title>Iowa Transparency Project</title>`, with zero
+remaining "Iowa Political Transparency" references.
+
+**Dated stepper.** User chose to **skip** it — deriving per-stage dates from
+history text is fuzzy and a wrong date reads worse than none. `ui_stepper()` still
+accepts an optional `dates` arg if this is revisited.
+
+Breadcrumbs (Phase 3) and FORMER chips (Phase 2) covered the rest of the original
+Phase 4 list. With this, the redesign implementation is complete across all five
+pages + the shared theme/helpers.
+
+**Only remaining step before publishing: a full `render_site(force = TRUE)`**
+(re-renders all ~4194 bills, 155 legislators, committees, and the index pages
+against the new theme — long-running, not yet run this session). A
+`test_render()` (5 bills / 5 legislators / 3 committees + index pages) was run as
+the end-to-end pipeline smoke test — it exercises `render_bill()` /
+`render_legislator()` / `render_committee()` (param passing + file move) and the
+committee template under the new theme, which the direct `-P` QA renders did not.

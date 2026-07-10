@@ -212,10 +212,14 @@ ui_profile_header <- function(name, party, role_label, district, notice = NULL, 
 # ------------------------------------------------------------------
 
 #' df must have: name_link (HTML), party, district, bills_sponsored,
-#' sole_sponsored, votes_cast, with_party_pct, participation_rate (0-1)
+#' sole_sponsored, votes_cast, with_party_pct, participation_rate (0-1).
+#' Optional: is_former (logical) renders a gray "FORMER" chip after the name.
 legislator_table <- function(df) {
   pct_bar <- function(value) {
-    low <- !is.na(value) && value < 0.6
+    if (is.na(value)) {
+      return(htmltools::div(class = "ia-cellbar-num", style = "color:#8a877e", "—"))
+    }
+    low <- value < 0.6
     htmltools::div(class = "ia-cellbar",
       htmltools::div(class = "ia-cellbar-track",
         htmltools::div(class = paste("ia-cellbar-fill", if (low) "low"),
@@ -227,11 +231,15 @@ legislator_table <- function(df) {
   }
   name_cell <- function(value, index) {
     dot <- if (df$party[index] == "R") "ia-dot ia-dot-r" else "ia-dot ia-dot-d"
-    htmltools::tagList(htmltools::span(class = dot), htmltools::HTML(value))
+    chip <- if (!is.null(df$is_former) && isTRUE(df$is_former[index]))
+      "<span class=\"ia-chip-former\">FORMER</span>" else ""
+    # Return a single raw-HTML string (colDef html = TRUE); a tagList wrapping
+    # HTML() gets escaped by reactable, so build the markup directly.
+    paste0("<span class=\"", dot, "\"></span>", value, chip)
   }
 
   reactable::reactable(
-    df |> dplyr::select(-party),
+    df |> dplyr::select(-party, -dplyr::any_of("is_former")),
     columns = list(
       name_link = reactable::colDef(name = "Name", cell = name_cell, html = TRUE, minWidth = 170),
       district = reactable::colDef(name = "District", width = 90),

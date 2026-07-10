@@ -1,5 +1,5 @@
 ---
-title: "Iowa Political Transparency"
+pagetitle: "Iowa Transparency Project"
 format:
   html:
     echo: false
@@ -12,10 +12,11 @@ format:
 library(readr)
 library(dplyr)
 library(stringr)
-library(gt)
 library(ggplot2)
 library(ggparliament)
+library(htmltools)
 source(here::here("R/legislature/utils.R"))
+source(here::here("R/legislature/ui_helpers.R"))
 ```
 
 ```{r}
@@ -36,28 +37,8 @@ if (file.exists(bill_groups_path)) {
 ```
 
 ```{r}
-# Identify replaced legislators (same logic as legislators/index.qmd)
-last_vote_dates <- votes |>
-  left_join(rollcalls |> select(roll_call_id, date), by = "roll_call_id") |>
-  group_by(people_id) |>
-  summarize(last_vote_date = max(date, na.rm = TRUE), .groups = "drop")
-
-dup_districts <- people |>
-  count(role, district) |>
-  filter(n > 1)
-
-former_ids <- people |>
-  semi_join(dup_districts, by = c("role", "district")) |>
-  left_join(last_vote_dates, by = "people_id") |>
-  group_by(role, district) |>
-  mutate(
-    is_former = case_when(
-      all(!is.na(last_vote_date)) ~ last_vote_date == min(last_vote_date),
-      !is.na(last_vote_date)     ~ TRUE,
-      is.na(last_vote_date)      ~ FALSE
-    )
-  ) |>
-  ungroup() |>
+# Identify replaced legislators (shared helper; see R/legislature/utils.R)
+former_ids <- classify_district_turnover(people, votes, rollcalls) |>
   filter(is_former) |>
   pull(people_id)
 
@@ -73,37 +54,16 @@ n_house_R  <- house_comp  |> filter(party == "R") |> pull(seats)
 n_house_D  <- house_comp  |> filter(party == "D") |> pull(seats)
 n_senate_R <- senate_comp |> filter(party == "R") |> pull(seats)
 n_senate_D <- senate_comp |> filter(party == "D") |> pull(seats)
-```
 
-This site makes publicly available data on Iowa politics more accessible — legislation, legislator voting records, and lobbyist declarations today, with election results and campaign finance data planned.
-
-# Iowa Legislature — 91st General Assembly
-
-The legislature tracker for the **91st General Assembly (2025-2026)** provides access to bill information, legislator profiles, voting records, and lobbyist declarations.
-
-## Quick Stats
-
-```{r}
-n_bills <- nrow(bills)
-n_house_bills <- sum(str_detect(bills$bill_number, "^HF|^HJR|^HR"))
+# Headline counts
+n_bills        <- nrow(bills)
+n_house_bills  <- sum(str_detect(bills$bill_number, "^HF|^HJR|^HR"))
 n_senate_bills <- sum(str_detect(bills$bill_number, "^SF|^SJR|^SR"))
-```
 
-::: {.grid}
+n_R <- nrow(active_people |> filter(party == "R"))
+n_D <- nrow(active_people |> filter(party == "D"))
 
-::: {.g-col-6}
-**Legislation**
-
-- **`r format(n_bills, big.mark=",")`** total bills
-- **`r format(n_house_bills, big.mark=",")`** House bills
-- **`r format(n_senate_bills, big.mark=",")`** Senate bills
-:::
-
-::: {.g-col-6}
-**Bill Progress**
-
-```{r}
-#| results: asis
+# Bill progress stage counts (individual bill status, furthest reached)
 status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
                   "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
 
@@ -111,119 +71,188 @@ if (!is.null(bill_groups)) {
   stage_counts <- bill_groups |>
     count(status, name = "n") |>
     mutate(status = factor(status, levels = status_order)) |>
-    arrange(desc(status))
-
-  for (i in seq_len(nrow(stage_counts))) {
-    cat(sprintf("- **%s** %s\n", format(stage_counts$n[i], big.mark = ","),
-                as.character(stage_counts$status[i])))
-  }
+    arrange(status)
+  n_signed      <- stage_counts |> filter(status == "Signed by Governor")  |> pull(n) |> (\(x) if (length(x)) x else 0L)()
+  n_passed_both <- stage_counts |> filter(status == "Passed Both Chambers") |> pull(n) |> (\(x) if (length(x)) x else 0L)()
 } else {
-  cat("_Bill progress data not yet available._\n")
+  stage_counts  <- NULL
+  n_signed      <- NA_integer_
+  n_passed_both <- NA_integer_
 }
 ```
-:::
-
-:::
-
----
-
-## Legislature Composition
-
-The Iowa House currently has **`r n_house_R` Republicans** and **`r n_house_D` Democrats**. The Iowa Senate has **`r n_senate_R` Republicans** and **`r n_senate_D` Democrats**.
 
 ```{r}
-#| layout-ncol: 2
-#| fig-height: 3.5
-
-house_parl <- parliament_data(
-  election_data = house_comp,
-  type          = "semicircle",
-  parl_rows     = 6,
-  party_seats   = house_comp$seats
+# Hero
+div(class = "ia-hero-row",
+  div(
+    div(class = "ia-eyebrow", "2025–2026 Session"),
+    h1("Tracking the 91st General Assembly"),
+    p(class = "ia-lead",
+      "Bill information, legislator profiles, voting records, and lobbyist ",
+      "declarations — aggregated from LegiScan and the official Iowa ",
+      "Legislature site.")
+  ),
+  div(class = "ia-updated", paste("Last updated", str_squish(format(Sys.Date(), "%B %e, %Y"))))
 )
-
-ggplot(house_parl, aes(x, y, colour = party)) +
-  geom_parliament_seats(size = 3.5) +
-  scale_colour_manual(
-    values = party_colours,
-    labels = c("R" = "Republican", "D" = "Democrat")
-  ) +
-  theme_ggparliament() +
-  labs(title = "Iowa House (100 seats)", colour = NULL) +
-  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
-
-senate_parl <- parliament_data(
-  election_data = senate_comp,
-  type          = "semicircle",
-  parl_rows     = 4,
-  party_seats   = senate_comp$seats
-)
-
-ggplot(senate_parl, aes(x, y, colour = party)) +
-  geom_parliament_seats(size = 5) +
-  scale_colour_manual(
-    values = party_colours,
-    labels = c("R" = "Republican", "D" = "Democrat")
-  ) +
-  theme_ggparliament() +
-  labs(title = "Iowa Senate (50 seats)", colour = NULL) +
-  theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
 ```
 
----
+```{r}
+# Headline stat cards
+ui_stat_grid(
+  ui_stat_card("Total Bills", format(n_bills, big.mark = ","),
+               sprintf("%s House · %s Senate",
+                       format(n_house_bills, big.mark = ","),
+                       format(n_senate_bills, big.mark = ","))),
+  ui_stat_card("Signed by Governor", format(n_signed, big.mark = ","),
+               sprintf("%.1f%% of all bills introduced", 100 * n_signed / n_bills)),
+  ui_stat_card("Awaiting Governor", format(n_passed_both, big.mark = ","),
+               "Passed both chambers"),
+  ui_stat_card("Legislators", format(nrow(active_people), big.mark = ","),
+               sprintf("%d R · %d D across both chambers", n_R, n_D))
+)
+```
 
-## Recent Activity
+::::: {.grid}
 
-The table below shows the most recent legislative actions.
+:::: {.g-col-6}
+::: {.ia-card}
+::: {.ia-card-title}
+Where bills stand
+:::
+::: {.ia-card-sub}
+Current status of all `r format(n_bills, big.mark = ",")` bills and resolutions
+:::
 
 ```{r}
-recent_activity <- history |>
-  left_join(bills |> select(bill_id, bill_number, title), by = "bill_id") |>
-  arrange(desc(date), desc(sequence)) |>
-  head(50) |>
-  mutate(
-    bill_link = format_bill_link(bill_number, "legislation/")
-  ) |>
-  select(date, bill_link, chamber, action, title)
+if (!is.null(stage_counts)) {
+  stage_counts |>
+    transmute(label = as.character(status), count = n) |>
+    ui_bar_list(highlight = "Signed by Governor")
+} else {
+  htmltools::div(class = "ia-card-sub", "Bill progress data not yet available.")
+}
+```
 
-gt(recent_activity) |>
-  cols_label(
-    date = "Date",
-    bill_link = "Bill",
-    chamber = "Chamber",
-    action = "Action",
-    title = "Title"
-  ) |>
-  fmt_markdown(columns = bill_link) |>
-  tab_style(
-    style = cell_text(whitespace = "nowrap"),
-    locations = list(
-      cells_body(columns = c(date, bill_link)),
-      cells_column_labels(columns = date)
-    )
-  ) |>
-  tab_options(
-    table.font.size = px(12),
-    data_row.padding = px(4)
+::: {.ia-footnote}
+Green marks bills signed into law. Counts reflect each bill's furthest individual progress.
+:::
+:::
+::::
+
+:::: {.g-col-6}
+::: {.ia-card}
+
+```{r}
+# Composition card header + shared legend
+div(class = "ia-card-head",
+  div(
+    div(class = "ia-card-title", "Who holds the chambers"),
+    div(class = "ia-card-sub", style = "margin-bottom:0", "Party composition, 150 seats")
+  ),
+  div(class = "ia-legend",
+    span(span(class = "ia-legend-swatch", style = "background:#A8433A"), "Republican"),
+    span(span(class = "ia-legend-swatch", style = "background:#3F5B93"), "Democrat")
+  )
+)
+```
+
+```{r}
+#| fig-height: 2.4
+house_parl <- parliament_data(
+  election_data = house_comp,  type = "semicircle",
+  parl_rows = 6, party_seats = house_comp$seats
+) |> mutate(chamber = "Iowa House")
+
+senate_parl <- parliament_data(
+  election_data = senate_comp, type = "semicircle",
+  parl_rows = 4, party_seats = senate_comp$seats
+) |> mutate(chamber = "Iowa Senate")
+
+bind_rows(house_parl, senate_parl) |>
+  mutate(chamber = factor(chamber, levels = c("Iowa House", "Iowa Senate"))) |>
+  ggplot(aes(x, y, colour = party)) +
+  geom_parliament_seats(size = 2) +
+  facet_wrap(~chamber) +
+  scale_colour_manual(values = party_colours) +
+  coord_fixed() +
+  theme_ggparliament() +
+  theme(
+    legend.position = "none",
+    strip.text = element_blank(),
+    plot.margin = margin(0, 0, 0, 0)
   )
 ```
 
----
+```{r}
+tally <- function(r, d) {
+  HTML(sprintf(
+    '<span class="ia-tally-num"><span style="color:#A8433A">%d</span> <span style="color:#b5b2a8">–</span> <span style="color:#3F5B93">%d</span></span>',
+    r, d))
+}
+div(style = "display:flex; margin-top:0.4rem",
+  div(class = "ia-tally", tally(n_house_R, n_house_D),  div(class = "ia-tally-label", "House · 100 seats")),
+  div(class = "ia-tally", tally(n_senate_R, n_senate_D), div(class = "ia-tally-label", "Senate · 50 seats"))
+)
+```
 
-## Browse
+:::
+::::
 
-- [All Legislation](legislation/index.html) - Browse all bills and resolutions
-- [All Legislators](legislators/index.html) - Browse all Representatives and Senators
+:::::
 
----
+::: {.ia-card}
 
-## Data Sources
+```{r}
+# Recent activity header
+div(class = "ia-card-head",
+  div(class = "ia-card-title", "Recent activity"),
+  a(href = "legislation/index.html", "All legislation →")
+)
+```
 
-This site aggregates data from:
+```{r}
+recent <- bills |>
+  arrange(desc(last_action_date)) |>
+  head(8) |>
+  left_join(bill_groups |> select(bill, bill_status = status),
+            by = c("bill_number" = "bill")) |>
+  mutate(
+    display_status = coalesce(bill_status, status_desc),
+    short_title    = vapply(title, \(t) clean_bill_title(t)$title, character(1))
+  )
 
-- [LegiScan](https://legiscan.com/IA) - Bill text, voting records, and sponsor information
-- [Iowa Legislature](https://www.legis.iowa.gov/) - Official state legislature site for lobbyist declarations
+rows <- lapply(seq_len(nrow(recent)), function(i) {
+  div(class = "ia-recent-row",
+    div(class = "ia-recent-bill", HTML(format_bill_link(recent$bill_number[i], "legislation/"))),
+    div(
+      div(class = "ia-recent-title", recent$short_title[i]),
+      div(class = "ia-recent-meta",  recent$last_action[i])
+    ),
+    status_pill(recent$display_status[i]),
+    div(class = "ia-recent-date", str_squish(format(recent$last_action_date[i], "%b %e, %Y")))
+  )
+})
+div(class = "ia-recent-list", rows)
+```
 
----
+:::
 
-*Last updated: `r Sys.Date()`*
+```{r}
+# Browse cards
+div(class = "ia-browse-grid",
+  a(class = "ia-browse-card dark", href = "legislation/index.html",
+    div(class = "ia-browse-title", "Browse all legislation"),
+    p(sprintf("Search and filter %s bills by chamber, sponsor, status, and subject.",
+              format(n_bills, big.mark = ",")))
+  ),
+  a(class = "ia-browse-card", href = "legislators/index.html",
+    div(class = "ia-browse-title", "Find your legislator"),
+    p(sprintf("Profiles, sponsorship records, and voting analysis for all %d members.",
+              nrow(active_people)))
+  )
+)
+```
+
+::: {.ia-sources}
+Data sources: [LegiScan](https://legiscan.com/IA) (bill text, votes, sponsors) &middot; [Iowa Legislature](https://www.legis.iowa.gov/) (lobbyist declarations)
+:::

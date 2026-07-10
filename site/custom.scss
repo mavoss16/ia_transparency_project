@@ -49,7 +49,12 @@ $navbar-fg: $ink-soft;
 // ------------------------------------------------------------
 .navbar {
   border-bottom: 1px solid $border;
-  .navbar-brand { font-family: $headings-font-family; font-weight: 700; }
+  .navbar-brand {
+    font-family: $headings-font-family;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: $ink;
+  }
   .nav-link.active { border-bottom: 2px solid $party-r; }
 }
 
@@ -220,6 +225,127 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
   background: $amber-bg; border: 1px solid #e8dfc8; border-radius: 8px;
   padding: 0.5rem 0.9rem; font-size: 0.82rem; color: $amber-fg;
 }
+
+// ------------------------------------------------------------
+// Home / index page layout (redesign Phase 2)
+// ------------------------------------------------------------
+.ia-hero-row {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 1.5rem; margin-bottom: 1.75rem;
+}
+.ia-hero-row h1 { margin: 0 0 0.5rem; }
+.ia-eyebrow {
+  font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: $party-r; margin-bottom: 0.5rem;
+}
+.ia-lead {
+  font-size: 1.05rem; line-height: 1.5; color: $ink-soft;
+  max-width: 640px; margin: 0;
+}
+.ia-updated { font-size: 0.82rem; color: $faint; white-space: nowrap; }
+
+// Card header row (title left, action/legend right)
+.ia-card-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; margin-bottom: 0.9rem;
+}
+
+// Recent activity rows
+.ia-recent-list { display: flex; flex-direction: column; }
+.ia-recent-row {
+  display: grid; grid-template-columns: 84px 1fr auto 104px;
+  align-items: center; gap: 1.1rem;
+  padding: 0.8rem 0.25rem; border-top: 1px solid $border-soft;
+}
+.ia-recent-row:first-child { border-top: none; }
+.ia-recent-bill a { font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
+.ia-recent-title { font-size: 0.9rem; line-height: 1.35; color: $ink; }
+.ia-recent-meta { font-size: 0.78rem; color: $faint; margin-top: 2px; }
+.ia-recent-date { font-size: 0.82rem; color: $muted; text-align: right; white-space: nowrap; }
+
+// Browse cards
+.ia-browse-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.1rem; }
+.ia-browse-card {
+  background: $card-bg; border: 1px solid $border; border-radius: 10px;
+  padding: 1.4rem 1.5rem; text-decoration: none; display: block;
+  transition: border-color 0.15s ease;
+}
+.ia-browse-card:hover { border-color: $muted; }
+.ia-browse-card .ia-browse-title {
+  font-family: $headings-font-family; font-weight: 700;
+  font-size: 1.15rem; margin-bottom: 0.35rem; color: $ink;
+}
+.ia-browse-card p { font-size: 0.85rem; line-height: 1.5; color: $muted; margin: 0; }
+.ia-browse-card.dark { background: #2b354c; border-color: #2b354c; }
+.ia-browse-card.dark .ia-browse-title { color: #fff; }
+.ia-browse-card.dark p { color: #c3c9d8; }
+
+// Parliament tally numbers (below hemicycles)
+.ia-tally { text-align: center; flex: 1; }
+.ia-tally-num { font-family: $headings-font-family; font-weight: 700; font-size: 1.35rem; }
+.ia-tally-label {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em;
+  color: $faint; text-transform: uppercase; margin-top: 2px;
+}
+
+.ia-sources { font-size: 0.78rem; color: $faint; margin-top: 1.25rem; }
+.ia-footnote { font-size: 0.78rem; color: $faint; margin-top: 1rem; }
+
+// Chamber party-split bars (legislators overview header)
+.ia-split-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em;
+  color: $faint; text-transform: uppercase; margin-bottom: 6px;
+}
+.ia-split-track {
+  display: flex; height: 14px; width: 180px;
+  border-radius: 4px; overflow: hidden; margin-left: auto;
+}
+.ia-split-count { font-size: 0.75rem; font-weight: 600; margin-top: 5px; }
+
+// "FORMER" chip on the legislator table (replaced mid-session)
+.ia-chip-former {
+  display: inline-block; margin-left: 6px; vertical-align: middle;
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.04em;
+  padding: 2px 7px; border-radius: 99px;
+  background: $neutral-bg; color: $faint;
+}
+
+// ------------------------------------------------------------
+// Detail pages (bill + legislator) — Phase 3
+// ------------------------------------------------------------
+.ia-breadcrumb { font-size: 0.82rem; color: $faint; margin-bottom: 1.1rem; }
+.ia-breadcrumb a { color: $muted; }
+
+.ia-bill-eyebrow-row {
+  display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+.ia-bill-eyebrow { font-weight: 700; font-size: 0.9rem; letter-spacing: 0.02em; color: $party-r; }
+.ia-bill-eyebrow a { color: $party-r; text-decoration: none; }
+.ia-bill-title { font-size: 1.85rem; line-height: 1.25; margin: 0 0 0.85rem; max-width: 900px; }
+.ia-bill-meta { display: flex; gap: 1.4rem; flex-wrap: wrap; font-size: 0.82rem; color: $muted; }
+.ia-bill-meta strong { color: $ink; font-weight: 600; }
+
+.ia-related-list { display: flex; flex-direction: column; }
+.ia-related-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: 0.65rem 0.15rem; border-top: 1px solid $border-soft;
+}
+.ia-related-row:first-child { border-top: none; }
+.ia-related-bill { font-weight: 700; font-size: 0.85rem; margin-right: 0.75rem; }
+.ia-related-note { font-size: 0.85rem; color: $ink-soft; }
+
+// Force the legislator-detail stat grid to a 2×2 beside the district map
+.ia-stats-2col .ia-stat-grid { grid-template-columns: repeat(2, 1fr); margin-top: 0; }
+
+// Legislator external-link buttons (ui_profile_header links slot)
+.ia-profile-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.ia-profile-actions a {
+  font-size: 0.8rem; font-weight: 600; padding: 0.5rem 0.9rem;
+  border: 1px solid $border; border-radius: 8px; color: $ink-soft;
+  background: $card-bg; text-decoration: none; white-space: nowrap;
+}
+.ia-profile-actions a:hover { border-color: $muted; }
 
 // ------------------------------------------------------------
 // Map placeholder (only used while iterating without leaflet)

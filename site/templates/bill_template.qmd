@@ -1,14 +1,12 @@
 ---
 pagetitle: "`r sub('([A-Za-z]+)', '\\1 ', params$bill_num)`"
-format: 
+format:
   html:
     echo: false
     message: false
     warning: false
-    toc: true
-    toc-location: right
-    toc-depth: 2
-    
+    toc: false
+
 params:
   bill_num: "HF856"
 ---
@@ -28,6 +26,7 @@ library(leaflet)
 library(htmltools)
 
 source(here::here("R/legislature/utils.R"))
+source(here::here("R/legislature/ui_helpers.R"))
 
 ```
 
@@ -105,123 +104,162 @@ lobby_against <- if (!is.null(lobby) && nrow(lobby) > 0) sum(lobby$most_recent_d
 lobby_undecided <- if (!is.null(lobby) && nrow(lobby) > 0) sum(lobby$most_recent_declaration == "Undecided", na.rm = TRUE) else 0
 ```
 
-
-# [`r params$bill_num`](`r bill$state_link`){target="_blank"}
-
-`r bill$title`
-
 ```{r}
-#| output: asis
-if (nrow(bill_group_info) > 0 && !is.na(bill_group_info$status)) {
-  cat(paste0("**Status:** ", bill_group_info$status, "\n\n"))
+# --- Derived values for the redesigned header ---
+status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
+                  "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
 
-  if (bill_group_info$group_size > 1 && bill_group_info$status != bill_group_info$group_status) {
-    lead_bill_display <- str_replace(bill_group_info$lead_bill, "^([A-Z]+)(\\d+)$", "\\1 \\2")
-    cat(paste0("**Group Status:** ", bill_group_info$group_status,
-               " (via [", lead_bill_display, "](", bill_group_info$lead_bill, ".html))\n\n"))
-  }
-} else {
-  cat("**Status:** ", bill$status, "\n\n")
-}
+# Cleaned serif title + boilerplate meta (Formerly / Effective)
+clean_title <- clean_bill_title(bill$title)
+formerly_txt <- str_match(bill$title, "\\(Formerly ([^)]+)\\.?\\)")[, 2]
+effective_txt <- str_match(bill$title, "Effective date:\\s*([0-9/,\\s]+)\\.")[, 2]
 
-cat(paste0("**Most Recent Action:** ", if(!is.null(history) && nrow(history) > 0) history$action[1] else "None", "\n\n"))
+# Red eyebrow: spelled-out bill type + number (e.g. "HOUSE FILE 856")
+type_names <- c(HF = "House File", SF = "Senate File",
+                HSB = "House Study Bill", SSB = "Senate Study Bill",
+                HJR = "House Joint Resolution", SJR = "Senate Joint Resolution",
+                HR = "House Resolution", SR = "Senate Resolution",
+                HCR = "House Concurrent Resolution", SCR = "Senate Concurrent Resolution")
+bill_prefix <- str_extract(params$bill_num, "^[A-Z]+")
+bill_number_digits <- str_extract(params$bill_num, "\\d+")
+type_label <- unname(type_names[bill_prefix])
+if (is.na(type_label)) type_label <- bill_prefix
+bill_eyebrow <- toupper(paste(type_label, bill_number_digits))
 
-if (!is.null(lobby) && nrow(lobby) > 0) {
-  cat(paste0("**Lobbyist Declarations:** ", lobby_for, " For | ", lobby_against, " Against | ", lobby_undecided, " Undecided\n\n"))
-}
-```
-
-```{r}
-#| output: asis
-progress_status <- if (nrow(bill_group_info) > 0 && !is.na(bill_group_info$status[1])) {
+# Status (individual bill) drives the pill + stepper
+bill_status <- if (nrow(bill_group_info) > 0 && !is.na(bill_group_info$status[1])) {
   bill_group_info$status[1]
 } else {
-  "Introduced"
+  bills_row <- bills_csv |> filter(bill_number == params$bill_num)
+  if (nrow(bills_row) > 0) bills_row$status_desc[1] else "Introduced"
 }
-cat(render_bill_progress_bar(progress_status))
-```
+stepper_reached <- match(bill_status, status_order)
+if (is.na(stepper_reached)) stepper_reached <- 1L
 
----
-
-## Sponsors
-```{r}
-#| output: asis
-if (!is.null(sponsors) && nrow(sponsors) > 0) {
-  is_committee <- is.null(sponsors$first_name[1]) || sponsors$first_name[1] == ""
-  if (nrow(sponsors) == 1 && is_committee) {
+# Primary sponsor display (committee-aware)
+sponsor_display <- if (!is.null(sponsors) && nrow(sponsors) > 0) {
+  is_committee <- is.na(sponsors$first_name[1]) || sponsors$first_name[1] == ""
+  if (is_committee) {
     chamber <- if (sponsors$role[1] == "Sen") "Senate" else "House"
-    cat(sprintf("**%s %s Committee**\n", chamber, sponsors$name[1]))
+    paste(chamber, sponsors$name[1], "Committee")
   } else {
-    print(
-      gt(sponsors |> filter(first_name != "") |> select(role, name, party, district)) |>
-        cols_label(role = "Role", name = "Name", party = "Party", district = "District")
-    )
+    sprintf("%s (%s-%s)", sponsors$name[1], sponsors$party[1], sponsors$district[1])
   }
 } else {
-  cat("No sponsors listed.")
+  "—"
 }
-```
 
----
-
-## Related Legislation
-
-```{r}
-#| output: asis
-if (nrow(bill_group_info) > 0 && bill_group_info$group_size > 1) {
-  cat(paste0("This bill is part of a group of **", bill_group_info$group_size, "** related bills. "))
-
-  if (bill_group_info$status != bill_group_info$group_status) {
-    lead_bill_display <- str_replace(bill_group_info$lead_bill, "^([A-Z]+)(\\d+)$", "\\1 \\2")
-    cat(paste0("The group's furthest progress is **", bill_group_info$group_status,
-               "**, achieved by [", lead_bill_display, "](", bill_group_info$lead_bill, ".html).\n\n"))
-  } else {
-    cat("\n\n")
-  }
+# Most recent action (history is chronological ascending in the JSON)
+last_action_txt <- if (!is.null(history) && nrow(history) > 0) {
+  la <- history |> arrange(desc(date)) |> slice(1)
+  paste0(la$action, " — ", str_squish(format(as.Date(la$date), "%B %e, %Y")))
 } else {
-  cat("No related bills identified.\n")
+  "—"
 }
-```
 
-```{r}
+# Related-bill table (for the "Related legislation" card)
+related_df <- NULL
 if (nrow(bill_group_info) > 0 && bill_group_info$group_size > 1) {
   related_bills_list <- unlist(bill_group_info$group_members)
-
   related_df <- bill_groups |>
     filter(bill %in% related_bills_list, bill != params$bill_num) |>
-    left_join(
-      bills_csv |> select(bill_number, title),
-      by = c("bill" = "bill_number")
-    ) |>
+    left_join(bills_csv |> select(bill_number, title), by = c("bill" = "bill_number")) |>
     mutate(bill_link = format_bill_link(bill, "")) |>
     arrange(desc(status_level)) |>
     select(bill_link, title, status)
-
-  if (nrow(related_df) > 0) {
-    gt(related_df) |>
-      cols_label(
-        bill_link = "Bill",
-        title = "Title",
-        status = "Status"
-      ) |>
-      fmt_markdown(columns = bill_link) |>
-      tab_style(
-        style = cell_text(whitespace = "nowrap"),
-        locations = cells_body(columns = bill_link)
-      ) |>
-      tab_options(
-        table.font.size = px(12),
-        data_row.padding = px(4)
-      )
-  }
 }
 ```
 
----
 
+::: {.ia-breadcrumb}
+[Legislation](index.html) / `r sub('([A-Za-z]+)', '\\1 ', params$bill_num)`
+:::
+
+```{r}
+# Bill header card: eyebrow + status pill, cleaned serif title, meta row, stepper
+meta_row <- tagList(
+  span(strong("Sponsor"), HTML("&nbsp;"), sponsor_display),
+  if (!is.na(effective_txt)) span(strong("Effective"), HTML("&nbsp;"), str_squish(effective_txt)),
+  if (!is.na(formerly_txt))  span(strong("Formerly"),  HTML("&nbsp;"), str_remove(str_squish(formerly_txt), "\\.$")),
+  span(strong("Last action"), HTML("&nbsp;"), last_action_txt),
+  span(strong("Full text"), HTML("&nbsp;"),
+       a(href = bill$state_link, target = "_blank", "Iowa Legislature ↗"))
+)
+
+div(class = "ia-card",
+  div(class = "ia-bill-eyebrow-row",
+    span(class = "ia-bill-eyebrow", bill_eyebrow),
+    status_pill(bill_status)
+  ),
+  h1(class = "ia-bill-title", clean_title$title),
+  div(class = "ia-bill-meta", meta_row),
+  ui_stepper(status_order, stepper_reached)
+)
+```
+
+::::: {.grid}
+
+:::: {.g-col-6}
+::: {.ia-card}
+::: {.ia-card-title}
+Lobbyist declarations
+:::
+
+```{r}
+n_lobby <- lobby_for + lobby_against + lobby_undecided
+if (n_lobby > 0) {
+  tagList(
+    div(class = "ia-card-sub",
+        sprintf("%d declaration%s filed on this bill", n_lobby, if (n_lobby == 1) "" else "s")),
+    ui_share_bar(
+      c(For = lobby_for, Against = lobby_against, Undecided = lobby_undecided),
+      c(For = "#256a43", Against = "#A8433A", Undecided = "#cfccc2")
+    )
+  )
+} else {
+  div(class = "ia-card-sub", "No lobbyist declarations filed on this bill.")
+}
+```
+
+:::
+::::
+
+:::: {.g-col-6}
+::: {.ia-card}
+::: {.ia-card-title}
+Related legislation
+:::
+
+```{r}
+if (!is.null(related_df) && nrow(related_df) > 0) {
+  rows <- lapply(seq_len(nrow(related_df)), function(i) {
+    div(class = "ia-related-row",
+      div(
+        span(class = "ia-related-bill", HTML(related_df$bill_link[i])),
+        span(class = "ia-related-note", clean_bill_title(related_df$title[i])$title)
+      ),
+      status_pill(related_df$status[i])
+    )
+  })
+  tagList(
+    div(class = "ia-card-sub",
+        sprintf("Part of a group of %d related bills", bill_group_info$group_size)),
+    div(class = "ia-related-list", rows)
+  )
+} else {
+  div(class = "ia-card-sub", "No related bills identified.")
+}
+```
+
+:::
+::::
+
+:::::
+
+::: {.ia-card}
 ::: {.panel-tabset}
 
-## Legislation History
+## History
 ```{r}
 if (!is.null(history) && nrow(history) > 0) {
   gt(history |>
@@ -231,7 +269,8 @@ if (!is.null(history) && nrow(history) > 0) {
     tab_style(
       style = cell_text(whitespace = "nowrap"),
       locations = list(cells_body(columns = date), cells_column_labels(columns = date))
-    )
+    ) |>
+    gt_theme_ia()
 } else {
   cat("No legislative history recorded yet.")
 }
@@ -393,16 +432,7 @@ if (!is.null(votes) && nrow(votes) > 0) {
 
 :::
 
-## Lobbyist Declarations
-
-```{r}
-#| output: asis
-if (!is.null(lobby) && nrow(lobby) > 0) {
-  cat(paste0("**For:** ", lobby_for, " | **Against:** ", lobby_against, " | **Undecided:** ", lobby_undecided, "\n\n"))
-} else {
-  cat("Lobbyist declaration data is currently unavailable for this bill.\n")
-}
-```
+## Lobbyist declarations
 
 ```{r}
 if (!is.null(lobby) && nrow(lobby) > 0) {
@@ -419,15 +449,18 @@ if (!is.null(lobby) && nrow(lobby) > 0) {
       style = cell_text(whitespace = "nowrap"),
       locations = list(cells_body(columns = date), cells_column_labels(columns = date))
     ) |>
+    gt_theme_ia() |>
     tab_options(
       table.font.size = px(12),
       data_row.padding = px(4)
     )
+} else {
+  cat("Lobbyist declaration data is currently unavailable for this bill.\n")
 }
 ```
 
 
-## Calendar Items
+## Calendar items
 ```{r}
 if (!is.null(calendar) && nrow(calendar) > 0) {
   gt(calendar |> select(date, time, type, location, description)) |>
@@ -435,13 +468,13 @@ if (!is.null(calendar) && nrow(calendar) > 0) {
     tab_style(
       style = cell_text(whitespace = "nowrap"),
       locations = list(cells_body(columns = date), cells_column_labels(columns = date))
-    )
+    ) |>
+    gt_theme_ia()
 } else {
   cat("No calendar items scheduled.")
 }
 ```
 
 :::
-
-
+:::
 
