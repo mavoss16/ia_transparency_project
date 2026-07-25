@@ -238,7 +238,9 @@ process_cycle <- function(cycle) {
 # ── Run ───────────────────────────────────────────────────────────────────────
 
 message("FEC bulk download — Iowa campaign contributions")
-message(sprintf("Cycles: %s | Filter: STATE == \"%s\"", paste(CYCLES, collapse = ", "), FILTER_STATE))
+message(sprintf("Cycles: %s | Filter: Iowa candidates for office %s",
+                paste(CYCLES, collapse = ", "),
+                paste(IOWA_OFFICES, collapse = "/")))
 
 walk(CYCLES, process_cycle)
 

@@ -23,7 +23,9 @@ ia_transparency_project/
 │   │   ├── 01_build_committee_lookup.R   ← API scrape → committee_lookup.rds
 │   │   ├── 02_clean_normalize.R          ← clean CSVs + merge committees → Parquet
 │   │   ├── 02a_clean_normalize_federal.R ← clean FEC source files → Parquet
-│   │   └── 04_build_database.R           ← Parquet → DuckDB + summary views (state + FEC)
+│   │   ├── 03_link_donors.R              ← fuzzy donor dedup (built, NOT working; nothing depends on it)
+│   │   ├── 04_build_database.R           ← Parquet → DuckDB + summary views (state + FEC)
+│   │   └── utils.R                       ← source discovery, column/date harmonization, normalizers
 │   ├── elections/
 │   │   ├── download/                                    ← standalone acquisition scripts
 │   │   │   ├── shapefile_precincts.R                    ← scrape + download 2020s county shapefiles from sos.iowa.gov
@@ -72,7 +74,9 @@ ia_transparency_project/
 │   │   ├── campaign_finance.duckdb       ← analytical database (derived)
 │   │   ├── processed/                    ← cleaned Parquet files + committee lookup
 │   │   └── source/
-│   │       ├── [IECDB CSV exports]       ← raw Iowa state contribution/expenditure files
+│   │       ├── IECDB/                    ← raw Iowa state exports, one dir per download
+│   │       │   ├── 202603/               ← previous export (kept for reference)
+│   │       │   └── 202607/               ← newest export; contributions split into 4 part files
 │   │       └── federal/                  ← FEC bulk download outputs
 │   │           ├── headers/              ← cached FEC column-name .rds files
 │   │           ├── 2020/                 ← indiv_IA.txt, cm.txt, cn.txt, ccl.txt
@@ -121,7 +125,10 @@ ia_transparency_project/
 │   ├── 2026-05-09_federal-campaign-finance.md
 │   ├── 2026-05-09_campaign-finance-templates-ojs.md
 │   ├── 2026-07-05_legislature-migration.md
-│   └── 2026-07-08_legislature-redesign.md
+│   ├── 2026-07-08_legislature-redesign.md
+│   ├── 2026-07-11_impeccable-workflow.md
+│   ├── 2026-07-15_design-backlog.md
+│   └── 2026-07-15_impeccable-design-pass.md
 └── CLAUDE.md
 ```
 
@@ -137,6 +144,8 @@ Tracker for the 91st General Assembly (2025–2026). Migrated from the standalon
 (The renv out-of-sync issue flagged during verification was resolved by a `renv::snapshot()` the same day.)
 
 **Site redesign (implementation complete 2026-07-09; full publish render pending):** A high-fidelity visual/UX redesign of the five main pages (home, legislation overview, legislators overview, bill detail, legislator detail), delivered as a design handoff in `design_handoff_iowa_legislature/`. All four phases are done: **P1 foundation** — `site/custom.scss` (SCSS theme, `.ia-*` classes) + `R/legislature/ui_helpers.R` (htmltools component emitters), `_quarto.yml` uses `theme: [cosmo, custom.scss]` with `page-layout: full`, party colors swapped site-wide to R `#A8433A` / D `#3F5B93` (vote-map Nay tints R `#DCB4B0`, D `#B2BDD4`). **P2 index pages** — home/legislation/legislators rewritten with `ui_stat_grid`, `ui_bar_list`, `ui_paired_bars`, htmltools recent-activity rows, and the `legislator_table()` reactable (with FORMER chips); the legislators page uses one Senate/House `panel-tabset` (map above table per tab). **P3 detail templates** — `bill_template.qmd` (breadcrumb, header card with red eyebrow + `status_pill` + `clean_bill_title` H1 + meta row + `ui_stepper`, lobbyist `ui_share_bar`, related-bill list, renamed tabset) and `legislator_template.qmd` (`ui_profile_header` with succession notice, 2×2 `ui_stat_grid`, `vote_pill`, restructured tabset); both detail templates are now `toc: false`. The mid-session replacement logic lives in one shared helper, `classify_district_turnover()` in `R/legislature/utils.R`, used by both index pages and the legislator template; the dead `render_bill_progress_bar()` was removed. **P4 polish** — navbar rebranded to **"Iowa Transparency Project"** (serif, no eyebrow; `_quarto.yml` title + `index.qmd` pagetitle + `.navbar-brand` in scss); dated stepper steps intentionally skipped. Verified via `test_render()` (5 bills / 5 legislators / 3 committees, 0 failures) plus per-page `-P` renders. **Remaining: a full `render_site(force = TRUE)` before publishing** (re-renders all bills/legislators/committees against the new theme; long-running, not yet run). Plan + full P1–P4 executed session logs are in `notes/2026-07-08_legislature-redesign.md`. `.claude/launch.json` has a `docs-preview` static server (port 8642) for visual QA of rendered output.
+
+**Design QA pass (2026-07-11 → 2026-07-15, complete):** first full Impeccable cycle — `PRODUCT.md` written, all three index pages critiqued (home 31→32/40, legislation 32, legislators 34; snapshots in `.impeccable/critique/`), and every P1 fixed and probe-verified: `$faint` darkened to `#706c63` (WCAG AA), a ≤600px mobile block in `custom.scss` (recent rows, browse grid, bar rows, stepper vertical stack, `.g-col-*` collapse ≤767px), uppercase-tracked labels reserved for the hero `.ia-eyebrow` only, funnel counting rule stated above the bars, tally/split de-color-coded ("R 67 – 33 D"), FORMER chip and `ui_share_bar()` legend contrast fixed. Session log: `notes/2026-07-15_impeccable-design-pass.md`; open items: `notes/2026-07-15_design-backlog.md`. **The pending full `render_site(force = TRUE)` is now also the gate for these fixes** — theme CSS is hash-referenced per page, so already-rendered detail pages still use the old stylesheet until then.
 
 ### Tech Stack
 - **R** — primary language for data pipelines and site generation
@@ -187,14 +196,37 @@ source("R/render_all.R")    # top-level: render_all() spans all domains
 
 ## Campaign Finance
 
-Data sourced from the Iowa Ethics and Campaign Disclosure Board (IECDB). Raw CSV exports live in `data/campaign_finance/source/` and are not committed to git (too large).
+Data sourced from the Iowa Ethics and Campaign Disclosure Board (IECDB). Raw CSV exports are not committed to git (too large).
+
+**Current data currency (as of the 202607 export):** state contributions run through **2026-07-14** (3,200,787 rows), expenditures through **2026-07-16** (652,661 rows), 8,020 committees. FEC data is still from the 2026-05-10 download and has not been refreshed.
 
 ### Source Files
-- `Iowa_Campaign_Contributions_Received_*.csv` — individual contribution transactions (~476 MB)
-- `Iowa_Campaign_Expenditures_*.csv` — expenditure transactions (~106 MB)
-- `Registered_Political_Candidates,_Committees_and_Entities_in_Iowa_*.csv` — active committee registry (~1,600 rows)
 
-Filenames include export dates. `find_source_file(pattern)` (defined in each script) selects the most recently modified match, so re-downloading a fresh export requires no code changes.
+Exports live in `data/campaign_finance/source/IECDB/{YYYYMM}/` — **one directory per download**, named for the export month (`202603`, `202607`, …). Older exports are kept for reference; the pipeline always reads the newest directory.
+
+Each export contains:
+- contributions received — individual contribution transactions (~3.2M rows). **May arrive split across several numbered part files** (`..._part_0001.csv` … `_0004.csv`); the parts are chronological, non-overlapping, and each carries its own header row.
+- expenditures — expenditure transactions (~650k rows)
+- registered political candidates/committees — active committee registry (~1,700 rows)
+- other state/federal PACs filing in Iowa — **not currently read by the pipeline** (exploratory scripts only)
+
+**Export vintages differ in both column names and date formats**, so `utils.R` normalizes them:
+
+| | through `202603` | from `202607` |
+|---|---|---|
+| Column names | human-readable (`"Contribution Amount"`) | machine (`amount`, `committee_cd`, `first_nm`) |
+| Transaction dates | `MM/DD/YYYY` | ISO `YYYY-MM-DD` |
+| Election dates | `2022 Nov 08 12:00:00 AM` | `2026-11-03 00:00:00` |
+
+`utils.R` provides the shims, all applied in `02_clean_normalize.R`:
+- `latest_iecdb_export()` — newest `YYYYMM` directory
+- `find_source_files(pattern)` / `find_source_file(pattern)` — case-insensitive match within that export; the plural form returns all parts, name-sorted so they stack in order
+- `rename_if_present(df, mapping)` with `IECDB_CONTRIBUTION_COLS` / `IECDB_EXPENDITURE_COLS` / `IECDB_REGISTERED_COLS` — maps either vintage onto the canonical (older) column names the DuckDB views and templates expect
+- `parse_iecdb_date()` / `parse_iecdb_election_date()` — accept either format, per element
+
+**Adding a new export:** drop it in a new `IECDB/{YYYYMM}/` directory and re-run `02` → `04`. No code change is needed unless IECDB renames columns again — in which case extend the mapping vectors in `utils.R` rather than editing `02`.
+
+Committee codes are a mix of numeric (`5185`, ~5,600 codes) and alphanumeric (`CTY51589`, `SWGA51409`, ~1,400 codes) strings, with no leading zeros. **Always pass them as strings** — a numeric-looking code reaching DuckDB as a number makes it cast the whole varchar column to INT32 and fail on the alphanumeric rows.
 
 ### Pipeline
 
@@ -205,17 +237,22 @@ Filenames include export dates. `find_source_file(pattern)` (defined in each scr
                                   → processed/committee_lookup.rds
                                     (~7,900 committee codes, party affiliation, metadata)
 
-02_clean_normalize.R              reads source CSVs + committee_lookup.rds
+02_clean_normalize.R              reads newest IECDB export + committee_lookup.rds
+                                  (stacks contribution part files; harmonizes
+                                   column names + date formats across vintages)
                                   → processed/contributions.parquet
                                     processed/expenditures.parquet
                                     processed/committees.parquet
                                     (registered CSV full-joined with API lookup;
                                      party resolved, committee_code key unified)
 
-[03_link_donors.R]                fuzzy donor deduplication — NOT YET BUILT
-                                  will use reclin2 + norm_* columns from contributions.parquet
-                                  → processed/donor_crosswalk.parquet
+[03_link_donors.R]                fuzzy donor deduplication — BUILT BUT NOT WORKING
+                                  stringdist + igraph connected components
+                                  (not reclin2, as originally planned)
+                                  → processed/donor_crosswalk.parquet  ← never produced
 ```
+
+`03_link_donors.R` exists but does not run to completion, and `donor_crosswalk.parquet` has never been produced. **Nothing downstream depends on it** — `04_build_database.R` contains no reference to a crosswalk or `canonical_key`, so the donor views use exact-match `donor_key` only. Refreshing data does not require fixing it.
 
 #### Federal data (FEC)
 
@@ -261,7 +298,43 @@ Campaign finance uses **Parquet + DuckDB** rather than `.rds` because of data vo
 - `committee_code` — recipient committee (joins to `committees.parquet`)
 - `donor_key` — pipe-delimited string (`IND|LAST|FIRST|CITY|STATE` or `ORG|NAME|CITY|STATE` or `CMT|code`); stable exact-match donor ID; fuzzy step 03 will collapse near-duplicates
 - `donor_type` — `"individual"`, `"organization"`, or `"committee"`
+- `donor_attribution` — `"itemized"` / `"unitemized"` / `"unidentified"`; see below
 - `norm_*` columns — uppercase stripped fields for fuzzy matching input
+
+#### Donor attribution (added 2026-07-25)
+
+Not every contribution row describes a gift from an identifiable donor. IECDB files two kinds of report-level bookkeeping as ordinary transaction rows:
+
+| `donor_attribution` | What it is | Rows | Amount |
+|---|---|---|---|
+| `itemized` | a real named donor | 3,154,190 | $939.2M |
+| `unitemized` | lump sum for everyone below the itemization threshold, filed under a placeholder name | 14,875 | $26.5M |
+| `unidentified` | filed with no donor name, organization, or committee at all (`donor_type == "unknown"`) | 31,722 | $13.5M |
+
+Both non-itemized kinds are **real money** and stay in committee totals. Neither is a donor, so both are excluded from donor-facing views. Without this, a largest-donors ranking puts `Unitemized Unitemized` and `(Unknown)` in the top five.
+
+`classify_donor_attribution()` in `utils.R` matches `UNITEMIZED_TOKENS` as a **substring** (not a word boundary) against `norm_org` / `norm_first` / `norm_last`. The normalizers delete punctuation without inserting a space, so `Cash-Unitemized` collapses to `CASHUNITEMIZED` with no boundary to anchor to. Only add tokens with the same confidence that they can't appear inside a real name.
+
+#### Summary rows — known, scoped, deliberately deferred (2026-07-25)
+
+Legacy **summary rows** are *not* flagged and still rank as donors: `Contributions Total` is the #3 largest "donor" at $25.4M, `Total Summary` the #8 at $6.3M.
+
+**What they are:** rows with no contributor at all, where a line label off a filed disclosure report landed in the contributor name field. The raw record is unmistakable — `organization_nm = "Contributions Total"` (or `first_nm = "total"`, `last_nm = "Summary"`), with `N/A` or `00000` in address/city/zip, no check number, and no contributing committee.
+
+**Scope:**
+
+| | |
+|---|---|
+| Transactions | 5,807 (**0.18%** of all rows) |
+| Committees | 743 — of which **650 clear $10k** and 268 are still active in 2024+ |
+| Dollars | $49.2M (**5.0%** of all money) |
+| Era | 2003–2012; only 2 transactions after 2012 |
+
+Three distinct labels (`Contributions Total`, `Inkind Contributions Total`, `Total Summary`) plus ~22 spelling variants (`Total_a`, `Total, Contributions`, `Total Schedule A`). `Total Summary` runs to 2018; the other two stop in 2012 and 2007.
+
+**Why it needs eyes, not a regex.** Two reasons. First, matching on a leading "Total" catches **real businesses** — `Total Maintenance Inc`, `Total Tax Service`, `Total Detailing` are genuine Iowa donors. "Unitemized" is a term of art that never appears in a real name; "Total" is an ordinary word. Second, the rows can't be uniformly deleted or kept: across affected committee-years, 603 have a summary row and *no* itemized detail (the summary is the only surviving record), 465 have a larger summary, and 429 have larger itemized. Period-by-period testing on Iowans for Nussle was inconsistent — May 2006 matches the itemized total almost exactly ($1,181,239 vs $1,195,094) while October 2006 is off by 2× ($1,441,757 vs $2,962,921).
+
+**When it stops being ignorable:** the first mass render of committee pages. It is not only a leaderboard problem — on an affected committee's own page the bookkeeping row ranks as its top donor (Iowans for Nussle shows `Contributions Total` at $6.0M above its real top donor at $1.4M). Harmless while nothing is published; visible on 650 pages the moment they are. The label list is short and finite, so an afternoon of manual classification would settle it permanently.
 
 **committees.parquet** primary key: `committee_code` (unified from both sources)
 
@@ -281,14 +354,16 @@ Pre-aggregated views cover all Quarto template queries — no full-table scans a
 
 **State (Iowa IECDB) — always present:**
 
-| View | Grain |
-|---|---|
-| `committee_summary` | 1 row / committee |
-| `committee_donor` | 1 row / committee × donor |
-| `committee_year` | 1 row / committee × year × donor_type |
-| `donor_summary` | 1 row / donor_key |
-| `donor_committee` | 1 row / donor × committee |
-| `donor_year` | 1 row / donor × year × party |
+Views marked **itemized-only** filter to `donor_attribution = 'itemized'`. Money totals (`total_raised`, `total`) in the committee-level views stay inclusive of all rows; only donor identity is filtered. `n_unique_donors` counts itemized keys only, in both `committee_summary` and `committee_year`.
+
+| View | Grain | Scope |
+|---|---|---|
+| `committee_summary` | 1 row / committee | all rows (totals); itemized-only donor count |
+| `committee_donor` | 1 row / committee × donor | **itemized-only** |
+| `committee_year` | 1 row / committee × year × donor_type | all rows (totals); itemized-only donor count |
+| `donor_summary` | 1 row / donor_key | **itemized-only** |
+| `donor_committee` | 1 row / donor × committee | **itemized-only** |
+| `donor_year` | 1 row / donor × year × party | **itemized-only** |
 
 **Federal (FEC) — present only if `fec_*.parquet` files exist:**
 
@@ -303,11 +378,20 @@ Pre-aggregated views cover all Quarto template queries — no full-table scans a
 
 ### Quarto Templates
 
-`site/campaign_finance/templates/recipient_template.qmd` — parameter: `committee_code`; static R/gt output
+All four templates query the DuckDB database via `duckdb` + `dbplyr` (this wiring is **done** — earlier notes describing them as reading source CSVs are stale).
+
+`site/campaign_finance/templates/recipient_template.qmd` — parameter: `committee_code`; static R/gt output. Coerces the parameter with `as.character()` before querying, so numeric-looking codes passed via `-P` don't trigger the INT32 cast failure described above.
 `site/campaign_finance/templates/donor_template.qmd` — parameter: `donor_key`; static R/gt output
+`site/campaign_finance/templates/fec_recipient_template.qmd` — parameter: `CMTE_ID`; static R/gt output over the FEC views; adds Employers & Occupations tabs (FEC-only fields)
 `site/campaign_finance/templates/recipient_template_ojs.qmd` — experimental OJS version of the recipient template with reactive year-range filtering (see notes below and `notes/2026-05-09_campaign-finance-templates-ojs.md`)
 
-> **TODO:** `R/campaign_finance/render.R` (manifest-based incremental rendering, same pattern as legislature) still needs to be built.
+Verified rendering against the 202607 data: `recipient_template` (committee 5185, Rob Sand for Iowa) and `donor_template` (default donor key) both render clean, with page figures matching `committee_summary` exactly.
+
+> **Known issue:** `fec_recipient_template.qmd` defaults to `CMTE_ID: "C00401224"`, commented as "Chuck Grassley for Senate" — that ID is actually **ActBlue**, which has zero rows in the Iowa-filtered FEC dataset, so the checked-in render is entirely empty-state. The template has never been exercised against a committee that has data. Use `C00546788` (Joni for Iowa) or `C00708164` (Theresa Greenfield) instead.
+
+> **dbplyr is pinned to 2.5.0.** dbplyr 2.6.0 requires `dplyr::filter_out()` (dplyr ≥ 1.2.0) while the project pins dplyr 1.1.4; the mismatch made every campaign finance template fail at `library(dbplyr)`. Downgrading dbplyr was chosen over upgrading dplyr because the legislature pipeline (which runs daily in CI) depends on dplyr and does not use dbplyr at all.
+
+> **TODO:** `R/campaign_finance/render.R` (manifest-based incremental rendering, same pattern as legislature) still needs to be built. Nothing under `site/campaign_finance/` is published — there is no `index.qmd`, no `docs/campaign_finance/` output, and the navbar entry in `_quarto.yml` is still commented out. The only rendered artifacts are one-off HTML files sitting next to the templates.
 
 ### Template layout pattern (as of 2026-05-09)
 
@@ -496,3 +580,17 @@ These are all deferred — recorded here so we don't lose context.
 - Archive deprecated code in an `archive/` subdirectory rather than deleting it
 - Environment variables for API keys (e.g., `LEGISCAN_API_KEY`); never hardcode credentials
 - R code should have a strong preference for using functions from the tidyverse, but use the base R pipe, `|>`
+
+## Design Context
+
+Captured by `/impeccable init` (2026-07-11). Full strategic doc: [`PRODUCT.md`](PRODUCT.md). The Impeccable design skill (and any design work) reads PRODUCT.md first.
+
+- **Register:** `product` (a data tool — design serves the data, not marketing). **Platform:** `web` (Quarto static site).
+- **Audience:** broad Iowa public, no single primary persona; mostly non-experts, low-commitment visits.
+- **Positioning:** public Iowa political data made genuinely accessible — and showing how bills, votes, legislators, and money connect (accessibility + relationships, the umbrella project's two pillars).
+- **Personality:** neutral, authoritative, trustworthy; restraint signals impartiality.
+- **Anti-references:** partisan/campaign styling · generic SaaS/AI-slop dashboards · dated `.gov` drab · overwhelming data dumps.
+- **Accessibility:** target WCAG 2.1 AA (R-generated tables/charts/maps are the likely weak spots).
+- **Design principles:** (1) neutrality is a design constraint; (2) legible to the newcomer; (3) connections over collections; (4) trust through restraint; (5) hierarchy over volume.
+- **DESIGN.md not yet written** — the `custom.scss` visual system (Public Sans / Source Serif 4, `#f7f6f3`, `.ia-*` components) is not locked in; author/generate DESIGN.md once a visual direction is settled.
+- **Critique state:** scored snapshots + trends live in `.impeccable/critique/` (home 32/40, legislation 32, legislators 34 as of 2026-07-15; re-run `/impeccable critique <page>` after changes). Open design items: `notes/2026-07-15_design-backlog.md`.

@@ -15,7 +15,7 @@ $headings-font-weight: 700;
 $ink:        #23211d;
 $ink-soft:   #55524a;
 $muted:      #6d6a62;
-$faint:      #8a877e;
+$faint:      #706c63; // lightest gray passing WCAG AA: 5.23:1 on white, 4.84:1 on $bg (was #8a877e, 3.3–3.6:1)
 $bg:         #f7f6f3;
 $card-bg:    #ffffff;
 $border:     #e4e2da;
@@ -100,9 +100,11 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
   border-radius: 10px;
   padding: 1.1rem 1.25rem;
 }
+// Sentence case: the uppercase-tracked treatment is reserved for the
+// hero .ia-eyebrow — one kicker as voice, not a label grammar
 .ia-stat-label {
-  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
-  text-transform: uppercase; color: $faint; margin-bottom: 0.4rem;
+  font-size: 0.8rem; font-weight: 600;
+  color: $faint; margin-bottom: 0.4rem;
 }
 .ia-stat-value {
   font-family: $headings-font-family;
@@ -231,7 +233,7 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 // ------------------------------------------------------------
 .ia-hero-row {
   display: flex; align-items: flex-end; justify-content: space-between;
-  gap: 1.5rem; margin-bottom: 1.75rem;
+  gap: 1.5rem; margin-bottom: 1.75rem; flex-wrap: wrap;
 }
 .ia-hero-row h1 { margin: 0 0 0.5rem; }
 .ia-eyebrow {
@@ -284,8 +286,8 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 .ia-tally { text-align: center; flex: 1; }
 .ia-tally-num { font-family: $headings-font-family; font-weight: 700; font-size: 1.35rem; }
 .ia-tally-label {
-  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em;
-  color: $faint; text-transform: uppercase; margin-top: 2px;
+  font-size: 0.76rem; font-weight: 500;
+  color: $faint; margin-top: 2px;
 }
 
 .ia-sources { font-size: 0.78rem; color: $faint; margin-top: 1.25rem; }
@@ -293,8 +295,8 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 
 // Chamber party-split bars (legislators overview header)
 .ia-split-label {
-  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em;
-  color: $faint; text-transform: uppercase; margin-bottom: 6px;
+  font-size: 0.76rem; font-weight: 600;
+  color: $faint; margin-bottom: 6px;
 }
 .ia-split-track {
   display: flex; height: 14px; width: 180px;
@@ -305,9 +307,57 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 // "FORMER" chip on the legislator table (replaced mid-session)
 .ia-chip-former {
   display: inline-block; margin-left: 6px; vertical-align: middle;
-  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.04em;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em;
   padding: 2px 7px; border-radius: 99px;
-  background: $neutral-bg; color: $faint;
+  background: $neutral-bg; color: $ink-soft; // 6.65:1 on $neutral-bg (was $faint, 4.46:1)
+}
+
+// ------------------------------------------------------------
+// Mobile breakpoints (a11y fix: fixed grids clipped content ≤600px)
+// ------------------------------------------------------------
+@media (max-width: 600px) {
+  // Recent activity: restack the fixed 4-col row (84px 1fr auto 104px
+  // pushed the date off-screen at 375px)
+  .ia-recent-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "bill  date"
+      "title title"
+      "pill  pill";
+    row-gap: 0.35rem; column-gap: 0.75rem;
+  }
+  .ia-recent-row > :nth-child(1) { grid-area: bill; }
+  .ia-recent-row > :nth-child(2) { grid-area: title; }
+  .ia-recent-row > :nth-child(3) { grid-area: pill; justify-self: start; }
+  .ia-recent-row > :nth-child(4) { grid-area: date; }
+
+  // Browse cards: one per row instead of two 154px squeezes
+  .ia-browse-grid { grid-template-columns: 1fr; }
+
+  // Bar lists: full-width label above the bar instead of a 170px column
+  .ia-bar-row { grid-template-columns: 1fr 60px; row-gap: 0.2rem; }
+  .ia-bar-label { grid-column: 1 / -1; text-align: left; }
+
+  // Progress stepper: vertical stack (fixed 108px nodes clipped off-screen)
+  .ia-stepper { flex-direction: column; }
+  .ia-step { flex-direction: column; flex: 0 0 auto; }
+  .ia-step-node {
+    flex-direction: row; align-items: center;
+    width: auto; gap: 0.6rem;
+  }
+  .ia-step-label { margin-top: 0; text-align: left; }
+  .ia-step-date { margin-top: 0; margin-left: auto; }
+  .ia-step-line {
+    flex: 0 0 auto; width: 3px; height: 18px; min-width: 0;
+    margin: 3px 0 3px 12.5px; // centers on the 28px dot
+  }
+}
+
+// Quarto fenced-div grids: .g-col-N spans N columns at every width by
+// default; collapse side-by-side cards to full width on phones
+// (covers g-col-5/6/7 etc. — legislation index uses 5/7)
+@media (max-width: 767px) {
+  .grid [class*="g-col-"] { grid-column: span 12; }
 }
 
 // ------------------------------------------------------------

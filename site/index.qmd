@@ -89,8 +89,11 @@ div(class = "ia-hero-row",
     h1("Tracking the 91st General Assembly"),
     p(class = "ia-lead",
       "Bill information, legislator profiles, voting records, and lobbyist ",
-      "declarations — aggregated from LegiScan and the official Iowa ",
-      "Legislature site.")
+      "declarations — aggregated from ",
+      a(href = "https://legiscan.com/IA", "LegiScan"),
+      " and the official ",
+      a(href = "https://www.legis.iowa.gov/", "Iowa Legislature"),
+      " site.")
   ),
   div(class = "ia-updated", paste("Last updated", str_squish(format(Sys.Date(), "%B %e, %Y"))))
 )
@@ -120,7 +123,7 @@ ui_stat_grid(
 Where bills stand
 :::
 ::: {.ia-card-sub}
-Current status of all `r format(n_bills, big.mark = ",")` bills and resolutions
+Each of the `r format(n_bills, big.mark = ",")` bills and resolutions counted once, at the furthest stage it has reached
 :::
 
 ```{r}
@@ -134,7 +137,7 @@ if (!is.null(stage_counts)) {
 ```
 
 ::: {.ia-footnote}
-Green marks bills signed into law. Counts reflect each bill's furthest individual progress.
+Green marks bills signed into law.
 :::
 :::
 ::::
@@ -185,8 +188,9 @@ bind_rows(house_parl, senate_parl) |>
 
 ```{r}
 tally <- function(r, d) {
+  # R/D letters so party isn't conveyed by color alone (WCAG 1.4.1)
   HTML(sprintf(
-    '<span class="ia-tally-num"><span style="color:#A8433A">%d</span> <span style="color:#b5b2a8">–</span> <span style="color:#3F5B93">%d</span></span>',
+    '<span class="ia-tally-num"><span style="color:#A8433A"><span style="font-size:0.7em">R</span> %d</span> <span style="color:#b5b2a8">–</span> <span style="color:#3F5B93">%d <span style="font-size:0.7em">D</span></span></span>',
     r, d))
 }
 div(style = "display:flex; margin-top:0.4rem",

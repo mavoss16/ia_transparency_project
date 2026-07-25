@@ -180,8 +180,11 @@ ui_share_bar <- function(segments, colors) {
     div(style = sprintf("width:%.1f%%; background:%s", 100 * segments[[nm]] / total, colors[[nm]]))
   })
   legend <- lapply(names(segments), function(nm) {
-    span(style = paste0("color:", colors[[nm]]),
-         sprintf("\u25cf %d %s", segments[[nm]], nm))
+    # swatch dot carries the color; label text stays ink for contrast
+    span(
+      span(style = paste0("color:", colors[[nm]]), "\u25cf"),
+      sprintf(" %d %s", segments[[nm]], nm)
+    )
   })
   tagList(
     div(class = "ia-share-bar", segs),

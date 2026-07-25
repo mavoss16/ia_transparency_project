@@ -3,6 +3,11 @@
 # Reads raw Iowa IECDB source CSVs, cleans and normalizes fields, and writes
 # Parquet files for downstream use in 04_build_database.R.
 #
+# Source files are read from the newest export directory under
+# data/campaign_finance/source/IECDB/ (one YYYYMM directory per download).
+# Column names and date formats differ between export vintages; utils.R maps
+# both onto the canonical names the DuckDB views and templates expect.
+#
 # Depends on: 01_build_committee_lookup.R should be run first so that
 #   committee_lookup.rds is available for party enrichment in step 04.
 #   This script does NOT require it — it only cleans the raw source files.
@@ -27,24 +32,35 @@ source(here("R/campaign_finance/utils.R"))
 # ── Contributions ─────────────────────────────────────────────────────────────
 
 message("Reading contributions CSV...")
+contribution_files <- find_source_files("contributions_received")
+message(sprintf("  %d file(s):\n%s",
+                length(contribution_files),
+                paste0("    ", basename(contribution_files), collapse = "\n")))
+
 raw_contributions <- vroom(
-  find_source_file("Contributions_Received"),
+  contribution_files,
   col_types      = cols(.default = col_character()),
   na             = c("", "NA", "N/A"),
   show_col_types = FALSE
 ) |>
-  clean_names()
+  clean_names() |>
+  rename_if_present(IECDB_CONTRIBUTION_COLS)
 
 message(sprintf("  %s rows read.", scales::comma(nrow(raw_contributions))))
 message("Cleaning contributions...")
 
 contributions <- raw_contributions |>
   mutate(
-    contribution_id = row_number(),
-
     # --- Parse typed fields ---
-    date                = mdy(date),
-    contribution_amount = parse_number(contribution_amount),
+    date                = parse_iecdb_date(date),
+    contribution_amount = parse_number(contribution_amount)
+  ) |>
+  # The 202607 export carries a handful of truncated/blank records at the head
+  # of part 1 (oldest data). Rows with no date, committee, or amount carry no
+  # information at all — drop them rather than let them become "unknown" donors.
+  filter(!(is.na(date) & is.na(committee_code) & is.na(contribution_amount))) |>
+  mutate(
+    contribution_id     = row_number(),
     year                = year(date),
     zip_code            = normalize_zip(zip_code),
 
@@ -62,6 +78,11 @@ contributions <- raw_contributions |>
     norm_org   = normalize_org_name(contributing_organization),
     norm_city  = normalize_city(city),
     norm_state = normalize_state(state),
+
+    # --- Is this row an actual donor, or report-level bookkeeping? ---
+    donor_attribution = classify_donor_attribution(
+      donor_type, norm_org, norm_first, norm_last
+    ),
 
     # --- Display-ready fields (title case) ---
     clean_first = str_to_title(str_squish(replace_na(first_name, ""))),
@@ -96,16 +117,33 @@ message(sprintf(
   )
 ))
 
+message(sprintf(
+  "  Donor attribution (non-itemized rows stay in committee totals but are\n  excluded from donor views by 04_build_database.R):\n%s",
+  paste(
+    capture.output(print(
+      contributions |>
+        count(donor_attribution) |>
+        left_join(
+          summarize(group_by(contributions, donor_attribution),
+                    amount = sum(contribution_amount, na.rm = TRUE)),
+          by = "donor_attribution"
+        )
+    )),
+    collapse = "\n"
+  )
+))
+
 # ── Expenditures ──────────────────────────────────────────────────────────────
 
 message("Reading expenditures CSV...")
 raw_expenditures <- vroom(
-  find_source_file("Expenditures"),
+  find_source_files("expenditures"),
   col_types      = cols(.default = col_character()),
   na             = c("", "NA", "N/A"),
   show_col_types = FALSE
 ) |>
-  clean_names()
+  clean_names() |>
+  rename_if_present(IECDB_EXPENDITURE_COLS)
 
 message(sprintf("  %s rows read.", scales::comma(nrow(raw_expenditures))))
 message("Cleaning expenditures...")
@@ -113,7 +151,7 @@ message("Cleaning expenditures...")
 expenditures <- raw_expenditures |>
   mutate(
     expenditure_id     = row_number(),
-    date               = mdy(date),
+    date               = parse_iecdb_date(date),
     expenditure_amount = parse_number(expenditure_amount),
     year               = year(date),
     zip                = normalize_zip(zip),
@@ -147,26 +185,17 @@ expenditures <- raw_expenditures |>
 # --- Registered CSV ---
 message("Reading registered committees CSV...")
 reg_committees <- vroom(
-  find_source_file("Registered_Political"),
+  find_source_file("registered_political"),
   col_types      = cols(.default = col_character()),
   # "NA" appears literally in some fields (e.g. county) — treat as missing
   na             = c("", "NA", "N/A", "#N/A"),
   show_col_types = FALSE
 ) |>
   clean_names() |>
-  rename(committee_code = committee_number) |>
+  rename_if_present(IECDB_REGISTERED_COLS) |>
   mutate(
     election_year = suppressWarnings(as.integer(election_year)),
-    # Source format: "2022 Nov 08 12:00:00 AM" — extract date portion first
-    election_date = as.Date(
-      suppressWarnings(
-        parse_date_time(
-          str_extract(election_date, "^\\S+\\s+\\S+\\s+\\d+"),
-          orders = "Ybd",
-          quiet  = TRUE
-        )
-      )
-    ),
+    election_date = parse_iecdb_election_date(election_date),
     # Normalize party labels to match API lookup vocabulary
     party = case_when(
       str_to_upper(party) %in% c("REPUBLICAN", "REP", "R")           ~ "Republican",

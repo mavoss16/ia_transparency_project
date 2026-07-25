@@ -5,19 +5,115 @@
 
 library(stringr)
 library(dplyr)
+library(lubridate)
 
 # ── Source-file discovery ─────────────────────────────────────────────────────
 
-# Selects the most recently modified file under data/campaign_finance/source/
-# matching `pattern`. Re-downloading a fresh IECDB export requires no code changes.
-find_source_file <- function(pattern) {
-  files <- list.files(
-    here("data/campaign_finance/source"),
-    pattern    = pattern,
-    full.names = TRUE
-  )
-  if (length(files) == 0) stop("No source file matching: ", pattern)
-  files[which.max(file.mtime(files))]
+# IECDB exports are stored one directory per download, named YYYYMM:
+#   data/campaign_finance/source/IECDB/202607/
+# The newest export is used by default; pass `export_dir` to pin an older one.
+iecdb_root <- function() here("data/campaign_finance/source/IECDB")
+
+latest_iecdb_export <- function() {
+  dirs <- list.dirs(iecdb_root(), recursive = FALSE, full.names = TRUE)
+  dirs <- dirs[str_detect(basename(dirs), "^\\d{6}$")]
+  if (length(dirs) == 0)
+    stop("No IECDB export directories (YYYYMM) found under ", iecdb_root())
+  dirs[which.max(basename(dirs))]
+}
+
+# All files in an export matching `pattern`, sorted by name. One logical table
+# may arrive split across numbered part files (the 202607 contributions export
+# came in four); sorting by name keeps them in order so they stack correctly.
+find_source_files <- function(pattern, export_dir = latest_iecdb_export()) {
+  files <- list.files(export_dir, pattern = pattern, ignore.case = TRUE,
+                      full.names = TRUE)
+  if (length(files) == 0)
+    stop("No source file matching '", pattern, "' in ", export_dir)
+  sort(files)
+}
+
+find_source_file <- function(pattern, export_dir = latest_iecdb_export()) {
+  files <- find_source_files(pattern, export_dir)
+  if (length(files) > 1)
+    stop("Expected one file matching '", pattern, "' in ", export_dir,
+         " but found ", length(files), " — use find_source_files().")
+  files
+}
+
+# ── Column harmonization ──────────────────────────────────────────────────────
+
+# The 202607 export renamed every column (human-readable "Contribution Amount"
+# → machine "amount"). Downstream code and the DuckDB views are written against
+# the older names, so incoming files are mapped back onto them. Mappings whose
+# source column is absent are skipped, so either export vintage reads cleanly.
+# Applied after janitor::clean_names().
+IECDB_CONTRIBUTION_COLS <- c(
+  date                        = "contribution_received_date",
+  committee_code              = "committee_cd",
+  committee_name              = "committee_nm",
+  contributing_committee_code = "contr_committee_cd",
+  contributing_organization   = "organization_nm",
+  first_name                  = "first_nm",
+  last_name                   = "last_nm",
+  contribution_amount         = "amount"
+)
+
+IECDB_EXPENDITURE_COLS <- c(
+  date                        = "calendar_date",
+  committee_code              = "committee_cd",
+  committee_name              = "committee_nm",
+  receiving_committee_code    = "rec_committee_cd",
+  receiving_organization_name = "organization_nm",
+  first_name                  = "first_nm",
+  last_name                   = "last_nm",
+  expenditure_amount          = "amount",
+  state                       = "state_cd",
+  zip                         = "zip_code"
+)
+
+IECDB_REGISTERED_COLS <- c(committee_code = "committee_number")
+
+rename_if_present <- function(df, mapping) {
+  present <- mapping[mapping %in% names(df)]
+  if (length(present) > 0) df <- rename(df, all_of(present))
+  df
+}
+
+# ── Date parsing ──────────────────────────────────────────────────────────────
+
+# IECDB has shipped two date formats: "MM/DD/YYYY" in exports through 202603,
+# and ISO "YYYY-MM-DD[ HH:MM:SS]" from 202607 on. Accept either, per element.
+parse_iecdb_date <- function(x) {
+  x   <- str_trim(as.character(x))
+  out <- as.Date(NA_character_)[rep(1L, length(x))]
+
+  iso      <- !is.na(x) & str_detect(x, "^\\d{4}-\\d{2}-\\d{2}")
+  out[iso] <- as.Date(str_sub(x[iso], 1L, 10L))
+
+  legacy <- !is.na(x) & !iso
+  if (any(legacy)) out[legacy] <- suppressWarnings(mdy(x[legacy]))
+  out
+}
+
+# Election dates in the registered-committees export use their own two formats:
+# "2022 Nov 08 12:00:00 AM" through 202603, ISO from 202607 on.
+parse_iecdb_election_date <- function(x) {
+  x   <- str_trim(as.character(x))
+  out <- as.Date(NA_character_)[rep(1L, length(x))]
+
+  iso      <- !is.na(x) & str_detect(x, "^\\d{4}-\\d{2}-\\d{2}")
+  out[iso] <- as.Date(str_sub(x[iso], 1L, 10L))
+
+  legacy <- !is.na(x) & !iso
+  if (any(legacy)) {
+    out[legacy] <- as.Date(suppressWarnings(parse_date_time(
+      str_extract(x[legacy], "^\\S+\\s+\\S+\\s+\\d+"),
+      orders = "Ybd",
+      quiet  = TRUE
+    )))
+  }
+  out
 }
 
 # ── Normalization helpers ─────────────────────────────────────────────────────
@@ -71,6 +167,42 @@ normalize_state <- function(x) {
 
 normalize_zip <- function(x) {
   str_extract(x, "^\\d{5}")
+}
+
+# ── Donor attribution ─────────────────────────────────────────────────────────
+
+# Not every contribution row describes a gift from an identifiable donor. Two
+# kinds of report-level bookkeeping are filed as ordinary rows:
+#
+#   unitemized   — a lump sum covering everyone who gave below the itemization
+#                  threshold, filed under a placeholder name ("Unitemized",
+#                  "Unitemized Contributions", "Contributions Unitemized", …)
+#   unidentified — filed with no donor name, organization, or committee at all
+#
+# Both are real money and belong in committee totals. Neither is a donor, so
+# both must be kept out of donor rankings, donor pages, and unique-donor counts.
+#
+# Matching runs against the norm_* fields, which are already uppercased and
+# stripped of punctuation, so one token catches the many spelling and comma
+# variants without a per-variant list.
+#
+# The match is deliberately a substring, not a word boundary: normalization
+# deletes punctuation without inserting a space, so "Cash-Unitemized" and
+# "Unitemized,Unitemized" collapse to CASHUNITEMIZED / UNITEMIZEDUNITEMIZED
+# with no boundary to anchor to. "UNITEMIZED" is not a fragment of any real
+# name, so a substring match is safe — add tokens here only with the same
+# confidence, since a common substring would silently hide real donors.
+UNITEMIZED_TOKENS <- c("UNITEMIZED")
+
+classify_donor_attribution <- function(donor_type, norm_org, norm_first, norm_last) {
+  pattern   <- paste(UNITEMIZED_TOKENS, collapse = "|")
+  has_token <- function(x) str_detect(coalesce(x, ""), pattern)
+
+  case_when(
+    donor_type == "unknown" ~ "unidentified",
+    has_token(norm_org) | has_token(norm_first) | has_token(norm_last) ~ "unitemized",
+    TRUE ~ "itemized"
+  )
 }
 
 # Build a pipe-delimited string key that uniquely identifies a donor for exact

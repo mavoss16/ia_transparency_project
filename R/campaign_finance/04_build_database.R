@@ -112,7 +112,10 @@ dbExecute(con, "
     m.election_year,
     m.candidate_name,
     COUNT(*)                    AS n_transactions,
-    COUNT(DISTINCT c.donor_key) AS n_unique_donors,
+    -- Unitemized/unidentified rows are real money (so they stay in
+    -- total_raised) but they are not donors, so they are not counted here.
+    COUNT(DISTINCT CASE WHEN c.donor_attribution = 'itemized'
+                        THEN c.donor_key END) AS n_unique_donors,
     SUM(c.contribution_amount)  AS total_raised,
     AVG(c.contribution_amount)  AS avg_contribution,
     MIN(c.date)                 AS first_contribution,
@@ -124,6 +127,8 @@ dbExecute(con, "
 
 # 2. committee_donor ───────────────────────────────────────────────────────────
 # One row per committee × donor. Used for the top-donors tables on recipient pages.
+# Restricted to itemized rows so unitemized lump sums and unidentified filings
+# don't rank alongside real donors.
 dbExecute(con, "
   CREATE VIEW committee_donor AS
   SELECT
@@ -139,6 +144,7 @@ dbExecute(con, "
     MIN(date)                    AS first_date,
     MAX(date)                    AS last_date
   FROM contributions
+  WHERE donor_attribution = 'itemized'
   GROUP BY ALL
 ")
 
@@ -152,7 +158,8 @@ dbExecute(con, "
     year,
     donor_type,
     COUNT(*)                      AS n_transactions,
-    COUNT(DISTINCT donor_key)     AS n_unique_donors,
+    COUNT(DISTINCT CASE WHEN donor_attribution = 'itemized'
+                        THEN donor_key END) AS n_unique_donors,
     SUM(contribution_amount)      AS total
   FROM contributions
   GROUP BY ALL
@@ -161,6 +168,8 @@ dbExecute(con, "
 # 4. donor_summary ────────────────────────────────────────────────────────────
 # One row per donor_key. Used for the donor page header stats block.
 # MAX() on text fields surfaces the most-common variant (good enough pre-step-03).
+# Views 4-6 are donor-facing and therefore itemized-only: a donor page or a
+# largest-donors ranking must never present a bookkeeping row as a person.
 dbExecute(con, "
   CREATE VIEW donor_summary AS
   SELECT
@@ -179,6 +188,7 @@ dbExecute(con, "
     MIN(date)                     AS first_contribution,
     MAX(date)                     AS last_contribution
   FROM contributions
+  WHERE donor_attribution = 'itemized'
   GROUP BY donor_key, donor_type
 ")
 
@@ -204,6 +214,7 @@ dbExecute(con, "
     MAX(c.date)                AS last_date
   FROM contributions c
   LEFT JOIN committees m ON c.committee_code = m.committee_code
+  WHERE c.donor_attribution = 'itemized'
   GROUP BY ALL
 ")
 
@@ -220,6 +231,7 @@ dbExecute(con, "
     SUM(c.contribution_amount)      AS total
   FROM contributions c
   LEFT JOIN committees m ON c.committee_code = m.committee_code
+  WHERE c.donor_attribution = 'itemized'
   GROUP BY ALL
 ")
 

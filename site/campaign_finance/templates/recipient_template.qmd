@@ -31,32 +31,38 @@ library(tigris)
 ```{r}
 con <- dbConnect(duckdb(), here("data/campaign_finance/campaign_finance.duckdb"), read_only = TRUE)
 
+# Committee codes are a mix of numeric ("5185") and alphanumeric ("CTY51589",
+# "SWGA51409") strings. A numeric-looking code passed via `-P` arrives as a
+# number, which makes DuckDB cast the whole varchar column to INT32 and fail on
+# the alphanumeric rows. Coerce once so the query always compares strings.
+committee_code_param <- as.character(params$committee_code)
+
 comm_meta <- tbl(con, "committees") |>
-  filter(committee_code == params$committee_code) |>
+  filter(committee_code == committee_code_param) |>
   collect()
 
 comm_stats <- tbl(con, "committee_summary") |>
-  filter(committee_code == params$committee_code) |>
+  filter(committee_code == committee_code_param) |>
   collect()
 
 by_year <- tbl(con, "committee_year") |>
-  filter(committee_code == params$committee_code) |>
+  filter(committee_code == committee_code_param) |>
   collect() |>
   mutate(donor_type = str_to_title(donor_type))
 
 by_donor <- tbl(con, "committee_donor") |>
-  filter(committee_code == params$committee_code) |>
+  filter(committee_code == committee_code_param) |>
   collect()
 
 all_contributions <- tbl(con, "contributions") |>
-  filter(committee_code == params$committee_code) |>
+  filter(committee_code == committee_code_param) |>
   select(date, donor_display, donor_type, clean_city, norm_state,
          contribution_amount, transaction_type) |>
   arrange(desc(date)) |>
   collect()
 
 all_expenditures <- tbl(con, "expenditures") |>
-  filter(committee_code == params$committee_code) |>
+  filter(committee_code == committee_code_param) |>
   select(date, year, expenditure_amount, transaction_type,
          recipient_display, city, state) |>
   collect()
