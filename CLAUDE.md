@@ -26,6 +26,7 @@ ia_transparency_project/
 │   │   ├── 03_link_donors.R              ← fuzzy donor dedup (built, NOT working; nothing depends on it)
 │   │   ├── 04_build_database.R           ← Parquet → DuckDB + summary views (state + FEC)
 │   │   └── utils.R                       ← source discovery, column/date harmonization, normalizers
+│   ├── ui_helpers.R                      ← SHARED UI components + palette (all domains)
 │   ├── elections/
 │   │   ├── download/                                    ← standalone acquisition scripts
 │   │   │   ├── shapefile_precincts.R                    ← scrape + download 2020s county shapefiles from sos.iowa.gov
@@ -198,6 +199,17 @@ source("R/render_all.R")    # top-level: render_all() spans all domains
 
 Data sourced from the Iowa Ethics and Campaign Disclosure Board (IECDB). Raw CSV exports are not committed to git (too large).
 
+> **Source under review (2026-07-25):** the current bulk CSVs come from [data.iowa.gov dataset 917](https://data.iowa.gov/catalog/dataset/917) and are **not current**. The 202607 export (pulled 2026-07-25) was missing the May 27 – July 14 reporting period for statewide committees — Sand's DR2 was filed 2026-07-20, five days before the pull, and still absent. Freshness varies by committee (306 committees *did* have July data), so the feed is eventually-consistent and must never be treated as an as-of snapshot. IECDB's own portal API returns the same transactions current through 2026-07-14, with in-kind pre-labelled via `transactionType`. Full API reconnaissance, contracts, plan, and cautions: [`notes/2026-07-25_iecdb-api-data-sources.md`](notes/2026-07-25_iecdb-api-data-sources.md). **Cash on hand exists only on the DR2 report PDFs and cannot be derived from any transaction feed.**
+>
+> Settled while investigating:
+> - **No bulk dump exists.** `/api/search/table` returns `204 No Content` without a `primaryCommitteeId`, with or without a date window — a committee filter is mandatory. Instead `POST /api/publicreports/state` is a single unfiltered call returning all 17,873 filings with `filedOn`, so it serves as a **change feed**: re-pull only committees whose latest filing moved.
+> - **GUID vs `committee_code` is a non-issue.** `/api/search/committee` returns both, and `committee_lookup.rds` already stores `committee_uuid` for 7,935 of 7,936 committees (verified against the live API). Transaction rows come back carrying `primaryCommitteeCode`, so joins use our existing key unchanged.
+> - **No terms-of-service prohibition.** IECDB's `robots.txt` is `User-agent: *` / `Disallow:` (nothing restricted) and the Iowa.gov policies page has no automated-access or rate-limit clause; this is Chapter 22 open-record data. That is permission-by-absence, not a licence — throttle, identify the client, cache.
+> - **Migration plan is Phases A–D** in the note. Phases A–C come **before** `render.R` / index / donor pages, because Phase D changes the data model those pages would be built on.
+> - **Phase A is built:** [`R/campaign_finance/iecdb_api.R`](R/campaign_finance/iecdb_api.R) — the only thing that may call the API. Throttled (1s default), retrying, request-budgeted, with per-endpoint schema contracts that **fail** on missing required fields. `iecdb_health_check()` is a 2-request canary; run it before any ingest.
+> - **Open blocker before cutover: the API does not return loans.** `transactionType = "CON"` is a category returning `CON` + `INK` rows only; no `LOANREC`. Verified across five committees of four types: **131 loan transactions, 0 returned**. The decisive test is a same-date pair — Henderson for House (2570) has both a $20 `CON` and a $180 `LOANREC` on 2026-07-06, and querying the API for that single date returns only the contribution. That rules out any date-coverage explanation. One committee (CTY51589, whose only two transactions are loans) returns empty entirely despite being findable via committee search. In-kind is also unreliable — one committee's `INK` rows came back, another's didn't. **data.iowa.gov remains the only complete source for loans**; switching without resolving this silently drops them.
+> - **`referenceDR2Id` is not period attribution** despite the name — it is the all-zeros GUID on every ordinary contribution. Period attribution must be inferred from `date` against the filing-period boundaries.
+
 **Current data currency (as of the 202607 export):** state contributions run through **2026-07-14** (3,200,787 rows), expenditures through **2026-07-16** (652,661 rows), 8,020 committees. FEC data is still from the 2026-05-10 download and has not been refreshed.
 
 ### Source Files
@@ -234,6 +246,10 @@ Committee codes are a mix of numeric (`5185`, ~5,600 codes) and alphanumeric (`C
 
 ```
 01_build_committee_lookup.R       POST requests to IECDB web API
+                                  (already an IECDB API consumer — uses
+                                   /api/publicreports/statements and
+                                   /api/search/committee; stores committee_uuid,
+                                   which is the GUID the transaction API needs)
                                   → processed/committee_lookup.rds
                                     (~7,900 committee codes, party affiliation, metadata)
 
@@ -313,7 +329,35 @@ Not every contribution row describes a gift from an identifiable donor. IECDB fi
 
 Both non-itemized kinds are **real money** and stay in committee totals. Neither is a donor, so both are excluded from donor-facing views. Without this, a largest-donors ranking puts `Unitemized Unitemized` and `(Unknown)` in the top five.
 
+Session log for this and the 202607 export migration: [`notes/2026-07-25_campaign-finance-202607-refresh.md`](notes/2026-07-25_campaign-finance-202607-refresh.md).
+
 `classify_donor_attribution()` in `utils.R` matches `UNITEMIZED_TOKENS` as a **substring** (not a word boundary) against `norm_org` / `norm_first` / `norm_last`. The normalizers delete punctuation without inserting a space, so `Cash-Unitemized` collapses to `CASHUNITEMIZED` with no boundary to anchor to. Only add tokens with the same confidence that they can't appear inside a real name.
+
+#### Transaction types — "total raised" is currently overstated (open, 2026-07-25)
+
+`transaction_type` carries three values, and **the pipeline sums all three into `total_raised`**:
+
+| Type | Meaning | Transactions | Amount | Share |
+|---|---|---|---|---|
+| `CON` | cash contribution | 3,129,935 | $819.7M | 83.7% |
+| `INK` | in-kind (goods/services, never touches cash) | 66,327 | $144.8M | 14.8% |
+| `LOANREC` | loan received (repayable, not income) | 4,525 | $14.6M | 1.5% |
+
+Neither in-kind nor a loan is a donation, so any page that says "raised" or ranks "donors" is currently wrong by up to 16%. The failure is most visible on committees financed by candidate loans: **Lahn for Governor** shows Zach Lahn as its largest donor at $2,521,569, which is actually a $2.5M repayable loan (two draws, 2025-12-31 and 2026-05-22) plus $21,569 in-kind — he has contributed **no** cash. Iowa Capital Dispatch reports these separately for exactly this reason.
+
+Fix is the same shape as `donor_attribution`: split the types in `02_clean_normalize.R` and have the donor-facing views in `04` use `CON` only, while committee totals report contributions, in-kind and loans as distinct figures. Not yet done.
+
+#### IECDB reporting periods
+
+Useful when comparing our figures to news coverage, which always quotes a single period. 2026 statewide periods, confirmed from the filings index:
+
+| Period | Notes |
+|---|---|
+| January 1 – May 14 | |
+| May 15 – Tuesday preceding the primary | = May 26 (primary June 2) |
+| Wed. preceding primary – July 14 | = May 27 – July 14 |
+
+Our figures reproduce reported ones exactly when the period is matched: Sand Jan 1 – May 14 = $9,675,454 against a reported $9.68M; Lahn May 15–26 `CON` only = $60,050 against a reported "a little over $60,000", with the $500,000 loan the article lists separately sitting in `LOANREC`. Mismatches are almost always a period or transaction-type definition difference, not a data error — check both before assuming a bug.
 
 #### Summary rows — known, scoped, deliberately deferred (2026-07-25)
 
@@ -380,6 +424,8 @@ Views marked **itemized-only** filter to `donor_attribution = 'itemized'`. Money
 
 All four templates query the DuckDB database via `duckdb` + `dbplyr` (this wiring is **done** — earlier notes describing them as reading source CSVs are stale).
 
+**Theming (fixed 2026-07-25).** These pages previously rendered with stock Bootstrap and no `custom.scss`. The cause was `- "!campaign_finance/"` in the `_quarto.yml` render list: excluding a directory makes Quarto treat those files as standalone documents rather than project members, so they never saw the site theme. The directory is now included (only the ~13 MB OJS variant stays excluded), and CF pages render into `docs/campaign_finance/templates/` carrying the same themed Bootstrap hash and `styles.css` as legislature pages. As with the legislature templates, a project-wide render emits a default-parameter copy there; real per-entity pages come from explicit `-P` renders. Session log, including the shared-component split and the recipient-page redesign: [`notes/2026-07-25_cf-redesign-phase1.md`](notes/2026-07-25_cf-redesign-phase1.md).
+
 `site/campaign_finance/templates/recipient_template.qmd` — parameter: `committee_code`; static R/gt output. Coerces the parameter with `as.character()` before querying, so numeric-looking codes passed via `-P` don't trigger the INT32 cast failure described above.
 `site/campaign_finance/templates/donor_template.qmd` — parameter: `donor_key`; static R/gt output
 `site/campaign_finance/templates/fec_recipient_template.qmd` — parameter: `CMTE_ID`; static R/gt output over the FEC views; adds Employers & Occupations tabs (FEC-only fields)
@@ -390,6 +436,8 @@ Verified rendering against the 202607 data: `recipient_template` (committee 5185
 > **Known issue:** `fec_recipient_template.qmd` defaults to `CMTE_ID: "C00401224"`, commented as "Chuck Grassley for Senate" — that ID is actually **ActBlue**, which has zero rows in the Iowa-filtered FEC dataset, so the checked-in render is entirely empty-state. The template has never been exercised against a committee that has data. Use `C00546788` (Joni for Iowa) or `C00708164` (Theresa Greenfield) instead.
 
 > **dbplyr is pinned to 2.5.0.** dbplyr 2.6.0 requires `dplyr::filter_out()` (dplyr ≥ 1.2.0) while the project pins dplyr 1.1.4; the mismatch made every campaign finance template fail at `library(dbplyr)`. Downgrading dbplyr was chosen over upgrading dplyr because the legislature pipeline (which runs daily in CI) depends on dplyr and does not use dbplyr at all.
+
+> **Rendering constraint:** each parameterized render **must** be given a distinct `output_file`. Quarto derives the figure directory from the output name, so two renders sharing a name share `<name>_files/` and silently overwrite each other's charts — producing a page whose plots belong to a different committee than its numbers. `render_bill()` already avoids this by passing `basename(output_file)` per bill; `render.R` for campaign finance must do the same. Note also that `--output` is a **no-op inside a Quarto project**, so it can't be used to separate them.
 
 > **TODO:** `R/campaign_finance/render.R` (manifest-based incremental rendering, same pattern as legislature) still needs to be built. Nothing under `site/campaign_finance/` is published — there is no `index.qmd`, no `docs/campaign_finance/` output, and the navbar entry in `_quarto.yml` is still commented out. The only rendered artifacts are one-off HTML files sitting next to the templates.
 
@@ -567,6 +615,22 @@ These are all deferred — recorded here so we don't lose context.
    - The city → county mapping can be derived from `tigris::places()` + `tigris::counties()` (already used by `02_enrich_precinct_shapefiles.R`) or hardcoded.
 
 5. **Verify Iowa City** — the file uses `DIST_NAME` and the explorer didn't sample it during inspection; confirm the values are usable precinct names before relying on it.
+
+## Shared UI Components
+
+Added 2026-07-25 when campaign finance pages were brought under the site theme.
+
+`R/ui_helpers.R` (top level, beside `R/render_all.R`) holds the **domain-neutral** pieces: `ui_pill`, `ui_stat_card`, `ui_stat_grid`, `ui_bar_list`, `ui_stepper`, `ui_share_bar`, `IA_PALETTE`, `ia_ramp()`, `theme_ia()` (ggplot), `gt_theme_ia()` (gt).
+
+`R/{domain}/ui_helpers.R` holds anything carrying domain vocabulary and **sources the shared file**, so templates only ever source their own domain's helpers and get both halves. The legislature layer keeps `clean_bill_title`, `status_pill`, `vote_pill`, `ui_paired_bars` (its legend names bills), `ui_profile_header` (hardcodes DEMOCRAT/REPUBLICAN), and `legislator_table`.
+
+**The split rule:** if a campaign finance page and a legislation page could both call it without either reading oddly, it's shared. Anything that maps domain values to styles, or hardcodes domain labels, is not.
+
+Two components take a `format_value` argument because they were originally built for counts and are now also used for money: `ui_bar_list()` and `ui_share_bar()`. Defaults preserve the original comma-grouped integer behavior, so legislature callers were unaffected.
+
+`IA_PALETTE` duplicates the color literals from the top of `site/custom.scss` — HTML components inherit those via CSS, but ggplot and leaflet can't reach SCSS variables. **If the SCSS variables change, change `IA_PALETTE` too.**
+
+Campaign finance has no domain UI layer yet; its templates source `R/ui_helpers.R` directly.
 
 ## Conventions
 

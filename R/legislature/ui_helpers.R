@@ -1,10 +1,15 @@
-# ui_helpers.R
-# HTML-emitting helpers for the redesigned site components.
-# All functions return htmltools tag objects — in a Quarto R chunk with
-# `echo: false`, just make the call the last expression and it renders.
+# R/legislature/ui_helpers.R
+# Legislature-specific UI helpers: components that carry bill / vote /
+# legislator vocabulary, or map legislature values onto shared components.
+#
+# The domain-neutral components (ui_pill, ui_stat_card, ui_stat_grid,
+# ui_bar_list, ui_stepper, ui_share_bar, gt_theme_ia) live in R/ui_helpers.R
+# and are sourced below, so templates need only source this file to get both.
 #
 # Usage: source(here::here("R/legislature/ui_helpers.R"))
-# Requires: htmltools, dplyr, stringr, scales (all already in renv)
+# Requires: htmltools, dplyr, stringr, scales, reactable (all already in renv)
+
+source(here::here("R/ui_helpers.R"))
 
 library(htmltools)
 library(stringr)
@@ -40,17 +45,12 @@ clean_bill_title <- function(title) {
   # Sentence-case the first letter
   substr(main, 1, 1) <- toupper(substr(main, 1, 1))
 
-  list(title = main, meta = paste(meta_parts, collapse = " \u00b7 "))
+  list(title = main, meta = paste(meta_parts, collapse = " · "))
 }
 
 # ------------------------------------------------------------------
-# Pills
+# Domain pills (wrap the shared ui_pill)
 # ------------------------------------------------------------------
-
-#' Generic pill. type: signed | vetoed | progress | neutral | yea | nay | absent | r | d
-ui_pill <- function(text, type = "neutral") {
-  span(class = paste0("ia-pill ia-pill-", type), text)
-}
 
 #' Map a bill status string to a pill.
 status_pill <- function(status) {
@@ -75,42 +75,10 @@ vote_pill <- function(vote) {
 }
 
 # ------------------------------------------------------------------
-# Stat cards
+# Paired bars: individual bill vs bill group
 # ------------------------------------------------------------------
 
-ui_stat_card <- function(label, value, sub = NULL) {
-  div(class = "ia-stat-card",
-    div(class = "ia-stat-label", label),
-    div(class = "ia-stat-value", value),
-    if (!is.null(sub)) div(class = "ia-stat-sub", sub)
-  )
-}
-
-#' ui_stat_grid(ui_stat_card(...), ui_stat_card(...), ...)
-ui_stat_grid <- function(...) div(class = "ia-stat-grid", ...)
-
-# ------------------------------------------------------------------
-# Bar lists
-# ------------------------------------------------------------------
-
-#' Horizontal bar list. df needs columns: label, count.
-#' highlight: optional label whose bar is drawn green (e.g. "Signed by Governor")
-ui_bar_list <- function(df, highlight = NULL) {
-  max_n <- max(df$count)
-  rows <- lapply(seq_len(nrow(df)), function(i) {
-    w <- sprintf("%.1f%%", 100 * df$count[i] / max_n)
-    fill_class <- if (!is.null(highlight) && df$label[i] == highlight)
-      "ia-bar-fill ia-bar-fill-green" else "ia-bar-fill"
-    div(class = "ia-bar-row",
-      div(class = "ia-bar-label", df$label[i]),
-      div(class = "ia-bar-track", div(class = fill_class, style = paste0("width:", w))),
-      div(class = "ia-bar-count", format(df$count[i], big.mark = ","))
-    )
-  })
-  div(class = "ia-bar-list", rows)
-}
-
-#' Paired bars: individual vs group status.
+#' Stays domain-specific: the legend labels name bills.
 #' df needs columns: label, ind, grp.
 ui_paired_bars <- function(df) {
   max_n <- max(c(df$ind, df$grp))
@@ -142,57 +110,6 @@ ui_paired_bars <- function(df) {
 }
 
 # ------------------------------------------------------------------
-# Progress stepper (bill detail pages)
-# ------------------------------------------------------------------
-
-#' stages: character vector of stage labels, in order
-#' reached: index of furthest stage reached (0 = none)
-#' dates: optional character vector, same length as stages ("" for unknown)
-ui_stepper <- function(stages, reached, dates = NULL) {
-  n <- length(stages)
-  steps <- lapply(seq_len(n), function(i) {
-    done <- i <= reached
-    node <- div(class = paste("ia-step-node"),
-      div(class = "ia-step-dot", if (done) "\u2713" else ""),
-      div(class = "ia-step-label", stages[i]),
-      if (!is.null(dates) && nzchar(dates[i])) div(class = "ia-step-date", dates[i])
-    )
-    line <- if (i < n) {
-      div(class = paste("ia-step-line",
-                        if (i < reached) "ia-step-line-done" else "ia-step-line-todo"))
-    }
-    div(class = paste("ia-step", if (done) "ia-step-done" else "ia-step-todo"), node, line)
-  })
-  div(class = "ia-stepper", steps)
-}
-
-# ------------------------------------------------------------------
-# Stacked share bar (lobbyist declarations, party splits)
-# ------------------------------------------------------------------
-
-#' segments: named numeric vector, e.g. c(For = 12, Against = 0, Undecided = 10)
-#' colors:   named character vector matching names(segments)
-ui_share_bar <- function(segments, colors) {
-  total <- sum(segments)
-  if (total == 0) return(div(class = "ia-card-sub", "No declarations filed."))
-  segs <- lapply(names(segments), function(nm) {
-    if (segments[[nm]] == 0) return(NULL)
-    div(style = sprintf("width:%.1f%%; background:%s", 100 * segments[[nm]] / total, colors[[nm]]))
-  })
-  legend <- lapply(names(segments), function(nm) {
-    # swatch dot carries the color; label text stays ink for contrast
-    span(
-      span(style = paste0("color:", colors[[nm]]), "\u25cf"),
-      sprintf(" %d %s", segments[[nm]], nm)
-    )
-  })
-  tagList(
-    div(class = "ia-share-bar", segs),
-    div(class = "ia-share-legend", legend)
-  )
-}
-
-# ------------------------------------------------------------------
 # Profile header (legislator detail pages)
 # ------------------------------------------------------------------
 
@@ -204,7 +121,7 @@ ui_profile_header <- function(name, party, role_label, district, notice = NULL, 
       h1(name),
       ui_pill(party_label, tolower(party))
     ),
-    div(class = "ia-profile-meta", paste0(role_label, " \u00b7 District ", district, " \u00b7 Iowa")),
+    div(class = "ia-profile-meta", paste0(role_label, " · District ", district, " · Iowa")),
     if (!is.null(notice)) div(class = "ia-notice", HTML(notice)),
     if (!is.null(links)) div(style = "margin-top:0.9rem", links)
   )
@@ -257,20 +174,4 @@ legislator_table <- function(df) {
     defaultPageSize = 25,
     highlight = TRUE
   )
-}
-
-# ------------------------------------------------------------------
-# gt theme (for tables staying on gt)
-# ------------------------------------------------------------------
-
-gt_theme_ia <- function(gt_tbl) {
-  gt_tbl |>
-    gt::tab_options(
-      table.font.size = gt::px(13),
-      data_row.padding = gt::px(8),
-      table.border.top.style = "hidden",
-      column_labels.border.bottom.color = "#e4e2da",
-      column_labels.font.weight = "600",
-      table_body.hlines.color = "#efeee8"
-    )
 }

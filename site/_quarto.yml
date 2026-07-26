@@ -4,10 +4,16 @@ project:
   output-dir: ../docs
   render:
     - "**/*.qmd"
-    # Campaign finance templates are parameterized and rendered explicitly
-    # (with -P params) by the future R/campaign_finance/render.R — not as
-    # part of project-wide renders.
-    - "!campaign_finance/"
+    # Campaign finance templates must stay project members so they inherit the
+    # site theme — excluding the directory made Quarto render them as
+    # standalone documents with stock Bootstrap and no custom.scss. Like the
+    # legislature templates they are parameterized, so a project-wide render
+    # emits a default-parameter copy into docs/templates/; the real per-entity
+    # pages come from explicit -P renders.
+    #
+    # The OJS variant stays excluded: it is experimental and its output is
+    # ~13 MB, which is not worth regenerating on every project render.
+    - "!campaign_finance/templates/recipient_template_ojs.qmd"
 
 website:
   title: "Iowa Transparency Project"
