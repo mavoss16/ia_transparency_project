@@ -328,10 +328,76 @@ unknown.
 Cutting over without resolving this would **silently drop loan data** — for
 Lahn that is 67% of what the current pipeline reports as "total raised".
 
-Unresolved: whether another `transactionType`, a different `transactionOption`,
-or a separate endpoint exposes loans. Must be answered in Phase C; it is exactly
-the class of gap the side-by-side reconciliation exists to catch. Until then,
-**data.iowa.gov remains the only complete source for loans.**
+### RESOLVED (same day): loans are definitively not in the public API — but the DR2 PDFs carry full loan detail
+
+The follow-up investigation exhausted the API angles:
+
+**1. The app's own enum has hidden values — none of them work.** The JS bundle
+defines six transaction types where the UI dropdown exposes two:
+
+```
+Vo.CONTRIBUTION = "CON"          Vo.LOANRECEIVED = "LOANREC"
+Vo.EXPENDITURE  = "EXP"          Vo.LOANREPAID   = "LOANREP"
+Vo.INKINDCONTRIBUTION = "INK"    Vo.VSR = "VSR"
+```
+
+Sent `LOANREC`, `LOANREP`, `VSR`, `INK` against Henderson (116 known loans):
+**0 rows each**. The server returns empty for any type outside CON/EXP.
+
+**2. All `transactionOption` values recovered and tested.** The enum runs 1–8
+(`TO_A_COMMITTEE=1` … `FROM_A_COMMITTEE_TYPE=8`). `LOANREC` × options 1–4:
+**0 rows each**. (Options do work as counterparty filters for real types —
+`CON` with `FROM_AN_INDIVIDUAL=3` returns Henderson's 276 individual rows.)
+
+**3. Schedule endpoints exist but are filer-side.** The bundle wires
+`POST /api/schF1LoansReceived/table?dr2Id=<id>` (Schedule F1 = Loans Received)
+plus siblings for every schedule. Tested against Lahn's May filing (dr2Id
+204280): **401 Unauthorized**. The `id` in the public filings index is the
+dr2Id — right key, closed door.
+
+**4. The DR2 "Summary" PDFs are actually the complete filed reports.**
+Downloaded Lahn's May 15–26 filing PDF (189 KB, 16 pages, digitally generated —
+`pdftools::pdf_text()` extracts cleanly, no OCR):
+
+- **Page 1 — Statement of Cash On Hand**: beginning balance $709,448.88,
+  Schedule A total $60,049.96, **Schedule F1 Loans Received Total $500,000.00**,
+  ending balance. (Cash on hand, previously thought to need dedicated work,
+  falls out of the same parse.)
+- **Schedule F1 detail page**: lender name/address (Lahn, Zach — PO Box 129,
+  Belle Plaine), relationship to candidate ("Self"), date incurred 5/22/2026,
+  amount $500,000 — plus running totals: unpaid from last period $2,000,000,
+  outstanding at end $2,500,000.
+- Schedule F2 (Loans Paid or Forgiven), Schedule D (debts), Schedule G
+  (consultants) are all present too.
+
+**Cross-validation**: the PDF's Schedule A total ($60,049.96) matches the
+bulk-derived May 15–26 `CON` sum ($60,050) to the cent, confirming both the
+period boundaries and the transaction feed against the filed report.
+
+### Storage decision for the PDFs (2026-07-25)
+
+Downloaded DR2 PDFs go to `data/campaign_finance/source/dr2_filings/`, which is
+**already git-ignored** (the whole of `data/campaign_finance/source/` is). No
+`.gitignore` change needed. Sizing: ~200 KB each × 17,900 filings ≈ 3–4 GB for
+a full mirror — never commit that, and never pull it either; the gap-fill only
+needs the few hundred filings newer than their committee's bulk data.
+
+Candidate pages link to the filed report via the `file_url` from the filings
+index — the state's own public blob URL, so zero hosting cost on our side.
+**Render links fresh from the latest filings pull**: amended filings get a new
+filename (the generation timestamp is embedded), so a baked-in URL can go
+stale even though old blobs appear to stay up.
+
+### Resulting source strategy for loans
+
+Exactly the hybrid proposed when this gap was found: **bulk data.iowa.gov for
+loan history** (it has `LOANREC` back to at least 2020, and its lag is small —
+Henderson's 2026-07-06 loan was already in the 202607 export) **plus DR2 PDF
+Schedule F1 parsing to close the recency gap** for committees whose bulk data
+trails their filings. The filings index supplies `filed_on` for change
+detection and the PDF URL; `iecdb_download_filing()` in the client fetches
+politely (same throttle/budget as API calls). Parsing effort also yields cash
+on hand for free, collapsing what were two separate work items into one.
 
 ### Consistency checks (the gate, not an afterthought)
 

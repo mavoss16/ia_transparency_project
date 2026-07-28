@@ -512,6 +512,47 @@ iecdb_statements <- function(page_length = 99999L) {
   )) |> list_rbind()
 }
 
+# ── Filing PDF download ───────────────────────────────────────────────────────
+
+#' Download a filed DR2 report PDF from IECDB's blob storage.
+#'
+#' Despite the "Summary" in the filenames, these are the COMPLETE filed
+#' reports: page 1 is the Statement of Cash On Hand (beginning/ending balance),
+#' and the schedules follow with row-level detail — including Schedule F1
+#' Loans Received, which is the only public source for loans the transaction
+#' API omits. The PDFs are digitally generated (not scanned); pdftools::pdf_text()
+#' extracts them cleanly.
+#'
+#' Counts against the same throttle and request budget as API calls even though
+#' blob storage is a different host — a thousand PDF fetches is still a
+#' thousand requests against state infrastructure.
+#'
+#' @param file_url `file_url` from iecdb_filings().
+#' @param dest_path where to write the PDF. Skipped if it already exists
+#'   (filenames embed a generation timestamp, so a same-named file is the
+#'   same document).
+iecdb_download_filing <- function(file_url, dest_path) {
+  stopifnot(is.character(file_url), length(file_url) == 1L,
+            startsWith(file_url, "https://iecdbblobstorage.blob.core.windows.net/"))
+  if (file.exists(dest_path)) return(invisible(dest_path))
+
+  opts <- iecdb_opts()
+  if (.iecdb$n_requests >= opts$max_requests) {
+    stop(sprintf("IECDB request budget exhausted (%d requests).", opts$max_requests),
+         call. = FALSE)
+  }
+  iecdb_throttle(opts$delay)
+  .iecdb$n_requests <- .iecdb$n_requests + 1L
+
+  dir.create(dirname(dest_path), recursive = TRUE, showWarnings = FALSE)
+  request(file_url) |>
+    req_user_agent(IECDB_USER_AGENT) |>
+    req_timeout(opts$timeout) |>
+    req_retry(max_tries = opts$max_tries, backoff = \(i) min(60, 2^i)) |>
+    req_perform(path = dest_path)
+  invisible(dest_path)
+}
+
 # ── Canary ────────────────────────────────────────────────────────────────────
 
 #' Cheap end-to-end check against known-good values. Two requests.
