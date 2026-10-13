@@ -4,16 +4,14 @@ project:
   output-dir: ../docs
   render:
     - "**/*.qmd"
-    # Campaign finance templates must stay project members so they inherit the
-    # site theme — excluding the directory made Quarto render them as
-    # standalone documents with stock Bootstrap and no custom.scss. Like the
-    # legislature templates they are parameterized, so a project-wide render
-    # emits a default-parameter copy into docs/templates/; the real per-entity
-    # pages come from explicit -P renders.
-    #
-    # The OJS variant stays excluded: it is experimental and its output is
-    # ~13 MB, which is not worth regenerating on every project render.
-    - "!campaign_finance/templates/recipient_template_ojs.qmd"
+    # Campaign finance is excluded from project renders for now (2026-10-12):
+    # its templates query campaign_finance.duckdb, which is gitignored and so
+    # absent in CI, and nothing under campaign_finance/ is published yet.
+    # NOTE: excluding the directory makes Quarto treat those files as standalone
+    # documents (stock Bootstrap, no custom.scss). To re-enable themed CF pages,
+    # drop this line — and give CI a way to build or skip the database first.
+    # The OJS variant should stay excluded either way (~13 MB output).
+    - "!campaign_finance/**"
 
 website:
   title: "Iowa Transparency Project"
