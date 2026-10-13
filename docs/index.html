@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -39,10 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-90b44afb7cabd1fdbbd09cd1331a3207.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-d824b98428226a1cffb022c2db0bb0a5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -137,7 +140,7 @@ declarations — aggregated from
  site.
 </p>
 </div>
-<div class="ia-updated">Last updated July 25, 2026</div>
+<div class="ia-updated">Last updated October 13, 2026</div>
 </div>
 </div>
 </div>
@@ -146,17 +149,17 @@ declarations — aggregated from
 <div class="ia-stat-grid">
 <div class="ia-stat-card">
 <div class="ia-stat-label">Total Bills</div>
-<div class="ia-stat-value">4,194</div>
-<div class="ia-stat-sub">1,902 House · 1,214 Senate</div>
+<div class="ia-stat-value">4,231</div>
+<div class="ia-stat-sub">1,918 House · 1,221 Senate</div>
 </div>
 <div class="ia-stat-card">
 <div class="ia-stat-label">Signed by Governor</div>
-<div class="ia-stat-value">218</div>
-<div class="ia-stat-sub">5.2% of all bills introduced</div>
+<div class="ia-stat-value">364</div>
+<div class="ia-stat-sub">8.6% of all bills introduced</div>
 </div>
 <div class="ia-stat-card">
 <div class="ia-stat-label">Awaiting Governor</div>
-<div class="ia-stat-value">113</div>
+<div class="ia-stat-value">25</div>
 <div class="ia-stat-sub">Passed both chambers</div>
 </div>
 <div class="ia-stat-card">
@@ -174,7 +177,7 @@ declarations — aggregated from
 <p>Where bills stand</p>
 </div>
 <div class="ia-card-sub">
-<p>Each of the 4,194 bills and resolutions counted once, at the furthest stage it has reached</p>
+<p>Each of the 4,231 bills and resolutions counted once, at the furthest stage it has reached</p>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -182,44 +185,44 @@ declarations — aggregated from
 <div class="ia-bar-row">
 <div class="ia-bar-label">Introduced</div>
 <div class="ia-bar-track">
-<div class="ia-bar-fill" style="width:96.6%"></div>
+<div class="ia-bar-fill" style="width:95.4%"></div>
 </div>
-<div class="ia-bar-count">1,535</div>
+<div class="ia-bar-count">1,532</div>
 </div>
 <div class="ia-bar-row">
 <div class="ia-bar-label">Passed Subcommittee</div>
 <div class="ia-bar-track">
-<div class="ia-bar-fill" style="width:27.6%"></div>
+<div class="ia-bar-fill" style="width:27.0%"></div>
 </div>
-<div class="ia-bar-count">439</div>
+<div class="ia-bar-count">434</div>
 </div>
 <div class="ia-bar-row">
 <div class="ia-bar-label">Passed Committee</div>
 <div class="ia-bar-track">
 <div class="ia-bar-fill" style="width:100.0%"></div>
 </div>
-<div class="ia-bar-count">1,589</div>
+<div class="ia-bar-count">1,606</div>
 </div>
 <div class="ia-bar-row">
 <div class="ia-bar-label">Passed One Chamber</div>
 <div class="ia-bar-track">
-<div class="ia-bar-fill" style="width:18.9%"></div>
+<div class="ia-bar-fill" style="width:16.8%"></div>
 </div>
-<div class="ia-bar-count">300</div>
+<div class="ia-bar-count">270</div>
 </div>
 <div class="ia-bar-row">
 <div class="ia-bar-label">Passed Both Chambers</div>
 <div class="ia-bar-track">
-<div class="ia-bar-fill" style="width:7.1%"></div>
+<div class="ia-bar-fill" style="width:1.6%"></div>
 </div>
-<div class="ia-bar-count">113</div>
+<div class="ia-bar-count">25</div>
 </div>
 <div class="ia-bar-row">
 <div class="ia-bar-label">Signed by Governor</div>
 <div class="ia-bar-track">
-<div class="ia-bar-fill ia-bar-fill-green" style="width:13.7%"></div>
+<div class="ia-bar-fill ia-bar-fill-green" style="width:22.7%"></div>
 </div>
-<div class="ia-bar-count">218</div>
+<div class="ia-bar-count">364</div>
 </div>
 </div>
 </div>
@@ -290,76 +293,76 @@ Democrat
 <div class="cell-output-display">
 <div class="ia-recent-list">
 <div class="ia-recent-row">
-<div class="ia-recent-bill"><a href="legislation/HF2200.html">HF 2200</a></div>
+<div class="ia-recent-bill"><a href="legislation/HCR105.html">HCR 105</a></div>
 <div>
-<div class="ia-recent-title">Prohibited activities in the administration of alcoholic beverage control by the department of revenue</div>
-<div class="ia-recent-meta">Message from House. S.J. 879.</div>
-</div>
-<span class="ia-pill ia-pill-progress">Passed Both Chambers</span>
-<div class="ia-recent-date">Apr 27, 2026</div>
-</div>
-<div class="ia-recent-row">
-<div class="ia-recent-bill"><a href="legislation/HF2780.html">HF 2780</a></div>
-<div>
-<div class="ia-recent-title">Alcoholic beverage control by providing for certificates of compliance and the issuance of class "A" wine permits to nonnative wine manufacturers, permitting cities to create social districts for the consumption of alcoholic beverages, and providing fees</div>
-<div class="ia-recent-meta">Message from House.</div>
-</div>
-<span class="ia-pill ia-pill-progress">Passed One Chamber</span>
-<div class="ia-recent-date">Apr 27, 2026</div>
-</div>
-<div class="ia-recent-row">
-<div class="ia-recent-bill"><a href="legislation/SF2318.html">SF 2318</a></div>
-<div>
-<div class="ia-recent-title">Nonresident deer hunting licenses</div>
-<div class="ia-recent-meta">Message from House.</div>
-</div>
-<span class="ia-pill ia-pill-progress">Passed Both Chambers</span>
-<div class="ia-recent-date">Apr 27, 2026</div>
-</div>
-<div class="ia-recent-row">
-<div class="ia-recent-bill"><a href="legislation/SF2430.html">SF 2430</a></div>
-<div>
-<div class="ia-recent-title">The display of flags at half-staff on public buildings</div>
-<div class="ia-recent-meta">Message from House.</div>
-</div>
-<span class="ia-pill ia-pill-progress">Passed Both Chambers</span>
-<div class="ia-recent-date">Apr 27, 2026</div>
-</div>
-<div class="ia-recent-row">
-<div class="ia-recent-bill"><a href="legislation/SF274.html">SF 274</a></div>
-<div>
-<div class="ia-recent-title">Forms of payment for entry into an extracurricular interscholastic athletic contest or competition</div>
-<div class="ia-recent-meta">Message from House.</div>
-</div>
-<span class="ia-pill ia-pill-progress">Passed Both Chambers</span>
-<div class="ia-recent-date">Apr 27, 2026</div>
-</div>
-<div class="ia-recent-row">
-<div class="ia-recent-bill"><a href="legislation/HF1023.html">HF 1023</a></div>
-<div>
-<div class="ia-recent-title">Benefits and contributions for members of the Iowa public employees' retirement system who are employed in a protection occupation</div>
-<div class="ia-recent-meta">Amendment H-8400 withdrawn. H.J. 04/23.</div>
-</div>
-<span class="ia-pill ia-pill-progress">Passed Both Chambers</span>
-<div class="ia-recent-date">Apr 23, 2026</div>
-</div>
-<div class="ia-recent-row">
-<div class="ia-recent-bill"><a href="legislation/HF2517.html">HF 2517</a></div>
-<div>
-<div class="ia-recent-title">The display of flags at half-staff on public buildings</div>
-<div class="ia-recent-meta">Withdrawn. H.J. 04/23.</div>
+<div class="ia-recent-title">To provide for the business of the first extraordinary session of the 2026 legislative session</div>
+<div class="ia-recent-meta">SCR 103 substituted. H.J. 1190.</div>
 </div>
 <span class="ia-pill ia-pill-neutral">Introduced</span>
-<div class="ia-recent-date">Apr 23, 2026</div>
+<div class="ia-recent-date">Oct 2, 2026</div>
 </div>
 <div class="ia-recent-row">
-<div class="ia-recent-bill"><a href="legislation/HSB780.html">HSB 780</a></div>
+<div class="ia-recent-bill"><a href="legislation/HCR106.html">HCR 106</a></div>
 <div>
-<div class="ia-recent-title">Prohibiting warrant resolution clinics, including enforcement mechanisms, providing penalties</div>
-<div class="ia-recent-meta">Committee vote: Yeas, 8. Nays,3. H.J. 04/23.</div>
+<div class="ia-recent-title">To provide for adjournment sine die</div>
+<div class="ia-recent-meta">Resolution filed, laid over under Rule 25. H.J. 1194.</div>
+</div>
+<span class="ia-pill ia-pill-neutral">Introduced</span>
+<div class="ia-recent-date">Oct 2, 2026</div>
+</div>
+<div class="ia-recent-row">
+<div class="ia-recent-bill"><a href="legislation/HF2801.html">HF 2801</a></div>
+<div>
+<div class="ia-recent-title">Modifying the major economic growth attraction program</div>
+<div class="ia-recent-meta">Reported correctly enrolled, signed by Speaker and President, and sent to Governor. H.J. 1196.</div>
+</div>
+<span class="ia-pill ia-pill-progress">Passed Both Chambers</span>
+<div class="ia-recent-date">Oct 2, 2026</div>
+</div>
+<div class="ia-recent-row">
+<div class="ia-recent-bill"><a href="legislation/HSB785.html">HSB 785</a></div>
+<div>
+<div class="ia-recent-title">Modifying the major economic growth attraction program.(See HF 2801.)</div>
+<div class="ia-recent-meta">Committee report approving bill, renumbered as HF 2801.</div>
 </div>
 <span class="ia-pill ia-pill-progress">Passed Committee</span>
-<div class="ia-recent-date">Apr 23, 2026</div>
+<div class="ia-recent-date">Oct 2, 2026</div>
+</div>
+<div class="ia-recent-row">
+<div class="ia-recent-bill"><a href="legislation/SCR103.html">SCR 103</a></div>
+<div>
+<div class="ia-recent-title">To provide for the business of the first extraordinary session of the 2026 legislative session</div>
+<div class="ia-recent-meta">Message from House.</div>
+</div>
+<span class="ia-pill ia-pill-neutral">Introduced</span>
+<div class="ia-recent-date">Oct 2, 2026</div>
+</div>
+<div class="ia-recent-row">
+<div class="ia-recent-bill"><a href="legislation/SCR104.html">SCR 104</a></div>
+<div>
+<div class="ia-recent-title">To provide for adjournment sine die</div>
+<div class="ia-recent-meta">Message from House.</div>
+</div>
+<span class="ia-pill ia-pill-neutral">Introduced</span>
+<div class="ia-recent-date">Oct 2, 2026</div>
+</div>
+<div class="ia-recent-row">
+<div class="ia-recent-bill"><a href="legislation/SF2508.html">SF 2508</a></div>
+<div>
+<div class="ia-recent-title">Modifying the major economic growth attraction program</div>
+<div class="ia-recent-meta">Withdrawn. S.J. 1047.</div>
+</div>
+<span class="ia-pill ia-pill-progress">Passed Committee</span>
+<div class="ia-recent-date">Oct 2, 2026</div>
+</div>
+<div class="ia-recent-row">
+<div class="ia-recent-bill"><a href="legislation/SF2472.html">SF 2472</a></div>
+<div>
+<div class="ia-recent-title">State and local government taxes, fees, financial authority, and budgets, by modifying property assessment provisions, divisions of revenue, and funding from the secure an advanced vision for education fund, establishing a program for first-time homebuyers, modifying and making appropriations, and including effective date, applicability, and retroactive applicability provisions</div>
+<div class="ia-recent-meta">Fiscal note.</div>
+</div>
+<span class="ia-pill ia-pill-signed">Signed by Governor</span>
+<div class="ia-recent-date">Jul 15, 2026</div>
 </div>
 </div>
 </div>
@@ -370,7 +373,7 @@ Democrat
 <div class="ia-browse-grid">
 <a class="ia-browse-card dark" href="legislation/index.html">
 <div class="ia-browse-title">Browse all legislation</div>
-<p>Search and filter 4,194 bills by chamber, sponsor, status, and subject.</p>
+<p>Search and filter 4,231 bills by chamber, sponsor, status, and subject.</p>
 </a>
 <a class="ia-browse-card" href="legislators/index.html">
 <div class="ia-browse-title">Find your legislator</div>

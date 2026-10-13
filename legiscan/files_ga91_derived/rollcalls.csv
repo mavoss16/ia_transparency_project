@@ -2931,3 +2931,227 @@ bill_id,roll_call_id,date,chamber,description,yea,nay,nv,absent,total
 2109320,1687649,2026-04-21,House,House Committee On Ways And Means Report,24,0,0,1,25
 2121023,1687683,2026-04-21,House,Shall the bill pass?,93,0,0,7,100
 2118851,1687695,2026-04-21,House,Shall the bill pass?,93,0,0,7,100
+2006350,1693357,2026-04-22,House,Shall the bill pass?,86,3,0,11,100
+2134043,1693358,2026-04-27,House,Shall the bill pass?,89,0,0,11,100
+2147537,1693359,2026-05-01,House,Shall the bill pass?,58,29,0,13,100
+2147537,1693360,2026-05-02,Senate,Senate Appropriations Report,14,3,0,5,22
+2147537,1693361,2026-05-03,Senate,Shall the bill pass?,30,11,0,9,50
+2122586,1693362,2026-04-29,Senate,Shall amendment S–5123 be adopted?,30,15,0,5,50
+2122586,1693363,2026-04-29,Senate,Shall the bill pass?,30,15,0,5,50
+2122586,1693364,2026-05-02,Senate,Shall the bill pass?,31,14,0,5,50
+2141387,1693367,2026-04-28,Senate,Shall the bill pass?,43,4,0,3,50
+2141387,1693368,2026-04-30,Senate,Shall the bill pass?,39,4,0,7,50
+2141387,1693369,2026-04-30,House,Shall the bill pass?,83,2,0,15,100
+2143398,1693371,2026-04-28,House,Shall amendment H–8383 be adopted?,26,62,0,12,100
+2143398,1693372,2026-04-28,House,Shall the bill pass?,57,32,0,11,100
+2143398,1693373,2026-04-28,Senate,Shall the bill pass?,30,16,0,4,50
+2143398,1693374,2026-04-28,House,Shall the rules be suspended to consider amendment H–8423?,29,61,0,10,100
+2143398,1693375,2026-04-28,House,Shall the rules be suspended to consider amendment H–8424?,29,61,0,10,100
+2143398,1693376,2026-04-28,House,Shall the rules be suspended to consider amendment H–8425?,28,62,0,10,100
+2143398,1693377,2026-04-28,House,Shall the rules be suspended to consider amendment H–8426?,30,60,0,10,100
+2143398,1693378,2026-04-28,House,Shall the rules be suspended to consider amendment H–8427?,28,62,0,10,100
+2026440,1693380,2026-05-02,Senate,Shall amendment S–5251 be adopted?,17,28,0,5,50
+2026440,1693381,2026-05-02,Senate,Shall the bill pass?,45,0,0,5,50
+2117663,1693382,2026-05-01,Senate,Shall the bill pass?,44,0,0,6,50
+2111729,1693383,2026-04-29,Senate,Shall the bill pass?,46,0,0,4,50
+2111729,1693384,2026-04-30,House,Shall the bill pass?,84,0,0,16,100
+2147542,1693385,2026-05-02,House,House Committee On Appropriations Report,15,8,0,2,25
+1988407,1693388,2026-05-02,House,Shall the bill pass?,79,6,0,15,100
+2142416,1693389,2026-04-27,House,Shall the bill pass?,70,18,0,12,100
+2115520,1693392,2026-04-23,House,Shall the bill pass?,86,0,0,14,100
+2139497,1693394,2026-04-22,Senate,Shall the bill pass?,44,0,0,6,50
+2142404,1693396,2026-05-01,Senate,Senate Ways And Means Report,15,0,0,3,18
+2142404,1693397,2026-05-02,Senate,Shall the bill pass?,46,0,0,4,50
+2142404,1693398,2026-05-02,House,Shall the bill pass?,86,0,0,14,100
+2016010,1693399,2026-05-01,Senate,Senate Ways And Means Report,15,0,0,3,18
+2122346,1693400,2026-04-29,Senate,Shall the bill pass?,46,0,0,4,50
+1981516,1693402,2026-04-22,House,House Committee On Ways And Means Report,17,7,0,1,25
+2122122,1693403,2026-04-22,Senate,Shall the bill pass?,44,0,0,6,50
+2122122,1693404,2026-04-29,House,Shall the bill pass?,87,4,0,9,100
+2134035,1693405,2026-04-22,House,Shall the bill pass?,64,23,0,13,100
+2134035,1693406,2026-04-22,House,"Shall the rules be suspended to consider amendment H–8397, to the committee amendment H–8394?",26,61,0,13,100
+2134035,1693407,2026-05-02,House,Shall the bill pass?,62,22,0,16,100
+2134035,1693408,2026-05-03,Senate,Shall the bill pass?,41,1,0,8,50
+2122543,1693413,2026-04-27,Senate,Shall the bill pass?,30,16,0,4,50
+2024925,1693416,2026-04-23,House,Shall the bill pass?,88,0,0,12,100
+2140762,1693417,2026-04-27,Senate,Shall the bill pass?,46,0,0,4,50
+2140762,1693418,2026-04-29,House,House Committee On Appropriations Report,16,7,0,2,25
+2140762,1693419,2026-05-02,House,Shall the bill pass?,85,1,0,14,100
+2025776,1693421,2026-04-22,House,House Committee On Ways And Means Report,18,6,0,1,25
+2025776,1693422,2026-05-02,House,Shall amendment H–8456 be adopted?,8,77,0,15,100
+2025776,1693423,2026-05-02,Senate,Shall the bill pass?,38,8,0,4,50
+2141130,1693428,2026-04-27,Senate,Shall amendment S–5219 be adopted?,16,30,0,4,50
+2141130,1693429,2026-04-27,Senate,Shall amendment S–5220 be adopted?,16,30,0,4,50
+2141130,1693430,2026-04-27,Senate,Shall amendment S–5221 be adopted?,16,30,0,4,50
+2141130,1693431,2026-04-27,Senate,Shall amendment S–5222 be adopted?,16,30,0,4,50
+2141130,1693432,2026-04-27,Senate,Shall amendment S–5223 be adopted?,16,30,0,4,50
+2141130,1693433,2026-04-27,Senate,Shall amendment S–5224 be adopted?,16,30,0,4,50
+2141130,1693434,2026-04-27,Senate,Shall the bill pass?,29,17,0,4,50
+2114329,1693435,2026-04-30,Senate,Shall the bill pass?,31,9,0,10,50
+2143503,1693437,2026-04-23,House,Shall the bill pass?,83,4,0,13,100
+2143503,1693438,2026-04-27,Senate,Shall the bill pass?,42,4,0,4,50
+2143043,1693440,2026-05-02,House,Shall amendment H–8477 be adopted?,25,61,0,14,100
+2143043,1693441,2026-05-02,Senate,Shall the bill pass?,35,11,0,4,50
+2143043,1693442,2026-05-02,House,Shall the bill pass?,65,21,0,14,100
+2141363,1693443,2026-05-02,Senate,Shall the bill pass?,46,0,0,4,50
+2025021,1693444,2026-04-30,Senate,Shall the bill pass?,44,0,0,6,50
+1966627,1693445,2026-04-23,House,Shall the bill pass?,81,7,0,12,100
+2145606,1693446,2026-04-29,House,Shall amendment H–8429 be adopted?,91,0,0,9,100
+2145606,1693447,2026-04-29,House,Shall the bill pass?,71,20,0,9,100
+2145606,1693448,2026-04-29,House,Shall the rules be suspended to consider amendment H–8434?,27,64,0,9,100
+2145606,1693449,2026-05-01,Senate,Senate Judiciary Report,11,6,0,3,20
+2145606,1693450,2026-05-02,Senate,Shall the bill pass?,31,12,0,7,50
+2030145,1693451,2026-04-22,House,House Committee On Ways And Means Report,24,0,0,1,25
+2030145,1693452,2026-04-27,House,Shall amendment H–8408 be adopted?,65,24,0,11,100
+2030145,1693453,2026-04-27,House,Shall the bill pass?,66,23,0,11,100
+2030145,1693454,2026-05-02,Senate,Shall the bill pass?,32,12,0,6,50
+2143390,1693456,2026-04-23,Senate,Senate Appropriations Report,18,0,0,4,22
+2129115,1693457,2026-04-28,Senate,Shall the bill pass?,47,0,0,3,50
+2129115,1693458,2026-05-01,House,House Committee On Ways And Means Report,23,1,0,1,25
+2129115,1693459,2026-05-02,House,Shall the bill pass?,81,4,0,15,100
+2122171,1693460,2026-04-30,Senate,Shall the bill pass?,27,16,0,7,50
+2122171,1693461,2026-04-30,House,Shall the bill pass?,60,24,0,16,100
+1988366,1693462,2026-04-29,House,House Committee On Appropriations Report,23,0,0,2,25
+2114543,1693467,2026-04-28,Senate,Shall the bill pass?,47,0,0,3,50
+2137637,1693468,2026-04-30,House,Shall the bill pass?,85,0,0,15,100
+2137637,1693469,2026-05-01,Senate,Shall the bill pass?,42,0,0,8,50
+2022457,1693470,2026-05-01,Senate,Shall the bill pass?,43,0,0,7,50
+2022457,1693471,2026-05-02,House,"Shall the House concur in the Senate amendment 111th Day                      SATURDAY, MAY 2, 2026                       1091    H–8459?",57,28,0,15,100
+2022457,1693472,2026-05-02,House,Shall the bill pass?,85,0,0,15,100
+2122871,1693476,2026-04-29,Senate,Shall the bill pass?,31,15,0,4,50
+2141953,1693478,2026-04-22,Senate,Shall the bill pass?,44,0,0,6,50
+2141953,1693479,2026-04-29,House,House Committee On Appropriations Report,20,4,0,1,25
+2141953,1693480,2026-05-02,House,House Committee On Appropriations Report,20,1,0,4,25
+2141953,1693481,2026-05-02,House,Shall amendment H–8467 be adopted?,30,55,0,15,100
+2141953,1693482,2026-05-02,House,Shall the bill pass?,67,18,0,15,100
+2022792,1693484,2026-05-02,House,Shall amendment H–8483 be adopted?,21,57,0,22,100
+2022792,1693485,2026-05-02,House,Shall amendment H–8487 be adopted?,21,57,0,22,100
+2022792,1693486,2026-05-02,House,Shall amendment H–8490 be adopted?,21,57,0,22,100
+2022792,1693487,2026-05-02,House,Shall the joint resolution be adopted and agreed to?,57,21,0,22,100
+2022792,1693488,2026-05-02,House,Shall the rules be suspended to consider amendment H–8481?,21,57,0,22,100
+2022792,1693489,2026-05-02,House,Shall the rules be suspended to consider amendment H–8482?,22,56,0,22,100
+2022792,1693490,2026-05-02,House,Shall the rules be suspended to consider amendment H–8484?,21,57,0,22,100
+2022792,1693491,2026-05-02,House,Shall the rules be suspended to consider amendment H–8485?,21,57,0,22,100
+2022792,1693492,2026-05-02,House,Shall the rules be suspended to consider amendment H–8486?,22,56,0,22,100
+2022792,1693493,2026-05-02,House,Shall the rules be suspended to consider amendment H–8488?,21,57,0,22,100
+1975909,1693494,2026-04-22,Senate,Shall the bill pass?,28,16,0,6,50
+2117628,1693496,2026-05-02,House,Shall the House concur in the Senate amendment H–8470?,68,18,0,14,100
+2117628,1693497,2026-05-02,Senate,Shall the bill pass?,39,6,0,5,50
+2117628,1693498,2026-05-02,House,Shall the bill pass?,66,20,0,14,100
+1988339,1693499,2026-04-22,Senate,Shall the bill pass?,42,2,0,6,50
+2143382,1693500,2026-05-01,House,"Shall amendment H–8455, to amendment H–8404, be adopted?",86,0,0,14,100
+2143382,1693501,2026-05-01,House,"Shall amendment H–8464, to amendment H–8404, be adopted?",27,59,0,14,100
+2143382,1693502,2026-05-01,House,Shall the bill pass?,65,21,0,14,100
+2143382,1693503,2026-05-02,Senate,Shall the bill pass?,43,2,0,5,50
+2143382,1693504,2026-05-02,House,Shall the bill pass?,66,18,0,16,100
+2142462,1693505,2026-04-27,House,Shall the bill pass?,89,0,0,11,100
+2143404,1693506,2026-04-22,Senate,Shall the bill pass?,28,16,0,6,50
+2119875,1693507,2026-05-01,Senate,Shall the bill pass?,43,0,0,7,50
+2119875,1693508,2026-05-02,House,Shall the bill pass?,85,0,0,15,100
+2119918,1693510,2026-05-02,Senate,Shall the bill pass?,30,16,0,4,50
+2102640,1693511,2026-04-30,Senate,Shall the bill pass?,28,15,0,7,50
+1994573,1693512,2026-04-29,Senate,Shall the bill pass?,46,0,0,4,50
+1994573,1693513,2026-04-30,House,Shall the bill pass?,82,2,0,16,100
+1994667,1693514,2026-04-29,House,House Committee On Appropriations Report,23,0,0,2,25
+2117299,1693520,2026-05-02,House,Shall amendment H–8468 be adopted?,28,57,0,15,100
+1987216,1693524,2026-05-01,House,House Committee On Ways And Means Report,17,7,0,1,25
+1987216,1693525,2026-05-02,House,Shall the bill pass?,58,27,0,15,100
+2021147,1693567,2026-04-22,Senate,Shall the bill pass?,44,0,0,6,50
+2144849,1693625,2026-05-02,House,Shall the bill pass?,84,1,0,15,100
+2118038,1693636,2026-04-29,House,House Committee On Appropriations Report,19,5,0,1,25
+2144818,1693654,2026-05-02,House,Shall the bill pass?,83,2,0,15,100
+2123780,1693658,2026-05-01,House,House Committee On Ways And Means Report,19,5,0,1,25
+1987061,1693732,2026-04-28,House,Shall amendment H–8419 be adopted?,32,58,0,10,100
+1987061,1693733,2026-04-28,House,Shall amendment H–8420 be adopted?,32,57,0,11,100
+1987061,1693734,2026-04-28,House,Shall the bill pass?,56,34,0,10,100
+1987061,1693735,2026-04-28,House,Shall the rules be suspended to consider amendment H–8421?,35,55,0,10,100
+2111757,1693761,2026-05-01,House,House Committee On Ways And Means Report,24,0,0,1,25
+2122582,1693805,2026-04-27,Senate,Shall the bill pass?,46,0,0,4,50
+2117530,1693840,2026-04-22,Senate,Shall the bill pass?,44,0,0,6,50
+2122303,1693858,2026-04-23,House,Shall the bill pass?,82,5,0,13,100
+2120068,1693864,2026-04-22,Senate,Shall the bill pass?,44,0,0,6,50
+2132789,1693885,2026-04-27,House,Shall the bill pass?,89,0,0,11,100
+2108741,1693901,2026-04-29,Senate,Shall the bill pass?,46,0,0,4,50
+2108741,1693902,2026-04-30,House,Shall the bill pass?,81,3,0,16,100
+2073156,1693913,2026-04-30,House,Shall the bill pass?,59,25,0,16,100
+2141980,1693914,2026-04-28,House,Shall the bill pass?,90,0,0,10,100
+2143311,1693945,2026-05-02,House,Shall amendment H–8449 be adopted?,56,29,0,15,100
+2143311,1693946,2026-05-02,Senate,Shall the bill pass?,29,17,0,4,50
+2143311,1693947,2026-05-02,House,Shall the bill pass?,56,29,0,15,100
+2143311,1693948,2026-05-02,House,"Shall the rules be suspended to consider amendment H–8454, to amendment H–8449?",27,57,0,16,100
+2143211,1693957,2026-04-22,Senate,Shall the bill pass?,44,0,0,6,50
+2143211,1693958,2026-05-02,House,Shall the bill pass?,85,1,0,14,100
+2122481,1693964,2026-05-02,Senate,Shall the bill pass?,39,5,0,6,50
+2144248,1693996,2026-04-29,House,House Committee On Appropriations Report,17,7,0,1,25
+2122769,1694004,2026-04-29,House,House Committee On Appropriations Report,23,0,0,2,25
+2143757,1694022,2026-04-28,House,Shall the bill pass?,64,26,0,10,100
+2143757,1694023,2026-05-01,Senate,Senate Appropriations Report,16,4,0,2,22
+2143757,1694024,2026-05-02,Senate,Shall the bill pass?,34,9,0,7,50
+2024893,1694036,2026-04-22,House,House Committee On Ways And Means Report,19,5,0,1,25
+2024893,1694037,2026-04-27,House,Shall the bill pass?,89,0,0,11,100
+2141493,1694052,2026-05-01,House,House Committee On Ways And Means Report,24,0,0,1,25
+2144476,1694070,2026-04-30,House,"Shall amendment H–8439, as amended, be adopted?",59,25,0,16,100
+2144476,1694071,2026-04-30,House,"Shall amendment H–8442, to amendment H–8439, be adopted?",26,59,0,15,100
+2144476,1694072,2026-04-30,House,"Shall amendment H–8443, to amendment H–8439, be adopted?",26,59,0,15,100
+2144476,1694073,2026-04-30,House,"Shall amendment H–8444, to amendment H–8439, be adopted?",25,60,0,15,100
+2144476,1694074,2026-04-30,House,"Shall amendment H–8446, to amendment H–8439, be adopted?",30,55,0,15,100
+2144476,1694075,2026-04-30,Senate,Shall the bill pass?,27,15,0,8,50
+2144476,1694076,2026-04-30,House,Shall the bill pass?,58,27,0,15,100
+2142171,1694083,2026-05-01,Senate,Shall the bill pass?,28,15,0,7,50
+2142171,1694084,2026-05-02,House,Shall the bill pass?,83,2,0,15,100
+2119042,1694086,2026-04-29,Senate,Shall the bill pass?,34,12,0,4,50
+2141962,1694092,2026-05-02,Senate,Shall the bill pass?,45,0,0,5,50
+2141962,1694093,2026-05-02,House,Shall the bill pass?,59,26,0,15,100
+2119813,1694098,2026-05-02,Senate,Shall the bill pass?,44,0,0,6,50
+2108996,1694101,2026-04-28,Senate,Shall the bill pass?,37,10,0,3,50
+2108996,1694102,2026-04-29,House,Shall the bill pass?,71,20,0,9,100
+2117573,1694105,2026-05-02,Senate,Shall the bill pass?,46,0,0,4,50
+2101485,1694112,2026-04-23,House,Shall the bill pass?,87,0,0,13,100
+2101485,1694113,2026-04-28,Senate,Shall the bill pass?,43,4,0,3,50
+2103376,1694118,2026-04-30,Senate,Shall the bill pass?,40,0,0,10,50
+2103376,1694119,2026-05-01,House,Shall the bill pass?,87,0,0,13,100
+2117643,1694126,2026-05-02,Senate,Shall the bill pass?,45,1,0,4,50
+2117643,1694127,2026-05-02,House,Shall the bill pass?,83,1,0,16,100
+2144519,1694133,2026-05-01,House,"Shall amendment H–8465, to amendment H–8461, be adopted?",24,59,0,17,100
+2144519,1694134,2026-05-01,House,Shall the bill pass?,59,24,0,17,100
+2144519,1694135,2026-05-01,House,"Shall the rules be suspended to consider amendment H–8466, to amendment H–8461?",25,58,0,17,100
+2144519,1694136,2026-05-02,Senate,Shall the bill pass?,30,14,0,6,50
+2143358,1694146,2026-04-28,House,Shall the bill pass?,82,8,0,10,100
+2145947,1694153,2026-04-29,House,House Committee On Appropriations Report,16,7,0,2,25
+2101575,1694188,2026-04-29,Senate,Shall the bill pass?,46,0,0,4,50
+2119931,1694194,2026-05-02,Senate,Shall the bill pass?,45,0,0,5,50
+2123334,1694200,2026-04-27,Senate,Shall the bill pass?,30,16,0,4,50
+2145507,1694205,2026-04-29,House,House Committee On Appropriations Report,24,0,0,1,25
+2143232,1694206,2026-05-01,House,House Committee On Ways And Means Report,24,0,0,1,25
+2143232,1694207,2026-05-02,Senate,Shall the bill pass?,45,0,0,5,50
+2143232,1694208,2026-05-02,House,Shall the bill pass?,86,0,0,14,100
+2117518,1694209,2026-04-22,House,Shall the bill pass?,89,0,0,11,100
+2147549,1694214,2026-05-01,Senate,Senate Ways And Means Report,15,0,0,3,18
+2147534,1694215,2026-05-02,Senate,Shall the bill pass?,44,0,0,6,50
+2147534,1694216,2026-05-02,House,Shall the bill pass?,85,0,0,15,100
+2143219,1694218,2026-04-27,Senate,Shall the bill pass?,46,0,0,4,50
+2143219,1694219,2026-05-01,House,House Committee On Ways And Means Report,24,0,0,1,25
+2143219,1694220,2026-05-02,House,Shall the bill pass?,85,0,0,15,100
+2147552,1694221,2026-05-01,Senate,Senate Ways And Means Report,15,0,0,3,18
+2147551,1694223,2026-05-02,House,Shall the bill pass?,85,0,0,15,100
+2143346,1694224,2026-04-27,House,Shall the bill pass?,56,33,0,11,100
+2143346,1694225,2026-04-27,House,Shall the rules be suspended to consider amendment H–8411?,27,62,0,11,100
+2143346,1694226,2026-04-28,Senate,Shall the bill pass?,31,16,0,3,50
+2147554,1694228,2026-05-02,House,"Shall amendment H–8494, to amendment H–8491, be adopted?",28,56,0,16,100
+2147554,1694229,2026-05-02,House,Shall the bill pass?,58,26,0,16,100
+2147554,1694230,2026-05-03,Senate,Shall the bill pass?,29,11,0,10,50
+2147541,1694231,2026-05-01,Senate,Senate Ways And Means Report,15,0,0,3,18
+2147547,1694232,2026-05-02,Senate,Shall the bill pass?,41,0,0,9,50
+2147547,1694233,2026-05-02,House,Shall the bill pass?,78,7,0,15,100
+2147557,1694238,2026-05-02,Senate,Shall the bill pass?,45,0,0,5,50
+2147557,1694239,2026-05-02,House,Shall the bill pass?,85,0,0,15,100
+2143277,1694243,2026-05-02,House,"Shall amendment H–8416, to amendment H–8414, be adopted?",27,58,0,15,100
+2143277,1694244,2026-05-02,House,"Shall amendment H–8417, to amendment H–8414, be adopted?",29,56,0,15,100
+2143277,1694245,2026-05-02,House,"Shall amendment H–8451, to amendment H–8414, be adopted?",82,3,0,15,100
+2143277,1694246,2026-05-02,Senate,Shall the bill pass?,29,17,0,4,50
+2143277,1694247,2026-05-02,House,Shall the bill pass?,54,31,0,15,100
+2147533,1694248,2026-05-01,Senate,Senate Ways And Means Report,15,0,0,3,18
+2147543,1694249,2026-05-02,House,Shall the bill pass?,85,0,0,15,100
+2147532,1694251,2026-05-01,Senate,Senate Appropriations Report,20,0,0,2,22
+2147553,1694252,2026-05-02,Senate,Senate Appropriations Report,14,3,0,5,22
+2117679,1694268,2026-04-22,House,Shall the bill pass?,89,0,0,11,100
