@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       force_render:
-        description: 'Force re-render all pages'
+        description: 'Clear the render manifest and re-render every page. Runs are time-budgeted, so later runs (with this OFF) finish the backlog. Ticking it again restarts the full re-render.'
         type: boolean
         default: false
 
@@ -53,18 +53,17 @@ jobs:
       - name: Run pipeline
         env:
           LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
+          # Stop starting new bill pages after this long, so the job finishes
+          # (legislators, committees, commit) inside timeout-minutes. Bills not
+          # reached stay out of render_manifest.csv and the next run renders them.
+          RENDER_TIME_BUDGET_MINUTES: 180
         run: |
-          FORCE="${{ github.event.inputs.force_render }}"
-          if [ "$FORCE" = "true" ]; then
-            # Run all steps except render, then force-render separately
-            Rscript -e "
-              source('R/legislature/run_pipeline.R')
-              run_pipeline(steps = c('download','generate_csvs','process_votes','legislator_similarity','bill_relationships'))
-            "
-            Rscript -e "source('R/legislature/render.R'); render_site(force = TRUE)"
-          else
-            Rscript R/legislature/run_pipeline.R
+          if [ "${{ github.event.inputs.force_render }}" = "true" ]; then
+            # Full re-render: forget everything rendered so far. The time budget
+            # spreads the backlog across this run and the following ones.
+            Rscript -e "source('R/legislature/render.R'); clear_manifest()"
           fi
+          Rscript R/legislature/run_pipeline.R
 
       - name: Upload pipeline logs
         if: always()
@@ -75,6 +74,7 @@ jobs:
           retention-days: 7
 
       - name: Commit and push updates
+        if: always()  # keep partial render progress even if a later step failed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

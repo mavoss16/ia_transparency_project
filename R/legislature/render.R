@@ -301,7 +301,9 @@ render_all_committees <- function(limit = NULL, force = FALSE) {
 #' Render all bill pages (incremental by default)
 #' @param limit Optional limit for testing (NULL for all)
 #' @param force If TRUE, re-render all regardless of hash
-render_all_bills <- function(limit = NULL, force = FALSE) {
+#' @param deadline POSIXct after which no new bill is started (Inf = no limit).
+#'   Bills not reached stay out of the manifest, so the next run picks them up.
+render_all_bills <- function(limit = NULL, force = FALSE, deadline = Inf) {
   ensure_dirs()
   manifest <- load_manifest()
 
@@ -337,6 +339,15 @@ render_all_bills <- function(limit = NULL, force = FALSE) {
   total_to_render <- length(bills_to_render)
 
   for (i in seq_along(bills_to_render)) {
+    if (Sys.time() > deadline) {
+      message(paste0(
+        "
+Time budget reached after ", i - 1, "/", total_to_render,
+        " bills; ", total_to_render - i + 1, " left for the next run."
+      ))
+      break
+    }
+
     bill_number <- bills_to_render[i]
     success <- render_bill(bill_number)
 
@@ -473,8 +484,14 @@ render_index_pages <- function() {
 #' @param legislators_limit Optional limit for legislators (NULL for all)
 #' @param committees_limit Optional limit for committees (NULL for all)
 #' @param force If TRUE, re-render all regardless of hash
-render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees_limit = NULL, force = FALSE) {
+#' @param time_budget_minutes Stop starting new bills this many minutes after the
+#'   render begins, so a CI job can commit its progress before the runner's time
+#'   limit. Defaults to the RENDER_TIME_BUDGET_MINUTES env var, else no limit.
+#'   Legislators and committees always render in full after the bills.
+render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees_limit = NULL, force = FALSE,
+                        time_budget_minutes = as.numeric(Sys.getenv("RENDER_TIME_BUDGET_MINUTES", "Inf"))) {
   render_start <- Sys.time()
+  bills_deadline <- render_start + time_budget_minutes * 60
   message("=== Starting full site render ===\n")
 
   # Render main quarto site first
@@ -483,7 +500,7 @@ render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees
   message("\n")
 
   # Render bills (incremental unless force = TRUE)
-  bills_result <- render_all_bills(limit = bills_limit, force = force)
+  bills_result <- render_all_bills(limit = bills_limit, force = force, deadline = bills_deadline)
 
   message("\n")
 
