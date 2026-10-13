@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -39,10 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-90b44afb7cabd1fdbbd09cd1331a3207.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-d824b98428226a1cffb022c2db0bb0a5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,19 +74,12 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <script src="../site_libs/core-js-2.5.3/shim.min.js"></script>
-
 <script src="../site_libs/react-18.2.0/react.min.js"></script>
-
 <script src="../site_libs/react-18.2.0/react-dom.min.js"></script>
-
 <script src="../site_libs/reactwidget-2.0.0/react-tools.js"></script>
-
 <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-
 <link href="../site_libs/reactable-0.4.5/reactable.css" rel="stylesheet">
-
 <script src="../site_libs/reactable-binding-0.4.5/reactable.js"></script>
-
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -177,23 +173,23 @@ ul.task-list li input[type="checkbox"] {
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
 <div class="cell-output-display">
-<div id="vhtqhzjjgs" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vhtqhzjjgs table {
+<div id="nefdghslil" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nefdghslil table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vhtqhzjjgs thead, #vhtqhzjjgs tbody, #vhtqhzjjgs tfoot, #vhtqhzjjgs tr, #vhtqhzjjgs td, #vhtqhzjjgs th {
+#nefdghslil thead, #nefdghslil tbody, #nefdghslil tfoot, #nefdghslil tr, #nefdghslil td, #nefdghslil th {
   border-style: none;
 }
 
-#vhtqhzjjgs p {
+#nefdghslil p {
   margin: 0;
   padding: 0;
 }
 
-#vhtqhzjjgs .gt_table {
+#nefdghslil .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -219,12 +215,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#vhtqhzjjgs .gt_caption {
+#nefdghslil .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vhtqhzjjgs .gt_title {
+#nefdghslil .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -236,7 +232,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#vhtqhzjjgs .gt_subtitle {
+#nefdghslil .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -248,7 +244,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#vhtqhzjjgs .gt_heading {
+#nefdghslil .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -260,13 +256,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#vhtqhzjjgs .gt_bottom_border {
+#nefdghslil .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vhtqhzjjgs .gt_col_headings {
+#nefdghslil .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -281,7 +277,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#vhtqhzjjgs .gt_col_heading {
+#nefdghslil .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -301,7 +297,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#vhtqhzjjgs .gt_column_spanner_outer {
+#nefdghslil .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -313,15 +309,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#vhtqhzjjgs .gt_column_spanner_outer:first-child {
+#nefdghslil .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vhtqhzjjgs .gt_column_spanner_outer:last-child {
+#nefdghslil .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vhtqhzjjgs .gt_column_spanner {
+#nefdghslil .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -333,11 +329,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#vhtqhzjjgs .gt_spanner_row {
+#nefdghslil .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vhtqhzjjgs .gt_group_heading {
+#nefdghslil .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -363,7 +359,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#vhtqhzjjgs .gt_empty_group_heading {
+#nefdghslil .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -378,15 +374,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#vhtqhzjjgs .gt_from_md > :first-child {
+#nefdghslil .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vhtqhzjjgs .gt_from_md > :last-child {
+#nefdghslil .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vhtqhzjjgs .gt_row {
+#nefdghslil .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -405,7 +401,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#vhtqhzjjgs .gt_stub {
+#nefdghslil .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -418,7 +414,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#vhtqhzjjgs .gt_stub_row_group {
+#nefdghslil .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -432,15 +428,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#vhtqhzjjgs .gt_row_group_first td {
+#nefdghslil .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vhtqhzjjgs .gt_row_group_first th {
+#nefdghslil .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vhtqhzjjgs .gt_summary_row {
+#nefdghslil .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -450,16 +446,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#vhtqhzjjgs .gt_first_summary_row {
+#nefdghslil .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vhtqhzjjgs .gt_first_summary_row.thick {
+#nefdghslil .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vhtqhzjjgs .gt_last_summary_row {
+#nefdghslil .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -469,7 +465,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#vhtqhzjjgs .gt_grand_summary_row {
+#nefdghslil .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -479,7 +475,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#vhtqhzjjgs .gt_first_grand_summary_row {
+#nefdghslil .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -489,7 +485,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#vhtqhzjjgs .gt_last_grand_summary_row_top {
+#nefdghslil .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -499,11 +495,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#vhtqhzjjgs .gt_striped {
+#nefdghslil .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vhtqhzjjgs .gt_table_body {
+#nefdghslil .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -512,7 +508,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#vhtqhzjjgs .gt_footnotes {
+#nefdghslil .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -526,7 +522,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#vhtqhzjjgs .gt_footnote {
+#nefdghslil .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -535,7 +531,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#vhtqhzjjgs .gt_sourcenotes {
+#nefdghslil .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -549,7 +545,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#vhtqhzjjgs .gt_sourcenote {
+#nefdghslil .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -557,77 +553,77 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#vhtqhzjjgs .gt_left {
+#nefdghslil .gt_left {
   text-align: left;
 }
 
-#vhtqhzjjgs .gt_center {
+#nefdghslil .gt_center {
   text-align: center;
 }
 
-#vhtqhzjjgs .gt_right {
+#nefdghslil .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vhtqhzjjgs .gt_font_normal {
+#nefdghslil .gt_font_normal {
   font-weight: normal;
 }
 
-#vhtqhzjjgs .gt_font_bold {
+#nefdghslil .gt_font_bold {
   font-weight: bold;
 }
 
-#vhtqhzjjgs .gt_font_italic {
+#nefdghslil .gt_font_italic {
   font-style: italic;
 }
 
-#vhtqhzjjgs .gt_super {
+#nefdghslil .gt_super {
   font-size: 65%;
 }
 
-#vhtqhzjjgs .gt_footnote_marks {
+#nefdghslil .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vhtqhzjjgs .gt_asterisk {
+#nefdghslil .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vhtqhzjjgs .gt_indent_1 {
+#nefdghslil .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vhtqhzjjgs .gt_indent_2 {
+#nefdghslil .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vhtqhzjjgs .gt_indent_3 {
+#nefdghslil .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vhtqhzjjgs .gt_indent_4 {
+#nefdghslil .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vhtqhzjjgs .gt_indent_5 {
+#nefdghslil .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vhtqhzjjgs .katex-display {
+#nefdghslil .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vhtqhzjjgs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#nefdghslil div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<div id="vhtqhzjjgs" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="vhtqhzjjgs">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"bill_link":["<a href='../legislation/SF2463.html'>SF 2463<\/a>","<a href='../legislation/SSB3166.html'>SSB 3166<\/a>"],"title":["A bill for an act concerning the executive branch rulemaking process, including the uniform rules on agency procedure and review and regulatory readoption of rules, and including effective date provisions. (Formerly SSB 3166.) Effective date: 04/16/2026, 07/01/2026.","A bill for an act concerning administrative rules relating to the uniform rules on agency procedure and including effective date provisions.(See SF 2463.)"],"status_desc":["Passed","Introduced"],"status_date":["2026-04-16","2026-02-12"],"last_action_date":["2026-04-16","2026-03-03"],"last_action":["Signed by Governor. S.J. 827.","Committee report approving bill, renumbered as SF 2463."]},"columns":[{"id":"bill_link","name":"Bill","type":["glue","character"],"na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","cell":["<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU0YyNDYzLmh0bWwnPlNGIDI0NjM8L2E+\"><span class='gt_from_md'><a href='../legislation/SF2463.html'>SF 2463<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1NCMzE2Ni5odG1sJz5TU0IgMzE2NjwvYT4=\"><span class='gt_from_md'><a href='../legislation/SSB3166.html'>SSB 3166<\/a><\/span><\/span>"],"html":true,"align":"center"},{"id":"title","name":"Title","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"status_desc","name":"Status","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"status_date","name":"Status Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"last_action_date","name":"Last Action Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"last_action","name":"Last Action","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"}],"filterable":true,"searchable":true,"defaultPageSize":25,"showPageSizeOptions":true,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"12px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"vhtqhzjjgs","dataKey":"e75de7786d53bcb360486af04b08d9e2"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style","tag.attribs.columns.4.style","tag.attribs.columns.5.style"],"jsHooks":[]}</script>
+<div id="nefdghslil" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="nefdghslil">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"bill_link":["<a href='../legislation/SF2463.html'>SF 2463<\/a>","<a href='../legislation/SSB3166.html'>SSB 3166<\/a>"],"title":["A bill for an act concerning the executive branch rulemaking process, including the uniform rules on agency procedure and review and regulatory readoption of rules, and including effective date provisions. (Formerly SSB 3166.) Effective date: 04/16/2026, 07/01/2026.","A bill for an act concerning administrative rules relating to the uniform rules on agency procedure and including effective date provisions.(See SF 2463.)"],"status_desc":["Passed","Introduced"],"status_date":["2026-04-16","2026-02-12"],"last_action_date":["2026-04-16","2026-03-03"],"last_action":["Signed by Governor. S.J. 827.","Committee report approving bill, renumbered as SF 2463."]},"columns":[{"id":"bill_link","name":"Bill","type":["glue","character"],"na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","cell":["<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU0YyNDYzLmh0bWwnPlNGIDI0NjM8L2E+\"><span class='gt_from_md'><a href='../legislation/SF2463.html'>SF 2463<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1NCMzE2Ni5odG1sJz5TU0IgMzE2NjwvYT4=\"><span class='gt_from_md'><a href='../legislation/SSB3166.html'>SSB 3166<\/a><\/span><\/span>"],"html":true,"align":"center"},{"id":"title","name":"Title","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"status_desc","name":"Status","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"status_date","name":"Status Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"last_action_date","name":"Last Action Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"last_action","name":"Last Action","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"}],"filterable":true,"searchable":true,"defaultPageSize":25,"showPageSizeOptions":true,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"12px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"nefdghslil","dataKey":"e75de7786d53bcb360486af04b08d9e2"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style","tag.attribs.columns.4.style","tag.attribs.columns.5.style"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -642,7 +638,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <hr>
-<p>This page was generated from LegiScan data for the Iowa Legislature. Last updated: 2026-07-25</p>
+<p>This page was generated from LegiScan data for the Iowa Legislature. Last updated: 2026-10-13</p>
 
 
 </section>

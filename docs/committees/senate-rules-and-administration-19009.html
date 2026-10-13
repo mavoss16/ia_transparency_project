@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -39,10 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-90b44afb7cabd1fdbbd09cd1331a3207.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-d824b98428226a1cffb022c2db0bb0a5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,19 +74,12 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <script src="../site_libs/core-js-2.5.3/shim.min.js"></script>
-
 <script src="../site_libs/react-18.2.0/react.min.js"></script>
-
 <script src="../site_libs/react-18.2.0/react-dom.min.js"></script>
-
 <script src="../site_libs/reactwidget-2.0.0/react-tools.js"></script>
-
 <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-
 <link href="../site_libs/reactable-0.4.5/reactable.css" rel="stylesheet">
-
 <script src="../site_libs/reactable-binding-0.4.5/reactable.js"></script>
-
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -170,23 +166,23 @@ ul.task-list li input[type="checkbox"] {
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <div class="cell-output-display">
-<div id="ugbpfiwtzb" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ugbpfiwtzb table {
+<div id="gtcfslpwds" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gtcfslpwds table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ugbpfiwtzb thead, #ugbpfiwtzb tbody, #ugbpfiwtzb tfoot, #ugbpfiwtzb tr, #ugbpfiwtzb td, #ugbpfiwtzb th {
+#gtcfslpwds thead, #gtcfslpwds tbody, #gtcfslpwds tfoot, #gtcfslpwds tr, #gtcfslpwds td, #gtcfslpwds th {
   border-style: none;
 }
 
-#ugbpfiwtzb p {
+#gtcfslpwds p {
   margin: 0;
   padding: 0;
 }
 
-#ugbpfiwtzb .gt_table {
+#gtcfslpwds .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -212,12 +208,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#ugbpfiwtzb .gt_caption {
+#gtcfslpwds .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ugbpfiwtzb .gt_title {
+#gtcfslpwds .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -229,7 +225,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#ugbpfiwtzb .gt_subtitle {
+#gtcfslpwds .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -241,7 +237,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#ugbpfiwtzb .gt_heading {
+#gtcfslpwds .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -253,13 +249,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#ugbpfiwtzb .gt_bottom_border {
+#gtcfslpwds .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ugbpfiwtzb .gt_col_headings {
+#gtcfslpwds .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -274,7 +270,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#ugbpfiwtzb .gt_col_heading {
+#gtcfslpwds .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -294,7 +290,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#ugbpfiwtzb .gt_column_spanner_outer {
+#gtcfslpwds .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -306,15 +302,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#ugbpfiwtzb .gt_column_spanner_outer:first-child {
+#gtcfslpwds .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ugbpfiwtzb .gt_column_spanner_outer:last-child {
+#gtcfslpwds .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ugbpfiwtzb .gt_column_spanner {
+#gtcfslpwds .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -326,11 +322,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#ugbpfiwtzb .gt_spanner_row {
+#gtcfslpwds .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ugbpfiwtzb .gt_group_heading {
+#gtcfslpwds .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -356,7 +352,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#ugbpfiwtzb .gt_empty_group_heading {
+#gtcfslpwds .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -371,15 +367,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#ugbpfiwtzb .gt_from_md > :first-child {
+#gtcfslpwds .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ugbpfiwtzb .gt_from_md > :last-child {
+#gtcfslpwds .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ugbpfiwtzb .gt_row {
+#gtcfslpwds .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -398,7 +394,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#ugbpfiwtzb .gt_stub {
+#gtcfslpwds .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -411,7 +407,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#ugbpfiwtzb .gt_stub_row_group {
+#gtcfslpwds .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -425,15 +421,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#ugbpfiwtzb .gt_row_group_first td {
+#gtcfslpwds .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ugbpfiwtzb .gt_row_group_first th {
+#gtcfslpwds .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ugbpfiwtzb .gt_summary_row {
+#gtcfslpwds .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -443,16 +439,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#ugbpfiwtzb .gt_first_summary_row {
+#gtcfslpwds .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ugbpfiwtzb .gt_first_summary_row.thick {
+#gtcfslpwds .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ugbpfiwtzb .gt_last_summary_row {
+#gtcfslpwds .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -462,7 +458,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#ugbpfiwtzb .gt_grand_summary_row {
+#gtcfslpwds .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -472,7 +468,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#ugbpfiwtzb .gt_first_grand_summary_row {
+#gtcfslpwds .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -482,7 +478,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#ugbpfiwtzb .gt_last_grand_summary_row_top {
+#gtcfslpwds .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -492,11 +488,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#ugbpfiwtzb .gt_striped {
+#gtcfslpwds .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ugbpfiwtzb .gt_table_body {
+#gtcfslpwds .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -505,7 +501,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#ugbpfiwtzb .gt_footnotes {
+#gtcfslpwds .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -519,7 +515,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#ugbpfiwtzb .gt_footnote {
+#gtcfslpwds .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -528,7 +524,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#ugbpfiwtzb .gt_sourcenotes {
+#gtcfslpwds .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -542,7 +538,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#ugbpfiwtzb .gt_sourcenote {
+#gtcfslpwds .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -550,77 +546,77 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#ugbpfiwtzb .gt_left {
+#gtcfslpwds .gt_left {
   text-align: left;
 }
 
-#ugbpfiwtzb .gt_center {
+#gtcfslpwds .gt_center {
   text-align: center;
 }
 
-#ugbpfiwtzb .gt_right {
+#gtcfslpwds .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ugbpfiwtzb .gt_font_normal {
+#gtcfslpwds .gt_font_normal {
   font-weight: normal;
 }
 
-#ugbpfiwtzb .gt_font_bold {
+#gtcfslpwds .gt_font_bold {
   font-weight: bold;
 }
 
-#ugbpfiwtzb .gt_font_italic {
+#gtcfslpwds .gt_font_italic {
   font-style: italic;
 }
 
-#ugbpfiwtzb .gt_super {
+#gtcfslpwds .gt_super {
   font-size: 65%;
 }
 
-#ugbpfiwtzb .gt_footnote_marks {
+#gtcfslpwds .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ugbpfiwtzb .gt_asterisk {
+#gtcfslpwds .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ugbpfiwtzb .gt_indent_1 {
+#gtcfslpwds .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ugbpfiwtzb .gt_indent_2 {
+#gtcfslpwds .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ugbpfiwtzb .gt_indent_3 {
+#gtcfslpwds .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ugbpfiwtzb .gt_indent_4 {
+#gtcfslpwds .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ugbpfiwtzb .gt_indent_5 {
+#gtcfslpwds .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ugbpfiwtzb .katex-display {
+#gtcfslpwds .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ugbpfiwtzb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#gtcfslpwds div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<div id="ugbpfiwtzb" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="ugbpfiwtzb">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"bill_link":["<a href='../legislation/SR112.html'>SR 112<\/a>","<a href='../legislation/SR107.html'>SR 107<\/a>","<a href='../legislation/SR106.html'>SR 106<\/a>","<a href='../legislation/SR104.html'>SR 104<\/a>","<a href='../legislation/SR102.html'>SR 102<\/a>","<a href='../legislation/SR103.html'>SR 103<\/a>","<a href='../legislation/SR8.html'>SR 8<\/a>","<a href='../legislation/SR7.html'>SR 7<\/a>","<a href='../legislation/SR5.html'>SR 5<\/a>","<a href='../legislation/SR4.html'>SR 4<\/a>","<a href='../legislation/SR2.html'>SR 2<\/a>"],"title":["A resolution urging the United States Congress to propose an amendment to the Constitution of the United States to require the Supreme Court of the United States to be composed of nine justices.","A resolution recognizing and honoring the Animal Rescue League of Iowa on its centennial anniversary.","A resolution recognizing and honoring the Animal Rescue League of Iowa on its centennial anniversary.","A resolution recognizing and honoring the Young Men's Christian Association","A resolution honoring and congratulating barbecue chef and pitmaster Thyron Mathews for his appearance as a competitor on the reality television cooking competition BBQ Brawl.","A resolution recognizing and honoring Easterseals Iowa on its centennial anniversary.","A resolution recognizing the work of We the Veterans and Military Families and commemorating the two hundred fiftieth anniversary of the United States Army, United States Navy, and United States Marine Corps.","A resolution recognizing and commending the National Conference of State Legislatures on its fiftieth anniversary.","A resolution celebrating over one hundred sixty years of Lutheran Services in Iowa's achievements in helping the people of Iowa, and designating March 11, 2025, as Lutheran Services in Iowa Day.","A resolution commemorating the fiftieth anniversary of the State Government Affairs Council.","A resolution designating February 2025 as Career and Technical Education Month."],"status_desc":["Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced"],"status_date":["2026-03-23","2026-02-19","2026-02-12","2026-01-21","2026-01-20","2026-01-20","2025-04-03","2025-03-18","2025-03-10","2025-03-05","2025-02-10"],"last_action_date":["2026-03-23","2026-02-19","2026-02-12","2026-01-21","2026-01-20","2026-01-20","2025-04-03","2025-03-18","2025-03-10","2025-03-05","2025-02-10"],"last_action":["Introduced, referred to Rules and Administration. S.J. 625.","Introduced, referred to Rules and Administration. S.J. 324.","Introduced, referred to Rules and Administration. S.J. 267.","Introduced, referred to Rules and Administration. S.J. 119.","Introduced, referred to Rules and Administration. S.J. 113.","Introduced, referred to Rules and Administration. S.J. 113.","Introduced, referred to Rules and Administration. S.J. 690.","Introduced, referred to Rules and Administration. S.J. 566.","Introduced, referred to Rules and Administration. S.J. 459.","Introduced, referred to Rules and Administration. S.J. 416.","Introduced, referred to Rules and Administration. S.J. 214."]},"columns":[{"id":"bill_link","name":"Bill","type":["glue","character"],"na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","cell":["<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTIuaHRtbCc+U1IgMTEyPC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR112.html'>SR 112<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMDcuaHRtbCc+U1IgMTA3PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR107.html'>SR 107<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMDYuaHRtbCc+U1IgMTA2PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR106.html'>SR 106<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMDQuaHRtbCc+U1IgMTA0PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR104.html'>SR 104<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMDIuaHRtbCc+U1IgMTAyPC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR102.html'>SR 102<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMDMuaHRtbCc+U1IgMTAzPC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR103.html'>SR 103<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1I4Lmh0bWwnPlNSIDg8L2E+\"><span class='gt_from_md'><a href='../legislation/SR8.html'>SR 8<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1I3Lmh0bWwnPlNSIDc8L2E+\"><span class='gt_from_md'><a href='../legislation/SR7.html'>SR 7<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1I1Lmh0bWwnPlNSIDU8L2E+\"><span class='gt_from_md'><a href='../legislation/SR5.html'>SR 5<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1I0Lmh0bWwnPlNSIDQ8L2E+\"><span class='gt_from_md'><a href='../legislation/SR4.html'>SR 4<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IyLmh0bWwnPlNSIDI8L2E+\"><span class='gt_from_md'><a href='../legislation/SR2.html'>SR 2<\/a><\/span><\/span>"],"html":true,"align":"center"},{"id":"title","name":"Title","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"status_desc","name":"Status","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"status_date","name":"Status Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"last_action_date","name":"Last Action Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"last_action","name":"Last Action","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"}],"filterable":true,"searchable":true,"defaultPageSize":25,"showPageSizeOptions":true,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"12px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"ugbpfiwtzb","dataKey":"e8038a96485b8595662508fd530ee1ee"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style","tag.attribs.columns.4.style","tag.attribs.columns.5.style"],"jsHooks":[]}</script>
+<div id="gtcfslpwds" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="gtcfslpwds">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"bill_link":["<a href='../legislation/SR112.html'>SR 112<\/a>","<a href='../legislation/SR107.html'>SR 107<\/a>","<a href='../legislation/SR106.html'>SR 106<\/a>","<a href='../legislation/SR104.html'>SR 104<\/a>","<a href='../legislation/SR102.html'>SR 102<\/a>","<a href='../legislation/SR103.html'>SR 103<\/a>","<a href='../legislation/SR8.html'>SR 8<\/a>","<a href='../legislation/SR7.html'>SR 7<\/a>","<a href='../legislation/SR5.html'>SR 5<\/a>","<a href='../legislation/SR4.html'>SR 4<\/a>","<a href='../legislation/SR2.html'>SR 2<\/a>"],"title":["A resolution urging the United States Congress to propose an amendment to the Constitution of the United States to require the Supreme Court of the United States to be composed of nine justices.","A resolution recognizing and honoring the Animal Rescue League of Iowa on its centennial anniversary.","A resolution recognizing and honoring the Animal Rescue League of Iowa on its centennial anniversary.","A resolution recognizing and honoring the Young Men's Christian Association (YMCA) on its 175th anniversary.","A resolution honoring and congratulating barbecue chef and pitmaster Thyron Mathews for his appearance as a competitor on the reality television cooking competition BBQ Brawl.","A resolution recognizing and honoring Easterseals Iowa on its centennial anniversary.","A resolution recognizing the work of We the Veterans and Military Families and commemorating the two hundred fiftieth anniversary of the United States Army, United States Navy, and United States Marine Corps.","A resolution recognizing and commending the National Conference of State Legislatures on its fiftieth anniversary.","A resolution celebrating over one hundred sixty years of Lutheran Services in Iowa's achievements in helping the people of Iowa, and designating March 11, 2025, as Lutheran Services in Iowa Day.","A resolution commemorating the fiftieth anniversary of the State Government Affairs Council.","A resolution designating February 2025 as Career and Technical Education Month."],"status_desc":["Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced"],"status_date":["2026-03-23","2026-02-19","2026-02-12","2026-01-21","2026-01-20","2026-01-20","2025-04-03","2025-03-18","2025-03-10","2025-03-05","2025-02-10"],"last_action_date":["2026-03-23","2026-02-19","2026-02-12","2026-01-21","2026-01-20","2026-01-20","2025-04-03","2025-03-18","2025-03-10","2025-03-05","2025-02-10"],"last_action":["Introduced, referred to Rules and Administration. S.J. 625.","Introduced, referred to Rules and Administration. S.J. 324.","Introduced, referred to Rules and Administration. S.J. 267.","Introduced, referred to Rules and Administration. S.J. 119.","Introduced, referred to Rules and Administration. S.J. 113.","Introduced, referred to Rules and Administration. S.J. 113.","Introduced, referred to Rules and Administration. S.J. 690.","Introduced, referred to Rules and Administration. S.J. 566.","Introduced, referred to Rules and Administration. S.J. 459.","Introduced, referred to Rules and Administration. S.J. 416.","Introduced, referred to Rules and Administration. S.J. 214."]},"columns":[{"id":"bill_link","name":"Bill","type":["glue","character"],"na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","cell":["<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTIuaHRtbCc+U1IgMTEyPC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR112.html'>SR 112<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMDcuaHRtbCc+U1IgMTA3PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR107.html'>SR 107<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMDYuaHRtbCc+U1IgMTA2PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR106.html'>SR 106<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMDQuaHRtbCc+U1IgMTA0PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR104.html'>SR 104<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMDIuaHRtbCc+U1IgMTAyPC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR102.html'>SR 102<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMDMuaHRtbCc+U1IgMTAzPC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR103.html'>SR 103<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1I4Lmh0bWwnPlNSIDg8L2E+\"><span class='gt_from_md'><a href='../legislation/SR8.html'>SR 8<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1I3Lmh0bWwnPlNSIDc8L2E+\"><span class='gt_from_md'><a href='../legislation/SR7.html'>SR 7<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1I1Lmh0bWwnPlNSIDU8L2E+\"><span class='gt_from_md'><a href='../legislation/SR5.html'>SR 5<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1I0Lmh0bWwnPlNSIDQ8L2E+\"><span class='gt_from_md'><a href='../legislation/SR4.html'>SR 4<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IyLmh0bWwnPlNSIDI8L2E+\"><span class='gt_from_md'><a href='../legislation/SR2.html'>SR 2<\/a><\/span><\/span>"],"html":true,"align":"center"},{"id":"title","name":"Title","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"status_desc","name":"Status","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"status_date","name":"Status Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"last_action_date","name":"Last Action Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"last_action","name":"Last Action","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"}],"filterable":true,"searchable":true,"defaultPageSize":25,"showPageSizeOptions":true,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"12px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"gtcfslpwds","dataKey":"656d1a5d382eb8665efbd9ae1c885e82"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style","tag.attribs.columns.4.style","tag.attribs.columns.5.style"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -628,23 +624,23 @@ ul.task-list li input[type="checkbox"] {
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
 <div class="cell-output-display">
-<div id="paqvzmazuw" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#paqvzmazuw table {
+<div id="huzjcszwiq" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#huzjcszwiq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#paqvzmazuw thead, #paqvzmazuw tbody, #paqvzmazuw tfoot, #paqvzmazuw tr, #paqvzmazuw td, #paqvzmazuw th {
+#huzjcszwiq thead, #huzjcszwiq tbody, #huzjcszwiq tfoot, #huzjcszwiq tr, #huzjcszwiq td, #huzjcszwiq th {
   border-style: none;
 }
 
-#paqvzmazuw p {
+#huzjcszwiq p {
   margin: 0;
   padding: 0;
 }
 
-#paqvzmazuw .gt_table {
+#huzjcszwiq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -670,12 +666,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#paqvzmazuw .gt_caption {
+#huzjcszwiq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#paqvzmazuw .gt_title {
+#huzjcszwiq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -687,7 +683,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#paqvzmazuw .gt_subtitle {
+#huzjcszwiq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -699,7 +695,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#paqvzmazuw .gt_heading {
+#huzjcszwiq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -711,13 +707,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#paqvzmazuw .gt_bottom_border {
+#huzjcszwiq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#paqvzmazuw .gt_col_headings {
+#huzjcszwiq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -732,7 +728,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#paqvzmazuw .gt_col_heading {
+#huzjcszwiq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -752,7 +748,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#paqvzmazuw .gt_column_spanner_outer {
+#huzjcszwiq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -764,15 +760,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#paqvzmazuw .gt_column_spanner_outer:first-child {
+#huzjcszwiq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#paqvzmazuw .gt_column_spanner_outer:last-child {
+#huzjcszwiq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#paqvzmazuw .gt_column_spanner {
+#huzjcszwiq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -784,11 +780,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#paqvzmazuw .gt_spanner_row {
+#huzjcszwiq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#paqvzmazuw .gt_group_heading {
+#huzjcszwiq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -814,7 +810,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#paqvzmazuw .gt_empty_group_heading {
+#huzjcszwiq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -829,15 +825,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#paqvzmazuw .gt_from_md > :first-child {
+#huzjcszwiq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#paqvzmazuw .gt_from_md > :last-child {
+#huzjcszwiq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#paqvzmazuw .gt_row {
+#huzjcszwiq .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -856,7 +852,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#paqvzmazuw .gt_stub {
+#huzjcszwiq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -869,7 +865,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#paqvzmazuw .gt_stub_row_group {
+#huzjcszwiq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -883,15 +879,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#paqvzmazuw .gt_row_group_first td {
+#huzjcszwiq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#paqvzmazuw .gt_row_group_first th {
+#huzjcszwiq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#paqvzmazuw .gt_summary_row {
+#huzjcszwiq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -901,16 +897,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#paqvzmazuw .gt_first_summary_row {
+#huzjcszwiq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#paqvzmazuw .gt_first_summary_row.thick {
+#huzjcszwiq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#paqvzmazuw .gt_last_summary_row {
+#huzjcszwiq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -920,7 +916,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#paqvzmazuw .gt_grand_summary_row {
+#huzjcszwiq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -930,7 +926,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#paqvzmazuw .gt_first_grand_summary_row {
+#huzjcszwiq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -940,7 +936,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#paqvzmazuw .gt_last_grand_summary_row_top {
+#huzjcszwiq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -950,11 +946,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#paqvzmazuw .gt_striped {
+#huzjcszwiq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#paqvzmazuw .gt_table_body {
+#huzjcszwiq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -963,7 +959,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#paqvzmazuw .gt_footnotes {
+#huzjcszwiq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -977,7 +973,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#paqvzmazuw .gt_footnote {
+#huzjcszwiq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -986,7 +982,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#paqvzmazuw .gt_sourcenotes {
+#huzjcszwiq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1000,7 +996,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#paqvzmazuw .gt_sourcenote {
+#huzjcszwiq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1008,77 +1004,77 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#paqvzmazuw .gt_left {
+#huzjcszwiq .gt_left {
   text-align: left;
 }
 
-#paqvzmazuw .gt_center {
+#huzjcszwiq .gt_center {
   text-align: center;
 }
 
-#paqvzmazuw .gt_right {
+#huzjcszwiq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#paqvzmazuw .gt_font_normal {
+#huzjcszwiq .gt_font_normal {
   font-weight: normal;
 }
 
-#paqvzmazuw .gt_font_bold {
+#huzjcszwiq .gt_font_bold {
   font-weight: bold;
 }
 
-#paqvzmazuw .gt_font_italic {
+#huzjcszwiq .gt_font_italic {
   font-style: italic;
 }
 
-#paqvzmazuw .gt_super {
+#huzjcszwiq .gt_super {
   font-size: 65%;
 }
 
-#paqvzmazuw .gt_footnote_marks {
+#huzjcszwiq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#paqvzmazuw .gt_asterisk {
+#huzjcszwiq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#paqvzmazuw .gt_indent_1 {
+#huzjcszwiq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#paqvzmazuw .gt_indent_2 {
+#huzjcszwiq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#paqvzmazuw .gt_indent_3 {
+#huzjcszwiq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#paqvzmazuw .gt_indent_4 {
+#huzjcszwiq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#paqvzmazuw .gt_indent_5 {
+#huzjcszwiq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#paqvzmazuw .katex-display {
+#huzjcszwiq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#paqvzmazuw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#huzjcszwiq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<div id="paqvzmazuw" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="paqvzmazuw">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"bill_link":["<a href='../legislation/SR115.html'>SR 115<\/a>","<a href='../legislation/SR117.html'>SR 117<\/a>","<a href='../legislation/SR119.html'>SR 119<\/a>","<a href='../legislation/SR120.html'>SR 120<\/a>","<a href='../legislation/SR121.html'>SR 121<\/a>","<a href='../legislation/SR118.html'>SR 118<\/a>","<a href='../legislation/SR114.html'>SR 114<\/a>","<a href='../legislation/SR113.html'>SR 113<\/a>","<a href='../legislation/SR3.html'>SR 3<\/a>","<a href='../legislation/SSB1202.html'>SSB 1202<\/a>"],"title":["A resolution honoring Senator Cherielynn Westrich for her service in the Iowa Senate.","A resolution honoring Senator Ken Rozenboom for his service in the Iowa Senate.","A resolution honoring Senator Zach Wahls for his service in the Iowa Senate.","A resolution honoring Senator Bill Dotzler for his service in the Iowa General Assembly.","A resolution honoring Senator Izaah Knox for his service in the Iowa Senate.","A resolution honoring Senator Jack Whitver for his service in the Iowa Senate.","A resolution honoring Senator Julian Garrett for his service in the Iowa Senate.","A resolution honoring Senator Tom Shipley for his service in the Iowa Senate.","A resolution promoting mutually beneficial cooperation between the state of Iowa and Taiwan in certain economic sectors.(Formerly SSB 1202.)","A resolution promoting mutually beneficial cooperation between the state of Iowa and Taiwan in certain economic sectors.(See SR 3.)"],"status_desc":["Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced"],"status_date":["2026-04-14","2026-04-14","2026-04-20","2026-04-20","2026-04-21","2026-04-14","2026-04-14","2026-04-14","2025-03-05","2025-03-04"],"last_action_date":["2026-04-22","2026-04-22","2026-04-21","2026-04-21","2026-04-21","2026-04-20","2026-04-16","2026-04-15","2025-03-06","2025-03-05"],"last_action":["Resolution adopted. S.J. 876.","Resolution adopted. S.J. 864.","Resolution adopted. S.J. 852.","Resolution adopted. S.J. 858.","Resolution adopted. S.J. 845.","Resolution adopted. S.J. 829.","Resolution adopted. S.J. 824.","Resolution adopted. S.J. 803.","Resolution adopted. S.J. 427.","Committee report approving bill, renumbered as SR 3."]},"columns":[{"id":"bill_link","name":"Bill","type":["glue","character"],"na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","cell":["<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTUuaHRtbCc+U1IgMTE1PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR115.html'>SR 115<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTcuaHRtbCc+U1IgMTE3PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR117.html'>SR 117<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTkuaHRtbCc+U1IgMTE5PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR119.html'>SR 119<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMjAuaHRtbCc+U1IgMTIwPC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR120.html'>SR 120<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMjEuaHRtbCc+U1IgMTIxPC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR121.html'>SR 121<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTguaHRtbCc+U1IgMTE4PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR118.html'>SR 118<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTQuaHRtbCc+U1IgMTE0PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR114.html'>SR 114<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTMuaHRtbCc+U1IgMTEzPC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR113.html'>SR 113<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IzLmh0bWwnPlNSIDM8L2E+\"><span class='gt_from_md'><a href='../legislation/SR3.html'>SR 3<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1NCMTIwMi5odG1sJz5TU0IgMTIwMjwvYT4=\"><span class='gt_from_md'><a href='../legislation/SSB1202.html'>SSB 1202<\/a><\/span><\/span>"],"html":true,"align":"center"},{"id":"title","name":"Title","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"status_desc","name":"Status","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"status_date","name":"Status Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"last_action_date","name":"Last Action Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"last_action","name":"Last Action","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"}],"filterable":true,"searchable":true,"defaultPageSize":25,"showPageSizeOptions":true,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"12px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"paqvzmazuw","dataKey":"045b3ac87ae4d008a17d584daf8fcbf9"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style","tag.attribs.columns.4.style","tag.attribs.columns.5.style"],"jsHooks":[]}</script>
+<div id="huzjcszwiq" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="huzjcszwiq">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"bill_link":["<a href='../legislation/SCR102.html'>SCR 102<\/a>","<a href='../legislation/SR115.html'>SR 115<\/a>","<a href='../legislation/SR117.html'>SR 117<\/a>","<a href='../legislation/SR119.html'>SR 119<\/a>","<a href='../legislation/SR120.html'>SR 120<\/a>","<a href='../legislation/SR121.html'>SR 121<\/a>","<a href='../legislation/SR118.html'>SR 118<\/a>","<a href='../legislation/SR114.html'>SR 114<\/a>","<a href='../legislation/SR113.html'>SR 113<\/a>","<a href='../legislation/SR3.html'>SR 3<\/a>","<a href='../legislation/SSB1202.html'>SSB 1202<\/a>"],"title":["A concurrent resolution to provide for adjournment sine die.","A resolution honoring Senator Cherielynn Westrich for her service in the Iowa Senate.","A resolution honoring Senator Ken Rozenboom for his service in the Iowa Senate.","A resolution honoring Senator Zach Wahls for his service in the Iowa Senate.","A resolution honoring Senator Bill Dotzler for his service in the Iowa General Assembly.","A resolution honoring Senator Izaah Knox for his service in the Iowa Senate.","A resolution honoring Senator Jack Whitver for his service in the Iowa Senate.","A resolution honoring Senator Julian Garrett for his service in the Iowa Senate.","A resolution honoring Senator Tom Shipley for his service in the Iowa Senate.","A resolution promoting mutually beneficial cooperation between the state of Iowa and Taiwan in certain economic sectors.(Formerly SSB 1202.)","A resolution promoting mutually beneficial cooperation between the state of Iowa and Taiwan in certain economic sectors.(See SR 3.)"],"status_desc":["Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced","Introduced"],"status_date":["2026-05-03","2026-04-14","2026-04-14","2026-04-20","2026-04-20","2026-04-21","2026-04-14","2026-04-14","2026-04-14","2025-03-05","2025-03-04"],"last_action_date":["2026-05-03","2026-04-22","2026-04-22","2026-04-21","2026-04-21","2026-04-21","2026-04-20","2026-04-16","2026-04-15","2025-03-06","2025-03-05"],"last_action":["Introduced, placed on calendar.","Resolution adopted. S.J. 876.","Resolution adopted. S.J. 864.","Resolution adopted. S.J. 852.","Resolution adopted. S.J. 858.","Resolution adopted. S.J. 845.","Resolution adopted. S.J. 829.","Resolution adopted. S.J. 824.","Resolution adopted. S.J. 803.","Resolution adopted. S.J. 427.","Committee report approving bill, renumbered as SR 3."]},"columns":[{"id":"bill_link","name":"Bill","type":["glue","character"],"na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","cell":["<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU0NSMTAyLmh0bWwnPlNDUiAxMDI8L2E+\"><span class='gt_from_md'><a href='../legislation/SCR102.html'>SCR 102<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTUuaHRtbCc+U1IgMTE1PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR115.html'>SR 115<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTcuaHRtbCc+U1IgMTE3PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR117.html'>SR 117<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTkuaHRtbCc+U1IgMTE5PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR119.html'>SR 119<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMjAuaHRtbCc+U1IgMTIwPC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR120.html'>SR 120<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMjEuaHRtbCc+U1IgMTIxPC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR121.html'>SR 121<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTguaHRtbCc+U1IgMTE4PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR118.html'>SR 118<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTQuaHRtbCc+U1IgMTE0PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR114.html'>SR 114<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMTMuaHRtbCc+U1IgMTEzPC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR113.html'>SR 113<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IzLmh0bWwnPlNSIDM8L2E+\"><span class='gt_from_md'><a href='../legislation/SR3.html'>SR 3<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1NCMTIwMi5odG1sJz5TU0IgMTIwMjwvYT4=\"><span class='gt_from_md'><a href='../legislation/SSB1202.html'>SSB 1202<\/a><\/span><\/span>"],"html":true,"align":"center"},{"id":"title","name":"Title","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"status_desc","name":"Status","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"status_date","name":"Status Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"last_action_date","name":"Last Action Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"last_action","name":"Last Action","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 7) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 8) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 9) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 10) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 11) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"}],"filterable":true,"searchable":true,"defaultPageSize":25,"showPageSizeOptions":true,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"12px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"huzjcszwiq","dataKey":"ea52ae14d79e54d03eda77f61df34ee2"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style","tag.attribs.columns.4.style","tag.attribs.columns.5.style"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -1086,23 +1082,23 @@ ul.task-list li input[type="checkbox"] {
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <div class="cell">
 <div class="cell-output-display">
-<div id="dpxzkbbmrb" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dpxzkbbmrb table {
+<div id="imysttfhgn" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#imysttfhgn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dpxzkbbmrb thead, #dpxzkbbmrb tbody, #dpxzkbbmrb tfoot, #dpxzkbbmrb tr, #dpxzkbbmrb td, #dpxzkbbmrb th {
+#imysttfhgn thead, #imysttfhgn tbody, #imysttfhgn tfoot, #imysttfhgn tr, #imysttfhgn td, #imysttfhgn th {
   border-style: none;
 }
 
-#dpxzkbbmrb p {
+#imysttfhgn p {
   margin: 0;
   padding: 0;
 }
 
-#dpxzkbbmrb .gt_table {
+#imysttfhgn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1128,12 +1124,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#dpxzkbbmrb .gt_caption {
+#imysttfhgn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dpxzkbbmrb .gt_title {
+#imysttfhgn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1145,7 +1141,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#dpxzkbbmrb .gt_subtitle {
+#imysttfhgn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1157,7 +1153,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#dpxzkbbmrb .gt_heading {
+#imysttfhgn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1169,13 +1165,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#dpxzkbbmrb .gt_bottom_border {
+#imysttfhgn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dpxzkbbmrb .gt_col_headings {
+#imysttfhgn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1190,7 +1186,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#dpxzkbbmrb .gt_col_heading {
+#imysttfhgn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1210,7 +1206,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#dpxzkbbmrb .gt_column_spanner_outer {
+#imysttfhgn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1222,15 +1218,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#dpxzkbbmrb .gt_column_spanner_outer:first-child {
+#imysttfhgn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dpxzkbbmrb .gt_column_spanner_outer:last-child {
+#imysttfhgn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dpxzkbbmrb .gt_column_spanner {
+#imysttfhgn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1242,11 +1238,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#dpxzkbbmrb .gt_spanner_row {
+#imysttfhgn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dpxzkbbmrb .gt_group_heading {
+#imysttfhgn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1272,7 +1268,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#dpxzkbbmrb .gt_empty_group_heading {
+#imysttfhgn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1287,15 +1283,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#dpxzkbbmrb .gt_from_md > :first-child {
+#imysttfhgn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dpxzkbbmrb .gt_from_md > :last-child {
+#imysttfhgn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dpxzkbbmrb .gt_row {
+#imysttfhgn .gt_row {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
@@ -1314,7 +1310,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#dpxzkbbmrb .gt_stub {
+#imysttfhgn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1327,7 +1323,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#dpxzkbbmrb .gt_stub_row_group {
+#imysttfhgn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1341,15 +1337,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#dpxzkbbmrb .gt_row_group_first td {
+#imysttfhgn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dpxzkbbmrb .gt_row_group_first th {
+#imysttfhgn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dpxzkbbmrb .gt_summary_row {
+#imysttfhgn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1359,16 +1355,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#dpxzkbbmrb .gt_first_summary_row {
+#imysttfhgn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dpxzkbbmrb .gt_first_summary_row.thick {
+#imysttfhgn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dpxzkbbmrb .gt_last_summary_row {
+#imysttfhgn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1378,7 +1374,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#dpxzkbbmrb .gt_grand_summary_row {
+#imysttfhgn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1388,7 +1384,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#dpxzkbbmrb .gt_first_grand_summary_row {
+#imysttfhgn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1398,7 +1394,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#dpxzkbbmrb .gt_last_grand_summary_row_top {
+#imysttfhgn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1408,11 +1404,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#dpxzkbbmrb .gt_striped {
+#imysttfhgn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dpxzkbbmrb .gt_table_body {
+#imysttfhgn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1421,7 +1417,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#dpxzkbbmrb .gt_footnotes {
+#imysttfhgn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1435,7 +1431,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#dpxzkbbmrb .gt_footnote {
+#imysttfhgn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1444,7 +1440,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#dpxzkbbmrb .gt_sourcenotes {
+#imysttfhgn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1458,7 +1454,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#dpxzkbbmrb .gt_sourcenote {
+#imysttfhgn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1466,77 +1462,77 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#dpxzkbbmrb .gt_left {
+#imysttfhgn .gt_left {
   text-align: left;
 }
 
-#dpxzkbbmrb .gt_center {
+#imysttfhgn .gt_center {
   text-align: center;
 }
 
-#dpxzkbbmrb .gt_right {
+#imysttfhgn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dpxzkbbmrb .gt_font_normal {
+#imysttfhgn .gt_font_normal {
   font-weight: normal;
 }
 
-#dpxzkbbmrb .gt_font_bold {
+#imysttfhgn .gt_font_bold {
   font-weight: bold;
 }
 
-#dpxzkbbmrb .gt_font_italic {
+#imysttfhgn .gt_font_italic {
   font-style: italic;
 }
 
-#dpxzkbbmrb .gt_super {
+#imysttfhgn .gt_super {
   font-size: 65%;
 }
 
-#dpxzkbbmrb .gt_footnote_marks {
+#imysttfhgn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dpxzkbbmrb .gt_asterisk {
+#imysttfhgn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dpxzkbbmrb .gt_indent_1 {
+#imysttfhgn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dpxzkbbmrb .gt_indent_2 {
+#imysttfhgn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dpxzkbbmrb .gt_indent_3 {
+#imysttfhgn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dpxzkbbmrb .gt_indent_4 {
+#imysttfhgn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dpxzkbbmrb .gt_indent_5 {
+#imysttfhgn .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dpxzkbbmrb .katex-display {
+#imysttfhgn .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dpxzkbbmrb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#imysttfhgn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<div id="dpxzkbbmrb" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="dpxzkbbmrb">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"bill_link":["<a href='../legislation/SCR101.html'>SCR 101<\/a>","<a href='../legislation/SR105.html'>SR 105<\/a>","<a href='../legislation/SR9.html'>SR 9<\/a>","<a href='../legislation/SR6.html'>SR 6<\/a>","<a href='../legislation/SR3.html'>SR 3<\/a>","<a href='../legislation/HCR5.html'>HCR 5<\/a>"],"title":["A concurrent resolution to approve and confirm the appointment of Bernardo Granwehr as Ombudsman.","A resolution amending Senate rules for the Ninety-first General Assembly.","A resolution deferring action on the confirmation of certain appointments.","A resolution relating to permanent rules of the senate for the ninety-first general assembly.","A resolution promoting mutually beneficial cooperation between the state of Iowa and Taiwan in certain economic sectors.(Formerly SSB 1202.)","A concurrent resolution relating to joint rules of the Senate and House of Representatives for the Ninety-first General Assembly.(Formerly HSB 102.)"],"date":["2026-02-04","2026-02-04","2025-04-14","2025-03-17","2025-03-05","2025-02-17"],"description":["Senate Rules And Administration Report","Senate Rules And Administration Report","Senate Rules And Administration Report","Senate Rules And Administration Report","Senate Rules And Administration Report","Senate Rules And Administration Report"],"yea":[8,5,9,10,9,9],"nay":[0,3,0,0,0,0],"nv":[0,0,0,0,0,0],"absent":[2,2,1,0,1,0],"total":[10,10,10,10,10,9]},"columns":[{"id":"bill_link","name":"Bill","type":["glue","character"],"na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","cell":["<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU0NSMTAxLmh0bWwnPlNDUiAxMDE8L2E+\"><span class='gt_from_md'><a href='../legislation/SCR101.html'>SCR 101<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMDUuaHRtbCc+U1IgMTA1PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR105.html'>SR 105<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1I5Lmh0bWwnPlNSIDk8L2E+\"><span class='gt_from_md'><a href='../legislation/SR9.html'>SR 9<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1I2Lmh0bWwnPlNSIDY8L2E+\"><span class='gt_from_md'><a href='../legislation/SR6.html'>SR 6<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IzLmh0bWwnPlNSIDM8L2E+\"><span class='gt_from_md'><a href='../legislation/SR3.html'>SR 3<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vSENSNS5odG1sJz5IQ1IgNTwvYT4=\"><span class='gt_from_md'><a href='../legislation/HCR5.html'>HCR 5<\/a><\/span><\/span>"],"html":true,"align":"center"},{"id":"title","name":"Title","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"date","name":"Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"description","name":"Description","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"yea","name":"Yea","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"nay","name":"Nay","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"nv","name":"NV","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"absent","name":"Absent","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"total","name":"Total","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"}],"filterable":true,"searchable":true,"defaultPageSize":25,"showPageSizeOptions":true,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"12px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"dpxzkbbmrb","dataKey":"bffffe1a855b10439412caf53bdee44d"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style","tag.attribs.columns.4.style","tag.attribs.columns.5.style","tag.attribs.columns.6.style","tag.attribs.columns.7.style","tag.attribs.columns.8.style"],"jsHooks":[]}</script>
+<div id="imysttfhgn" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="imysttfhgn">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"bill_link":["<a href='../legislation/SCR101.html'>SCR 101<\/a>","<a href='../legislation/SR105.html'>SR 105<\/a>","<a href='../legislation/SR9.html'>SR 9<\/a>","<a href='../legislation/SR6.html'>SR 6<\/a>","<a href='../legislation/SR3.html'>SR 3<\/a>","<a href='../legislation/HCR5.html'>HCR 5<\/a>"],"title":["A concurrent resolution to approve and confirm the appointment of Bernardo Granwehr as Ombudsman.","A resolution amending Senate rules for the Ninety-first General Assembly.","A resolution deferring action on the confirmation of certain appointments.","A resolution relating to permanent rules of the senate for the ninety-first general assembly.","A resolution promoting mutually beneficial cooperation between the state of Iowa and Taiwan in certain economic sectors.(Formerly SSB 1202.)","A concurrent resolution relating to joint rules of the Senate and House of Representatives for the Ninety-first General Assembly.(Formerly HSB 102.)"],"date":["2026-02-04","2026-02-04","2025-04-14","2025-03-17","2025-03-05","2025-02-17"],"description":["Senate Rules And Administration Report","Senate Rules And Administration Report","Senate Rules And Administration Report","Senate Rules And Administration Report","Senate Rules And Administration Report","Senate Rules And Administration Report"],"yea":[8,5,9,10,9,9],"nay":[0,3,0,0,0,0],"nv":[0,0,0,0,0,0],"absent":[2,2,1,0,1,0],"total":[10,10,10,10,10,9]},"columns":[{"id":"bill_link","name":"Bill","type":["glue","character"],"na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","cell":["<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU0NSMTAxLmh0bWwnPlNDUiAxMDE8L2E+\"><span class='gt_from_md'><a href='../legislation/SCR101.html'>SCR 101<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IxMDUuaHRtbCc+U1IgMTA1PC9hPg==\"><span class='gt_from_md'><a href='../legislation/SR105.html'>SR 105<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1I5Lmh0bWwnPlNSIDk8L2E+\"><span class='gt_from_md'><a href='../legislation/SR9.html'>SR 9<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1I2Lmh0bWwnPlNSIDY8L2E+\"><span class='gt_from_md'><a href='../legislation/SR6.html'>SR 6<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vU1IzLmh0bWwnPlNSIDM8L2E+\"><span class='gt_from_md'><a href='../legislation/SR3.html'>SR 3<\/a><\/span><\/span>","<span data-qmd-base64=\"PGEgaHJlZj0nLi4vbGVnaXNsYXRpb24vSENSNS5odG1sJz5IQ1IgNTwvYT4=\"><span class='gt_from_md'><a href='../legislation/HCR5.html'>HCR 5<\/a><\/span><\/span>"],"html":true,"align":"center"},{"id":"title","name":"Title","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"date","name":"Date","type":"Date","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"description","name":"Description","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"left"},{"id":"yea","name":"Yea","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"nay","name":"Nay","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"nv","name":"NV","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"absent","name":"Absent","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"},{"id":"total","name":"Total","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'bill_link' & rowIndex === 1) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 2) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 3) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 4) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 5) {\n  return { whiteSpace: 'nowrap' }\n}\n\nif (colInfo.id === 'bill_link' & rowIndex === 6) {\n  return { whiteSpace: 'nowrap' }\n}\n\n}","html":true,"align":"right"}],"filterable":true,"searchable":true,"defaultPageSize":25,"showPageSizeOptions":true,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"12px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"imysttfhgn","dataKey":"bffffe1a855b10439412caf53bdee44d"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style","tag.attribs.columns.4.style","tag.attribs.columns.5.style","tag.attribs.columns.6.style","tag.attribs.columns.7.style","tag.attribs.columns.8.style"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -1544,7 +1540,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <hr>
-<p>This page was generated from LegiScan data for the Iowa Legislature. Last updated: 2026-07-25</p>
+<p>This page was generated from LegiScan data for the Iowa Legislature. Last updated: 2026-10-13</p>
 
 
 </section>

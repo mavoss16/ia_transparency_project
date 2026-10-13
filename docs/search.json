@@ -53,7 +53,7 @@
     "href": "about.html#how-often-data-is-updated",
     "title": "About",
     "section": "How Often Data Is Updated",
-    "text": "How Often Data Is Updated\nThe data pipeline runs automatically every day at midnight CT via a scheduled GitHub Actions workflow. Each run:\n\nFetches updated data from the LegiScan API\nProcesses votes and legislator statistics\nRe-renders any bill or legislator pages that have changed\nPublishes the updated site to GitHub Pages\n\nData was last fetched on October 13, 2026 at 02:39 AM UTC."
+    "text": "How Often Data Is Updated\nThe data pipeline runs automatically every day at midnight CT via a scheduled GitHub Actions workflow. Each run:\n\nFetches updated data from the LegiScan API\nProcesses votes and legislator statistics\nRe-renders any bill or legislator pages that have changed\nPublishes the updated site to GitHub Pages\n\nData was last fetched on October 13, 2026 at 02:05 PM UTC."
   },
   {
     "objectID": "about.html#attribution",
