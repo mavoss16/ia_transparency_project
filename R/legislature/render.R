@@ -37,13 +37,23 @@ ensure_dirs <- function() {
 #' Tracks which items have been rendered and their hash at render time
 load_manifest <- function() {
   if (file.exists(MANIFEST_FILE)) {
-    read_csv(MANIFEST_FILE, show_col_types = FALSE)
+    # Explicit types so a manifest holding only numeric ids (legislators,
+    # committees) still reads `id` as character, matching update_manifest()
+    read_csv(MANIFEST_FILE, col_types = cols(
+      type = col_character(),
+      id = col_character(),
+      hash = col_character(),
+      rendered_at = col_datetime()
+    ))
   } else {
+    # rendered_at must be a datetime, as update_manifest() writes Sys.time();
+    # a character column here makes the first bind_rows() after
+    # clear_manifest() fail
     tibble(
       type = character(),
       id = character(),
       hash = character(),
-      rendered_at = character()
+      rendered_at = as.POSIXct(character())
     )
   }
 }
