@@ -20,7 +20,9 @@ ia_transparency_project/
 │   ├── campaign_finance/
 │   │   ├── download/
 │   │   │   └── fec_contributions.R       ← download FEC bulk zips → source/federal/{cycle}/
+│   │   ├── iecdb_api.R                   ← THE ONLY thing that may call the IECDB API
 │   │   ├── 01_build_committee_lookup.R   ← API scrape → committee_lookup.rds
+│   │   ├── 01b_iecdb_ingest.R            ← change-detection ingest (filings feed → manifest → per-committee pulls)
 │   │   ├── 02_clean_normalize.R          ← clean CSVs + merge committees → Parquet
 │   │   ├── 02a_clean_normalize_federal.R ← clean FEC source files → Parquet
 │   │   ├── 03_link_donors.R              ← fuzzy donor dedup (built, NOT working; nothing depends on it)
@@ -205,8 +207,9 @@ Data sourced from the Iowa Ethics and Campaign Disclosure Board (IECDB). Raw CSV
 > - **No bulk dump exists.** `/api/search/table` returns `204 No Content` without a `primaryCommitteeId`, with or without a date window — a committee filter is mandatory. Instead `POST /api/publicreports/state` is a single unfiltered call returning all 17,873 filings with `filedOn`, so it serves as a **change feed**: re-pull only committees whose latest filing moved.
 > - **GUID vs `committee_code` is a non-issue.** `/api/search/committee` returns both, and `committee_lookup.rds` already stores `committee_uuid` for 7,935 of 7,936 committees (verified against the live API). Transaction rows come back carrying `primaryCommitteeCode`, so joins use our existing key unchanged.
 > - **No terms-of-service prohibition.** IECDB's `robots.txt` is `User-agent: *` / `Disallow:` (nothing restricted) and the Iowa.gov policies page has no automated-access or rate-limit clause; this is Chapter 22 open-record data. That is permission-by-absence, not a licence — throttle, identify the client, cache.
-> - **Migration plan is Phases A–D** in the note. Phases A–C come **before** `render.R` / index / donor pages, because Phase D changes the data model those pages would be built on.
+> - **Migration plan is Phases A–D** in the note. Phases A–C come **before** `render.R` / index / donor pages, because Phase D changes the data model those pages would be built on. The transaction-class split was pulled out of Phase D and done on 2026-07-27 — it needs no API access and it fixed wrong figures rather than stale ones.
 > - **Phase A is built:** [`R/campaign_finance/iecdb_api.R`](R/campaign_finance/iecdb_api.R) — the only thing that may call the API. Throttled (1s default), retrying, request-budgeted, with per-endpoint schema contracts that **fail** on missing required fields. `iecdb_health_check()` is a 2-request canary; run it before any ingest.
+> - **Phase B is built and partially run live (2026-08-01):** [`R/campaign_finance/01b_iecdb_ingest.R`](R/campaign_finance/01b_iecdb_ingest.R). Filings feed pulled, period parsing fixed, 5 committees ingested clean. **Cutover blocker open** — one committee returned fewer rows from the API than the bulk export has. See *Phase B ingest* below and the session log: [`notes/2026-08-01_phase-b-ingest.md`](notes/2026-08-01_phase-b-ingest.md).
 > - **Loans are definitively not in the public API — resolved 2026-07-25 by exhausting the alternatives.** `transactionType = "CON"` returns `CON` + `INK` rows only (verified across five committees, 131 loan transactions, 0 returned; the decisive test is Henderson's same-date pair on 2026-07-06 where the $20 `CON` returns and the $180 `LOANREC` doesn't). The app's own JS enum has hidden values (`LOANREC`, `LOANREP`, `VSR`) — the server returns empty for all of them, across every `transactionOption` (1–8). The per-schedule endpoints (`/api/schF1LoansReceived/table?dr2Id=`) exist but are filer-side: **401** without auth. In-kind is also unreliable in the API — one committee's `INK` rows came back, another's didn't.
 > - **The loan path is the DR2 PDFs, and they're better than expected.** The "Summary" PDFs are the *complete filed reports*: page 1 is the Statement of Cash On Hand (so **cash on hand and loans come from the same parse**), and Schedule F1 carries lender-level detail (name, address, relationship, date, amount, running outstanding balance). Digitally generated — `pdftools::pdf_text()` extracts cleanly. Verified on Lahn's May filing: F1 shows the $500,000 self-loan of 5/22/2026, and the PDF's Schedule A total matches our bulk-derived period sum to the cent. **Strategy: bulk data.iowa.gov for loan history + DR2 Schedule F1 parsing for the recency gap**; `iecdb_download_filing()` in the client fetches the PDFs under the same throttle/budget. PDFs land in `data/campaign_finance/source/dr2_filings/` (already git-ignored — a full mirror would be ~3–4 GB; the gap-fill needs only a few hundred). Candidate pages link to filed reports via the filings index's `file_url` (the state's own public blob URL) — render links fresh each pull, since amended filings get a new filename.
 > - **`referenceDR2Id` is not period attribution** despite the name — it is the all-zeros GUID on every ordinary contribution. Period attribution must be inferred from `date` against the filing-period boundaries.
@@ -271,6 +274,58 @@ Committee codes are a mix of numeric (`5185`, ~5,600 codes) and alphanumeric (`C
 
 `03_link_donors.R` exists but does not run to completion, and `donor_crosswalk.parquet` has never been produced. **Nothing downstream depends on it** — `04_build_database.R` contains no reference to a crosswalk or `canonical_key`, so the donor views use exact-match `donor_key` only. Refreshing data does not require fixing it.
 
+#### Phase B ingest — `01b_iecdb_ingest.R` (built 2026-08-01, not yet run live)
+
+Change-detection ingest against the IECDB API. Sourcing the file performs **no requests**; planning is separate from executing so the cost is visible before it is paid.
+
+```
+iecdb_refresh_filings()   1 request   POST /api/publicreports/state → all ~17,900 filings
+                                      → source/iecdb_api/filings_index.parquet
+iecdb_plan_refresh()      0 requests  diff the feed against the manifest
+                                      → one row per committee needing a pull, with a reason
+iecdb_run_refresh(plan)   1+/committee  pull transactions, write parquet, update manifest
+iecdb_ingest_status()     0 requests  where things stand
+iecdb_load_transactions() 0 requests  read the cache back (Phase C reconciliation)
+```
+
+| Output | Committed? |
+|---|---|
+| `data/campaign_finance/iecdb_manifest.csv` | **yes** — it is the state that makes the next run cheap, and it is small |
+| `data/campaign_finance/source/iecdb_api/` | no — raw API data, already covered by the `source/` ignore rule |
+
+**Change signals** (the `reason` column): `never-pulled`, `new-filing` (filing count rose), `refiled` (later `filed_on`, *or* same count and timestamp but a different filing id — an amendment that replaced the latest filing in place), `previous-error` (retried automatically next run), `forced`.
+
+Design points worth keeping:
+- **Resumable by construction.** Each committee's parquet and manifest row are written as the loop goes, with an `on.exit()` save, so an interrupted run keeps everything already fetched. Re-running resumes, because completed committees stop matching the plan. A full sweep is hours; losing it to one timeout would be miserable.
+- **One committee's failure is recorded and skipped, not fatal** — but budget exhaustion *is* fatal, since it means the run is bigger than intended.
+- **Timestamps are held in UTC throughout.** The API client parses IECDB stamps as America/Chicago and `write_csv` emits UTC, so a manifest round-trip preserves the instant but changes the `tzone` attribute — and R then warns on *every* comparison, thousands per plan. `iecdb_as_utc()` normalizes both sides. Verified round-trip-clean under `options(warn = 2)`.
+- **`reported_through`** is parsed from the free-text `periodDescription` + `periodYear`. The real vocabulary was surveyed across all 17,876 filings on 2026-08-01 and is messier than the tidy forms quoted above — `"January 1 through December 31"` (the word "through", not a dash), `"Oct. 15 through Dec. 31 or Wed. Preceding General through Dec. 31"`, `"January 19th Report for Special Elections"`. `iecdb_parse_period_end()` splits on the **last** separator and reads the month/day from the tail only, returning `NA` when the tail has none. **91.6% of filings parse; 99.5% of committees get a date from their latest filing** (7 of 1,403 don't). Sand, Lahn and Henderson all resolve to 2026-07-14, matching the currency independently established during API reconnaissance.
+  - The unparsed remainder is almost entirely `"… through Tuesday Preceding Primary/General"` (1,437 filings) — a period whose end is an **election, not a date**. Resolving those needs an election calendar; `NA` is correct until then, because the alternative is publishing the period's start date as if it were the end.
+
+**Coverage: `/api/publicreports/state` is state filings only** (measured 2026-08-01). The feed carries 17,876 filings but only **1,403 committees**, against 8,531 in `committee_summary`:
+
+| Slice | Committees | Covered | Money |
+|---|---|---|---|
+| In the feed | 1,583 | — | $778.8M (**80.7%**) |
+| Not in the feed | 6,948 | — | $185.7M (19.3%) |
+
+The split is structural, not an artifact of age. Every local committee type is at **0%** coverage regardless of recency — County Candidate (all offices), City Candidate, School Board, County Central Committee ($33.4M), Local Ballot Issue — as are the `CTY`/`LOCL`/`BALLOT` code prefixes. State types run 47–100% (`SWGA` 100%, State House 59%, Iowa PAC 71%, State Central Committee 100%). Age is a *secondary* effect **within** state committees: the index thins out sharply before 2014, so long-dissolved committees have no filings in it either.
+
+**Consequence:** this change feed cannot refresh county/city/school committees at all — 1,147 of them were still active in 2024+, holding $50.6M. The `countyReports` endpoint seen in the JS bundle is the obvious candidate for a second feed (same manifest, same loop, one more client wrapper); it has **not** been probed. Until it is, the API can supplement but not replace data.iowa.gov, and Phase C reconciliation should be scoped to the state slice.
+
+Offline logic (period parsing against the real 17,876-row vocabulary, state derivation, all five change signals, manifest round-trip, dry run, path sanitization) is verified under `options(warn = 2)`.
+
+**Live status (2026-08-01).** Filings feed pulled successfully: 17,876 filings, 1,403 committees, most recent `filed_on` 2026-07-30. First transaction pull of 5 committees: 5/5 ok, 5,247 rows, `CON` + `INK` and **no `LOANREC`** (the known API gap, reconfirmed). A full sweep is ~1,429 requests / ~24 min — far cheaper than the hours originally estimated, because the feed is 1,403 committees rather than the ~7,900 in `committee_lookup.rds`.
+
+Two bugs found and fixed by running it, both of the same shape — an untested assumption that produced *plausible* output rather than an error:
+
+1. **`iecdb_filings()` returned HTTP 400.** An empty R list has no names and jsonlite cannot distinguish an empty object from an empty array, so `list()` serialized to `[]` where the endpoint wanted `{}`. Fixed in `iecdb_perform()` by naming the empty list; non-empty bodies are untouched, so the `NULL → {}` form the transactions endpoint has always accepted still goes out unchanged. `iecdb_health_check()` did not catch it because it exercises committee search and transactions only — the filings endpoint had never been called through the client.
+2. **`reported_through` was the period's START date** — see the parser note above. Wrong on 14,948 of 17,876 filings.
+
+> **Cutover blocker — unresolved.** Reconciling the 5 pulled committees against the bulk export: no duplication (5,247 rows, 5,247 distinct `transaction_id`), and the API generally has **more** history than bulk (back to 1996 vs bulk's 2003 start; committee `109` is absent from bulk entirely). But committee **`1046` returned fewer API rows than bulk for 2007 (19 vs 81) and 2008 (23 vs 138)** — ~177 transactions missing, in the one direction that matters. Unexplained. Until it is understood, the API cannot be assumed complete for historical data, and it is exactly what response truncation would look like — which also bears on the untested assumption that one `iecdb_transactions()` call returns everything for a committee. Next step and candidate explanations are in the session log.
+
+**`countyReports` exists but its shape is unconfirmed.** A probe returned a 4-element list, matching the `{totalCount, filteredCount, echo, results}` envelope the other publicreports endpoints use — the probe snippet asked the wrong question (`names(r[[1]])`, assuming a bare array). Re-probe before writing the wrapper.
+
 #### Federal data (FEC)
 
 ```
@@ -316,6 +371,7 @@ Campaign finance uses **Parquet + DuckDB** rather than `.rds` because of data vo
 - `donor_key` — pipe-delimited string (`IND|LAST|FIRST|CITY|STATE` or `ORG|NAME|CITY|STATE` or `CMT|code`); stable exact-match donor ID; fuzzy step 03 will collapse near-duplicates
 - `donor_type` — `"individual"`, `"organization"`, or `"committee"`
 - `donor_attribution` — `"itemized"` / `"unitemized"` / `"unidentified"`; see below
+- `transaction_class` — `"contribution"` / `"in_kind"` / `"loan"`; derived from `transaction_type`; see below
 - `norm_*` columns — uppercase stripped fields for fuzzy matching input
 
 #### Donor attribution (added 2026-07-25)
@@ -334,19 +390,32 @@ Session log for this and the 202607 export migration: [`notes/2026-07-25_campaig
 
 `classify_donor_attribution()` in `utils.R` matches `UNITEMIZED_TOKENS` as a **substring** (not a word boundary) against `norm_org` / `norm_first` / `norm_last`. The normalizers delete punctuation without inserting a space, so `Cash-Unitemized` collapses to `CASHUNITEMIZED` with no boundary to anchor to. Only add tokens with the same confidence that they can't appear inside a real name.
 
-#### Transaction types — "total raised" is currently overstated (open, 2026-07-25)
+#### Transaction class — cash, in-kind and loans are kept apart (fixed 2026-07-27)
 
-`transaction_type` carries three values, and **the pipeline sums all three into `total_raised`**:
+`transaction_type` carries three values. The pipeline used to sum all three into one `total_raised`, which overstated receipts by ~16% statewide and turned lenders into donors:
 
-| Type | Meaning | Transactions | Amount | Share |
-|---|---|---|---|---|
-| `CON` | cash contribution | 3,129,935 | $819.7M | 83.7% |
-| `INK` | in-kind (goods/services, never touches cash) | 66,327 | $144.8M | 14.8% |
-| `LOANREC` | loan received (repayable, not income) | 4,525 | $14.6M | 1.5% |
+| Type | `transaction_class` | Meaning | Transactions | Amount | Share |
+|---|---|---|---|---|---|
+| `CON` | `contribution` | cash contribution | 3,129,935 | $819.7M | 83.7% |
+| `INK` | `in_kind` | in-kind (goods/services, never touches cash) | 66,327 | $144.8M | 14.8% |
+| `LOANREC` | `loan` | loan received (repayable, not income) | 4,525 | $14.6M | 1.5% |
 
-Neither in-kind nor a loan is a donation, so any page that says "raised" or ranks "donors" is currently wrong by up to 16%. The failure is most visible on committees financed by candidate loans: **Lahn for Governor** shows Zach Lahn as its largest donor at $2,521,569, which is actually a $2.5M repayable loan (two draws, 2025-12-31 and 2026-05-22) plus $21,569 in-kind — he has contributed **no** cash. Iowa Capital Dispatch reports these separately for exactly this reason.
+`classify_transaction_class()` in `utils.R` maps the code in `02_clean_normalize.R` and **errors on any value not in `IECDB_TRANSACTION_CLASSES`** — including `NA`, which would otherwise be silently excluded from every per-class sum. A new code means a new kind of money; classify it deliberately rather than letting it land in a donation total.
 
-Fix is the same shape as `donor_attribution`: split the types in `02_clean_normalize.R` and have the donor-facing views in `04` use `CON` only, while committee totals report contributions, in-kind and loans as distinct figures. Not yet done.
+The views in `04` then split the money four ways and expose **no unqualified `total`** — the ambiguous name is what let loans read as donations, so callers must name the money they mean:
+
+| Column | Contents |
+|---|---|
+| `total_contributions` | cash given |
+| `total_in_kind` | goods and services given |
+| `total_loans` | borrowed, repayable — not a gift |
+| `total_donated` | `contributions` + `in_kind` — everything actually given |
+
+Donor rankings, geography and over-time charts use `total_donated`; the recipient page's stat cards break out all three, showing the in-kind and loan cards only for committees that have them. `avg_contribution` averages cash rows only, and neither `n_unique_donors` nor the donor-facing views count a lender as a donor.
+
+**Lenders are not filtered out of the donor views**, only re-columned. A committee financed by a candidate loan should still show that on its page; hiding the row would trade one distortion for another. **Lahn for Governor** now reads correctly: cash $1,197,133 · in-kind $21,569 · loans $2,500,000, with Zach Lahn listed at **$0 cash**, $21,569 in-kind and $2.5M in loans, below the committee's real top donors ($250,000 each). Previously he ranked first at $2,521,569. Iowa Capital Dispatch reports these separately for exactly this reason.
+
+Renamed columns (old → new), since nothing else in the repo still uses the old names: `committee_summary.total_raised` → the four above; `committee_donor.total` / `committee_year.total` / `donor_committee.total` / `donor_year.total` → same; `donor_summary.total_given` → same. `fec_*` views are unchanged — FEC individual contributions carry no equivalent split.
 
 #### IECDB reporting periods
 
@@ -358,7 +427,7 @@ Useful when comparing our figures to news coverage, which always quotes a single
 | May 15 – Tuesday preceding the primary | = May 26 (primary June 2) |
 | Wed. preceding primary – July 14 | = May 27 – July 14 |
 
-Our figures reproduce reported ones exactly when the period is matched: Sand Jan 1 – May 14 = $9,675,454 against a reported $9.68M; Lahn May 15–26 `CON` only = $60,050 against a reported "a little over $60,000", with the $500,000 loan the article lists separately sitting in `LOANREC`. Mismatches are almost always a period or transaction-type definition difference, not a data error — check both before assuming a bug.
+Our figures reproduce reported ones exactly when the period is matched: Sand Jan 1 – May 14 cash = $9,667,859 against a reported $9.68M (the $9,675,454 quoted before the transaction-class split included $7,595 of in-kind); Lahn May 15–26 cash = $60,049.96 against a reported "a little over $60,000", matching the Schedule A total on the filed DR2 PDF to the cent, with the $500,000 loan the article lists separately sitting in `total_loans`. Mismatches are almost always a period or transaction-class definition difference, not a data error — check both before assuming a bug.
 
 #### Summary rows — known, scoped, deliberately deferred (2026-07-25)
 
@@ -399,7 +468,9 @@ Pre-aggregated views cover all Quarto template queries — no full-table scans a
 
 **State (Iowa IECDB) — always present:**
 
-Views marked **itemized-only** filter to `donor_attribution = 'itemized'`. Money totals (`total_raised`, `total`) in the committee-level views stay inclusive of all rows; only donor identity is filtered. `n_unique_donors` counts itemized keys only, in both `committee_summary` and `committee_year`.
+Views marked **itemized-only** filter to `donor_attribution = 'itemized'`. Money totals in the committee-level views stay inclusive of all rows; only donor identity is filtered. `n_unique_donors` counts itemized, non-loan keys only, in both `committee_summary` and `committee_year`.
+
+Every state view carries the same four money columns — `total_contributions`, `total_in_kind`, `total_loans`, `total_donated` — and none carries a bare `total`; see *Transaction class* above.
 
 | View | Grain | Scope |
 |---|---|---|
@@ -432,7 +503,9 @@ All four templates query the DuckDB database via `duckdb` + `dbplyr` (this wirin
 `site/campaign_finance/templates/fec_recipient_template.qmd` — parameter: `CMTE_ID`; static R/gt output over the FEC views; adds Employers & Occupations tabs (FEC-only fields)
 `site/campaign_finance/templates/recipient_template_ojs.qmd` — experimental OJS version of the recipient template with reactive year-range filtering (see notes below and `notes/2026-05-09_campaign-finance-templates-ojs.md`)
 
-Verified rendering against the 202607 data: `recipient_template` (committee 5185, Rob Sand for Iowa) and `donor_template` (default donor key) both render clean, with page figures matching `committee_summary` exactly.
+Verified rendering against the 202607 data: `recipient_template` (committee 5185, Rob Sand for Iowa) and `donor_template` (default donor key) both render clean, with page figures matching `committee_summary` exactly. Re-verified 2026-07-27 after the transaction-class split, using `SWGA51409` (Lahn for Governor) and `IND|LAHN|ZACH|BELLE PLAINE|IA` — the two entities the split was meant to correct.
+
+> **`recipient_template_ojs.qmd` is stale as of the 2026-07-27 split** and will error if rendered. Its R chunks were updated for the new columns, but its Arquero/Plot code still reads `d.total` off `by_year` (renamed) and its `iowa_cities_agg` chunk still sums a `total` column that no longer exists. Deliberately left unfinished — the file is experimental and excluded from project renders. Fix the two spots, or drop the file, before it is used for anything.
 
 > **Known issue:** `fec_recipient_template.qmd` defaults to `CMTE_ID: "C00401224"`, commented as "Chuck Grassley for Senate" — that ID is actually **ActBlue**, which has zero rows in the Iowa-filtered FEC dataset, so the checked-in render is entirely empty-state. The template has never been exercised against a committee that has data. Use `C00546788` (Joni for Iowa) or `C00708164` (Theresa Greenfield) instead.
 

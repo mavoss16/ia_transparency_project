@@ -23,6 +23,19 @@
 #   fec_donor_committee    — one row per fec_donor_key × CMTE_ID
 #   fec_donor_year         — one row per fec_donor_key × year × party
 #
+# Money columns in the state views are split by transaction_class, because the
+# IECDB "contributions received" feed mixes cash gifts (CON), in-kind gifts
+# (INK) and loans received (LOANREC):
+#
+#   total_contributions  cash given
+#   total_in_kind        goods and services given
+#   total_loans          borrowed, repayable — not a gift
+#   total_donated        contributions + in_kind (everything actually given)
+#
+# There is deliberately no unqualified `total` / `total_raised` / `total_given`
+# column: an ambiguous name is what let loans be counted as donations in the
+# first place, so callers now have to name the money they mean.
+#
 # The committees table is produced by 02_clean_normalize.R, which already merges
 # the registered CSV (~1,600 rows) with the API lookup from step 01 (~7,900 rows).
 # Party, office, and election fields are fully resolved there; no secondary join
@@ -90,6 +103,7 @@ dbExecute(con, "CREATE INDEX idx_contrib_committee  ON contributions(committee_c
 dbExecute(con, "CREATE INDEX idx_contrib_donor_key  ON contributions(donor_key)")
 dbExecute(con, "CREATE INDEX idx_contrib_year       ON contributions(year)")
 dbExecute(con, "CREATE INDEX idx_contrib_type       ON contributions(donor_type)")
+dbExecute(con, "CREATE INDEX idx_contrib_class      ON contributions(transaction_class)")
 dbExecute(con, "CREATE INDEX idx_exp_committee      ON expenditures(committee_code)")
 dbExecute(con, "CREATE INDEX idx_exp_year           ON expenditures(year)")
 dbExecute(con, "CREATE INDEX idx_committees_code    ON committees(committee_code)")
@@ -112,12 +126,26 @@ dbExecute(con, "
     m.election_year,
     m.candidate_name,
     COUNT(*)                    AS n_transactions,
-    -- Unitemized/unidentified rows are real money (so they stay in
-    -- total_raised) but they are not donors, so they are not counted here.
+    SUM(CASE WHEN c.transaction_class = 'contribution' THEN 1 ELSE 0 END) AS n_contributions,
+    SUM(CASE WHEN c.transaction_class = 'in_kind'      THEN 1 ELSE 0 END) AS n_in_kind,
+    SUM(CASE WHEN c.transaction_class = 'loan'         THEN 1 ELSE 0 END) AS n_loans,
+    -- Unitemized/unidentified rows are real money (so they stay in the money
+    -- columns) but they are not donors, so they are not counted here. Neither
+    -- is a lender: money that has to be paid back was not given.
     COUNT(DISTINCT CASE WHEN c.donor_attribution = 'itemized'
+                         AND c.transaction_class <> 'loan'
                         THEN c.donor_key END) AS n_unique_donors,
-    SUM(c.contribution_amount)  AS total_raised,
-    AVG(c.contribution_amount)  AS avg_contribution,
+    SUM(CASE WHEN c.transaction_class = 'contribution'
+             THEN c.contribution_amount ELSE 0 END) AS total_contributions,
+    SUM(CASE WHEN c.transaction_class = 'in_kind'
+             THEN c.contribution_amount ELSE 0 END) AS total_in_kind,
+    SUM(CASE WHEN c.transaction_class = 'loan'
+             THEN c.contribution_amount ELSE 0 END) AS total_loans,
+    SUM(CASE WHEN c.transaction_class <> 'loan'
+             THEN c.contribution_amount ELSE 0 END) AS total_donated,
+    -- Average of an actual cash gift; in-kind and loans would distort it.
+    AVG(CASE WHEN c.transaction_class = 'contribution'
+             THEN c.contribution_amount END)        AS avg_contribution,
     MIN(c.date)                 AS first_contribution,
     MAX(c.date)                 AS last_contribution
   FROM contributions c
@@ -129,6 +157,11 @@ dbExecute(con, "
 # One row per committee × donor. Used for the top-donors tables on recipient pages.
 # Restricted to itemized rows so unitemized lump sums and unidentified filings
 # don't rank alongside real donors.
+#
+# Lenders are NOT filtered out here — a committee financed by a candidate loan
+# should still show that on its page. They are kept in their own column instead,
+# so a ranking by total_donated leaves them where they belong (at $0 given)
+# without hiding the money.
 dbExecute(con, "
   CREATE VIEW committee_donor AS
   SELECT
@@ -140,7 +173,14 @@ dbExecute(con, "
     clean_city                   AS city,
     norm_state                   AS state,
     COUNT(*)                     AS transactions,
-    SUM(contribution_amount)     AS total,
+    SUM(CASE WHEN transaction_class = 'contribution'
+             THEN contribution_amount ELSE 0 END) AS total_contributions,
+    SUM(CASE WHEN transaction_class = 'in_kind'
+             THEN contribution_amount ELSE 0 END) AS total_in_kind,
+    SUM(CASE WHEN transaction_class = 'loan'
+             THEN contribution_amount ELSE 0 END) AS total_loans,
+    SUM(CASE WHEN transaction_class <> 'loan'
+             THEN contribution_amount ELSE 0 END) AS total_donated,
     MIN(date)                    AS first_date,
     MAX(date)                    AS last_date
   FROM contributions
@@ -159,8 +199,16 @@ dbExecute(con, "
     donor_type,
     COUNT(*)                      AS n_transactions,
     COUNT(DISTINCT CASE WHEN donor_attribution = 'itemized'
+                         AND transaction_class <> 'loan'
                         THEN donor_key END) AS n_unique_donors,
-    SUM(contribution_amount)      AS total
+    SUM(CASE WHEN transaction_class = 'contribution'
+             THEN contribution_amount ELSE 0 END) AS total_contributions,
+    SUM(CASE WHEN transaction_class = 'in_kind'
+             THEN contribution_amount ELSE 0 END) AS total_in_kind,
+    SUM(CASE WHEN transaction_class = 'loan'
+             THEN contribution_amount ELSE 0 END) AS total_loans,
+    SUM(CASE WHEN transaction_class <> 'loan'
+             THEN contribution_amount ELSE 0 END) AS total_donated
   FROM contributions
   GROUP BY ALL
 ")
@@ -183,8 +231,16 @@ dbExecute(con, "
     MAX(norm_state)               AS state,
     COUNT(*)                      AS n_transactions,
     COUNT(DISTINCT committee_code) AS n_committees,
-    SUM(contribution_amount)      AS total_given,
-    AVG(contribution_amount)      AS avg_contribution,
+    SUM(CASE WHEN transaction_class = 'contribution'
+             THEN contribution_amount ELSE 0 END) AS total_contributions,
+    SUM(CASE WHEN transaction_class = 'in_kind'
+             THEN contribution_amount ELSE 0 END) AS total_in_kind,
+    SUM(CASE WHEN transaction_class = 'loan'
+             THEN contribution_amount ELSE 0 END) AS total_loans,
+    SUM(CASE WHEN transaction_class <> 'loan'
+             THEN contribution_amount ELSE 0 END) AS total_donated,
+    AVG(CASE WHEN transaction_class = 'contribution'
+             THEN contribution_amount END)        AS avg_contribution,
     MIN(date)                     AS first_contribution,
     MAX(date)                     AS last_contribution
   FROM contributions
@@ -209,7 +265,14 @@ dbExecute(con, "
     m.election_year,
     m.candidate_name,
     COUNT(*)                   AS transactions,
-    SUM(c.contribution_amount) AS total,
+    SUM(CASE WHEN c.transaction_class = 'contribution'
+             THEN c.contribution_amount ELSE 0 END) AS total_contributions,
+    SUM(CASE WHEN c.transaction_class = 'in_kind'
+             THEN c.contribution_amount ELSE 0 END) AS total_in_kind,
+    SUM(CASE WHEN c.transaction_class = 'loan'
+             THEN c.contribution_amount ELSE 0 END) AS total_loans,
+    SUM(CASE WHEN c.transaction_class <> 'loan'
+             THEN c.contribution_amount ELSE 0 END) AS total_donated,
     MIN(c.date)                AS first_date,
     MAX(c.date)                AS last_date
   FROM contributions c
@@ -228,7 +291,14 @@ dbExecute(con, "
     c.year,
     COALESCE(m.party, '(Unknown)') AS party,
     COUNT(*)                        AS n_transactions,
-    SUM(c.contribution_amount)      AS total
+    SUM(CASE WHEN c.transaction_class = 'contribution'
+             THEN c.contribution_amount ELSE 0 END) AS total_contributions,
+    SUM(CASE WHEN c.transaction_class = 'in_kind'
+             THEN c.contribution_amount ELSE 0 END) AS total_in_kind,
+    SUM(CASE WHEN c.transaction_class = 'loan'
+             THEN c.contribution_amount ELSE 0 END) AS total_loans,
+    SUM(CASE WHEN c.transaction_class <> 'loan'
+             THEN c.contribution_amount ELSE 0 END) AS total_donated
   FROM contributions c
   LEFT JOIN committees m ON c.committee_code = m.committee_code
   WHERE c.donor_attribution = 'itemized'
@@ -272,12 +342,27 @@ for (chk in checks) {
                   chk$label))
 }
 
-total_raised <- dbGetQuery(
-  con, "SELECT SUM(contribution_amount) AS t FROM contributions"
-)$t
+by_class <- dbGetQuery(con, "
+  SELECT transaction_class,
+         COUNT(*)                 AS n,
+         SUM(contribution_amount) AS amount
+  FROM contributions
+  GROUP BY transaction_class
+  ORDER BY amount DESC
+")
+message("\n  Money received, by class (only the first is a cash donation):")
+for (i in seq_len(nrow(by_class))) {
+  message(sprintf(
+    "    %-14s %12s transactions   $%s",
+    by_class$transaction_class[i],
+    formatC(by_class$n[i], format = "d", big.mark = ","),
+    formatC(by_class$amount[i], format = "f", digits = 2, big.mark = ",")
+  ))
+}
 message(sprintf(
-  "\n  Total contributions in database: $%s",
-  formatC(total_raised, format = "f", digits = 2, big.mark = ",")
+  "    %-14s %12s                $%s",
+  "TOTAL", "",
+  formatC(sum(by_class$amount), format = "f", digits = 2, big.mark = ",")
 ))
 
 # ── FEC tables and views (optional — skipped if parquets not yet built) ───────

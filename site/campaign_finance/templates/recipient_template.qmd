@@ -60,9 +60,15 @@ by_donor <- tbl(con, "committee_donor") |>
 all_contributions <- tbl(con, "contributions") |>
   filter(committee_code == committee_code_param) |>
   select(date, donor_display, donor_type, clean_city, norm_state,
-         contribution_amount, transaction_type) |>
+         contribution_amount, transaction_class) |>
   arrange(desc(date)) |>
-  collect()
+  collect() |>
+  # The raw codes (CON/INK/LOANREC) mean nothing to a reader, and the
+  # distinction between them is the whole point of showing the column.
+  mutate(transaction_class = recode(
+    transaction_class,
+    contribution = "Cash", in_kind = "In-kind", loan = "Loan received"
+  ))
 
 all_expenditures <- tbl(con, "expenditures") |>
   filter(committee_code == committee_code_param) |>
@@ -146,17 +152,28 @@ div(class = "ia-card",
 ```
 
 ```{r}
-# Headline figures. Money totals include unitemized and unidentified rows;
-# the donor count does not (see donor_attribution in 02_clean_normalize.R).
+# Headline figures. The three kinds of money IECDB files together are broken
+# apart here rather than summed: cash is what the committee can spend, in-kind
+# is goods and services it never held as cash, and a loan has to be paid back.
+# Money totals include unitemized and unidentified rows; the donor count does
+# not (see donor_attribution in 02_clean_normalize.R).
 if (has_contributions) {
   cs <- comm_stats[1, ]
   spent <- if (has_expenditures) sum(all_expenditures$expenditure_amount, na.rm = TRUE) else NA
 
-  ui_stat_grid(
-    ui_stat_card("Total raised", dollar(cs$total_raised),
-                 sprintf("%s contributions", comma(cs$n_transactions))),
+  # In-kind and loan cards appear only for committees that have them — most
+  # have neither, and an empty card is just noise.
+  cards <- list(
+    ui_stat_card("Cash contributions", dollar(cs$total_contributions),
+                 sprintf("%s transactions", comma(cs$n_contributions))),
+    if (cs$total_in_kind > 0)
+      ui_stat_card("In-kind support", dollar(cs$total_in_kind),
+                   sprintf("%s transactions, no cash received", comma(cs$n_in_kind))),
+    if (cs$total_loans > 0)
+      ui_stat_card("Loans received", dollar(cs$total_loans),
+                   "Borrowed, not given — repayable"),
     ui_stat_card("Unique donors", comma(cs$n_unique_donors),
-                 sprintf("%s average gift", dollar(cs$avg_contribution, accuracy = 1))),
+                 sprintf("%s average cash gift", dollar(cs$avg_contribution, accuracy = 1))),
     ui_stat_card("Total spent",
                  if (is.na(spent)) "—" else dollar(spent),
                  if (has_expenditures) sprintf("%s expenditures", comma(nrow(all_expenditures)))
@@ -165,6 +182,8 @@ if (has_contributions) {
                  format(as.Date(cs$last_contribution), "%b %e, %Y"),
                  sprintf("first %s", format(as.Date(cs$first_contribution), "%b %Y")))
   )
+
+  do.call(ui_stat_grid, Filter(Negate(is.null), cards))
 }
 ```
 
@@ -177,14 +196,18 @@ Largest donors
 :::
 
 ```{r}
+# Ranked on total_donated (cash + in-kind). Loans are excluded: a lender who
+# has to be repaid is not the committee's biggest donor, however large the
+# figure — that error is what put a candidate atop his own committee's list.
 if (nrow(by_donor) > 0) {
   top_rows <- by_donor |>
-    arrange(desc(total)) |>
+    arrange(desc(total_donated)) |>
     slice_head(n = 8) |>
-    transmute(label = donor_display, count = total)
+    transmute(label = donor_display, count = total_donated)
 
   tagList(
-    div(class = "ia-card-sub", "Itemized contributions only, all years combined."),
+    div(class = "ia-card-sub",
+        "Itemized contributions only, cash and in-kind, all years combined. Loans excluded."),
     ui_bar_list(top_rows, format_value = dollar)
   )
 } else {
@@ -204,7 +227,7 @@ Where it comes from
 if (nrow(by_donor) > 0) {
   by_type <- by_donor |>
     group_by(donor_type) |>
-    summarize(total = sum(total, na.rm = TRUE), .groups = "drop")
+    summarize(total = sum(total_donated, na.rm = TRUE), .groups = "drop")
 
   segs <- setNames(
     round(by_type$total),
@@ -244,13 +267,15 @@ if (nrow(by_donor) > 0) {
 if (has_contributions) {
   totals_by_year <- by_year |>
     group_by(year) |>
-    summarize(total = sum(total, na.rm = TRUE), .groups = "drop")
+    summarize(total = sum(total_donated, na.rm = TRUE), .groups = "drop")
 
   ggplot(totals_by_year, aes(x = year, y = total)) +
     geom_col(fill = IA_PALETTE$ink_soft, width = 0.7) +
     scale_y_continuous(labels = dollar_format()) +
     scale_x_continuous(breaks = ia_year_breaks(totals_by_year$year)) +
-    labs(title = "Contributions received by year", x = NULL, y = NULL) +
+    labs(title = "Contributions received by year",
+         subtitle = "Cash and in-kind. Loans received are excluded.",
+         x = NULL, y = NULL) +
     theme_ia(13)
 } else {
   cat("No contribution data available.\n")
@@ -263,7 +288,7 @@ if (has_contributions) {
     filter(donor_type %in% c("Individual", "Organization"))
 
   if (nrow(by_year_type) > 0) {
-    ggplot(by_year_type, aes(x = year, y = total, fill = donor_type)) +
+    ggplot(by_year_type, aes(x = year, y = total_donated, fill = donor_type)) +
       geom_col(width = 0.7) +
       scale_y_continuous(labels = dollar_format()) +
       scale_x_continuous(breaks = ia_year_breaks(by_year_type$year)) +
@@ -277,24 +302,41 @@ if (has_contributions) {
 
 ## Top Donors
 
+```{r}
+# Ranked by cash + in-kind. The in-kind and loan columns are dropped when the
+# committee has none of that kind of money, which is the common case — but when
+# it does have them they are named, not folded into one "Total Given" number.
+top_donor_table <- function(df, name_label) {
+  cols <- c("donor_display", "city", "state", "total_contributions")
+  labs <- c(donor_display = name_label, city = "City", state = "State",
+            total_contributions = "Cash", total_in_kind = "In-Kind",
+            total_loans = "Loans", transactions = "Transactions")
+
+  if (sum(df$total_in_kind, na.rm = TRUE) > 0) cols <- c(cols, "total_in_kind")
+  if (sum(df$total_loans,   na.rm = TRUE) > 0) cols <- c(cols, "total_loans")
+  cols <- c(cols, "transactions")
+
+  money <- intersect(cols, c("total_contributions", "total_in_kind", "total_loans"))
+
+  gt(df |> select(all_of(cols))) |>
+    cols_label(.list = as.list(labs[cols])) |>
+    fmt_currency(columns = all_of(money), currency = "USD") |>
+    fmt_integer(columns = transactions) |>
+    gt_theme_ia()
+}
+```
+
 ### Top Individual Donors
 
 ```{r}
 if (nrow(by_donor) > 0) {
   top_individuals <- by_donor |>
     filter(donor_type == "individual") |>
-    arrange(desc(total)) |>
+    arrange(desc(total_donated)) |>
     slice_head(n = 25)
 
   if (nrow(top_individuals) > 0) {
-    gt(top_individuals |> select(donor_display, city, state, total, transactions)) |>
-      cols_label(
-        donor_display = "Donor", city = "City", state = "State",
-        total = "Total Given", transactions = "Transactions"
-      ) |>
-      fmt_currency(columns = total, currency = "USD") |>
-      fmt_integer(columns = transactions) |>
-      gt_theme_ia()
+    top_donor_table(top_individuals, "Donor")
   } else {
     cat("No individual contribution data found.\n")
   }
@@ -309,18 +351,11 @@ if (nrow(by_donor) > 0) {
 if (nrow(by_donor) > 0) {
   top_orgs <- by_donor |>
     filter(donor_type %in% c("organization", "committee")) |>
-    arrange(desc(total)) |>
+    arrange(desc(total_donated)) |>
     slice_head(n = 25)
 
   if (nrow(top_orgs) > 0) {
-    gt(top_orgs |> select(donor_display, city, state, total, transactions)) |>
-      cols_label(
-        donor_display = "Organization", city = "City", state = "State",
-        total = "Total Given", transactions = "Transactions"
-      ) |>
-      fmt_currency(columns = total, currency = "USD") |>
-      fmt_integer(columns = transactions) |>
-      gt_theme_ia()
+    top_donor_table(top_orgs, "Organization")
   } else {
     cat("No organization contribution data found.\n")
   }
@@ -335,13 +370,13 @@ if (nrow(by_donor) > 0) {
 
 ```{r}
 if (nrow(by_donor) > 0) {
-  grand_total <- sum(by_donor$total, na.rm = TRUE)
+  grand_total <- sum(by_donor$total_donated, na.rm = TRUE)
 
   ia_summary <- by_donor |>
     mutate(region = if_else(state == "IA", "Iowa", "Outside Iowa")) |>
     group_by(region) |>
     summarize(
-      total        = sum(total, na.rm = TRUE),
+      total        = sum(total_donated, na.rm = TRUE),
       transactions = sum(transactions, na.rm = TRUE),
       donors       = n(),
       .groups      = "drop"
@@ -377,7 +412,7 @@ iowa_cities_agg <- by_donor |>
   filter(state == "IA", !is.na(city), nchar(city) > 0) |>
   group_by(city) |>
   summarize(
-    total        = sum(total, na.rm = TRUE),
+    total        = sum(total_donated, na.rm = TRUE),
     transactions = sum(transactions, na.rm = TRUE),
     donors       = n(),
     .groups      = "drop"
@@ -476,7 +511,7 @@ if (nrow(all_contributions) > 0) {
       clean_city          = "City",
       norm_state          = "State",
       contribution_amount = "Amount",
-      transaction_type    = "Transaction Type"
+      transaction_class   = "Kind"
     ) |>
     fmt_date(columns = date, date_style = "yMMMd") |>
     fmt_currency(columns = contribution_amount, currency = "USD") |>

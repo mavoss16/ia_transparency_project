@@ -1,0 +1,6 @@
+committee_code,committee_uuid,committee_name,n_filings,last_filed_on,last_filing_id,period_year,period_description,reported_through,pulled_at,n_transactions,pull_status
+1040,30343034-2020-2020-2020-202020000000,Citizens to Elect Bill Dotzler,21,2026-01-15T23:53:29Z,198209,2025,January 1 through December 31,2025-12-31,2026-08-01T15:03:03Z,2398,ok
+1046,36343034-2020-2020-2020-202020000000,People for Roger Thomas,3,2018-11-13T22:36:32Z,42971,2018,January 1 through December 31,2018-12-31,2026-08-01T15:03:03Z,900,ok
+109,39303133-2020-2020-2020-202020000000,Citizens for Senator Rife,1,2005-01-25T12:00:00Z,128611,2004,January 1 through December 31,2004-12-31,2026-08-01T15:03:04Z,154,ok
+1099,39363331-2020-2020-2020-202020000000,Jim Van Engelenhoven Election for State Representative Commi,5,2013-01-03T01:37:13Z,203634,2012,January 1 through December 31,2012-12-31,2026-08-01T15:03:05Z,640,ok
+1105,30393331-2020-2020-2020-202020000000,Baudler for State Representative,5,2018-12-31T23:38:39Z,37167,2018,January 1 through December 31,2018-12-31,2026-08-01T15:03:06Z,1155,ok

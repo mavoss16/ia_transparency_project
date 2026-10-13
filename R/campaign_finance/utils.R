@@ -205,6 +205,49 @@ classify_donor_attribution <- function(donor_type, norm_org, norm_first, norm_la
   )
 }
 
+# ── Transaction class ─────────────────────────────────────────────────────────
+
+# The "contributions received" export mixes three kinds of money under one
+# transaction_type code, and only one of them is a cash donation:
+#
+#   CON      cash contribution      — a gift, and it touches the bank account
+#   INK      in-kind contribution   — a gift of goods or services; real value,
+#                                     but no cash ever moves
+#   LOANREC  loan received          — borrowed money, repayable; not income and
+#                                     not a gift, however it is filed
+#
+# Summing all three into one "total raised" overstates receipts by ~16%
+# statewide and turns lenders into donors: Lahn for Governor's largest apparent
+# donor was the candidate, on the strength of a $2.5M loan to his own committee
+# against $0 in cash contributions. Downstream views therefore keep the three
+# apart, and no view exposes an unqualified "total" — the caller has to say
+# which money it means.
+IECDB_TRANSACTION_CLASSES <- c(
+  CON     = "contribution",
+  INK     = "in_kind",
+  LOANREC = "loan"
+)
+
+# Errors rather than bucketing surprises into "other". A new code would be a
+# new kind of money, and the whole point of this column is that nothing gets
+# silently added to a donation total — same contract-fails-loudly stance as
+# iecdb_api.R.
+classify_transaction_class <- function(transaction_type) {
+  code <- str_to_upper(str_squish(as.character(transaction_type)))
+  # NA counts as unrecognized: an unclassed row would be excluded from every
+  # per-class sum, i.e. money that disappears from the page without a trace.
+  code[is.na(code)] <- "(missing)"
+  unknown <- setdiff(unique(code), names(IECDB_TRANSACTION_CLASSES))
+  if (length(unknown) > 0) {
+    stop("Unrecognized transaction_type in contributions: ",
+         paste(sprintf("'%s'", unknown), collapse = ", "),
+         ". Classify it in IECDB_TRANSACTION_CLASSES (utils.R) before ingesting — ",
+         "an unclassified code would otherwise land in a donation total.",
+         call. = FALSE)
+  }
+  unname(IECDB_TRANSACTION_CLASSES[code])
+}
+
 # Build a pipe-delimited string key that uniquely identifies a donor for exact
 # deduplication. 03_link_donors.R collapses fuzzy near-duplicates further.
 make_donor_key <- function(donor_type, committee_code, norm_last, norm_first,

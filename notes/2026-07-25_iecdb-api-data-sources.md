@@ -250,7 +250,9 @@ An earlier version asserted `reference_dr2_id` was populated, which passed
 trivially against the all-zeros placeholder — a check that can only pass is
 worse than no check, and it has been replaced.
 
-### Phase B — change-detection ingest
+### Phase B — change-detection ingest — **built 2026-08-01**, not yet run live
+
+`R/campaign_finance/01b_iecdb_ingest.R`. All of the below is implemented:
 
 - One call to `POST /api/publicreports/state` → all 17,873 filings with `filedOn`.
 - Diff against a manifest (same pattern as `render_manifest.csv`); re-pull
@@ -258,6 +260,62 @@ worse than no check, and it has been replaced.
 - Turns a ~7,900-call sweep into a handful of calls on a normal day.
 - Store **`reported_through`** per committee as a first-class column — the date
   its most recent filing covers. Pages display it instead of implying currency.
+
+Plan and execute are separate functions, so the request cost is printed before
+anything is spent. Writes are incremental with an `on.exit()` save, so the first
+full sweep is resumable. Offline logic is tested against a synthetic filings
+index under `options(warn = 2)`; the live path is untested.
+
+### First live call, 2026-08-01: one bug, one surprise
+
+**Bug: `iecdb_filings()` was posting `[]` and getting HTTP 400.** An empty R
+list has no names, and jsonlite cannot distinguish an empty object from an
+empty array, so `list()` serialized to `[]` where the endpoint wanted `{}`.
+`iecdb_statements()` had never hit this only because its body is non-empty.
+Fixed in `iecdb_perform()` by naming the empty list; non-empty bodies are
+untouched, so the `NULL → {}` serialization the transactions endpoint has been
+happily accepting is left exactly as it was. The canary missed it because it
+exercises committee search and transactions only — the filings endpoint had
+never actually been called through the client.
+
+**Surprise: the feed is 1,403 committees, not ~7,900.** `/api/publicreports/state`
+is state filings only, and the split is structural rather than an artifact of
+age. Every local committee type sits at 0% coverage regardless of recency
+(County Candidate, City Candidate, School Board, County Central Committee,
+Local Ballot Issue; `CTY`/`LOCL`/`BALLOT` prefixes), while state types run
+47–100%. It still reaches **80.7% of all money** ($778.8M of $964.5M), because
+the uncovered committees are numerous but individually small — though County
+Central Committees run $1–3M each and 1,147 uncovered committees were active in
+2024 or later, holding $50.6M.
+
+Age is a real but *secondary* effect, operating only within the state slice:
+the index thins sharply before 2014, so long-dissolved state committees have no
+filings in it either.
+
+**Consequence:** `countyReports` (seen in the JS bundle, never probed) is
+needed before the API can replace data.iowa.gov rather than supplement it. It
+should drop into the same manifest and loop — one more client wrapper. Phase C
+reconciliation should be scoped to the state slice until then.
+
+**Also fixed: the period parser was returning the period's START date.** The
+real vocabulary uses "through", not a dash — "January 1 through May 14" — and
+the original implementation split on a dash that wasn't there, then took the
+first month/day it found. It was wrong on **14,948 of 17,876 filings**, and
+wrong in the worst way: a plausible-looking date. Rewritten to split on the
+last separator and read only the tail, which is also what makes
+"Oct. 15 through Dec. 31 or Wed. Preceding General through Dec. 31" land on
+Dec 31. Now 91.6% of filings parse and 99.5% of committees get a date from
+their latest filing; Sand, Lahn and Henderson all resolve to 2026-07-14,
+independently matching the currency established during reconnaissance.
+
+The unparsed remainder is almost all "… through Tuesday Preceding
+Primary/General" (1,437 filings) — periods that end at an **election, not a
+date**. `NA` is correct there without an election calendar.
+
+**Still to check on the first transaction pull:** whether one
+`iecdb_transactions()` call per committee really returns everything.
+Reconnaissance saw no paging on a 257k-row committee, but that was one
+committee.
 
 ### Phase C — reconcile, then cut over
 
@@ -271,7 +329,14 @@ Run both sources side by side before switching:
 
 ### Phase D — the payoffs
 
-- Split `transaction_type` so loans and in-kind stop counting as donations.
+- ~~Split `transaction_type` so loans and in-kind stop counting as donations.~~
+  **Done 2026-07-27, pulled forward out of Phase D.** It needs no API access —
+  the bulk feed already carries `transaction_type` — and it was the one item on
+  the list that made the *current* data wrong rather than merely stale, so it
+  was not worth gating behind the migration. `transaction_class` is emitted in
+  `02`, the six state views split money four ways, and both static templates
+  were re-verified against Lahn for Governor. See the Transaction class section
+  in CLAUDE.md.
 - Reporting-period attribution — **by inferring from `date`**, not by joining
   `referenceDR2Id` (see the correction above).
 - Surface `reported_through` on committee pages.

@@ -52,12 +52,19 @@ by_donor <- tbl(con, "committee_donor") |>
   filter(committee_code == params$committee_code) |>
   collect()
 
+# Loans are dropped before the data reaches OJS rather than filtered in each
+# Arquero rollup downstream: every client-side aggregate on this page sums
+# contribution_amount, and borrowed money must not land in any of them.
 all_contributions <- tbl(con, "contributions") |>
-  filter(committee_code == params$committee_code) |>
+  filter(committee_code == params$committee_code,
+         transaction_class != "loan") |>
   select(date, year, donor_display, donor_type, clean_city, norm_state,
-         contribution_amount, transaction_type) |>
+         contribution_amount, transaction_class) |>
   arrange(desc(date)) |>
-  collect()
+  collect() |>
+  mutate(transaction_class = recode(
+    transaction_class, contribution = "Cash", in_kind = "In-kind"
+  ))
 
 all_expenditures <- tbl(con, "expenditures") |>
   filter(committee_code == params$committee_code) |>
@@ -135,14 +142,17 @@ if (has_contributions) {
   cs <- comm_stats[1, ]
   summary_df <- data.frame(
     Metric = c(
-      "Total Raised", "Number of Transactions", "Unique Donors",
-      "Average Contribution", "Earliest Contribution", "Latest Contribution"
+      "Cash Contributions", "In-Kind Contributions", "Loans Received",
+      "Number of Transactions", "Unique Donors",
+      "Average Cash Contribution", "Earliest Contribution", "Latest Contribution"
     ),
     Value = c(
-      dollar(cs$total_raised),
+      dollar(cs$total_contributions),
+      dollar(cs$total_in_kind),
+      dollar(cs$total_loans),
       comma(cs$n_transactions),
       comma(cs$n_unique_donors),
-      dollar(cs$avg_contribution),
+      if (is.na(cs$avg_contribution)) "—" else dollar(cs$avg_contribution),
       format(as.Date(cs$first_contribution), "%B %d, %Y"),
       format(as.Date(cs$last_contribution),  "%B %d, %Y")
     )
@@ -180,20 +190,20 @@ if (has_expenditures) {
 if (nrow(by_donor) > 0) {
   top_n <- min(10, nrow(by_donor))
   by_donor |>
-    arrange(desc(total)) |>
+    arrange(desc(total_donated)) |>
     slice_head(n = top_n) |>
     mutate(donor_type = str_to_title(donor_type)) |>
-    select(donor_display, donor_type, city, state, total, transactions) |>
+    select(donor_display, donor_type, city, state, total_donated, transactions) |>
     gt() |>
     cols_label(
       donor_display = "Donor",
       donor_type    = "Type",
       city          = "City",
       state         = "State",
-      total         = "Total Given",
+      total_donated = "Total Given",
       transactions  = "Transactions"
     ) |>
-    fmt_currency(columns = total, currency = "USD") |>
+    fmt_currency(columns = total_donated, currency = "USD") |>
     fmt_integer(columns = transactions) |>
     tab_options(table.font.size = px(12))
 } else {
@@ -205,13 +215,13 @@ if (nrow(by_donor) > 0) {
 
 ```{r}
 if (nrow(by_donor) > 0) {
-  grand_total <- sum(by_donor$total, na.rm = TRUE)
+  grand_total <- sum(by_donor$total_donated, na.rm = TRUE)
 
   by_type <- by_donor |>
     mutate(donor_type = str_to_title(donor_type)) |>
     group_by(donor_type) |>
     summarize(
-      total        = sum(total, na.rm = TRUE),
+      total        = sum(total_donated, na.rm = TRUE),
       transactions = sum(transactions, na.rm = TRUE),
       donors       = n(),
       .groups      = "drop"

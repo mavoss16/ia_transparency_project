@@ -64,6 +64,11 @@ contributions <- raw_contributions |>
     year                = year(date),
     zip_code            = normalize_zip(zip_code),
 
+    # --- Cash gift, in-kind gift, or borrowed money? ---
+    # Errors on any code not in IECDB_TRANSACTION_CLASSES rather than letting
+    # an unknown kind of money reach a donation total.
+    transaction_class = classify_transaction_class(transaction_type),
+
     # --- Donor classification (committee transfer takes priority) ---
     donor_type = case_when(
       !is.na(contributing_committee_code) ~ "committee",
@@ -113,6 +118,21 @@ message(sprintf(
   "  Donor type breakdown:\n%s",
   paste(
     capture.output(print(count(contributions, donor_type))),
+    collapse = "\n"
+  )
+))
+
+message(sprintf(
+  "  Transaction class (loans are repayable and in-kind never touches cash;\n  04_build_database.R keeps all three apart rather than summing them):\n%s",
+  paste(
+    capture.output(print(
+      contributions |>
+        group_by(transaction_class) |>
+        summarize(n = n(),
+                  amount = sum(contribution_amount, na.rm = TRUE),
+                  .groups = "drop") |>
+        arrange(desc(amount))
+    )),
     collapse = "\n"
   )
 ))

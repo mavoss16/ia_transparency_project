@@ -148,7 +148,10 @@ IECDB_KNOWN_FIELDS <- list(
                 "politicalParty", "districtNumber", "county", "electionYear",
                 "nameOfOfficeSought", "electionDate", "committeeEmail",
                 "committeeCode"),
-  transaction = c("primaryName", "primaryAddress1", "primaryCity",
+  # primaryAddress2 observed 2026-08-01 on the first real transaction pull —
+  # present on some committees, absent on others, like its secondary twin.
+  transaction = c("primaryName", "primaryAddress1", "primaryAddress2",
+                  "primaryCity",
                   "primaryState", "primaryZip", "secondaryCommitteeCode",
                   "secondaryName", "secondaryAddress1", "secondaryAddress2",
                   "secondaryCity", "secondaryState", "secondaryZip",
@@ -180,6 +183,18 @@ iecdb_perform <- function(path, body) {
 
   iecdb_throttle(opts$delay)
   .iecdb$n_requests <- .iecdb$n_requests + 1L
+
+  # An empty R list serializes to `[]`, not `{}` — jsonlite can only tell an
+  # object from an array by whether the list has names, and an empty list has
+  # none. Every endpoint here expects a JSON object, so a bodiless call like
+  # iecdb_filings() was posting an array and getting HTTP 400 back. Naming the
+  # empty list makes it serialize as `{}`.
+  #
+  # Only the empty case is touched. Non-empty bodies are left exactly as the
+  # caller built them — in particular, NULL fields keep serializing to `{}`
+  # rather than `null`, which is what the transactions endpoint has been
+  # accepting all along (a 256k-row unbounded pull went through that path).
+  if (is.list(body) && length(body) == 0L) body <- setNames(list(), character(0))
 
   resp <- request(paste0(IECDB_BASE_URL, path)) |>
     req_method("POST") |>
