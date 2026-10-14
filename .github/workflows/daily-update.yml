@@ -59,7 +59,10 @@ jobs:
           # Stop starting new bill pages after this long, so the job finishes
           # (legislators, committees, commit) inside timeout-minutes. Bills not
           # reached stay out of render_manifest.csv and the next run renders them.
-          RENDER_TIME_BUDGET_MINUTES: 180
+          # Measured 2026-10-13: setup + pipeline ~10 min, bills ~8/min, and
+          # the always-forced legislators + committees ~115 min. 180 finished
+          # 5 seconds inside the 300-minute timeout; 150 leaves ~25 min slack.
+          RENDER_TIME_BUDGET_MINUTES: 150
         run: |
           if [ "${{ github.event.inputs.force_render }}" = "true" ]; then
             # Full re-render: forget everything rendered so far. The time budget
