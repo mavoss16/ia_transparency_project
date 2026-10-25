@@ -67,6 +67,13 @@ get_all_bill_hashes <- function(json_dir = here::here("legiscan/files_ga91_json/
 #' Scrape lobbyist declarations for a single bill
 #' Wrapper around scrape_lobbyist_declarations() from utils.R with
 #' graceful failure handling
+#'
+#' Every error is a failure. A bill with no declarations still renders the
+#' declarations table (with a "no declarations" placeholder row), so it comes
+#' back as a 0-row tibble, never as an error. "No tables found" / "Could not
+#' find the declarations table" mean the page didn't load properly — these
+#' used to be recorded as empty, which silently wiped 9 bills' declarations
+#' (e.g. HF815, 14 declarations) in the 2026-10-24 full re-scrape.
 #' @param bill_number Bill number (e.g., "HF1")
 #' @param ga General Assembly number
 #' @return Tibble with lobbyist data, or NULL on failure
@@ -74,16 +81,6 @@ scrape_lobby_safe <- function(bill_number, ga = 91) {
   tryCatch(
     scrape_lobbyist_declarations(bill_number, ga = ga),
     error = function(e) {
-      # "No tables found" means the page loaded but bill has no declarations
-      if (str_detect(e$message, "No tables found|Could not find the declarations table")) {
-        return(tibble(
-          bill = character(),
-          most_recent_declaration = character(),
-          client = character(),
-          date = as.POSIXct(character())
-        ))
-      }
-      # Actual failures (network, etc.)
       message(sprintf("    ERROR: %s", e$message))
       NULL
     }

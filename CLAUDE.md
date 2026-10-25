@@ -64,7 +64,7 @@ ia_transparency_project/
 │   │   ├── 03a_resume_scrape_relationships.R
 │   │   ├── 04_lobbyist_declarations.R
 │   │   ├── 04a_legislator_lobbyist_alignment.R
-│   │   ├── 05_salience_scores.R          ← bill salience index (0–100)
+│   │   ├── 05_salience_scores.R          ← bill salience indicators (lobby/vote heat, stage, class)
 │   │   ├── render.R                      ← incremental site render orchestrator
 │   │   ├── run_pipeline.R                ← pipeline orchestrator (01 → 03 + render)
 │   │   ├── utils.R
@@ -150,6 +150,8 @@ Tracker for the 91st General Assembly (2025–2026). Migrated from the standalon
 
 **Design QA pass (2026-07-11 → 2026-07-15, complete):** first full Impeccable cycle — `PRODUCT.md` written, all three index pages critiqued (home 31→32/40, legislation 32, legislators 34; snapshots in `.impeccable/critique/`), and every P1 fixed and probe-verified: `$faint` darkened to `#706c63` (WCAG AA), a ≤600px mobile block in `custom.scss` (recent rows, browse grid, bar rows, stepper vertical stack, `.g-col-*` collapse ≤767px), uppercase-tracked labels reserved for the hero `.ia-eyebrow` only, funnel counting rule stated above the bars, tally/split de-color-coded ("R 67 – 33 D"), FORMER chip and `ui_share_bar()` legend contrast fixed. Session log: `notes/2026-07-15_impeccable-design-pass.md`; open items: `notes/2026-07-15_design-backlog.md`. **The pending full `render_site(force = TRUE)` is now also the gate for these fixes** — theme CSS is hash-referenced per page, so already-rendered detail pages still use the old stylesheet until then.
 
+**Multi-session plan (assessed 2026-10-24, nothing built yet):** the pipeline is hardcoded to the 91st GA in ~70 places (`session_id = 2177`, `legiscan/files_ga91_*`, `*_91st_ga.rds`, `ga = 91` scraper defaults, page copy), and bill URLs (`docs/legislation/HF1.html`) collide across sessions because bill numbers restart. **`docs/` is 916 MB against the ~1 GB GitHub Pages limit** (742 MB of it is bill pages, probably embedded district geometry in the vote maps), so page weight has to come down before the 92nd GA (Jan 2027), not just before any backfill. LegiScan has Iowa back to the 83rd GA (2009–10) as bulk datasets. Phases 0–3 and the open decisions: [`notes/legislature/2026-10-24_multi-session-plan.md`](notes/legislature/2026-10-24_multi-session-plan.md).
+
 ### Tech Stack
 - **R** — primary language for data pipelines and site generation
 - **Quarto** — static site generation via parameterized templates
@@ -166,7 +168,7 @@ LegiScan API → 01_incremental_update.R → legiscan/files_ga91_json/
                02b_legislator_similarity.R  → data/legislature/votes/similarity_*.rds
                03_bill_relationships.R      → data/legislature/bills/groups.rds
                04_lobbyist_declarations.R   → data/legislature/lobbying/*.rds
-               05_salience_scores.R         → data/legislature/bills/salience_scores.rds
+               05_salience_scores.R         → data/legislature/bills/salience.rds
                                               ↓
                site/templates/*.qmd (parameterized bill/legislator/committee pages)
                                               ↓
@@ -191,8 +193,18 @@ source("R/render_all.R")    # top-level: render_all() spans all domains
 - `render_manifest.csv` (repo root) tracks LegiScan `change_hash` (bills) and `person_hash` (legislators); only changed items re-render
 - Preview locally with `quarto preview site/` from the terminal
 
-### Salience Score
-`05_salience_scores.R` produces a 0–100 index of how contested/impactful each bill is, computed at the **bill group level** (signals pooled across companion bills; every group member shares the score). Components: lobby volume (0.20), lobby opposition (0.20), floor vote (0.15), party division (0.15), hearings (0.12), amendments (0.08), fiscal note (0.05), co-sponsors (0.03), companion count (0.02). See `notes/legislature/2026-05-17_salience-score.md` for design rationale.
+### Salience Indicators
+Rebuilt 2026-10-24. `05_salience_scores.R` → `data/legislature/bills/salience.rds`: **separate, citable indicators, deliberately not blended into one number** (the old weighted 0–100 composite is archived as `archive/05_salience_scores_composite.R`). All computed at the **bill group level** (every group member shares them):
+
+- **Lobby heat** — UHERO's Heat Score (Gordner & Moore 2025): minority-side share, 0–0.5. Iowa adaptations: computed on **For + Against only** (Undecided is ~54% of declarations and counts as attention, not a side); no band below `MIN_POSITIONED` (5) organizations taking a side. UHERO's cutoffs (<0.10 / 0.10–0.30 / ≥0.30) but **our labels: One-sided / Leaning / Divided**, because a low score means lobbyists didn't disagree with *each other*, not that the bill was uncontroversial — Medicaid work requirements (4 For, 43 Against) scores 0.085. One-sided bills carry `lobby_lean` (`mostly for` / `mostly against`).
+- **Vote heat** — the same minority-share formula on the group's most contested passage vote, plus its party-division label.
+- **Stage** — furthest step reached, on the site's six-step status scale (cf. SLES progression).
+- **Bill class** — `resolution` (HR/SR/HCR/SCR, can't carry law) / `commemorative` (narrow title pattern: state symbols, observance days, honoring) / `substantive`, after the SLES commemorative tier.
+- **Attention** — organizations declaring, hearings, amendments, fiscal note (`Fiscal Note` *and* `Fiscal Note/Analysis`).
+
+`most_contested_bills()` gives the two-axis ordering (Divided bills by organizations taking a side) with no weights. Precedents and sources: `notes/legislature/2026-10-24_salience-precedents.md`; original composite rationale: `notes/legislature/2026-05-17_salience-score.md`. **Not displayed anywhere on the site yet**; news mentions (the SLES "significant" tier, and validation) are deferred.
+
+Lobbying (`04`/`04a`) and `05` are **not in `run_pipeline.R`** — run them manually. Full re-scrape done 2026-10-24 (42k declarations through 2026-10-05). Note `04` decides what to re-scrape from the LegiScan `change_hash`, which doesn't change when a declaration is filed on an idle bill — re-scrape everything for a complete snapshot.
 
 ### Key R Packages (Legislature)
 `readr`, `dplyr`, `tidyr`, `stringr`, `purrr`, `jsonlite`, `gt`, `quarto`, `here`, `rvest`, `ggparliament`

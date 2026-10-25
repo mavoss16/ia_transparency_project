@@ -1,29 +1,45 @@
 # 05_salience_scores.R
 #
-# Computes a salience index (0-100) for each bill in the 91st GA.
+# Describes how contested and how far-reaching each bill in the 91st GA was,
+# as a set of separate, citable indicators rather than one blended score.
+# Replaces the 2026-05-17 weighted composite (archived as
+# archive/05_salience_scores_composite.R). Rationale and sources:
+# notes/legislature/2026-10-24_salience-precedents.md
 #
-# The score is a weighted sum of normalized signals across two dimensions:
-#   - Attention signals: lobbyist volume, hearings, co-sponsors, companion bills
-#   - Controversy signals: lobbyist opposition, floor vote, party division, amendments
+# Indicators (all computed at the bill-group level; group members share them):
 #
-# Weights (sum to 1.0):
-#   lobby_volume     0.20  — how many organized interests showed up
-#   lobby_opposition 0.20  — fraction of lobbyists opposing the bill
-#   floor_vote       0.15  — did it ever get a floor vote?
-#   party_division   0.15  — how contested was the floor vote? (0=unanimous, 1=party-line)
-#   hearings         0.12  — number of committee/subcommittee hearings
-#   amendments       0.08  — amendments filed in history text
-#   fiscal_note      0.05  — fiscal impact noted (proxy for spending/tax involvement)
-#   cosponsors       0.03  — number of individual co-sponsors
-#   companions       0.02  — companion bills in the same group
+#   Lobby heat   — UHERO "Heat Score" (Gordner & Moore 2025): the share of
+#                  organizations on the minority side, 0 (agreement) to 0.5
+#                  (even split). Iowa adaptation: computed on For + Against
+#                  only. Undecided declarations are ~54% of all declarations
+#                  and mostly signal monitoring, so they count toward
+#                  attention, not toward either side. Band cutoffs follow
+#                  UHERO (< 0.10, 0.10–0.30, >= 0.30) but are labelled
+#                  One-sided / Leaning / Divided rather than UHERO's
+#                  Cool / Warm / Hot: a low score means lobbyists didn't
+#                  disagree with *each other*, not that the bill was
+#                  uncontroversial — Medicaid work requirements (4 For,
+#                  43 Against) scores 0.085. One-sided bills also record
+#                  which way they lean. No band is assigned below
+#                  MIN_POSITIONED organizations taking a side.
+#   Vote heat    — the same minority-share formula applied to the most
+#                  contested passage vote in the group, alongside the
+#                  existing party-division label for that vote.
+#   Stage        — furthest stage reached by any group member, on the site's
+#                  existing six-step scale (cf. SLES stage progression).
+#   Bill class   — resolution / commemorative / substantive, following the
+#                  SLES commemorative tier (Bucchianeri, Volden & Wiseman 2025).
+#   Attention    — organizations declaring (any current position), hearings,
+#                  amendments filed, fiscal note.
 #
-# Bills with no data for a component receive 0 for that component.
-# All raw inputs are preserved in the output for display/debugging.
+# Nothing here is blended into a single number. Use most_contested_bills()
+# for the two-axis ordering (Divided bills, by organizations taking a side).
 #
 # Usage:
 #   source("R/legislature/05_salience_scores.R")
-#   scores <- compute_salience_scores()
-#   salience_summary(scores)
+#   salience <- compute_salience()
+#   salience_summary(salience)
+#   most_contested_bills(salience)
 
 library(dplyr)
 library(tidyr)
@@ -40,25 +56,104 @@ library(here)
 JSON_DIR    <- here("legiscan/files_ga91_json/bill")
 CSV_DIR     <- here("legiscan/files_ga91_derived")
 DATA_DIR    <- here("data/legislature")
-OUTPUT_PATH <- here("data/legislature/bills/salience_scores.rds")
+LOBBY_PATH  <- here("data/legislature/lobbying/lobbyist_declarations.rds")
+OUTPUT_PATH <- here("data/legislature/bills/salience.rds")
 
-WEIGHTS <- c(
-  lobby_volume     = 0.20,
-  lobby_opposition = 0.20,
-  floor_vote       = 0.15,
-  party_division   = 0.15,
-  hearings         = 0.12,
-  amendments       = 0.08,
-  fiscal_note      = 0.05,
-  cosponsors       = 0.03,
-  companions       = 0.02
+# Minimum organizations taking a side (For + Against) before a heat band is
+# assigned. One For and one Against would otherwise read as "Hot" on two
+# data points. Provisional — revisit against the refreshed declarations.
+MIN_POSITIONED <- 5
+
+# Band lower bounds — UHERO's cutoffs, our labels (UHERO: Cool / Warm / Hot)
+HEAT_BANDS <- c(`One-sided` = 0, Leaning = 0.10, Divided = 0.30)
+
+LOBBY_BAND_LEVELS <- c("Divided", "Leaning", "One-sided",
+                       "Too few positions", "No positions")
+
+# Site status scale (same order as bill_template.qmd's status_order)
+STATUS_ORDER <- c("Introduced", "Passed Subcommittee", "Passed Committee",
+                  "Passed One Chamber", "Passed Both Chambers",
+                  "Signed by Governor")
+
+# Roll calls that decide a bill's fate, as opposed to amendments, deferrals,
+# or procedural motions
+PASSAGE_VOTE_PATTERN <- regex(
+  "shall the bill pass|joint resolution be adopted|motion to concur",
+  ignore_case = TRUE
 )
 
+# Commemorative bills: naming official symbols, designating observances,
+# honoring people. Kept narrow on purpose — broad terms like "designating"
+# or "recognizing" also match substantive bills ("designating kratom as a
+# schedule I controlled substance"), so only add a pattern after checking it
+# against every bill title.
+COMMEMORATIVE_PATTERN <- regex(
+  paste(
+    "as the official state",
+    "designat\\w* .+ as .+ (day|week|month)\\b",
+    "\\bhonoring\\b",
+    "commemorative coins",
+    sep = "|"
+  ),
+  ignore_case = TRUE
+)
+
+FISCAL_NOTE_TYPES <- c("Fiscal Note", "Fiscal Note/Analysis")
+
 # =============================================================================
-# Component: JSON signals
+# Helpers
 # =============================================================================
 
-#' Extract salience signals from a single bill JSON file
+#' Minority share: the UHERO Heat Score formula
+#'
+#' @param a,b Counts on each side (For/Against, or Yea/Nay)
+#' @return 0 (unanimous) to 0.5 (even split); NA when a + b == 0
+minority_share <- function(a, b) {
+  if_else(a + b > 0, pmin(a, b) / (a + b), NA_real_)
+}
+
+#' Map a lobby heat value to a band (UHERO cutoffs)
+#'
+#' @param heat Heat score (0-0.5)
+#' @param n_positioned Organizations taking a side
+heat_band <- function(heat, n_positioned) {
+  case_when(
+    n_positioned == 0                ~ "No positions",
+    n_positioned < MIN_POSITIONED    ~ "Too few positions",
+    heat >= HEAT_BANDS[["Divided"]]  ~ "Divided",
+    heat >= HEAT_BANDS[["Leaning"]]  ~ "Leaning",
+    TRUE                             ~ "One-sided"
+  )
+}
+
+#' Which way a one-sided bill leans
+#'
+#' @param band Output of heat_band()
+#' @param n_for,n_against Organizations on each side
+#' @return "mostly for" / "mostly against" for One-sided bills, else NA
+lobby_lean <- function(band, n_for, n_against) {
+  case_when(
+    band != "One-sided"  ~ NA_character_,
+    n_for > n_against    ~ "mostly for",
+    TRUE                 ~ "mostly against"
+  )
+}
+
+#' Classify a bill as resolution, commemorative, or substantive
+#'
+#' Following SLES, simple and concurrent resolutions (HR, SR, HCR, SCR) are
+#' separated out because they cannot carry the force of law. Joint
+#' resolutions (constitutional amendments, state symbols) are kept as bills.
+classify_bill <- function(bill_number, title) {
+  prefix <- str_extract(bill_number, "^[A-Z]+")
+  case_when(
+    prefix %in% c("HR", "SR", "HCR", "SCR")       ~ "resolution",
+    str_detect(title, COMMEMORATIVE_PATTERN)      ~ "commemorative",
+    TRUE                                          ~ "substantive"
+  )
+}
+
+#' Extract per-bill attention signals from a bill JSON file
 #'
 #' @param bill_number Bill number string (e.g., "HF117")
 #' @param json_dir Directory containing bill JSON files
@@ -73,23 +168,19 @@ extract_json_signals <- function(bill_number, json_dir = JSON_DIR) {
   )
   if (is.null(b)) return(NULL)
 
-  # Hearings: calendar entries of type "Hearing"
   n_hearings <- if (length(b[["calendar"]]) > 0) {
     sum(map_chr(b[["calendar"]], "type") == "Hearing")
   } else {
     0L
   }
 
-  # Fiscal note: any supplement of type "Fiscal Note"
   has_fiscal_note <- if (length(b[["supplements"]]) > 0) {
-    any(map_chr(b[["supplements"]], "type") == "Fiscal Note")
+    any(map_chr(b[["supplements"]], "type") %in% FISCAL_NOTE_TYPES)
   } else {
     FALSE
   }
 
-  # Amendments: history entries matching "Amendment <ID> filed"
-  # (the amendments[] array is empty for GA91 — LegiScan doesn't populate it,
-  # but the action text in history does record filed amendments)
+  # LegiScan's amendments[] is empty for GA91; history text records filings
   n_amendments <- if (length(b[["history"]]) > 0) {
     actions <- map_chr(b[["history"]], "action")
     sum(str_detect(actions, regex("amendment.+filed", ignore_case = TRUE)))
@@ -106,42 +197,23 @@ extract_json_signals <- function(bill_number, json_dir = JSON_DIR) {
 }
 
 # =============================================================================
-# Component helpers
+# Main
 # =============================================================================
 
-#' Map vote_outcome strings to a 0-1 contentiousness scale
-#'
-#' Party Line = maximum partisan split; Unanimous = no opposition.
-map_party_division <- function(vote_outcome) {
-  case_when(
-    vote_outcome == "Party Line"                        ~ 1.0,
-    vote_outcome == "Bipartisan Support and Opposition" ~ 0.8,
-    vote_outcome == "Bipartisan Opposition"             ~ 0.6,
-    vote_outcome == "Other"                             ~ 0.3,
-    vote_outcome == "Bipartisan Support"                ~ 0.1,
-    vote_outcome == "Unanimous"                         ~ 0.0,
-    TRUE                                                ~ 0.0
-  )
-}
-
-# =============================================================================
-# Main scoring function
-# =============================================================================
-
-#' Compute salience scores for all bills
+#' Compute salience indicators for all bills
 #'
 #' @param json_dir    Directory containing bill JSON files
 #' @param csv_dir     Directory containing derived LegiScan CSVs
 #' @param data_dir    Directory containing processed RDS files
-#' @param weights     Named numeric vector of component weights (must sum to 1)
-#' @param output_path Path to write the output RDS
+#' @param lobby_path  Lobbyist declarations RDS (override to test on a copy)
+#' @param output_path Path to write the output RDS (NULL = don't save)
 #' @param verbose     Print progress messages
-#' @return Tibble of scores and components, invisibly
-compute_salience_scores <- function(
+#' @return Tibble with one row per bill, invisibly
+compute_salience <- function(
     json_dir    = JSON_DIR,
     csv_dir     = CSV_DIR,
     data_dir    = DATA_DIR,
-    weights     = WEIGHTS,
+    lobby_path  = LOBBY_PATH,
     output_path = OUTPUT_PATH,
     verbose     = TRUE
 ) {
@@ -152,243 +224,206 @@ compute_salience_scores <- function(
   msg("Loading base data...")
   bills <- read_csv(
     file.path(csv_dir, "bills.csv"),
-    col_select = c(bill_id, bill_number),
+    col_select = c(bill_number, title),
     show_col_types = FALSE
   )
 
-  sponsors <- read_csv(
-    file.path(csv_dir, "sponsors.csv"),
-    show_col_types = FALSE
-  )
+  bill_groups <- readRDS(file.path(data_dir, "bills/groups.rds")) |>
+    select(bill_number = bill, bill_group_id, group_size, lead_bill, status) |>
+    mutate(bill_group_id = as.character(bill_group_id))
 
   vote_summaries <- readRDS(file.path(data_dir, "votes/summaries_91st_ga.rds"))
 
-  bill_groups <- readRDS(file.path(data_dir, "bills/groups.rds")) |>
-    select(bill_number = bill, bill_group_id, group_size) |>
-    mutate(bill_group_id = as.character(bill_group_id))
-
-  lobbyists <- readRDS(file.path(data_dir, "lobbying/lobbyist_declarations.rds")) |>
+  lobbyists <- readRDS(lobby_path) |>
     filter(!is.na(client))
 
-  # ── Individual bill signals ───────────────────────────────────────────────
+  # ── Per-bill signals ─────────────────────────────────────────────────────
 
-  # JSON signals: hearings, fiscal notes, amendments per bill
   bill_files <- str_remove(list.files(json_dir, pattern = "\\.json$"), "\\.json$")
   msg("Extracting JSON signals from ", length(bill_files), " bill files...")
   json_signals <- map(bill_files, extract_json_signals, json_dir = json_dir) |>
     bind_rows()
 
-  # Vote signals: floor vote occurred, party division per bill
-  msg("Computing vote signals...")
-  vote_signals <- vote_summaries |>
-    group_by(bill_number) |>
-    summarise(
-      had_floor_vote      = TRUE,
-      comp_party_division = max(map_party_division(vote_outcome), na.rm = TRUE),
-      .groups = "drop"
-    )
-
-  # Co-sponsors per bill (position > 1; may include committee entries)
-  msg("Computing sponsor signals...")
-  cosponsor_stats <- sponsors |>
-    left_join(bills, by = "bill_id") |>
-    filter(!is.na(bill_number)) |>
-    group_by(bill_number) |>
-    summarise(n_cosponsors = sum(position > 1, na.rm = TRUE), .groups = "drop")
-
-  # ── Attach group IDs to per-bill signals ─────────────────────────────────
-
-  # Bills not in groups.rds (shouldn't happen, but guard with coalesce)
   bill_base <- bills |>
-    left_join(bill_groups,     by = "bill_number") |>
-    left_join(json_signals,    by = "bill_number") |>
-    left_join(vote_signals,    by = "bill_number") |>
-    left_join(cosponsor_stats, by = "bill_number") |>
+    left_join(bill_groups,  by = "bill_number") |>
+    left_join(json_signals, by = "bill_number") |>
     mutate(
       bill_group_id = coalesce(bill_group_id, bill_number),
-      group_size    = coalesce(group_size, 1L)
+      group_size    = coalesce(group_size, 1L),
+      lead_bill     = coalesce(lead_bill, bill_number),
+      bill_class    = classify_bill(bill_number, title),
+      stage_level   = match(status, STATUS_ORDER)
     )
 
-  # ── Group-level aggregation ───────────────────────────────────────────────
-  #
-  # All signals are pooled across companion bills in the same group so that,
-  # e.g., a hearing on HF948 and a hearing on companion SF615 count as two
-  # hearings for the group rather than one each.
+  group_of <- bill_base |> select(bill_number, bill_group_id)
 
-  msg("Aggregating signals to bill group level...")
+  # ── Group-level attention + stage ────────────────────────────────────────
 
-  # JSON + vote + sponsor signals: sum/any across group members
+  msg("Aggregating attention and stage to bill groups...")
   group_signals <- bill_base |>
     group_by(bill_group_id) |>
     summarise(
       n_hearings_grp      = sum(coalesce(n_hearings, 0L)),
-      has_fiscal_note_grp = any(coalesce(has_fiscal_note, FALSE)),
       n_amendments_grp    = sum(coalesce(n_amendments, 0L)),
-      had_floor_vote_grp  = any(coalesce(had_floor_vote, FALSE)),
-      party_div_grp       = max(coalesce(comp_party_division, 0), na.rm = TRUE),
-      n_cosponsors_grp    = sum(coalesce(n_cosponsors, 0L)),
-      group_size_grp      = as.integer(max(coalesce(group_size, 1L))),
+      has_fiscal_note_grp = any(coalesce(has_fiscal_note, FALSE)),
+      stage_level_grp     = max(coalesce(stage_level, 1L)),
       .groups = "drop"
-    )
+    ) |>
+    mutate(stage_grp = STATUS_ORDER[stage_level_grp])
 
-  # Lobbyist signals: deduplicate by client across all bills in the group,
-  # then recount. If the same client declared on both HF948 and SF615, that
-  # counts as one client, taking their most recent declaration.
+  # ── Lobby heat ───────────────────────────────────────────────────────────
+  #
+  # Each client counts once per group, at their most recent declaration, so a
+  # client who declared on both companions isn't double-counted and one who
+  # moved from Undecided to Against counts as Against.
+
+  msg("Computing lobby heat...")
   group_lobby <- lobbyists |>
-    left_join(bill_groups |> select(bill_number, bill_group_id),
-              by = c("bill" = "bill_number")) |>
-    mutate(bill_group_id = coalesce(bill_group_id, bill)) |>
+    inner_join(group_of, by = c("bill" = "bill_number")) |>
     group_by(bill_group_id, client) |>
     slice_max(order_by = date, n = 1, with_ties = FALSE) |>
     ungroup() |>
     group_by(bill_group_id) |>
     summarise(
-      n_lobbyists_grp  = n(),
-      n_for_grp        = sum(most_recent_declaration == "For",      na.rm = TRUE),
-      n_against_grp    = sum(most_recent_declaration == "Against",  na.rm = TRUE),
-      n_undecided_grp  = sum(most_recent_declaration == "Undecided", na.rm = TRUE),
+      n_for       = sum(most_recent_declaration == "For",       na.rm = TRUE),
+      n_against   = sum(most_recent_declaration == "Against",   na.rm = TRUE),
+      n_undecided = sum(most_recent_declaration == "Undecided", na.rm = TRUE),
+      n_withdrawn = sum(most_recent_declaration == "Withdrawn", na.rm = TRUE),
       .groups = "drop"
-    ) |>
-    mutate(
-      comp_lobby_volume_grp     = pmin(log1p(n_lobbyists_grp) / log1p(15), 1),
-      comp_lobby_opposition_grp = if_else(
-        n_for_grp + n_against_grp > 0,
-        n_against_grp / (n_for_grp + n_against_grp),
-        0
-      )
     )
 
-  # ── Score each bill using group-level signals ─────────────────────────────
+  # ── Vote heat ────────────────────────────────────────────────────────────
+  #
+  # The most contested passage vote anywhere in the group.
 
-  msg("Joining group signals and computing scores...")
+  msg("Computing vote heat...")
+  group_votes <- vote_summaries |>
+    filter(str_detect(vote_desc, PASSAGE_VOTE_PATTERN)) |>
+    inner_join(group_of, by = "bill_number") |>
+    mutate(vote_heat = minority_share(yea_count, nay_count)) |>
+    group_by(bill_group_id) |>
+    mutate(n_passage_votes = n()) |>
+    slice_max(order_by = vote_heat, n = 1, with_ties = FALSE) |>
+    ungroup() |>
+    select(
+      bill_group_id, n_passage_votes, vote_heat,
+      vote_outcome, vote_chamber = chamber, vote_date,
+      vote_bill = bill_number, vote_yea = yea_count, vote_nay = nay_count
+    )
 
-  scores <- bill_base |>
+  # ── Assemble ─────────────────────────────────────────────────────────────
+
+  msg("Assembling output...")
+  output <- bill_base |>
     left_join(group_signals, by = "bill_group_id") |>
     left_join(group_lobby,   by = "bill_group_id") |>
+    left_join(group_votes,   by = "bill_group_id") |>
     mutate(
-      # Fill NAs for bills with no group/lobby data
-      n_lobbyists_grp           = coalesce(n_lobbyists_grp, 0L),
-      n_for_grp                 = coalesce(n_for_grp, 0L),
-      n_against_grp             = coalesce(n_against_grp, 0L),
-      n_undecided_grp           = coalesce(n_undecided_grp, 0L),
-      comp_lobby_volume_grp     = coalesce(comp_lobby_volume_grp, 0),
-      comp_lobby_opposition_grp = coalesce(comp_lobby_opposition_grp, 0),
-
-      # Normalized components — all group-level
-      comp_lobby_volume     = comp_lobby_volume_grp,
-      comp_lobby_opposition = comp_lobby_opposition_grp,
-      comp_floor_vote       = as.numeric(had_floor_vote_grp),
-      comp_party_division   = party_div_grp,
-      comp_hearings         = pmin(n_hearings_grp / 3, 1),      # 3+ hearings = max
-      comp_amendments       = pmin(n_amendments_grp / 3, 1),    # 3+ amendments = max
-      comp_fiscal_note      = as.numeric(has_fiscal_note_grp),
-      comp_cosponsors       = pmin(n_cosponsors_grp / 8, 1),    # 8+ co-sponsors = max
-      comp_companions       = pmin((group_size_grp - 1L) / 4, 1), # 4+ companions = max
-
-      salience_score = round(100 * (
-        weights["lobby_volume"]     * comp_lobby_volume     +
-        weights["lobby_opposition"] * comp_lobby_opposition +
-        weights["floor_vote"]       * comp_floor_vote       +
-        weights["party_division"]   * comp_party_division   +
-        weights["hearings"]         * comp_hearings         +
-        weights["amendments"]       * comp_amendments       +
-        weights["fiscal_note"]      * comp_fiscal_note      +
-        weights["cosponsors"]       * comp_cosponsors       +
-        weights["companions"]       * comp_companions
-      ), 1)
-    )
-
-  # ── Select output columns ─────────────────────────────────────────────────
-
-  output <- scores |>
-    select(
-      bill_number,
-      bill_group_id,
-      salience_score,
-      # Group-level raw counts (what the score is based on)
-      n_lobbyists = n_lobbyists_grp,
-      n_for       = n_for_grp,
-      n_against   = n_against_grp,
-      n_undecided = n_undecided_grp,
-      n_hearings  = n_hearings_grp,
-      had_floor_vote = had_floor_vote_grp,
-      n_cosponsors   = n_cosponsors_grp,
-      group_size     = group_size_grp,
-      n_amendments   = n_amendments_grp,
-      has_fiscal_note = has_fiscal_note_grp,
-      # Per-bill raw counts (for reference / display on individual pages)
-      n_hearings_this_bill  = n_hearings,
-      n_amendments_this_bill = n_amendments,
-      # Normalized components
-      comp_lobby_volume, comp_lobby_opposition,
-      comp_floor_vote, comp_party_division,
-      comp_hearings, comp_amendments,
-      comp_fiscal_note, comp_cosponsors, comp_companions
+      across(c(n_for, n_against, n_undecided, n_withdrawn, n_passage_votes),
+             \(x) coalesce(x, 0L)),
+      n_positioned = n_for + n_against,
+      n_orgs       = n_positioned + n_undecided,
+      lobby_heat   = minority_share(n_for, n_against),
+      lobby_band   = heat_band(lobby_heat, n_positioned),
+      lobby_lean   = lobby_lean(lobby_band, n_for, n_against)
     ) |>
-    arrange(desc(salience_score))
+    select(
+      bill_number, bill_group_id, lead_bill, group_size, bill_class,
+      # Stage
+      stage = stage_grp, stage_level = stage_level_grp,
+      # Lobby heat
+      lobby_band, lobby_lean, lobby_heat, n_orgs, n_positioned,
+      n_for, n_against, n_undecided, n_withdrawn,
+      # Vote heat
+      vote_heat, vote_outcome, n_passage_votes,
+      vote_bill, vote_chamber, vote_date, vote_yea, vote_nay,
+      # Attention
+      n_hearings = n_hearings_grp, n_amendments = n_amendments_grp,
+      has_fiscal_note = has_fiscal_note_grp,
+      # Per-bill counts, for display on the bill's own page
+      n_hearings_this_bill = n_hearings, n_amendments_this_bill = n_amendments
+    ) |>
+    mutate(lobby_band = factor(lobby_band, levels = LOBBY_BAND_LEVELS)) |>
+    arrange(lobby_band, desc(n_orgs))
 
-  # ── Save ─────────────────────────────────────────────────────────────────
-
-  if (!dir.exists(dirname(output_path))) {
-    dir.create(dirname(output_path), recursive = TRUE)
+  if (!is.null(output_path)) {
+    if (!dir.exists(dirname(output_path))) {
+      dir.create(dirname(output_path), recursive = TRUE)
+    }
+    saveRDS(output, output_path)
+    msg("Saved salience indicators for ", nrow(output), " bills → ", output_path)
   }
-
-  saveRDS(output, output_path)
-  msg("Saved salience scores for ", nrow(output), " bills → ", output_path)
 
   invisible(output)
 }
 
 # =============================================================================
-# Diagnostic summary
+# Views
 # =============================================================================
 
-#' Print a summary of computed salience scores
+#' Most contested bill groups: Divided lobby heat, ordered by organizations
+#' taking a side
 #'
-#' @param scores Tibble from compute_salience_scores(), or NULL to load from disk
-#' @param output_path Path to salience scores RDS (used if scores is NULL)
-#' @param top_n Number of top-scoring bills to display
-salience_summary <- function(
-    scores      = NULL,
-    output_path = OUTPUT_PATH,
-    top_n       = 20
-) {
-  if (is.null(scores)) {
+#' The two-axis ordering (heat x volume) from UHERO's chart — no weights.
+#' Volume here is For + Against, not all declarations: ordering by n_orgs
+#' put bills with 60 Undecided and 5 positioned at the top.
+#' One row per group, represented by its lead bill.
+#'
+#' @param salience Tibble from compute_salience(), or NULL to load from disk
+#' @param n Number of groups to return
+most_contested_bills <- function(salience = NULL, n = 20, output_path = OUTPUT_PATH) {
+  if (is.null(salience)) salience <- readRDS(output_path)
+
+  salience |>
+    filter(bill_class == "substantive", lobby_band == "Divided") |>
+    distinct(bill_group_id, .keep_all = TRUE) |>
+    arrange(desc(n_positioned), desc(lobby_heat)) |>
+    head(n) |>
+    select(lead_bill, group_size, stage, n_positioned, n_for, n_against,
+           n_undecided, lobby_heat, vote_heat, vote_outcome, n_hearings)
+}
+
+#' Print a summary of the salience indicators
+#'
+#' @param salience Tibble from compute_salience(), or NULL to load from disk
+salience_summary <- function(salience = NULL, output_path = OUTPUT_PATH) {
+  if (is.null(salience)) {
     if (!file.exists(output_path)) {
-      message("No scores found. Run compute_salience_scores() first.")
+      message("No salience data found. Run compute_salience() first.")
       return(invisible(NULL))
     }
-    scores <- readRDS(output_path)
+    salience <- readRDS(output_path)
   }
 
-  cat("=== Salience Score Summary ===\n\n")
-  cat(sprintf("Bills scored: %d\n", nrow(scores)))
-  cat(sprintf("Score range:  %.1f – %.1f\n", min(scores$salience_score), max(scores$salience_score)))
-  cat(sprintf("Median score: %.1f\n\n", median(scores$salience_score)))
+  groups <- salience |> distinct(bill_group_id, .keep_all = TRUE)
 
-  cat("Distribution:\n")
-  breaks <- c(0, 10, 25, 50, 75, 100)
-  labels <- paste0(breaks[-length(breaks)], "–", breaks[-1])
-  tbl <- table(cut(scores$salience_score, breaks, labels = labels, include.lowest = TRUE))
-  print(tbl)
+  cat("=== Salience Indicators ===\n\n")
+  cat(sprintf("Bills: %d   Groups: %d\n\n", nrow(salience), nrow(groups)))
 
-  cat(sprintf("\nTop %d bills by salience:\n", top_n))
-  scores |>
-    head(top_n) |>
-    select(bill_number, salience_score, n_lobbyists, n_for, n_against,
-           n_hearings, had_floor_vote, n_amendments) |>
-    print(n = top_n)
+  cat("Bill class (bills):\n")
+  print(count(salience, bill_class))
 
-  cat("\nComponent means (across all bills):\n")
-  scores |>
-    summarise(across(starts_with("comp_"), mean)) |>
-    tidyr::pivot_longer(everything(), names_to = "component", values_to = "mean") |>
-    mutate(
-      component = str_remove(component, "^comp_"),
-      mean      = round(mean, 3)
-    ) |>
-    arrange(desc(mean)) |>
-    print(n = Inf)
+  cat("\nLobby heat band (groups, substantive only):\n")
+  groups |>
+    filter(bill_class == "substantive") |>
+    count(lobby_band) |>
+    mutate(share = round(n / sum(n), 3)) |>
+    print()
 
-  invisible(scores)
+  cat("\nAmong groups with a band (UHERO's Hawaii 2025 split was",
+      "14% Divided / 8% Leaning / 78% One-sided):\n")
+  groups |>
+    filter(bill_class == "substantive",
+           lobby_band %in% c("Divided", "Leaning", "One-sided")) |>
+    count(lobby_band, lobby_lean) |>
+    mutate(share = round(n / sum(n), 3)) |>
+    print()
+
+  cat("\nStage reached (groups):\n")
+  print(count(groups, stage_level, stage))
+
+  cat("\nMost contested (Divided, by organizations taking a side):\n")
+  print(most_contested_bills(salience), n = 20)
+
+  invisible(salience)
 }

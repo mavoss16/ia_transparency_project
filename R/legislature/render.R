@@ -96,12 +96,48 @@ update_manifest <- function(manifest, type, id, hash) {
   manifest
 }
 
-#' Get the hash for a bill from its JSON file
+LOBBY_FILE <- here("data/legislature/lobbying/lobbyist_declarations.rds")
+
+#' Fingerprint each bill's lobbyist declarations
+#'
+#' Bill pages show lobbyist declarations, which change independently of
+#' LegiScan's change_hash (a declaration can be filed on a bill that hasn't
+#' moved), so the bill hash has to cover them too.
+#' @param path Lobbyist declarations RDS
+#' @return Named character vector: bill number -> hash of its declarations
+lobby_digests <- function(path = LOBBY_FILE) {
+  if (!file.exists(path)) return(character(0))
+
+  digests <- readRDS(path) |>
+    filter(!is.na(client)) |>
+    # Hash plain text, not the data frame, so column attributes (timezone,
+    # tibble class) can't change the fingerprint when the content hasn't
+    mutate(row = paste(client, most_recent_declaration,
+                       format(date, "%Y-%m-%d %H:%M"), sep = "\t")) |>
+    arrange(bill, row) |>
+    group_by(bill) |>
+    summarise(digest = rlang::hash(row), .groups = "drop")
+
+  setNames(digests$digest, digests$bill)
+}
+
+# Read once per session, not once per bill
+.lobby_digest_cache <- new.env()
+
+get_lobby_digest <- function(bill_number) {
+  if (is.null(.lobby_digest_cache$digests)) {
+    .lobby_digest_cache$digests <- lobby_digests()
+  }
+  digest <- .lobby_digest_cache$digests[bill_number]
+  if (is.na(digest)) "none" else unname(digest)
+}
+
+#' Get the hash for a bill: LegiScan change_hash + lobbying fingerprint
 get_bill_hash <- function(bill_number) {
   json_path <- here("legiscan/files_ga91_json/bill", paste0(bill_number, ".json"))
   if (file.exists(json_path)) {
     bill_data <- read_json(json_path)
-    return(bill_data$bill$change_hash)
+    return(paste0(bill_data$bill$change_hash, "|", get_lobby_digest(bill_number)))
   }
   return(NA_character_)
 }
@@ -373,10 +409,8 @@ Time budget reached after ", i - 1, "/", total_to_render,
     }
     gc()
 
-    # Pause every 100 bills to avoid rate-limiting on lobbyist scraping
     if (i %% 100 == 0 && i < total_to_render) {
-      message(paste0("  Progress: ", i, "/", total_to_render, " — pausing 30s..."))
-      Sys.sleep(30)
+      message(paste0("  Progress: ", i, "/", total_to_render))
     }
   }
 
