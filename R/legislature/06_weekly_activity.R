@@ -219,3 +219,84 @@ weekly_activity_summary <- function(bill_actions) {
 latest_active_week <- function(bill_actions) {
   max(counted_milestones(bill_actions)$week_start)
 }
+
+# =============================================================================
+# Period table rows (week page / home card)
+# =============================================================================
+
+# Sort weight of a milestone within a period: furthest first in the table
+MILESTONE_RANK <- c(introduced = 1, subcommittee = 2, committee = 3,
+                    floor = 4, vetoed = 5, signed = 6)
+
+#' Pill label for a counted milestone action
+#'
+#' Floor passage names its chamber, and a resolution's is "Adopted" rather
+#' than "Passed", so the pill reads the way the action did.
+milestone_pill_label <- function(milestone, action, floor_chamber) {
+  milestone <- as.character(milestone)
+  case_when(
+    milestone == "floor" & str_detect(action, "^Resolution adopted") ~
+      paste("Adopted in", floor_chamber),
+    milestone == "floor" ~ paste("Passed", floor_chamber),
+    .default = unname(MILESTONE_LABELS[milestone])
+  )
+}
+
+#' One row per bill group with any action in a period
+#'
+#' @param bill_actions Output of build_bill_actions()
+#' @param from,to      Period bounds (inclusive)
+#' @param groups       groups.rds (for lead bill and current group status)
+#' @param bills        bills.csv (bill_number, title)
+#' @return Tibble, furthest milestone first: bill_group_id, lead_bill, title
+#'   (raw LegiScan title of the lead bill), bills (chr: group members with an
+#'   action in the period, lead first), milestones (chr: pill labels,
+#'   furthest first; empty for procedural-only groups), rank (0 = procedural
+#'   only), n_actions, group_status, actions (tibble of the period's actions)
+period_group_rows <- function(bill_actions, from, to = from + 6, groups, bills) {
+  period <- bill_actions |>
+    filter(date >= from, date <= to) |>
+    mutate(counted = !is.na(milestone) &
+             (milestone != "introduced" | counts_as_introduction))
+
+  if (nrow(period) == 0) {
+    return(tibble(bill_group_id = integer(), lead_bill = character(),
+                  title = character(), bills = list(), milestones = list(),
+                  rank = numeric(), n_actions = integer(),
+                  group_status = character(), actions = list()))
+  }
+
+  group_info <- groups |>
+    distinct(bill_group_id, lead_bill, group_status) |>
+    left_join(bills |> select(lead_bill = bill_number, title), by = "lead_bill")
+
+  pills <- period |>
+    filter(counted) |>
+    mutate(label = milestone_pill_label(milestone, action, floor_chamber),
+           rank  = MILESTONE_RANK[as.character(milestone)]) |>
+    distinct(bill_group_id, label, rank) |>
+    arrange(bill_group_id, desc(rank), label) |>
+    group_by(bill_group_id) |>
+    summarise(milestones = list(label), rank = max(rank), .groups = "drop")
+
+  period |>
+    arrange(date, bill, sequence) |>
+    group_by(bill_group_id) |>
+    summarise(
+      bills     = list(unique(bill)),
+      n_actions = n(),
+      actions   = list(tibble(date, bill, chamber, action, counted)),
+      .groups   = "drop"
+    ) |>
+    left_join(group_info, by = "bill_group_id") |>
+    left_join(pills, by = "bill_group_id") |>
+    mutate(
+      # Lead bill first among the active members
+      bills      = purrr::map2(bills, lead_bill, \(b, l) c(intersect(l, b), setdiff(sort(b), l))),
+      milestones = purrr::map(milestones, \(m) if (is.null(m)) character(0) else m),
+      rank       = coalesce(rank, 0)
+    ) |>
+    arrange(desc(rank), desc(n_actions), lead_bill) |>
+    select(bill_group_id, lead_bill, title, bills, milestones, rank,
+           n_actions, group_status, actions)
+}

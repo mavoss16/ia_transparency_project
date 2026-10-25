@@ -398,6 +398,63 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 .ia-profile-actions a:hover { border-color: $muted; }
 
 // ------------------------------------------------------------
+// Weekly activity pages (site/templates/week_template.qmd)
+// ------------------------------------------------------------
+.ia-week-nav { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.ia-week-nav a, .ia-week-nav-off {
+  font-size: 0.8rem; font-weight: 600; padding: 0.5rem 0.9rem;
+  border: 1px solid $border; border-radius: 8px; background: $card-bg;
+  white-space: nowrap; text-decoration: none;
+}
+.ia-week-nav a { color: $ink-soft; }
+.ia-week-nav a:hover { border-color: $muted; }
+.ia-week-nav-off { color: $faint; background: transparent; }
+.ia-week-through { color: $faint; font-size: 0.9rem; }
+
+.ia-week-tabs .tab-content { padding-top: 0.25rem; }
+// Five (sometimes six) count cards: narrower minimum so they share one row
+.ia-week-tabs .ia-stat-grid { grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); }
+
+// Bill titles run to 60+ words; three lines keep a 400-row week scannable
+// (the full title is on the bill page, and screen readers still get it all)
+.ia-clamp-3 {
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Expanded row: the period's actions for every member of the group
+.ia-act-details { padding: 0.6rem 1rem 0.9rem 2.6rem; background: $bg; }
+.ia-act-row {
+  display: flex; gap: 0.9rem; align-items: baseline;
+  padding: 0.3rem 0; font-size: 0.82rem; color: $ink;
+  border-top: 1px solid $border-soft;
+}
+.ia-act-row:first-child { border-top: none; }
+.ia-act-procedural { color: $muted; }
+.ia-act-date    { flex: 0 0 3.6rem; color: $muted; white-space: nowrap; }
+.ia-act-bill    { flex: 0 0 4.6rem; font-weight: 600; white-space: nowrap; }
+.ia-act-chamber { flex: 0 0 3.6rem; color: $muted; }
+.ia-act-text    { flex: 1 1 auto; }
+.ia-act-footer  { font-size: 0.8rem; color: $muted; margin-top: 0.6rem; }
+.ia-act-sep     { color: $faint; }
+
+.ia-mobile-pills { display: none; }
+
+@media (max-width: 600px) {
+  .ia-col-status, .ia-col-period { display: none !important; }
+  // reactable writes the sum of ALL columns' min-widths inline on these
+  // (hidden columns included), which would force a sideways scroll
+  .ia-week-tabs .rt-thead, .ia-week-tabs .rt-tbody, .ia-week-tabs .rt-tr { min-width: 0 !important; }
+  .ia-mobile-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
+  .ia-week-tabs .tab-content { padding-left: 0; padding-right: 0; border-left: none; border-right: none; }
+  .ia-week-tabs .ia-card { padding: 1rem 0.6rem; }
+  .ia-week-tabs .ia-card-head { flex-wrap: wrap; }
+  .ia-act-details { padding-left: 0.75rem; }
+  .ia-act-row { flex-wrap: wrap; row-gap: 0.1rem; }
+  .ia-act-text { flex-basis: 100%; }
+}
+
+// ------------------------------------------------------------
 // Map placeholder (only used while iterating without leaflet)
 // ------------------------------------------------------------
 .ia-map-placeholder {

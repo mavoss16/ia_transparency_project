@@ -166,6 +166,9 @@ STATUS_LEVELS <- c(
 #'   raw history is shown.
 #' - Full vetoes get their own milestone but are not a stage on STATUS_LEVELS:
 #'   a vetoed bill's status stays "Passed Both Chambers".
+#' - A committee that amends a bill reports "Committee report, recommending
+#'   amendment and passage." — that is committee passage too (390 actions in
+#'   the 91st GA, uncounted before 2026-10-24).
 #' - House simple and concurrent resolutions are introduced with "Resolution
 #'   filed, laid over under Rule 25." rather than "Introduced"; both count as
 #'   introduction. (Introduction is the floor of the status scale, so this
@@ -179,7 +182,7 @@ classify_action <- function(action) {
     str_detect(action, "Signed by Governor|^Item vetoed, signed by Governor") ~ "signed",
     str_detect(action, "^Vetoed by Governor")                               ~ "vetoed",
     str_detect(action, "^Passed (House|Senate)|^Resolution adopted")        ~ "floor",
-    str_detect(action, "Committee report.*(recommending passage|approving bill)") ~ "committee",
+    str_detect(action, "Committee report.*(recommending (amendment and )?passage|approving bill)") ~ "committee",
     str_detect(action, "Subcommittee recommends.*(passage|amendment and passage)") ~ "subcommittee",
     str_detect(action, "^Introduced|^Resolution filed")                     ~ "introduced",
     .default = NA_character_

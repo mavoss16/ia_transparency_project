@@ -107,6 +107,42 @@ What merged:
 
 Week of 2026-02-16 for reference: introduced 130 · subcommittee 154 · committee 260 · floor 2 · signed 0.
 
+## Phase 3 result (2026-10-24, done; not committed)
+
+`site/templates/week_template.qmd` (param `week_start`) → `render_week()` in `render.R` → **`docs/activity/YYYY-MM-DD.html`**. This changes the planned `legislation/week/` path: Quarto writes `../site_libs` paths relative to `docs/templates/`, so output has to stay one level below `docs/`.
+
+- **Page layout:**
+  - Breadcrumb, then a hero ("Week of February 16, 2026"; "Feb 16 – Feb 22 · 1,419 actions on 476 bill groups"; "data through …" on the newest week) with ← / → links to the neighbouring weeks that have any action.
+  - Bootstrap tabs built in htmltools rather than a Quarto `panel-tabset` heading, because widgets printed from an `asis` loop lose their dependencies: **Whole week** + one tab per day with any action.
+  - Each tab has its own count cards (`period_milestone_counts()`; Vetoed appears only when nonzero) and its own table.
+  - A footnote states the counting rule.
+- **`period_group_rows()` (06):** one row per group with any action in the period. It carries the active members (lead first), pill labels ("Passed House", "Adopted in Senate", "Signed by Governor", …; "Other activity" for procedural-only groups), the current group status, and the period's actions.
+- **`activity_table()` (legislature `ui_helpers.R`):** reactable.
+  - The data columns are plain text, so search matches bill numbers, titles and milestones; cells render links and pills.
+  - Titles are clamped to 3 lines.
+  - Rows expand to the period's actions for every member (milestones in full ink, procedural muted) plus "Full history" links. These are real `<a>` tags: an `HTML()` string inside reactable details is rendered as escaped text.
+- **Phones (≤600px):** the This-week and Status columns hide and the pills move under the title. reactable's inline `min-width` (the sum of all columns, hidden ones included) is overridden, so the table fits 375px with no sideways scroll.
+
+**Verified in the browser** (docs-preview) on 2026-02-16 (committee-heavy: 130 / 154 / 260 / 2 / 0) and 2026-04-27 (floor-heavy: 10 / 11 / 22 / 80 / 26):
+- tab switching sets `active` and `aria-selected`;
+- expanding a row sets `aria-expanded` and shows the actions and links;
+- search finds `SF 492` by number and by title words;
+- prev/next links are right, and the asset paths resolve;
+- phone layout fits with no horizontal page scroll; desktop is unchanged.
+
+**Page weight:** 2.71 MB / 1.51 MB on disk, **203 KB / 110 KB gzipped** (what Pages serves). Week + day tabs roughly double the embedded data. At ~48 weeks per GA that is roughly 40–60 MB on disk, against the ~1 GB Pages limit; acceptable, but this is the knob if the budget tightens (e.g. drop details from the day tabs).
+
+**Classifier gap found while testing:** `"Committee report, recommending amendment and passage."` (390 actions, 388 bills) is **not** matched by the committee rule (`recommending passage|approving bill`). Effects:
+- Bill status: only 10 bills would move (Passed Subcommittee → Passed Committee), because the rest got further anyway.
+- **Weekly counts:** 338 groups are missing a "Passed committee" in the week it happened.
+- **Fixed the same day:** the committee rule is now `recommending (amendment and )?passage|approving bill`.
+  - **Exactly 10 bills moved** (Passed Subcommittee → Passed Committee): HF2068, HF2161, HF2403, HF47, HF621, HSB31, HSB533, HSB551, SF172, SF2167. 13 bills changed group status.
+  - Group membership is identical, and `salience.rds` changed only `stage` on those 13.
+  - Committee milestones went 2,628 → 3,018, and every changed milestone is an amended-passage report.
+  - Committee counts: week of 2026-02-16 260 → **292**; week of 2026-04-27 22 → **25**.
+
+The two test pages in `docs/activity/` were re-rendered but are **not committed**. Nothing links to them yet, and their "Weekly activity" breadcrumb points at an archive page phase 4 builds. CI will render them once `render_weeks()` is wired into `render_site()`.
+
 ## Phases
 
 1. **Classifier refactor:** `classify_action()` in utils, recognizing `Resolution adopted` (as floor passage) and `Vetoed by Governor`. `03` is rewritten on top of it and `groups.rds` regenerated. The funnel diff must be exactly the 61 adopted resolutions moving up from "Introduced" and nothing else.

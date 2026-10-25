@@ -1,0 +1,129 @@
+---
+pagetitle: "`r paste('Week of', trimws(format(as.Date(params$week_start), '%B %e, %Y')))`"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: false
+
+params:
+  week_start: "2026-02-16"
+---
+
+```{r}
+library(readr)
+library(dplyr)
+library(stringr)
+library(htmltools)
+
+source(here::here("R/legislature/06_weekly_activity.R"))
+source(here::here("R/legislature/ui_helpers.R"))
+```
+
+```{r}
+week_start <- as.Date(params$week_start)
+week_end   <- week_start + 6
+
+bill_actions <- load_bill_actions()
+groups <- read_rds(here::here("data/legislature/bills/groups.rds"))
+bills  <- read_csv(file.path(derived_csv_dir(), "bills.csv"),
+                   col_select = c(bill_number, title), show_col_types = FALSE)
+
+weeks <- weekly_activity_summary(bill_actions)   # newest first
+this_week <- weeks |> filter(week_start == !!week_start)
+stopifnot("No recorded actions in this week" = nrow(this_week) == 1)
+
+# Neighbours among weeks that have a page (any action), skipping empty weeks
+prev_week <- weeks |> filter(week_start < !!week_start) |> slice_max(week_start, n = 1) |> pull(week_start)
+next_week <- weeks |> filter(week_start > !!week_start) |> slice_min(week_start, n = 1) |> pull(week_start)
+
+is_latest <- week_start == max(weeks$week_start)
+data_through <- max(bill_actions$date)
+
+fmt_day   <- \(d) str_squish(format(d, "%b %e"))
+fmt_long  <- \(d) str_squish(format(d, "%B %e, %Y"))
+week_href <- \(d) paste0(format(d, "%Y-%m-%d"), ".html")
+```
+
+::: {.ia-breadcrumb}
+[Legislation](../legislation/index.html) / [Weekly activity](index.html) / Week of `r fmt_day(week_start)`
+:::
+
+```{r}
+nav_link <- function(d, arrow_first) {
+  if (length(d) == 0) return(span(class = "ia-week-nav-off", if (arrow_first) "← Earlier" else "Later →"))
+  a(href = week_href(d), if (arrow_first) paste("←", fmt_day(d)) else paste(fmt_day(d), "→"))
+}
+
+div(class = "ia-hero-row",
+  div(
+    div(class = "ia-eyebrow", "91st General Assembly"),
+    h1(paste("Week of", fmt_long(week_start))),
+    p(class = "ia-lead",
+      sprintf("%s – %s · %s actions on %s bill groups",
+              fmt_day(week_start), fmt_day(week_end),
+              format(this_week$n_actions, big.mark = ","),
+              format(this_week$n_groups_active, big.mark = ",")),
+      if (is_latest) span(class = "ia-week-through",
+                          paste0(" · data through ", fmt_long(data_through))))
+  ),
+  div(class = "ia-week-nav", nav_link(prev_week, TRUE), nav_link(next_week, FALSE))
+)
+```
+
+```{r}
+# One tab for the whole week, then one per day with any recorded action
+days <- sort(unique(bill_actions$date[bill_actions$date >= week_start & bill_actions$date <= week_end]))
+periods <- c(
+  list(list(id = "week", label = "Whole week", from = week_start, to = week_end, column = "This week")),
+  lapply(days, \(d) list(id = format(d, "d%Y%m%d"), label = format(d, "%a %b %e") |> str_squish(),
+                         from = d, to = d, column = "This day"))
+)
+
+period_cards <- function(from, to) {
+  counts <- period_milestone_counts(bill_actions, from, to) |>
+    filter(milestone != "vetoed" | n_groups > 0)
+  do.call(ui_stat_grid, lapply(seq_len(nrow(counts)), \(i)
+    ui_stat_card(counts$label[i], format(counts$n_groups[i], big.mark = ","))))
+}
+
+panes <- lapply(seq_along(periods), function(i) {
+  p <- periods[[i]]
+  rows <- period_group_rows(bill_actions, p$from, p$to, groups, bills)
+  div(class = paste("tab-pane", if (i == 1) "active"), id = paste0("tab-", p$id),
+      role = "tabpanel", `aria-labelledby` = paste0("tab-", p$id, "-btn"),
+    period_cards(p$from, p$to),
+    div(class = "ia-card",
+      div(class = "ia-card-head",
+        div(class = "ia-card-title", sprintf("%s bill groups with activity", format(nrow(rows), big.mark = ","))),
+        div(class = "ia-card-sub", style = "margin-bottom:0", "Expand a row for its actions")
+      ),
+      activity_table(rows, period_label = p$column)
+    )
+  )
+})
+
+tabs <- lapply(seq_along(periods), function(i) {
+  p <- periods[[i]]
+  tags$li(class = "nav-item", role = "presentation",
+    tags$a(class = paste("nav-link", if (i == 1) "active"), id = paste0("tab-", p$id, "-btn"),
+           href = paste0("#tab-", p$id), `data-bs-toggle` = "tab",
+           `data-bs-target` = paste0("#tab-", p$id), role = "tab",
+           `aria-controls` = paste0("tab-", p$id),
+           `aria-selected` = if (i == 1) "true" else "false",
+           p$label))
+})
+
+tagList(
+  div(class = "panel-tabset ia-week-tabs",
+    tags$ul(class = "nav nav-tabs", role = "tablist", tabs),
+    div(class = "tab-content", panes)
+  ),
+  div(class = "ia-footnote",
+    "Each number counts bill groups — a bill together with its companion bills and ",
+    "the study bill it came from — that reached the stage during the period. A group ",
+    "can count under more than one stage, and a week's numbers are not the sum of its ",
+    "days. The table lists every group with any recorded action, procedural ones included.")
+)
+```

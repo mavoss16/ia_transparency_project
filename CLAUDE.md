@@ -107,7 +107,7 @@ ia_transparency_project/
 │   ├── custom.scss                       ← redesign SCSS theme (.ia-* classes; theme: [cosmo, custom.scss])
 │   ├── legislation/                      ← bill browse page
 │   ├── legislators/                      ← legislator browse + compare pages
-│   ├── templates/                        ← bill / legislator / committee parameterized templates
+│   ├── templates/                        ← bill / legislator / committee / week parameterized templates (week → docs/activity/YYYY-MM-DD.html)
 │   └── campaign_finance/
 │       └── templates/
 │           ├── recipient_template.qmd        ← per-committee contribution report (static R/gt)
@@ -177,7 +177,7 @@ LegiScan API → 01_incremental_update.R → legiscan/files_ga91_json/
                R/legislature/render.R (incremental rendering) → docs/
 ```
 
-**Bill status rules live in one place:** `classify_action()` / `get_bill_status_from_history()` / `STATUS_LEVELS` in `R/legislature/utils.R` (moved out of `03` on 2026-10-24). `Resolution adopted` counts as floor passage, so adopted resolutions are no longer stuck at "Introduced". Item-vetoed bills ("Item vetoed, signed by Governor.", which has no separate signed row) count as "Signed by Governor"; the raw action text on bill pages still says item-vetoed. Bill groups also link every committee renumbering ("renumbered as HF 123") at graph-build time, since the scraped related-bills list misses some. The weekly activity summary built on this: [`notes/legislature/2026-10-24_weekly-activity-summary.md`](notes/legislature/2026-10-24_weekly-activity-summary.md).
+**Bill status rules live in one place:** `classify_action()` / `get_bill_status_from_history()` / `STATUS_LEVELS` in `R/legislature/utils.R` (moved out of `03` on 2026-10-24). `Resolution adopted` counts as floor passage, so adopted resolutions are no longer stuck at "Introduced"; "Committee report, recommending amendment and passage." counts as committee passage. Item-vetoed bills ("Item vetoed, signed by Governor.", which has no separate signed row) count as "Signed by Governor"; the raw action text on bill pages still says item-vetoed. Bill groups also link every committee renumbering ("renumbered as HF 123") at graph-build time, since the scraped related-bills list misses some. The weekly activity summary built on this: [`notes/legislature/2026-10-24_weekly-activity-summary.md`](notes/legislature/2026-10-24_weekly-activity-summary.md).
 
 `R/legislature/run_pipeline.R` orchestrates steps 01→03, then `06` (`weekly_activity`), then render; logs to `logs/legislature/`. `.github/workflows/daily-update.yml` runs it daily (paths already updated for the monorepo).
 

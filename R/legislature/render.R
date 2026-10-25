@@ -24,6 +24,10 @@ OUTPUT_DIR <- here("docs")
 LEGISLATION_DIR <- file.path(OUTPUT_DIR, "legislation")
 LEGISLATORS_DIR <- file.path(OUTPUT_DIR, "legislators")
 COMMITTEES_DIR <- file.path(OUTPUT_DIR, "committees")
+# Weekly activity pages. Kept one level below docs/, like the other detail
+# directories: Quarto writes site_libs paths relative to the template's
+# render location (docs/templates/), so a deeper directory would break them.
+ACTIVITY_DIR <- file.path(OUTPUT_DIR, "activity")
 MANIFEST_FILE <- here("render_manifest.csv")
 
 # Ensure output directories exist
@@ -31,6 +35,7 @@ ensure_dirs <- function() {
   dir.create(LEGISLATION_DIR, recursive = TRUE, showWarnings = FALSE)
   dir.create(LEGISLATORS_DIR, recursive = TRUE, showWarnings = FALSE)
   dir.create(COMMITTEES_DIR, recursive = TRUE, showWarnings = FALSE)
+  dir.create(ACTIVITY_DIR, recursive = TRUE, showWarnings = FALSE)
 }
 
 #' Load or create the render manifest
@@ -204,6 +209,37 @@ render_bill <- function(bill_number, template_path = here("site/templates/bill_t
     return(TRUE)
   }, error = function(e) {
     warning(paste("Failed to render", bill_number, ":", e$message))
+    return(FALSE)
+  })
+}
+
+#' Render a single weekly activity page
+#' @param week_start Date or "YYYY-MM-DD" string: the week's Monday
+#' @param template_path Path to week_template.qmd
+render_week <- function(week_start, template_path = here("site/templates/week_template.qmd")) {
+  week_id <- format(as.Date(week_start), "%Y-%m-%d")
+  output_file <- file.path(ACTIVITY_DIR, paste0(week_id, ".html"))
+  rendered_file <- here("docs/templates", basename(output_file))
+  dir.create(ACTIVITY_DIR, recursive = TRUE, showWarnings = FALSE)
+
+  tryCatch({
+    quarto_render(
+      input = template_path,
+      output_file = basename(output_file),
+      execute_params = list(week_start = week_id),
+      output_format = "html",
+      metadata = list(search = FALSE),  # Avoid search.json file lock on Windows
+      as_job = FALSE
+    )
+
+    if (file.exists(rendered_file)) {
+      file.rename(rendered_file, output_file)
+    }
+
+    message(paste("Rendered week:", week_id))
+    return(TRUE)
+  }, error = function(e) {
+    warning(paste("Failed to render week", week_id, ":", e$message))
     return(FALSE)
   })
 }

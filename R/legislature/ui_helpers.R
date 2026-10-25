@@ -74,6 +74,107 @@ vote_pill <- function(vote) {
   ui_pill(vote, type)
 }
 
+#' Milestone pill for the weekly activity table ("Passed House", ...)
+milestone_pill <- function(label) {
+  type <- dplyr::case_when(
+    str_detect(label, "^Signed") ~ "signed",
+    str_detect(label, "^Vetoed") ~ "vetoed",
+    str_detect(label, "^Introduced|^Other activity") ~ "neutral",
+    TRUE ~ "progress"
+  )
+  ui_pill(label, type)
+}
+
+# ------------------------------------------------------------------
+# Weekly activity table (reactable, one row per bill group)
+# ------------------------------------------------------------------
+
+#' rows: output of period_group_rows() (R/legislature/06_weekly_activity.R).
+#' bill_prefix: relative path from the page to the legislation directory.
+#' period_label: column header for what happened ("This week" / "This day").
+#'
+#' The data columns are plain text, so the search box matches bill numbers
+#' and titles; cells render links and pills from them. Each row expands to
+#' the period's actions for every group member, milestones in full ink and
+#' procedural actions muted.
+activity_table <- function(rows, bill_prefix = "../legislation/",
+                           period_label = "This week", page_size = 25) {
+  pill_html <- function(labels) {
+    if (length(labels) == 0) labels <- "Other activity"
+    paste(vapply(labels, \(l) as.character(milestone_pill(l)), character(1)), collapse = " ")
+  }
+
+  df <- tibble::tibble(
+    bills  = vapply(rows$bills, \(b) paste(str_replace(b, "^([A-Z]+)(\\d+)$", "\\1 \\2"), collapse = ", "), character(1)),
+    title  = vapply(rows$title, \(t) if (is.na(t)) "" else clean_bill_title(t)$title, character(1)),
+    period = vapply(rows$milestones, \(m) if (length(m)) paste(m, collapse = "; ") else "Other activity", character(1)),
+    status = rows$group_status,
+    rank   = rows$rank
+  )
+
+  bills_cell <- function(value, index) {
+    paste(vapply(rows$bills[[index]], \(b) as.character(format_bill_link(b, bill_prefix)), character(1)),
+          collapse = "<span class=\"ia-act-sep\"> · </span>")
+  }
+
+  details <- function(index) {
+    acts <- rows$actions[[index]]
+    multi_bill <- length(unique(acts$bill)) > 1
+    items <- lapply(seq_len(nrow(acts)), function(i) {
+      div(class = paste("ia-act-row", if (!acts$counted[i]) "ia-act-procedural"),
+        span(class = "ia-act-date", str_squish(format(acts$date[i], "%b %e"))),
+        if (multi_bill) span(class = "ia-act-bill", str_replace(acts$bill[i], "^([A-Z]+)(\\d+)$", "\\1 \\2")),
+        span(class = "ia-act-chamber", acts$chamber[i]),
+        span(class = "ia-act-text", acts$action[i])
+      )
+    })
+    # Real <a> tags, not HTML() strings: reactable serializes details to
+    # React elements, where an HTML() string is rendered as escaped text
+    member_bills <- rows$bills[[index]]
+    links <- lapply(seq_along(member_bills), \(i) tagList(
+      if (i > 1) " · ",
+      a(href = paste0(bill_prefix, member_bills[i], ".html"),
+        str_replace(member_bills[i], "^([A-Z]+)(\\d+)$", "\\1 \\2"))
+    ))
+    div(class = "ia-act-details",
+      div(class = "ia-act-list", items),
+      div(class = "ia-act-footer", "Full history: ", links)
+    )
+  }
+
+  # On phones the period and status columns are hidden (custom.scss), and the
+  # period pills move under the title instead
+  title_cell <- function(value, index) {
+    labels <- rows$milestones[[index]]
+    if (length(labels) == 0) labels <- "Other activity"
+    tagList(
+      div(class = "ia-clamp-3", value),
+      div(class = "ia-mobile-pills", lapply(labels, milestone_pill))
+    )
+  }
+
+  reactable::reactable(
+    df,
+    columns = list(
+      bills  = reactable::colDef(name = "Bills", cell = bills_cell, html = TRUE, minWidth = 80, maxWidth = 170),
+      title  = reactable::colDef(name = "Title", minWidth = 180, cell = title_cell),
+      period = reactable::colDef(name = period_label, minWidth = 150,
+                                 cell = \(value, index) pill_html(rows$milestones[[index]]), html = TRUE,
+                                 class = "ia-col-period", headerClass = "ia-col-period"),
+      status = reactable::colDef(name = "Status now", minWidth = 140,
+                                 cell = \(value) as.character(status_pill(value)), html = TRUE,
+                                 class = "ia-col-status", headerClass = "ia-col-status"),
+      rank   = reactable::colDef(show = FALSE)
+    ),
+    details = details,
+    defaultSorted = list(rank = "desc"),
+    searchable = TRUE,
+    defaultPageSize = page_size,
+    highlight = TRUE,
+    language = reactable::reactableLang(searchPlaceholder = "Search bills or titles")
+  )
+}
+
 # ------------------------------------------------------------------
 # Paired bars: individual bill vs bill group
 # ------------------------------------------------------------------
