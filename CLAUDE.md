@@ -65,6 +65,7 @@ ia_transparency_project/
 │   │   ├── 04_lobbyist_declarations.R
 │   │   ├── 04a_legislator_lobbyist_alignment.R
 │   │   ├── 05_salience_scores.R          ← bill salience indicators (lobby/vote heat, stage, class)
+│   │   ├── 06_weekly_activity.R          ← classified, dated actions → bill_actions.rds (weekly summary)
 │   │   ├── render.R                      ← incremental site render orchestrator
 │   │   ├── run_pipeline.R                ← pipeline orchestrator (01 → 03 + render)
 │   │   ├── utils.R
@@ -169,15 +170,16 @@ LegiScan API → 01_incremental_update.R → legiscan/files_ga91_json/
                03_bill_relationships.R      → data/legislature/bills/groups.rds
                04_lobbyist_declarations.R   → data/legislature/lobbying/*.rds
                05_salience_scores.R         → data/legislature/bills/salience.rds
+               06_weekly_activity.R         → data/legislature/bills/bill_actions.rds
                                               ↓
                site/templates/*.qmd (parameterized bill/legislator/committee pages)
                                               ↓
                R/legislature/render.R (incremental rendering) → docs/
 ```
 
-**Bill status rules live in one place:** `classify_action()` / `get_bill_status_from_history()` / `STATUS_LEVELS` in `R/legislature/utils.R` (moved out of `03` on 2026-10-24). `Resolution adopted` counts as floor passage, so adopted resolutions are no longer stuck at "Introduced". Item-vetoed bills ("Item vetoed, signed by Governor.", which has no separate signed row) count as "Signed by Governor"; the raw action text on bill pages still says item-vetoed. The weekly activity summary built on this: [`notes/legislature/2026-10-24_weekly-activity-summary.md`](notes/legislature/2026-10-24_weekly-activity-summary.md).
+**Bill status rules live in one place:** `classify_action()` / `get_bill_status_from_history()` / `STATUS_LEVELS` in `R/legislature/utils.R` (moved out of `03` on 2026-10-24). `Resolution adopted` counts as floor passage, so adopted resolutions are no longer stuck at "Introduced". Item-vetoed bills ("Item vetoed, signed by Governor.", which has no separate signed row) count as "Signed by Governor"; the raw action text on bill pages still says item-vetoed. Bill groups also link every committee renumbering ("renumbered as HF 123") at graph-build time, since the scraped related-bills list misses some. The weekly activity summary built on this: [`notes/legislature/2026-10-24_weekly-activity-summary.md`](notes/legislature/2026-10-24_weekly-activity-summary.md).
 
-`R/legislature/run_pipeline.R` orchestrates steps 01→03 plus render; logs to `logs/legislature/`. `.github/workflows/daily-update.yml` runs it daily (paths already updated for the monorepo).
+`R/legislature/run_pipeline.R` orchestrates steps 01→03, then `06` (`weekly_activity`), then render; logs to `logs/legislature/`. `.github/workflows/daily-update.yml` runs it daily (paths already updated for the monorepo).
 
 ### Rendering Commands
 ```r

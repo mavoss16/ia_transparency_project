@@ -166,6 +166,10 @@ STATUS_LEVELS <- c(
 #'   raw history is shown.
 #' - Full vetoes get their own milestone but are not a stage on STATUS_LEVELS:
 #'   a vetoed bill's status stays "Passed Both Chambers".
+#' - House simple and concurrent resolutions are introduced with "Resolution
+#'   filed, laid over under Rule 25." rather than "Introduced"; both count as
+#'   introduction. (Introduction is the floor of the status scale, so this
+#'   affects only per-action counts, never a bill's status.)
 #'
 #' @param action Character vector of action text
 #' @return Character vector: "signed", "vetoed", "floor", "committee",
@@ -177,7 +181,7 @@ classify_action <- function(action) {
     str_detect(action, "^Passed (House|Senate)|^Resolution adopted")        ~ "floor",
     str_detect(action, "Committee report.*(recommending passage|approving bill)") ~ "committee",
     str_detect(action, "Subcommittee recommends.*(passage|amendment and passage)") ~ "subcommittee",
-    str_detect(action, "^Introduced")                                       ~ "introduced",
+    str_detect(action, "^Introduced|^Resolution filed")                     ~ "introduced",
     .default = NA_character_
   )
 }
@@ -203,6 +207,21 @@ floor_chamber <- function(action, chamber) {
     str_detect(action, "^Resolution adopted") ~ row_chamber,
     .default = NA_character_
   )
+}
+
+#' Bill a committee renumbering created.
+#'
+#' "Committee report approving bill, renumbered as HF 123." — a study bill
+#' (or a member bill replaced by a committee bill) continues under a new
+#' number. Used as a grouping edge in 03 and to flag committee-originated
+#' bills in 06.
+#'
+#' @param action Character vector of action text
+#' @return Bill number ("HF123") or NA. A handful of 91st GA actions read
+#'   "renumbered as ." with the number missing; those return NA.
+parse_renumbered_target <- function(action) {
+  str_extract(action, "renumbered as ([A-Z]+ ?[0-9]+)", group = 1) |>
+    str_remove_all(" ")
 }
 
 #' Determine bill status (furthest stage reached) from its history.

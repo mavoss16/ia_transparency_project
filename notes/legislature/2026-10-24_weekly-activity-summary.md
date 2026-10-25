@@ -79,6 +79,34 @@ Days within a week use the same rules. A week's numbers are **not** the sum of i
 - `classify_action()` counts after the fix: signed 369 (was 364), procedural 16,954.
 - `salience.rds` stage values for these resolutions are stale until `05_salience_scores.R` is re-run. It is manual, as noted in CLAUDE.md.
 
+## Phase 2 result (2026-10-24, done)
+
+`R/legislature/06_weekly_activity.R` → `data/legislature/bills/bill_actions.rds` (27,547 rows, 291 KB, committed daily by CI with the rest of `data/`). It is added to `run_pipeline.R` as step `weekly_activity`, between `bill_relationships` and `render`.
+
+- **Columns:** `bill`, `bill_group_id`, `date`, `week_start` (Monday), `chamber`, `sequence`, `action`, `milestone` (factor), `floor_chamber`, `committee_originated`, `renumbered_from`, `counts_as_introduction`.
+- **Helpers in the same file** (sourcing it builds nothing): `period_milestone_counts(ba, from, to)` returns distinct groups per milestone with zeros included. `weekly_activity_summary(ba)` returns one row per week with any action; `active` = at least one counted milestone. `latest_active_week(ba)` and `counted_milestones(ba)` are the other two.
+- **Refuses to build** if any bill has history but no group, since it would silently drop out of the counts.
+- **`classify_action()` now also matches "Resolution filed…" as introduced.** That is how HR/HCR are introduced: 50 resolutions had no "Introduced" row. It cannot change any status, which was re-verified: status rebuilt from `bill_actions` = `groups.rds` for all 4,231 bills.
+
+Checks: row count = `history.csv`; all weeks start Monday; 1,308 committee-originated bills; every one of the 2,208 groups has exactly one counted-introduction week or more; signed groups across the session = 368 = `groups.rds`.
+
+Findings:
+- **The default week is 2026-09-28**, the Oct 2 special session (HF 2801 / HSB 785 / SF 2508, SCR 103–104, HCR 105–106). That is real activity, not noise. 2026-10-05 has only procedural actions, so it is `active = FALSE`.
+- **29 committee renumberings cross groups.** The relationship scrape did not link the study bill to the bill it became (e.g. HSB 674 → HF 2466). Those introductions are kept, or 27 groups would never be introduced. The cost is that the committee step shows as two groups, mostly in the week of 2026-02-16 (introduced 156 instead of ~130). **Proper fix: add renumbering edges to the graph in `03`**, since "renumbered as" is the strongest relationship there is. That would merge those pairs, and the exclusion rule then covers them automatically. *Done the same day; see below.*
+- **Spot-check against legis.iowa.gov (HF 2801):** every action and date matches, except that the official page has "Signed by Governor. H.J. 1197." (Oct 2) and our LegiScan JSON (last changed 2026-10-13) does not. Either LegiScan hasn't recorded it or the incremental pull missed it. Until it arrives, the special-session week shows 0 signed.
+
+### Renumbering edges in `03` (same day)
+
+`build_bill_groups()` now adds every committee renumbering as a graph edge, read from the same JSON pass that computes status (`get_all_bill_statuses()` returns a `renumbered_to` list column). This happens at graph time only; `relationship_edges.rds`, the scrape cache, is unchanged. `parse_renumbered_target()` moved to `utils.R`, shared by 03 and 06.
+
+What merged:
+- **Groups:** 2,208 → 2,179. 29 new groups formed from 58 old ones, covering 78 bills. No group split, and **no bill's own status changed**.
+- **Group status:** 36 bills got a higher group status. 18 of those bills now sit in groups that read "Signed by Governor"; their old groups had read "Passed Committee" or "Introduced". Typically a member bill was replaced by a committee bill that became law, e.g. HF 2036 → HF 2526, and HSB 674 → HF 2466.
+- **`salience.rds`:** indicators changed for exactly the 78 merged bills and no others. Lobby bands shifted on 13 (e.g. 4 Leaning → Divided), because the merged groups now pool their declarations.
+- **`bill_actions.rds`:** 0 renumberings cross groups, and every group has an introduction. Week of 2026-02-16: introduced 156 → **130** (the double count is gone), committee 266 → 260.
+
+Week of 2026-02-16 for reference: introduced 130 · subcommittee 154 · committee 260 · floor 2 · signed 0.
+
 ## Phases
 
 1. **Classifier refactor:** `classify_action()` in utils, recognizing `Resolution adopted` (as floor passage) and `Vetoed by Governor`. `03` is rewritten on top of it and `groups.rds` regenerated. The funnel diff must be exactly the 61 adopted resolutions moving up from "Introduced" and nothing else.

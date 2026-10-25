@@ -1,7 +1,8 @@
 # run_pipeline.R
 #
 # Orchestrator for the Iowa Legislature data pipeline.
-# Runs all steps in order: download → process votes → bill relationships → render site
+# Runs all steps in order: download → process votes → bill relationships →
+# weekly activity → render site
 #
 # Usage (interactive):
 #   source("R/legislature/run_pipeline.R")
@@ -111,6 +112,13 @@ PIPELINE_STEPS <- list(
       update_bill_groups()
     }
   ),
+  weekly_activity = list(
+    name = "Build weekly activity actions",
+    run = function() {
+      source(here("R/legislature/06_weekly_activity.R"), local = TRUE)
+      build_bill_actions()
+    }
+  ),
   render = list(
     name = "Render site",
     run = function() {
@@ -143,6 +151,10 @@ STEP_OUTPUT_DIRS <- list(
   bill_relationships = list(
     dirs    = c("data/legislature/bills"),
     pattern = "\\.rds$"
+  ),
+  weekly_activity = list(
+    dirs    = c("data/legislature/bills"),
+    pattern = "^bill_actions\\.rds$"
   ),
   render = list(
     dirs    = c("docs"),
@@ -213,7 +225,8 @@ save_run_summary <- function(results, run_id, pipeline_start) {
 #' Run the full data pipeline
 #'
 #' @param steps Character vector of step names to run. Default runs all steps in order:
-#'   "download", "process_votes", "bill_relationships", "render".
+#'   "download", "generate_csvs", "process_votes", "legislator_similarity",
+#'   "bill_relationships", "weekly_activity", "render".
 #'   Use a subset to run only specific steps.
 #' @param stop_on_error If TRUE, stop the pipeline on the first failure.
 #'   If FALSE (default), continue to the next step and report failures at the end.

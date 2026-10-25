@@ -15,43 +15,52 @@ source(here::here("R/legislature/utils.R"))
 # Bill Status Functions
 # =============================================================================
 
+#' Read a bill's history from its JSON file
+#' @param bill_number Bill number (e.g., "HF1")
+#' @param json_dir Directory containing bill JSON files
+#' @return History data frame, or NULL if the file is missing or unreadable
+read_bill_history <- function(bill_number, json_dir = here::here("legiscan/files_ga91_json/bill")) {
+  json_path <- file.path(json_dir, paste0(bill_number, ".json"))
+
+  if (!file.exists(json_path)) {
+    return(NULL)
+  }
+
+  bill_data <- tryCatch(fromJSON(json_path), error = function(e) NULL)
+  history <- bill_data[["bill"]][["history"]]
+  if (is.data.frame(history)) history else NULL
+}
+
 #' Get bill status for a single bill from its JSON file
 #' @param bill_number Bill number (e.g., "HF1")
 #' @param json_dir Directory containing bill JSON files
 #' @return Character string with the furthest status reached
 get_bill_status <- function(bill_number, json_dir = here::here("legiscan/files_ga91_json/bill")) {
-  json_path <- file.path(json_dir, paste0(bill_number, ".json"))
-
-  if (!file.exists(json_path)) {
-    return("Introduced")
-  }
-
-  bill_data <- tryCatch(fromJSON(json_path), error = function(e) NULL)
-  if (is.null(bill_data)) {
-    return("Introduced")
-  }
-
-  history <- bill_data[["bill"]][["history"]]
-  if (is.data.frame(history)) {
-    return(get_bill_status_from_history(history))
-  }
-
-  return("Introduced")
+  get_bill_status_from_history(read_bill_history(bill_number, json_dir))
 }
 
-#' Get all bill statuses from JSON files
+#' Get all bill statuses (and committee renumberings) from JSON files
+#'
+#' Both come from the same pass over each bill's history, so the JSON is
+#' read once.
+#'
 #' @param json_dir Directory containing bill JSON files
-#' @return Tibble with bill number, status, and status_level
+#' @return Tibble with bill number, status, status_level, and renumbered_to
+#'   (list column: bills this bill was renumbered as, usually none or one)
 get_all_bill_statuses <- function(json_dir = here::here("legiscan/files_ga91_json/bill")) {
   bill_files <- list.files(json_dir, pattern = "\\.json$", full.names = FALSE)
   bill_numbers <- str_remove(bill_files, "\\.json$")
 
   map_dfr(bill_numbers, function(bn) {
-    status <- get_bill_status(bn, json_dir)
+    history <- read_bill_history(bn, json_dir)
+    status <- get_bill_status_from_history(history)
+    targets <- if (is.null(history)) character(0) else
+      unique(na.omit(parse_renumbered_target(history$action)))
     tibble(
       bill = bn,
       status = status,
-      status_level = STATUS_LEVELS[status]
+      status_level = STATUS_LEVELS[status],
+      renumbered_to = list(targets)
     )
   }, .progress = TRUE)
 }
@@ -333,6 +342,18 @@ build_bill_groups <- function(
   # Get all bills and their statuses
   message("Getting bill statuses...")
   bill_statuses <- get_all_bill_statuses(json_dir)
+
+  # Committee renumberings ("renumbered as HF 123") are the strongest
+  # relationship there is — the same bill under a new number — but the
+  # scraped "All Related Bills" list sometimes omits them (29 of 1,308 in
+  # the 91st GA). Added at graph time only; the scrape cache is untouched.
+  renumber_edges <- bill_statuses |>
+    select(from_bill = bill, to_bill = renumbered_to) |>
+    unnest(to_bill) |>
+    filter(to_bill %in% bill_statuses$bill)
+  edges <- bind_rows(edges, renumber_edges) |>
+    distinct(from_bill, to_bill)
+  bill_statuses <- bill_statuses |> select(-renumbered_to)
 
   message("Building relationship graph...")
 
