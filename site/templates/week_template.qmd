@@ -41,6 +41,7 @@ next_week <- weeks |> filter(week_start > !!week_start) |> slice_min(week_start,
 is_latest <- week_start == max(weeks$week_start)
 data_through <- max(bill_actions$date)
 
+plural    <- \(n, word) paste(format(n, big.mark = ","), if (n == 1) word else paste0(word, "s"))
 fmt_day   <- \(d) str_squish(format(d, "%b %e"))
 fmt_long  <- \(d) str_squish(format(d, "%B %e, %Y"))
 week_href <- \(d) paste0(format(d, "%Y-%m-%d"), ".html")
@@ -61,10 +62,10 @@ div(class = "ia-hero-row",
     div(class = "ia-eyebrow", "91st General Assembly"),
     h1(paste("Week of", fmt_long(week_start))),
     p(class = "ia-lead",
-      sprintf("%s – %s · %s actions on %s bill groups",
+      sprintf("%s – %s · %s on %s",
               fmt_day(week_start), fmt_day(week_end),
-              format(this_week$n_actions, big.mark = ","),
-              format(this_week$n_groups_active, big.mark = ",")),
+              plural(this_week$n_actions, "action"),
+              plural(this_week$n_groups_active, "bill group")),
       if (is_latest) span(class = "ia-week-through",
                           paste0(" · data through ", fmt_long(data_through))))
   ),
@@ -96,7 +97,7 @@ panes <- lapply(seq_along(periods), function(i) {
     period_cards(p$from, p$to),
     div(class = "ia-card",
       div(class = "ia-card-head",
-        div(class = "ia-card-title", sprintf("%s bill groups with activity", format(nrow(rows), big.mark = ","))),
+        div(class = "ia-card-title", sprintf("%s with activity", plural(nrow(rows), "bill group"))),
         div(class = "ia-card-sub", style = "margin-bottom:0", "Expand a row for its actions")
       ),
       activity_table(rows, period_label = p$column)

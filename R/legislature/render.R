@@ -147,6 +147,49 @@ get_bill_hash <- function(bill_number) {
   return(NA_character_)
 }
 
+#' Fingerprint every weekly activity page
+#'
+#' A week page shows its own actions, but also each active group's lead
+#' bill, title and *current* status, links to its neighbouring weeks, and
+#' (newest week only) the date the data runs through. Any of those can change
+#' without the week's actions changing, so the hash covers all of them.
+#' Hashes plain text, as lobby_digests() does, so object attributes can't
+#' move the fingerprint.
+#' @return Named character vector: "YYYY-MM-DD" (week's Monday) -> hash
+week_digests <- function() {
+  bill_actions <- readRDS(here("data/legislature/bills/bill_actions.rds"))
+  groups <- readRDS(here("data/legislature/bills/groups.rds"))
+  bills <- read_csv(here("legiscan/files_ga91_derived/bills.csv"),
+                    col_select = c(bill_number, title), show_col_types = FALSE)
+
+  weeks <- sort(unique(bill_actions$week_start))
+  data_through <- max(bill_actions$date)
+
+  group_text <- groups |>
+    distinct(bill_group_id, lead_bill, group_status) |>
+    left_join(bills, by = c("lead_bill" = "bill_number")) |>
+    transmute(bill_group_id, group_row = paste(lead_bill, group_status, title, sep = "\t"))
+
+  per_week <- bill_actions |>
+    left_join(group_text, by = "bill_group_id") |>
+    mutate(row = paste(bill, bill_group_id, date, sequence, chamber, action,
+                       milestone, counts_as_introduction, group_row, sep = "\t")) |>
+    arrange(week_start, row) |>
+    group_by(week_start) |>
+    summarise(rows = list(row), .groups = "drop")
+
+  digests <- vapply(seq_along(weeks), function(i) {
+    context <- c(
+      prev = if (i > 1) format(weeks[i - 1]) else "",
+      `next` = if (i < length(weeks)) format(weeks[i + 1]) else "",
+      through = if (i == length(weeks)) format(data_through) else ""
+    )
+    rlang::hash(c(context, per_week$rows[[i]]))
+  }, character(1))
+
+  setNames(digests, format(weeks))
+}
+
 #' Get the hash for a legislator from their JSON file
 get_legislator_hash <- function(people_id) {
   json_path <- here("legiscan/files_ga91_json/people", paste0(people_id, ".json"))
@@ -455,6 +498,53 @@ Time budget reached after ", i - 1, "/", total_to_render,
   return(invisible(list(success = success_count, failed = fail_count, failed_items = failed_items)))
 }
 
+#' Render all weekly activity pages (incremental by default)
+#'
+#' One page per week with any recorded action, newest first. Weeks run
+#' before bills in render_site(): there are only ~50 per GA, the current
+#' week changes daily, and the home page will link to it.
+#' @param weeks Optional vector of week Mondays to consider (NULL = all)
+#' @param force If TRUE, re-render regardless of hash
+render_all_weeks <- function(weeks = NULL, force = FALSE) {
+  ensure_dirs()
+  manifest <- load_manifest()
+  digests <- week_digests()
+
+  week_ids <- rev(names(digests))  # newest first
+  if (!is.null(weeks)) week_ids <- intersect(week_ids, format(as.Date(weeks)))
+
+  if (!force) {
+    rendered <- manifest |> filter(type == "week")
+    old_hash <- rendered$hash[match(week_ids, rendered$id)]
+    weeks_to_render <- week_ids[is.na(old_hash) | old_hash != digests[week_ids]]
+    message(paste("Found", length(weeks_to_render), "weeks needing render out of",
+                  length(week_ids), "total"))
+  } else {
+    weeks_to_render <- week_ids
+    message(paste("Force rendering", length(weeks_to_render), "weeks..."))
+  }
+
+  success_count <- 0
+  fail_count <- 0
+  failed_items <- character(0)
+
+  for (week_id in weeks_to_render) {
+    if (render_week(week_id)) {
+      manifest <- update_manifest(manifest, "week", week_id, unname(digests[week_id]))
+      save_manifest(manifest)
+      success_count <- success_count + 1
+    } else {
+      fail_count <- fail_count + 1
+      failed_items <- c(failed_items, week_id)
+    }
+    gc()
+  }
+
+  message(paste("\nWeeks completed:", success_count, "success,", fail_count, "failed"))
+
+  return(invisible(list(success = success_count, failed = fail_count, failed_items = failed_items)))
+}
+
 #' Render all legislator pages (incremental by default)
 #' @param limit Optional limit for testing (NULL for all)
 #' @param force If TRUE, re-render all regardless of hash
@@ -519,7 +609,9 @@ render_all_legislators <- function(limit = NULL, force = FALSE) {
 #' @param bills_result List with success, failed, failed_items from render_all_bills()
 #' @param legislators_result List with success, failed, failed_items from render_all_legislators()
 #' @param committees_result List with success, failed, failed_items from render_all_committees()
-write_status <- function(render_time, bills_result, legislators_result, committees_result) {
+#' @param weeks_result List with success, failed, failed_items from render_all_weeks()
+write_status <- function(render_time, bills_result, legislators_result, committees_result,
+                         weeks_result = NULL) {
   normalize <- function(r) {
     if (is.null(r)) list(success = 0, failed = 0, failed_items = character(0))
     else r
@@ -527,6 +619,7 @@ write_status <- function(render_time, bills_result, legislators_result, committe
   bills_result       <- normalize(bills_result)
   legislators_result <- normalize(legislators_result)
   committees_result  <- normalize(committees_result)
+  weeks_result       <- normalize(weeks_result)
 
   status <- list(
     last_render = format(render_time, "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"),
@@ -544,6 +637,11 @@ write_status <- function(render_time, bills_result, legislators_result, committe
       rendered     = committees_result$success,
       failed       = committees_result$failed,
       failed_items = as.list(committees_result$failed_items)
+    ),
+    weeks = list(
+      rendered     = weeks_result$success,
+      failed       = weeks_result$failed,
+      failed_items = as.list(weeks_result$failed_items)
     )
   )
 
@@ -568,14 +666,22 @@ render_index_pages <- function() {
 #'   render begins, so a CI job can commit its progress before the runner's time
 #'   limit. Defaults to the RENDER_TIME_BUDGET_MINUTES env var, else no limit.
 #'   Legislators and committees always render in full after the bills.
+#' @param weeks Optional vector of week Mondays to limit weekly pages to
+#'   (NULL = all weeks). Weeks render before bills and outside the budget.
 render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees_limit = NULL, force = FALSE,
-                        time_budget_minutes = as.numeric(Sys.getenv("RENDER_TIME_BUDGET_MINUTES", "Inf"))) {
+                        time_budget_minutes = as.numeric(Sys.getenv("RENDER_TIME_BUDGET_MINUTES", "Inf")),
+                        weeks = NULL) {
   render_start <- Sys.time()
   bills_deadline <- render_start + time_budget_minutes * 60
   message("=== Starting full site render ===\n")
 
-  # Render main quarto site first
+  # Render main quarto site first (includes the weekly activity archive)
   render_index_pages()
+
+  message("\n")
+
+  # Weekly activity pages (incremental unless force = TRUE)
+  weeks_result <- render_all_weeks(weeks = weeks, force = force)
 
   message("\n")
 
@@ -593,15 +699,17 @@ render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees
   committees_result <- render_all_committees(limit = committees_limit, force = TRUE)
 
   # Write status summary for the status page
-  write_status(render_start, bills_result, legislators_result, committees_result)
+  write_status(render_start, bills_result, legislators_result, committees_result, weeks_result)
 
   message("\n=== Site render complete ===")
 }
 
-#' Quick test render - renders 5 bills, 5 legislators, and 3 committees
+#' Quick test render - renders 5 bills, 5 legislators, 3 committees, and 2
+#' weeks (one committee-heavy, one floor/governor-heavy)
 test_render <- function() {
-  message("Running test render (5 bills, 5 legislators, 3 committees)...\n")
-  render_site(bills_limit = 5, legislators_limit = 5, committees_limit = 3, force = TRUE)
+  message("Running test render (5 bills, 5 legislators, 3 committees, 2 weeks)...\n")
+  render_site(bills_limit = 5, legislators_limit = 5, committees_limit = 3, force = TRUE,
+              weeks = c("2026-02-16", "2026-04-27"))
 }
 
 #' Render a sample of bills, legislators, and committees
@@ -710,6 +818,11 @@ render_status <- function() {
   legislators_rendered <- manifest |> filter(type == "legislator") |> nrow()
   committees_rendered <- manifest |> filter(type == "committee") |> nrow()
 
+  week_hashes <- week_digests()
+  rendered_weeks <- manifest |> filter(type == "week")
+  old_week_hash <- rendered_weeks$hash[match(names(week_hashes), rendered_weeks$id)]
+  weeks_need_render <- sum(is.na(old_week_hash) | old_week_hash != week_hashes)
+
   message(paste(
     "\n=== Render Status ===",
     paste("\nBills:"),
@@ -724,6 +837,10 @@ render_status <- function() {
     paste("\n  Total:", nrow(committees)),
     paste("\n  Previously rendered:", committees_rendered),
     paste("\n  Need rendering:", committees_need_render),
+    paste("\n\nWeeks:"),
+    paste("\n  Total:", length(week_hashes)),
+    paste("\n  Previously rendered:", nrow(rendered_weeks)),
+    paste("\n  Need rendering:", weeks_need_render),
     "\n"
   ))
 }
@@ -746,6 +863,7 @@ render_site.R loaded. Available functions:
     render_all_bills()           - Render only changed bills
     render_all_legislators()     - Render only changed legislators
     render_all_committees()      - Render only changed committees
+    render_all_weeks()           - Render only changed weekly activity pages
     render_site()                - Render everything (incremental)
 
   Force Full Render:
@@ -753,7 +871,7 @@ render_site.R loaded. Available functions:
     render_site(force=TRUE)      - Re-render everything
 
   Utilities:
-    test_render()                - Quick test (5 bills, 5 legislators, 3 committees)
+    test_render()                - Quick test (5 bills, 5 legislators, 3 committees, 2 weeks)
     render_sample(n_bills=10, n_legislators=5, n_committees=3)  - Render a custom sample
     render_sample(random=TRUE)   - Render a random sample
     render_status()              - Show how many items need rendering
@@ -765,7 +883,7 @@ render_site.R loaded. Available functions:
     render_all_committees(limit=5)  - Process first 5 committees only
 
 The manifest file (render_manifest.csv) tracks:
-  - Which items have been rendered (bills, legislators, committees)
-  - The LegiScan hash at render time
+  - Which items have been rendered (bills, legislators, committees, weeks)
+  - The LegiScan hash at render time (weeks: a fingerprint of the page's data)
   - Only items with changed hashes are re-rendered
 ")

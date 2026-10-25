@@ -1,0 +1,116 @@
+---
+pagetitle: "Weekly activity"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: false
+---
+
+```{r}
+library(dplyr)
+library(stringr)
+library(htmltools)
+
+source(here::here("R/legislature/06_weekly_activity.R"))
+source(here::here("R/legislature/ui_helpers.R"))
+
+bill_actions <- load_bill_actions()
+weeks <- weekly_activity_summary(bill_actions)   # newest first; one row per page
+latest <- latest_active_week(bill_actions)
+data_through <- max(bill_actions$date)
+
+fmt_day   <- \(d) str_squish(format(d, "%b %e"))
+fmt_long  <- \(d) str_squish(format(d, "%B %e, %Y"))
+week_href <- \(d) paste0(format(d, "%Y-%m-%d"), ".html")
+```
+
+::: {.ia-breadcrumb}
+[Legislation](../legislation/index.html) / Weekly activity
+:::
+
+```{r}
+div(class = "ia-hero-row",
+  div(
+    div(class = "ia-eyebrow", "91st General Assembly"),
+    h1("Weekly activity"),
+    p(class = "ia-lead",
+      "What the Legislature did each week: bills introduced, moved through ",
+      "subcommittee and committee, passed by a chamber, and signed into law.")
+  ),
+  div(class = "ia-week-nav",
+    a(href = week_href(latest), paste("Most recent: week of", fmt_day(latest), "→")))
+)
+```
+
+```{r}
+count_cell <- function(n) tags$td(class = "ia-num", if (n == 0) span(class = "ia-zero", "–") else format(n, big.mark = ","))
+
+# Full wording on desktop, a short form on phones (custom.scss toggles them)
+both <- function(full, short) tagList(span(class = "ia-full", full), span(class = "ia-short", short))
+
+week_row <- function(w) {
+  label <- a(href = week_href(w$week_start),
+             span(class = "ia-full", "Week of "), fmt_day(w$week_start))
+  if (!w$active) {
+    return(tags$tr(class = "ia-week-quiet",
+      tags$th(scope = "row", label),
+      tags$td(colspan = 5, class = "ia-week-note", both("Procedural actions only", "Procedural only")),
+      tags$td(class = "ia-num", format(w$n_actions, big.mark = ","))
+    ))
+  }
+  tags$tr(
+    tags$th(scope = "row", label,
+            if (w$vetoed > 0) span(class = "ia-week-note",
+                                   span(class = "ia-full", " · "), sprintf("%d vetoed", w$vetoed))),
+    count_cell(w$introduced), count_cell(w$subcommittee), count_cell(w$committee),
+    count_cell(w$floor), count_cell(w$signed),
+    tags$td(class = "ia-num ia-week-actions", format(w$n_actions, big.mark = ","))
+  )
+}
+
+# A visible break wherever the Legislature went quiet for more than a week
+gap_row <- function(newer, older) {
+  tags$tr(class = "ia-week-gap",
+    tags$td(colspan = 7, sprintf("No recorded actions · %s – %s",
+                                 fmt_day(older + 7), fmt_day(newer - 1))))
+}
+
+year_table <- function(yr) {
+  ws <- weeks |> filter(format(week_start, "%Y") == yr)
+  rows <- list()
+  for (i in seq_len(nrow(ws))) {
+    if (i > 1 && as.numeric(ws$week_start[i - 1] - ws$week_start[i]) > 7) {
+      rows <- c(rows, list(gap_row(ws$week_start[i - 1], ws$week_start[i])))
+    }
+    rows <- c(rows, list(week_row(ws[i, ])))
+  }
+  div(class = "ia-card ia-week-year",
+    div(class = "ia-card-title", yr),
+    div(class = "ia-table-scroll",
+      tags$table(class = "ia-week-table",
+        tags$thead(tags$tr(
+          tags$th(scope = "col", "Week"),
+          tags$th(scope = "col", class = "ia-num", both("Introduced", "Intro")),
+          tags$th(scope = "col", class = "ia-num", both("Passed subcommittee", "Subcmte")),
+          tags$th(scope = "col", class = "ia-num", both("Passed committee", "Cmte")),
+          tags$th(scope = "col", class = "ia-num", both("Passed a chamber", "Floor")),
+          tags$th(scope = "col", class = "ia-num", "Signed"),
+          tags$th(scope = "col", class = "ia-num ia-week-actions", "All actions")
+        )),
+        tags$tbody(rows)
+      )
+    )
+  )
+}
+
+tagList(
+  lapply(sort(unique(format(weeks$week_start, "%Y")), decreasing = TRUE), year_table),
+  div(class = "ia-footnote",
+    "Counts are bill groups — a bill together with its companion bills and the ",
+    "study bill it came from — reaching each stage during the week. ",
+    "\"All actions\" counts every recorded action, procedural ones included. ",
+    sprintf("Data through %s.", fmt_long(data_through)))
+)
+```

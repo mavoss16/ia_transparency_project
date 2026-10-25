@@ -143,6 +143,32 @@ Week of 2026-02-16 for reference: introduced 130 · subcommittee 154 · committe
 
 The two test pages in `docs/activity/` were re-rendered but are **not committed**. Nothing links to them yet, and their "Weekly activity" breadcrumb points at an archive page phase 4 builds. CI will render them once `render_weeks()` is wired into `render_site()`.
 
+## Phase 4 result (2026-10-25, done)
+
+**First CI run after the push (2026-10-25) succeeded.** The new `weekly_activity` step built 27,547 actions in under a second, and the project render included `week_template.qmd`. The run took 4h54m (usually 1.5–2.5h), but not because of this work. The lobbying refresh (`b609773c`) landed after the Oct 24 run, so this was the first run with the new declarations: 1,532 bills' lobbying fingerprints changed, the 150-minute budget stopped at 1,056, and 476 bills carry over to the next run.
+
+- **Archive: `site/activity/index.qmd` → `docs/activity/index.html`**, built by the normal project render (`render_index_pages()`).
+  - Hero with a "Most recent: week of …" link.
+  - One card per year, newest week first: a row per week with a page, showing the five counts plus the total actions.
+  - Procedural-only weeks are marked "Procedural actions only", and gaps longer than a week get a row ("No recorded actions · Jul 20 – Sep 27"). Vetoes are noted beside the week.
+  - On phones: short headers (Intro / Subcmte / Cmte / Floor / Signed), "Week of" dropped, the veto note on its own line, and the actions column hidden. All counts fit at 375px.
+  - Quarto's JS adds `table-striped` to every table and Bootstrap paints the stripes as an inset `box-shadow`, so `.ia-week-table` overrides it.
+- **`render.R`:**
+  - `week_digests()` fingerprints each week from plain text: its actions, each active group's lead, title and *current* status, its prev/next neighbours, and for the newest week the data-through date.
+  - `render_all_weeks(weeks, force)` re-renders weeks whose fingerprint moved (manifest `type = week`).
+  - `render_site()` runs it after the index pages and before the bills (outside the bill time budget), and passes `weeks` through.
+  - `test_render()` adds 2026-02-16 and 2026-04-27. `render_status()` and `status.json` report weeks.
+- **Week template:** "1 bill group" / "2 actions" plurals fixed.
+
+**Verified locally:**
+- All 48 weeks rendered in 29.6 min with 0 failures. A second `render_all_weeks()` found **0** to render, so the fingerprint is stable.
+- Disk: 51.8 MB total, max 2.74 MB.
+- Archive checked at desktop and 375px.
+- Edge weeks: 2025-01-13 has a disabled "← Earlier"; 2026-10-05 has a disabled "Later →" and "data through October 5, 2026"; procedural-only 2026-10-05 lists HF 2801 / SF 2508 as "Other activity".
+- The June 2025 "procedural only" weeks are genuinely procedural: interim referrals and vote explanations.
+
+**Not committed:** local renders, their Bootstrap builds, and the 48 manifest rows. CI renders all 48 weeks on its next run (~30 min, ahead of the bills). Until phase 5 adds the home card, nothing links to the archive except the week pages themselves.
+
 ## Phases
 
 1. **Classifier refactor:** `classify_action()` in utils, recognizing `Resolution adopted` (as floor passage) and `Vetoed by Governor`. `03` is rewritten on top of it and `groups.rds` regenerated. The funnel diff must be exactly the 61 adopted resolutions moving up from "Introduced" and nothing else.

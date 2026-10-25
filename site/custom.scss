@@ -438,6 +438,31 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 .ia-act-footer  { font-size: 0.8rem; color: $muted; margin-top: 0.6rem; }
 .ia-act-sep     { color: $faint; }
 
+// Week archive (site/activity/index.qmd)
+.ia-table-scroll { overflow-x: auto; }
+.ia-week-table {
+  width: 100%; border-collapse: collapse; font-size: 0.85rem;
+  th, td { padding: 0.5rem 0.6rem; border-top: 1px solid $border-soft; text-align: left; }
+  // Quarto's JS adds .table-striped to every table; Bootstrap paints the
+  // stripes as an inset shadow, which would compete with the gap rows
+  > tbody > tr > * { box-shadow: none !important; }
+  thead th {
+    border-top: none; border-bottom: 1px solid $border;
+    font-size: 0.78rem; font-weight: 600; color: $muted; vertical-align: bottom;
+  }
+  tbody th { font-weight: 600; white-space: nowrap; }
+  .ia-num { text-align: right; font-variant-numeric: tabular-nums; }
+  .ia-zero { color: $faint; }
+  .ia-week-actions { color: $muted; }
+}
+.ia-week-quiet th a { font-weight: 500; }
+.ia-short { display: none; }
+.ia-week-note { color: $muted; font-weight: 400; font-size: 0.8rem; }
+.ia-week-gap td {
+  color: $faint; font-size: 0.78rem; font-style: italic;
+  background: $bg; padding: 0.35rem 0.6rem;
+}
+
 .ia-mobile-pills { display: none; }
 
 @media (max-width: 600px) {
@@ -449,6 +474,13 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
   .ia-week-tabs .tab-content { padding-left: 0; padding-right: 0; border-left: none; border-right: none; }
   .ia-week-tabs .ia-card { padding: 1rem 0.6rem; }
   .ia-week-tabs .ia-card-head { flex-wrap: wrap; }
+  // Archive: the action total is the least needed column on a phone
+  .ia-week-table .ia-week-actions { display: none; }
+  .ia-week-table th, .ia-week-table td { padding: 0.45rem 0.3rem; }
+  .ia-week-table .ia-full { display: none; }
+  .ia-week-table .ia-short { display: inline; }
+  .ia-week-table tbody th .ia-week-note { display: block; font-size: 0.72rem; }
+  .ia-week-year { padding: 1rem 0.6rem; }
   .ia-act-details { padding-left: 0.75rem; }
   .ia-act-row { flex-wrap: wrap; row-gap: 0.1rem; }
   .ia-act-text { flex-basis: 100%; }

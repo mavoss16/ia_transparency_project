@@ -187,14 +187,15 @@ source("R/legislature/render.R")
 render_status()             # what needs rendering
 render_site()               # incremental render (only changed items)
 render_site(force = TRUE)   # full re-render
-test_render()               # quick test: 5 bills, 5 legislators, 3 committees
-render_index_pages()        # only the index pages
+test_render()               # quick test: 5 bills, 5 legislators, 3 committees, 2 weeks
+render_all_weeks()          # weekly activity pages → docs/activity/ (incremental)
+render_index_pages()        # only the index pages (includes the activity archive)
 clear_manifest()            # force full re-render next time
 
 source("R/render_all.R")    # top-level: render_all() spans all domains
 ```
 
-- `render_manifest.csv` (repo root) tracks LegiScan `change_hash` (bills) and `person_hash` (legislators); only changed items re-render
+- `render_manifest.csv` (repo root) tracks LegiScan `change_hash` (bills) and `person_hash` (legislators); only changed items re-render. Weeks (`type = week`) use `week_digests()`: a fingerprint of the week's actions, its groups' lead/status/title, its neighbour links, and (newest week) the data-through date. `render_site()` renders weeks after the index pages and before the bills
 - Preview locally with `quarto preview site/` from the terminal
 
 ### Salience Indicators
