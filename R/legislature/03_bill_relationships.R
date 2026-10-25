@@ -7,60 +7,13 @@ library(igraph)
 library(jsonlite)
 library(readr)
 
-# Status levels in order of progression (higher = further along)
-STATUS_LEVELS <- c(
-  "Introduced" = 1,
-
-  "Passed Subcommittee" = 2,
-  "Passed Committee" = 3,
-  "Passed One Chamber" = 4,
-  "Passed Both Chambers" = 5,
-  "Signed by Governor" = 6
-)
+# STATUS_LEVELS, classify_action() and get_bill_status_from_history() live in
+# utils.R, shared with the weekly activity summary.
+source(here::here("R/legislature/utils.R"))
 
 # =============================================================================
 # Bill Status Functions
 # =============================================================================
-
-#' Determine bill status from history actions
-#' @param history_df Data frame with 'action' column from bill history
-#' @return Character string with the furthest status reached
-get_bill_status_from_history <- function(history_df) {
-  if (is.null(history_df) || nrow(history_df) == 0) {
-    return("Introduced")
-  }
-
-  actions <- history_df$action
-
-  # Check each status level from highest to lowest
-  if (any(str_detect(actions, "Signed by Governor"))) {
-    return("Signed by Governor")
-  }
-
-  # Passed both chambers = has both "Passed House" and "Passed Senate"
-  passed_house <- any(str_detect(actions, "^Passed House"))
-  passed_senate <- any(str_detect(actions, "^Passed Senate"))
-  if (passed_house && passed_senate) {
-    return("Passed Both Chambers")
-  }
-
-  # Passed one chamber
-  if (passed_house || passed_senate) {
-    return("Passed One Chamber")
-  }
-
-  # Committee report recommending passage = passed committee
-  if (any(str_detect(actions, "Committee report.*(recommending passage|approving bill)"))) {
-    return("Passed Committee")
-  }
-
-  # Subcommittee recommends passage
-  if (any(str_detect(actions, "Subcommittee recommends.*(passage|amendment and passage)"))) {
-    return("Passed Subcommittee")
-  }
-
-  return("Introduced")
-}
 
 #' Get bill status for a single bill from its JSON file
 #' @param bill_number Bill number (e.g., "HF1")

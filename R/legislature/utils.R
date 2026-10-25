@@ -140,6 +140,95 @@ classify_district_turnover <- function(people, votes, rollcalls) {
     select(people_id, role, district, is_former, counterpart_id)
 }
 
+# Bill stages in order of progression (higher = further along). This is the
+# status scale used by the funnel, the status pills, and bill groups.
+STATUS_LEVELS <- c(
+  "Introduced" = 1,
+  "Passed Subcommittee" = 2,
+  "Passed Committee" = 3,
+  "Passed One Chamber" = 4,
+  "Passed Both Chambers" = 5,
+  "Signed by Governor" = 6
+)
+
+#' Classify individual history actions into milestones.
+#'
+#' The single source of the action-text rules: bill status (furthest stage
+#' reached) and the weekly activity summary both build on it.
+#'
+#' Notes on the vocabulary:
+#' - Resolutions don't "pass"; they are adopted ("Resolution adopted."), which
+#'   counts as floor passage in the chamber that adopted it.
+#' - An item veto ("Item vetoed, signed by Governor.") counts as signed: the
+#'   bill became law. Item-vetoed bills carry no separate "Signed by
+#'   Governor." row, so without this they would stop at "Passed Both
+#'   Chambers". The action text itself still says item-vetoed wherever the
+#'   raw history is shown.
+#' - Full vetoes get their own milestone but are not a stage on STATUS_LEVELS:
+#'   a vetoed bill's status stays "Passed Both Chambers".
+#'
+#' @param action Character vector of action text
+#' @return Character vector: "signed", "vetoed", "floor", "committee",
+#'   "subcommittee", "introduced", or NA for procedural actions
+classify_action <- function(action) {
+  case_when(
+    str_detect(action, "Signed by Governor|^Item vetoed, signed by Governor") ~ "signed",
+    str_detect(action, "^Vetoed by Governor")                               ~ "vetoed",
+    str_detect(action, "^Passed (House|Senate)|^Resolution adopted")        ~ "floor",
+    str_detect(action, "Committee report.*(recommending passage|approving bill)") ~ "committee",
+    str_detect(action, "Subcommittee recommends.*(passage|amendment and passage)") ~ "subcommittee",
+    str_detect(action, "^Introduced")                                       ~ "introduced",
+    .default = NA_character_
+  )
+}
+
+#' Chamber in which a floor action happened.
+#'
+#' "Passed House" / "Passed Senate" name the chamber in the text; for
+#' "Resolution adopted" the chamber comes from the history row itself.
+#'
+#' @param action  Character vector of action text
+#' @param chamber Character vector of the history row's chamber, in either
+#'   LegiScan JSON form ("H" / "S") or derived CSV form ("House" / "Senate")
+#' @return "House", "Senate", or NA (also NA for non-floor actions)
+floor_chamber <- function(action, chamber) {
+  row_chamber <- case_when(
+    chamber %in% c("H", "House")  ~ "House",
+    chamber %in% c("S", "Senate") ~ "Senate",
+    .default = NA_character_
+  )
+  case_when(
+    str_detect(action, "^Passed House")       ~ "House",
+    str_detect(action, "^Passed Senate")      ~ "Senate",
+    str_detect(action, "^Resolution adopted") ~ row_chamber,
+    .default = NA_character_
+  )
+}
+
+#' Determine bill status (furthest stage reached) from its history.
+#'
+#' @param history_df Data frame with 'action' and 'chamber' columns
+#' @return Character string, one of names(STATUS_LEVELS)
+get_bill_status_from_history <- function(history_df) {
+  if (is.null(history_df) || nrow(history_df) == 0) {
+    return("Introduced")
+  }
+
+  milestones <- classify_action(history_df$action)
+  floor_chambers <- floor_chamber(history_df$action, history_df$chamber) |>
+    na.omit() |>
+    unique()
+
+  case_when(
+    "signed" %in% milestones          ~ "Signed by Governor",
+    length(floor_chambers) == 2       ~ "Passed Both Chambers",
+    length(floor_chambers) == 1       ~ "Passed One Chamber",
+    "committee" %in% milestones       ~ "Passed Committee",
+    "subcommittee" %in% milestones    ~ "Passed Subcommittee",
+    .default = "Introduced"
+  )
+}
+
 items_to_df <- function(list){
   if(length(list) >= 1){
     map(list, function(item){

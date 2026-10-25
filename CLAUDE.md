@@ -175,6 +175,8 @@ LegiScan API → 01_incremental_update.R → legiscan/files_ga91_json/
                R/legislature/render.R (incremental rendering) → docs/
 ```
 
+**Bill status rules live in one place:** `classify_action()` / `get_bill_status_from_history()` / `STATUS_LEVELS` in `R/legislature/utils.R` (moved out of `03` on 2026-10-24). `Resolution adopted` counts as floor passage, so adopted resolutions are no longer stuck at "Introduced". Item-vetoed bills ("Item vetoed, signed by Governor.", which has no separate signed row) count as "Signed by Governor"; the raw action text on bill pages still says item-vetoed. The weekly activity summary built on this: [`notes/legislature/2026-10-24_weekly-activity-summary.md`](notes/legislature/2026-10-24_weekly-activity-summary.md).
+
 `R/legislature/run_pipeline.R` orchestrates steps 01→03 plus render; logs to `logs/legislature/`. `.github/workflows/daily-update.yml` runs it daily (paths already updated for the monorepo).
 
 ### Rendering Commands
