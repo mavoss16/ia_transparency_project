@@ -1,7 +1,8 @@
 {
-  "last_render": "2026-10-25T11:13:06Z",
+  "last_render": "2026-10-26T12:46:55Z",
+  "session": "ga91",
   "bills": {
-    "rendered": 1056,
+    "rendered": 1048,
     "failed": 0,
     "failed_items": []
   },
@@ -12,6 +13,11 @@
   },
   "committees": {
     "rendered": 36,
+    "failed": 0,
+    "failed_items": []
+  },
+  "weeks": {
+    "rendered": 48,
     "failed": 0,
     "failed_items": []
   }
