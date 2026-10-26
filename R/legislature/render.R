@@ -459,7 +459,11 @@ render_all_bills <- function(limit = NULL, force = FALSE, deadline = Inf, ga = C
   ensure_dirs(ga)
   manifest <- load_manifest()
 
-  bills <- read_csv(ga_csv("bills", ga), show_col_types = FALSE)
+  # Most recently active first: when the time budget stops a run partway
+  # (e.g. a backlog after a full re-render), the bills the home page and
+  # recent-activity links point at are already done
+  bills <- read_csv(ga_csv("bills", ga), show_col_types = FALSE) |>
+    arrange(desc(last_action_date), bill_number)
   bill_numbers <- bills$bill_number
 
   if (!is.null(limit)) {
