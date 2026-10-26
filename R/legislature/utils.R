@@ -143,15 +143,42 @@ classify_district_turnover <- function(people, votes, rollcalls) {
 }
 
 # Bill stages in order of progression (higher = further along). This is the
-# status scale used by the funnel, the status pills, and bill groups.
+# status scale used by the funnel, the status pills, and bill groups, and the
+# names are in display order.
+#
+# The last three are end states. "Vetoed" ranks below "Signed by Governor" so
+# a group whose companion was signed leads with the signed bill. "Adopted" is
+# where a resolution's road ends (simple resolutions in one chamber,
+# concurrent resolutions in both); it shares the top level with "Signed by
+# Governor" because neither is further along than the other. Joint
+# resolutions go to the Secretary of State, not the Governor, so they stop at
+# "Passed both chambers".
 STATUS_LEVELS <- c(
   "Introduced" = 1,
-  "Passed Subcommittee" = 2,
-  "Passed Committee" = 3,
-  "Passed One Chamber" = 4,
-  "Passed Both Chambers" = 5,
-  "Signed by Governor" = 6
+  "Passed subcommittee" = 2,
+  "Passed committee" = 3,
+  "Passed one chamber" = 4,
+  "Passed both chambers" = 5,
+  "Vetoed" = 6,
+  "Signed by Governor" = 7,
+  "Adopted" = 7
 )
+
+#' Stages a bill of this type can pass through, for the bill-page stepper.
+#'
+#' @param bill_number Bill number ("HF1", "HCR3")
+#' @param status The bill's status (one of names(STATUS_LEVELS)); a vetoed
+#'   bill's last step reads "Vetoed" instead of "Signed by Governor"
+#' @return Character vector of stage names, in order
+status_track <- function(bill_number, status = NA_character_) {
+  early <- c("Introduced", "Passed subcommittee", "Passed committee")
+  type <- str_extract(bill_number, "^[A-Z]+")
+  if (type %in% c("HR", "SR"))   return(c(early, "Adopted"))
+  if (type %in% c("HCR", "SCR")) return(c(early, "Passed one chamber", "Adopted"))
+  if (type %in% c("HJR", "SJR")) return(c(early, "Passed one chamber", "Passed both chambers"))
+  c(early, "Passed one chamber", "Passed both chambers",
+    if (identical(status, "Vetoed")) "Vetoed" else "Signed by Governor")
+}
 
 #' Classify individual history actions into milestones.
 #'
@@ -163,11 +190,10 @@ STATUS_LEVELS <- c(
 #'   counts as floor passage in the chamber that adopted it.
 #' - An item veto ("Item vetoed, signed by Governor.") counts as signed: the
 #'   bill became law. Item-vetoed bills carry no separate "Signed by
-#'   Governor." row, so without this they would stop at "Passed Both
-#'   Chambers". The action text itself still says item-vetoed wherever the
+#'   Governor." row, so without this they would stop at "Passed both
+#'   chambers". The action text itself still says item-vetoed wherever the
 #'   raw history is shown.
-#' - Full vetoes get their own milestone but are not a stage on STATUS_LEVELS:
-#'   a vetoed bill's status stays "Passed Both Chambers".
+#' - A full veto ("Vetoed by Governor.") is the "Vetoed" end state.
 #' - A committee that amends a bill reports "Committee report, recommending
 #'   amendment and passage." — that is committee passage too (390 actions in
 #'   the 91st GA, uncounted before 2026-10-24).
@@ -231,9 +257,14 @@ parse_renumbered_target <- function(action) {
 
 #' Determine bill status (furthest stage reached) from its history.
 #'
+#' Resolutions end at "Adopted": a simple resolution (HR/SR) once its chamber
+#' adopts it, a concurrent resolution (HCR/SCR) once both have. Without a
+#' bill number every bill is treated as a bill or joint resolution.
+#'
 #' @param history_df Data frame with 'action' and 'chamber' columns
+#' @param bill_number Bill number ("HF1"), used to tell resolutions apart
 #' @return Character string, one of names(STATUS_LEVELS)
-get_bill_status_from_history <- function(history_df) {
+get_bill_status_from_history <- function(history_df, bill_number = NA_character_) {
   if (is.null(history_df) || nrow(history_df) == 0) {
     return("Introduced")
   }
@@ -243,12 +274,22 @@ get_bill_status_from_history <- function(history_df) {
     na.omit() |>
     unique()
 
+  type <- str_extract(bill_number, "^[A-Z]+")
+  chambers_to_adopt <- case_when(
+    type %in% c("HR", "SR")   ~ 1L,
+    type %in% c("HCR", "SCR") ~ 2L,
+    .default = NA_integer_
+  )
+
   case_when(
     "signed" %in% milestones          ~ "Signed by Governor",
-    length(floor_chambers) == 2       ~ "Passed Both Chambers",
-    length(floor_chambers) == 1       ~ "Passed One Chamber",
-    "committee" %in% milestones       ~ "Passed Committee",
-    "subcommittee" %in% milestones    ~ "Passed Subcommittee",
+    "vetoed" %in% milestones          ~ "Vetoed",
+    !is.na(chambers_to_adopt) &
+      length(floor_chambers) >= chambers_to_adopt ~ "Adopted",
+    length(floor_chambers) == 2       ~ "Passed both chambers",
+    length(floor_chambers) == 1       ~ "Passed one chamber",
+    "committee" %in% milestones       ~ "Passed committee",
+    "subcommittee" %in% milestones    ~ "Passed subcommittee",
     .default = "Introduced"
   )
 }

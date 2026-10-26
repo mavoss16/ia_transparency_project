@@ -191,3 +191,20 @@ Verified locally at desktop and 375px against the 2026-09-28 special-session wee
 4. **Archive page + `render_weeks()` + manifest.**
 5. **Home card** replaces "Recent activity".
 6. **QA:** `test_render()`, then `/impeccable critique` on the home and week pages.
+
+## Phase 6 result (2026-10-26): critique P1s fixed
+
+Critique 26/40 → **28/40**, no P1s left. Snapshots: `.impeccable/critique/2026-10-26T22-01-36Z__…` (before) and `…T23-43-28Z__…` (after).
+
+1. **Status accuracy (option a, chosen by the user).** `STATUS_LEVELS` is now sentence case and gains three end states: `Vetoed` (6), `Signed by Governor` (7), `Adopted` (7). `get_bill_status_from_history(history, bill_number)` puts HR/SR at Adopted once one chamber adopts and HCR/SCR once both have. Joint resolutions stay at "Passed both chambers". `status_track()` gives the bill-page stepper per-type steps (resolutions end at Adopted, joint resolutions at Passed both chambers, vetoed bills at Vetoed). The duplicated `status_order` vectors in `index.qmd`, `legislation/index.qmd`, the bill template and `05` now all use `names(STATUS_LEVELS)`. `status_pill()` draws Adopted in the signed (green) style.
+   - Regenerated `groups.rds` (`save_bill_groups()`, no re-scrape) and `salience.rds`. `bill_actions.rds` came out identical. **Diff:** same 4,231 bills, no group id or lead bill changed. Exactly 68 bill statuses moved: HR 28 + SR 19 (Passed one chamber → Adopted), HCR 10 + SCR 4 (Passed both chambers → Adopted), HF 3 + SF 4 (→ Vetoed). Every other change is the case rename. Group status: 76 → Adopted, 18 → Vetoed. Salience: only `stage` changed.
+   - Home card "Awaiting Governor: 34" → **"Passed, Not Signed: 11"**, "Passed both chambers; no signature or veto on record". It counts HF/SF only. The funnel's "Passed both chambers: 13" adds the 2 joint resolutions. "On record" covers LegiScan lag: HF 2801 was signed Oct 2 but LegiScan doesn't have it yet.
+   - Many of the 11 passed the chambers in different versions with no concurrence (e.g. HF 2596, SF 27). "Passed both chambers" is literally true, but they are not headed to the Governor. Not addressed.
+2. **Events vs status.** `milestone_pill()` was replaced by `event_chips()`: an outlined 4px-radius chip for the furthest event, then muted "+ N earlier steps". Filled pills are kept for status. Used in `activity_table()` (desktop column + phone row) and on the home card rows.
+3. **Keyboard focus.** `custom.scss` adds `:focus-visible` rings (2px `$ink`) on reactable headers, expander, page buttons, search and cell links. The ring sits inset on headers and the expander, because the cells clip anything outside. The expander is a 32×32 hit area with a hover tint.
+
+Verified in Chrome via Claude in Chrome against local renders: home, legislation index, weeks 2026-02-16 / 03-30 / 09-28, bills HCR4 / HF383 / SJR9 / HR106 / HF2801. Checked at 1280px and in a 375px iframe, with real Tab presses through the headers and expander; no sideways scroll at 375px.
+
+**Rollout:** the week fingerprint includes `group_status`, so CI re-renders every week page on its next run (~30 min). Bill pages pick up the new statuses and steppers when they re-render, which the pending multi-session push forces for all of them anyway.
+
+**Open from the re-critique (P2/P3):** `ia_reactable_theme()`; substantive bills before resolutions at equal stage; status hidden on phones on the week page; the "✓ Vetoed" stepper step is green.

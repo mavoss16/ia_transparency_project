@@ -36,7 +36,7 @@ read_bill_history <- function(bill_number, json_dir = ga_paths(ga)$bill_json, ga
 #' @param json_dir Directory containing bill JSON files
 #' @return Character string with the furthest status reached
 get_bill_status <- function(bill_number, json_dir = ga_paths(ga)$bill_json, ga = CURRENT_GA) {
-  get_bill_status_from_history(read_bill_history(bill_number, json_dir))
+  get_bill_status_from_history(read_bill_history(bill_number, json_dir), bill_number)
 }
 
 #' Get all bill statuses (and committee renumberings) from JSON files
@@ -53,7 +53,7 @@ get_all_bill_statuses <- function(json_dir = ga_paths(ga)$bill_json, ga = CURREN
 
   map_dfr(bill_numbers, function(bn) {
     history <- read_bill_history(bn, json_dir)
-    status <- get_bill_status_from_history(history)
+    status <- get_bill_status_from_history(history, bn)
     targets <- if (is.null(history)) character(0) else
       unique(na.omit(parse_renumbered_target(history$action)))
     tibble(

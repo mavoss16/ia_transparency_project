@@ -131,6 +131,18 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 .ia-pill-r        { background: $party-r; color: #fff; font-weight: 700; }
 .ia-pill-d        { background: $party-d; color: #fff; font-weight: 700; }
 
+// Events in a period — emitted by event_chips(). What happened, not where a
+// bill stands: outlined and squarer than a status pill, never filled
+.ia-events { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.45rem; }
+.ia-event {
+  display: inline-block;
+  font-size: 0.72rem; font-weight: 600; color: $ink-soft;
+  padding: 0.12rem 0.45rem; border: 1px solid #cfccc2; border-radius: 4px;
+  white-space: nowrap;
+}
+.ia-event-quiet { color: $faint; border-style: dashed; font-weight: 500; }
+.ia-event-more { font-size: 0.72rem; color: $faint; white-space: nowrap; }
+
 // ------------------------------------------------------------
 // Horizontal bar lists — emitted by ui_bar_list() / ui_paired_bars()
 // ------------------------------------------------------------
@@ -194,6 +206,29 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 .gt_table a { font-weight: 600; }
 
 .reactable { font-size: 0.85rem; }
+
+// Keyboard focus (WCAG 2.4.7): reactable removes the outline on sortable
+// headers and leaves the expander a hairline browser ring
+.reactable .rt-th:focus-visible,
+.reactable .rt-expander-button:focus-visible,
+.reactable .rt-page-button:focus-visible,
+.reactable .rt-search:focus-visible,
+.reactable .rt-td a:focus-visible {
+  outline: 2px solid $ink;
+  outline-offset: 2px;
+  box-shadow: none;
+}
+// Inside the box: the header row and the expander's cell clip anything outside
+.reactable .rt-th:focus-visible,
+.reactable .rt-expander-button:focus-visible { outline-offset: -2px; }
+// Expander: a 32px hit area around the 6px chevron
+.reactable .rt-expander-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 32px; min-height: 32px;
+  margin: -8px 0; padding: 0;
+  border-radius: 6px;
+}
+.reactable .rt-expander-button:hover { background: $neutral-bg; }
 
 // Inline mini-bar used inside reactable cells (see legislator_table())
 .ia-cellbar { display: flex; align-items: center; gap: 8px; }

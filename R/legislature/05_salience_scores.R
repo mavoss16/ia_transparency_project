@@ -26,7 +26,7 @@
 #                  contested passage vote in the group, alongside the
 #                  existing party-division label for that vote.
 #   Stage        — furthest stage reached by any group member, on the site's
-#                  existing six-step scale (cf. SLES stage progression).
+#                  status scale, incl. the end states (cf. SLES stage progression).
 #   Bill class   — resolution / commemorative / substantive, following the
 #                  SLES commemorative tier (Bucchianeri, Volden & Wiseman 2025).
 #   Attention    — organizations declaring (any current position), hearings,
@@ -53,7 +53,7 @@ library(here)
 # Configuration
 # =============================================================================
 
-source(here("R/legislature/session.R"))
+source(here("R/legislature/utils.R"))  # STATUS_LEVELS (and session.R)
 
 # Paths for one session; compute_salience(ga = ...) for another
 salience_paths <- function(ga = CURRENT_GA) {
@@ -79,10 +79,9 @@ HEAT_BANDS <- c(`One-sided` = 0, Leaning = 0.10, Divided = 0.30)
 LOBBY_BAND_LEVELS <- c("Divided", "Leaning", "One-sided",
                        "Too few positions", "No positions")
 
-# Site status scale (same order as bill_template.qmd's status_order)
-STATUS_ORDER <- c("Introduced", "Passed Subcommittee", "Passed Committee",
-                  "Passed One Chamber", "Passed Both Chambers",
-                  "Signed by Governor")
+# Site status scale, by position in display order: the end states sit at the
+# top, so a group's furthest stage is its highest position
+STATUS_ORDER <- names(STATUS_LEVELS)
 
 # Roll calls that decide a bill's fate, as opposed to amendments, deferrals,
 # or procedural motions

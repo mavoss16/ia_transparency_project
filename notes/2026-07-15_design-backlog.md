@@ -66,3 +66,17 @@ On a 375 px viewport the bill page's vote map is only ~198 px wide (nested
 card + tab padding), so Iowa is small and the legend covers much of it.
 Predates the shared-geometry change. Options: let the map break out of the
 card padding on mobile, shrink or collapse the legend below ~600 px.
+
+## Weekly activity summary, after the P1 fixes (2026-10-26, critique 28/40)
+
+- **`ia_reactable_theme()`** (P2, sitewide): reactable's cool header rule, 3px
+  search/page buttons and default pagination don't match the site. Fold the new
+  `:focus-visible` rules into it. Applies to `legislator_table()` too.
+- **Resolutions lead busy weeks** (P2): at equal stage, sort substantive bills
+  (salience `bill_class`) before resolutions/commemoratives.
+- **Phones hide "Status now"** on the week page (P2): show the status pill
+  under the title after the event chip.
+- **"✓ Vetoed"** stepper step is drawn in success green (P3): give
+  `ui_stepper()` an end-state class.
+- Week-page footnote runs ~184 chars per line; empty search still shows reactable's
+  "No rows found".

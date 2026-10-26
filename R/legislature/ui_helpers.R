@@ -52,10 +52,11 @@ clean_bill_title <- function(title) {
 # Domain pills (wrap the shared ui_pill)
 # ------------------------------------------------------------------
 
-#' Map a bill status string to a pill.
+#' Map a bill status string to a pill. Adopted resolutions share the signed
+#' style: both are finished, not in progress.
 status_pill <- function(status) {
   type <- dplyr::case_when(
-    str_detect(status, regex("signed",  ignore_case = TRUE)) ~ "signed",
+    str_detect(status, regex("signed|^adopted",  ignore_case = TRUE)) ~ "signed",
     str_detect(status, regex("vetoed",  ignore_case = TRUE)) ~ "vetoed",
     str_detect(status, regex("passed",  ignore_case = TRUE)) ~ "progress",
     TRUE ~ "neutral"
@@ -74,15 +75,23 @@ vote_pill <- function(vote) {
   ui_pill(vote, type)
 }
 
-#' Milestone pill for the weekly activity table ("Passed House", ...)
-milestone_pill <- function(label) {
-  type <- dplyr::case_when(
-    str_detect(label, "^Signed") ~ "signed",
-    str_detect(label, "^Vetoed") ~ "vetoed",
-    str_detect(label, "^Introduced|^Other activity") ~ "neutral",
-    TRUE ~ "progress"
+#' What happened in a period ("Passed House", ...), for the weekly summary.
+#'
+#' Events are not statuses, so they never look like status pills: an outlined
+#' chip for the furthest event, then a count of the earlier ones. Filled pills
+#' are kept for where a bill stands now.
+#'
+#' labels: milestone labels, furthest first (period_group_rows()); empty for
+#'   groups with only procedural actions.
+event_chips <- function(labels) {
+  if (length(labels) == 0) return(span(class = "ia-event ia-event-quiet", "Other activity"))
+  n_earlier <- length(labels) - 1
+  span(class = "ia-events",
+    span(class = "ia-event", labels[1]),
+    if (n_earlier > 0)
+      span(class = "ia-event-more",
+           sprintf("+ %d earlier step%s", n_earlier, if (n_earlier == 1) "" else "s"))
   )
-  ui_pill(label, type)
 }
 
 # ------------------------------------------------------------------
@@ -94,15 +103,12 @@ milestone_pill <- function(label) {
 #' period_label: column header for what happened ("This week" / "This day").
 #'
 #' The data columns are plain text, so the search box matches bill numbers
-#' and titles; cells render links and pills from them. Each row expands to
+#' and titles; cells render links, event chips and status pills from them. Each row expands to
 #' the period's actions for every group member, milestones in full ink and
 #' procedural actions muted.
 activity_table <- function(rows, bill_prefix = bill_dir_href(up = 1),
                            period_label = "This week", page_size = 25) {
-  pill_html <- function(labels) {
-    if (length(labels) == 0) labels <- "Other activity"
-    paste(vapply(labels, \(l) as.character(milestone_pill(l)), character(1)), collapse = " ")
-  }
+  events_html <- \(labels) as.character(event_chips(labels))
 
   df <- tibble::tibble(
     bills  = vapply(rows$bills, \(b) paste(str_replace(b, "^([A-Z]+)(\\d+)$", "\\1 \\2"), collapse = ", "), character(1)),
@@ -143,13 +149,11 @@ activity_table <- function(rows, bill_prefix = bill_dir_href(up = 1),
   }
 
   # On phones the period and status columns are hidden (custom.scss), and the
-  # period pills move under the title instead
+  # period's events move under the title instead
   title_cell <- function(value, index) {
-    labels <- rows$milestones[[index]]
-    if (length(labels) == 0) labels <- "Other activity"
     tagList(
       div(class = "ia-clamp-3", value),
-      div(class = "ia-mobile-pills", lapply(labels, milestone_pill))
+      div(class = "ia-mobile-pills", event_chips(rows$milestones[[index]]))
     )
   }
 
@@ -159,7 +163,7 @@ activity_table <- function(rows, bill_prefix = bill_dir_href(up = 1),
       bills  = reactable::colDef(name = "Bills", cell = bills_cell, html = TRUE, minWidth = 80, maxWidth = 170),
       title  = reactable::colDef(name = "Title", minWidth = 180, cell = title_cell),
       period = reactable::colDef(name = period_label, minWidth = 150,
-                                 cell = \(value, index) pill_html(rows$milestones[[index]]), html = TRUE,
+                                 cell = \(value, index) events_html(rows$milestones[[index]]), html = TRUE,
                                  class = "ia-col-period", headerClass = "ia-col-period"),
       status = reactable::colDef(name = "Status now", minWidth = 140,
                                  cell = \(value) as.character(status_pill(value)), html = TRUE,

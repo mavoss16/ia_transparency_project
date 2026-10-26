@@ -79,8 +79,7 @@ bill_types <- bills |>
   arrange(desc(count))
 
 # Status summary (individual vs group)
-status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
-                  "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
+status_order <- names(STATUS_LEVELS)
 
 has_groups <- nrow(bill_groups) > 0
 

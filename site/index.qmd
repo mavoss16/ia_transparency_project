@@ -66,8 +66,7 @@ n_R <- nrow(active_people |> filter(party == "R"))
 n_D <- nrow(active_people |> filter(party == "D"))
 
 # Bill progress stage counts (individual bill status, furthest reached)
-status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
-                  "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
+status_order <- names(STATUS_LEVELS)
 
 if (!is.null(bill_groups)) {
   stage_counts <- bill_groups |>
@@ -75,11 +74,15 @@ if (!is.null(bill_groups)) {
     mutate(status = factor(status, levels = status_order)) |>
     arrange(status)
   n_signed      <- stage_counts |> filter(status == "Signed by Governor")  |> pull(n) |> (\(x) if (length(x)) x else 0L)()
-  n_passed_both <- stage_counts |> filter(status == "Passed Both Chambers") |> pull(n) |> (\(x) if (length(x)) x else 0L)()
+  # Bills that passed both chambers with no signature or veto recorded. Joint
+  # resolutions also pass both chambers but go to the Secretary of State, not
+  # the Governor, so only House and Senate files count.
+  n_unsigned    <- sum(bill_groups$status == "Passed both chambers" &
+                         str_detect(bill_groups$bill, "^(HF|SF)\\d"))
 } else {
   stage_counts  <- NULL
   n_signed      <- NA_integer_
-  n_passed_both <- NA_integer_
+  n_unsigned    <- NA_integer_
 }
 ```
 
@@ -110,8 +113,8 @@ ui_stat_grid(
                        format(n_senate_bills, big.mark = ","))),
   ui_stat_card("Signed by Governor", format(n_signed, big.mark = ","),
                sprintf("%.1f%% of all bills introduced", 100 * n_signed / n_bills)),
-  ui_stat_card("Awaiting Governor", format(n_passed_both, big.mark = ","),
-               "Passed both chambers"),
+  ui_stat_card("Passed, Not Signed", format(n_unsigned, big.mark = ","),
+               "Passed both chambers; no signature or veto on record"),
   ui_stat_card("Legislators", format(nrow(active_people), big.mark = ","),
                sprintf("%d R · %d D across both chambers", n_R, n_D))
 )
@@ -238,8 +241,7 @@ rows <- lapply(seq_len(nrow(top)), function(i) {
     div(class = "ia-recent-bill", HTML(paste(links, collapse = "<br>"))),
     div(
       div(class = "ia-recent-title ia-clamp-3", clean_bill_title(top$title[i])$title),
-      div(class = "ia-recent-meta",
-          if (length(labels)) paste(labels, collapse = " · ") else "Other activity")
+      div(class = "ia-recent-meta", event_chips(labels))
     ),
     status_pill(top$group_status[i]),
     div(class = "ia-recent-date", fmt_day(max(top$actions[[i]]$date)))

@@ -106,8 +106,6 @@ lobby_undecided <- if (!is.null(lobby) && nrow(lobby) > 0) sum(lobby$most_recent
 
 ```{r}
 # --- Derived values for the redesigned header ---
-status_order <- c("Introduced", "Passed Subcommittee", "Passed Committee",
-                  "Passed One Chamber", "Passed Both Chambers", "Signed by Governor")
 
 # Cleaned serif title + boilerplate meta (Formerly / Effective)
 clean_title <- clean_bill_title(bill$title)
@@ -133,7 +131,10 @@ bill_status <- if (nrow(bill_group_info) > 0 && !is.na(bill_group_info$status[1]
   bills_row <- bills_csv |> filter(bill_number == params$bill_num)
   if (nrow(bills_row) > 0) bills_row$status_desc[1] else "Introduced"
 }
-stepper_reached <- match(bill_status, status_order)
+# Steps depend on the bill type: resolutions end at "Adopted", joint
+# resolutions at "Passed both chambers"
+stepper_stages <- status_track(params$bill_num, bill_status)
+stepper_reached <- sum(STATUS_LEVELS[stepper_stages] <= STATUS_LEVELS[bill_status])
 if (is.na(stepper_reached)) stepper_reached <- 1L
 
 # Primary sponsor display (committee-aware)
@@ -193,7 +194,7 @@ div(class = "ia-card",
   ),
   h1(class = "ia-bill-title", clean_title$title),
   div(class = "ia-bill-meta", meta_row),
-  ui_stepper(status_order, stepper_reached)
+  ui_stepper(stepper_stages, stepper_reached)
 )
 ```
 
