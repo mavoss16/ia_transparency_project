@@ -204,42 +204,69 @@ div(style = "display:flex; margin-top:0.4rem",
 
 :::::
 
-::: {.ia-card}
-
 ```{r}
-# Recent activity header
-div(class = "ia-card-head",
-  div(class = "ia-card-title", "Recent activity"),
-  a(href = "legislation/index.html", "All legislation →")
-)
-```
+# Weekly summary: the most recent week in which a bill reached a stage
+# (introduced → signed), with its counts and its furthest-along bill groups.
+# Full week and archive: activity/ (site/templates/week_template.qmd,
+# site/activity/index.qmd).
+source(here::here("R/legislature/06_weekly_activity.R"))
 
-```{r}
-recent <- bills |>
-  arrange(desc(last_action_date)) |>
-  head(8) |>
-  left_join(bill_groups |> select(bill, bill_status = status),
-            by = c("bill_number" = "bill")) |>
-  mutate(
-    display_status = coalesce(bill_status, status_desc),
-    short_title    = vapply(title, \(t) clean_bill_title(t)$title, character(1))
-  )
+bill_actions <- load_bill_actions()
+week_start   <- latest_active_week(bill_actions)
+week_end     <- week_start + 6
+week_rows    <- period_group_rows(bill_actions, week_start, week_end, bill_groups, bills)
+week_counts  <- period_milestone_counts(bill_actions, week_start, week_end) |>
+  filter(milestone != "vetoed" | n_groups > 0)
 
-rows <- lapply(seq_len(nrow(recent)), function(i) {
+# Out of session most of the year: say plainly that this week is not the
+# current one, so nobody reads May's numbers as this week's
+last_moved <- max(counted_milestones(bill_actions)$date)
+is_stale   <- Sys.Date() - last_moved > 7
+
+fmt_day  <- \(d) str_squish(format(d, "%b %e"))
+fmt_long <- \(d) str_squish(format(d, "%B %e, %Y"))
+plural   <- \(n, word) paste(format(n, big.mark = ","), if (n == 1) word else paste0(word, "s"))
+week_page <- paste0("activity/", format(week_start, "%Y-%m-%d"), ".html")
+
+top <- head(week_rows, 8)
+rows <- lapply(seq_len(nrow(top)), function(i) {
+  labels <- top$milestones[[i]]
+  links <- vapply(top$bills[[i]], \(b) as.character(format_bill_link(b, "legislation/")), character(1))
   div(class = "ia-recent-row",
-    div(class = "ia-recent-bill", HTML(format_bill_link(recent$bill_number[i], "legislation/"))),
+    div(class = "ia-recent-bill", HTML(paste(links, collapse = "<br>"))),
     div(
-      div(class = "ia-recent-title", recent$short_title[i]),
-      div(class = "ia-recent-meta",  recent$last_action[i])
+      div(class = "ia-recent-title ia-clamp-3", clean_bill_title(top$title[i])$title),
+      div(class = "ia-recent-meta",
+          if (length(labels)) paste(labels, collapse = " · ") else "Other activity")
     ),
-    status_pill(recent$display_status[i]),
-    div(class = "ia-recent-date", str_squish(format(recent$last_action_date[i], "%b %e, %Y")))
+    status_pill(top$group_status[i]),
+    div(class = "ia-recent-date", fmt_day(max(top$actions[[i]]$date)))
   )
 })
-div(class = "ia-recent-list", rows)
-```
 
-:::
+div(class = "ia-card ia-week-summary",
+  div(class = "ia-card-head",
+    div(
+      div(class = "ia-card-title", paste("Week of", fmt_long(week_start))),
+      div(class = "ia-card-sub", style = "margin-bottom:0",
+          if (is_stale) {
+            sprintf("No bill has reached a new stage since %s; this is the most recent week with activity.",
+                    fmt_long(last_moved))
+          } else {
+            sprintf("%s – %s · bill groups reaching each stage this week", fmt_day(week_start), fmt_day(week_end))
+          })
+    ),
+    a(href = "activity/index.html", "All weeks →")
+  ),
+  do.call(ui_stat_grid, lapply(seq_len(nrow(week_counts)), \(i)
+    ui_stat_card(week_counts$label[i], format(week_counts$n_groups[i], big.mark = ",")))),
+  div(class = "ia-recent-list", rows),
+  div(class = "ia-week-summary-more",
+    a(href = week_page,
+      if (nrow(week_rows) > nrow(top)) sprintf("See all %s from this week →", plural(nrow(week_rows), "bill group"))
+      else "See every action from this week →"))
+)
+```
 
 ```{r}
 # Browse cards

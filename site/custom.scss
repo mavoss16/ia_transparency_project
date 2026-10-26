@@ -413,7 +413,15 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 
 .ia-week-tabs .tab-content { padding-top: 0.25rem; }
 // Five (sometimes six) count cards: narrower minimum so they share one row
-.ia-week-tabs .ia-stat-grid { grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); }
+.ia-week-tabs .ia-stat-grid,
+.ia-week-summary .ia-stat-grid { grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); }
+
+// Home page weekly summary: the counts sit inside a card, so they drop their
+// own border and take the page tint instead of nesting box in box
+.ia-week-summary .ia-stat-grid { margin: 0.4rem 0 1rem; }
+.ia-week-summary .ia-stat-card { background: $bg; border-color: transparent; padding: 0.85rem 1rem; }
+.ia-week-summary .ia-stat-value { font-size: 1.7rem; }
+.ia-week-summary-more { font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem; }
 
 // Bill titles run to 60+ words; three lines keep a 400-row week scannable
 // (the full title is on the bill page, and screen readers still get it all)
@@ -474,6 +482,10 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
   .ia-week-tabs .tab-content { padding-left: 0; padding-right: 0; border-left: none; border-right: none; }
   .ia-week-tabs .ia-card { padding: 1rem 0.6rem; }
   .ia-week-tabs .ia-card-head { flex-wrap: wrap; }
+  .ia-week-tabs .ia-stat-grid,
+  .ia-week-summary .ia-stat-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .ia-week-summary { padding: 1.1rem 0.9rem; }
+  .ia-week-summary .ia-card-head > a { white-space: nowrap; }
   // Archive: the action total is the least needed column on a phone
   .ia-week-table .ia-week-actions { display: none; }
   .ia-week-table th, .ia-week-table td { padding: 0.45rem 0.3rem; }

@@ -169,6 +169,20 @@ The two test pages in `docs/activity/` were re-rendered but are **not committed*
 
 **Not committed:** local renders, their Bootstrap builds, and the 48 manifest rows. CI renders all 48 weeks on its next run (~30 min, ahead of the bills). Until phase 5 adds the home card, nothing links to the archive except the week pages themselves.
 
+## Phase 5 result (2026-10-25, done)
+
+The home page's "Recent activity" card (8 bills with the latest `last_action_date`) is replaced by a **weekly summary card** in `site/index.qmd`:
+- **Header:** "Week of September 28, 2026" plus an "All weeks →" link to the archive.
+- **Sub-line:** if no bill has reached a stage for more than 7 days (judged against the render date), it says so plainly ("No bill has reached a new stage since October 2, 2026; this is the most recent week with activity"). Otherwise it reads "Feb 16 – Feb 22 · bill groups reaching each stage this week".
+- **The five counts:** borderless tiles on the page tint, to avoid nested boxes, and a Vetoed tile when nonzero.
+- **Rows:** the first 8 groups from `period_group_rows()` (furthest stage first) in the existing `.ia-recent-row` style. Each shows every active member's bill link, the clamped title, the stage labels as the meta line, the current group status, and the group's last action date that week.
+- **Footer link** to the full week page ("See all N bill groups from this week →", or "See every action…" when all fit).
+- **Phones:** two tiles per row (the auto-fit minimum missed two columns by 3px), tighter card padding, and the "All weeks →" link kept on one line.
+
+Verified locally at desktop and 375px against the 2026-09-28 special-session week: cards 4 / 1 / 1 / 3 / 0; HF 2801 + HSB 785 + SF 2508 in one row; links resolve to `legislation/HF2801.html`, `activity/2026-09-28.html` and `activity/index.html`. HCR 106 shows "Passed Both Chambers" despite only being introduced that week, because the Legislature's related-bills list groups it with HCR 104 (2025's adjournment resolution). That is the group status, consistent with the week pages.
+
+**Rollout:** CI renders the home page, archive and all 48 weeks in the same `render_site()` run (index pages first, then weeks), so the card's links resolve once that run commits. Local renders were again left uncommitted.
+
 ## Phases
 
 1. **Classifier refactor:** `classify_action()` in utils, recognizing `Resolution adopted` (as floor passage) and `Vetoed by Governor`. `03` is rewritten on top of it and `groups.rds` regenerated. The funnel diff must be exactly the 61 adopted resolutions moving up from "Introduced" and nothing else.
