@@ -59,3 +59,10 @@ contrast/size (`$ink-soft`, 0.7rem). Remaining:
 
 - Theme fixes (`$faint`, breakpoints, label demotions) are verified on test-rendered
   pages but reach the full site only after the pending `render_site(force = TRUE)`.
+
+## Vote maps at phone width (found 2026-10-25)
+
+On a 375 px viewport the bill page's vote map is only ~198 px wide (nested
+card + tab padding), so Iowa is small and the legend covers much of it.
+Predates the shared-geometry change. Options: let the map break out of the
+card padding on mobile, shrink or collapse the legend below ~600 px.

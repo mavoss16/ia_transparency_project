@@ -28,6 +28,7 @@ library(htmltools)
 
 source(here::here("R/legislature/utils.R"))
 source(here::here("R/legislature/ui_helpers.R"))
+source(here::here("R/legislature/maps.R"))
 
 ga <- resolve_ga(params$ga)
 
@@ -88,10 +89,6 @@ if (file.exists(bill_groups_path)) {
     group_members = list(params$bill_num)
   )
 }
-
-# Load simplified district geometries for vote maps
-senate_districts <- read_rds(here::here("data/legislature/districts/senate.rds"))
-house_districts <- read_rds(here::here("data/legislature/districts/house.rds"))
 
 # Load lobbyist declarations from pre-scraped data
 lobby_path <- file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds")
@@ -368,50 +365,8 @@ if (!is.null(votes) && nrow(votes) > 0) {
     "#| echo: false",
     "#| message: false",
     "#| warning: false",
-    "vote_chamber <- vote_row$chamber",
-    "districts_sf <- if (vote_chamber == 'H') house_districts else senate_districts",
-    "",
-    "vote_map_data <- vote |>",
-    "  mutate(",
-    "    district_num = parse_district_number(district),",
-    "    vote_category = case_when(",
-    "      party == 'D' & vote_text == 'Yea' ~ 'Democrat: Yea',",
-    "      party == 'D' & vote_text == 'Nay' ~ 'Democrat: Nay',",
-    "      party == 'R' & vote_text == 'Yea' ~ 'Republican: Yea',",
-    "      party == 'R' & vote_text == 'Nay' ~ 'Republican: Nay',",
-    "      .default = 'Absent/NV'",
-    "    ),",
-    "    fill_color = case_when(",
-    "      vote_category == 'Democrat: Yea' ~ '#3F5B93',",
-    "      vote_category == 'Democrat: Nay' ~ '#B2BDD4',",
-    "      vote_category == 'Republican: Yea' ~ '#A8433A',",
-    "      vote_category == 'Republican: Nay' ~ '#DCB4B0',",
-    "      .default = '#CCCCCC'",
-    "    )",
-    "  )",
-    "",
-    "map_sf <- districts_sf |>",
-    "  left_join(vote_map_data |> select(district_num, name, party, vote_text, vote_category, fill_color),",
-    "            by = c('District' = 'district_num'))",
-    "",
-    "leaflet(map_sf) |>",
-    "  addProviderTiles(providers$CartoDB.Positron) |>",
-    "  addPolygons(",
-    "    fillColor = ~ifelse(is.na(fill_color), '#CCCCCC', fill_color),",
-    "    fillOpacity = 0.7,",
-    "    color = '#333333',",
-    "    weight = 1,",
-    "    label = ~paste0(ifelse(is.na(name), paste('District', District), name),",
-    "                    ' (', ifelse(is.na(party), '?', party), '-', District, '): ',",
-    "                    ifelse(is.na(vote_text), 'No vote', vote_text))",
-    "  ) |>",
-    "  addLegend(",
-    "    position = 'bottomright',",
-    "    colors = c('#3F5B93', '#B2BDD4', '#A8433A', '#DCB4B0', '#CCCCCC'),",
-    "    labels = c('Democrat: Yea', 'Democrat: Nay', 'Republican: Yea', 'Republican: Nay', 'Absent/NV'),",
-    "    title = 'Vote',",
-    "    opacity = 0.9",
-    "  )",
+    "# Shared district geometry; this map embeds only colors and labels (maps.R)",
+    "vote_map(vote, vote_row$chamber, ga)",
     "```",
     "",
     "```{r}",

@@ -247,6 +247,132 @@ Remaining for Phase 0: step 5 (page weight), then the single full render +
 `2177` now appear only in `session.R` doc examples, the session-ID cache,
 and comments recording facts about the 91st GA's data.
 
+## Page-weight profile (2026-10-25)
+
+Measured on the committed flat render (`docs/legislation/*.html`, 4,231
+bill pages, 756 MB).
+
+| Where the bytes go | Size | Share |
+|---|---|---|
+| Leaflet vote-map **district geometry** | 440 MB | 58% |
+| gt per-table `<style>` blocks | 130 MB | 17% |
+| Other page HTML (navbar, scripts, text) | 113 MB | 15% |
+| `<table>` markup | 60 MB | 8% |
+| Map styling and labels (rest of widget JSON) | ~13 MB | 2% |
+
+- **Maps.** 1,422 maps on 668 pages; pages without maps average 55 KB
+  (median page 61 KB). Every map embeds the full chamber geometry again:
+  Senate 11,298 points (~264 KB of widget JSON), House 15,094 (~353 KB), at
+  6-decimal precision. SJR11 (4.4 MB) has 11 maps but only 2 distinct
+  geometries. The color and label data a map actually needs is 2–4 KB.
+- **gt styles.** Each gt table emits a ~9.2 KB `<style>` block scoped to its
+  random table id. SJR11's 25 blocks reduce to 4 distinct ones once the id
+  is removed. Bill pages carry one per roll call (summary + full roll call
+  tables), so this grows with votes too.
+- **`legislation/index.html` (7.7 MB)** is one reactable widget (gt
+  `opt_interactive()`). The data is 1.2 MB; the other **6.4 MB is
+  generated per-row JavaScript**: the `tab_style(cell_text(whitespace =
+  "nowrap"), cells_body(...))` calls emit an `if (rowIndex === n)` branch for
+  every row. A column-level style does the same thing in a few bytes.
+
+Options for the maps, by Senate/House widget size per map:
+
+| Option | Senate | House | Saving on bill pages |
+|---|---|---|---|
+| Current (0.0002° simplify) | 264 KB | 353 KB | — |
+| `st_simplify` 0.002° | 92 KB | 130 KB | ~280 MB |
+| `st_simplify` 0.005° | 52 KB | 76 KB | ~345 MB, visible coarsening likely |
+| **Shared GeoJSON per (plan, chamber)**, fetched by the browser | ~2 KB | ~4 KB | **~435 MB** |
+
+Note `st_simplify` simplifies each district on its own, so neighbours can
+open slivers at coarse tolerances; `rmapshaper::ms_simplify` (not installed)
+keeps shared borders. A shared GeoJSON also fits Phase 3, since older
+sessions just point at a different plan's file.
+Rounding coordinates to 4 decimals (~11 m) was not measured: setting
+`TOJSON_ARGS` digits on the widget didn't change its size, so leaflet
+probably serializes the coordinates on its own path.
+
+Estimate if the shared GeoJSON, a shared gt stylesheet and the index fix all
+land: bill pages ~756 → ~195 MB, index 7.7 → ~1.3 MB, `docs/` ~916 → ~350 MB.
+Legislator pages (151 MB) were not profiled; they use the same gt tables and
+a district map, so expect the same two causes there.
+
+## Shared-geometry map prototype (2026-10-25)
+
+Chosen over a tile grid (unfamiliar for newcomers) and over coarser
+simplification. Test files only; the production templates are unchanged:
+
+- `R/legislature/_test_shared_district_maps.R`: `write_district_scripts()`
+  writes `data/legislature/districts/web_test/plan2021_{senate,house}.js`
+  (286 / 386 KB, 5-decimal GeoJSON registered on `window.IA_DISTRICTS`).
+  `vote_map_shared()` builds a polygon-free Leaflet map, attaches the
+  chamber's script as an `htmlDependency` (Quarto copies it once to
+  `site_libs/ia-districts-plan2021-{chamber}-0.1.0/`), and passes only
+  district / fill / label arrays to an `onRender` hook that draws the shared
+  GeoJSON. The initial view is set from R with `fitBounds()`.
+- `site/templates/session/_test_shared_maps.qmd`: reproduces a bill's
+  "Individual Votes" tabset. Underscore files render standalone (no
+  `site_libs`), so the runner renders a temporary non-underscore copy to
+  get real bill-page depth.
+
+Results:
+
+| | Current | Prototype |
+|---|---|---|
+| SJR11 page (maps only on the test page) | 4.4 MB, maps ~3.8 MB | 93 KB |
+| Per map | ~356 KB | 4–6 KB |
+| HF1021 (1 map) | — | 29 KB |
+
+- All 11 SJR11 maps draw (50 Senate / 100 House districts) when their tab
+  opens, at full size and centred on Iowa, with the legend; Leaflet defers
+  hidden-tab maps until they are shown, and the R-side `fitBounds()` gives
+  them the right view.
+- Fill colors and tooltip labels match the current page's map **exactly**,
+  district by district, on all 11 maps.
+- Hover tooltips bind to the right district; a page with only House votes
+  loads only the House script; no console errors.
+- Not checked: mobile widths, and a bill page with the full production
+  layout around the maps (outer tabsets).
+
+**Separate, pre-existing problem found:** CARTO's free basemap
+(`providers$CartoDB.Positron`, `basemaps.cartocdn.com/light_all`) now returns
+an "API KEY REQUIRED" image for every tile, whatever the referer (checked
+with none, localhost and github.io). Every Leaflet map on the live site is
+probably showing that watermark: bill vote maps, the legislators index maps,
+and the legislator district maps. Options: another provider (Esri gray
+canvas needs no key; Stadia needs a free domain registration), or no
+basemap at all, since the vote choropleths don't need one.
+**Fixed 2026-10-25:** the three site maps (bill vote maps, legislators index,
+legislator district map) and the prototype now use `addTiles()`
+(OpenStreetMap standard tiles, attribution included). Verified loading in
+the browser on the SJR11 test page and a legislator page. Live pages pick it
+up on their next render (legislator pages and the index re-render every CI
+run; bill pages at the full render). The two elections console helpers in
+`R/elections/precinct_matching/` still use CARTO.
+
+## Shared maps in production (2026-10-25)
+
+Prototype promoted: `R/legislature/maps.R` (`district_map()` with per-district
+fill / opacity / stroke / weight / label / popup / front columns and optional
+hover restyle; `vote_map()` for roll calls), geometry scripts committed in
+`data/legislature/districts/web/`, `ga_district_plan()` + `DISTRICT_PLANS` in
+`session.R`. Switched: bill vote maps, legislator district map, legislators
+index maps. Prototype files deleted.
+
+Verified: SJR11 4.4 → 0.66 MB, HF1021 → 0.12 MB, legislator page 0.84 →
+0.58 MB, legislators index 0.80 → 0.19 MB, every map 5–7 KB. Vote map colors
+and labels match the old pages district by district (12 maps). In the
+browser: all SJR11 maps draw inside the real nested tabsets; legislator
+highlight drawn on top; index popups link to profiles and hover restyles and
+resets; a project render (`render_index_pages()`) leaves the `site_libs`
+script folders in place. Found and fixed on the way: `render_bill()` /
+`render_committee()` didn't create their `ga91/` folder and ignored a failed
+move, so a direct call could leave the page in `docs/templates/session/`
+and report success.
+
+Rollout and rollback for the first CI run:
+[`2026-10-25_multi-session-rollout-rollback.md`](2026-10-25_multi-session-rollout-rollback.md).
+
 ## Minor
 
 - `R/legislature/archive/get_data.R` has a LegiScan dataset `access_key`

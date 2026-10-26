@@ -101,6 +101,37 @@ bill_dir_href <- function(ga = CURRENT_GA, up = 0) {
 #' Render-manifest key for a page that belongs to one session: "ga91/HF1"
 session_item_id <- function(ga, id) paste0(ga_slug(ga), "/", id)
 
+# District plans --------------------------------------------------------------
+# District numbers point to different places under each redistricting plan,
+# so maps look up the plan in force for a session. Only the 2021 plan is
+# sourced so far; the 2011 plan (84th-89th GA) and 2001 plan (83rd) need
+# their shapefiles from Iowa LSA, simplified as in simplify_districts.R.
+
+DISTRICT_PLANS <- list(
+  plan2021 = list(
+    first_ga = 90L,
+    senate   = "data/legislature/districts/senate.rds",
+    house    = "data/legislature/districts/house.rds"
+  )
+)
+
+#' Name of the district plan in force for a General Assembly: "plan2021"
+ga_district_plan <- function(ga = CURRENT_GA) {
+  ga <- as.integer(ga)
+  starts <- vapply(DISTRICT_PLANS, `[[`, integer(1), "first_ga")
+  in_force <- names(starts)[starts <= ga]
+  if (length(in_force) == 0) {
+    stop("No district plan is set up for the ", ga_label(ga), ". See DISTRICT_PLANS in session.R.")
+  }
+  in_force[which.max(starts[in_force])]
+}
+
+#' Simplified district geometry (sf) for a chamber under a plan
+#' @param chamber "senate" or "house"
+district_geometry <- function(chamber, plan = ga_district_plan()) {
+  readRDS(here(DISTRICT_PLANS[[plan]][[chamber]]))
+}
+
 #' Path to one of a session's derived CSVs: ga_csv("bills") -> .../derived/bills.csv
 ga_csv <- function(name, ga = CURRENT_GA) {
   file.path(ga_paths(ga)$derived, paste0(name, ".csv"))

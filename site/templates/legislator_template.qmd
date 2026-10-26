@@ -25,6 +25,7 @@ library(leaflet)
 library(htmltools)
 source(here::here("R/legislature/utils.R"))
 source(here::here("R/legislature/ui_helpers.R"))
+source(here::here("R/legislature/maps.R"))
 
 ga <- resolve_ga(params$ga)
 ```
@@ -101,17 +102,11 @@ leg_similarity <- if (file.exists(similarity_path)) {
 leg_stats <- legislator_stats |> filter(people_id == params$people_id)
 leg_vote_records <- vote_records |> filter(people_id == params$people_id)
 
-# District geometries joined with legislator names for the district map
+# Legislator names by district for the district map
 people <- read_csv(ga_csv("people", ga), show_col_types = FALSE) |>
   filter(party_id != 0) |>
   mutate(district_num = parse_district_number(district)) |>
   select(name, party, district, district_num, role)
-
-senate_districts <- read_rds(here::here("data/legislature/districts/senate.rds")) |>
-  left_join(people |> filter(role == "Sen"), by = c("District" = "district_num"))
-
-house_districts <- read_rds(here::here("data/legislature/districts/house.rds")) |>
-  left_join(people |> filter(role == "Rep"), by = c("District" = "district_num"))
 ```
 
 ```{r}
@@ -194,34 +189,34 @@ District `r legislator$district`
 
 ```{r}
 district_num <- parse_district_number(legislator$district)
-districts_sf <- if (legislator$role == "Sen") senate_districts else house_districts
-
-highlight <- districts_sf |> filter(District == district_num)
-others <- districts_sf |> filter(District != district_num)
-
+chamber <- chamber_name(legislator$role)
 party_color <- if (legislator$party == "D") "#3F5B93" else "#A8433A"
 
-bbox <- st_bbox(highlight)
+# Every district in the chamber, the legislator's own highlighted and drawn on
+# top; the shapes come from the shared geometry file (maps.R)
+map_districts <- district_geometry(chamber, ga_district_plan(ga)) |>
+  st_drop_geometry() |>
+  select(District) |>
+  left_join(people |> filter(role == legislator$role), by = c("District" = "district_num")) |>
+  mutate(
+    own          = District == district_num,
+    fill         = if_else(own, party_color, "#CCCCCC"),
+    fill_opacity = if_else(own, 0.6, 0.2),
+    stroke       = if_else(own, party_color, "#000000"),
+    weight       = if_else(own, 3, 1),
+    label        = case_when(
+      own          ~ paste(legislator$name, "-", legislator$district),
+      !is.na(name) ~ paste0(name, " (", party, "-", district, ")"),
+      .default     = paste("District", District)
+    ),
+    front        = own
+  ) |>
+  select(District, fill, fill_opacity, stroke, weight, label, front)
 
-leaflet(height = 340) |>
-  addProviderTiles(providers$CartoDB.Positron) |>
-  addPolygons(
-    data = others,
-    fillColor = "#CCCCCC",
-    fillOpacity = 0.2,
-    color = "#000000",
-    weight = 1,
-    label = ~ifelse(!is.na(name), paste0(name, " (", party, "-", district, ")"), paste("District", District))
-  ) |>
-  addPolygons(
-    data = highlight,
-    fillColor = party_color,
-    fillOpacity = 0.6,
-    color = party_color,
-    weight = 3,
-    label = ~paste(legislator$name, "-", legislator$district)
-  ) |>
-  fitBounds(bbox[["xmin"]], bbox[["ymin"]], bbox[["xmax"]], bbox[["ymax"]])
+bbox <- st_bbox(district_geometry(chamber, ga_district_plan(ga)) |> filter(District == district_num))
+
+district_map(map_districts, chamber, ga, bounds = bbox, height = 340) |>
+  addTiles()
 ```
 
 :::

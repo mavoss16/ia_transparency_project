@@ -252,6 +252,7 @@ render_bill <- function(bill_number, ga = CURRENT_GA,
   # name (and with it a figure directory) in docs/templates/session/
   render_name <- paste0(ga_slug(ga), "-", bill_number, ".html")
   rendered_file <- file.path(SESSION_RENDER_DIR, render_name)
+  dir.create(dirname(output_file), recursive = TRUE, showWarnings = FALSE)
 
   tryCatch({
     quarto_render(
@@ -264,8 +265,8 @@ render_bill <- function(bill_number, ga = CURRENT_GA,
     )
 
     # Move rendered file to correct location
-    if (file.exists(rendered_file)) {
-      file.rename(rendered_file, output_file)
+    if (!file.exists(rendered_file) || !file.rename(rendered_file, output_file)) {
+      stop("rendered page could not be moved to ", output_file)
     }
 
     message(paste("Rendered:", bill_number))
@@ -368,6 +369,7 @@ render_committee <- function(people_id, ga = CURRENT_GA,
   output_file <- file.path(committee_output_dir(ga), paste0(filename, ".html"))
   render_name <- paste0(ga_slug(ga), "-", filename, ".html")
   rendered_file <- file.path(SESSION_RENDER_DIR, render_name)
+  dir.create(dirname(output_file), recursive = TRUE, showWarnings = FALSE)
 
   tryCatch({
     quarto_render(
@@ -380,8 +382,8 @@ render_committee <- function(people_id, ga = CURRENT_GA,
     )
 
     # Move rendered file to correct location
-    if (file.exists(rendered_file)) {
-      file.rename(rendered_file, output_file)
+    if (!file.exists(rendered_file) || !file.rename(rendered_file, output_file)) {
+      stop("rendered page could not be moved to ", output_file)
     }
 
     message(paste("Rendered committee:", filename))
