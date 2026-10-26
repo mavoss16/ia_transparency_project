@@ -18,7 +18,7 @@
 # Note: a single bill can contribute two bill-votes if it passed both chambers,
 # so n_shared counts bill-votes, not unique bills.
 #
-# Output saved to data/legislature/lobbying/legislator_client_alignment.rds
+# Output saved to data/legislature/ga{N}/lobbying/legislator_client_alignment.rds
 #
 # Usage:
 #   source("R/legislature/04a_legislator_lobbyist_alignment.R")
@@ -30,11 +30,14 @@ library(purrr)
 library(stringr)
 library(here)
 
+source(here("R/legislature/session.R"))
+
 MIN_SHARED_BILLS <- 5   # minimum bill-votes to report a score
 TOP_N            <- 5   # most/least aligned clients to keep per legislator
 
 #' Compute legislator-lobbyist client alignment scores
 #'
+#' @param ga            General Assembly (default: CURRENT_GA); sets the paths below
 #' @param records_path  Path to vote records RDS (from 02_process_votes.R)
 #' @param lobby_path    Path to lobbyist declarations RDS (from 04_lobbyist_declarations.R)
 #' @param people_path   Path to people.csv
@@ -44,10 +47,11 @@ TOP_N            <- 5   # most/least aligned clients to keep per legislator
 #' @param verbose       Print progress messages
 #' @return Invisible tibble of top-N alignment rows
 compute_legislator_lobbyist_alignment <- function(
-    records_path = here("data/legislature/votes/records_91st_ga.rds"),
-    lobby_path   = here("data/legislature/lobbying/lobbyist_declarations.rds"),
-    people_path  = here("legiscan/files_ga91_derived/people.csv"),
-    output_path  = here("data/legislature/lobbying/legislator_client_alignment.rds"),
+    ga           = CURRENT_GA,
+    records_path = file.path(ga_paths(ga)$votes, "records.rds"),
+    lobby_path   = file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds"),
+    people_path  = ga_csv("people", ga),
+    output_path  = file.path(ga_paths(ga)$lobbying, "legislator_client_alignment.rds"),
     min_shared   = MIN_SHARED_BILLS,
     top_n        = TOP_N,
     verbose      = TRUE

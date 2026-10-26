@@ -4,7 +4,7 @@
 # summary (home page card + one page per week). Plan and counting rules:
 # notes/legislature/2026-10-24_weekly-activity-summary.md
 #
-# Output: data/legislature/bills/bill_actions.rds — one row per history
+# Output: data/legislature/ga{N}/bills/bill_actions.rds — one row per history
 # action, carrying its milestone (classify_action() in utils.R, the same
 # rules as bill status), its week, its bill group, and whether the bill was
 # born from a committee renumbering.
@@ -47,9 +47,9 @@ source(here("R/legislature/utils.R"))
 # Configuration
 # =============================================================================
 
-GA          <- 91
-GROUPS_PATH <- here("data/legislature/bills/groups.rds")
-OUTPUT_PATH <- here("data/legislature/bills/bill_actions.rds")
+GA          <- CURRENT_GA
+GROUPS_PATH <- file.path(ga_paths(GA)$bills, "groups.rds")
+OUTPUT_PATH <- file.path(ga_paths(GA)$bills, "bill_actions.rds")
 
 # Milestones in display order for the count cards (least to furthest).
 # "vetoed" is shown only in periods where it occurs.
@@ -70,7 +70,7 @@ MILESTONE_LABELS <- c(
 # =============================================================================
 
 derived_csv_dir <- function(ga = GA) {
-  here(sprintf("legiscan/files_ga%d_derived", ga))
+  ga_paths(ga)$derived
 }
 
 # =============================================================================
@@ -85,8 +85,8 @@ derived_csv_dir <- function(ga = GA) {
 #' @return Tibble, one row per action, invisibly
 build_bill_actions <- function(
     ga          = GA,
-    groups_path = GROUPS_PATH,
-    output_path = OUTPUT_PATH
+    groups_path = file.path(ga_paths(ga)$bills, "groups.rds"),
+    output_path = file.path(ga_paths(ga)$bills, "bill_actions.rds")
 ) {
   csv_dir <- derived_csv_dir(ga)
 

@@ -97,7 +97,7 @@ milestone_pill <- function(label) {
 #' and titles; cells render links and pills from them. Each row expands to
 #' the period's actions for every group member, milestones in full ink and
 #' procedural actions muted.
-activity_table <- function(rows, bill_prefix = "../legislation/",
+activity_table <- function(rows, bill_prefix = bill_dir_href(up = 1),
                            period_label = "This week", page_size = 25) {
   pill_html <- function(labels) {
     if (length(labels) == 0) labels <- "Other activity"

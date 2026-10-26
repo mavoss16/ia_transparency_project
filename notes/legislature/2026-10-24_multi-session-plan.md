@@ -205,6 +205,48 @@ real test of multiple sessions.
    salience (redesigned 2026-10-24, see `2026-10-24_salience-precedents.md`)
    appears on pages for the 92nd GA.
 
+## Phase 0 progress (2026-10-25)
+
+Decided: session **folders** (not suffixes); bill URLs `legislation/ga91/HF1.html`
+(`ga91` rather than `91`, so the number reads as a session); existing links
+are moved once, no redirect stubs; legislator URLs stay session-agnostic;
+committee URLs are per session. Order agreed: code refactor and URL change
+now, page weight next, then **one** full render carrying both (each forces a
+full re-render and a ~900 MB `docs/` rewrite in git history).
+
+Done (steps 1–4):
+
+- `R/legislature/session.R`: `CURRENT_GA`, `ga_paths()`, `ga_csv()`,
+  `ga_label()` / `ga_years()` / `ga_slug()`, `bill_dir_href()`,
+  `session_item_id()`, and `legiscan_session_id()` (cache:
+  `data/legislature/legiscan_sessions.csv`, seeded with 91 → 2177).
+- Data moved with `git mv` (pure renames): `legiscan/ga91/{json,derived,csv}`,
+  `data/legislature/ga91/{votes,bills,lobbying,pipeline_internal}`. Vote files
+  lost their `_91st_ga` suffix. `districts/` and `pipeline_runs.rds` stay shared.
+- Every pipeline function takes `ga` (default `CURRENT_GA`); the five offline
+  steps (`01c`, `02`, `02b`, `03` groups, `04a`, `05`, `06`) reproduce
+  outputs `identical()` to the committed ones.
+- Templates take a `ga` param; page copy comes from `ga_label()` /
+  `ga_years()`.
+- Bill and committee templates moved to `site/templates/session/`, render to
+  `docs/templates/session/{ga91-HF1}.html` and move to
+  `docs/legislation/ga91/` / `docs/committees/ga91/`. The nested template
+  folder is what makes the `../../site_libs` paths right; a page must end up
+  exactly as deep as it rendered.
+- Manifest keys for bills and committees are `ga91/HF1` / `ga91/7087`, so
+  every bill and committee shows as needing render until the full render.
+  `remove_unsessioned_pages()` (dry run by default) then removes the flat
+  pages, old template outputs and old manifest rows.
+
+**Do not push this before the page-weight work** unless a double full render
+is acceptable: the daily CI run would start re-rendering all 4,231 bills at
+the new URLs under its time budget.
+
+Remaining for Phase 0: step 5 (page weight), then the single full render +
+`remove_unsessioned_pages(dry_run = FALSE)`. Grep check: `ga91` / `91st` /
+`2177` now appear only in `session.R` doc examples, the session-ID cache,
+and comments recording facts about the 91st GA's data.
+
 ## Minor
 
 - `R/legislature/archive/get_data.R` has a LegiScan dataset `access_key`

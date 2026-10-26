@@ -21,25 +21,38 @@ source(here("R/legislature/utils.R"))
 
 # Configuration
 OUTPUT_DIR <- here("docs")
-LEGISLATION_DIR <- file.path(OUTPUT_DIR, "legislation")
 LEGISLATORS_DIR <- file.path(OUTPUT_DIR, "legislators")
-COMMITTEES_DIR <- file.path(OUTPUT_DIR, "committees")
-# Weekly activity pages. Kept one level below docs/, like the other detail
-# directories: Quarto writes site_libs paths relative to the template's
-# render location (docs/templates/), so a deeper directory would break them.
+# Weekly activity pages. Kept one level below docs/, like the legislator
+# pages: Quarto writes site_libs and navbar paths relative to the template's
+# render location, so a page must end up exactly as deep as it was rendered.
 ACTIVITY_DIR <- file.path(OUTPUT_DIR, "activity")
 MANIFEST_FILE <- here("render_manifest.csv")
 
+# Bill and committee pages sit two levels down (docs/legislation/ga91/), so
+# their templates live one level deeper too (site/templates/session/) and
+# render to docs/templates/session/, giving them ../../ asset paths.
+SESSION_TEMPLATE_DIR <- here("site/templates/session")
+SESSION_RENDER_DIR <- here("docs/templates/session")
+
+#' A session's bill page directory: docs/legislation/ga91
+bill_output_dir <- function(ga = CURRENT_GA) file.path(OUTPUT_DIR, "legislation", ga_slug(ga))
+
+#' A session's committee page directory: docs/committees/ga91
+committee_output_dir <- function(ga = CURRENT_GA) file.path(OUTPUT_DIR, "committees", ga_slug(ga))
+
 # Ensure output directories exist
-ensure_dirs <- function() {
-  dir.create(LEGISLATION_DIR, recursive = TRUE, showWarnings = FALSE)
+ensure_dirs <- function(ga = CURRENT_GA) {
+  dir.create(bill_output_dir(ga), recursive = TRUE, showWarnings = FALSE)
   dir.create(LEGISLATORS_DIR, recursive = TRUE, showWarnings = FALSE)
-  dir.create(COMMITTEES_DIR, recursive = TRUE, showWarnings = FALSE)
+  dir.create(committee_output_dir(ga), recursive = TRUE, showWarnings = FALSE)
   dir.create(ACTIVITY_DIR, recursive = TRUE, showWarnings = FALSE)
 }
 
 #' Load or create the render manifest
-#' Tracks which items have been rendered and their hash at render time
+#' Tracks which items have been rendered and their hash at render time.
+#' Bills and committees are keyed by session_item_id() ("ga91/HF1"), since
+#' their numbers and IDs repeat across General Assemblies; legislators
+#' (people_id) and weeks (a date) are unique on their own.
 load_manifest <- function() {
   if (file.exists(MANIFEST_FILE)) {
     # Explicit types so a manifest holding only numeric ids (legislators,
@@ -101,16 +114,16 @@ update_manifest <- function(manifest, type, id, hash) {
   manifest
 }
 
-LOBBY_FILE <- here("data/legislature/lobbying/lobbyist_declarations.rds")
-
 #' Fingerprint each bill's lobbyist declarations
 #'
 #' Bill pages show lobbyist declarations, which change independently of
 #' LegiScan's change_hash (a declaration can be filed on a bill that hasn't
 #' moved), so the bill hash has to cover them too.
+#' @param ga General Assembly
 #' @param path Lobbyist declarations RDS
 #' @return Named character vector: bill number -> hash of its declarations
-lobby_digests <- function(path = LOBBY_FILE) {
+lobby_digests <- function(ga = CURRENT_GA,
+                          path = file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds")) {
   if (!file.exists(path)) return(character(0))
 
   digests <- readRDS(path) |>
@@ -126,23 +139,24 @@ lobby_digests <- function(path = LOBBY_FILE) {
   setNames(digests$digest, digests$bill)
 }
 
-# Read once per session, not once per bill
+# Read once per R session and General Assembly, not once per bill
 .lobby_digest_cache <- new.env()
 
-get_lobby_digest <- function(bill_number) {
-  if (is.null(.lobby_digest_cache$digests)) {
-    .lobby_digest_cache$digests <- lobby_digests()
+get_lobby_digest <- function(bill_number, ga = CURRENT_GA) {
+  key <- ga_slug(ga)
+  if (is.null(.lobby_digest_cache[[key]])) {
+    .lobby_digest_cache[[key]] <- lobby_digests(ga)
   }
-  digest <- .lobby_digest_cache$digests[bill_number]
+  digest <- .lobby_digest_cache[[key]][bill_number]
   if (is.na(digest)) "none" else unname(digest)
 }
 
 #' Get the hash for a bill: LegiScan change_hash + lobbying fingerprint
-get_bill_hash <- function(bill_number) {
-  json_path <- here("legiscan/files_ga91_json/bill", paste0(bill_number, ".json"))
+get_bill_hash <- function(bill_number, ga = CURRENT_GA) {
+  json_path <- file.path(ga_paths(ga)$bill_json, paste0(bill_number, ".json"))
   if (file.exists(json_path)) {
     bill_data <- read_json(json_path)
-    return(paste0(bill_data$bill$change_hash, "|", get_lobby_digest(bill_number)))
+    return(paste0(bill_data$bill$change_hash, "|", get_lobby_digest(bill_number, ga)))
   }
   return(NA_character_)
 }
@@ -155,11 +169,12 @@ get_bill_hash <- function(bill_number) {
 #' without the week's actions changing, so the hash covers all of them.
 #' Hashes plain text, as lobby_digests() does, so object attributes can't
 #' move the fingerprint.
+#' @param ga General Assembly
 #' @return Named character vector: "YYYY-MM-DD" (week's Monday) -> hash
-week_digests <- function() {
-  bill_actions <- readRDS(here("data/legislature/bills/bill_actions.rds"))
-  groups <- readRDS(here("data/legislature/bills/groups.rds"))
-  bills <- read_csv(here("legiscan/files_ga91_derived/bills.csv"),
+week_digests <- function(ga = CURRENT_GA) {
+  bill_actions <- readRDS(file.path(ga_paths(ga)$bills, "bill_actions.rds"))
+  groups <- readRDS(file.path(ga_paths(ga)$bills, "groups.rds"))
+  bills <- read_csv(ga_csv("bills", ga),
                     col_select = c(bill_number, title), show_col_types = FALSE)
 
   weeks <- sort(unique(bill_actions$week_start))
@@ -191,8 +206,8 @@ week_digests <- function() {
 }
 
 #' Get the hash for a legislator from their JSON file
-get_legislator_hash <- function(people_id) {
-  json_path <- here("legiscan/files_ga91_json/people", paste0(people_id, ".json"))
+get_legislator_hash <- function(people_id, ga = CURRENT_GA) {
+  json_path <- file.path(ga_paths(ga)$people_json, paste0(people_id, ".json"))
   if (file.exists(json_path)) {
     person_data <- read_json(json_path)
     return(person_data$person$person_hash)
@@ -201,12 +216,12 @@ get_legislator_hash <- function(people_id) {
 }
 
 #' Check if a bill needs rendering (hash changed or never rendered)
-needs_render_bill <- function(bill_number, manifest) {
-  current_hash <- get_bill_hash(bill_number)
+needs_render_bill <- function(bill_number, manifest, ga = CURRENT_GA) {
+  current_hash <- get_bill_hash(bill_number, ga)
   if (is.na(current_hash)) return(FALSE)  # No JSON file
 
   existing <- manifest |>
-    filter(type == "bill", id == bill_number)
+    filter(type == "bill", id == session_item_id(ga, bill_number))
 
   if (nrow(existing) == 0) return(TRUE)  # Never rendered
 
@@ -214,8 +229,8 @@ needs_render_bill <- function(bill_number, manifest) {
 }
 
 #' Check if a legislator needs rendering (hash changed or never rendered)
-needs_render_legislator <- function(people_id, manifest) {
-  current_hash <- get_legislator_hash(people_id)
+needs_render_legislator <- function(people_id, manifest, ga = CURRENT_GA) {
+  current_hash <- get_legislator_hash(people_id, ga)
   if (is.na(current_hash)) return(FALSE)  # No JSON file
 
   existing <- manifest |>
@@ -228,16 +243,21 @@ needs_render_legislator <- function(people_id, manifest) {
 
 #' Render a single bill page
 #' @param bill_number Character string like "HF856"
+#' @param ga General Assembly
 #' @param template_path Path to bill_template.qmd
-render_bill <- function(bill_number, template_path = here("site/templates/bill_template.qmd")) {
-  output_file <- file.path(LEGISLATION_DIR, paste0(bill_number, ".html"))
-  rendered_file <- here("docs/templates", basename(output_file))
+render_bill <- function(bill_number, ga = CURRENT_GA,
+                        template_path = file.path(SESSION_TEMPLATE_DIR, "bill_template.qmd")) {
+  output_file <- file.path(bill_output_dir(ga), paste0(bill_number, ".html"))
+  # Prefixed with the session so two sessions' HF1 never share a render
+  # name (and with it a figure directory) in docs/templates/session/
+  render_name <- paste0(ga_slug(ga), "-", bill_number, ".html")
+  rendered_file <- file.path(SESSION_RENDER_DIR, render_name)
 
   tryCatch({
     quarto_render(
       input = template_path,
-      output_file = basename(output_file),
-      execute_params = list(bill_num = bill_number),
+      output_file = render_name,
+      execute_params = list(bill_num = bill_number, ga = ga),
       output_format = "html",
       metadata = list(search = FALSE),  # Avoid search.json file lock on Windows
       as_job = FALSE
@@ -259,7 +279,8 @@ render_bill <- function(bill_number, template_path = here("site/templates/bill_t
 #' Render a single weekly activity page
 #' @param week_start Date or "YYYY-MM-DD" string: the week's Monday
 #' @param template_path Path to week_template.qmd
-render_week <- function(week_start, template_path = here("site/templates/week_template.qmd")) {
+render_week <- function(week_start, ga = CURRENT_GA,
+                        template_path = here("site/templates/week_template.qmd")) {
   week_id <- format(as.Date(week_start), "%Y-%m-%d")
   output_file <- file.path(ACTIVITY_DIR, paste0(week_id, ".html"))
   rendered_file <- here("docs/templates", basename(output_file))
@@ -269,7 +290,7 @@ render_week <- function(week_start, template_path = here("site/templates/week_te
     quarto_render(
       input = template_path,
       output_file = basename(output_file),
-      execute_params = list(week_start = week_id),
+      execute_params = list(week_start = week_id, ga = ga),
       output_format = "html",
       metadata = list(search = FALSE),  # Avoid search.json file lock on Windows
       as_job = FALSE
@@ -290,8 +311,9 @@ render_week <- function(week_start, template_path = here("site/templates/week_te
 #' Render a single legislator page
 #' @param people_id Numeric ID for the legislator
 #' @param template_path Path to legislator_template.qmd
-render_legislator <- function(people_id, template_path = here("site/templates/legislator_template.qmd")) {
-  filename <- get_legislator_filename(people_id)
+render_legislator <- function(people_id, ga = CURRENT_GA,
+                              template_path = here("site/templates/legislator_template.qmd")) {
+  filename <- get_legislator_filename(people_id, read_csv(ga_csv("people", ga), show_col_types = FALSE))
   output_file <- file.path(LEGISLATORS_DIR, paste0(filename, ".html"))
   rendered_file <- here("docs/templates", basename(output_file))
 
@@ -299,7 +321,7 @@ render_legislator <- function(people_id, template_path = here("site/templates/le
     quarto_render(
       input = template_path,
       output_file = basename(output_file),
-      execute_params = list(people_id = people_id),
+      execute_params = list(people_id = people_id, ga = ga),
       output_format = "html",
       metadata = list(search = FALSE),  # Avoid search.json file lock on Windows
       as_job = FALSE
@@ -319,17 +341,17 @@ render_legislator <- function(people_id, template_path = here("site/templates/le
 }
 
 #' Get the hash for a committee from its JSON file
-get_committee_hash <- function(people_id) {
-  get_legislator_hash(people_id)  # Same JSON structure
+get_committee_hash <- function(people_id, ga = CURRENT_GA) {
+  get_legislator_hash(people_id, ga)  # Same JSON structure
 }
 
 #' Check if a committee needs rendering (hash changed or never rendered)
-needs_render_committee <- function(people_id, manifest) {
-  current_hash <- get_committee_hash(people_id)
+needs_render_committee <- function(people_id, manifest, ga = CURRENT_GA) {
+  current_hash <- get_committee_hash(people_id, ga)
   if (is.na(current_hash)) return(FALSE)
 
   existing <- manifest |>
-    filter(type == "committee", id == as.character(people_id))
+    filter(type == "committee", id == session_item_id(ga, people_id))
 
   if (nrow(existing) == 0) return(TRUE)
 
@@ -338,17 +360,20 @@ needs_render_committee <- function(people_id, manifest) {
 
 #' Render a single committee page
 #' @param people_id Numeric ID for the committee (from people.csv)
+#' @param ga General Assembly
 #' @param template_path Path to committee_template.qmd
-render_committee <- function(people_id, template_path = here("site/templates/committee_template.qmd")) {
-  filename <- get_committee_filename(people_id)
-  output_file <- file.path(COMMITTEES_DIR, paste0(filename, ".html"))
-  rendered_file <- here("docs/templates", basename(output_file))
+render_committee <- function(people_id, ga = CURRENT_GA,
+                             template_path = file.path(SESSION_TEMPLATE_DIR, "committee_template.qmd")) {
+  filename <- get_committee_filename(people_id, read_csv(ga_csv("people", ga), show_col_types = FALSE))
+  output_file <- file.path(committee_output_dir(ga), paste0(filename, ".html"))
+  render_name <- paste0(ga_slug(ga), "-", filename, ".html")
+  rendered_file <- file.path(SESSION_RENDER_DIR, render_name)
 
   tryCatch({
     quarto_render(
       input = template_path,
-      output_file = basename(output_file),
-      execute_params = list(people_id = people_id),
+      output_file = render_name,
+      execute_params = list(people_id = people_id, ga = ga),
       output_format = "html",
       metadata = list(search = FALSE),  # Avoid search.json file lock on Windows
       as_job = FALSE
@@ -370,11 +395,11 @@ render_committee <- function(people_id, template_path = here("site/templates/com
 #' Render all committee pages (incremental by default)
 #' @param limit Optional limit for testing (NULL for all)
 #' @param force If TRUE, re-render all regardless of hash
-render_all_committees <- function(limit = NULL, force = FALSE) {
-  ensure_dirs()
+render_all_committees <- function(limit = NULL, force = FALSE, ga = CURRENT_GA) {
+  ensure_dirs(ga)
   manifest <- load_manifest()
 
-  people <- read_csv(here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
+  people <- read_csv(ga_csv("people", ga), show_col_types = FALSE)
   committees <- people |> filter(is.na(first_name) | first_name == "", committee_id > 0)
   committee_ids <- committees$people_id
 
@@ -383,7 +408,7 @@ render_all_committees <- function(limit = NULL, force = FALSE) {
   }
 
   if (!force) {
-    needs_render <- sapply(committee_ids, needs_render_committee, manifest = manifest)
+    needs_render <- sapply(committee_ids, needs_render_committee, manifest = manifest, ga = ga)
     committees_to_render <- committee_ids[needs_render]
     message(paste(
       "Found", length(committees_to_render), "committees needing render out of",
@@ -404,11 +429,11 @@ render_all_committees <- function(limit = NULL, force = FALSE) {
   failed_items <- character(0)
 
   for (people_id in committees_to_render) {
-    success <- render_committee(people_id)
+    success <- render_committee(people_id, ga)
 
     if (success) {
-      current_hash <- get_committee_hash(people_id)
-      manifest <- update_manifest(manifest, "committee", as.character(people_id), current_hash)
+      current_hash <- get_committee_hash(people_id, ga)
+      manifest <- update_manifest(manifest, "committee", session_item_id(ga, people_id), current_hash)
       save_manifest(manifest)
       success_count <- success_count + 1
     } else {
@@ -428,11 +453,11 @@ render_all_committees <- function(limit = NULL, force = FALSE) {
 #' @param force If TRUE, re-render all regardless of hash
 #' @param deadline POSIXct after which no new bill is started (Inf = no limit).
 #'   Bills not reached stay out of the manifest, so the next run picks them up.
-render_all_bills <- function(limit = NULL, force = FALSE, deadline = Inf) {
-  ensure_dirs()
+render_all_bills <- function(limit = NULL, force = FALSE, deadline = Inf, ga = CURRENT_GA) {
+  ensure_dirs(ga)
   manifest <- load_manifest()
 
-  bills <- read_csv(here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
+  bills <- read_csv(ga_csv("bills", ga), show_col_types = FALSE)
   bill_numbers <- bills$bill_number
 
   if (!is.null(limit)) {
@@ -441,7 +466,7 @@ render_all_bills <- function(limit = NULL, force = FALSE, deadline = Inf) {
 
   # Filter to only bills that need rendering (unless force = TRUE)
   if (!force) {
-    needs_render <- sapply(bill_numbers, needs_render_bill, manifest = manifest)
+    needs_render <- sapply(bill_numbers, needs_render_bill, manifest = manifest, ga = ga)
     bills_to_render <- bill_numbers[needs_render]
     message(paste(
       "Found", length(bills_to_render), "bills needing render out of",
@@ -474,12 +499,12 @@ Time budget reached after ", i - 1, "/", total_to_render,
     }
 
     bill_number <- bills_to_render[i]
-    success <- render_bill(bill_number)
+    success <- render_bill(bill_number, ga)
 
     if (success) {
       # Update manifest with new hash
-      current_hash <- get_bill_hash(bill_number)
-      manifest <- update_manifest(manifest, "bill", bill_number, current_hash)
+      current_hash <- get_bill_hash(bill_number, ga)
+      manifest <- update_manifest(manifest, "bill", session_item_id(ga, bill_number), current_hash)
       save_manifest(manifest)
       success_count <- success_count + 1
     } else {
@@ -505,10 +530,10 @@ Time budget reached after ", i - 1, "/", total_to_render,
 #' week changes daily, and the home page will link to it.
 #' @param weeks Optional vector of week Mondays to consider (NULL = all)
 #' @param force If TRUE, re-render regardless of hash
-render_all_weeks <- function(weeks = NULL, force = FALSE) {
-  ensure_dirs()
+render_all_weeks <- function(weeks = NULL, force = FALSE, ga = CURRENT_GA) {
+  ensure_dirs(ga)
   manifest <- load_manifest()
-  digests <- week_digests()
+  digests <- week_digests(ga)
 
   week_ids <- rev(names(digests))  # newest first
   if (!is.null(weeks)) week_ids <- intersect(week_ids, format(as.Date(weeks)))
@@ -529,7 +554,7 @@ render_all_weeks <- function(weeks = NULL, force = FALSE) {
   failed_items <- character(0)
 
   for (week_id in weeks_to_render) {
-    if (render_week(week_id)) {
+    if (render_week(week_id, ga)) {
       manifest <- update_manifest(manifest, "week", week_id, unname(digests[week_id]))
       save_manifest(manifest)
       success_count <- success_count + 1
@@ -548,11 +573,11 @@ render_all_weeks <- function(weeks = NULL, force = FALSE) {
 #' Render all legislator pages (incremental by default)
 #' @param limit Optional limit for testing (NULL for all)
 #' @param force If TRUE, re-render all regardless of hash
-render_all_legislators <- function(limit = NULL, force = FALSE) {
-  ensure_dirs()
+render_all_legislators <- function(limit = NULL, force = FALSE, ga = CURRENT_GA) {
+  ensure_dirs(ga)
   manifest <- load_manifest()
 
-  people <- read_csv(here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
+  people <- read_csv(ga_csv("people", ga), show_col_types = FALSE)
   # Exclude committees (have empty first_name/last_name)
   legislators <- people |> filter(!is.na(first_name), first_name != "")
   people_ids <- legislators$people_id
@@ -563,7 +588,7 @@ render_all_legislators <- function(limit = NULL, force = FALSE) {
 
   # Filter to only legislators that need rendering (unless force = TRUE)
   if (!force) {
-    needs_render <- sapply(people_ids, needs_render_legislator, manifest = manifest)
+    needs_render <- sapply(people_ids, needs_render_legislator, manifest = manifest, ga = ga)
     legislators_to_render <- people_ids[needs_render]
     message(paste(
       "Found", length(legislators_to_render), "legislators needing render out of",
@@ -584,11 +609,11 @@ render_all_legislators <- function(limit = NULL, force = FALSE) {
   failed_items <- character(0)
 
   for (people_id in legislators_to_render) {
-    success <- render_legislator(people_id)
+    success <- render_legislator(people_id, ga)
 
     if (success) {
       # Update manifest with new hash
-      current_hash <- get_legislator_hash(people_id)
+      current_hash <- get_legislator_hash(people_id, ga)
       manifest <- update_manifest(manifest, "legislator", as.character(people_id), current_hash)
       save_manifest(manifest)
       success_count <- success_count + 1
@@ -623,6 +648,7 @@ write_status <- function(render_time, bills_result, legislators_result, committe
 
   status <- list(
     last_render = format(render_time, "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"),
+    session = ga_slug(CURRENT_GA),
     bills = list(
       rendered     = bills_result$success,
       failed       = bills_result$failed,
@@ -735,7 +761,7 @@ render_sample <- function(n_bills = 5, n_legislators = 5, n_committees = 3, rand
   }
 
   # Get bills
-  bills <- read_csv(here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
+  bills <- read_csv(ga_csv("bills"), show_col_types = FALSE)
   if (random && n_bills < nrow(bills)) {
     bill_numbers <- sample(bills$bill_number, n_bills)
   } else {
@@ -743,7 +769,7 @@ render_sample <- function(n_bills = 5, n_legislators = 5, n_committees = 3, rand
   }
 
   # Get legislators (exclude committees)
-  people <- read_csv(here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
+  people <- read_csv(ga_csv("people"), show_col_types = FALSE)
   legislators <- people |> filter(!is.na(first_name), first_name != "")
   if (random && n_legislators < nrow(legislators)) {
     people_ids <- sample(legislators$people_id, n_legislators)
@@ -765,7 +791,7 @@ render_sample <- function(n_bills = 5, n_legislators = 5, n_committees = 3, rand
     success <- render_bill(bill_number)
     if (success) {
       current_hash <- get_bill_hash(bill_number)
-      manifest <- update_manifest(manifest, "bill", bill_number, current_hash)
+      manifest <- update_manifest(manifest, "bill", session_item_id(CURRENT_GA, bill_number), current_hash)
       save_manifest(manifest)
     }
   }
@@ -791,7 +817,7 @@ render_sample <- function(n_bills = 5, n_legislators = 5, n_committees = 3, rand
     success <- render_committee(people_id)
     if (success) {
       current_hash <- get_committee_hash(people_id)
-      manifest <- update_manifest(manifest, "committee", as.character(people_id), current_hash)
+      manifest <- update_manifest(manifest, "committee", session_item_id(CURRENT_GA, people_id), current_hash)
       save_manifest(manifest)
     }
   }
@@ -803,8 +829,8 @@ render_sample <- function(n_bills = 5, n_legislators = 5, n_committees = 3, rand
 render_status <- function() {
   manifest <- load_manifest()
 
-  bills <- read_csv(here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
-  people <- read_csv(here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE)
+  bills <- read_csv(ga_csv("bills"), show_col_types = FALSE)
+  people <- read_csv(ga_csv("people"), show_col_types = FALSE)
 
   # Separate legislators from committees
   legislators <- people |> filter(!is.na(first_name), first_name != "")
@@ -814,9 +840,10 @@ render_status <- function() {
   legislators_need_render <- sum(sapply(legislators$people_id, needs_render_legislator, manifest = manifest))
   committees_need_render <- sum(sapply(committees$people_id, needs_render_committee, manifest = manifest))
 
-  bills_rendered <- manifest |> filter(type == "bill") |> nrow()
+  session_prefix <- paste0(ga_slug(CURRENT_GA), "/")
+  bills_rendered <- manifest |> filter(type == "bill", startsWith(id, session_prefix)) |> nrow()
   legislators_rendered <- manifest |> filter(type == "legislator") |> nrow()
-  committees_rendered <- manifest |> filter(type == "committee") |> nrow()
+  committees_rendered <- manifest |> filter(type == "committee", startsWith(id, session_prefix)) |> nrow()
 
   week_hashes <- week_digests()
   rendered_weeks <- manifest |> filter(type == "week")
@@ -843,6 +870,38 @@ render_status <- function() {
     paste("\n  Need rendering:", weeks_need_render),
     "\n"
   ))
+}
+
+#' Remove pages left at the pre-session URLs (one-time, for the URL move)
+#'
+#' Bill and committee pages used to sit directly in docs/legislation/ and
+#' docs/committees/, keyed in the manifest by bare bill number or people_id.
+#' Run this after the full render that fills the session directories: it
+#' deletes the flat pages, the old default template renders, and the old
+#' manifest rows. Safe to re-run; delete the function once it finds nothing.
+#' @param dry_run If TRUE (default), only report what would be removed
+remove_unsessioned_pages <- function(dry_run = TRUE) {
+  flat_bills <- list.files(file.path(OUTPUT_DIR, "legislation"), pattern = "\\.html$", full.names = TRUE)
+  flat_bills <- flat_bills[basename(flat_bills) != "index.html"]
+  flat_committees <- list.files(file.path(OUTPUT_DIR, "committees"), pattern = "\\.html$", full.names = TRUE)
+  old_templates <- file.path(OUTPUT_DIR, "templates",
+                             c("bill_template.html", "committee_template.html",
+                               "bill_template_files", "committee_template_files"))
+  old_templates <- old_templates[file.exists(old_templates)]
+
+  manifest <- load_manifest()
+  old_rows <- manifest$type %in% c("bill", "committee") & !grepl("^ga\\d+/", manifest$id)
+
+  message(sprintf(
+    "%s %d flat bill pages, %d flat committee pages, %d old template outputs, %d manifest rows",
+    if (dry_run) "Would remove" else "Removing",
+    length(flat_bills), length(flat_committees), length(old_templates), sum(old_rows)
+  ))
+  if (dry_run) return(invisible(NULL))
+
+  unlink(c(flat_bills, flat_committees, old_templates), recursive = TRUE)
+  save_manifest(manifest[!old_rows, ])
+  invisible(NULL)
 }
 
 #' Clear the manifest to force full re-render
@@ -877,6 +936,7 @@ render_site.R loaded. Available functions:
     render_status()              - Show how many items need rendering
     render_index_pages()         - Render main site index pages only
     clear_manifest()             - Clear render history (forces full re-render)
+    remove_unsessioned_pages()   - One-time: drop pre-session bill/committee pages (dry run by default)
 
   Limiting:
     render_all_bills(limit=10)   - Process first 10 bills only

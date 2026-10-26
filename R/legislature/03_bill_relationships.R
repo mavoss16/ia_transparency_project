@@ -19,7 +19,7 @@ source(here::here("R/legislature/utils.R"))
 #' @param bill_number Bill number (e.g., "HF1")
 #' @param json_dir Directory containing bill JSON files
 #' @return History data frame, or NULL if the file is missing or unreadable
-read_bill_history <- function(bill_number, json_dir = here::here("legiscan/files_ga91_json/bill")) {
+read_bill_history <- function(bill_number, json_dir = ga_paths(ga)$bill_json, ga = CURRENT_GA) {
   json_path <- file.path(json_dir, paste0(bill_number, ".json"))
 
   if (!file.exists(json_path)) {
@@ -35,7 +35,7 @@ read_bill_history <- function(bill_number, json_dir = here::here("legiscan/files
 #' @param bill_number Bill number (e.g., "HF1")
 #' @param json_dir Directory containing bill JSON files
 #' @return Character string with the furthest status reached
-get_bill_status <- function(bill_number, json_dir = here::here("legiscan/files_ga91_json/bill")) {
+get_bill_status <- function(bill_number, json_dir = ga_paths(ga)$bill_json, ga = CURRENT_GA) {
   get_bill_status_from_history(read_bill_history(bill_number, json_dir))
 }
 
@@ -47,7 +47,7 @@ get_bill_status <- function(bill_number, json_dir = here::here("legiscan/files_g
 #' @param json_dir Directory containing bill JSON files
 #' @return Tibble with bill number, status, status_level, and renumbered_to
 #'   (list column: bills this bill was renumbered as, usually none or one)
-get_all_bill_statuses <- function(json_dir = here::here("legiscan/files_ga91_json/bill")) {
+get_all_bill_statuses <- function(json_dir = ga_paths(ga)$bill_json, ga = CURRENT_GA) {
   bill_files <- list.files(json_dir, pattern = "\\.json$", full.names = FALSE)
   bill_numbers <- str_remove(bill_files, "\\.json$")
 
@@ -71,9 +71,9 @@ get_all_bill_statuses <- function(json_dir = here::here("legiscan/files_ga91_jso
 
 #' Scrape related bills from the Iowa Legislature bill history page
 #' @param bill_number Bill number (e.g., "HF1")
-#' @param ga General Assembly number (default 91)
+#' @param ga General Assembly number (default CURRENT_GA)
 #' @return Tibble with bill and related_bills columns
-scrape_bill_relationships <- function(bill_number, ga = 91) {
+scrape_bill_relationships <- function(bill_number, ga = CURRENT_GA) {
   # Bill history pages are static HTML — no JS/chromote needed.
   # URL format requires a space between letters and digits: "HF 2511"
   bill_name_spaced <- str_replace(bill_number, "([A-Z]+)([0-9]+)", "\\1 \\2")
@@ -125,7 +125,7 @@ scrape_bill_relationships <- function(bill_number, ga = 91) {
 #' Load cached relationship edges or return empty tibble
 #' @param edges_path Path to edges RDS file
 #' @return Tibble with from_bill and to_bill columns
-load_relationship_edges <- function(edges_path = here::here("data/legislature/bills/relationship_edges.rds")) {
+load_relationship_edges <- function(edges_path = file.path(ga_paths(ga)$bills, "relationship_edges.rds"), ga = CURRENT_GA) {
   if (file.exists(edges_path)) {
     readRDS(edges_path)
   } else {
@@ -136,7 +136,7 @@ load_relationship_edges <- function(edges_path = here::here("data/legislature/bi
 #' Save relationship edges to RDS file
 #' @param edges Tibble with from_bill and to_bill columns
 #' @param edges_path Path to save edges RDS file
-save_relationship_edges <- function(edges, edges_path = here::here("data/legislature/bills/relationship_edges.rds")) {
+save_relationship_edges <- function(edges, edges_path = file.path(ga_paths(ga)$bills, "relationship_edges.rds"), ga = CURRENT_GA) {
   saveRDS(edges, edges_path)
   message("Saved ", nrow(edges), " relationship edges to ", edges_path)
 }
@@ -150,9 +150,9 @@ save_relationship_edges <- function(edges, edges_path = here::here("data/legisla
 #' @return Updated edges tibble
 update_relationship_edges <- function(
     bill_numbers = NULL,
-    edges_path = here::here("data/legislature/bills/relationship_edges.rds"),
-    json_dir = here::here("legiscan/files_ga91_json/bill"),
-    ga = 91,
+    edges_path = file.path(ga_paths(ga)$bills, "relationship_edges.rds"),
+    json_dir = ga_paths(ga)$bill_json,
+    ga = CURRENT_GA,
     rate_limit = 1.5,
     save_interval = 50
 ) {
@@ -280,8 +280,8 @@ update_relationship_edges <- function(
 #' @return Updated edges tibble
 rescrape_bills <- function(
     bill_numbers,
-    edges_path = here::here("data/legislature/bills/relationship_edges.rds"),
-    ga = 91,
+    edges_path = file.path(ga_paths(ga)$bills, "relationship_edges.rds"),
+    ga = CURRENT_GA,
     rate_limit = 1.5
 ) {
   # Load existing edges
@@ -332,8 +332,9 @@ get_group_status <- function(bill_statuses, group_members) {
 #' @param json_dir Directory containing bill JSON files
 #' @return Tibble with bills, groups, and group status
 build_bill_groups <- function(
-    edges_path = here::here("data/legislature/bills/relationship_edges.rds"),
-    json_dir = here::here("legiscan/files_ga91_json/bill")
+    edges_path = file.path(ga_paths(ga)$bills, "relationship_edges.rds"),
+    json_dir = ga_paths(ga)$bill_json,
+    ga = CURRENT_GA
 ) {
   # Load edges
   edges <- load_relationship_edges(edges_path) |>
@@ -435,9 +436,10 @@ build_bill_groups <- function(
 #' @param edges_path Path to edges RDS file
 #' @param json_dir Directory containing bill JSON files
 save_bill_groups <- function(
-    output_path = here::here("data/legislature/bills/groups.rds"),
-    edges_path = here::here("data/legislature/bills/relationship_edges.rds"),
-    json_dir = here::here("legiscan/files_ga91_json/bill")
+    output_path = file.path(ga_paths(ga)$bills, "groups.rds"),
+    edges_path = file.path(ga_paths(ga)$bills, "relationship_edges.rds"),
+    json_dir = ga_paths(ga)$bill_json,
+    ga = CURRENT_GA
 ) {
   groups <- build_bill_groups(edges_path, json_dir)
   saveRDS(groups, output_path)
@@ -456,10 +458,10 @@ save_bill_groups <- function(
 #' @param ga General Assembly number
 #' @param rate_limit Seconds between scrape requests
 update_bill_groups <- function(
-    edges_path = here::here("data/legislature/bills/relationship_edges.rds"),
-    groups_path = here::here("data/legislature/bills/groups.rds"),
-    json_dir = here::here("legiscan/files_ga91_json/bill"),
-    ga = 91,
+    edges_path = file.path(ga_paths(ga)$bills, "relationship_edges.rds"),
+    groups_path = file.path(ga_paths(ga)$bills, "groups.rds"),
+    json_dir = ga_paths(ga)$bill_json,
+    ga = CURRENT_GA,
     rate_limit = 1.5
 ) {
   # Step 1: Scrape any new bills
@@ -477,7 +479,7 @@ update_bill_groups <- function(
 
 #' View summary of current bill groups
 #' @param groups_path Path to groups RDS file
-bill_groups_summary <- function(groups_path = here::here("data/legislature/bills/groups.rds")) {
+bill_groups_summary <- function(groups_path = file.path(ga_paths(ga)$bills, "groups.rds"), ga = CURRENT_GA) {
   if (!file.exists(groups_path)) {
     message("No bill groups file found. Run update_bill_groups() first.")
     return(invisible(NULL))
@@ -522,5 +524,5 @@ bill_groups_summary <- function(groups_path = here::here("data/legislature/bills
 # bill_groups_summary()
 #
 # # Load and use the groups data
-# groups <- readRDS(here::here("data/legislature/bills/groups.rds"))
+# groups <- readRDS(file.path(ga_paths(ga)$bills, "groups.rds"))
 # groups |> filter(bill == "HF1")

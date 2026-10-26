@@ -16,6 +16,8 @@
 
 library(here)
 
+source(here("R/legislature/session.R"))
+
 # =============================================================================
 # Logging
 # =============================================================================
@@ -130,30 +132,33 @@ PIPELINE_STEPS <- list(
 
 # Output directories to scan for modified files after each step completes.
 # Used by count_modified_files() to populate the files_updated column in the
-# run summary.
+# run summary. Paths are relative to the project root.
+SESSION_LEGISCAN <- file.path("legiscan", ga_slug(CURRENT_GA))
+SESSION_DATA     <- file.path("data/legislature", ga_slug(CURRENT_GA))
+
 STEP_OUTPUT_DIRS <- list(
   download = list(
-    dirs    = c("legiscan/files_ga91_json"),
+    dirs    = file.path(SESSION_LEGISCAN, "json"),
     pattern = NULL          # count all files
   ),
   generate_csvs = list(
-    dirs    = c("legiscan/files_ga91_derived"),
+    dirs    = file.path(SESSION_LEGISCAN, "derived"),
     pattern = "\\.csv$"
   ),
   process_votes = list(
-    dirs    = c("data/legislature/votes"),
+    dirs    = file.path(SESSION_DATA, "votes"),
     pattern = "\\.rds$"
   ),
   legislator_similarity = list(
-    dirs    = c("data/legislature/votes"),
+    dirs    = file.path(SESSION_DATA, "votes"),
     pattern = "\\.rds$"
   ),
   bill_relationships = list(
-    dirs    = c("data/legislature/bills"),
+    dirs    = file.path(SESSION_DATA, "bills"),
     pattern = "\\.rds$"
   ),
   weekly_activity = list(
-    dirs    = c("data/legislature/bills"),
+    dirs    = file.path(SESSION_DATA, "bills"),
     pattern = "^bill_actions\\.rds$"
   ),
   render = list(

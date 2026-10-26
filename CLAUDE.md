@@ -56,7 +56,7 @@ ia_transparency_project/
 │   │   └── legislature/                  ← contributions_explore, legislation_analysis, network_analysis
 │   ├── legislature/
 │   │   ├── 01_incremental_update.R       ← LegiScan API incremental pull (needs LEGISCAN_API_KEY)
-│   │   ├── 01c_generate_csvs.R           ← JSON → legiscan/files_ga91_derived/*.csv
+│   │   ├── 01c_generate_csvs.R           ← JSON → legiscan/ga{N}/derived/*.csv
 │   │   ├── 02_process_votes.R            ← vote summaries/records/stats (uses 02a functions)
 │   │   ├── 02a_vote_analysis_functions.R
 │   │   ├── 02b_legislator_similarity.R
@@ -66,6 +66,7 @@ ia_transparency_project/
 │   │   ├── 04a_legislator_lobbyist_alignment.R
 │   │   ├── 05_salience_scores.R          ← bill salience indicators (lobby/vote heat, stage, class)
 │   │   ├── 06_weekly_activity.R          ← classified, dated actions → bill_actions.rds (weekly summary)
+│   │   ├── session.R                     ← CURRENT_GA, ga_paths(), session labels/URLs, LegiScan session ID lookup
 │   │   ├── render.R                      ← incremental site render orchestrator
 │   │   ├── run_pipeline.R                ← pipeline orchestrator (01 → 03 + render)
 │   │   ├── utils.R
@@ -98,8 +99,8 @@ ia_transparency_project/
 │   │       ├── precinct_elections_2024/  ← county-level xlsx files (populated by election_results_2024.R)
 │   │       └── [precinct match files]
 │   ├── general/                          (empty — for cross-domain reference data)
-│   └── legislature/                      ← processed .rds: bills/, votes/, lobbying/, districts/, pipeline_internal/, analysis/, archive/
-├── legiscan/                             ← raw LegiScan source data (files_ga91/, files_ga91_derived/, files_ga91_json/)
+│   └── legislature/                      ← processed .rds: ga{N}/{bills,votes,lobbying,pipeline_internal}/ per session; shared districts/, legiscan_sessions.csv, pipeline_internal/pipeline_runs.rds, analysis/, archive/
+├── legiscan/                             ← raw LegiScan source data, one dir per session: ga91/{json,derived,csv}/
 ├── site/
 │   ├── _quarto.yml                       ← unified site config ("Iowa Transparency Project"); campaign_finance/ excluded from project renders
 │   ├── index.qmd                         ← unified home page (legislature section is the live content)
@@ -107,7 +108,7 @@ ia_transparency_project/
 │   ├── custom.scss                       ← redesign SCSS theme (.ia-* classes; theme: [cosmo, custom.scss])
 │   ├── legislation/                      ← bill browse page
 │   ├── legislators/                      ← legislator browse + compare pages
-│   ├── templates/                        ← bill / legislator / committee / week parameterized templates (week → docs/activity/YYYY-MM-DD.html)
+│   ├── templates/                        ← legislator / week templates (→ docs/legislators/, docs/activity/YYYY-MM-DD.html); session/ holds bill + committee (→ docs/legislation/ga{N}/, docs/committees/ga{N}/)
 │   └── campaign_finance/
 │       └── templates/
 │           ├── recipient_template.qmd        ← per-committee contribution report (static R/gt)
@@ -151,7 +152,7 @@ Tracker for the 91st General Assembly (2025–2026). Migrated from the standalon
 
 **Design QA pass (2026-07-11 → 2026-07-15, complete):** first full Impeccable cycle — `PRODUCT.md` written, all three index pages critiqued (home 31→32/40, legislation 32, legislators 34; snapshots in `.impeccable/critique/`), and every P1 fixed and probe-verified: `$faint` darkened to `#706c63` (WCAG AA), a ≤600px mobile block in `custom.scss` (recent rows, browse grid, bar rows, stepper vertical stack, `.g-col-*` collapse ≤767px), uppercase-tracked labels reserved for the hero `.ia-eyebrow` only, funnel counting rule stated above the bars, tally/split de-color-coded ("R 67 – 33 D"), FORMER chip and `ui_share_bar()` legend contrast fixed. Session log: `notes/2026-07-15_impeccable-design-pass.md`; open items: `notes/2026-07-15_design-backlog.md`. **The pending full `render_site(force = TRUE)` is now also the gate for these fixes** — theme CSS is hash-referenced per page, so already-rendered detail pages still use the old stylesheet until then.
 
-**Multi-session plan (assessed 2026-10-24, nothing built yet):** the pipeline is hardcoded to the 91st GA in ~70 places (`session_id = 2177`, `legiscan/files_ga91_*`, `*_91st_ga.rds`, `ga = 91` scraper defaults, page copy), and bill URLs (`docs/legislation/HF1.html`) collide across sessions because bill numbers restart. **`docs/` is 916 MB against the ~1 GB GitHub Pages limit** (742 MB of it is bill pages, probably embedded district geometry in the vote maps), so page weight has to come down before the 92nd GA (Jan 2027), not just before any backfill. LegiScan has Iowa back to the 83rd GA (2009–10) as bulk datasets. Phases 0–3 and the open decisions: [`notes/legislature/2026-10-24_multi-session-plan.md`](notes/legislature/2026-10-24_multi-session-plan.md).
+**Multi-session plan (assessed 2026-10-24; Phase 0 code done 2026-10-25, not yet committed or rendered in full):** sessions are now a setting. `R/legislature/session.R` holds `CURRENT_GA` and `ga_paths(ga)`, and every pipeline function and template takes a `ga` argument (templates: `ga: null` param = current session). Data lives in `legiscan/ga91/` and `data/legislature/ga91/` (the `*_91st_ga.rds` suffixes are gone; the folder carries the session). The LegiScan session ID comes from `legiscan_session_id(ga)`, cached in `data/legislature/legiscan_sessions.csv` and filled from `getSessionList` on a miss. **URLs:** bills at `docs/legislation/ga91/HF1.html`, committees at `docs/committees/ga91/…` (session-specific), legislators unchanged at `docs/legislators/…` (`people_id` spans sessions). The bill/committee templates moved to `site/templates/session/` so Quarto's relative `site_libs`/navbar paths come out `../../`; build links with `bill_dir_href(ga, up)`. Manifest keys for bills/committees are `ga91/HF1`. **Held:** no full render yet — it should happen once, together with the page-weight fix, then run `remove_unsessioned_pages(dry_run = FALSE)` to drop the old flat pages and manifest rows. **`docs/` is 916 MB against the ~1 GB GitHub Pages limit** (742 MB of it is bill pages, probably embedded district geometry in the vote maps), so page weight has to come down before the 92nd GA (Jan 2027). LegiScan has Iowa back to the 83rd GA (2009–10) as bulk datasets. Phases 0–3 and the open decisions: [`notes/legislature/2026-10-24_multi-session-plan.md`](notes/legislature/2026-10-24_multi-session-plan.md).
 
 ### Tech Stack
 - **R** — primary language for data pipelines and site generation
@@ -162,17 +163,17 @@ Tracker for the 91st General Assembly (2025–2026). Migrated from the standalon
 
 ### Data Flow
 ```
-LegiScan API → 01_incremental_update.R → legiscan/files_ga91_json/
-               01c_generate_csvs.R     → legiscan/files_ga91_derived/*.csv
+LegiScan API → 01_incremental_update.R → legiscan/ga{N}/json/
+               01c_generate_csvs.R     → legiscan/ga{N}/derived/*.csv
                                               ↓
-               02_process_votes.R           → data/legislature/votes/*.rds
-               02b_legislator_similarity.R  → data/legislature/votes/similarity_*.rds
-               03_bill_relationships.R      → data/legislature/bills/groups.rds
-               04_lobbyist_declarations.R   → data/legislature/lobbying/*.rds
-               05_salience_scores.R         → data/legislature/bills/salience.rds
-               06_weekly_activity.R         → data/legislature/bills/bill_actions.rds
+               02_process_votes.R           → data/legislature/ga{N}/votes/*.rds
+               02b_legislator_similarity.R  → data/legislature/ga{N}/votes/similarity_*.rds
+               03_bill_relationships.R      → data/legislature/ga{N}/bills/groups.rds
+               04_lobbyist_declarations.R   → data/legislature/ga{N}/lobbying/*.rds
+               05_salience_scores.R         → data/legislature/ga{N}/bills/salience.rds
+               06_weekly_activity.R         → data/legislature/ga{N}/bills/bill_actions.rds
                                               ↓
-               site/templates/*.qmd (parameterized bill/legislator/committee pages)
+               site/templates/*.qmd + site/templates/session/*.qmd (parameterized pages, each takes `ga`)
                                               ↓
                R/legislature/render.R (incremental rendering) → docs/
 ```
@@ -199,7 +200,7 @@ source("R/render_all.R")    # top-level: render_all() spans all domains
 - Preview locally with `quarto preview site/` from the terminal
 
 ### Salience Indicators
-Rebuilt 2026-10-24. `05_salience_scores.R` → `data/legislature/bills/salience.rds`: **separate, citable indicators, deliberately not blended into one number** (the old weighted 0–100 composite is archived as `archive/05_salience_scores_composite.R`). All computed at the **bill group level** (every group member shares them):
+Rebuilt 2026-10-24. `05_salience_scores.R` → `data/legislature/ga{N}/bills/salience.rds`: **separate, citable indicators, deliberately not blended into one number** (the old weighted 0–100 composite is archived as `archive/05_salience_scores_composite.R`). All computed at the **bill group level** (every group member shares them):
 
 - **Lobby heat** — UHERO's Heat Score (Gordner & Moore 2025): minority-side share, 0–0.5. Iowa adaptations: computed on **For + Against only** (Undecided is ~54% of declarations and counts as attention, not a side); no band below `MIN_POSITIONED` (5) organizations taking a side. UHERO's cutoffs (<0.10 / 0.10–0.30 / ≥0.30) but **our labels: One-sided / Leaning / Divided**, because a low score means lobbyists didn't disagree with *each other*, not that the bill was uncontroversial — Medicaid work requirements (4 For, 43 Against) scores 0.085. One-sided bills carry `lobby_lean` (`mostly for` / `mostly against`).
 - **Vote heat** — the same minority-share formula on the group's most contested passage vote, plus its party-division label.

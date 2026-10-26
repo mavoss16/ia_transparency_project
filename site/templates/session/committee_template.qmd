@@ -11,6 +11,7 @@ format:
 
 params:
   people_id: 7061
+  ga: null  # General Assembly; null = CURRENT_GA
 ---
 
 ```{r}
@@ -22,17 +23,19 @@ library(stringr)
 library(tidyr)
 library(gt)
 source(here::here("R/legislature/utils.R"))
+
+ga <- resolve_ga(params$ga)
 ```
 
 ```{r}
 # Read committee data from people JSON
-committee_data <- read_json(here::here(str_glue("legiscan/files_ga91_json/people/{params$people_id}.json"))) |>
+committee_data <- read_json(file.path(ga_paths(ga)$people_json, paste0(params$people_id, ".json"))) |>
   pluck("person")
 
 # Read related data
-bills <- read_csv(here::here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
-sponsors <- read_csv(here::here("legiscan/files_ga91_derived/sponsors.csv"), show_col_types = FALSE)
-rollcalls <- read_csv(here::here("legiscan/files_ga91_derived/rollcalls.csv"), show_col_types = FALSE)
+bills <- read_csv(ga_csv("bills", ga), show_col_types = FALSE)
+sponsors <- read_csv(ga_csv("sponsors", ga), show_col_types = FALSE)
+rollcalls <- read_csv(ga_csv("rollcalls", ga), show_col_types = FALSE)
 
 # Determine chamber
 chamber_name <- if (committee_data$role == "Sen") "Senate" else "House"
@@ -54,7 +57,7 @@ committee_id <- committee_data$committee_id
 ```{r}
 referred_bills <- bills |>
   filter(committee_id == !!committee_id) |>
-  mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
+  mutate(bill_link = format_bill_link(bill_number, bill_dir_href(ga, up = 2))) |>
   select(bill_link, title, status_desc, status_date, last_action_date, last_action) |>
   arrange(desc(last_action_date))
 
@@ -94,7 +97,7 @@ if (nrow(referred_bills) > 0) {
 sponsored_bills <- sponsors |>
   filter(people_id == params$people_id) |>
   left_join(bills, by = "bill_id") |>
-  mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
+  mutate(bill_link = format_bill_link(bill_number, bill_dir_href(ga, up = 2))) |>
   select(bill_link, title, status_desc, status_date, last_action_date, last_action) |>
   arrange(desc(last_action_date))
 
@@ -138,7 +141,7 @@ vote_pattern <- str_glue("{chamber_name}.*{committee_name}.*Report")
 committee_votes <- rollcalls |>
   filter(str_detect(description, regex(vote_pattern, ignore_case = TRUE))) |>
   left_join(bills |> select(bill_id, bill_number, title), by = "bill_id") |>
-  mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
+  mutate(bill_link = format_bill_link(bill_number, bill_dir_href(ga, up = 2))) |>
   select(bill_link, title, date, description, yea, nay, nv, absent, total) |>
   arrange(desc(date))
 

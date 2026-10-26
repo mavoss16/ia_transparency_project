@@ -16,6 +16,8 @@ library(htmltools)
 source(here::here("R/legislature/06_weekly_activity.R"))
 source(here::here("R/legislature/ui_helpers.R"))
 
+ga <- CURRENT_GA
+
 bill_actions <- load_bill_actions()
 weeks <- weekly_activity_summary(bill_actions)   # newest first; one row per page
 latest <- latest_active_week(bill_actions)
@@ -33,7 +35,7 @@ week_href <- \(d) paste0(format(d, "%Y-%m-%d"), ".html")
 ```{r}
 div(class = "ia-hero-row",
   div(
-    div(class = "ia-eyebrow", "91st General Assembly"),
+    div(class = "ia-eyebrow", ga_label(ga)),
     h1("Weekly activity"),
     p(class = "ia-lead",
       "What the Legislature did each week: bills introduced, moved through ",

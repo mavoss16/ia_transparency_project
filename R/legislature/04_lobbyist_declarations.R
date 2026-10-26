@@ -38,7 +38,7 @@ source(here::here("R/legislature/utils.R"))
 #' @param bill_number Bill number (e.g., "HF1")
 #' @param json_dir Directory containing bill JSON files
 #' @return Character string hash, or NA if file not found
-get_bill_hash <- function(bill_number, json_dir = here::here("legiscan/files_ga91_json/bill")) {
+get_bill_hash <- function(bill_number, json_dir = ga_paths(ga)$bill_json, ga = CURRENT_GA) {
   json_path <- file.path(json_dir, paste0(bill_number, ".json"))
   if (file.exists(json_path)) {
     bill_data <- read_json(json_path)
@@ -50,7 +50,7 @@ get_bill_hash <- function(bill_number, json_dir = here::here("legiscan/files_ga9
 #' Get change_hash for all bills
 #' @param json_dir Directory containing bill JSON files
 #' @return Tibble with bill and change_hash columns
-get_all_bill_hashes <- function(json_dir = here::here("legiscan/files_ga91_json/bill")) {
+get_all_bill_hashes <- function(json_dir = ga_paths(ga)$bill_json, ga = CURRENT_GA) {
   bill_files <- list.files(json_dir, pattern = "\\.json$", full.names = FALSE)
   bill_numbers <- str_remove(bill_files, "\\.json$")
 
@@ -77,7 +77,7 @@ get_all_bill_hashes <- function(json_dir = here::here("legiscan/files_ga91_json/
 #' @param bill_number Bill number (e.g., "HF1")
 #' @param ga General Assembly number
 #' @return Tibble with lobbyist data, or NULL on failure
-scrape_lobby_safe <- function(bill_number, ga = 91) {
+scrape_lobby_safe <- function(bill_number, ga = CURRENT_GA) {
   tryCatch(
     scrape_lobbyist_declarations(bill_number, ga = ga),
     error = function(e) {
@@ -94,7 +94,7 @@ scrape_lobby_safe <- function(bill_number, ga = 91) {
 #' Load cached lobbyist declarations or return empty tibble
 #' @param path Path to lobbyist declarations RDS file
 #' @return Tibble with lobbyist declarations
-load_lobbyist_declarations <- function(path = here::here("data/legislature/lobbying/lobbyist_declarations.rds")) {
+load_lobbyist_declarations <- function(path = file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds"), ga = CURRENT_GA) {
   if (file.exists(path)) {
     readRDS(path)
   } else {
@@ -112,7 +112,7 @@ load_lobbyist_declarations <- function(path = here::here("data/legislature/lobby
 #' Save lobbyist declarations to RDS
 #' @param declarations Tibble with lobbyist data
 #' @param path Path to save
-save_lobbyist_declarations <- function(declarations, path = here::here("data/legislature/lobbying/lobbyist_declarations.rds")) {
+save_lobbyist_declarations <- function(declarations, path = file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds"), ga = CURRENT_GA) {
   saveRDS(declarations, path)
   message("Saved ", nrow(declarations), " lobbyist declaration records to ", path)
 }
@@ -121,7 +121,7 @@ save_lobbyist_declarations <- function(declarations, path = here::here("data/leg
 #' @param existing Existing declarations tibble
 #' @param json_dir Directory containing bill JSON files
 #' @return Character vector of bill numbers to scrape
-bills_needing_scrape <- function(existing, json_dir = here::here("legiscan/files_ga91_json/bill")) {
+bills_needing_scrape <- function(existing, json_dir = ga_paths(ga)$bill_json, ga = CURRENT_GA) {
   current_hashes <- get_all_bill_hashes(json_dir)
 
   # Get the hash stored at scrape time for each bill we've already scraped
@@ -153,9 +153,9 @@ bills_needing_scrape <- function(existing, json_dir = here::here("legiscan/files
 update_lobbyist_declarations <- function(
     bill_numbers = NULL,
     limit = NULL,
-    output_path = here::here("data/legislature/lobbying/lobbyist_declarations.rds"),
-    json_dir = here::here("legiscan/files_ga91_json/bill"),
-    ga = 91,
+    output_path = file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds"),
+    json_dir = ga_paths(ga)$bill_json,
+    ga = CURRENT_GA,
     rate_limit = 1.5,
     save_interval = 50
 ) {
@@ -286,8 +286,8 @@ update_lobbyist_declarations <- function(
 #' @return Updated declarations tibble
 rescrape_lobbyist_declarations <- function(
     bill_numbers,
-    output_path = here::here("data/legislature/lobbying/lobbyist_declarations.rds"),
-    ga = 91,
+    output_path = file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds"),
+    ga = CURRENT_GA,
     rate_limit = 1.5
 ) {
   update_lobbyist_declarations(
@@ -304,7 +304,7 @@ rescrape_lobbyist_declarations <- function(
 
 #' View summary of lobbyist declaration data
 #' @param output_path Path to lobbyist declarations RDS file
-lobbyist_summary <- function(output_path = here::here("data/legislature/lobbying/lobbyist_declarations.rds")) {
+lobbyist_summary <- function(output_path = file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds"), ga = CURRENT_GA) {
   if (!file.exists(output_path)) {
     message("No lobbyist data found. Run update_lobbyist_declarations() first.")
     return(invisible(NULL))

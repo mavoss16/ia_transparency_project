@@ -16,6 +16,8 @@ library(httr2)
 library(jsonlite)
 library(here)
 
+source(here("R/legislature/session.R"))
+
 # =============================================================================
 # Helpers
 # =============================================================================
@@ -30,8 +32,11 @@ legiscan_get <- function(base_url, ...) {
     resp_body_json()
 }
 
-# Path to the bill hash cache (bill_number -> change_hash)
-HASH_CACHE_PATH <- here("data/legislature/pipeline_internal/bill_hash_cache.rds")
+# Path to a session's bill hash cache (bill_number -> change_hash). Bill
+# numbers restart each General Assembly, so each session keeps its own.
+hash_cache_path <- function(ga = CURRENT_GA) {
+  file.path(ga_paths(ga)$internal, "bill_hash_cache.rds")
+}
 
 #' Build a named list of bill_number -> change_hash from local bill JSON files.
 #' Fallback used when no cache exists yet.
@@ -57,20 +62,21 @@ build_local_bill_index <- function(bill_dir) {
 #' Load the hash cache, falling back to reading all local bill JSONs if needed.
 #' @param bill_dir Directory containing local bill JSON files
 #' @param force    If TRUE, ignore any existing cache and rebuild from JSONs
+#' @param path     Cache file (hash_cache_path() for the session)
 #' @return Named list: bill_number -> change_hash
-load_hash_cache <- function(bill_dir, force = FALSE) {
-  if (!force && file.exists(HASH_CACHE_PATH)) {
+load_hash_cache <- function(bill_dir, force = FALSE, path = hash_cache_path()) {
+  if (!force && file.exists(path)) {
     message("  Loading hash cache from disk...")
-    return(readRDS(HASH_CACHE_PATH))
+    return(readRDS(path))
   }
   message("  No cache found (or force = TRUE). Building index from local bill JSONs...")
   build_local_bill_index(bill_dir)
 }
 
 #' Persist the in-memory hash cache to disk
-save_hash_cache <- function(cache) {
-  dir.create(dirname(HASH_CACHE_PATH), recursive = TRUE, showWarnings = FALSE)
-  saveRDS(cache, HASH_CACHE_PATH)
+save_hash_cache <- function(cache, path = hash_cache_path()) {
+  dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
+  saveRDS(cache, path)
   message(sprintf("  Hash cache saved (%d entries).", length(cache)))
 }
 
@@ -80,7 +86,8 @@ save_hash_cache <- function(cache) {
 
 #' Incrementally update bill JSON files for sessions that have changed
 #'
-#' @param session_id LegiScan session ID (default: 2177 for 91st GA)
+#' @param ga        General Assembly to update (default: CURRENT_GA)
+#' @param session_id LegiScan session ID (default: looked up for `ga`)
 #' @param state     State abbreviation, used only in log messages (default: "IA")
 #' @param pause_secs Seconds to sleep between API calls to stay within rate limits
 #' @param force     If TRUE, rebuild the hash index from local JSONs instead of
@@ -88,7 +95,8 @@ save_hash_cache <- function(cache) {
 #'   replaced outside of this script (e.g. after a bulk re-download).
 #' @return Invisible list: bills_checked, bills_updated, votes_fetched, people_fetched
 incremental_update <- function(
-    session_id  = 2177,
+    ga          = CURRENT_GA,
+    session_id  = legiscan_session_id(ga),
     state       = "IA",
     pause_secs  = 0.5,
     force       = FALSE
@@ -97,10 +105,11 @@ incremental_update <- function(
   if (nchar(api_key) == 0L) stop("LEGISCAN_API_KEY environment variable is not set.")
 
   base_url   <- paste0("https://api.legiscan.com?key=", api_key)
-  json_dir   <- here("legiscan/files_ga91_json")
-  bill_dir   <- file.path(json_dir, "bill")
-  vote_dir   <- file.path(json_dir, "vote")
-  people_dir <- file.path(json_dir, "people")
+  paths      <- ga_paths(ga)
+  bill_dir   <- paths$bill_json
+  vote_dir   <- paths$vote_json
+  people_dir <- paths$people_json
+  cache_path <- hash_cache_path(ga)
 
   # --------------------------------------------------------------------------
   # 1. Fetch master list
@@ -125,7 +134,7 @@ incremental_update <- function(
   # --------------------------------------------------------------------------
   # 2. Diff against hash cache (or local JSON files if no cache exists)
   # --------------------------------------------------------------------------
-  local_index <- load_hash_cache(bill_dir, force = force)
+  local_index <- load_hash_cache(bill_dir, force = force, path = cache_path)
 
   to_update <- Filter(function(entry) {
     # Master list may return numbers like "HF 117"; normalize to match filenames
@@ -138,7 +147,7 @@ incremental_update <- function(
 
   if (length(to_update) == 0L) {
     message("Nothing to update.")
-    save_hash_cache(local_index)
+    save_hash_cache(local_index, cache_path)
     return(invisible(list(
       bills_checked  = length(master_list),
       bills_updated  = 0L,
@@ -246,7 +255,7 @@ incremental_update <- function(
     n_bills, n_votes, n_people
   ))
 
-  save_hash_cache(local_index)
+  save_hash_cache(local_index, cache_path)
 
   invisible(list(
     bills_checked  = length(master_list),

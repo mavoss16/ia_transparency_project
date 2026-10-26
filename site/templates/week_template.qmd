@@ -9,6 +9,7 @@ format:
 
 params:
   week_start: "2026-02-16"
+  ga: null  # General Assembly; null = CURRENT_GA
 ---
 
 ```{r}
@@ -19,15 +20,17 @@ library(htmltools)
 
 source(here::here("R/legislature/06_weekly_activity.R"))
 source(here::here("R/legislature/ui_helpers.R"))
+
+ga <- resolve_ga(params$ga)
 ```
 
 ```{r}
 week_start <- as.Date(params$week_start)
 week_end   <- week_start + 6
 
-bill_actions <- load_bill_actions()
-groups <- read_rds(here::here("data/legislature/bills/groups.rds"))
-bills  <- read_csv(file.path(derived_csv_dir(), "bills.csv"),
+bill_actions <- load_bill_actions(file.path(ga_paths(ga)$bills, "bill_actions.rds"))
+groups <- read_rds(file.path(ga_paths(ga)$bills, "groups.rds"))
+bills  <- read_csv(file.path(derived_csv_dir(ga), "bills.csv"),
                    col_select = c(bill_number, title), show_col_types = FALSE)
 
 weeks <- weekly_activity_summary(bill_actions)   # newest first
@@ -59,7 +62,7 @@ nav_link <- function(d, arrow_first) {
 
 div(class = "ia-hero-row",
   div(
-    div(class = "ia-eyebrow", "91st General Assembly"),
+    div(class = "ia-eyebrow", ga_label(ga)),
     h1(paste("Week of", fmt_long(week_start))),
     p(class = "ia-lead",
       sprintf("%s – %s · %s on %s",
@@ -100,7 +103,7 @@ panes <- lapply(seq_along(periods), function(i) {
         div(class = "ia-card-title", sprintf("%s with activity", plural(nrow(rows), "bill group"))),
         div(class = "ia-card-sub", style = "margin-bottom:0", "Expand a row for its actions")
       ),
-      activity_table(rows, period_label = p$column)
+      activity_table(rows, bill_prefix = bill_dir_href(ga, up = 1), period_label = p$column)
     )
   )
 })

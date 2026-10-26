@@ -9,13 +9,15 @@ format:
 ---
 
 ```{r}
-last_updated <- file.mtime(here::here("legiscan/files_ga91_derived/bills.csv"))
+source(here::here("R/legislature/session.R"))
+ga <- CURRENT_GA
+last_updated <- file.mtime(ga_csv("bills", ga))
 last_updated_str <- format(last_updated, "%B %d, %Y at %I:%M %p %Z")
 ```
 
 ## What This Site Is
 
-This site tracks legislation in the **Iowa 91st General Assembly (2025–2026)**, covering the Iowa House and Senate. It provides browsable pages for individual bills and legislators, including vote records, bill histories, sponsor information, and legislator voting summaries.
+This site tracks legislation in the **Iowa `r ga_label(ga)` (`r ga_years(ga)`)**, covering the Iowa House and Senate. It provides browsable pages for individual bills and legislators, including vote records, bill histories, sponsor information, and legislator voting summaries.
 
 The site is built as a static website using [Quarto](https://quarto.org/) and R, and is hosted on GitHub Pages.
 

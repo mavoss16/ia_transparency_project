@@ -1,5 +1,5 @@
 ---
-pagetitle: "Legislators - 91st General Assembly"
+pagetitle: "`r source(here::here('R/legislature/session.R')); paste('Legislators -', ga_label(CURRENT_GA))`"
 format:
   html:
     echo: false
@@ -19,18 +19,20 @@ library(htmltools)
 
 source(here::here("R/legislature/utils.R"))
 source(here::here("R/legislature/ui_helpers.R"))
+
+ga <- CURRENT_GA
 ```
 
 ```{r}
 # Load data
-people <- read_csv(here::here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE) |>
+people <- read_csv(ga_csv("people", ga), show_col_types = FALSE) |>
   filter(!is.na(first_name), first_name != "")
-sponsors <- read_csv(here::here("legiscan/files_ga91_derived/sponsors.csv"), show_col_types = FALSE)
-votes <- read_csv(here::here("legiscan/files_ga91_derived/votes.csv"), show_col_types = FALSE)
-rollcalls <- read_csv(here::here("legiscan/files_ga91_derived/rollcalls.csv"), show_col_types = FALSE)
+sponsors <- read_csv(ga_csv("sponsors", ga), show_col_types = FALSE)
+votes <- read_csv(ga_csv("votes", ga), show_col_types = FALSE)
+rollcalls <- read_csv(ga_csv("rollcalls", ga), show_col_types = FALSE)
 
 # Load processed voting statistics
-legislator_stats <- read_rds(here::here("data/legislature/votes/legislator_stats_91st_ga.rds"))
+legislator_stats <- read_rds(file.path(ga_paths(ga)$votes, "legislator_stats.rds"))
 
 # Load simplified district geometries for maps
 senate_districts <- read_rds(here::here("data/legislature/districts/senate.rds"))

@@ -3,10 +3,10 @@
 #' This script processes raw LegiScan data to create vote summaries,
 #' individual vote records with party alignment, and legislator statistics.
 #'
-#' Outputs:
-#'   - data/vote_summaries_91st_ga.rds: Roll call level summaries with classification
-#'   - data/vote_records_91st_ga.rds: Individual votes with party alignment
-#'   - data/legislator_voting_stats_91st_ga.rds: Per-legislator voting statistics
+#' Outputs (in data/legislature/ga{N}/votes/):
+#'   - summaries.rds: Roll call level summaries with classification
+#'   - records.rds: Individual votes with party alignment
+#'   - legislator_stats.rds: Per-legislator voting statistics
 #'
 #' Usage:
 #'   source("R/legislature/02_process_votes.R")
@@ -14,38 +14,33 @@
 
 library(here)
 
+source(here("R/legislature/session.R"))
+
 # Source the vote analysis functions
 source(here("R/legislature/02a_vote_analysis_functions.R"))
 
-
-# Configuration -----------------------------------------------------------
-
-LEGISCAN_CSV_DIR <- here("legiscan/files_ga91_derived")
-LEGISCAN_JSON_DIR <- here("legiscan/files_ga91_json")
-OUTPUT_DIR <- here("data/legislature/votes")
-
-# Ensure output directory exists
-if (!dir.exists(OUTPUT_DIR)) {
-  dir.create(OUTPUT_DIR, recursive = TRUE)
-}
 
 
 # Main Processing Function ------------------------------------------------
 
 #' Process all vote data and create output files
 #'
+#' @param ga General Assembly (default: CURRENT_GA); sets the three paths below
 #' @param csv_dir Directory containing LegiScan CSV files
 #' @param json_dir Directory containing LegiScan JSON files
 #' @param output_dir Directory for output RDS files
 #' @param verbose Print progress messages
 #' @return List of processed data frames (invisibly)
 process_votes <- function(
-    csv_dir = LEGISCAN_CSV_DIR,
-    json_dir = LEGISCAN_JSON_DIR,
-    output_dir = OUTPUT_DIR,
+    ga = CURRENT_GA,
+    csv_dir = ga_paths(ga)$derived,
+    json_dir = ga_paths(ga)$json,
+    output_dir = ga_paths(ga)$votes,
     verbose = TRUE, 
     only_floor_votes = TRUE
 ) {
+
+  dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
   if (verbose) message("Loading data...")
 
@@ -113,15 +108,15 @@ process_votes <- function(
   # Write output files
   if (verbose) message("Writing output files...")
 
-  write_rds(vote_summaries, file.path(output_dir, "summaries_91st_ga.rds"))
-  write_rds(vote_records, file.path(output_dir, "records_91st_ga.rds"))
-  write_rds(legislator_stats, file.path(output_dir, "legislator_stats_91st_ga.rds"))
+  write_rds(vote_summaries, file.path(output_dir, "summaries.rds"))
+  write_rds(vote_records, file.path(output_dir, "records.rds"))
+  write_rds(legislator_stats, file.path(output_dir, "legislator_stats.rds"))
 
   if (verbose) {
     message("Output files written to:")
-    message(sprintf("  - %s", file.path(output_dir, "summaries_91st_ga.rds")))
-    message(sprintf("  - %s", file.path(output_dir, "records_91st_ga.rds")))
-    message(sprintf("  - %s", file.path(output_dir, "legislator_stats_91st_ga.rds")))
+    message(sprintf("  - %s", file.path(output_dir, "summaries.rds")))
+    message(sprintf("  - %s", file.path(output_dir, "records.rds")))
+    message(sprintf("  - %s", file.path(output_dir, "legislator_stats.rds")))
     message("Done!")
   }
 

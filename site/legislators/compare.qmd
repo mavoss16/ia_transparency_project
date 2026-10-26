@@ -16,8 +16,11 @@ library(dplyr)
 library(stringr)
 library(here)
 
+source(here("R/legislature/session.R"))
+ga <- CURRENT_GA
+
 people <- read_csv(
-  here("legiscan/files_ga91_derived/people.csv"),
+  ga_csv("people", ga),
   show_col_types = FALSE
 ) |>
   filter(party_id != 0) |>
@@ -31,9 +34,9 @@ people <- read_csv(
   ) |>
   arrange(role, name)
 
-pair_data <- read_rds(here("data/legislature/votes/pair_lookup.rds"))
+pair_data <- read_rds(file.path(ga_paths(ga)$votes, "pair_lookup.rds"))
 
-ojs_define(legislators = people, pair_data = pair_data)
+ojs_define(legislators = people, pair_data = pair_data, ga_label = ga_label(ga))
 ```
 
 ```{ojs}
@@ -119,7 +122,7 @@ html`<div style="margin-top: 2rem; text-align: center; font-family: sans-serif;"
           </tbody>
         </table>
         <div style="margin-top: 1.75rem; font-size: 0.8rem; color: #bbb;">
-          Based on 91st General Assembly floor votes &bull; Minimum 20 shared votes required
+          Based on ${ga_label} floor votes &bull; Minimum 20 shared votes required
         </div>
       </div>`
 

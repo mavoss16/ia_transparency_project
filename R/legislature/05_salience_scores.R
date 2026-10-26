@@ -1,6 +1,6 @@
 # 05_salience_scores.R
 #
-# Describes how contested and how far-reaching each bill in the 91st GA was,
+# Describes how contested and how far-reaching each bill in a General Assembly was,
 # as a set of separate, citable indicators rather than one blended score.
 # Replaces the 2026-05-17 weighted composite (archived as
 # archive/05_salience_scores_composite.R). Rationale and sources:
@@ -53,11 +53,20 @@ library(here)
 # Configuration
 # =============================================================================
 
-JSON_DIR    <- here("legiscan/files_ga91_json/bill")
-CSV_DIR     <- here("legiscan/files_ga91_derived")
-DATA_DIR    <- here("data/legislature")
-LOBBY_PATH  <- here("data/legislature/lobbying/lobbyist_declarations.rds")
-OUTPUT_PATH <- here("data/legislature/bills/salience.rds")
+source(here("R/legislature/session.R"))
+
+# Paths for one session; compute_salience(ga = ...) for another
+salience_paths <- function(ga = CURRENT_GA) {
+  paths <- ga_paths(ga)
+  list(
+    json_dir    = paths$bill_json,
+    csv_dir     = paths$derived,
+    data_dir    = paths$data,
+    lobby_path  = file.path(paths$lobbying, "lobbyist_declarations.rds"),
+    output_path = file.path(paths$bills, "salience.rds")
+  )
+}
+OUTPUT_PATH <- salience_paths()$output_path
 
 # Minimum organizations taking a side (For + Against) before a heat band is
 # assigned. One For and one Against would otherwise read as "Hot" on two
@@ -158,7 +167,7 @@ classify_bill <- function(bill_number, title) {
 #' @param bill_number Bill number string (e.g., "HF117")
 #' @param json_dir Directory containing bill JSON files
 #' @return Single-row tibble, or NULL if file missing
-extract_json_signals <- function(bill_number, json_dir = JSON_DIR) {
+extract_json_signals <- function(bill_number, json_dir = ga_paths()$bill_json) {
   path <- file.path(json_dir, paste0(bill_number, ".json"))
   if (!file.exists(path)) return(NULL)
 
@@ -202,6 +211,7 @@ extract_json_signals <- function(bill_number, json_dir = JSON_DIR) {
 
 #' Compute salience indicators for all bills
 #'
+#' @param ga          General Assembly (default: CURRENT_GA); sets the paths below
 #' @param json_dir    Directory containing bill JSON files
 #' @param csv_dir     Directory containing derived LegiScan CSVs
 #' @param data_dir    Directory containing processed RDS files
@@ -210,11 +220,12 @@ extract_json_signals <- function(bill_number, json_dir = JSON_DIR) {
 #' @param verbose     Print progress messages
 #' @return Tibble with one row per bill, invisibly
 compute_salience <- function(
-    json_dir    = JSON_DIR,
-    csv_dir     = CSV_DIR,
-    data_dir    = DATA_DIR,
-    lobby_path  = LOBBY_PATH,
-    output_path = OUTPUT_PATH,
+    ga          = CURRENT_GA,
+    json_dir    = salience_paths(ga)$json_dir,
+    csv_dir     = salience_paths(ga)$csv_dir,
+    data_dir    = salience_paths(ga)$data_dir,
+    lobby_path  = salience_paths(ga)$lobby_path,
+    output_path = salience_paths(ga)$output_path,
     verbose     = TRUE
 ) {
   msg <- function(...) if (verbose) message(...)
@@ -232,7 +243,7 @@ compute_salience <- function(
     select(bill_number = bill, bill_group_id, group_size, lead_bill, status) |>
     mutate(bill_group_id = as.character(bill_group_id))
 
-  vote_summaries <- readRDS(file.path(data_dir, "votes/summaries_91st_ga.rds"))
+  vote_summaries <- readRDS(file.path(data_dir, "votes/summaries.rds"))
 
   lobbyists <- readRDS(lobby_path) |>
     filter(!is.na(client))

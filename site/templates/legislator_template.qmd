@@ -1,5 +1,5 @@
 ---
-pagetitle: "`r jsonlite::read_json(here::here(paste0('legiscan/files_ga91_json/people/', params$people_id, '.json')))$person$name`"
+pagetitle: "`r source(here::here('R/legislature/session.R')); jsonlite::read_json(file.path(ga_paths(resolve_ga(params$ga))$people_json, paste0(params$people_id, '.json')))$person$name`"
 format:
   html:
     echo: false
@@ -9,6 +9,7 @@ format:
 
 params:
   people_id: 19548
+  ga: null  # General Assembly; null = CURRENT_GA
 ---
 
 ```{r}
@@ -24,6 +25,8 @@ library(leaflet)
 library(htmltools)
 source(here::here("R/legislature/utils.R"))
 source(here::here("R/legislature/ui_helpers.R"))
+
+ga <- resolve_ga(params$ga)
 ```
 
 ```{r}
@@ -35,17 +38,17 @@ items_to_df <- function(list){
 
 ```{r}
 # Read legislator data
-legislator <- read_json(here::here(str_glue("legiscan/files_ga91_json/people/{params$people_id}.json"))) |>
+legislator <- read_json(file.path(ga_paths(ga)$people_json, paste0(params$people_id, ".json"))) |>
   pluck("person")
 
 # Read related data
-bills <- read_csv(here::here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
-sponsors <- read_csv(here::here("legiscan/files_ga91_derived/sponsors.csv"), show_col_types = FALSE)
-votes <- read_csv(here::here("legiscan/files_ga91_derived/votes.csv"), show_col_types = FALSE)
-rollcalls <- read_csv(here::here("legiscan/files_ga91_derived/rollcalls.csv"), show_col_types = FALSE)
+bills <- read_csv(ga_csv("bills", ga), show_col_types = FALSE)
+sponsors <- read_csv(ga_csv("sponsors", ga), show_col_types = FALSE)
+votes <- read_csv(ga_csv("votes", ga), show_col_types = FALSE)
+rollcalls <- read_csv(ga_csv("rollcalls", ga), show_col_types = FALSE)
 
 # Full people table (with people_id) — used for succession detection + successor links
-people_full <- read_csv(here::here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE) |>
+people_full <- read_csv(ga_csv("people", ga), show_col_types = FALSE) |>
   filter(!is.na(first_name), first_name != "")
 
 # Mid-session replacement detection (shared helper in utils.R)
@@ -84,11 +87,11 @@ leg_votes <- votes |>
   )
 
 # Load processed vote data for party alignment analysis
-legislator_stats <- read_rds(here::here("data/legislature/votes/legislator_stats_91st_ga.rds"))
-vote_records <- read_rds(here::here("data/legislature/votes/records_91st_ga.rds"))
+legislator_stats <- read_rds(file.path(ga_paths(ga)$votes, "legislator_stats.rds"))
+vote_records <- read_rds(file.path(ga_paths(ga)$votes, "records.rds"))
 
 # Load legislator similarity data (graceful degradation if not yet generated)
-similarity_path <- here::here("data/legislature/votes/similarity_top_n.rds")
+similarity_path <- file.path(ga_paths(ga)$votes, "similarity_top_n.rds")
 leg_similarity <- if (file.exists(similarity_path)) {
   read_rds(similarity_path) |> filter(people_id_a == params$people_id)
 } else {
@@ -99,7 +102,7 @@ leg_stats <- legislator_stats |> filter(people_id == params$people_id)
 leg_vote_records <- vote_records |> filter(people_id == params$people_id)
 
 # District geometries joined with legislator names for the district map
-people <- read_csv(here::here("legiscan/files_ga91_derived/people.csv"), show_col_types = FALSE) |>
+people <- read_csv(ga_csv("people", ga), show_col_types = FALSE) |>
   filter(party_id != 0) |>
   mutate(district_num = parse_district_number(district)) |>
   select(name, party, district, district_num, role)
@@ -234,7 +237,7 @@ leaflet(height = 340) |>
 ```{r}
 if(nrow(leg_sponsored_bills) > 0) {
   leg_sponsored_bills |>
-    mutate(bill_link = format_bill_link(bill_number, "../legislation/")) |>
+    mutate(bill_link = format_bill_link(bill_number, bill_dir_href(ga, up = 1))) |>
     select(bill_link, title, status_desc, status_date, position, sponsor_num) |>
     mutate(
       Sponsor_Role = case_when(
@@ -285,7 +288,7 @@ if (has_stats) {
 if(nrow(leg_votes) > 0) {
   gt(leg_votes |>
     mutate(
-      bill_link = format_bill_link(bill_number, "../legislation/"),
+      bill_link = format_bill_link(bill_number, bill_dir_href(ga, up = 1)),
       description = simplify_vote_desc(description),
       vote_html = sapply(vote_desc, \(v) as.character(vote_pill(v)))
     ) |>
@@ -352,7 +355,7 @@ if(nrow(leg_vote_records) > 0) {
     filter(vote_with_party == FALSE) |>
     left_join(bills |> select(bill_id, title), by = "bill_id") |>
     mutate(
-      bill_link = format_bill_link(bill_number, "../legislation/"),
+      bill_link = format_bill_link(bill_number, bill_dir_href(ga, up = 1)),
       vote_desc = simplify_vote_desc(vote_desc)
     ) |>
     select(bill_link, title, vote_date, vote_desc, vote_text, party_position, vote_outcome) |>

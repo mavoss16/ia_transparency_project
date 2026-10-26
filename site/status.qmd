@@ -101,7 +101,7 @@ format:
       // Collect all failed items
       var allFailed = [];
       (data.bills.failed_items || []).forEach(function (id) {
-        allFailed.push({ type: 'Bill', id: id, href: 'legislation/' + id + '.html' });
+        allFailed.push({ type: 'Bill', id: id, href: 'legislation/' + (data.session ? data.session + '/' : '') + id + '.html' });
       });
       (data.legislators.failed_items || []).forEach(function (id) {
         allFailed.push({ type: 'Legislator', id: id, href: null });

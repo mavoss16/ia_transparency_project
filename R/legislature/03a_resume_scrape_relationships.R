@@ -19,11 +19,15 @@ library(jsonlite)
 library(here)
 library(purrr)
 
-EDGES_PATH <- here("data/legislature/bills/relationship_edges.rds")
-JSON_DIR   <- here("legiscan/files_ga91_json/bill")
+source(here("R/legislature/session.R"))
+
+# Set GA before sourcing to resume a different session's scrape
+if (!exists("GA")) GA <- CURRENT_GA
+EDGES_PATH <- file.path(ga_paths(GA)$bills, "relationship_edges.rds")
+JSON_DIR   <- ga_paths(GA)$bill_json
 
 # --- Core scrape function ---
-scrape_one_bill <- function(bill_number, ga = 91) {
+scrape_one_bill <- function(bill_number, ga = GA) {
   # Bill history pages are static HTML — no JS/chromote needed.
   bill_name_spaced <- str_replace(bill_number, "([A-Z]+)([0-9]+)", "\\1 \\2")
   url <- paste0(

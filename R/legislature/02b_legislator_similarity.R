@@ -8,7 +8,7 @@
 # Only floor votes (Yea/Nay) count; Absent/NV are treated as non-participation.
 # Pairs sharing fewer than MIN_SHARED_VOTES get NA rather than an unreliable score.
 #
-# Outputs saved to data/legislature/votes/:
+# Outputs saved to data/legislature/ga{N}/votes/:
 #   similarity_top_n.rds    — per-legislator top-N most similar, overall and cross-party
 #   similarity_matrix.rds   — full n_leg × n_leg named matrix (for future comparison tool)
 #   pair_lookup.rds         — flat table of all valid pairs with agree/disagree counts (for compare page)
@@ -24,6 +24,8 @@ library(purrr)
 library(stringr)
 library(here)
 
+source(here("R/legislature/session.R"))
+
 MIN_SHARED_VOTES  <- 20   # minimum shared votes to report a similarity score
 TOP_N_OVERALL     <- 5    # most similar legislators to keep per person
 TOP_N_CROSS_PARTY <- 5    # most similar from opposite party to keep per person
@@ -31,6 +33,7 @@ TOP_N_LEAST       <- 5    # least similar legislators to keep per person
 
 #' Compute pairwise legislator similarity from vote records
 #'
+#' @param ga           General Assembly (default: CURRENT_GA); sets the paths below
 #' @param records_path Path to vote_records RDS (from 02_process_votes.R)
 #' @param people_path  Path to people.csv
 #' @param output_dir   Directory to write output RDS files
@@ -40,9 +43,10 @@ TOP_N_LEAST       <- 5    # least similar legislators to keep per person
 #' @param verbose      Print progress messages
 #' @return Invisible list with similarity_matrix and top_n tibble
 compute_legislator_similarity <- function(
-    records_path = here("data/legislature/votes/records_91st_ga.rds"),
-    people_path  = here("legiscan/files_ga91_derived/people.csv"),
-    output_dir   = here("data/legislature/votes"),
+    ga           = CURRENT_GA,
+    records_path = file.path(ga_paths(ga)$votes, "records.rds"),
+    people_path  = ga_csv("people", ga),
+    output_dir   = ga_paths(ga)$votes,
     min_shared   = MIN_SHARED_VOTES,
     top_n        = TOP_N_OVERALL,
     top_n_cross  = TOP_N_CROSS_PARTY,

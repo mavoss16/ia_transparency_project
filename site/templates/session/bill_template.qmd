@@ -9,6 +9,7 @@ format:
 
 params:
   bill_num: "HF856"
+  ga: null  # General Assembly; null = CURRENT_GA
 ---
 
 ```{r}
@@ -28,16 +29,18 @@ library(htmltools)
 source(here::here("R/legislature/utils.R"))
 source(here::here("R/legislature/ui_helpers.R"))
 
+ga <- resolve_ga(params$ga)
+
 ```
 
 
 ```{r}
-bill <- read_json(here::here(str_glue("legiscan/files_ga91_json/bill/{params$bill_num}.json"))) |>
+bill <- read_json(file.path(ga_paths(ga)$bill_json, paste0(params$bill_num, ".json"))) |>
   pluck("bill")
 
 
-people <- read_csv(here::here(str_glue("legiscan/files_ga91_derived/people.csv")), show_col_types = FALSE)
-bills_csv <- read_csv(here::here("legiscan/files_ga91_derived/bills.csv"), show_col_types = FALSE)
+people <- read_csv(ga_csv("people", ga), show_col_types = FALSE)
+bills_csv <- read_csv(ga_csv("bills", ga), show_col_types = FALSE)
 
 sponsors <- bill |>
   pluck("sponsors") |>
@@ -58,12 +61,12 @@ calendar <- bill |>
   items_to_df()
 
 # Load processed vote summaries for party breakdown and classification
-vote_summaries <- read_rds(here::here("data/legislature/votes/summaries_91st_ga.rds"))
+vote_summaries <- read_rds(file.path(ga_paths(ga)$votes, "summaries.rds"))
 bill_vote_summaries <- vote_summaries |>
   filter(bill_id == bill$bill_id)
 
 # Load bill groups (graceful degradation if not yet generated)
-bill_groups_path <- here::here("data/legislature/bills/groups.rds")
+bill_groups_path <- file.path(ga_paths(ga)$bills, "groups.rds")
 if (file.exists(bill_groups_path)) {
   bill_groups <- read_rds(bill_groups_path)
   bill_group_info <- bill_groups |> filter(bill == params$bill_num)
@@ -91,7 +94,7 @@ senate_districts <- read_rds(here::here("data/legislature/districts/senate.rds")
 house_districts <- read_rds(here::here("data/legislature/districts/house.rds"))
 
 # Load lobbyist declarations from pre-scraped data
-lobby_path <- here::here("data/legislature/lobbying/lobbyist_declarations.rds")
+lobby_path <- file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds")
 lobby <- if (file.exists(lobby_path)) {
   read_rds(lobby_path) |>
     filter(bill == params$bill_num, !is.na(client))
@@ -172,7 +175,7 @@ if (nrow(bill_group_info) > 0 && bill_group_info$group_size > 1) {
 
 
 ::: {.ia-breadcrumb}
-[Legislation](index.html) / `r sub('([A-Za-z]+)', '\\1 ', params$bill_num)`
+[Legislation](../index.html) / `r sub('([A-Za-z]+)', '\\1 ', params$bill_num)`
 :::
 
 ```{r}
@@ -342,7 +345,7 @@ if (!is.null(votes) && nrow(votes) > 0) {
     "#| echo: false",
     "#| message: false",
     "#| warning: false",
-    "vote <- read_json(here::here(paste0('legiscan/files_ga91_json/vote/', vote_num, '.json'))) |>",
+    "vote <- read_json(file.path(ga_paths(ga)$vote_json, paste0(vote_num, '.json'))) |>",
     "  pluck('roll_call') |>",
     "  pluck('votes') |>",
     "  items_to_df() |>",

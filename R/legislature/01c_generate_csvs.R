@@ -4,14 +4,15 @@
 # Run after 01_incremental_update.R to keep CSVs in sync with the JSON data.
 #
 # Produces the same schema as the getDatasetRaw CSV bulk download, written to
-# a parallel directory to distinguish from the original bulk download:
-#   legiscan/files_ga91_derived/bills.csv
-#   legiscan/files_ga91_derived/people.csv
-#   legiscan/files_ga91_derived/sponsors.csv
-#   legiscan/files_ga91_derived/votes.csv
-#   legiscan/files_ga91_derived/history.csv
-#   legiscan/files_ga91_derived/rollcalls.csv
-#   legiscan/files_ga91_derived/documents.csv
+# a parallel directory to distinguish from the original bulk download
+# (legiscan/ga{N}/csv/):
+#   legiscan/ga{N}/derived/bills.csv
+#   legiscan/ga{N}/derived/people.csv
+#   legiscan/ga{N}/derived/sponsors.csv
+#   legiscan/ga{N}/derived/votes.csv
+#   legiscan/ga{N}/derived/history.csv
+#   legiscan/ga{N}/derived/rollcalls.csv
+#   legiscan/ga{N}/derived/documents.csv
 #
 # Usage:
 #   source("R/legislature/01c_generate_csvs.R")
@@ -23,8 +24,7 @@ library(readr)
 library(jsonlite)
 library(here)
 
-CSV_DIR  <- here("legiscan/files_ga91_derived")
-JSON_DIR <- here("legiscan/files_ga91_json")
+source(here("R/legislature/session.R"))
 
 # LegiScan status code -> description mapping
 STATUS_DESC <- c(
@@ -186,12 +186,14 @@ extract_person_row <- function(p) {
 
 #' Generate all bulk CSV files from local JSON files
 #'
+#' @param ga       General Assembly (default: CURRENT_GA); sets the two paths below
 #' @param json_dir Directory containing bill/, vote/, and people/ JSON folders
-#' @param csv_dir  Output directory for CSV files (legiscan/files_ga91_derived/)
+#' @param csv_dir  Output directory for CSV files (legiscan/ga{N}/derived/)
 #' @return Invisible named list of row counts per file
 generate_csvs <- function(
-    json_dir = JSON_DIR,
-    csv_dir  = CSV_DIR
+    ga       = CURRENT_GA,
+    json_dir = ga_paths(ga)$json,
+    csv_dir  = ga_paths(ga)$derived
 ) {
   dir.create(csv_dir, recursive = TRUE, showWarnings = FALSE)
 
