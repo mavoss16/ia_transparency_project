@@ -105,8 +105,21 @@ monospace code block. Campaign finance keeps gt for now.
   Pages roughly halve: Jacoby 802 → 409 KB, Bossman 720 → 371 KB.
 - **reactable candidates once the theme exists:** the legislator voting
   record (up to 833 rows, static for now) and sponsored bills (up to ~190).
-- **Next:** committee template (3 `opt_interactive()` tables → reactable),
-  legislation index (the 6.4 MB per-row JS), then `ia_reactable_theme()`.
+- **Done — committee page** (`site/templates/session/committee_template.qmd`,
+  2026-10-27): the 3 `opt_interactive()` gt tables → plain `reactable()`
+  (search, 25 per page, sorted newest first; search matches "HF 123" as
+  shown). The page also got the redesign it had missed: header card
+  (eyebrow, serif name, counts), tabset in a card, `toc: false`. Fixed: every
+  live committee page was titled "committee_template" (H1 and browser tab)
+  and showed an internal Committee ID; Senate Ways & Means matched 0 of its
+  67 committee votes ("&" in the name, "And" in vote descriptions). Pages
+  shrink 60–75%: House Education 590 → 166 KB, Commerce 363 → 94 KB.
+- **Status vocabulary:** the legislator and committee bill lists still show
+  LegiScan's `status_desc` ("Engrossed", "Enrolled"), not the site's status
+  scale used by bill pages and pills. Swap in the `groups.rds` bill status.
+- **Next:** legislation index (the 6.4 MB per-row JS), then
+  `ia_reactable_theme()` for the committee tables, `legislator_table()` and
+  the week page.
 - **Phone width:** the 10-column vote summary scrolls sideways inside a
   ~232 px box (nested card + tab padding, same cause as the vote maps above).
   Candidates: hide Not voting / Pattern below 600 px, or let tab content

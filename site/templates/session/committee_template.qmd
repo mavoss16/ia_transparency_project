@@ -1,13 +1,11 @@
 ---
-title: "committee_template"
+pagetitle: "`r source(here::here('R/legislature/session.R')); p <- jsonlite::read_json(file.path(ga_paths(resolve_ga(params$ga))$people_json, paste0(params$people_id, '.json')))$person; n <- stringr::str_replace_all(p$name, ' And ', ' and '); paste(if (p$role == 'Sen') 'Senate' else 'House', n, if (!grepl('Committee$', n)) 'Committee')`"
 format:
   html:
     echo: false
     message: false
     warning: false
-    toc: true
-    toc-location: right
-    toc-depth: 2
+    toc: false
 
 params:
   people_id: 7061
@@ -21,8 +19,9 @@ library(dplyr)
 library(purrr)
 library(stringr)
 library(tidyr)
-library(gt)
+library(htmltools)
 source(here::here("R/legislature/utils.R"))
+source(here::here("R/legislature/ui_helpers.R"))
 
 ga <- resolve_ga(params$ga)
 ```
@@ -41,146 +40,146 @@ rollcalls <- read_csv(ga_csv("rollcalls", ga), show_col_types = FALSE)
 chamber_name <- if (committee_data$role == "Sen") "Senate" else "House"
 committee_name <- committee_data$name
 committee_id <- committee_data$committee_id
-```
+display_name <- str_replace_all(committee_name, " And ", " and ")
 
-# `r chamber_name` `r committee_name`
-
-**Chamber:** `r chamber_name`
-**Committee ID:** `r committee_id`
-
----
-
-::: {.panel-tabset}
-
-## Bills Referred
-
-```{r}
 referred_bills <- bills |>
   filter(committee_id == !!committee_id) |>
-  mutate(bill_link = format_bill_link(bill_number, bill_dir_href(ga, up = 2))) |>
-  select(bill_link, title, status_desc, status_date, last_action_date, last_action) |>
   arrange(desc(last_action_date))
 
-if (nrow(referred_bills) > 0) {
-  gt(referred_bills) |>
-    cols_label(
-      bill_link = "Bill",
-      title = "Title",
-      status_desc = "Status",
-      status_date = "Status Date",
-      last_action_date = "Last Action Date",
-      last_action = "Last Action"
-    ) |>
-    fmt_markdown(columns = bill_link) |>
-    tab_style(
-      style = cell_text(whitespace = "nowrap"),
-      locations = cells_body(columns = bill_link)
-    ) |>
-    tab_options(
-      table.font.size = px(12),
-      data_row.padding = px(4)
-    ) |>
-    opt_interactive(
-      use_search = TRUE,
-      use_filters = TRUE,
-      use_page_size_select = TRUE,
-      page_size_default = 25
-    )
-} else {
-  cat("No bills referred to this committee.\n")
-}
-```
-
-## Bills Sponsored
-
-```{r}
 sponsored_bills <- sponsors |>
   filter(people_id == params$people_id) |>
   left_join(bills, by = "bill_id") |>
-  mutate(bill_link = format_bill_link(bill_number, bill_dir_href(ga, up = 2))) |>
-  select(bill_link, title, status_desc, status_date, last_action_date, last_action) |>
   arrange(desc(last_action_date))
 
-if (nrow(sponsored_bills) > 0) {
-  gt(sponsored_bills) |>
-    cols_label(
-      bill_link = "Bill",
-      title = "Title",
-      status_desc = "Status",
-      status_date = "Status Date",
-      last_action_date = "Last Action Date",
-      last_action = "Last Action"
-    ) |>
-    fmt_markdown(columns = bill_link) |>
-    tab_style(
-      style = cell_text(whitespace = "nowrap"),
-      locations = cells_body(columns = bill_link)
-    ) |>
-    tab_options(
-      table.font.size = px(12),
-      data_row.padding = px(4)
-    ) |>
-    opt_interactive(
-      use_search = TRUE,
-      use_filters = TRUE,
-      use_page_size_select = TRUE,
-      page_size_default = 25
-    )
-} else {
-  cat("No bills sponsored by this committee.\n")
-}
-```
-
-## Committee Votes
-
-```{r}
-# Match rollcalls where the description contains the committee name
-# Pattern: "{Chamber}.*{Committee Name}.*Report"
-vote_pattern <- str_glue("{chamber_name}.*{committee_name}.*Report")
+# Match rollcalls where the description names the committee:
+# "{Chamber} {Committee Name} Report". The people record and the vote
+# descriptions disagree on "&" vs "And" (Senate Ways & Means), so either
+# matches either
+name_pattern <- str_replace_all(committee_name, regex("\\s+(and|&)\\s+", ignore_case = TRUE), " (and|&) ")
+vote_pattern <- str_glue("{chamber_name}.*{name_pattern}.*Report")
 
 committee_votes <- rollcalls |>
   filter(str_detect(description, regex(vote_pattern, ignore_case = TRUE))) |>
   left_join(bills |> select(bill_id, bill_number, title), by = "bill_id") |>
-  mutate(bill_link = format_bill_link(bill_number, bill_dir_href(ga, up = 2))) |>
-  select(bill_link, title, date, description, yea, nay, nv, absent, total) |>
   arrange(desc(date))
+```
 
-if (nrow(committee_votes) > 0) {
-  gt(committee_votes) |>
-    cols_label(
-      bill_link = "Bill",
-      title = "Title",
-      date = "Date",
-      description = "Description",
-      yea = "Yea",
-      nay = "Nay",
-      nv = "NV",
-      absent = "Absent",
-      total = "Total"
-    ) |>
-    fmt_markdown(columns = bill_link) |>
-    tab_style(
-      style = cell_text(whitespace = "nowrap"),
-      locations = cells_body(columns = bill_link)
-    ) |>
-    tab_options(
-      table.font.size = px(12),
-      data_row.padding = px(4)
-    ) |>
-    opt_interactive(
-      use_search = TRUE,
-      use_filters = TRUE,
-      use_page_size_select = TRUE,
-      page_size_default = 25
+```{r}
+fmt_date <- \(d) str_squish(format(d, "%b %e, %Y"))
+plural <- \(n, word) paste(format(n, big.mark = ","), if (n == 1) word else paste0(word, "s"))
+
+div(class = "ia-card",
+  div(class = "ia-bill-eyebrow-row",
+    span(class = "ia-bill-eyebrow", toupper(paste(chamber_name, "committee")))
+  ),
+  h1(class = "ia-bill-title", display_name),
+  div(class = "ia-bill-meta",
+    span(plural(nrow(referred_bills), "bill"), " referred"),
+    span(plural(nrow(sponsored_bills), "bill"), " sponsored"),
+    span(plural(nrow(committee_votes), "committee vote"))
+  )
+)
+```
+
+```{r}
+bill_prefix <- bill_dir_href(ga, up = 2)
+# clean_bill_title() takes one title at a time
+short_title <- \(title) map_chr(title, \(t) clean_bill_title(t)$title)
+
+# Searchable, paged list of bills. The bill column holds "HF 123" so the
+# search box matches what readers see; the cell renders the link
+bill_col <- function(df) {
+  reactable::colDef(
+    name = "Bill", minWidth = 80, sortable = FALSE, html = TRUE,
+    cell = function(value, index)
+      sprintf('<a href="%s%s.html">%s</a>', bill_prefix, df$bill_number[index], value)
+  )
+}
+date_col <- \(name) reactable::colDef(name = name, minWidth = 110,
+                                      cell = \(value) if (is.na(value)) "—" else fmt_date(value))
+
+bill_list <- function(df, empty) {
+  if (nrow(df) == 0) return(ui_empty(empty))
+  df <- df |>
+    transmute(
+      bill_number,
+      bill = str_replace(bill_number, "^([A-Z]+)(\\d+)$", "\\1 \\2"),
+      title = short_title(title),
+      status_desc,
+      last_action,
+      last_action_date
     )
+  reactable::reactable(
+    df,
+    columns = list(
+      bill_number = reactable::colDef(show = FALSE),
+      bill = bill_col(df),
+      title = reactable::colDef(name = "Title", minWidth = 260, sortable = FALSE),
+      status_desc = reactable::colDef(name = "Status", minWidth = 100),
+      last_action = reactable::colDef(name = "Last action", minWidth = 220, sortable = FALSE),
+      last_action_date = date_col("Date")
+    ),
+    defaultSorted = list(last_action_date = "desc"),
+    searchable = TRUE,
+    defaultPageSize = 25,
+    highlight = TRUE
+  )
+}
+```
+
+::: {.ia-card}
+::: {.panel-tabset}
+
+## Bills referred
+
+```{r}
+bill_list(referred_bills, "No bills have been referred to this committee.")
+```
+
+## Bills sponsored
+
+```{r}
+bill_list(sponsored_bills, "This committee has not sponsored any bills.")
+```
+
+## Committee votes
+
+```{r}
+if (nrow(committee_votes) == 0) {
+  ui_empty("No committee votes recorded.")
 } else {
-  cat("No committee votes found.\n")
+  votes_df <- committee_votes |>
+    transmute(
+      bill_number,
+      bill = str_replace(bill_number, "^([A-Z]+)(\\d+)$", "\\1 \\2"),
+      title = short_title(title),
+      date,
+      yea, nay,
+      # Absent and not voting, as the journals record them
+      not_voting = nv + absent
+    )
+  reactable::reactable(
+    votes_df,
+    columns = list(
+      bill_number = reactable::colDef(show = FALSE),
+      bill = bill_col(votes_df),
+      title = reactable::colDef(name = "Title", minWidth = 280, sortable = FALSE),
+      date = date_col("Date"),
+      yea = reactable::colDef(name = "Yea", minWidth = 60, align = "right"),
+      nay = reactable::colDef(name = "Nay", minWidth = 60, align = "right"),
+      not_voting = reactable::colDef(name = "Not voting", minWidth = 90, align = "right")
+    ),
+    defaultSorted = list(date = "desc"),
+    searchable = TRUE,
+    defaultPageSize = 25,
+    highlight = TRUE
+  )
 }
 ```
 
 :::
+:::
 
----
-
-This page was generated from LegiScan data for the Iowa Legislature.
-Last updated: `r Sys.Date()`
+::: {.ia-sources}
+Generated from LegiScan data for the Iowa Legislature. Last updated `r format(Sys.Date(), "%B %e, %Y") |> str_squish()`
+:::
