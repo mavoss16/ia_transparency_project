@@ -80,3 +80,29 @@ card padding on mobile, shrink or collapse the legend below ~600 px.
   `ui_stepper()` an end-state class.
 - Week-page footnote runs ~184 chars per line; empty search still shows reactable's
   "No rows found".
+
+## Tables: gt → `ui_table()` / reactable (started 2026-10-27)
+
+Decision: legislature pages drop gt. Small tables become static HTML from
+`ui_table()` (`R/ui_helpers.R`, styled by `.ia-table`, which shares its base
+rules with the week archive's `.ia-week-table`); large tables that need
+sorting or search become reactable once `ia_reactable_theme()` exists.
+Empty states use `ui_empty()` instead of `cat()`, which knitr printed as a
+monospace code block. Campaign finance keeps gt for now.
+
+- **Done — bill page** (`site/templates/session/bill_template.qmd`): History,
+  Votes, Lobbyist declarations and Calendar tabs; no gt left in the template.
+  Votes tab: one empty state when there are no floor votes (no orphan
+  headings); summary table with party columns as yea–nay; each roll call
+  panel opens with the question and a one-line result in words (replaces the
+  per-vote party gt table); the full roll call sits in a collapsed
+  `<details>`, names linking to legislator pages. SJR11 0.66 → 0.35 MB.
+- **Next:** legislator template (7 gt tables + `cat()` empties), committee
+  template (3 `opt_interactive()` tables → reactable), legislation index
+  (the 6.4 MB per-row JS), then `ia_reactable_theme()`.
+- **Phone width:** the 10-column vote summary scrolls sideways inside a
+  ~232 px box (nested card + tab padding, same cause as the vote maps above).
+  Candidates: hide Not voting / Pattern below 600 px, or let tab content
+  break out of the card padding.
+- **Rollout:** bill pages re-render only when their LegiScan hash changes, so
+  pages rendered before this change keep the gt tables until a forced render.

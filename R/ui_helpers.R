@@ -178,6 +178,56 @@ ui_share_bar <- function(segments, colors,
 }
 
 # ------------------------------------------------------------------
+# Tables and empty states
+# ------------------------------------------------------------------
+
+#' Empty state: a quiet sentence in place of a table or chart.
+ui_empty <- function(message) div(class = "ia-empty", message)
+
+#' Static HTML table, styled by .ia-table in custom.scss. For small tables that
+#' need no sorting or search; the styling lives in the stylesheet, so pages
+#' carry none per table (gt writes ~9 KB of CSS into every table).
+#'
+#' df: one column per table column. A cell is text, a number, or a tag: build
+#'   links and pills as a list column of htmltools tags. NA shows as "—".
+#' labels: header text, named by column (default: the column name)
+#' numeric: columns right-aligned with tabular figures
+#' nowrap: columns kept on one line (dates, short codes)
+#' row_header: column whose cells head their row (<th scope="row">)
+#' empty: shown instead of the table when df has no rows
+ui_table <- function(df, labels = NULL, numeric = NULL, nowrap = NULL,
+                     row_header = NULL, empty = "No data available.") {
+  if (is.null(df) || nrow(df) == 0) return(ui_empty(empty))
+  cols <- names(df)
+  header <- cols
+  labelled <- cols %in% names(labels)
+  header[labelled] <- labels[cols[labelled]]
+
+  col_class <- function(col) {
+    cls <- c(if (col %in% numeric) "ia-num", if (col %in% nowrap) "ia-nowrap")
+    if (length(cls) > 0) paste(cls, collapse = " ")
+  }
+  cell <- function(col, i) {
+    value <- df[[col]][[i]]
+    if (is.atomic(value) && length(value) == 1 && is.na(value)) value <- "—"
+    if (identical(col, row_header)) {
+      tags$th(scope = "row", class = col_class(col), value)
+    } else {
+      tags$td(class = col_class(col), value)
+    }
+  }
+
+  div(class = "ia-table-scroll",
+    tags$table(class = "ia-table",
+      tags$thead(tags$tr(lapply(seq_along(cols), function(j)
+        tags$th(scope = "col", class = col_class(cols[j]), header[j])))),
+      tags$tbody(lapply(seq_len(nrow(df)), function(i)
+        tags$tr(lapply(cols, cell, i = i))))
+    )
+  )
+}
+
+# ------------------------------------------------------------------
 # Chart and table themes
 # ------------------------------------------------------------------
 

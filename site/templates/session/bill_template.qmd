@@ -21,7 +21,7 @@ library(purrr)
 library(stringr)
 library(tidyr)
 
-library(gt)
+
 library(sf)
 library(leaflet)
 library(htmltools)
@@ -262,176 +262,192 @@ if (!is.null(related_df) && nrow(related_df) > 0) {
 
 ## History
 ```{r}
-if (!is.null(history) && nrow(history) > 0) {
-  gt(history |>
-    mutate(chamber = case_when(chamber == "H" ~ "House", chamber == "S" ~ "Senate", .default = chamber)) |>
-    select(date, chamber, action)) |>
-    cols_label(date = "Date", chamber = "Chamber", action = "Action") |>
-    tab_style(
-      style = cell_text(whitespace = "nowrap"),
-      locations = list(cells_body(columns = date), cells_column_labels(columns = date))
-    ) |>
-    gt_theme_ia()
-} else {
-  cat("No legislative history recorded yet.")
-}
+fmt_date <- \(d) str_squish(format(if (is.character(d)) as.Date(d) else d, "%b %e, %Y"))
+chamber_label <- \(x) case_when(x == "H" ~ "House", x == "S" ~ "Senate", .default = x)
+
+ui_table(
+  if (!is.null(history)) {
+    history |> transmute(date = fmt_date(date), chamber = chamber_label(chamber), action)
+  },
+  labels = c(date = "Date", chamber = "Chamber", action = "Action"),
+  nowrap = "date",
+  empty = "No actions recorded yet."
+)
 ```
 
 
 ## Votes
-
-### Vote Summaries
-```{r}
-if (!is.null(votes) && nrow(votes) > 0) {
-  votes_filtered <- votes |> filter(!str_detect(desc, "Report$"))
-  if (nrow(votes_filtered) > 0) {
-    # Merge with processed vote data for party breakdown
-    votes_display <- votes_filtered |>
-      left_join(
-        bill_vote_summaries |> select(
-          roll_call_id, vote_dem_yes, vote_dem_no, vote_gop_yes, vote_gop_no, vote_outcome
-        ),
-        by = "roll_call_id"
-      )
-
-    gt(votes_display |>
-      mutate(
-        desc = simplify_vote_desc(desc),
-        chamber = case_when(chamber == "H" ~ "House", chamber == "S" ~ "Senate", TRUE ~ chamber)
-      ) |>
-      select(
-        date, chamber, desc, yea, nay, nv, absent,
-        vote_dem_yes, vote_dem_no, vote_gop_yes, vote_gop_no, vote_outcome
-    )) |>
-      cols_label(
-        date = "Date", chamber = "Chamber", desc = "Vote Type",
-        yea = "Yea", nay = "Nay", nv = "NV", absent = "Absent",
-        vote_dem_yes = "D Yea", vote_dem_no = "D Nay",
-        vote_gop_yes = "R Yea", vote_gop_no = "R Nay",
-        vote_outcome = "Classification"
-      ) |>
-      tab_spanner(label = "Total", columns = c(yea, nay, nv, absent)) |>
-      tab_spanner(label = "By Party", columns = c(vote_dem_yes, vote_dem_no, vote_gop_yes, vote_gop_no)) |>
-      tab_style(
-        style = cell_text(whitespace = "nowrap"),
-        locations = list(cells_body(columns = date), cells_column_labels(columns = date))
-      )
-  } else {
-    cat("No floor votes recorded yet.")
-  }
-} else {
-  cat("No votes recorded yet.")
-}
-```
-
-### Individual Votes
-
-::: {.panel-tabset}
-
 ```{r}
 #| results: "asis"
 
-if (!is.null(votes) && nrow(votes) > 0) {
-  votes_filtered <- votes |> filter(!str_detect(desc, "Report$"))
+# Raw HTML into an asis chunk; the fence keeps pandoc from reading indented
+# markup as a code block
+cat_html <- function(x) cat("\n```{=html}\n", as.character(x), "\n```\n\n", sep = "")
 
-  vote_child_template <- c(
-    "## `r vote_row$chamber` : `r vote_row$date`",
-    "",
-    "#### `r simplify_vote_desc(vote_row$desc)`",
-    "",
-    "```{r}",
-    "#| echo: false",
-    "#| message: false",
-    "#| warning: false",
-    "vote <- read_json(file.path(ga_paths(ga)$vote_json, paste0(vote_num, '.json'))) |>",
-    "  pluck('roll_call') |>",
-    "  pluck('votes') |>",
-    "  items_to_df() |>",
-    "  left_join(people |> select(people_id, name, party, district)) |>",
-    "  select(-people_id, -vote_id) |>",
-    "  arrange(district)",
-    "",
-    "summary_tbl <- vote |>",
-    "  count(party, vote_text) |>",
-    "  mutate(vote_text = factor(vote_text, levels = c('Yea', 'Nay', 'Absent'))) |>",
-    "  arrange(vote_text, party) |>",
-    "  pivot_wider(names_from = vote_text, values_from = n) |>",
-    "  mutate(across(everything(), .fns = function(x){replace_na(x, 0)}))",
-    "",
-    "gt(summary_tbl, rowname_col = 'party') |>",
-    "  tab_stubhead(label = 'Party')",
-    "```",
-    "",
-    "```{r}",
-    "#| echo: false",
-    "#| message: false",
-    "#| warning: false",
-    "# Shared district geometry; this map embeds only colors and labels (maps.R)",
-    "vote_map(vote, vote_row$chamber, ga)",
-    "```",
-    "",
-    "```{r}",
-    "#| echo: false",
-    "#| message: false",
-    "#| warning: false",
-    "gt(vote)",
-    "```",
-    ""
+# Committee votes ("... Report") stay off the page; this tab is floor votes
+floor_votes <- if (!is.null(votes)) votes |> filter(!str_detect(desc, "Report$"))
+
+# One roll call's votes, joined to who cast them, in district order
+read_roll_call <- function(roll_call_id) {
+  read_json(file.path(ga_paths(ga)$vote_json, paste0(roll_call_id, ".json"))) |>
+    pluck("roll_call", "votes") |>
+    items_to_df() |>
+    left_join(people |> select(people_id, name, party, district), by = "people_id") |>
+    arrange(district)
+}
+
+# The question, then the result and how each party split, in words
+roll_call_head <- function(vote_row, vote) {
+  party_split <- function(p, label) {
+    pv <- vote |> filter(party == p)
+    if (nrow(pv) == 0) return(NULL)
+    sprintf("%s %d yea, %d nay", label, sum(pv$vote_text == "Yea"), sum(pv$vote_text == "Nay"))
+  }
+  not_voting <- sum(!vote$vote_text %in% c("Yea", "Nay"))
+  parts <- c(
+    sprintf("%s %d to %d", if (vote_row$passed == 1) "Passed" else "Failed", vote_row$yea, vote_row$nay),
+    party_split("D", "Democrats"),
+    party_split("R", "Republicans"),
+    if (not_voting > 0) sprintf("%d not voting", not_voting)
   )
+  div(class = "ia-vote-head",
+    div(class = "ia-card-title", vote_row$desc),
+    div(class = "ia-card-sub", paste(parts, collapse = " · "))
+  )
+}
 
-  res <- lapply(votes_filtered |> pull(roll_call_id), function(vote_num) {
-    vote_row <- votes |> filter(roll_call_id == vote_num)
+# Every member's vote, collapsed: the map above already shows the pattern
+roll_call_table <- function(vote, chamber) {
+  legislator_link <- function(id, nm) {
+    if (is.na(nm)) return("Unknown")
+    a(href = paste0("../../legislators/", get_legislator_filename(id, people), ".html"), nm)
+  }
+  tags$details(class = "ia-details",
+    tags$summary(sprintf("How each %s voted (%d)",
+                         if (chamber == "S") "senator" else "representative", nrow(vote))),
+    ui_table(
+      vote |> transmute(
+        district = parse_district_number(district),
+        legislator = map2(people_id, name, legislator_link),
+        party = case_when(party == "D" ~ "Democrat", party == "R" ~ "Republican", .default = party),
+        vote = map(vote_text, vote_pill)
+      ),
+      labels = c(district = "District", legislator = "Legislator", party = "Party", vote = "Vote"),
+      numeric = "district"
+    )
+  )
+}
+
+vote_child_template <- c(
+  "## `r tab_label`",
+  "",
+  "```{r}",
+  "#| echo: false",
+  "#| message: false",
+  "#| warning: false",
+  "roll_call_head(vote_row, vote)",
+  "```",
+  "",
+  "```{r}",
+  "#| echo: false",
+  "#| message: false",
+  "#| warning: false",
+  "# Shared district geometry; this map embeds only colors and labels (maps.R)",
+  "vote_map(vote, vote_row$chamber, ga)",
+  "```",
+  "",
+  "```{r}",
+  "#| echo: false",
+  "#| message: false",
+  "#| warning: false",
+  "roll_call_table(vote, vote_row$chamber)",
+  "```",
+  ""
+)
+
+if (is.null(floor_votes) || nrow(floor_votes) == 0) {
+  cat_html(ui_empty("No floor votes on this bill yet."))
+} else {
+  tally <- \(yea, nay) if_else(is.na(yea), NA_character_, paste0(yea, "–", nay))
+  summary_tbl <- floor_votes |>
+    left_join(
+      bill_vote_summaries |>
+        select(roll_call_id, vote_dem_yes, vote_dem_no, vote_gop_yes, vote_gop_no, vote_outcome),
+      by = "roll_call_id"
+    ) |>
+    transmute(
+      date = fmt_date(date),
+      chamber = chamber_label(chamber),
+      vote = simplify_vote_desc(desc),
+      result = if_else(passed == 1, "Passed", "Failed"),
+      yea, nay,
+      # The Iowa journals record these together: "absent or not voting"
+      not_voting = nv + absent,
+      dem = tally(vote_dem_yes, vote_dem_no),
+      gop = tally(vote_gop_yes, vote_gop_no),
+      pattern = vote_outcome
+    )
+
+  cat("### Vote summaries\n\n")
+  cat_html(tagList(
+    ui_table(
+      summary_tbl,
+      labels = c(date = "Date", chamber = "Chamber", vote = "Vote", result = "Result",
+                 yea = "Yea", nay = "Nay", not_voting = "Not voting",
+                 dem = "Democrats", gop = "Republicans", pattern = "Pattern"),
+      numeric = c("yea", "nay", "not_voting", "dem", "gop"),
+      nowrap = c("date", "dem", "gop")
+    ),
+    div(class = "ia-footnote", "Party columns count yea–nay. Committee votes are not shown.")
+  ))
+
+  cat("### Individual votes\n\n::: {.panel-tabset}\n\n")
+  res <- lapply(seq_len(nrow(floor_votes)), function(i) {
+    vote_row <- floor_votes[i, ]
+    vote <- read_roll_call(vote_row$roll_call_id)
+    tab_label <- paste(chamber_label(vote_row$chamber), simplify_vote_desc(vote_row$desc),
+                       fmt_date(vote_row$date), sep = " · ")
     knitr::knit_child(text = vote_child_template, envir = environment(), quiet = TRUE)
   })
-
   cat(unlist(res), sep = "\n")
+  cat("\n:::\n")
 }
 ```
 
-
-:::
 
 ## Lobbyist declarations
 
 ```{r}
-if (!is.null(lobby) && nrow(lobby) > 0) {
-  gt(lobby |>
-    select(client, most_recent_declaration, date) |>
-    arrange(most_recent_declaration, client)) |>
-    cols_label(
-      client = "Client",
-      most_recent_declaration = "Declaration",
-      date = "Last Updated"
-    ) |>
-    fmt_date(columns = date, date_style = "yMMMd") |>
-    tab_style(
-      style = cell_text(whitespace = "nowrap"),
-      locations = list(cells_body(columns = date), cells_column_labels(columns = date))
-    ) |>
-    gt_theme_ia() |>
-    tab_options(
-      table.font.size = px(12),
-      data_row.padding = px(4)
-    )
+if (is.null(lobby)) {
+  ui_empty("Lobbyist declarations are unavailable right now.")
 } else {
-  cat("Lobbyist declaration data is currently unavailable for this bill.\n")
+  ui_table(
+    lobby |>
+      arrange(most_recent_declaration, client) |>
+      transmute(client, declaration = most_recent_declaration, date = fmt_date(date)),
+    labels = c(client = "Client", declaration = "Declaration", date = "Last updated"),
+    nowrap = "date",
+    empty = "No lobbyist declarations filed on this bill."
+  )
 }
 ```
 
 
 ## Calendar items
 ```{r}
-if (!is.null(calendar) && nrow(calendar) > 0) {
-  gt(calendar |> select(date, time, type, location, description)) |>
-    cols_label_with(fn = stringr::str_to_title) |>
-    tab_style(
-      style = cell_text(whitespace = "nowrap"),
-      locations = list(cells_body(columns = date), cells_column_labels(columns = date))
-    ) |>
-    gt_theme_ia()
-} else {
-  cat("No calendar items scheduled.")
-}
+# LegiScan gives 24-hour "15:00"; anything else passes through untouched
+fmt_time <- \(t) if_else(str_detect(t, "^\\d{1,2}:\\d{2}$"),
+                         str_squish(format(strptime(t, "%H:%M"), "%l:%M %p")), t)
+
+ui_table(
+  if (!is.null(calendar)) {
+    calendar |> transmute(date = fmt_date(date), time = fmt_time(time), type, description, location)
+  },
+  labels = c(date = "Date", time = "Time", type = "Type",
+             description = "Description", location = "Location"),
+  nowrap = c("date", "time"),
+  empty = "No hearings or meetings scheduled for this bill."
+)
 ```
 
 :::

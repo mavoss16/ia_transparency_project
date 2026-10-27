@@ -481,9 +481,13 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 .ia-act-footer  { font-size: 0.8rem; color: $muted; margin-top: 0.6rem; }
 .ia-act-sep     { color: $faint; }
 
-// Week archive (site/activity/index.qmd)
+// Static tables — ui_table(), and the week archive (site/activity/index.qmd).
+// Already-rendered archive pages carry only .ia-week-table, so it keeps the
+// base rules rather than gaining a second class
 .ia-table-scroll { overflow-x: auto; }
-.ia-week-table {
+.ia-table td { vertical-align: top; }
+.ia-table .ia-nowrap { white-space: nowrap; }
+.ia-table, .ia-week-table {
   width: 100%; border-collapse: collapse; font-size: 0.85rem;
   th, td { padding: 0.5rem 0.6rem; border-top: 1px solid $border-soft; text-align: left; }
   // Quarto's JS adds .table-striped to every table; Bootstrap paints the
@@ -506,6 +510,21 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
   background: $bg; padding: 0.35rem 0.6rem;
 }
 
+// Empty states — ui_empty(). Body type, not code: knitr prints cat() output
+// in a monospace block, which is what these replace
+.ia-empty { font-size: 0.9rem; color: $muted; margin: 0.25rem 0 0.5rem; }
+
+// Bill page votes tab: one panel per roll call
+.ia-vote-head { margin-bottom: 0.75rem; }
+.ia-vote-head .ia-card-sub { margin-bottom: 0; }
+.ia-details { margin-top: 1rem; }
+.ia-details > summary {
+  cursor: pointer; font-size: 0.9rem; font-weight: 600; color: $ink-soft;
+  padding: 0.35rem 0;
+}
+.ia-details > summary:focus-visible { outline: 2px solid $ink; outline-offset: 2px; }
+.ia-details[open] > summary { margin-bottom: 0.4rem; }
+
 .ia-mobile-pills { display: none; }
 
 @media (max-width: 600px) {
@@ -523,6 +542,7 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
   .ia-week-summary .ia-card-head > a { white-space: nowrap; }
   // Archive: the action total is the least needed column on a phone
   .ia-week-table .ia-week-actions { display: none; }
+  .ia-table th, .ia-table td,
   .ia-week-table th, .ia-week-table td { padding: 0.45rem 0.3rem; }
   .ia-week-table .ia-full { display: none; }
   .ia-week-table .ia-short { display: inline; }
