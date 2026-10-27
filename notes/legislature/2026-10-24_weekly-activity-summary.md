@@ -202,6 +202,8 @@ Critique 26/40 → **28/40**, no P1s left. Snapshots: `.impeccable/critique/2026
    - Many of the 11 passed the chambers in different versions with no concurrence (e.g. HF 2596, SF 27). "Passed both chambers" is literally true, but they are not headed to the Governor. Not addressed.
 2. **Events vs status.** `milestone_pill()` was replaced by `event_chips()`: an outlined 4px-radius chip for the furthest event, then muted "+ N earlier steps". Filled pills are kept for status. Used in `activity_table()` (desktop column + phone row) and on the home card rows.
 3. **Keyboard focus.** `custom.scss` adds `:focus-visible` rings (2px `$ink`) on reactable headers, expander, page buttons, search and cell links. The ring sits inset on headers and the expander, because the cells clip anything outside. The expander is a 32×32 hit area with a hover tint.
+   - The selectors are generic `.reactable` ones, so they apply to **every** reactable on the site, `legislator_table()` included. Only the week page was tested with Tab presses; page buttons and search weren't tabbed to (that week fits on one page).
+   - **What was not touched:** reactable's look (`ia_reactable_theme()`, deferred by the user) and every gt table (`gt_theme_ia()`, legislation index, bill and legislator pages). The gt page-weight items in `CLAUDE.md` are still open: duplicated `<style>` blocks, and per-row JS on `legislation/index.html`.
 
 Verified in Chrome via Claude in Chrome against local renders: home, legislation index, weeks 2026-02-16 / 03-30 / 09-28, bills HCR4 / HF383 / SJR9 / HR106 / HF2801. Checked at 1280px and in a 375px iframe, with real Tab presses through the headers and expander; no sideways scroll at 375px.
 
