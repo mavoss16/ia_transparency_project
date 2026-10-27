@@ -19,7 +19,9 @@ permissions:
 
 jobs:
   update-and-render:
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest moved to 26.04 on 2026-10-27, where PPM has no binary for
+    # the locked `later` 1.4.2 and its source fails to build against the newer glibc.
+    runs-on: ubuntu-24.04
     timeout-minutes: 300
 
     steps:
