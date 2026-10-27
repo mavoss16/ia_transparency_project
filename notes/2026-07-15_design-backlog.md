@@ -97,9 +97,16 @@ monospace code block. Campaign finance keeps gt for now.
   panel opens with the question and a one-line result in words (replaces the
   per-vote party gt table); the full roll call sits in a collapsed
   `<details>`, names linking to legislator pages. SJR11 0.66 → 0.35 MB.
-- **Next:** legislator template (7 gt tables + `cat()` empties), committee
-  template (3 `opt_interactive()` tables → reactable), legislation index
-  (the 6.4 MB per-row JS), then `ia_reactable_theme()`.
+- **Done — legislator page** (`site/templates/legislator_template.qmd`,
+  2026-10-27): all 7 gt tables → `ui_table()`, no gt left. Bill titles go
+  through `clean_bill_title()`; the voting record is newest first; vote
+  analysis and similarity show one empty state instead of a heading per
+  table. Fixed the "Similar legislators" 404 (links were `../{name}.html`).
+  Pages roughly halve: Jacoby 802 → 409 KB, Bossman 720 → 371 KB.
+- **reactable candidates once the theme exists:** the legislator voting
+  record (up to 833 rows, static for now) and sponsored bills (up to ~190).
+- **Next:** committee template (3 `opt_interactive()` tables → reactable),
+  legislation index (the 6.4 MB per-row JS), then `ia_reactable_theme()`.
 - **Phone width:** the 10-column vote summary scrolls sideways inside a
   ~232 px box (nested card + tab padding, same cause as the vote maps above).
   Candidates: hide Not voting / Pattern below 600 px, or let tab content

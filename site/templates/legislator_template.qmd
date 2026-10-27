@@ -19,7 +19,6 @@ library(dplyr)
 library(purrr)
 library(stringr)
 library(tidyr)
-library(gt)
 library(sf)
 library(leaflet)
 library(htmltools)
@@ -230,246 +229,146 @@ district_map(map_districts, chamber, ga, bounds = bbox, height = 340) |>
 ## Sponsored bills
 
 ```{r}
-if(nrow(leg_sponsored_bills) > 0) {
+fmt_date <- \(d) str_squish(format(d, "%b %e, %Y"))
+bill_links <- \(bill_number) lapply(format_bill_link(bill_number, bill_dir_href(ga, up = 1)), HTML)
+# clean_bill_title() takes one title at a time
+short_title <- \(title) map_chr(title, \(t) clean_bill_title(t)$title)
+
+ui_table(
   leg_sponsored_bills |>
-    mutate(bill_link = format_bill_link(bill_number, bill_dir_href(ga, up = 1))) |>
-    select(bill_link, title, status_desc, status_date, position, sponsor_num) |>
-    mutate(
-      Sponsor_Role = case_when(
-        position == 1 & sponsor_num == 1 ~ "Sole Sponsor",
-        position == 1 ~ "Primary Sponsor",
-        position >= 2 ~ "Co-Sponsor"
-      )
-    ) |>
-    select(-position) |>
-    relocate(sponsor_num, .after = Sponsor_Role) |>
-    gt() |>
-    cols_label(
-      bill_link = "Bill",
-      title = "Title",
-      status_desc = "Status",
-      status_date = "Status Date",
-      Sponsor_Role = "Role",
-      sponsor_num = "# of Sponsors"
-    ) |>
-    fmt_markdown(columns = bill_link) |>
-    tab_style(
-      style = cell_text(whitespace = "nowrap"),
-      locations = list(
-        cells_body(columns = c(bill_link, status_date)),
-        cells_column_labels(columns = status_date)
-      )
-    ) |>
-    gt_theme_ia() |>
-    tab_options(
-      table.font.size = px(12)
-    )
-} else {
-  cat("No sponsored bills found.\n")
-}
+    transmute(
+      bill = bill_links(bill_number),
+      title = short_title(title),
+      status = status_desc,
+      status_date = fmt_date(status_date),
+      role = case_when(
+        position == 1 & sponsor_num == 1 ~ "Sole sponsor",
+        position == 1 ~ "Primary sponsor",
+        position >= 2 ~ "Co-sponsor"
+      ),
+      sponsor_num
+    ),
+  labels = c(bill = "Bill", title = "Title", status = "Status", status_date = "Status date",
+             role = "Role", sponsor_num = "Sponsors"),
+  numeric = "sponsor_num",
+  nowrap = c("bill", "status_date"),
+  empty = "No sponsored bills this session."
+)
 ```
 
 ## Voting record
 
 ```{r}
-#| results: asis
-if (has_stats) {
-  cat(sprintf("::: {.ia-card-sub}\n%d floor votes · %.1f%% with party · %.1f%% participation\n:::\n\n",
-              n_floor_votes, 100 * leg_stats$with_party_pct, 100 * leg_stats$participation_rate))
-}
-```
-
-```{r}
-if(nrow(leg_votes) > 0) {
-  gt(leg_votes |>
-    mutate(
-      bill_link = format_bill_link(bill_number, bill_dir_href(ga, up = 1)),
-      description = simplify_vote_desc(description),
-      vote_html = sapply(vote_desc, \(v) as.character(vote_pill(v)))
-    ) |>
-    select(bill_link, title, date, description, vote_html)) |>
-    cols_label(
-      bill_link = "File #",
-      title = "Title",
-      date = "Vote Date",
-      description = "Vote Type",
-      vote_html = "Vote"
-    ) |>
-    fmt_markdown(columns = c(bill_link, vote_html)) |>
-    tab_style(
-      style = cell_text(whitespace = "nowrap"),
-      locations = list(
-        cells_body(columns = c(bill_link, date)),
-        cells_column_labels(columns = date)
-      )
-    ) |>
-    gt_theme_ia()
-} else {
-  cat("No voting record found.\n")
-}
+tagList(
+  if (has_stats) {
+    div(class = "ia-card-sub",
+        sprintf("%d floor votes · %.1f%% with party · %.1f%% participation",
+                n_floor_votes, 100 * leg_stats$with_party_pct, 100 * leg_stats$participation_rate))
+  },
+  ui_table(
+    leg_votes |>
+      arrange(desc(date), desc(roll_call_id)) |>
+      transmute(
+        bill = bill_links(bill_number),
+        title = short_title(title),
+        date = fmt_date(date),
+        description = simplify_vote_desc(description),
+        vote = map(vote_desc, vote_pill)
+      ),
+    labels = c(bill = "Bill", title = "Title", date = "Date", description = "Vote type", vote = "Vote"),
+    nowrap = c("bill", "date"),
+    empty = "No floor votes recorded this session."
+  )
+)
 ```
 
 ## Vote analysis
 
-### Votes by Classification
-
 ```{r}
-if(nrow(leg_vote_records) > 0) {
+if (nrow(leg_vote_records) == 0) {
+  ui_empty("No floor votes to analyze yet.")
+} else {
   outcome_breakdown <- leg_vote_records |>
     filter(vote_text %in% c("Yea", "Nay")) |>
-    group_by(vote_outcome) |>
     summarize(
       count = n(),
       with_party = sum(vote_with_party == TRUE, na.rm = TRUE),
       against_party = sum(vote_with_party == FALSE, na.rm = TRUE),
-      .groups = "drop"
+      .by = vote_outcome
     ) |>
-    mutate(pct_of_total = count / sum(count) * 100) |>
+    mutate(pct_of_total = sprintf("%.1f%%", count / sum(count) * 100)) |>
     arrange(desc(count))
 
-  gt(outcome_breakdown) |>
-    cols_label(
-      vote_outcome = "Vote Type",
-      count = "Total",
-      with_party = "With Party",
-      against_party = "Against Party",
-      pct_of_total = "% of Votes"
-    ) |>
-    fmt_number(columns = pct_of_total, decimals = 1) |>
-    gt_theme_ia()
-} else {
-  cat("Insufficient voting data for analysis.\n")
-}
-```
-
-### Votes Against Party
-
-```{r}
-if(nrow(leg_vote_records) > 0) {
   against_party <- leg_vote_records |>
     filter(vote_with_party == FALSE) |>
     left_join(bills |> select(bill_id, title), by = "bill_id") |>
-    mutate(
-      bill_link = format_bill_link(bill_number, bill_dir_href(ga, up = 1)),
-      vote_desc = simplify_vote_desc(vote_desc)
-    ) |>
-    select(bill_link, title, vote_date, vote_desc, vote_text, party_position, vote_outcome) |>
-    arrange(desc(vote_date))
+    arrange(desc(vote_date)) |>
+    transmute(
+      bill = bill_links(bill_number),
+      title = short_title(title),
+      vote_date = fmt_date(vote_date),
+      vote_desc = simplify_vote_desc(vote_desc),
+      vote = map(vote_text, vote_pill),
+      party_position,
+      vote_outcome
+    )
 
-  if(nrow(against_party) > 0) {
-    gt(against_party) |>
-      cols_label(
-        bill_link = "Bill",
-        title = "Title",
-        vote_date = "Date",
-        vote_desc = "Description",
-        vote_text = "Vote",
-        party_position = "Party Position",
-        vote_outcome = "Classification"
-      ) |>
-      fmt_markdown(columns = bill_link) |>
-      tab_style(
-        style = cell_text(whitespace = "nowrap"),
-        locations = list(
-          cells_body(columns = c(bill_link, vote_date)),
-          cells_column_labels(columns = vote_date)
-        )
-      ) |>
-      gt_theme_ia()
-  } else {
-    cat("This legislator has not voted against their party.\n")
-  }
-} else {
-  cat("Insufficient voting data for analysis.\n")
+  tagList(
+    h3("Votes by classification"),
+    ui_table(
+      outcome_breakdown,
+      labels = c(vote_outcome = "Vote type", count = "Total", with_party = "With party",
+                 against_party = "Against party", pct_of_total = "Share of votes"),
+      numeric = c("count", "with_party", "against_party", "pct_of_total")
+    ),
+    h3("Votes against party"),
+    ui_table(
+      against_party,
+      labels = c(bill = "Bill", title = "Title", vote_date = "Date", vote_desc = "Vote type",
+                 vote = "Vote", party_position = "Party position", vote_outcome = "Classification"),
+      nowrap = c("bill", "vote_date"),
+      empty = "This legislator has not voted against their party."
+    )
+  )
 }
 ```
 
 ## Similar legislators
 
 ```{r}
-make_leg_link <- function(filename, name) {
-  sprintf("<a href='../%s.html'>%s</a>", filename, name)
+# Legislator pages sit side by side in docs/legislators/, so links are bare
+# filenames
+sim_table <- function(type) {
+  ui_table(
+    leg_similarity |>
+      filter(rank_type == type) |>
+      arrange(rank) |>
+      transmute(
+        legislator = map2(filename_b, name_b, \(f, n) a(href = paste0(f, ".html"), n)),
+        party = party_b,
+        district = district_b,
+        similarity = sprintf("%.1f%%", similarity * 100),
+        n_shared
+      ),
+    labels = c(legislator = "Legislator", party = "Party", district = "District",
+               similarity = "Similarity", n_shared = "Shared votes"),
+    numeric = c("similarity", "n_shared"),
+    nowrap = c("legislator", "district")
+  )
 }
 
-make_sim_table <- function(df) {
-  gt(df) |>
-    fmt_markdown(columns = Legislator) |>
-    tab_style(
-      style = cell_text(whitespace = "nowrap"),
-      locations = cells_body(columns = Legislator)
-    ) |>
-    gt_theme_ia() |>
-    tab_options(table.font.size = px(12), data_row.padding = px(4))
-}
-
-prep_sim_df <- function(data, type) {
-  data |>
-    filter(rank_type == type) |>
-    arrange(rank) |>
-    mutate(
-      Legislator     = make_leg_link(filename_b, name_b),
-      Party          = party_b,
-      District       = district_b,
-      Similarity     = sprintf("%.1f%%", similarity * 100),
-      `Shared Votes` = n_shared
-    ) |>
-    select(Legislator, Party, District, Similarity, `Shared Votes`)
-}
-
-similarity_available <- !is.null(leg_similarity) && nrow(leg_similarity) > 0
-```
-
-::: {.grid}
-
-::: {.g-col-6}
-### Most Similar Overall
-
-```{r}
-if (similarity_available) {
-  make_sim_table(prep_sim_df(leg_similarity, "overall"))
+if (is.null(leg_similarity) || nrow(leg_similarity) == 0) {
+  ui_empty("Similarity data is not available yet.")
 } else {
-  cat("Similarity data not yet available.\n")
+  sim_block <- \(title, type) div(class = "g-col-6", h3(title), sim_table(type))
+  div(class = "grid",
+    sim_block("Most similar overall", "overall"),
+    sim_block("Most similar in the other party", "cross_party"),
+    sim_block("Least similar overall", "least_overall"),
+    sim_block("Least similar in their own party", "least_own_party")
+  )
 }
 ```
-:::
-
-::: {.g-col-6}
-### Most Similar — Opposite Party
-
-```{r}
-if (similarity_available) {
-  make_sim_table(prep_sim_df(leg_similarity, "cross_party"))
-} else {
-  cat("Similarity data not yet available.\n")
-}
-```
-:::
-
-::: {.g-col-6}
-### Most Dissimilar Overall
-
-```{r}
-if (similarity_available) {
-  make_sim_table(prep_sim_df(leg_similarity, "least_overall"))
-} else {
-  cat("Similarity data not yet available.\n")
-}
-```
-:::
-
-::: {.g-col-6}
-### Most Dissimilar — Own Party
-
-```{r}
-if (similarity_available) {
-  make_sim_table(prep_sim_df(leg_similarity, "least_own_party"))
-} else {
-  cat("Similarity data not yet available.\n")
-}
-```
-:::
-
-:::
 
 :::
 :::
