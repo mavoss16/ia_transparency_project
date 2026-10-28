@@ -45,7 +45,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-04a7779650acb716155cf43c034f768c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-c738a8298c0df97af83792233af52165.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -194,8 +194,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="htmlwidget-519765dd3d7333f27853" style="width:100%;height:328px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-519765dd3d7333f27853">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[40.37544,-91.71878700000001,40.813873,-91.256128,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_house","districts":{"District":[1,10,15,7,7,35,50,5,49,6,33,22,86,34,28,26,27,11,46,42,41,4,17,59,25,48,18,13,39,40,51,23,47,52,60,44,56,12,9,32,37,21,30,36,3,31,24,8,20,55,16,95,100,100,99,66,96,81,98,97,94,93,70,82,73,74,79,80,77,78,78,83,85,89,90,92,58,19,69,57,71,72,65,67,64,68,14,63,76,75,62,61,54,2,43,29,45,84,38,91,53,88,87],"fill":["#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#A8433A","#A8433A","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC"],"fill_opacity":[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.6,0.6,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2],"stroke":["#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#A8433A","#A8433A","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000"],"weight":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"label":["J.D. Scholten (D-HD-001)","John Wills (R-HD-010)","Matt Windschitl (R-HD-015)","Michael Sexton (R-HD-007)","Wendy Larson (R-HD-007)","Sean Bagniewski (D-HD-035)","Ross Wilburn (D-HD-050)","Zachary Dieken (R-HD-005)","Beth Wessel-Kroeschell (D-HD-049)","Megan Hess Jones (R-HD-006)","Ruth Ann Gaines (D-HD-033)","Samantha Fett (R-HD-022)","Dave Jacoby (D-HD-086)","Rob Johnson (D-HD-034)","David Young (R-HD-028)","Austin Harris (R-HD-026)","Kenan Judge (D-HD-027)","Craig Williams (R-HD-011)","Dan Gehlbach (R-HD-046)","Heather Matson (D-HD-042)","Ryan Weldon (R-HD-041)","Skyler Wheeler (R-HD-004)","Devon Wood (R-HD-017)","Christian Hermanson (R-HD-059)","Hans Wilz (R-HD-025)","Chad Behn (R-HD-048)","Tom Moore (R-HD-018)","Travis Sitzmann (R-HD-013)","Rick Olson (D-HD-039)","Bill Gustoff (R-HD-040)","Brett Barker (R-HD-051)","Ray Sorensen (R-HD-023)","Carter Nordman (R-HD-047)","David Blom (R-HD-052)","Jane Bloomingdale (R-HD-060)","Larry McBurney (D-HD-044)","Mark Thompson (R-HD-056)","Steven Holt (R-HD-012)","Henry Stone (R-HD-009)","Jennifer Konfrst (D-HD-032)","Barb Kniff McCulla (R-HD-037)","Brooke Boden (R-HD-021)","Megan Srinivas (D-HD-030)","Austin Baeth (D-HD-036)","Thomas Jeneary (R-HD-003)","Mary Madison (D-HD-031)","Sam Wengryn (R-HD-024)","Ann Meyer (R-HD-008)","Josh Turek (D-HD-020)","Shannon Latham (R-HD-055)","David Sieck (R-HD-016)","Taylor Collins (R-HD-095)","Martin Graber - HD-100","Martin Graber - HD-100","Matthew Rinker (R-HD-099)","Steven Bradley (R-HD-066)","Mark Cisneros (R-HD-096)","Daniel Gosa (D-HD-081)","Monica Kurth (D-HD-098)","Ken Croken (D-HD-097)","Mike Vondran (R-HD-094)","Gary Mohr (R-HD-093)","Norlin Mommsen (R-HD-070)","Bobby Kaufmann (R-HD-082)","Elizabeth Wilson (D-HD-073)","Eric Gjerde (D-HD-074)","Tracy Ehlert (D-HD-079)","Aime Wichtendahl (D-HD-080)","Jeff Cooling (D-HD-077)","Sami Scheetz (D-HD-078)","Angel Ramirez (D-HD-078)","Cindy Golding (R-HD-083)","Amy Nielsen (D-HD-085)","Elinor Levin (D-HD-089)","Adam Zabner (D-HD-090)","Heather Hora (R-HD-092)","Charley Thomson (R-HD-058)","Brent Siegrist (R-HD-019)","Tom Determann (R-HD-069)","Pat Grassley (R-HD-057)","Lindsay James (D-HD-071)","Jennifer Smith (R-HD-072)","Shannon Lundgren (R-HD-065)","Craig Johnson (R-HD-067)","Jason Gearhart (R-HD-064)","Chad Ingels (R-HD-068)","Jacob Bossman (R-HD-014)","Michael Bergan (R-HD-063)","Derek Wulf (R-HD-076)","Bob Kressig (D-HD-075)","Jerome Amos (D-HD-062)","Timi Brown-powers (D-HD-061)","Joshua Meggers (R-HD-054)","Robert Henderson (R-HD-002)","Eddie Andrews (R-HD-043)","Brian Meyer (D-HD-029)","Brian Lohse (R-HD-045)","Thomas Gerhold (R-HD-084)","Jon Dunwell (R-HD-038)","Judd Lawler (R-HD-091)","Dean Fisher (R-HD-053)","Helena Hayes (R-HD-088)","Jeff Shipley (R-HD-087)"],"front":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},"hover":null}}]}}</script>
+<div id="htmlwidget-37fba198be185c1cb263" style="width:100%;height:328px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-37fba198be185c1cb263">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[40.37544,-91.71878700000001,40.813873,-91.256128,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_house","districts":{"District":[1,10,15,7,7,35,50,5,49,6,33,22,86,34,28,26,27,11,46,42,41,4,17,59,25,48,18,13,39,40,51,23,47,52,60,44,56,12,9,32,37,21,30,36,3,31,24,8,20,55,16,95,100,100,99,66,96,81,98,97,94,93,70,82,73,74,79,80,77,78,78,83,85,89,90,92,58,19,69,57,71,72,65,67,64,68,14,63,76,75,62,61,54,2,43,29,45,84,38,91,53,88,87],"fill":["#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#A8433A","#A8433A","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC"],"fill_opacity":[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.6,0.6,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2],"stroke":["#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#A8433A","#A8433A","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000"],"weight":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"label":["J.D. Scholten (D-HD-001)","John Wills (R-HD-010)","Matt Windschitl (R-HD-015)","Michael Sexton (R-HD-007)","Wendy Larson (R-HD-007)","Sean Bagniewski (D-HD-035)","Ross Wilburn (D-HD-050)","Zachary Dieken (R-HD-005)","Beth Wessel-Kroeschell (D-HD-049)","Megan Hess Jones (R-HD-006)","Ruth Ann Gaines (D-HD-033)","Samantha Fett (R-HD-022)","Dave Jacoby (D-HD-086)","Rob Johnson (D-HD-034)","David Young (R-HD-028)","Austin Harris (R-HD-026)","Kenan Judge (D-HD-027)","Craig Williams (R-HD-011)","Dan Gehlbach (R-HD-046)","Heather Matson (D-HD-042)","Ryan Weldon (R-HD-041)","Skyler Wheeler (R-HD-004)","Devon Wood (R-HD-017)","Christian Hermanson (R-HD-059)","Hans Wilz (R-HD-025)","Chad Behn (R-HD-048)","Tom Moore (R-HD-018)","Travis Sitzmann (R-HD-013)","Rick Olson (D-HD-039)","Bill Gustoff (R-HD-040)","Brett Barker (R-HD-051)","Ray Sorensen (R-HD-023)","Carter Nordman (R-HD-047)","David Blom (R-HD-052)","Jane Bloomingdale (R-HD-060)","Larry McBurney (D-HD-044)","Mark Thompson (R-HD-056)","Steven Holt (R-HD-012)","Henry Stone (R-HD-009)","Jennifer Konfrst (D-HD-032)","Barb Kniff McCulla (R-HD-037)","Brooke Boden (R-HD-021)","Megan Srinivas (D-HD-030)","Austin Baeth (D-HD-036)","Thomas Jeneary (R-HD-003)","Mary Madison (D-HD-031)","Sam Wengryn (R-HD-024)","Ann Meyer (R-HD-008)","Josh Turek (D-HD-020)","Shannon Latham (R-HD-055)","David Sieck (R-HD-016)","Taylor Collins (R-HD-095)","Martin Graber - HD-100","Martin Graber - HD-100","Matthew Rinker (R-HD-099)","Steven Bradley (R-HD-066)","Mark Cisneros (R-HD-096)","Daniel Gosa (D-HD-081)","Monica Kurth (D-HD-098)","Ken Croken (D-HD-097)","Mike Vondran (R-HD-094)","Gary Mohr (R-HD-093)","Norlin Mommsen (R-HD-070)","Bobby Kaufmann (R-HD-082)","Elizabeth Wilson (D-HD-073)","Eric Gjerde (D-HD-074)","Tracy Ehlert (D-HD-079)","Aime Wichtendahl (D-HD-080)","Jeff Cooling (D-HD-077)","Sami Scheetz (D-HD-078)","Angel Ramirez (D-HD-078)","Cindy Golding (R-HD-083)","Amy Nielsen (D-HD-085)","Elinor Levin (D-HD-089)","Adam Zabner (D-HD-090)","Heather Hora (R-HD-092)","Charley Thomson (R-HD-058)","Brent Siegrist (R-HD-019)","Tom Determann (R-HD-069)","Pat Grassley (R-HD-057)","Lindsay James (D-HD-071)","Jennifer Smith (R-HD-072)","Shannon Lundgren (R-HD-065)","Craig Johnson (R-HD-067)","Jason Gearhart (R-HD-064)","Chad Ingels (R-HD-068)","Jacob Bossman (R-HD-014)","Michael Bergan (R-HD-063)","Derek Wulf (R-HD-076)","Bob Kressig (D-HD-075)","Jerome Amos (D-HD-062)","Timi Brown-powers (D-HD-061)","Joshua Meggers (R-HD-054)","Robert Henderson (R-HD-002)","Eddie Andrews (R-HD-043)","Brian Meyer (D-HD-029)","Brian Lohse (R-HD-045)","Thomas Gerhold (R-HD-084)","Jon Dunwell (R-HD-038)","Judd Lawler (R-HD-091)","Dean Fisher (R-HD-053)","Helena Hayes (R-HD-088)","Jeff Shipley (R-HD-087)"],"front":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},"hover":null}}]}}</script>
 </div>
 </div>
 </div>
@@ -208,499 +208,51 @@ ul.task-list li input[type="checkbox"] {
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <div class="cell-output-display">
-<div id="rxfttsytpn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rxfttsytpn table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+<div class="ia-table-scroll">
 
-#rxfttsytpn thead, #rxfttsytpn tbody, #rxfttsytpn tfoot, #rxfttsytpn tr, #rxfttsytpn td, #rxfttsytpn th {
-  border-style: none;
-}
-
-#rxfttsytpn p {
-  margin: 0;
-  padding: 0;
-}
-
-#rxfttsytpn .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: hidden;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#rxfttsytpn .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#rxfttsytpn .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#rxfttsytpn .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#rxfttsytpn .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#rxfttsytpn .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#rxfttsytpn .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #E4E2DA;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#rxfttsytpn .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: 600;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#rxfttsytpn .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: 600;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#rxfttsytpn .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#rxfttsytpn .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#rxfttsytpn .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #E4E2DA;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#rxfttsytpn .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#rxfttsytpn .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#rxfttsytpn .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#rxfttsytpn .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#rxfttsytpn .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#rxfttsytpn .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #EFEEE8;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#rxfttsytpn .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#rxfttsytpn .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#rxfttsytpn .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#rxfttsytpn .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#rxfttsytpn .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#rxfttsytpn .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#rxfttsytpn .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#rxfttsytpn .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#rxfttsytpn .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#rxfttsytpn .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#rxfttsytpn .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#rxfttsytpn .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#rxfttsytpn .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#rxfttsytpn .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#rxfttsytpn .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#rxfttsytpn .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#rxfttsytpn .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#rxfttsytpn .gt_left {
-  text-align: left;
-}
-
-#rxfttsytpn .gt_center {
-  text-align: center;
-}
-
-#rxfttsytpn .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#rxfttsytpn .gt_font_normal {
-  font-weight: normal;
-}
-
-#rxfttsytpn .gt_font_bold {
-  font-weight: bold;
-}
-
-#rxfttsytpn .gt_font_italic {
-  font-style: italic;
-}
-
-#rxfttsytpn .gt_super {
-  font-size: 65%;
-}
-
-#rxfttsytpn .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#rxfttsytpn .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#rxfttsytpn .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#rxfttsytpn .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#rxfttsytpn .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#rxfttsytpn .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#rxfttsytpn .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#rxfttsytpn .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#rxfttsytpn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<table class="ia-table caption-top table table-sm table-striped small">
 <thead>
-<tr class="gt_col_headings header">
-<th id="bill_link" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Bill</th>
-<th id="title" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Title</th>
-<th id="status_desc" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Status</th>
-<th id="status_date" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="white-space: nowrap" scope="col">Status Date</th>
-<th id="Sponsor_Role" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Role</th>
-<th id="sponsor_num" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"># of Sponsors</th>
+<tr class="header">
+<th class="ia-nowrap" data-quarto-table-cell-role="th" scope="col">Bill</th>
+<th data-quarto-table-cell-role="th" scope="col">Title</th>
+<th data-quarto-table-cell-role="th" scope="col">Status</th>
+<th class="ia-nowrap" data-quarto-table-cell-role="th" scope="col">Status date</th>
+<th data-quarto-table-cell-role="th" scope="col">Role</th>
+<th class="ia-num" data-quarto-table-cell-role="th" scope="col">Sponsors</th>
 </tr>
 </thead>
-<tbody class="gt_table_body">
+<tbody>
 <tr class="odd">
-<td class="gt_row gt_center" headers="bill_link" style="white-space: nowrap"><a href="../legislation/ga91/HF442.html">HF 442</a></td>
-<td class="gt_row gt_left" headers="title">A bill for an act providing for the disclosure of lead service lines in real estate disclosures.(See HF 876.)</td>
-<td class="gt_row gt_left" headers="status_desc">Introduced</td>
-<td class="gt_row gt_right" headers="status_date" style="white-space: nowrap">2025-02-17</td>
-<td class="gt_row gt_left" headers="Sponsor_Role">Co-Sponsor</td>
-<td class="gt_row gt_right" headers="sponsor_num">9</td>
+<td class="ia-nowrap"><a href="../legislation/ga91/HF442.html">HF 442</a></td>
+<td>Providing for the disclosure of lead service lines in real estate disclosures.(See HF 876.)</td>
+<td>Introduced</td>
+<td class="ia-nowrap">Feb 17, 2025</td>
+<td>Co-sponsor</td>
+<td class="ia-num">9</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_center" headers="bill_link" style="white-space: nowrap"><a href="../legislation/ga91/HF279.html">HF 279</a></td>
-<td class="gt_row gt_left" headers="title">A bill for an act relating to powers and duties applicable to state of disaster emergencies and public health disasters.</td>
-<td class="gt_row gt_left" headers="status_desc">Introduced</td>
-<td class="gt_row gt_right" headers="status_date" style="white-space: nowrap">2025-02-10</td>
-<td class="gt_row gt_left" headers="Sponsor_Role">Co-Sponsor</td>
-<td class="gt_row gt_right" headers="sponsor_num">10</td>
+<td class="ia-nowrap"><a href="../legislation/ga91/HF279.html">HF 279</a></td>
+<td>Powers and duties applicable to state of disaster emergencies and public health disasters</td>
+<td>Introduced</td>
+<td class="ia-nowrap">Feb 10, 2025</td>
+<td>Co-sponsor</td>
+<td class="ia-num">10</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_center" headers="bill_link" style="white-space: nowrap"><a href="../legislation/ga91/HF280.html">HF 280</a></td>
-<td class="gt_row gt_left" headers="title">A bill for an act relating to the regulation of places and practices of worship by the governor.</td>
-<td class="gt_row gt_left" headers="status_desc">Introduced</td>
-<td class="gt_row gt_right" headers="status_date" style="white-space: nowrap">2025-02-10</td>
-<td class="gt_row gt_left" headers="Sponsor_Role">Co-Sponsor</td>
-<td class="gt_row gt_right" headers="sponsor_num">19</td>
+<td class="ia-nowrap"><a href="../legislation/ga91/HF280.html">HF 280</a></td>
+<td>The regulation of places and practices of worship by the governor</td>
+<td>Introduced</td>
+<td class="ia-nowrap">Feb 10, 2025</td>
+<td>Co-sponsor</td>
+<td class="ia-num">19</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_center" headers="bill_link" style="white-space: nowrap"><a href="../legislation/ga91/HR3.html">HR 3</a></td>
-<td class="gt_row gt_left" headers="title">A resolution affirming Iowa's support for the State of Israel.</td>
-<td class="gt_row gt_left" headers="status_desc">Introduced</td>
-<td class="gt_row gt_right" headers="status_date" style="white-space: nowrap">2025-01-27</td>
-<td class="gt_row gt_left" headers="Sponsor_Role">Co-Sponsor</td>
-<td class="gt_row gt_right" headers="sponsor_num">64</td>
+<td class="ia-nowrap"><a href="../legislation/ga91/HR3.html">HR 3</a></td>
+<td>Affirming Iowa's support for the State of Israel</td>
+<td>Introduced</td>
+<td class="ia-nowrap">Jan 27, 2025</td>
+<td>Co-sponsor</td>
+<td class="ia-num">64</td>
 </tr>
 </tbody>
 </table>
@@ -710,513 +262,63 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="ia-card-sub">
-<p>6 floor votes · 100.0% with party · 100.0% participation</p>
-</div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="lbouodzwkj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lbouodzwkj table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+<div class="ia-card-sub">6 floor votes · 100.0% with party · 100.0% participation</div>
+<div class="ia-table-scroll">
 
-#lbouodzwkj thead, #lbouodzwkj tbody, #lbouodzwkj tfoot, #lbouodzwkj tr, #lbouodzwkj td, #lbouodzwkj th {
-  border-style: none;
-}
-
-#lbouodzwkj p {
-  margin: 0;
-  padding: 0;
-}
-
-#lbouodzwkj .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 13px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: hidden;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#lbouodzwkj .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#lbouodzwkj .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#lbouodzwkj .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#lbouodzwkj .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#lbouodzwkj .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#lbouodzwkj .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #E4E2DA;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#lbouodzwkj .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: 600;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#lbouodzwkj .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: 600;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#lbouodzwkj .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#lbouodzwkj .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#lbouodzwkj .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #E4E2DA;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#lbouodzwkj .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#lbouodzwkj .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#lbouodzwkj .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#lbouodzwkj .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#lbouodzwkj .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#lbouodzwkj .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #EFEEE8;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#lbouodzwkj .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#lbouodzwkj .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#lbouodzwkj .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#lbouodzwkj .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#lbouodzwkj .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#lbouodzwkj .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#lbouodzwkj .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#lbouodzwkj .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#lbouodzwkj .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#lbouodzwkj .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#lbouodzwkj .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#lbouodzwkj .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#lbouodzwkj .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#lbouodzwkj .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#lbouodzwkj .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#lbouodzwkj .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#lbouodzwkj .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#lbouodzwkj .gt_left {
-  text-align: left;
-}
-
-#lbouodzwkj .gt_center {
-  text-align: center;
-}
-
-#lbouodzwkj .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#lbouodzwkj .gt_font_normal {
-  font-weight: normal;
-}
-
-#lbouodzwkj .gt_font_bold {
-  font-weight: bold;
-}
-
-#lbouodzwkj .gt_font_italic {
-  font-style: italic;
-}
-
-#lbouodzwkj .gt_super {
-  font-size: 65%;
-}
-
-#lbouodzwkj .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#lbouodzwkj .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#lbouodzwkj .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#lbouodzwkj .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#lbouodzwkj .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#lbouodzwkj .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#lbouodzwkj .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#lbouodzwkj .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#lbouodzwkj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<table class="ia-table caption-top table table-sm table-striped small">
 <thead>
-<tr class="gt_col_headings header">
-<th id="bill_link" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">File #</th>
-<th id="title" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Title</th>
-<th id="date" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="white-space: nowrap" scope="col">Vote Date</th>
-<th id="description" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Vote Type</th>
-<th id="vote_html" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Vote</th>
+<tr class="header">
+<th class="ia-nowrap" data-quarto-table-cell-role="th" scope="col">Bill</th>
+<th data-quarto-table-cell-role="th" scope="col">Title</th>
+<th class="ia-nowrap" data-quarto-table-cell-role="th" scope="col">Date</th>
+<th data-quarto-table-cell-role="th" scope="col">Vote type</th>
+<th data-quarto-table-cell-role="th" scope="col">Vote</th>
 </tr>
 </thead>
-<tbody class="gt_table_body">
+<tbody>
 <tr class="odd">
-<td class="gt_row gt_center" headers="bill_link" style="white-space: nowrap"><a href="../legislation/ga91/HF117.html">HF 117</a></td>
-<td class="gt_row gt_left" headers="title">A bill for an act establishing the national guard service professional qualification scholarship program. (Formerly HSB 3.) Effective date: 07/01/2025.</td>
-<td class="gt_row gt_right" headers="date" style="white-space: nowrap">2025-01-30</td>
-<td class="gt_row gt_left" headers="description">Floor Passage</td>
-<td class="gt_row gt_left" headers="vote_html"><span class="ia-pill ia-pill-yea">Yea</span></td>
+<td class="ia-nowrap"><a href="../legislation/ga91/HF117.html">HF 117</a></td>
+<td>Establishing the national guard service professional qualification scholarship program</td>
+<td class="ia-nowrap">Jan 30, 2025</td>
+<td>Floor Passage</td>
+<td><span class="ia-pill ia-pill-yea">Yea</span></td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_center" headers="bill_link" style="white-space: nowrap"><a href="../legislation/ga91/HF117.html">HF 117</a></td>
-<td class="gt_row gt_left" headers="title">A bill for an act establishing the national guard service professional qualification scholarship program. (Formerly HSB 3.) Effective date: 07/01/2025.</td>
-<td class="gt_row gt_right" headers="date" style="white-space: nowrap">2025-01-30</td>
-<td class="gt_row gt_left" headers="description">Rule Suspension</td>
-<td class="gt_row gt_left" headers="vote_html"><span class="ia-pill ia-pill-yea">Yea</span></td>
+<td class="ia-nowrap"><a href="../legislation/ga91/HF144.html">HF 144</a></td>
+<td>Concerning the licensing and regulation of gambling games, including a moratorium on the issuance of new licenses, and including effective date and retroactive applicability provisions</td>
+<td class="ia-nowrap">Jan 30, 2025</td>
+<td>Floor Passage</td>
+<td><span class="ia-pill ia-pill-yea">Yea</span></td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_center" headers="bill_link" style="white-space: nowrap"><a href="../legislation/ga91/HF118.html">HF 118</a></td>
-<td class="gt_row gt_left" headers="title">A bill for an act modifying provisions related to the national guard service scholarship program. (Formerly HSB 4.) Effective date: 07/01/2025.</td>
-<td class="gt_row gt_right" headers="date" style="white-space: nowrap">2025-01-30</td>
-<td class="gt_row gt_left" headers="description">Amendment</td>
-<td class="gt_row gt_left" headers="vote_html"><span class="ia-pill ia-pill-nay">Nay</span></td>
+<td class="ia-nowrap"><a href="../legislation/ga91/HF118.html">HF 118</a></td>
+<td>Modifying provisions related to the national guard service scholarship program</td>
+<td class="ia-nowrap">Jan 30, 2025</td>
+<td>Floor Passage</td>
+<td><span class="ia-pill ia-pill-yea">Yea</span></td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_center" headers="bill_link" style="white-space: nowrap"><a href="../legislation/ga91/HF118.html">HF 118</a></td>
-<td class="gt_row gt_left" headers="title">A bill for an act modifying provisions related to the national guard service scholarship program. (Formerly HSB 4.) Effective date: 07/01/2025.</td>
-<td class="gt_row gt_right" headers="date" style="white-space: nowrap">2025-01-30</td>
-<td class="gt_row gt_left" headers="description">Floor Passage</td>
-<td class="gt_row gt_left" headers="vote_html"><span class="ia-pill ia-pill-yea">Yea</span></td>
+<td class="ia-nowrap"><a href="../legislation/ga91/HF118.html">HF 118</a></td>
+<td>Modifying provisions related to the national guard service scholarship program</td>
+<td class="ia-nowrap">Jan 30, 2025</td>
+<td>Amendment</td>
+<td><span class="ia-pill ia-pill-nay">Nay</span></td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_center" headers="bill_link" style="white-space: nowrap"><a href="../legislation/ga91/HF144.html">HF 144</a></td>
-<td class="gt_row gt_left" headers="title">A bill for an act concerning the licensing and regulation of gambling games, including a moratorium on the issuance of new licenses, and including effective date and retroactive applicability provisions. (Formerly HSB 80.)</td>
-<td class="gt_row gt_right" headers="date" style="white-space: nowrap">2025-01-30</td>
-<td class="gt_row gt_left" headers="description">Floor Passage</td>
-<td class="gt_row gt_left" headers="vote_html"><span class="ia-pill ia-pill-yea">Yea</span></td>
+<td class="ia-nowrap"><a href="../legislation/ga91/HF117.html">HF 117</a></td>
+<td>Establishing the national guard service professional qualification scholarship program</td>
+<td class="ia-nowrap">Jan 30, 2025</td>
+<td>Rule Suspension</td>
+<td><span class="ia-pill ia-pill-yea">Yea</span></td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_center" headers="bill_link" style="white-space: nowrap"><a href="../legislation/ga91/HF117.html">HF 117</a></td>
-<td class="gt_row gt_left" headers="title">A bill for an act establishing the national guard service professional qualification scholarship program. (Formerly HSB 3.) Effective date: 07/01/2025.</td>
-<td class="gt_row gt_right" headers="date" style="white-space: nowrap">2025-01-30</td>
-<td class="gt_row gt_left" headers="description">Floor Passage</td>
-<td class="gt_row gt_left" headers="vote_html"><span class="ia-pill ia-pill-yea">Yea</span></td>
+<td class="ia-nowrap"><a href="../legislation/ga91/HF117.html">HF 117</a></td>
+<td>Establishing the national guard service professional qualification scholarship program</td>
+<td class="ia-nowrap">Jan 30, 2025</td>
+<td>Floor Passage</td>
+<td><span class="ia-pill ia-pill-yea">Yea</span></td>
 </tr>
 </tbody>
 </table>
@@ -1226,549 +328,64 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<section id="votes-by-classification" class="level3">
-<h3 class="anchored" data-anchor-id="votes-by-classification">Votes by Classification</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div id="guzasknfiy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#guzasknfiy table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+<h3 class="anchored">Votes by classification</h3>
+<div class="ia-table-scroll">
 
-#guzasknfiy thead, #guzasknfiy tbody, #guzasknfiy tfoot, #guzasknfiy tr, #guzasknfiy td, #guzasknfiy th {
-  border-style: none;
-}
-
-#guzasknfiy p {
-  margin: 0;
-  padding: 0;
-}
-
-#guzasknfiy .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 13px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: hidden;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#guzasknfiy .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#guzasknfiy .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#guzasknfiy .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#guzasknfiy .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#guzasknfiy .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#guzasknfiy .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #E4E2DA;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#guzasknfiy .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: 600;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#guzasknfiy .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: 600;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#guzasknfiy .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#guzasknfiy .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#guzasknfiy .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #E4E2DA;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#guzasknfiy .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#guzasknfiy .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#guzasknfiy .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#guzasknfiy .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#guzasknfiy .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#guzasknfiy .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #EFEEE8;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#guzasknfiy .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#guzasknfiy .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#guzasknfiy .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#guzasknfiy .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#guzasknfiy .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#guzasknfiy .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#guzasknfiy .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#guzasknfiy .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#guzasknfiy .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#guzasknfiy .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#guzasknfiy .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#guzasknfiy .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#guzasknfiy .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#guzasknfiy .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#guzasknfiy .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#guzasknfiy .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#guzasknfiy .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#guzasknfiy .gt_left {
-  text-align: left;
-}
-
-#guzasknfiy .gt_center {
-  text-align: center;
-}
-
-#guzasknfiy .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#guzasknfiy .gt_font_normal {
-  font-weight: normal;
-}
-
-#guzasknfiy .gt_font_bold {
-  font-weight: bold;
-}
-
-#guzasknfiy .gt_font_italic {
-  font-style: italic;
-}
-
-#guzasknfiy .gt_super {
-  font-size: 65%;
-}
-
-#guzasknfiy .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#guzasknfiy .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#guzasknfiy .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#guzasknfiy .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#guzasknfiy .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#guzasknfiy .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#guzasknfiy .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#guzasknfiy .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#guzasknfiy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<table class="ia-table caption-top table table-sm table-striped small">
 <thead>
-<tr class="gt_col_headings header">
-<th id="vote_outcome" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Vote Type</th>
-<th id="count" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Total</th>
-<th id="with_party" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">With Party</th>
-<th id="against_party" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Against Party</th>
-<th id="pct_of_total" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">% of Votes</th>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">Vote type</th>
+<th class="ia-num" data-quarto-table-cell-role="th" scope="col">Total</th>
+<th class="ia-num" data-quarto-table-cell-role="th" scope="col">With party</th>
+<th class="ia-num" data-quarto-table-cell-role="th" scope="col">Against party</th>
+<th class="ia-num" data-quarto-table-cell-role="th" scope="col">Share of votes</th>
 </tr>
 </thead>
-<tbody class="gt_table_body">
+<tbody>
 <tr class="odd">
-<td class="gt_row gt_left" headers="vote_outcome">Unanimous</td>
-<td class="gt_row gt_right" headers="count">4</td>
-<td class="gt_row gt_right" headers="with_party">4</td>
-<td class="gt_row gt_right" headers="against_party">0</td>
-<td class="gt_row gt_right" headers="pct_of_total">66.7</td>
+<td>Unanimous</td>
+<td class="ia-num">4</td>
+<td class="ia-num">4</td>
+<td class="ia-num">0</td>
+<td class="ia-num">66.7%</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="vote_outcome">Bipartisan Opposition</td>
-<td class="gt_row gt_right" headers="count">1</td>
-<td class="gt_row gt_right" headers="with_party">1</td>
-<td class="gt_row gt_right" headers="against_party">0</td>
-<td class="gt_row gt_right" headers="pct_of_total">16.7</td>
+<td>Bipartisan Opposition</td>
+<td class="ia-num">1</td>
+<td class="ia-num">1</td>
+<td class="ia-num">0</td>
+<td class="ia-num">16.7%</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="vote_outcome">Bipartisan Support and Opposition</td>
-<td class="gt_row gt_right" headers="count">1</td>
-<td class="gt_row gt_right" headers="with_party">1</td>
-<td class="gt_row gt_right" headers="against_party">0</td>
-<td class="gt_row gt_right" headers="pct_of_total">16.7</td>
+<td>Bipartisan Support and Opposition</td>
+<td class="ia-num">1</td>
+<td class="ia-num">1</td>
+<td class="ia-num">0</td>
+<td class="ia-num">16.7%</td>
 </tr>
 </tbody>
 </table>
 
 </div>
+<h3 class="anchored">Votes against party</h3>
+<div class="ia-empty">This legislator has not voted against their party.</div>
 </div>
 </div>
-</section>
-<section id="votes-against-party" class="level3">
-<h3 class="anchored" data-anchor-id="votes-against-party">Votes Against Party</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>This legislator has not voted against their party.</code></pre>
-</div>
-</div>
-</section>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-<div class="grid">
-<section id="most-similar-overall" class="level3 g-col-6">
-<h3 class="anchored" data-anchor-id="most-similar-overall">Most Similar Overall</h3>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Similarity data not yet available.</code></pre>
+<div class="cell-output-display">
+<div class="ia-empty">Similarity data is not available yet.</div>
 </div>
-</div>
-</section>
-<section id="most-similar-opposite-party" class="level3 g-col-6">
-<h3 class="anchored" data-anchor-id="most-similar-opposite-party">Most Similar — Opposite Party</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Similarity data not yet available.</code></pre>
-</div>
-</div>
-</section>
-<section id="most-dissimilar-overall" class="level3 g-col-6">
-<h3 class="anchored" data-anchor-id="most-dissimilar-overall">Most Dissimilar Overall</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Similarity data not yet available.</code></pre>
-</div>
-</div>
-</section>
-<section id="most-dissimilar-own-party" class="level3 g-col-6">
-<h3 class="anchored" data-anchor-id="most-dissimilar-own-party">Most Dissimilar — Own Party</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Similarity data not yet available.</code></pre>
-</div>
-</div>
-</section>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="ia-sources">
-<p>Profile generated from LegiScan data for the Iowa Legislature. Last updated October 26, 2026</p>
+<p>Profile generated from LegiScan data for the Iowa Legislature. Last updated October 28, 2026</p>
 </div>
 
 
