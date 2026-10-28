@@ -117,9 +117,18 @@ monospace code block. Campaign finance keeps gt for now.
 - **Status vocabulary:** the legislator and committee bill lists still show
   LegiScan's `status_desc` ("Engrossed", "Enrolled"), not the site's status
   scale used by bill pages and pills. Swap in the `groups.rds` bill status.
-- **Next:** legislation index (the 6.4 MB per-row JS), then
-  `ia_reactable_theme()` for the committee tables, `legislator_table()` and
-  the week page.
+- **Done — legislation index** (`site/legislation/index.qmd`, 2026-10-27):
+  the 4,231-row `opt_interactive()` gt table → plain `reactable()` with
+  search, per-column filters and page-size options, as before. Bill links,
+  status pills and dates are drawn by one JS function per column
+  (`status_pill_js` mirrors `status_pill()`, so keep them in step), so the
+  page carries data, not per-row markup: **8.0 MB → 0.97 MB**. Status is now
+  a pill; titles go through `clean_bill_title()`. Index pages re-render on
+  every CI run, so this reaches the live site on the first run after push.
+- **No gt left on the legislature side.** Campaign finance still uses gt.
+- **Next:** `ia_reactable_theme()` for the four reactable tables
+  (legislation index, committee lists, `legislator_table()`, the week page),
+  then the legislator voting record and sponsored bills as reactable.
 - **Phone width:** the 10-column vote summary scrolls sideways inside a
   ~232 px box (nested card + tab padding, same cause as the vote maps above).
   Candidates: hide Not voting / Pattern below 600 px, or let tab content
