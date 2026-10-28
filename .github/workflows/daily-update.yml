@@ -89,4 +89,7 @@ jobs:
           git add docs/ data/ legiscan/ render_manifest.csv
           git diff --staged --quiet || \
             git commit -m "chore: automated update $(date -u +%Y-%m-%d)"
+          # Main may have moved during the hours-long render. The bot commits only
+          # generated files, so on a conflict keep its freshly rendered version.
+          git pull --rebase -X theirs
           git push
