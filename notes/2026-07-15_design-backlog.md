@@ -85,8 +85,9 @@ card padding on mobile, shrink or collapse the legend below ~600 px.
 
 Decision: legislature pages drop gt. Small tables become static HTML from
 `ui_table()` (`R/ui_helpers.R`, styled by `.ia-table`, which shares its base
-rules with the week archive's `.ia-week-table`); large tables that need
-sorting or search become reactable once `ia_reactable_theme()` exists.
+rules with the week archive's `.ia-week-table`); tables that need sorting or
+search become plain `reactable()` (themed later by `ia_reactable_theme()`).
+Full session log: `notes/2026-10-27_tables-off-gt.md`.
 Empty states use `ui_empty()` instead of `cat()`, which knitr printed as a
 monospace code block. Campaign finance keeps gt for now.
 
