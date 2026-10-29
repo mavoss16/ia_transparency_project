@@ -365,8 +365,43 @@ vote_child_template <- c(
   ""
 )
 
+# Floor votes the action history records with a tally ("Passed House, yeas 75,
+# nays 17. H.J. 1192."). Used only when LegiScan has no roll calls for the bill,
+# as with the October 2026 special session
+history_tallies <- function(history) {
+  if (is.null(history)) return(NULL)
+  history |>
+    filter(!str_detect(action, "^Committee vote")) |>
+    mutate(m = str_match(action, "^(.*?),? yeas (\\d+), nays? (\\d+)")) |>
+    filter(!is.na(m[, 1])) |>
+    transmute(
+      date = fmt_date(date),
+      chamber = chamber_label(chamber),
+      vote = m[, 2],
+      yea = as.integer(m[, 3]),
+      nay = as.integer(m[, 4]),
+      journal = str_extract(action, "[HS]\\.J\\. \\d+")
+    )
+}
+
 if (is.null(floor_votes) || nrow(floor_votes) == 0) {
-  cat_html(ui_empty("No floor votes on this bill yet."))
+  tallies <- history_tallies(history)
+  if (is.null(tallies) || nrow(tallies) == 0) {
+    cat_html(ui_empty("No floor votes on this bill yet."))
+  } else {
+    cat("### Vote summaries\n\n")
+    cat_html(tagList(
+      ui_table(
+        tallies,
+        labels = c(date = "Date", chamber = "Chamber", vote = "Vote",
+                   yea = "Yea", nay = "Nay", journal = "Journal"),
+        numeric = c("yea", "nay"),
+        nowrap = c("date", "journal")
+      ),
+      div(class = "ia-footnote",
+          "LegiScan, our data source, hasn't published the roll calls for these votes, so how each member voted isn't available yet. Totals come from the bill's action history; the House or Senate Journal page listed has the full roll call.")
+    ))
+  }
 } else {
   tally <- \(yea, nay) if_else(is.na(yea), NA_character_, paste0(yea, "–", nay))
   summary_tbl <- floor_votes |>
