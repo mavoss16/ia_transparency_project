@@ -1,4 +1,4 @@
-# render_site.R
+# render.R
 # Script to render all bill and legislator pages from templates
 # Supports incremental rendering using LegiScan hash values
 #

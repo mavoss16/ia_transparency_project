@@ -7,7 +7,7 @@
 #   https://sos.iowa.gov/elections/pdf/precinctresults/{year}{type}/{county}.xls
 #
 # Usage:
-#   source("R/elections/03_download_precinct_elections_sos.R")
+#   source("R/elections/download/election_results_2022.R")
 #   download_sos_election("2022", "general")
 
 library(httr2)

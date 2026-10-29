@@ -26,5 +26,10 @@ data/campaign_finance/source/
 data/campaign_finance/processed/
 data/campaign_finance/*.duckdb
 
+# Legislature: floor-vote and journal PDFs read only by archive/old_pipeline/
+# (LegiScan roll calls replaced them). Kept on disk, not in the checkout.
+data/legislature/archive/Floor Votes/
+data/legislature/archive/Journals/
+
 # Elections: raw downloaded data (shapefiles, precinct results) — reproducible via download scripts
 data/elections/raw/

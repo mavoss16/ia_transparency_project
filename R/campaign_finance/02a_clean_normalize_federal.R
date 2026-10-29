@@ -15,7 +15,7 @@
 #   fec_committees.parquet     — committee metadata joined with candidate info
 #
 # Run download/fec_contributions.R first to populate the source files.
-# Run: source("R/campaign_finance/03a_clean_normalize_federal.R")
+# Run: source("R/campaign_finance/02a_clean_normalize_federal.R")
 
 library(vroom)
 library(dplyr)

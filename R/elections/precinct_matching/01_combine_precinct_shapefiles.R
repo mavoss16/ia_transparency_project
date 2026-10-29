@@ -1,4 +1,4 @@
-# 02_combine_precinct_shapefiles.R
+# 01_combine_precinct_shapefiles.R
 # Read all per-county precinct shapefiles and combine into a single sf dataset.
 # Input:  data/elections/raw/precincts_2020s/{county}/*.shp
 # Output: data/elections/precincts_2020s.rds

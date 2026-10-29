@@ -1,7 +1,7 @@
 # Legislature Site Redesign — Implementation Plan
 
 Assessment written 2026-07-08. A visual/UX redesign of the five main legislature
-pages was delivered as a design handoff in `design_handoff_iowa_legislature/`
+pages was delivered as a design handoff in `notes/legislature/design_handoff_iowa_legislature/`
 (not yet committed — it sits in the working tree as an untracked folder). This
 note records the plan for wiring that handoff into the live Quarto site so the
 work is captured permanently before implementation starts.
@@ -46,8 +46,8 @@ optional stepper dates).
 
 ## Step 0 — Setup (low effort)
 
-1. `design_handoff_iowa_legislature/quarto_starter/custom.scss` → `site/custom.scss`
-2. `design_handoff_iowa_legislature/quarto_starter/ui_helpers.R` → `R/legislature/ui_helpers.R`
+1. `notes/legislature/design_handoff_iowa_legislature/quarto_starter/custom.scss` → `site/custom.scss`
+2. `notes/legislature/design_handoff_iowa_legislature/quarto_starter/ui_helpers.R` → `R/legislature/ui_helpers.R`
 3. `site/_quarto.yml`: change `theme: cosmo` → `theme: [cosmo, custom.scss]`; add
    `page-layout: full`; set `toc: false` on the index pages (keep `toc: true` in
    the detail templates if desired).
@@ -202,9 +202,9 @@ new theme — sanity-check it still renders acceptably.
 
 ### Files placed
 
-- `design_handoff_iowa_legislature/quarto_starter/custom.scss` → `site/custom.scss`
+- `notes/legislature/design_handoff_iowa_legislature/quarto_starter/custom.scss` → `site/custom.scss`
   (verbatim copy)
-- `design_handoff_iowa_legislature/quarto_starter/ui_helpers.R` →
+- `notes/legislature/design_handoff_iowa_legislature/quarto_starter/ui_helpers.R` →
   `R/legislature/ui_helpers.R` (verbatim copy)
 
 ### Config changes
@@ -262,7 +262,7 @@ rewrite. Drop the titles when the cards land.
 ### State at session end
 
 All changes uncommitted in the working tree, to be committed together (including
-the `design_handoff_iowa_legislature/` bundle, this note, and the CLAUDE.md
+the `notes/legislature/design_handoff_iowa_legislature/` bundle, this note, and the CLAUDE.md
 updates). `docs/` contains only the test-render output — the full
 `render_site(force = TRUE)` is still pending before publishing.
 

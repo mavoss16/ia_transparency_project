@@ -372,7 +372,7 @@ fec_ready <- all(file.exists(file.path(processed_dir, fec_files)))
 
 if (!fec_ready) {
   message("\nFEC parquets not found — skipping federal tables.")
-  message("Run R/campaign_finance/03a_clean_normalize_federal.R to build them.")
+  message("Run R/campaign_finance/02a_clean_normalize_federal.R to build them.")
 } else {
   message("\n── FEC federal data ────────────────────────────────────────────────────────")
 

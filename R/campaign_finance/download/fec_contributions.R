@@ -2,7 +2,7 @@
 #
 # Downloads FEC bulk data for configured election cycles and writes Iowa
 # individual contributions plus the committee/candidate lookup files used
-# by 03a_clean_normalize_federal.R.
+# by 02a_clean_normalize_federal.R.
 #
 # Outputs (data/campaign_finance/source/federal/{cycle}/):
 #   indiv_iowa_cands.txt  — contributions TO Iowa House/Senate candidates (from any donor)

@@ -1,4 +1,4 @@
-# 01_download_precinct_shapefiles.R
+# shapefile_precincts.R
 # Download per-county precinct boundary shapefiles from Iowa Secretary of State.
 # Scrapes download links from: https://sos.iowa.gov/shapefiles-county-precincts
 # Output: data/elections/raw/precincts_2020s/{county}/

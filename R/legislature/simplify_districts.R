@@ -10,12 +10,12 @@ library(dplyr)
 
 sf_use_s2(FALSE)
 
-senate <- st_read(here::here("data/legislature/districts/Plan2_Senate.shp"), quiet = TRUE) |>
+senate <- st_read(here::here("data/legislature/archive/Districts/Plan2_Senate.shp"), quiet = TRUE) |>
   st_transform(crs = 4326) |>
   st_simplify(dTolerance = 0.0002, preserveTopology = TRUE) |>
   transmute(District = as.numeric(DISTRICT))
 
-house <- st_read(here::here("data/legislature/districts/Plan2_House.shp"), quiet = TRUE) |>
+house <- st_read(here::here("data/legislature/archive/Districts/Plan2_House.shp"), quiet = TRUE) |>
   st_transform(crs = 4326) |>
   st_simplify(dTolerance = 0.0002, preserveTopology = TRUE) |>
   transmute(District = as.numeric(DISTRICT))

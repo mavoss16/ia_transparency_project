@@ -1,4 +1,4 @@
-# 01b_incremental_update.R
+# 01_incremental_update.R
 #
 # Incremental JSON update using getMasterListRaw -> getBill strategy.
 # Compares each bill's change_hash against the locally stored JSON, then fetches
@@ -9,7 +9,7 @@
 # (or weekly) bulk load so the CSV files stay current.
 #
 # Usage:
-#   source("R/legislature/01b_incremental_update.R")
+#   source("R/legislature/01_incremental_update.R")
 #   incremental_update()
 
 library(httr2)

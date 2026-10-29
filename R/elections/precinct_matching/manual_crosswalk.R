@@ -7,7 +7,7 @@
 # All manual matches accumulate in precinct_crosswalk_manual_progress.csv.
 #
 # Typical workflow:
-#   source("R/elections/manual_crosswalk.R")
+#   source("R/elections/precinct_matching/manual_crosswalk.R")
 #   show_remaining()               # overview of counties still needing work
 #   county("Adams")                # inspect one county + print assign skeleton
 #   assign_matches(c(              # fill in the skeleton and run it
