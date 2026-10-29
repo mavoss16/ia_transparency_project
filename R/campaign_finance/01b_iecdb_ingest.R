@@ -6,7 +6,7 @@
 # API calls is named and called explicitly, and the planning step is separate
 # from the executing step so you always see the price before paying it.
 #
-# See notes/2026-07-25_iecdb-api-data-sources.md for the plan and the endpoint
+# See notes/campaign_finance/2026-07-25_iecdb-api-data-sources.md for the plan and the endpoint
 # reconnaissance this builds on.
 #
 # ── The idea ──────────────────────────────────────────────────────────────────

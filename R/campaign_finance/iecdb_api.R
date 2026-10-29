@@ -5,7 +5,7 @@
 # call the API directly — every request goes through iecdb_post() so that
 # throttling, retry, the request budget, and schema validation apply uniformly.
 #
-# Phase A of the IECDB migration. See notes/2026-07-25_iecdb-api-data-sources.md
+# Phase A of the IECDB migration. See notes/campaign_finance/2026-07-25_iecdb-api-data-sources.md
 # for endpoint reconnaissance, the plan, and the cautions this module implements.
 #
 # ── What this API is ──────────────────────────────────────────────────────────

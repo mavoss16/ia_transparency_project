@@ -2,7 +2,7 @@
 
 Session log for the first full Impeccable cycle: project context capture, scored
 critiques of the three index pages, and the fixes that came out of them. Companion
-files: [`PRODUCT.md`](../PRODUCT.md) (strategic brief), `.impeccable/critique/`
+files: [`PRODUCT.md`](../../PRODUCT.md) (strategic brief), `.impeccable/critique/`
 (scored snapshots), [`2026-07-15_design-backlog.md`](2026-07-15_design-backlog.md)
 (open items), [`2026-07-11_impeccable-workflow.md`](2026-07-11_impeccable-workflow.md)
 (how to use the skill).
@@ -56,7 +56,7 @@ files: [`PRODUCT.md`](../PRODUCT.md) (strategic brief), `.impeccable/critique/`
 | `R/legislature/ui_helpers.R` | `ui_share_bar()` legend: swatch dot + ink text |
 | `PRODUCT.md` | new (strategic design brief) |
 | `CLAUDE.md` | Design Context section; redesign-status update |
-| `notes/2026-07-15_design-backlog.md` | new (open items 3–10 + fixed-item log) |
+| `notes/site/2026-07-15_design-backlog.md` | new (open items 3–10 + fixed-item log) |
 
 ## Verification method
 

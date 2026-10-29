@@ -8,7 +8,7 @@ Iowa state data from the Iowa Ethics and Campaign Disclosure Board (IECDB), plus
 
 ### Bulk exports (data.iowa.gov) — not current
 
-The bulk CSVs come from [data.iowa.gov dataset 917](https://data.iowa.gov/catalog/dataset/917). The feed is **eventually consistent and never an as-of snapshot**: the 202607 export (pulled 2026-07-25) was missing the May 27 – July 14 period for most statewide committees (Sand's DR2, filed 2026-07-20, was absent), while 306 committees did have July data. The IECDB portal API returns the same transactions current through 2026-07-14. **Cash on hand exists only on the DR2 report PDFs** and cannot be derived from any transaction feed. Full reconnaissance: [`notes/2026-07-25_iecdb-api-data-sources.md`](../../notes/2026-07-25_iecdb-api-data-sources.md).
+The bulk CSVs come from [data.iowa.gov dataset 917](https://data.iowa.gov/catalog/dataset/917). The feed is **eventually consistent and never an as-of snapshot**: the 202607 export (pulled 2026-07-25) was missing the May 27 – July 14 period for most statewide committees (Sand's DR2, filed 2026-07-20, was absent), while 306 committees did have July data. The IECDB portal API returns the same transactions current through 2026-07-14. **Cash on hand exists only on the DR2 report PDFs** and cannot be derived from any transaction feed. Full reconnaissance: [`notes/campaign_finance/2026-07-25_iecdb-api-data-sources.md`](../../notes/campaign_finance/2026-07-25_iecdb-api-data-sources.md).
 
 Exports live in `data/campaign_finance/source/IECDB/{YYYYMM}/`, **one directory per download**; the pipeline reads the newest. Each contains contributions (~3.2M rows, **may be split into numbered part files** `..._part_0001.csv`…, chronological, each with its own header), expenditures (~650k), the registered committee list (~1,700), and an other-PACs file the pipeline does not read.
 
@@ -57,7 +57,7 @@ download/fec_contributions.R   FEC bulk zips per cycle → source/federal/{cycle
 
 ### Phase B ingest — `01b_iecdb_ingest.R`
 
-Sourcing the file performs **no requests**; planning is separate from executing so the cost is visible first. Session log: [`notes/2026-08-01_phase-b-ingest.md`](../../notes/2026-08-01_phase-b-ingest.md).
+Sourcing the file performs **no requests**; planning is separate from executing so the cost is visible first. Session log: [`notes/campaign_finance/2026-08-01_phase-b-ingest.md`](../../notes/campaign_finance/2026-08-01_phase-b-ingest.md).
 
 ```
 iecdb_refresh_filings()   1 request     all ~17,900 filings → source/iecdb_api/filings_index.parquet
@@ -108,7 +108,7 @@ Both bugs found on the first live run produced plausible output rather than erro
 | `unitemized` | lump sum below the itemization threshold, under a placeholder name | 14,875 | $26.5M |
 | `unidentified` | no donor name, organization, or committee | 31,722 | $13.5M |
 
-Both non-itemized kinds are real money and stay in committee totals; neither is a donor, so both are excluded from donor-facing views. `classify_donor_attribution()` matches `UNITEMIZED_TOKENS` as a **substring** against `norm_org` / `norm_first` / `norm_last`, because the normalizers delete punctuation without a space (`Cash-Unitemized` → `CASHUNITEMIZED`). Only add tokens that can't appear inside a real name. Session log: [`notes/2026-07-25_campaign-finance-202607-refresh.md`](../../notes/2026-07-25_campaign-finance-202607-refresh.md).
+Both non-itemized kinds are real money and stay in committee totals; neither is a donor, so both are excluded from donor-facing views. `classify_donor_attribution()` matches `UNITEMIZED_TOKENS` as a **substring** against `norm_org` / `norm_first` / `norm_last`, because the normalizers delete punctuation without a space (`Cash-Unitemized` → `CASHUNITEMIZED`). Only add tokens that can't appear inside a real name. Session log: [`notes/campaign_finance/2026-07-25_campaign-finance-202607-refresh.md`](../../notes/campaign_finance/2026-07-25_campaign-finance-202607-refresh.md).
 
 ### Transaction class (2026-07-27)
 
@@ -150,13 +150,13 @@ All query DuckDB via `duckdb` + `dbplyr`.
 - `recipient_template.qmd` — param `committee_code` (coerced with `as.character()`); static R/gt
 - `donor_template.qmd` — param `donor_key`; static R/gt
 - `fec_recipient_template.qmd` — param `CMTE_ID`; adds Employers & Occupations tabs. **Its default `C00401224` is ActBlue, not Grassley**, and has no rows, so the default render is all empty states. Use `C00546788` (Joni for Iowa) or `C00708164` (Theresa Greenfield).
-- `recipient_template_ojs.qmd` — experimental OJS version with a reactive year filter. **Stale since the 2026-07-27 split and will error:** its Arquero/Plot code reads `d.total` off `by_year` and `iowa_cities_agg` sums a `total` column that no longer exists. Fix or drop before use. Notes: [`notes/2026-05-09_campaign-finance-templates-ojs.md`](../../notes/2026-05-09_campaign-finance-templates-ojs.md).
+- `recipient_template_ojs.qmd` — experimental OJS version with a reactive year filter. **Stale since the 2026-07-27 split and will error:** its Arquero/Plot code reads `d.total` off `by_year` and `iowa_cities_agg` sums a `total` column that no longer exists. Fix or drop before use. Notes: [`notes/campaign_finance/2026-05-09_campaign-finance-templates-ojs.md`](../../notes/campaign_finance/2026-05-09_campaign-finance-templates-ojs.md).
 
 Last verified 2026-07-27 against `SWGA51409` (Lahn for Governor) and `IND|LAHN|ZACH|BELLE PLAINE|IA`.
 
 **Layout pattern:** summary section above a `.panel-tabset`; count columns use `fmt_integer()`. These templates still use gt deliberately (the legislature moved off it). There is no domain UI layer; templates source `R/ui_helpers.R` directly.
 
-**Theming / project renders.** `site/_quarto.yml` excludes `campaign_finance/**` from project renders (since 2026-10-12) because CI has no `campaign_finance.duckdb`. Excluding a directory makes Quarto treat its files as standalone documents, so they render **without** `custom.scss`. The 2026-07-25 change that themed them ([`notes/2026-07-25_cf-redesign-phase1.md`](../../notes/2026-07-25_cf-redesign-phase1.md)) was including the directory; re-including it needs CI to build or skip the database first. The OJS variant should stay excluded either way (~13 MB output).
+**Theming / project renders.** `site/_quarto.yml` excludes `campaign_finance/**` from project renders (since 2026-10-12) because CI has no `campaign_finance.duckdb`. Excluding a directory makes Quarto treat its files as standalone documents, so they render **without** `custom.scss`. The 2026-07-25 change that themed them ([`notes/campaign_finance/2026-07-25_cf-redesign-phase1.md`](../../notes/campaign_finance/2026-07-25_cf-redesign-phase1.md)) was including the directory; re-including it needs CI to build or skip the database first. The OJS variant should stay excluded either way (~13 MB output).
 
 > **Rendering constraint:** give each parameterized render a **distinct `output_file`**. Quarto derives the figure directory from the output name, so two renders sharing a name share `<name>_files/` and overwrite each other's charts. `--output` is a no-op inside a Quarto project.
 

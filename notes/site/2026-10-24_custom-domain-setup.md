@@ -4,7 +4,7 @@
 
 In a scratch project on Quarto 1.10.18, a full render kept an existing `docs/CNAME` even without the `resources` entry, so the risk in Part 3 was smaller than stated; the entry still guarantees the file whenever `docs/` is rebuilt from scratch.
 
-**Plan:** buy the domain from **Cloudflare Registrar**, keep hosting on **GitHub Pages** for now, and point the domain at it. A move to Cloudflare Pages can come later as part of the page-weight work in [`legislature/2026-10-24_multi-session-plan.md`](legislature/2026-10-24_multi-session-plan.md). Since the domain's DNS will already be on Cloudflare, that move would only mean changing DNS records.
+**Plan:** buy the domain from **Cloudflare Registrar**, keep hosting on **GitHub Pages** for now, and point the domain at it. A move to Cloudflare Pages can come later as part of the page-weight work in [`notes/legislature/2026-10-24_multi-session-plan.md`](../legislature/2026-10-24_multi-session-plan.md). Since the domain's DNS will already be on Cloudflare, that move would only mean changing DNS records.
 
 **Cost:** about $10–11/yr for `.org`, plus about $10–11/yr more if you also take the `.com`. Cloudflare sells at cost, so renewals cost the same as the first year. WHOIS privacy and HTTPS are free.
 

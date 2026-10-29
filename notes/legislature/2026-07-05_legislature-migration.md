@@ -1,6 +1,6 @@
 # Legislature Migration Executed
 
-Session log, 2026-07-05. The `iowa_legislature` repo was migrated into this monorepo with full git history, per the plan in `2026-03-06_migration-plan.md` and the file map in `2026-03-08_file-migration-map.md`. All steps verified; the old repo is ready to archive.
+Session log, 2026-07-05. The `iowa_legislature` repo was migrated into this monorepo with full git history, per the plan in `../project/2026-03-06_migration-plan.md` and the file map in `../project/2026-03-08_file-migration-map.md`. All steps verified; the old repo is ready to archive.
 
 ## Pre-migration decisions (made this session)
 
@@ -41,7 +41,7 @@ All moves done with `git mv` so `git log --follow` works across the move. Follow
 - Skip-listed items (`shiny_app/`, `scripts/`, `docs/`, `archive/`, scratch files, old `.Rproj`/`CLAUDE.md`/`README.md`) removed from the working tree — their history remains in git
 - Legislature `.gitignore`s were already covered by the root one, except `**/*.quarto_ipynb`, which was folded in
 
-**Gotcha:** three files were never committed in `iowa_legislature` and did NOT come through the merge — `05_salience_scores.R`, `data/bills/salience_scores.rds`, `session_notes/2026-05-17_salience-score.md`. They were copied over directly (no history to preserve). The old repo's `CLAUDE.md` also had uncommitted edits (the Salience Score section); that content was consolidated into the monorepo CLAUDE.md.
+**Gotcha:** three files were never committed in `iowa_legislature` and did NOT come through the merge — `05_salience_scores.R`, `data/bills/salience_scores.rds`, `session_notes/legislature/2026-05-17_salience-score.md`. They were copied over directly (no history to preserve). The old repo's `CLAUDE.md` also had uncommitted edits (the Salience Score section); that content was consolidated into the monorepo CLAUDE.md.
 
 ### 3. Path adaptation (commit `3ffdc494`)
 

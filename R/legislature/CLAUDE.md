@@ -2,7 +2,7 @@
 
 Bill tracking, legislator voting records, committees, weekly activity, and lobbyist declarations, currently for the 91st General Assembly (2025–2026). This is the live domain and the architectural reference for the others. Templates live in `site/templates/` and `site/templates/session/`; this file covers them too.
 
-Migrated from the standalone `iowa_legislature` repo on 2026-07-05 via `git filter-repo` + merge, so full history is here (`git log --follow` works across the move). **Still open from the migration:** archive the old `iowa_legislature` GitHub repo, and delete the throwaway `../iowa_legislature-filtered` clone.
+Migrated from the standalone `iowa_legislature` repo on 2026-07-05 via `git filter-repo` + merge, so full history is here (`git log --follow` works across the move).
 
 ## Data flow
 
@@ -34,7 +34,7 @@ Other files: `session.R` (session settings, below), `maps.R` (Leaflet maps), `ut
 
 **Rollout (pushed 2026-10-25, in progress):** every bill's manifest key changed, so CI re-renders all 4,231 bills at ~1,200 per night; 2,708 were done on 2026-10-28. Until it finishes, links to not-yet-rendered `ga91/` pages 404, and `docs/` holds both the old flat pages (~741 MB) and the new ones (1.1 GB total, above GitHub Pages' ~1 GB limit). **When every bill has rendered, run `remove_unsessioned_pages(dry_run = FALSE)`**, which drops the flat pages, old template outputs and old manifest rows. What CI does, what to check, and how to roll back (tag `pre-multisession` on `2e94fae8`): [`notes/legislature/2026-10-25_multi-session-rollout-rollback.md`](../../notes/legislature/2026-10-25_multi-session-rollout-rollback.md).
 
-**Next (Phase 1, December–January):** freeze the 91st GA, set `CURRENT_GA = 92` once LegiScan creates the session, decide legislator pages across sessions (one career page vs per-session; today a page shows `CURRENT_GA` only), link past sessions' weeks and index pages (the activity archive lists `CURRENT_GA` only), and put lobbying in the daily run. LegiScan has Iowa back to the 83rd GA (2009–10). Phases 0–3 and open decisions: [`notes/legislature/2026-10-24_multi-session-plan.md`](../../notes/legislature/2026-10-24_multi-session-plan.md).
+**Phase 1** (freeze the 91st, switch to the 92nd, cross-session legislator pages and archives) is tracked in [`ROADMAP.md`](../../ROADMAP.md). LegiScan has Iowa back to the 83rd GA (2009–10). Phases 0–3 and open decisions: [`notes/legislature/2026-10-24_multi-session-plan.md`](../../notes/legislature/2026-10-24_multi-session-plan.md).
 
 ## Page weight and maps
 
@@ -69,12 +69,12 @@ Bill groups link every committee renumbering ("renumbered as HF 123") at graph-b
 
 `ui_helpers.R` here is the legislature UI layer (it sources the shared `R/ui_helpers.R`): `clean_bill_title`, `status_pill`, `vote_pill`, `ui_paired_bars` (its legend names bills), `ui_profile_header` (hardcodes DEMOCRAT/REPUBLICAN), and the `legislator_table()` reactable.
 
-- **Redesign** (2026-07-08/09) of home, legislation, legislators, bill and legislator pages, from the handoff now in `notes/legislature/design_handoff_iowa_legislature/`; `site/custom.scss` and `ui_helpers.R` came from its `quarto_starter/`. Party colors R `#A8433A` / D `#3F5B93` (vote-map Nay tints R `#DCB4B0`, D `#B2BDD4`). Plan and logs: `notes/2026-07-08_legislature-redesign.md`, `notes/2026-07-15_impeccable-design-pass.md`.
-- **Tables (2026-10-27): no legislature page uses gt.** Small tables use `ui_table()`, empty states `ui_empty()`; never `cat()` in a normal chunk (knitr prints it as a code block). Searchable tables use plain `reactable()`: committee lists and the legislation index, which draws links, pills and dates with one JS renderer per column (8.0 → 0.97 MB). **`status_pill_js` there mirrors `status_pill()`; keep them in step.** Pages rendered before 2026-10-27 keep gt until they re-render. Log: [`notes/2026-10-27_tables-off-gt.md`](../../notes/2026-10-27_tables-off-gt.md).
+- **Redesign** (2026-07-08/09) of home, legislation, legislators, bill and legislator pages, from the handoff now in `notes/legislature/design_handoff_iowa_legislature/`; `site/custom.scss` and `ui_helpers.R` came from its `quarto_starter/`. Party colors R `#A8433A` / D `#3F5B93` (vote-map Nay tints R `#DCB4B0`, D `#B2BDD4`). Plan and logs: `notes/legislature/2026-07-08_legislature-redesign.md`, `notes/site/2026-07-15_impeccable-design-pass.md`.
+- **Tables (2026-10-27): no legislature page uses gt.** Small tables use `ui_table()`, empty states `ui_empty()`; never `cat()` in a normal chunk (knitr prints it as a code block). Searchable tables use plain `reactable()`: committee lists and the legislation index, which draws links, pills and dates with one JS renderer per column (8.0 → 0.97 MB). **`status_pill_js` there mirrors `status_pill()`; keep them in step.** Pages rendered before 2026-10-27 keep gt until they re-render. Log: [`notes/legislature/2026-10-27_tables-off-gt.md`](../../notes/legislature/2026-10-27_tables-off-gt.md).
 - **Weekly summary** (critique 28/40, no P1s): period events render with `event_chips()` (outlined, furthest first, "+ N earlier steps"); filled pills mean current status only. `custom.scss` gives every reactable visible `:focus-visible` rings and a 32px expander (only the week page was tested). Design: [`notes/legislature/2026-10-24_weekly-activity-summary.md`](../../notes/legislature/2026-10-24_weekly-activity-summary.md).
-- **Not done:** `ia_reactable_theme()` (reactable still looks like its defaults; deferred, P2). Open items: `notes/2026-07-15_design-backlog.md`.
+- Reactable still looks like its defaults until `ia_reactable_theme()` exists (see `ROADMAP.md`).
 
-**Known bugs:** vote maps are cramped at phone width (~198 px, legend covers them; in the design backlog). The "Similar legislators" 404 is fixed in the template (2026-10-27); live pages keep the broken links until they re-render.
+The "Similar legislators" 404 is fixed in the template (2026-10-27); live pages keep the broken links until they re-render.
 
 ## Salience indicators
 

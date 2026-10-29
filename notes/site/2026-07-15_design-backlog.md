@@ -1,7 +1,9 @@
 # Design backlog — deferred findings (2026-07-15)
 
+> **Open items moved to [`ROADMAP.md`](../../ROADMAP.md) on 2026-10-28.** This note keeps the detail behind them (measurements, options considered); add new design tasks to the roadmap, not here.
+
 Found during the Impeccable critique/fix cycle (see `.impeccable/critique/` snapshots
-and `notes/2026-07-11_impeccable-workflow.md`). All are source fixes + re-render.
+and `notes/site/2026-07-11_impeccable-workflow.md`). All are source fixes + re-render.
 
 ## Bill detail pages (pre-existing, exposed by post-fix spot-check)
 
@@ -87,7 +89,7 @@ Decision: legislature pages drop gt. Small tables become static HTML from
 `ui_table()` (`R/ui_helpers.R`, styled by `.ia-table`, which shares its base
 rules with the week archive's `.ia-week-table`); tables that need sorting or
 search become plain `reactable()` (themed later by `ia_reactable_theme()`).
-Full session log: `notes/2026-10-27_tables-off-gt.md`.
+Full session log: `notes/legislature/2026-10-27_tables-off-gt.md`.
 Empty states use `ui_empty()` instead of `cat()`, which knitr printed as a
 monospace code block. Campaign finance keeps gt for now.
 

@@ -72,7 +72,7 @@ static site (scroll-driven sidebars, bespoke JS, animating R-rendered widgets).
 Impeccable proposes → filter for Quarto-feasibility → implement what fits.
 
 **Baseline already in place** (from the 2026-07-08/09 redesign — see
-`notes/2026-07-08_legislature-redesign.md`): custom serif/sans pairing (Source
+`notes/legislature/2026-07-08_legislature-redesign.md`): custom serif/sans pairing (Source
 Serif 4 / Public Sans), warm `#f7f6f3` background, restrained R `#A8433A` /
 D `#3F5B93` palette, a real `.ia-*` component system. So Impeccable would mostly
 **audit and push further**, not start over.

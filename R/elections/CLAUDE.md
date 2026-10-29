@@ -21,7 +21,7 @@ clean_precinct_elections_2024.R         ENR XLSX → precinct_elections_2024.csv
 _test_download_5.R, _test_scrape_urls.R scratch
 ```
 
-Older exploratory scripts (2020 precinct cleaning and fuzzy matching) are in `R/exploratory/elections/`. Session notes: `notes/2026-03-10_precinct-shapefiles-download.md`, `notes/2026-03-14_precinct-shapefiles-pipeline.md`, `notes/2026-04-22_elections-download-scripts.md`.
+Older exploratory scripts (2020 precinct cleaning and fuzzy matching) are in `R/exploratory/elections/`. Session notes: `notes/elections/2026-03-10_precinct-shapefiles-download.md`, `notes/elections/2026-03-14_precinct-shapefiles-pipeline.md`, `notes/elections/2026-04-22_elections-download-scripts.md`.
 
 ## Iowa Secretary of State (sos.iowa.gov)
 
@@ -76,11 +76,3 @@ The 2024 crosswalk covers 99 county shapefiles plus 153 city precinct shapefiles
 - **2 unusable:** Rock Rapids Precinct 3 & 4 (`Id` only).
 
 `LONGNAME` conventions: city-prefixed ("Adel 1", "CB 01"; already unique), generic ("Precinct 1", "Ward 1"; **collide** when merged into one county, so `01_combine` prefixes `source_label`), compound ("Precinct 7 - W2"). Many files include "Unassigned" placeholder rows.
-
-### Deferred next steps for city shapefiles
-
-1. Extend the `LONGNAME` fallback in `01_combine` from `c("Name", "NAME")` to `c("LONGNAME", "Name", "NAME", "name", "PRECINCT", "Precinct", "PCT", "DIST_NAME", "Ward_2020", "WardID", "Ward")`, matching `name`/`Name`/`NAME` case-insensitively.
-2. `filter(LONGNAME != "Unassigned")` in the combine step.
-3. Drop the two Rock Rapids folders.
-4. Integrate `precincts_2020s_cities/` with `precincts_2020s/`: (a) copy each city file into its county folder (needs a city → county lookup), (b) read both folders in `01_combine` with the lookup at combine time, or (c) recurse into `precincts_2020s/{county}/{city}/`. The lookup can come from `tigris::places()` + `tigris::counties()` (already used by `02_enrich`).
-5. Confirm Iowa City's `DIST_NAME` values are usable precinct names.
