@@ -12,9 +12,14 @@ project:
     # drop this line — and give CI a way to build or skip the database first.
     # The OJS variant should stay excluded either way (~13 MB output).
     - "!campaign_finance/**"
+  # GitHub Pages reads the custom domain from docs/CNAME; copying it on every
+  # render keeps a full render (which cleans docs/) from dropping the domain.
+  resources:
+    - CNAME
 
 website:
   title: "Iowa Transparency Project"
+  site-url: https://iowatransparencyproject.org
   navbar:
     left:
       - href: index.qmd

@@ -165,7 +165,7 @@ Tracker for the 91st General Assembly (2025–2026). Migrated from the standalon
 - **R** — primary language for data pipelines and site generation
 - **Quarto** — static site generation via parameterized templates
 - **LegiScan API** — legislative data source (`LEGISCAN_API_KEY` env var)
-- **GitHub Pages** — hosting (`docs/` output directory)
+- **GitHub Pages** — hosting (`docs/` output directory), served at **https://iowatransparencyproject.org** since 2026-10-28 (Cloudflare DNS, records DNS-only; `site/CNAME` is copied into `docs/` via `resources`). Setup log: [`notes/2026-10-24_custom-domain-setup.md`](notes/2026-10-24_custom-domain-setup.md)
 - **renv** — R dependency management
 
 ### Data Flow
