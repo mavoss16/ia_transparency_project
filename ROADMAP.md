@@ -9,7 +9,7 @@ The project's single list of open work. Items link to the note or file with the 
 Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-plan.md).
 
 - [ ] Add a way to freeze a session, then do a final 91st pull and freeze it so the daily run skips it.
-- [ ] **Decide** legislator pages across sessions: one career page per `people_id` with a tab per session, or one page per session. Today a page shows `CURRENT_GA` only, so switching to 92 would drop a returning member's 91st record.
+- [ ] **Decide** legislator pages across sessions: one career page per `people_id` with a tab per session, or one page per session. Today a page shows `CURRENT_GA` only, so switching to 92 would drop a returning member's 91st record. Planned electoral history is career-level, which favors the career page.
 - [ ] Link past sessions: the weekly activity archive (`site/activity/index.qmd`) and the index pages list `CURRENT_GA` only, so 91st week pages would be orphaned.
 - [ ] When LegiScan creates the session, set `CURRENT_GA = 92` (the ID fills itself via `legiscan_session_id()`), bulk-download the first load, then run incremental updates.
 - [ ] Put lobbying (`04` / `04a`) in `run_pipeline.R` and keep CI inside its time budget.
@@ -57,8 +57,9 @@ Order matters: the IECDB migration (Phases A–C) comes before any published pag
 
 ## Elections
 
-- [ ] **2026 general (November 3):** generalize `election_results_2024.R` to take an election ID and pull 2026 precinct results while they're fresh.
-- [ ] Verify 2012 and 2018 (198 files each; likely primary + general) before building a combined results pipeline across `.xls`, `.xlsx` and ENR zips.
+- [ ] **2026 general (November 3):** generalize `election_results_2024.R` to take an election ID and pull 2026 precinct results while they're fresh. Pull the 2026 primary (ENR `126082`) with it.
+- [ ] Electoral history on legislator pages (generals, primaries and specials, SOS only): [plan](notes/elections/2026-10-30_legislator-electoral-history-plan.md). Phase 1 is 2010–2026 from Excel plus the page (~4–5 sessions); Phase 2 is 2000–2008 canvass PDFs and specials (~2.5–3). **Decide** the four open questions in the plan (offices in scope, which people, pre-2000, timing).
+- [ ] The local raw result files for 2000–2010, the 2012 `.xlsx` files and about half of 2018 are saved SOS error pages, not data (the "198 files" were duplicates). Delete them, and make `download_sos_election()` check each file's first bytes, not the HTTP status.
 - [ ] City precinct shapefiles (coverage and schemas in [`R/elections/CLAUDE.md`](R/elections/CLAUDE.md#precinct-shapefile-coverage-as-of-2026-05-02)):
   - [ ] In `01_combine`, extend the `LONGNAME` fallback from `c("Name", "NAME")` to `c("LONGNAME", "Name", "NAME", "name", "PRECINCT", "Precinct", "PCT", "DIST_NAME", "Ward_2020", "WardID", "Ward")`, matching the `name` variants case-insensitively.
   - [ ] Drop "Unassigned" rows in the combine step, and drop the two Rock Rapids folders (no precinct names).
@@ -68,7 +69,7 @@ Order matters: the IECDB migration (Phases A–C) comes before any published pag
 
 ## Cross-domain
 
-- [ ] Entity crosswalk in `data/general/`: legislator `people_id` ↔ IECDB candidate committee ↔ election candidate ↔ lobbying client. Nothing links the domains yet; this is the "connections" pillar.
+- [ ] Entity crosswalk in `data/general/`: legislator `people_id` ↔ IECDB candidate committee ↔ election candidate ↔ lobbying client. Nothing links the domains yet; this is the "connections" pillar. The electoral history plan builds the `people_id` ↔ election candidate piece first.
 - [ ] **Decide** whether lobbyist registrations and client reports (keyed by lobbyist/client, not bill) become their own domain. Bill declarations stay in legislature.
 - [ ] When `R/campaign_finance/render.R` is built, move the manifest helpers out of `R/legislature/render.R` into shared code.
 

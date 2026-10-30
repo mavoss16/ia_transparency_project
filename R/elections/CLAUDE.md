@@ -9,7 +9,7 @@ download/                               standalone acquisition (no numbers)
   shapefile_precincts.R                 scrape + download 2020s county shapefiles (sos.iowa.gov)
   shapefile_city_precincts.R            all city precinct shapefiles (gap-fill source)
   shapefile_fix_counties.R              targeted fix for Jasper / Polk / Kossuth / Lyon
-  election_results_2022.R               precinct XLS from sos.iowa.gov (2000–2022), download_sos_election(year, type)
+  election_results_2022.R               precinct XLS from sos.iowa.gov (2010–2022 only), download_sos_election(year, type)
   election_results_2024.R               precinct XLSX from electionresults.iowa.gov (ENR)
 precinct_matching/                      shapefile ↔ election-precinct crosswalk
   01_combine_precinct_shapefiles.R      per-county shapefiles → precincts_2020s.rds
@@ -26,6 +26,8 @@ Older exploratory scripts (2020 precinct cleaning and fuzzy matching) are in `R/
 ## Iowa Secretary of State (sos.iowa.gov)
 
 Returns 403 without browser-like headers, and runs Akamai bot detection: a full Chrome UA string (`... Chrome/122.0.0.0 Safari/537.36`) is **blocked**, while the short string below passes. The same headers are needed for page scraping (`resp_body_string()`) and downloads (`resp_body_raw() |> writeBin(path)`). Template: `download/shapefile_precincts.R`.
+
+A missing file redirects (302) to an HTML page that returns 200, so check a download's first bytes (BIFF `D0 CF`, ZIP `PK`, `<?xml`), not the status. Per-county precinct files exist only for 2010–2022; earlier years and all specials are PDFs. Which source and format each election uses: [`notes/elections/2026-10-30_legislator-electoral-history-plan.md`](../../notes/elections/2026-10-30_legislator-electoral-history-plan.md).
 
 ```r
 request(url) |>
