@@ -1,5 +1,0 @@
----
-title: "_vote-table"
-format: html
----
-

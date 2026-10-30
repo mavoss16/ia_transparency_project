@@ -15,7 +15,6 @@ Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-p
 - [ ] Put lobbying (`04` / `04a`) in `run_pipeline.R` and keep CI inside its time budget.
 - [ ] Gate legislator and committee renders on a digest of their inputs, like `week_digests()`. They are force-rendered every night (~115 min) and rewrite ~65 MB of HTML into git history daily.
 - [ ] Check `classify_district_turnover()` at the start of the new session; expect heavy turnover after the 2026-11-03 election.
-- [ ] Match CI's R version (`r-version: '4.4'` in the workflow) to `renv.lock` (4.5.1).
 - [ ] **Decide** whether salience indicators appear on 92nd GA pages.
 
 ## Site and hosting
@@ -28,9 +27,7 @@ Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-p
 - [ ] Home: tally dash `#b5b2a8` fails contrast (`site/index.qmd`); gloss LegiScan jargon in activity rows; funnel restructure (deferred by choice).
 - [ ] Legislation index: no hint for the Group Status asterisk. Legislators index: Senate is the default tab; consider House.
 - [ ] `bill_template.qmd` hardcodes the share-bar colors; use `IA_PALETTE`. The Undecided swatch `#cfccc2` is below 3:1.
-- [ ] Remove the unused stub `site/_vote-table.qmd`.
 - [ ] **Decide** analytics: the live site has none. Wire `google-analytics.html` into `_quarto.yml` or delete it.
-- [ ] Set the repo's GitHub *About* URL to the new domain.
 - [ ] Write `DESIGN.md` once the visual direction is settled.
 - [ ] Feature idea: "enter your town → your two legislators" (highest-leverage feature for newcomers; scope with `/impeccable shape`).
 
@@ -39,7 +36,6 @@ Detail for the design items: [design backlog](notes/site/2026-07-15_design-backl
 ## Legislature data
 
 - [ ] Phase 2: backfill the 90th GA (2023–24) as the multi-session test. Phase 3: the 83rd–89th, data first. **Decide** how far back and how older sessions are hosted (open decisions 3–4 in the plan).
-- [ ] Remove the LegiScan dataset `access_key` committed in `R/legislature/archive/get_data.R` (low risk, but the repo is public).
 - [ ] Show legislator–lobbyist alignment (`04a`) on legislator pages.
 - [ ] **Decide** whether to raise `MIN_SHARED_BILLS` above 5 in the similarity scores (0% scores at the minimum may be noise).
 

@@ -44,7 +44,7 @@ Not committed: `data/campaign_finance/{source,processed}/` and the `.duckdb`, `d
 
 ## Tech stack and hosting
 
-- **R** (4.5 in `renv.lock`; CI installs 4.4) for pipelines and site generation; **renv** for dependencies. Tidyverse style with the base pipe `|>`.
+- **R** (4.5.1 in `renv.lock` and CI) for pipelines and site generation; **renv** for dependencies. Tidyverse style with the base pipe `|>`.
 - **Quarto** static site via parameterized templates. `site/_quarto.yml`: `theme: [cosmo, custom.scss]`, `page-layout: full`, navbar title "Iowa Transparency Project". Campaign finance is excluded from project renders (see its CLAUDE.md).
 - **GitHub Pages** serves `docs/` from `main` at the custom domain since 2026-10-28 (Cloudflare DNS, records DNS-only). `site/CNAME` is copied into `docs/` via `resources` so a full render can't drop the domain. Setup log: [`notes/site/2026-10-24_custom-domain-setup.md`](notes/site/2026-10-24_custom-domain-setup.md). Pages limits a site to about 1 GB.
 - **CI:** `.github/workflows/daily-update.yml` runs the legislature pipeline at 06:00 UTC on `ubuntu-24.04` (pinned: PPM has no binary for the locked `later` on 26.04), then commits `docs/`, `data/`, `legiscan/` and the manifest. The bot commits daily, so **`git pull --ff-only` before starting work.**

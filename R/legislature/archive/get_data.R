@@ -53,10 +53,14 @@ dataset_list <- request(base_url) |>
   req_perform() |>
   resp_body_json()
 
-access_key_2025 <- "3IHnboW19fYEemzI5MoS0s"
+# Each dataset's access_key comes with the dataset list and changes when the dataset does
+access_key_2025 <- dataset_list |>
+  pluck("datasetlist") |>
+  keep(\(d) d$session_id == session_id) |>
+  pluck(1, "access_key")
 
 query <- request(base_url) |>
-  req_url_query(op = "getDatasetRaw", id = current_session, access_key = access_key_2025, format = "JSON")
+  req_url_query(op = "getDatasetRaw", id = session_id, access_key = access_key_2025, format = "JSON")
 
 download.file(query$url, "legiscan/files_2025_json.zip", mode = "wb")
 
