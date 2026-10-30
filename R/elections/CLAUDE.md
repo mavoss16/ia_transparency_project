@@ -9,25 +9,28 @@ download/                               standalone acquisition (no numbers)
   shapefile_precincts.R                 scrape + download 2020s county shapefiles (sos.iowa.gov)
   shapefile_city_precincts.R            all city precinct shapefiles (gap-fill source)
   shapefile_fix_counties.R              targeted fix for Jasper / Polk / Kossuth / Lyon
-  election_results_2022.R               precinct XLS from sos.iowa.gov (2010–2022 only), download_sos_election(year, type)
-  election_results_2024.R               precinct XLSX from electionresults.iowa.gov (ENR)
+  election_results.R                    precinct results, every election in RESULT_SOURCES (SOS 2006–2022, ENR 2024 on):
+                                        download_all_results(), download_results(year, type), results_inventory()
 precinct_matching/                      shapefile ↔ election-precinct crosswalk
   01_combine_precinct_shapefiles.R      per-county shapefiles → precincts_2020s.rds
   02_enrich_precinct_shapefiles.R       Census place/township overlap columns
   03_crosswalk_precincts_2024.R         auto-match + manual template for 2024
   manual_crosswalk.R                    interactive console helpers (sourced repeatedly)
   explore_shapefiles.R                  inspection helpers
-clean_precinct_elections_2024.R         ENR XLSX → precinct_elections_2024.csv
+clean_precinct_elections_2024.R         2024 general (ENR SpreadsheetML) → precinct_elections_2024.csv
 _test_download_5.R, _test_scrape_urls.R scratch
+archive/election_results_2024.R         old one-election ENR downloader
 ```
+
+Raw results live in `data/elections/raw/precinct_results/{year}_{type}/{county}.{ext}` (statewide files as `statewide.{ext}`). The extension is the real format read from the first bytes, not what the server called it: `xls` (BIFF), `xlsx`, `xml` (SpreadsheetML: readxl can't open it, use xml2) or `pdf` (Scott 2020 general is PDF only). `data/elections/raw/precinct_elections_2014/` holds superseded per-county 2014 general files; the 2014 general source is the statewide file.
 
 Older exploratory scripts (2020 precinct cleaning and fuzzy matching) are in `R/exploratory/elections/`. Session notes: `notes/elections/2026-03-10_precinct-shapefiles-download.md`, `notes/elections/2026-03-14_precinct-shapefiles-pipeline.md`, `notes/elections/2026-04-22_elections-download-scripts.md`.
 
 ## Iowa Secretary of State (sos.iowa.gov)
 
-Returns 403 without browser-like headers, and runs Akamai bot detection: a full Chrome UA string (`... Chrome/122.0.0.0 Safari/537.36`) is **blocked**, while the short string below passes. The same headers are needed for page scraping (`resp_body_string()`) and downloads (`resp_body_raw() |> writeBin(path)`). Template: `download/shapefile_precincts.R`.
+Returns 403 without browser-like headers, and runs Akamai bot detection: a full Chrome UA string (`... Chrome/122.0.0.0 Safari/537.36`) is **blocked**, while the short string below passes. The same headers are needed for page scraping (`resp_body_string()`) and downloads (`resp_body_raw() |> writeBin(path)`). Template: `download/shapefile_precincts.R`. **As of 2026-10-30 R's httr2 gets 403 from sos.iowa.gov with these headers** while command-line curl with the same User-Agent gets 200; not resolved.
 
-A missing file redirects (302) to an HTML page that returns 200, so check a download's first bytes (BIFF `D0 CF`, ZIP `PK`, `<?xml`), not the status. Per-county precinct files exist only for 2010–2022; earlier years and all specials are PDFs. Which source and format each election uses: [`notes/elections/2026-10-30_legislator-electoral-history-plan.md`](../../notes/elections/2026-10-30_legislator-electoral-history-plan.md).
+A missing file redirects (302) to an HTML page that returns 200, so check a download's first bytes (BIFF `D0 CF`, ZIP `PK`, `<?xml`), not the status (`sniff_format()` in `download/election_results.R`). Per-county precinct files exist only for 2010–2022; earlier years and all specials are PDFs. Which source and format each election uses: [`notes/elections/2026-10-30_legislator-electoral-history-plan.md`](../../notes/elections/2026-10-30_legislator-electoral-history-plan.md).
 
 ```r
 request(url) |>
@@ -40,7 +43,7 @@ request(url) |>
 
 ## Iowa ENR (electionresults.iowa.gov)
 
-An Angular SPA: county data is not in the HTML; county metadata comes from a JSON file at runtime. The `Referer` header is required for downloads (503 without it); the full Chrome UA is fine here. Template: `download/election_results_2024.R`.
+An Angular SPA: county data is not in the HTML; county metadata comes from a JSON file at runtime. The `Referer` header is required for downloads (503 without it); the full Chrome UA is fine here, and curl's default UA gets 403 from CloudFront. `electionsettings.json` is served gzip-encoded (httr2 decodes it; curl needs `--compressed`). Find an election's ID in the "Precinct Results by County - Excel Format" link on the SOS results page. Template: `download/election_results.R`.
 
 ```r
 # 1. Current data version

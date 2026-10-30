@@ -1,7 +1,8 @@
 # Clean 2024 General Election precinct results for all 99 Iowa counties.
 #
 # The files downloaded from electionresults.iowa.gov are SpreadsheetML XML
-# (renamed .xlsx but not a ZIP — readxl cannot open them). Parsed with xml2.
+# (served as .xlsx but not a ZIP — readxl cannot open them), saved as .xml by
+# download/election_results.R. Parsed with xml2.
 #
 # File layout per county (one XML file, multiple "sheets"):
 #   Sheet 1: Table of Contents
@@ -16,7 +17,7 @@
 #   Row 4..n-1: Precinct data rows
 #   Row n: "Total:" county totals (excluded)
 #
-# Output: data/elections/raw/statewide/precinct_elections_2024.csv
+# Output: data/elections/processed/2024/precinct_elections_2024.csv
 #   Columns: county, precinct, registered_voters, contest, district,
 #            candidate, vote_type, votes
 
@@ -27,7 +28,7 @@ library(stringr)
 library(readr)
 library(here)
 
-INPUT_DIR  <- here("data/elections/raw/precinct_elections_2024")
+INPUT_DIR  <- here("data/elections/raw/precinct_results/2024_general")
 OUTPUT_DIR <- here("data/elections/processed/2024")
 OUTPUT_FILE <- file.path(OUTPUT_DIR, "precinct_elections_2024.csv")
 
@@ -109,7 +110,7 @@ parse_contest <- function(ws) {
 process_county <- function(path) {
   county <- path |>
     basename() |>
-    str_remove("_2024\\.xlsx$") |>
+    str_remove("\\.xml$") |>
     str_replace_all("_", " ") |>
     str_to_title()
 
@@ -131,7 +132,7 @@ process_county <- function(path) {
 
 # ---- Run ----
 
-paths <- list.files(INPUT_DIR, pattern = "\\.xlsx$", full.names = TRUE)
+paths <- list.files(INPUT_DIR, pattern = "\\.xml$", full.names = TRUE)
 message("Processing ", length(paths), " counties...")
 
 results <- map(paths, process_county)
