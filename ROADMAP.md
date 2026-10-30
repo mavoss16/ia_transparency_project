@@ -4,12 +4,6 @@ The project's single list of open work. Items link to the note or file with the 
 
 **Keeping it current:** add an item when work is found or deferred, and remove it when it's done (the commit and the session log are the record). Decisions waiting on a choice are marked **Decide**. Collected from the notes on 2026-10-28; older notes may still list items that are now here or done.
 
-## Now — finish the `ga91/` rollout
-
-- [ ] Let CI finish rendering all 4,231 bill pages at `legislation/ga91/` (2,708 done on 2026-10-28; ~1,200/night). Until then, links to unrendered `ga91/` pages 404.
-- [ ] Then run `remove_unsessioned_pages(dry_run = FALSE)` to drop the old flat pages. `docs/` is 1.1 GB until this runs, above GitHub Pages' ~1 GB limit. Afterwards delete the function.
-- [ ] Run the checks in [the rollout note](notes/legislature/2026-10-25_multi-session-rollout-rollback.md#what-to-check-after-the-run): status page, a bill with vote maps, a legislator map, the legislators index.
-
 ## Before the 92nd GA (December 2026 – January 2027)
 
 Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-plan.md).

@@ -878,38 +878,6 @@ render_status <- function() {
   ))
 }
 
-#' Remove pages left at the pre-session URLs (one-time, for the URL move)
-#'
-#' Bill and committee pages used to sit directly in docs/legislation/ and
-#' docs/committees/, keyed in the manifest by bare bill number or people_id.
-#' Run this after the full render that fills the session directories: it
-#' deletes the flat pages, the old default template renders, and the old
-#' manifest rows. Safe to re-run; delete the function once it finds nothing.
-#' @param dry_run If TRUE (default), only report what would be removed
-remove_unsessioned_pages <- function(dry_run = TRUE) {
-  flat_bills <- list.files(file.path(OUTPUT_DIR, "legislation"), pattern = "\\.html$", full.names = TRUE)
-  flat_bills <- flat_bills[basename(flat_bills) != "index.html"]
-  flat_committees <- list.files(file.path(OUTPUT_DIR, "committees"), pattern = "\\.html$", full.names = TRUE)
-  old_templates <- file.path(OUTPUT_DIR, "templates",
-                             c("bill_template.html", "committee_template.html",
-                               "bill_template_files", "committee_template_files"))
-  old_templates <- old_templates[file.exists(old_templates)]
-
-  manifest <- load_manifest()
-  old_rows <- manifest$type %in% c("bill", "committee") & !grepl("^ga\\d+/", manifest$id)
-
-  message(sprintf(
-    "%s %d flat bill pages, %d flat committee pages, %d old template outputs, %d manifest rows",
-    if (dry_run) "Would remove" else "Removing",
-    length(flat_bills), length(flat_committees), length(old_templates), sum(old_rows)
-  ))
-  if (dry_run) return(invisible(NULL))
-
-  unlink(c(flat_bills, flat_committees, old_templates), recursive = TRUE)
-  save_manifest(manifest[!old_rows, ])
-  invisible(NULL)
-}
-
 #' Clear the manifest to force full re-render
 clear_manifest <- function() {
   if (file.exists(MANIFEST_FILE)) {
@@ -942,7 +910,6 @@ render_site.R loaded. Available functions:
     render_status()              - Show how many items need rendering
     render_index_pages()         - Render main site index pages only
     clear_manifest()             - Clear render history (forces full re-render)
-    remove_unsessioned_pages()   - One-time: drop pre-session bill/committee pages (dry run by default)
 
   Limiting:
     render_all_bills(limit=10)   - Process first 10 bills only

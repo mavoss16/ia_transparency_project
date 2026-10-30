@@ -18,7 +18,7 @@ Those files load automatically when you work inside their folders, but **not** w
 
 **[`ROADMAP.md`](ROADMAP.md) is the single list of open work.** Read it at the start of a task. Keep it current as part of the work, not as a separate chore: add an item when you find or defer something, remove it when it's done (the commit and session log are the record), and mark choices waiting on the user with **Decide**. Don't put task lists in this file or the domain CLAUDE.md files.
 
-Now (late October 2026): finish the legislature's `ga91/` URL rollout, then prepare the 92nd GA rollover (January 2027). Campaign finance is blocked on the IECDB API cutover; elections should pull 2026 general results.
+Now (late October 2026): prepare the legislature's 92nd GA rollover (January 2027); the `ga91/` URL rollout finished 2026-10-30. Campaign finance is blocked on the IECDB API cutover; elections should pull 2026 general results.
 
 ## Layout
 
