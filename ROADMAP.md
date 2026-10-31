@@ -25,9 +25,9 @@ Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-p
 - [ ] Phone width, all from nested card + tab padding: vote maps (~198 px, legend covers them), the 10-column vote summary (scrolls in a ~232 px box), the legislators index map (~233 px sliver).
 - [ ] Week page: status hidden on phones; resolutions lead busy weeks (sort substantive bills first at equal stage); the "✓ Vetoed" stepper step is green (give `ui_stepper()` an end-state class); footnote line length; empty search shows "No rows found".
 - [ ] Home: tally dash `#b5b2a8` fails contrast (`site/index.qmd`); gloss LegiScan jargon in activity rows; funnel restructure (deferred by choice).
-- [ ] Legislation index: no hint for the Group Status asterisk. Legislators index: Senate is the default tab; consider House.
-- [ ] `bill_template.qmd` hardcodes the share-bar colors; use `IA_PALETTE`. The Undecided swatch `#cfccc2` is below 3:1.
-- [ ] **Decide** analytics: the live site has none. Wire `google-analytics.html` into `_quarto.yml` or delete it.
+- [ ] Legislators index: Senate is the default tab; consider House.
+- [ ] `site/templates/session/bill_template.qmd` hardcodes the share-bar colors; use `IA_PALETTE`. The Undecided swatch `#cfccc2` is below 3:1.
+- [ ] **Decide** analytics: the live site has none. Wire `google-analytics.html` (repo root) into `_quarto.yml` or delete it.
 - [ ] Write `DESIGN.md` once the visual direction is settled.
 - [ ] Feature idea: "enter your town → your two legislators" (highest-leverage feature for newcomers; scope with `/impeccable shape`).
 
@@ -78,4 +78,3 @@ Order matters: the IECDB migration (Phases A–C) comes before any published pag
 ## Housekeeping
 
 - [ ] Archive the old `iowa_legislature` GitHub repo and delete `../iowa_legislature-filtered`.
-- [ ] Commit or revert the impeccable skill update in `.claude/skills/` and `.github/skills/`, and the untracked `agents/` folders.
