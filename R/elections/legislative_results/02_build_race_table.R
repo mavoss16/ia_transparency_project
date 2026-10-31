@@ -3,8 +3,12 @@
 # legislator pages' electoral history reads.
 #
 # Input:  data/elections/processed/legislative_results_precinct.rds (01_parse_precinct_results.R)
+#         data/elections/processed/legislative_results_special.csv (special
+#           elections, county rows entered from the SOS canvasses; type "special")
 # Output: data/elections/processed/legislative_results.rds, one row per
-#   year × type × chamber × district × party (primaries) × candidate:
+#   year × type × chamber × district × party (primaries) × candidate
+#   (a second special for the same seat in one year would need election_date
+#   in that key):
 #     year, type, election_date, district_map (the map the district number
 #       refers to: "2001", "2011" or "2021"), chamber, district,
 #     primary_party (the primary's party; NA for generals),
@@ -43,8 +47,9 @@ library(stringr)
 library(tibble)
 library(lubridate)
 
-INPUT  <- here("data/elections/processed/legislative_results_precinct.rds")
-OUTPUT <- here("data/elections/processed/legislative_results.rds")
+INPUT    <- here("data/elections/processed/legislative_results_precinct.rds")
+SPECIALS <- here("data/elections/processed/legislative_results_special.csv")
+OUTPUT   <- here("data/elections/processed/legislative_results.rds")
 
 PRIMARY_THRESHOLD <- 0.35  # Iowa Code 43.65: below this, a convention nominates
 
@@ -109,18 +114,39 @@ name_key <- function(x) {
   })
 }
 
-build_race_table <- function(precinct = readRDS(INPUT)) {
-  races <- precinct |>
+# Special elections, entered by hand from the SOS canvasses: one row per county
+# and candidate, in the precinct table's columns plus the special's own date
+# and source
+read_specials <- function(path = SPECIALS) {
+  readr::read_csv(path, col_types = readr::cols(election_date = "D", district = "i", votes = "i", .default = "c")) |>
+    transmute(
+      year = as.integer(year(election_date)), type = "special", county, precinct = NA_character_,
+      chamber = str_to_lower(chamber), district, party, candidate, votes,
+      special_date = election_date, special_url = source_url
+    )
+}
+
+build_race_table <- function(precinct = readRDS(INPUT), specials = read_specials()) {
+  races <- bind_rows(precinct, specials) |>
     mutate(
       candidate     = fix_caps(candidate),
       primary_party = if_else(type == "primary", party, NA_character_),
-      party         = standard_party(party)
+      party         = standard_party(party),
+      spelling      = str_to_lower(candidate)
+    ) |>
+    # County files can differ only in case ("TJ Widbin" / "Tj Widbin"): use
+    # the spelling with the most votes in the race
+    mutate(
+      candidate = candidate[which.max(votes)],
+      .by = c(year, type, chamber, district, primary_party, spelling)
     ) |>
     summarise(
       votes    = sum(votes),
       counties = n_distinct(county),
       # A county file may lack the label (Adair 2016) while others print it
       party    = first(party[!is.na(party)]),
+      special_date = first(special_date),
+      special_url  = first(special_url),
       .by = c(year, type, chamber, district, primary_party, candidate)
     ) |>
     mutate(party_source = if_else(!is.na(party), "results", NA_character_))
@@ -165,7 +191,8 @@ build_race_table <- function(precinct = readRDS(INPUT)) {
     ) |>
     left_join(source_url_table(), by = c("year", "type")) |>
     mutate(
-      election_date = election_date(year, type),
+      election_date = coalesce(special_date, election_date(year, type)),
+      source_url    = coalesce(special_url, source_url),
       district_map  = district_map(year)
     ) |>
     select(year, type, election_date, district_map, chamber, district, primary_party,

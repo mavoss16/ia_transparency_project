@@ -20,7 +20,9 @@ precinct_matching/                      shapefile ↔ election-precinct crosswal
 legislative_results/                    House and Senate results for legislator electoral history
   parsers.R                             parse_results_file(): one parser per file layout, picked from contents
   01_parse_precinct_results.R           every raw results file → legislative_results_precinct.rds
-  02_build_race_table.R                 candidate totals per race (votes, %, winner, party) → legislative_results.rds
+  02_build_race_table.R                 candidate totals per race (votes, %, winner, party) → legislative_results.rds;
+                                        also reads the hand-entered specials (legislative_results_special.csv,
+                                        county rows; sources in data/elections/raw/special_results/sources.csv)
   03_match_legislators.R                candidates ↔ LegiScan people_id → data/general/candidate_legislators.csv;
                                         adds people_id, incumbent, open_seat to legislative_results.rds
 clean_precinct_elections_2024.R         2024 general (ENR SpreadsheetML) → precinct_elections_2024.csv
@@ -32,7 +34,7 @@ archive/election_results_2024.R         old one-election ENR downloader
 
 **Run `02` then `03`:** `02_build_race_table.R` rewrites `legislative_results.rds` without the columns `03` adds. When `03` writes `data/general/candidate_legislators_review.csv` with rows, decide each one: copy it into `candidate_legislators_manual.csv` with a `people_id` (same person) or an empty one (not), plus a note.
 
-Raw results live in `data/elections/raw/precinct_results/{year}_{type}/{county}.{ext}` (statewide files as `statewide.{ext}`). The extension is the real format read from the first bytes, not what the server called it: `xls` (BIFF), `xlsx`, `xml` (SpreadsheetML: readxl can't open it, use xml2) or `pdf` (Scott 2020 general is PDF only). `data/elections/raw/precinct_elections_2014/` holds superseded per-county 2014 general files; the 2014 general source is the statewide file.
+Raw results live in `data/elections/raw/precinct_results/{year}_{type}/{county}.{ext}` (statewide files as `statewide.{ext}`). The extension is the real format read from the first bytes, not what the server called it: `xls` (BIFF), `xlsx`, `xml` (SpreadsheetML, or ENR's `detail.xml` report: readxl can't open either, use xml2) or `pdf` (Scott 2020 general is PDF only). Statewide files with **county** rows (SOS's "results by county" downloads, kept as cross-checks and for counties ENR lacks) go in `data/elections/raw/county_results/{year}_{type}.{ext}`, never under `precinct_results/`, which `01` reads in full and would double-count. `data/elections/raw/precinct_elections_2014/` holds superseded per-county 2014 general files; the 2014 general source is the statewide file.
 
 Older exploratory scripts (2020 precinct cleaning and fuzzy matching) are in `R/exploratory/elections/`. Session notes: `notes/elections/2026-03-10_precinct-shapefiles-download.md`, `notes/elections/2026-03-14_precinct-shapefiles-pipeline.md`, `notes/elections/2026-04-22_elections-download-scripts.md`.
 
@@ -70,6 +72,8 @@ settings <- request(paste0("https://electionresults.iowa.gov/IA/{electionID}/", 
 # 3. County file
 # https://electionresults.iowa.gov/IA/{CountyName}/{ElectionID}/{VersionID}/reports/detailxls.zip
 ```
+
+Not every election has the Excel report: the 2026 primary has only `reports/detailxml.zip` (`detailxlsfilesize` is `"-"` in the county's `electionsettings.json`). That holds `detail.xml`, a different format from SpreadsheetML (`<ElectionResult>`, `<Contest>`, `<Choice party="REP">`, a `<VoteType>` per vote type with `<Precinct>` rows). `download_enr()` falls back to it, and `parsers.R` reads it as layout `clarity_xml`.
 
 ## Precinct shapefile coverage (as of 2026-05-02)
 

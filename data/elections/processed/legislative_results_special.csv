@@ -1,0 +1,31 @@
+election_date,chamber,district,county,candidate,party,votes,source_url
+2025-01-28,Senate,35,Clinton,Katie Elizabeth Whittington,Republican,3170,https://sos.iowa.gov/sites/default/files/2025-02/Screenshot%202025-02-24%20083359.png
+2025-01-28,Senate,35,Clinton,Mike Zimmer,Democratic,3411,https://sos.iowa.gov/sites/default/files/2025-02/Screenshot%202025-02-24%20083359.png
+2025-01-28,Senate,35,Clinton,Write-in,,18,https://sos.iowa.gov/sites/default/files/2025-02/Screenshot%202025-02-24%20083359.png
+2025-01-28,Senate,35,Jackson,Katie Elizabeth Whittington,Republican,446,https://sos.iowa.gov/sites/default/files/2025-02/Screenshot%202025-02-24%20083359.png
+2025-01-28,Senate,35,Jackson,Mike Zimmer,Democratic,555,https://sos.iowa.gov/sites/default/files/2025-02/Screenshot%202025-02-24%20083359.png
+2025-01-28,Senate,35,Jackson,Write-in,,0,https://sos.iowa.gov/sites/default/files/2025-02/Screenshot%202025-02-24%20083359.png
+2025-01-28,Senate,35,Scott,Katie Elizabeth Whittington,Republican,858,https://sos.iowa.gov/sites/default/files/2025-02/Screenshot%202025-02-24%20083359.png
+2025-01-28,Senate,35,Scott,Mike Zimmer,Democratic,846,https://sos.iowa.gov/sites/default/files/2025-02/Screenshot%202025-02-24%20083359.png
+2025-01-28,Senate,35,Scott,Write-in,,1,https://sos.iowa.gov/sites/default/files/2025-02/Screenshot%202025-02-24%20083359.png
+2025-03-11,House,100,Lee,Nannette Griffin,Democratic,2574,https://sos.iowa.gov/sites/default/files/2025-04/Canvass%20Summary_HD100_2025.pdf
+2025-03-11,House,100,Lee,Blaine Watkins,Republican,2749,https://sos.iowa.gov/sites/default/files/2025-04/Canvass%20Summary_HD100_2025.pdf
+2025-03-11,House,100,Lee,Write-in,,13,https://sos.iowa.gov/sites/default/files/2025-04/Canvass%20Summary_HD100_2025.pdf
+2025-04-29,House,78,Linn,Angel Ramirez,Democratic,2747,https://sos.iowa.gov/sites/default/files/2025-05/CanvassSummaryReport%202025_HD78.pdf
+2025-04-29,House,78,Linn,Bernie Hayes,Republican,721,https://sos.iowa.gov/sites/default/files/2025-05/CanvassSummaryReport%202025_HD78.pdf
+2025-04-29,House,78,Linn,Write-in,,6,https://sos.iowa.gov/sites/default/files/2025-05/CanvassSummaryReport%202025_HD78.pdf
+2025-08-26,Senate,1,Woodbury,Catelin Drey,Democratic,4212,https://sos.iowa.gov/sites/default/files/2025-09/CanvassSummaryReport_SD1_2025.pdf
+2025-08-26,Senate,1,Woodbury,Christopher A. Prosch,Republican,3412,https://sos.iowa.gov/sites/default/files/2025-09/CanvassSummaryReport_SD1_2025.pdf
+2025-08-26,Senate,1,Woodbury,Write-in,,5,https://sos.iowa.gov/sites/default/files/2025-09/CanvassSummaryReport_SD1_2025.pdf
+2025-12-09,House,7,Calhoun,Rachel Burns,Democratic,344,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
+2025-12-09,House,7,Calhoun,Wendy Larson,Republican,786,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
+2025-12-09,House,7,Calhoun,Write-in,,5,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
+2025-12-09,House,7,Pocahontas,Rachel Burns,Democratic,223,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
+2025-12-09,House,7,Pocahontas,Wendy Larson,Republican,543,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
+2025-12-09,House,7,Pocahontas,Write-in,,1,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
+2025-12-09,House,7,Sac,Rachel Burns,Democratic,476,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
+2025-12-09,House,7,Sac,Wendy Larson,Republican,1224,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
+2025-12-09,House,7,Sac,Write-in,,1,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
+2025-12-09,House,7,Webster,Rachel Burns,Democratic,158,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
+2025-12-09,House,7,Webster,Wendy Larson,Republican,265,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
+2025-12-09,House,7,Webster,Write-in,,0,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf

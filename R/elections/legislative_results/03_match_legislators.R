@@ -19,7 +19,7 @@
 #     NICKNAMES) + last name, as name_key() builds it
 #   home counties — the counties of their seat on the 2021 map, from the 2024
 #     House general (a Senate seat n covers House districts 2n - 1 and 2n)
-#   seat  — the matching winner of their seat in the 2022 or 2024 general
+#   seat  — the matching winner of their seat in a general or special from 2022 on
 #   name  — any other race (losses, primaries, the other chamber, older maps)
 #     whose candidate has the same name key (first or nickname + last name) and
 #     shares a county with the home counties
@@ -35,8 +35,9 @@
 # incumbent: the candidate won a general for the same chamber whose term covers
 #   the election (House: two years earlier; Senate: two or four), matched by
 #   people_id or, for non-legislators, by name key. NA when those generals
-#   aren't in the data. Specials aren't in the data yet, so a member who won a
-#   special shows as not incumbent.
+#   aren't in the data. A special's winner holds the seat in later elections
+#   until the seat's next general. Specials before 2025 aren't in the data, so
+#   members who won one earlier show as not incumbent.
 # open_seat: per chamber × district × year, no incumbent ran in any of its
 #   races (general or primaries). NA when incumbency is unknown.
 #
@@ -125,7 +126,7 @@ legislator_keys <- function(legislators) {
 }
 
 race_counties <- function(precinct = readRDS(PRECINCT_INPUT)) {
-  precinct |>
+  bind_rows(precinct, read_specials()) |>
     mutate(primary_party = if_else(type == "primary", party, NA_character_)) |>
     distinct(across(all_of(RACE_COLS)), county) |>
     summarise(counties = list(county), .by = all_of(RACE_COLS))
@@ -168,7 +169,7 @@ match_legislators <- function(races = readRDS(OUTPUT)) {
 
   seats <- legislators |>
     distinct(people_id, chamber, district) |>
-    inner_join(by_key |> filter(type == "general", winner, year %in% c(2022, 2024)),
+    inner_join(by_key |> filter(type %in% c("general", "special"), winner, year >= 2022),
                by = c("people_id", "chamber", "district")) |>
     distinct(across(all_of(RACE_COLS)), candidate, people_id) |>
     mutate(match = "seat")
@@ -240,8 +241,15 @@ add_incumbency <- function(matches = read_csv(CROSSWALK, show_col_types = FALSE)
 
   general_years <- unique(races$year[races$type == "general"])
   won <- races |>
-    filter(type == "general", winner, candidate != "Write-in") |>
-    distinct(chamber, won_year = year, person)
+    filter(type %in% c("general", "special"), winner, candidate != "Write-in") |>
+    distinct(chamber, district, won_year = year, won_type = type, person)
+  general_seats <- races |> filter(type == "general") |> distinct(chamber, district, year)
+
+  # A special fills the rest of a term: it holds until the seat's next general
+  later_general <- \(ch, d, from, to) {
+    any(general_seats$chamber == ch & general_seats$district == d &
+        general_seats$year > from & general_seats$year < to)
+  }
 
   # For an election in `year`, the generals whose winners still hold the seat
   incumbency_known <- \(chamber, year) {
@@ -251,7 +259,11 @@ add_incumbency <- function(matches = read_csv(CROSSWALK, show_col_types = FALSE)
   holders <- races |>
     distinct(year, chamber, person) |>
     inner_join(won, by = c("chamber", "person"), relationship = "many-to-many") |>
-    filter(year - won_year >= 2, year - won_year <= TERM_YEARS[chamber]) |>
+    filter(
+      if_else(won_type == "special", year > won_year, year - won_year >= 2),
+      year - won_year <= TERM_YEARS[chamber],
+      won_type == "general" | !pmap_lgl(list(chamber, district, won_year, year), later_general)
+    ) |>
     distinct(year, chamber, person) |>
     mutate(holds = TRUE)
 

@@ -15,7 +15,8 @@
 #     xls  — legacy BIFF workbook (2010, 2012)
 #     xlsx — Office Open XML (2014, 2016, 2020 general, statewide files)
 #     xml  — SpreadsheetML, served as .xls/.xlsx but not readable by readxl
-#            (2018–2022 SOS, all ENR)
+#            (2018–2022 SOS, ENR 2024), or ENR's detail.xml report (2026
+#            primary, which has no Excel report)
 #     pdf  — a county SOS published only as PDF (Scott, 2020 general)
 #   A response that is none of these (e.g. the HTML page SOS returns with
 #   status 200 for a missing file) is reported and not saved.
@@ -89,7 +90,7 @@ enr_request <- function(url) {
 }
 
 # Perform a request; return the body as raw bytes, or NULL on any failure.
-fetch_bytes <- function(req) {
+fetch_bytes <- function(req, quiet_404 = FALSE) {
   resp <- tryCatch(
     req |> req_error(is_error = \(r) FALSE) |> req_perform(),
     error = function(e) {
@@ -99,7 +100,7 @@ fetch_bytes <- function(req) {
   )
   if (is.null(resp)) return(NULL)
   if (resp_status(resp) != 200) {
-    message("    HTTP ", resp_status(resp), " — ", resp$url)
+    if (!(quiet_404 && resp_status(resp) == 404)) message("    HTTP ", resp_status(resp), " — ", resp$url)
     return(NULL)
   }
   resp_body_raw(resp)
@@ -116,7 +117,8 @@ sniff_format <- function(bytes) {
   if (identical(bytes[1:5], charToRaw("%PDF-"))) return("pdf")
   head <- bytes[seq_len(min(500, length(bytes)))]
   head <- rawToChar(head[head != as.raw(0)])
-  if (str_detect(head, fixed("<?xml")) && str_detect(head, "Excel\\.Sheet|office:spreadsheet")) {
+  # SpreadsheetML, or ENR's detail.xml report (<ElectionResult>)
+  if (str_detect(head, fixed("<?xml")) && str_detect(head, "Excel\\.Sheet|office:spreadsheet|<ElectionResult>")) {
     return("xml")
   }
   NA_character_
@@ -228,14 +230,21 @@ download_enr <- function(year, type, election_id) {
     if (length(existing_file(dir, name))) return(invisible())
     message("  ", name)
 
-    url <- paste0(
+    reports <- paste0(
       "https://electionresults.iowa.gov/IA/", URLencode(county_url_name), "/",
-      election_id, "/", version_id, "/reports/detailxls.zip"
+      election_id, "/", version_id, "/reports/", c("detailxls.zip", "detailxml.zip")
     )
-    bytes <- fetch_bytes(enr_request(url))
+    # Some elections (2026 primary) publish only the XML report
+    url   <- reports[1]
+    bytes <- fetch_bytes(enr_request(url), quiet_404 = TRUE)
+    if (is.null(bytes)) {
+      url   <- reports[2]
+      bytes <- fetch_bytes(enr_request(url))
+    }
     if (is.null(bytes)) return(invisible())
 
-    # Each zip holds one workbook (SpreadsheetML despite its .xlsx name)
+    # Each zip holds one file: a SpreadsheetML workbook (despite its .xlsx
+    # name) or detail.xml
     zip <- tempfile(fileext = ".zip")
     out <- tempfile()
     on.exit(unlink(c(zip, out), recursive = TRUE), add = TRUE)

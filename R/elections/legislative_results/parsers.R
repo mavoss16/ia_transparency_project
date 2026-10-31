@@ -21,6 +21,9 @@
 #                    Election Day / Absentee / Total rows. 2012.
 #   canvass_pdf    — the same printed canvass as a PDF, read as text. Scott,
 #                    2020 general.
+#   clarity_xml    — ENR's detail.xml report: <Contest>, <Choice party=...>,
+#                    one <VoteType> per vote type with a <Precinct> each.
+#                    2026 primary (ENR published no Excel report).
 #
 # Usage:
 #   source("R/elections/legislative_results/parsers.R")
@@ -93,7 +96,10 @@ long_votes <- function(precinct, candidate, votes, party = NA_character_) {
 
 detect_layout <- function(path) {
   ext <- tools::file_ext(path)
-  if (ext == "xml") return("contest_sheets")
+  if (ext == "xml") {
+    head <- rawToChar(readBin(path, "raw", 500))
+    return(if (str_detect(head, fixed("<ElectionResult>"))) "clarity_xml" else "contest_sheets")
+  }
   if (ext == "pdf") return("canvass_pdf")
   if (ext == "xlsx" && excel_sheets(path)[1] == "Table of Contents") return("contest_sheets")
 
@@ -196,6 +202,35 @@ read_clarity_wide <- function(path, keep) {
     filter(!is.na(votes)) |>
     # Sum Polling + Absentee into the precinct total
     summarise(votes = sum(votes), .by = c(county, precinct, contest, candidate, party))
+}
+
+# ---- clarity_xml ----
+
+# ENR party codes → the names the other layouts print
+ENR_PARTIES <- c(REP = "Republican", DEM = "Democratic", LIB = "Libertarian", IND = "Independent")
+
+read_clarity_xml <- function(path, keep) {
+  contests <- xml_find_all(read_xml(path), "//Contest")
+  contests <- contests[keep(xml_attr(contests, "text"))]
+
+  map(contests, \(contest) {
+    choices <- xml_find_all(contest, "./Choice")
+    map(choices, \(choice) {
+      pcts <- xml_find_all(choice, "./VoteType/Precinct")
+      party <- xml_attr(choice, "party")
+      tibble(
+        precinct  = str_squish(xml_attr(pcts, "name")),
+        candidate = clean_candidate(xml_attr(choice, "text")),
+        party     = coalesce(unname(ENR_PARTIES[party]), na_if(party, "")),
+        votes     = as.integer(xml_attr(pcts, "votes"))
+      )
+    }) |>
+      list_rbind() |>
+      mutate(contest = str_squish(xml_attr(contest, "text")))
+  }) |>
+    list_rbind() |>
+    # Sum Election Day + Absentee into the precinct total
+    summarise(votes = sum(votes), .by = c(precinct, contest, candidate, party))
 }
 
 # ---- race_blocks ----
@@ -389,6 +424,7 @@ parse_results_file <- function(path, type, county = NULL) {
   rows <- switch(layout,
     contest_sheets = read_contest_sheets(path, is_legislative),
     clarity_wide   = read_clarity_wide(path, is_legislative),
+    clarity_xml    = read_clarity_xml(path, is_legislative),
     race_blocks    = read_race_blocks(path, is_legislative),
     county_canvass = read_county_canvass(path, is_legislative),
     canvass_pdf    = read_canvass_pdf(path, is_legislative)
