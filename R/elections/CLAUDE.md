@@ -20,12 +20,13 @@ precinct_matching/                      shapefile ↔ election-precinct crosswal
 legislative_results/                    House and Senate results for legislator electoral history
   parsers.R                             parse_results_file(): one parser per file layout, picked from contents
   01_parse_precinct_results.R           every raw results file → legislative_results_precinct.rds
+  02_build_race_table.R                 candidate totals per race (votes, %, winner, party) → legislative_results.rds
 clean_precinct_elections_2024.R         2024 general (ENR SpreadsheetML) → precinct_elections_2024.csv
 _test_download_5.R, _test_scrape_urls.R scratch
 archive/election_results_2024.R         old one-election ENR downloader
 ```
 
-`01_parse_precinct_results.R` takes ~10 minutes, mostly the 2020 general (`.xlsx`, 29 sheets per county). Generals list each candidate's party only in 2012 and 2014 (and 2016 except Adair); elsewhere `party` is NA until the race table fills it. Candidate names are all caps in 2010.
+`01_parse_precinct_results.R` takes ~10 minutes, mostly the 2020 general (`.xlsx`, 29 sheets per county). Scott's 2020 general is a PDF, read with Poppler's `pdftotext -raw` (on PATH in Git Bash, not an R package). Generals list each candidate's party only in 2012, 2014, 2016 (except Adair) and Scott 2020; `02_build_race_table.R` fills the rest from the primary the candidate won that year, and records which in `party_source`. Candidate names are all caps in 2010 (the race table title-cases them).
 
 Raw results live in `data/elections/raw/precinct_results/{year}_{type}/{county}.{ext}` (statewide files as `statewide.{ext}`). The extension is the real format read from the first bytes, not what the server called it: `xls` (BIFF), `xlsx`, `xml` (SpreadsheetML: readxl can't open it, use xml2) or `pdf` (Scott 2020 general is PDF only). `data/elections/raw/precinct_elections_2014/` holds superseded per-county 2014 general files; the 2014 general source is the statewide file.
 

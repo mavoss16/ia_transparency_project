@@ -19,6 +19,8 @@
 #                    candidate names (generals add the party on a second line),
 #                    then precinct rows. Generals split each precinct into
 #                    Election Day / Absentee / Total rows. 2012.
+#   canvass_pdf    — the same printed canvass as a PDF, read as text. Scott,
+#                    2020 general.
 #
 # Usage:
 #   source("R/elections/legislative_results/parsers.R")
@@ -92,7 +94,7 @@ long_votes <- function(precinct, candidate, votes, party = NA_character_) {
 detect_layout <- function(path) {
   ext <- tools::file_ext(path)
   if (ext == "xml") return("contest_sheets")
-  if (ext == "pdf") return("pdf")
+  if (ext == "pdf") return("canvass_pdf")
   if (ext == "xlsx" && excel_sheets(path)[1] == "Table of Contents") return("contest_sheets")
 
   top <- suppressMessages(read_excel(path, col_names = FALSE, col_types = "text", n_max = 1))
@@ -270,6 +272,87 @@ read_county_canvass <- function(path, keep) {
   }) |> list_rbind()
 }
 
+# ---- canvass_pdf ----
+
+# The county's printed canvass as PDF (Scott, 2020 general), read with
+# `pdftotext -raw` (Poppler; on PATH in Git Bash): one line per text row.
+# A contest starts at its title; each page repeats the candidate header
+# ("Name," then the party, then "[Name] Write-in Undervotes Overvotes Total").
+# Precincts have Election Day / Absentee / Total rows; the contest's last Total
+# row (one that follows another Total) is the county total, used as a check.
+CANVASS_PARTIES <- c(DEM = "Democratic", REP = "Republican", LIB = "Libertarian")
+
+read_canvass_pdf <- function(path, keep) {
+  lines <- str_squish(system2("pdftotext", c("-raw", shQuote(path), "-"), stdout = TRUE))
+  lines <- lines[lines != ""]
+  # A title follows the page header; a contest continued from the last page
+  # follows it with a vote row, a precinct name or a candidate instead
+  title_at <- which(lag(str_detect(lines, "^(General|Primary) Election - \\d{4}$"), default = FALSE) &
+                    !str_detect(lines, "^(Total|Page) |^\\(|,$"))
+  ends <- c(title_at[-1] - 1L, length(lines))
+
+  map2(title_at, ends, \(t, end) {
+    contest <- lines[t]
+    if (!keep(contest)) return(NULL)
+    body <- lines[(t + 1):end]
+
+    # Candidates from the first header: "Name," + party line, then the tally row
+    tally    <- which(str_detect(body, "Write-in Undervotes Overvotes Total$"))[1]
+    head     <- body[seq_len(tally - 1)]
+    named    <- which(str_ends(head, ","))
+    candidate <- str_remove(head[named], ",$")
+    party     <- unname(coalesce(CANVASS_PARTIES[head[named + 1]], head[named + 1]))
+    no_party  <- str_squish(str_remove(body[tally], "Write-in Undervotes Overvotes Total$"))
+    if (no_party != "") {
+      candidate <- c(candidate, no_party)
+      party     <- c(party, NA_character_)
+    }
+    candidate <- c(candidate, "Write-in")
+    party     <- c(party, NA_character_)
+
+    # Vote rows: optional label, then integers (candidates, write-in, under, over, total)
+    m <- str_match(body, "^(.*?)\\s*((?:\\d[\\d,]*\\s*)+)$")
+    is_votes <- !is.na(m[, 1]) & !str_starts(body, "Page ")
+    precinct <- NA_character_
+    label    <- character(0)
+    totals   <- list()
+    county_total <- NULL
+    buffer   <- character(0)
+    for (i in seq_along(body)) {
+      if (!is_votes[i]) {
+        buffer <- c(buffer, body[i])
+        next
+      }
+      prefix <- m[i, 2]
+      votes  <- as.integer(str_remove_all(str_split_1(str_squish(m[i, 3]), " "), ","))
+      if (str_ends(prefix, "Election Day")) {
+        # Long precinct names wrap onto earlier lines; the name starts at "("
+        start  <- tail(which(str_starts(buffer, "\\(")), 1)
+        pieces <- c(if (length(start) && !str_starts(prefix, "\\(")) buffer[start:length(buffer)],
+                    str_remove(prefix, "\\s*Election Day$"))
+        precinct <- str_squish(paste(pieces, collapse = " "))
+      } else if (prefix == "Total") {
+        if (is.na(precinct)) {
+          county_total <- votes
+        } else {
+          label  <- c(label, precinct)
+          totals <- c(totals, list(votes))
+          precinct <- NA_character_
+        }
+      }
+      buffer <- character(0)
+    }
+
+    n_cand <- length(candidate)
+    if (any(lengths(totals) != n_cand + 3L)) stop("Column count mismatch in ", contest, ": ", path)
+    votes <- do.call(rbind, totals)[, seq_len(n_cand), drop = FALSE]
+    if (!is.null(county_total) && any(colSums(votes) != county_total[seq_len(n_cand)])) {
+      stop("Precinct totals don't sum to the county total in ", contest, ": ", path)
+    }
+    long_votes(label, candidate, votes, party) |> mutate(contest = contest)
+  }) |> list_rbind()
+}
+
 # ---- Contest labels ----
 
 # "State Rep. Dist. 20 - Rep", "STATE SENATOR DISTRICT 29 - DEMOCRATIC PARTY",
@@ -308,7 +391,7 @@ parse_results_file <- function(path, type, county = NULL) {
     clarity_wide   = read_clarity_wide(path, is_legislative),
     race_blocks    = read_race_blocks(path, is_legislative),
     county_canvass = read_county_canvass(path, is_legislative),
-    pdf            = stop("PDF results aren't parsed: ", path)
+    canvass_pdf    = read_canvass_pdf(path, is_legislative)
   )
   if (is.null(rows) || !nrow(rows)) return(NULL)
   if (!"county" %in% names(rows)) rows$county <- county
