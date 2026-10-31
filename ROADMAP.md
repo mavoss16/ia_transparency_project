@@ -37,6 +37,8 @@ Detail for the design items: [design backlog](notes/site/2026-07-15_design-backl
 
 - [ ] Phase 2: backfill the 90th GA (2023–24) as the multi-session test. Phase 3: the 83rd–89th, data first. **Decide** how far back and how older sessions are hosted (open decisions 3–4 in the plan).
 - [ ] Show legislator–lobbyist alignment (`04a`) on legislator pages.
+- [ ] Run the full lobbying re-scrape (`update_lobbyist_declarations()`, ~4,231 bills at ~2 s each) to fill `lobbyist_filings.rds`. The scraper now keeps lobbyist name, `personID` and comments; until the run, `lobbyist_filings.rds` doesn't exist and `lobbyist_declarations.rds` is unchanged.
+- [ ] Lobbying pages: an index and one page per organization (client), with lobbyists listed on the organization page rather than given their own pages (decided 2026-10-31). Each page shows outcomes by position at the bill-group level, next to the session-wide rate. Organization pages need legislator alignment computed per organization (`04a` keeps only each legislator's top 5) and normalized client names. **Decide** the For/Against colors: Against reuses the Republican red `#A8433A`.
 - [ ] **Decide** whether to raise `MIN_SHARED_BILLS` above 5 in the similarity scores (0% scores at the minimum may be noise).
 
 ## Campaign finance

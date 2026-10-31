@@ -1,8 +1,16 @@
 # 04_lobbyist_declarations.R
 #
-# Scrapes lobbyist declarations from legis.iowa.gov for all bills and saves
-# as a single RDS file. Templates read from the RDS instead of scraping at
-# render time.
+# Scrapes lobbyist declarations from legis.iowa.gov for all bills. Templates
+# read the saved RDS files instead of scraping at render time. Two files in
+# data/legislature/ga{N}/lobbying/:
+#
+#   lobbyist_filings.rds       one row per lobbyist, client and bill, as the
+#                              source lists them (lobbyist name and personID,
+#                              LSB number, comments). The scrape writes here.
+#   lobbyist_declarations.rds  one row per client and bill: the client's most
+#                              recent declaration, built from the filings by
+#                              client_declarations(). Bill pages, 04a, 05 and
+#                              the render digests read this one.
 #
 # Bills are re-scraped when their LegiScan change_hash differs from what was
 # stored at scrape time, so updated bills get fresh lobby data automatically.
@@ -91,6 +99,66 @@ scrape_lobby_safe <- function(bill_number, ga = CURRENT_GA) {
 # Incremental Update
 # =============================================================================
 
+#' Load cached lobbyist filings (one row per lobbyist) or return empty tibble
+#' @param path Path to lobbyist filings RDS file
+#' @return Tibble with lobbyist filings
+load_lobbyist_filings <- function(path = file.path(ga_paths(ga)$lobbying, "lobbyist_filings.rds"), ga = CURRENT_GA) {
+  if (file.exists(path)) {
+    readRDS(path)
+  } else {
+    tibble(
+      bill = character(),
+      lsb_number = character(),
+      lobbyist = character(),
+      lobbyist_id = character(),
+      declaration = character(),
+      client = character(),
+      date = as.POSIXct(character()),
+      comments = character(),
+      change_hash = character(),
+      scraped_date = as.Date(character())
+    )
+  }
+}
+
+#' Save lobbyist filings to RDS
+#' @param filings Tibble with lobbyist filings
+#' @param path Path to save
+save_lobbyist_filings <- function(filings, path = file.path(ga_paths(ga)$lobbying, "lobbyist_filings.rds"), ga = CURRENT_GA) {
+  saveRDS(filings, path)
+  message("Saved ", nrow(filings), " lobbyist filing records to ", path)
+}
+
+#' Collapse filings to one declaration per client per bill
+#'
+#' A client with several lobbyists on a bill has one row per lobbyist; the
+#' most recent one is the client's position. Bills with no declarations keep
+#' their sentinel row (client NA).
+#' @param filings Tibble with lobbyist filings
+#' @return Tibble in the lobbyist_declarations.rds shape
+client_declarations <- function(filings) {
+  filings |>
+    slice_max(date, by = c(bill, client), with_ties = FALSE) |>
+    select(bill, most_recent_declaration = declaration, client, date,
+           change_hash, scraped_date)
+}
+
+#' Rebuild lobbyist_declarations.rds from the filings
+#'
+#' Bills missing from the filings keep their earlier rows, so a re-scrape in
+#' progress (or a filings file that doesn't cover every bill yet) never
+#' blanks a bill page.
+#' @param filings Tibble with lobbyist filings
+#' @param path Path to lobbyist declarations RDS file
+write_lobbyist_declarations <- function(filings, path = file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds"), ga = CURRENT_GA) {
+  kept <- load_lobbyist_declarations(path) |>
+    filter(!bill %in% filings$bill)
+
+  bind_rows(kept, client_declarations(filings)) |>
+    arrange(bill) |>
+    save_lobbyist_declarations(path)
+}
+
 #' Load cached lobbyist declarations or return empty tibble
 #' @param path Path to lobbyist declarations RDS file
 #' @return Tibble with lobbyist declarations
@@ -144,6 +212,7 @@ bills_needing_scrape <- function(existing, json_dir = ga_paths(ga)$bill_json, ga
 #' @param bill_numbers Vector of bill numbers to scrape (NULL = auto-detect from hashes)
 #' @param limit Maximum number of bills to scrape (NULL = no limit). Useful for
 #'   test runs and estimating total runtime.
+#' @param filings_path Path to lobbyist filings RDS file
 #' @param output_path Path to lobbyist declarations RDS file
 #' @param json_dir Directory containing bill JSON files
 #' @param ga General Assembly number
@@ -153,13 +222,16 @@ bills_needing_scrape <- function(existing, json_dir = ga_paths(ga)$bill_json, ga
 update_lobbyist_declarations <- function(
     bill_numbers = NULL,
     limit = NULL,
+    filings_path = file.path(ga_paths(ga)$lobbying, "lobbyist_filings.rds"),
     output_path = file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds"),
     json_dir = ga_paths(ga)$bill_json,
     ga = CURRENT_GA,
     rate_limit = 1.5,
     save_interval = 50
 ) {
-  existing <- load_lobbyist_declarations(output_path)
+  # Hashes come from the filings, so the first run after they were added
+  # re-scrapes every bill (lobbyist_declarations.rds keeps its rows meanwhile)
+  existing <- load_lobbyist_filings(filings_path)
 
   # Determine which bills to scrape
   if (is.null(bill_numbers)) {
@@ -178,10 +250,11 @@ update_lobbyist_declarations <- function(
     message(sprintf("Limiting to %d of %d bills needing scrape.", limit, total_needed))
   }
 
-  # Remove stale data for bills we're about to re-scrape
+  # Remove stale filings for bills we're about to re-scrape. Their rows in
+  # lobbyist_declarations.rds stay until the new scrape replaces them
   existing <- existing |>
     filter(!bill %in% bill_numbers)
-  save_lobbyist_declarations(existing, output_path)
+  save_lobbyist_filings(existing, filings_path)
 
   message("Scraping lobbyist declarations for ", length(bill_numbers), " bills...")
   message("Progress will be saved every ", save_interval, " bills.")
@@ -200,26 +273,26 @@ update_lobbyist_declarations <- function(
   save_batch <- function() {
     if (length(batch_results) == 0 && length(batch_empty) == 0) return()
 
-    new_declarations <- bind_rows(batch_results) |>
+    new_filings <- bind_rows(batch_results) |>
       mutate(scraped_date = Sys.Date())
 
     # For bills with no declarations, add a sentinel row so we know they were scraped
     empty_rows <- tibble(
       bill = batch_empty,
-      most_recent_declaration = NA_character_,
       client = NA_character_,
       date = as.POSIXct(NA),
-      change_hash = bill_hashes[batch_empty],
+      change_hash = unname(bill_hashes[batch_empty]),
       scraped_date = Sys.Date()
     )
 
     # Reload existing (in case another process updated)
-    current <- load_lobbyist_declarations(output_path)
+    current <- load_lobbyist_filings(filings_path)
 
-    all_declarations <- bind_rows(current, new_declarations, empty_rows) |>
-      distinct(bill, client, .keep_all = TRUE)
+    all_filings <- bind_rows(current, new_filings, empty_rows) |>
+      distinct()
 
-    save_lobbyist_declarations(all_declarations, output_path)
+    save_lobbyist_filings(all_filings, filings_path)
+    write_lobbyist_declarations(all_filings, output_path)
 
     batch_results <<- list()
     batch_empty <<- character()
@@ -286,12 +359,14 @@ update_lobbyist_declarations <- function(
 #' @return Updated declarations tibble
 rescrape_lobbyist_declarations <- function(
     bill_numbers,
+    filings_path = file.path(ga_paths(ga)$lobbying, "lobbyist_filings.rds"),
     output_path = file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds"),
     ga = CURRENT_GA,
     rate_limit = 1.5
 ) {
   update_lobbyist_declarations(
     bill_numbers = bill_numbers,
+    filings_path = filings_path,
     output_path = output_path,
     ga = ga,
     rate_limit = rate_limit
@@ -320,7 +395,10 @@ lobbyist_summary <- function(output_path = file.path(ga_paths(ga)$lobbying, "lob
   cat("Bills scraped:", n_distinct(declarations$bill), "\n")
   cat("Bills with declarations:", n_distinct(real$bill), "\n")
   cat("Bills with no declarations:", n_distinct(empty$bill), "\n")
-  cat("Total declaration records:", nrow(real), "\n\n")
+  cat("Total declaration records:", nrow(real), "\n")
+  filings <- load_lobbyist_filings(ga = ga) |> filter(!is.na(client))
+  cat("Lobbyist filings:", nrow(filings),
+      "from", n_distinct(filings$lobbyist_id), "lobbyists\n\n")
 
   cat("Declaration breakdown:\n")
   real |>

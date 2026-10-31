@@ -348,23 +348,32 @@ scrape_lobbyist_declarations <- function(bill_number, ga = CURRENT_GA, max_retri
 
   if (is.null(target_table)) stop("Could not find the declarations table.")
 
-  # Convert to data frame
-  df <- target_table %>%
-    html_table(fill = TRUE) |>
-    clean_names() |>
-    # Filter out "no declarations" placeholder rows
-    filter(!str_detect(bill, "(?i)no declarations")) |>
-    mutate(
-      date = mdy_hm(date)
-    )
+  # One row per lobbyist per client. Rows are read cell by cell rather than
+  # with html_table() so the lobbyist's personID link survives; the "no
+  # declarations" placeholder is a single colspan row without the decRow class
+  headers <- target_table %>% html_elements("th") %>% html_text(trim = TRUE)
+  rows <- target_table %>% html_elements("tr.decRow")
 
-  if (nrow(df) == 0) return(df)
+  cell <- function(header) {
+    i <- match(header, headers)
+    map(rows, \(r) html_elements(r, "td")[[i]])
+  }
+  cell_text <- function(header) map_chr(cell(header), \(td) html_text(td, trim = TRUE))
 
-  # Deduplicate and select relevant columns
-  clean_df <- df %>%
-    distinct(bill, declaration, client, date) |>
-    slice_max(date, by = c(client)) |>
-    rename(most_recent_declaration = declaration)
-
-  return(clean_df)
+  tibble(
+    bill        = cell_text("Bill"),
+    lsb_number  = cell_text("LSB Number"),
+    lobbyist    = cell_text("Lobbyist"),
+    # personID identifies the lobbyist on legis.iowa.gov (the link also
+    # carries ga and session, which aren't part of the ID)
+    lobbyist_id = map_chr(cell("Lobbyist"), \(td) {
+      href <- td %>% html_element("a") %>% html_attr("href")
+      str_match(href, "personID=(\\d+)")[, 2]
+    }),
+    declaration = cell_text("Declaration"),
+    client      = cell_text("Client"),
+    # "Last declaration action date" on the source page
+    date        = mdy_hm(cell_text("Date")),
+    comments    = na_if(cell_text("Comments"), "")
+  )
 }
