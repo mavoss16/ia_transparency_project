@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elections Tab Mock</title>
+<link href="../../../docs/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../docs/site_libs/bootstrap/bootstrap-c738a8298c0df97af83792233af52165.min.css" rel="stylesheet">
+<link href="../../../docs/styles.css" rel="stylesheet">
+<style>
+  /* Proposed additions to custom.scss (literals from its palette) */
+  .page { max-width: 1100px; margin: 0 auto; padding: 1.5rem 16px 3rem; }
+  .mock-note { font-size: 0.82rem; color: #7d5c17; background: #f7f3e8; border: 1px solid #ece3cc; border-radius: 8px; padding: 0.6rem 0.8rem; margin-bottom: 1.25rem; }
+  .mock-note ul { margin: 0.3rem 0 0; padding-left: 1.1rem; }
+  .ia-profile-tenure { color: #55524a; font-size: 0.95rem; margin-top: 0.15rem; }
+  .ia-district-result { border-top: 1px solid #efeee8; margin-top: 0.75rem; padding-top: 0.65rem; font-size: 0.88rem; color: #55524a; }
+  .ia-district-result a { white-space: nowrap; }
+  .map-placeholder { height: 170px; border-radius: 8px; background: #f0efe9; display: flex; align-items: center; justify-content: center; color: #706c63; font-size: 0.82rem; }
+
+  .ia-elections-summary { font-size: 1rem; line-height: 1.6; max-width: 46rem; margin: 0.25rem 0 1.5rem; }
+  .ia-election { border-top: 1px solid #e4e2da; padding: 1.25rem 0 0.5rem; }
+  .ia-election-head { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.25rem; }
+  .ia-election-year { font-family: "Source Serif 4", Georgia, serif; font-weight: 700; font-size: 1.35rem; }
+  .ia-election-seat { color: #55524a; font-size: 0.95rem; }
+  .ia-election-note { font-size: 0.85rem; color: #55524a; background: #eeede7; border-radius: 6px; padding: 0.45rem 0.65rem; margin: 0.5rem 0 0.25rem; max-width: 46rem; }
+  .ia-race { margin: 0.9rem 0 0.4rem; max-width: 46rem; }
+  .ia-race-label { font-weight: 600; font-size: 0.92rem; }
+  .ia-race-date { color: #6d6a62; font-weight: 400; }
+  .ia-race-line { font-size: 0.92rem; margin: 0.2rem 0 0; }
+  .ia-race-margin { font-size: 0.85rem; color: #55524a; margin-top: 0.35rem; }
+  .ia-race .ia-share-bar { height: 14px; margin: 0.55rem 0 0.4rem; }
+  .ia-race .ia-table { margin-top: 0.25rem; }
+  .ia-race .ia-table td.num, .ia-race .ia-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .ia-race .ia-table tr.writein td { color: #6d6a62; }
+  .ia-winner { color: #256a43; font-weight: 700; margin-right: 0.3rem; }
+  .ia-incumbent { color: #6d6a62; font-size: 0.8rem; margin-left: 0.25rem; }
+  .ia-party-tag { font-weight: 600; }
+  .ia-party-tag.r, .ia-party-short.r { color: #A8433A; } .ia-party-tag.d, .ia-party-short.d { color: #3F5B93; }
+  .ia-party-short { display: none; font-weight: 600; }
+  .ia-sub-races { margin: 0.6rem 0 0.25rem; max-width: 46rem; font-size: 0.88rem; }
+  .ia-sub-races summary { cursor: pointer; color: #3F5B93; }
+  .ia-sub-races > div { padding: 0.4rem 0 0 1rem; color: #55524a; }
+  .ia-source { font-size: 0.78rem; color: #706c63; margin: 0.6rem 0 0.5rem; }
+  .ia-placeholder { border: 1px dashed #c9c5b8; border-radius: 6px; padding: 0.4rem 0.6rem; color: #706c63; font-size: 0.85rem; }
+  @media (max-width: 600px) {
+    .ia-race .ia-table th:nth-child(2), .ia-race .ia-table td:nth-child(2) { display: none; }
+    .ia-election-year { font-size: 1.2rem; }
+    .ia-party-short { display: inline; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="mock-note">
+  <strong>Mock, not the live site.</strong> General-election votes are real (SOS files parsed in step 2). Dashed boxes are primaries not downloaded yet.
+  <ul>
+    <li>The 2018–2024 general files don't include party; labels here are how they'll look once step 3 fills them from the canvass. Karen Varley's "Democratic" is assumed.</li>
+    <li>Percentages are of all votes cast in the race, write-ins included.</li>
+  </ul>
+</div>
+
+<div class="ia-breadcrumb"><a href="#">Legislators</a> / Ray Sorensen</div>
+
+<div class="ia-profile-header">
+  <div class="ia-profile-name-row">
+    <h1 style="margin:0">Ray Sorensen</h1>
+    <span class="ia-pill ia-pill-r">REPUBLICAN</span>
+  </div>
+  <div class="ia-profile-meta">Representative · District HD-023 · Iowa</div>
+  <div class="ia-profile-tenure">In the Iowa House since 2019 · re-elected 2020, 2022 and 2024</div>
+  <div style="margin-top:0.9rem">
+    <div class="ia-profile-actions">
+      <a href="#">Iowa Legislature ↗</a> <a href="#">Email</a> <a href="#">Ballotpedia ↗</a> <a href="#">VoteSmart ↗</a>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="g-col-12 g-col-md-7">
+    <div class="ia-stat-grid">
+      <div class="ia-stat-card"><div class="ia-stat-label">Bills Sponsored</div><div class="ia-stat-value">…</div><div class="ia-stat-sub">unchanged</div></div>
+      <div class="ia-stat-card"><div class="ia-stat-label">Party Alignment</div><div class="ia-stat-value">…</div><div class="ia-stat-sub">unchanged</div></div>
+    </div>
+  </div>
+  <div class="g-col-12 g-col-md-5">
+    <div class="ia-card">
+      <div class="ia-card-title">District 23</div>
+      <div class="map-placeholder">district map (unchanged)</div>
+      <div class="ia-district-result">
+        Won the 2024 general with 72.1% of the vote. <a href="#elections">Electoral history →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ia-card" id="elections">
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item"><a class="nav-link" href="#">Sponsored bills</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Voting record</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Vote analysis</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Similar legislators</a></li>
+    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Elections</a></li>
+  </ul>
+
+  <div style="padding-top:1rem">
+    <p class="ia-elections-summary">
+      Ray Sorensen was first elected to the Iowa House in 2018 and re-elected in 2020, 2022 and 2024.
+      Since the 2021 redistricting he has represented District 23; before that, District 20.
+    </p>
+
+    <!-- 2024 -->
+    <section class="ia-election">
+      <div class="ia-election-head">
+        <span class="ia-election-year">2024</span>
+        <span class="ia-election-seat">House District 23</span>
+      </div>
+
+      <div class="ia-race">
+        <div class="ia-race-label">General election <span class="ia-race-date">· November 5, 2024</span></div>
+        <div class="ia-share-bar" role="img" aria-label="Sorensen 72.1%, Varley 27.7%">
+          <div style="width:72.1%; background:#A8433A"></div>
+          <div style="width:27.7%; background:#3F5B93"></div>
+        </div>
+        <div class="ia-table-scroll"><table class="ia-table">
+          <thead><tr><th>Candidate</th><th>Party</th><th class="num">Votes</th><th class="num">Share</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ia-winner" aria-label="Winner">✓</span>Ray Bubba Sorensen <span class="ia-party-short r">(R)</span><span class="ia-incumbent">incumbent</span></td><td><span class="ia-party-tag r">Republican</span></td><td class="num">12,837</td><td class="num">72.1%</td></tr>
+            <tr><td>Karen Varley <span class="ia-party-short d">(D)</span></td><td><span class="ia-party-tag d">Democratic</span></td><td class="num">4,939</td><td class="num">27.7%</td></tr>
+            <tr class="writein"><td>Write-ins</td><td>—</td><td class="num">36</td><td class="num">0.2%</td></tr>
+          </tbody>
+        </table></div>
+        <div class="ia-race-margin">Won by 7,898 votes (44.3 points).</div>
+      </div>
+
+      <div class="ia-race">
+        <div class="ia-race-label">Republican primary <span class="ia-race-date">· June 4, 2024</span></div>
+        <div class="ia-placeholder">Not downloaded yet. One line if unopposed, a small table if contested.</div>
+      </div>
+      <details class="ia-sub-races"><summary>Other primaries for this seat</summary><div class="ia-placeholder">Democratic primary: not downloaded yet.</div></details>
+      <div class="ia-source">Source: Iowa Secretary of State, precinct results by county (<a href="#">2024 general</a>)</div>
+    </section>
+
+    <!-- 2022 -->
+    <section class="ia-election">
+      <div class="ia-election-head">
+        <span class="ia-election-year">2022</span>
+        <span class="ia-election-seat">House District 23</span>
+      </div>
+      <div class="ia-election-note">First election under the 2021 district map. Sorensen previously represented District 20. <a href="#">What redistricting changed</a></div>
+
+      <div class="ia-race">
+        <div class="ia-race-label">General election <span class="ia-race-date">· November 8, 2022</span></div>
+        <p class="ia-race-line"><span class="ia-winner" aria-label="Winner">✓</span>Ray Bubba Sorensen <span class="ia-party-tag r">(Republican)</span><span class="ia-incumbent">incumbent</span> ran unopposed: 11,399 votes; 249 write-ins.</p>
+      </div>
+
+      <div class="ia-race">
+        <div class="ia-race-label">Republican primary <span class="ia-race-date">· June 7, 2022</span></div>
+        <p class="ia-race-line">Unopposed: 2,619 votes; 15 write-ins.</p>
+      </div>
+      <details class="ia-sub-races"><summary>Other primaries for this seat</summary>
+        <div>Democratic primary: no candidate on the ballot (59 write-in votes).</div>
+      </details>
+      <div class="ia-source">Source: Iowa Secretary of State, precinct results by county (<a href="#">2022 general</a>); official canvass (<a href="#">2022 primary</a>)</div>
+    </section>
+
+    <!-- 2020 -->
+    <section class="ia-election">
+      <div class="ia-election-head">
+        <span class="ia-election-year">2020</span>
+        <span class="ia-election-seat">House District 20</span>
+      </div>
+      <div class="ia-race">
+        <div class="ia-race-label">General election <span class="ia-race-date">· November 3, 2020</span></div>
+        <div class="ia-share-bar" role="img" aria-label="Sorensen 72.1%, Morrison 27.7%">
+          <div style="width:72.1%; background:#A8433A"></div>
+          <div style="width:27.7%; background:#3F5B93"></div>
+        </div>
+        <div class="ia-table-scroll"><table class="ia-table">
+          <thead><tr><th>Candidate</th><th>Party</th><th class="num">Votes</th><th class="num">Share</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ia-winner" aria-label="Winner">✓</span>Ray Bubba Sorensen <span class="ia-party-short r">(R)</span><span class="ia-incumbent">incumbent</span></td><td><span class="ia-party-tag r">Republican</span></td><td class="num">10,822</td><td class="num">72.1%</td></tr>
+            <tr><td>Ryan Morrison <span class="ia-party-short d">(D)</span></td><td><span class="ia-party-tag d">Democratic</span></td><td class="num">4,157</td><td class="num">27.7%</td></tr>
+            <tr class="writein"><td>Write-ins</td><td>—</td><td class="num">29</td><td class="num">0.2%</td></tr>
+          </tbody>
+        </table></div>
+        <div class="ia-race-margin">Won by 6,665 votes (44.4 points).</div>
+      </div>
+      <div class="ia-race">
+        <div class="ia-race-label">Republican primary <span class="ia-race-date">· June 2, 2020</span></div>
+        <div class="ia-placeholder">Not downloaded yet.</div>
+      </div>
+      <div class="ia-source">Source: Iowa Secretary of State, precinct results by county (<a href="#">2020 general</a>)</div>
+    </section>
+
+    <!-- 2018 -->
+    <section class="ia-election">
+      <div class="ia-election-head">
+        <span class="ia-election-year">2018</span>
+        <span class="ia-election-seat">House District 20</span>
+      </div>
+      <div class="ia-election-note">Open seat: the incumbent, <a href="#">Clel Baudler</a>, did not run.</div>
+      <div class="ia-race">
+        <div class="ia-race-label">General election <span class="ia-race-date">· November 6, 2018</span></div>
+        <div class="ia-share-bar" role="img" aria-label="Sorensen 62.3%, Varley 37.6%">
+          <div style="width:62.3%; background:#A8433A"></div>
+          <div style="width:37.6%; background:#3F5B93"></div>
+        </div>
+        <div class="ia-table-scroll"><table class="ia-table">
+          <thead><tr><th>Candidate</th><th>Party</th><th class="num">Votes</th><th class="num">Share</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ia-winner" aria-label="Winner">✓</span>Ray Bubba Sorensen <span class="ia-party-short r">(R)</span></td><td><span class="ia-party-tag r">Republican</span></td><td class="num">7,659</td><td class="num">62.3%</td></tr>
+            <tr><td>Warren Varley <span class="ia-party-short d">(D)</span></td><td><span class="ia-party-tag d">Democratic</span></td><td class="num">4,625</td><td class="num">37.6%</td></tr>
+            <tr class="writein"><td>Write-ins</td><td>—</td><td class="num">15</td><td class="num">0.1%</td></tr>
+          </tbody>
+        </table></div>
+        <div class="ia-race-margin">Won by 3,034 votes (24.7 points).</div>
+      </div>
+      <div class="ia-race">
+        <div class="ia-race-label">Republican primary <span class="ia-race-date">· June 5, 2018</span></div>
+        <div class="ia-table-scroll"><table class="ia-table">
+          <thead><tr><th>Candidate</th><th class="num">Votes</th><th class="num">Share</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ia-winner" aria-label="Winner">✓</span>Ray Bubba Sorensen</td><td class="num ia-placeholder-cell">—</td><td class="num">—</td></tr>
+            <tr><td>Dodge Michael Perrigo</td><td class="num">—</td><td class="num">—</td></tr>
+          </tbody>
+        </table></div>
+        <div class="ia-placeholder" style="margin-top:0.4rem">Contested primary: district totals not downloaded yet.</div>
+      </div>
+      <details class="ia-sub-races"><summary>Other primaries for this seat</summary>
+        <div class="ia-placeholder">Democratic primary (Warren Varley) and Libertarian primary: not downloaded yet.</div>
+      </details>
+      <div class="ia-source">Source: Iowa Secretary of State, precinct results by county (<a href="#">2018 general</a>)</div>
+    </section>
+
+  </div>
+</div>
+
+</div>
+</body>
+</html>
