@@ -1,0 +1,71 @@
+<!-- Stat cards and district card. Uses the values from _legislator_data.qmd,
+plus `district_extra` (tags shown under the map, or NULL). -->
+
+::::: {.grid}
+
+:::: {.g-col-7}
+```{r}
+div(class = "ia-stats-2col",
+  ui_stat_grid(
+    ui_stat_card("Bills Sponsored", total_sponsored,
+                 sprintf("%d sole · %d co-sponsored", n_sole, n_co)),
+    ui_stat_card("Party Alignment",
+                 if (has_stats) sprintf("%.1f%%", 100 * leg_stats$with_party_pct) else "—",
+                 if (has_stats) sprintf("%d with party · %d against",
+                                        leg_stats$votes_with_party, leg_stats$votes_against_party)
+                 else "No floor votes recorded"),
+    ui_stat_card("Participation",
+                 if (has_stats) sprintf("%.1f%%", 100 * leg_stats$participation_rate) else "—",
+                 "Of eligible floor votes"),
+    ui_stat_card("Floor Votes", n_floor_votes, "Cast this session")
+  )
+)
+```
+::::
+
+:::: {.g-col-5}
+::: {.ia-card}
+::: {.ia-card-title}
+District `r legislator$district`
+:::
+
+```{r}
+district_num <- parse_district_number(legislator$district)
+chamber <- chamber_name(legislator$role)
+party_color <- if (legislator$party == "D") "#3F5B93" else "#A8433A"
+
+# Every district in the chamber, the legislator's own highlighted and drawn on
+# top; the shapes come from the shared geometry file (maps.R)
+map_districts <- district_geometry(chamber, ga_district_plan(ga)) |>
+  st_drop_geometry() |>
+  select(District) |>
+  left_join(people |> filter(role == legislator$role), by = c("District" = "district_num")) |>
+  mutate(
+    own          = District == district_num,
+    fill         = if_else(own, party_color, "#CCCCCC"),
+    fill_opacity = if_else(own, 0.6, 0.2),
+    stroke       = if_else(own, party_color, "#000000"),
+    weight       = if_else(own, 3, 1),
+    label        = case_when(
+      own          ~ paste(legislator$name, "-", legislator$district),
+      !is.na(name) ~ paste0(name, " (", party, "-", district, ")"),
+      .default     = paste("District", District)
+    ),
+    front        = own
+  ) |>
+  select(District, fill, fill_opacity, stroke, weight, label, front)
+
+bbox <- st_bbox(district_geometry(chamber, ga_district_plan(ga)) |> filter(District == district_num))
+
+district_map(map_districts, chamber, ga, bounds = bbox, height = 340) |>
+  addTiles()
+```
+
+```{r}
+district_extra
+```
+
+:::
+::::
+
+:::::

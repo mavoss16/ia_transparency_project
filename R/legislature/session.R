@@ -96,8 +96,10 @@ ga_paths <- function(ga = CURRENT_GA) {
 # one, so their pages live under a session directory:
 #   docs/legislation/ga91/HF1.html
 #   docs/committees/ga91/house-appropriations-7087.html
-# Legislator pages stay at docs/legislators/{name}-{people_id}.html, because
-# LegiScan's people_id is the same person across sessions.
+# Legislator career pages stay at docs/legislators/{name}-{people_id}.html,
+# because LegiScan's people_id is the same person across sessions; they show
+# the person's latest session. Each earlier session a returning member served
+# in gets an archive page, docs/legislators/ga91/{same filename}.html.
 
 #' Relative href of a session's bill directory, with a trailing slash
 #' @param ga General Assembly
@@ -144,6 +146,32 @@ district_geometry <- function(chamber, plan = ga_district_plan()) {
 #' Path to one of a session's derived CSVs: ga_csv("bills") -> .../derived/bills.csv
 ga_csv <- function(name, ga = CURRENT_GA) {
   file.path(ga_paths(ga)$derived, paste0(name, ".csv"))
+}
+
+# Sessions on disk ----------------------------------------------------------
+
+#' General Assemblies with derived LegiScan data on disk, up to CURRENT_GA,
+#' oldest first
+available_gas <- function() {
+  slugs <- list.files(here("legiscan"), pattern = "^ga\\d+$")
+  gas <- as.integer(sub("^ga", "", slugs))
+  gas <- gas[file.exists(file.path(here("legiscan"), slugs, "derived", "people.csv")) & gas <= CURRENT_GA]
+  sort(gas)
+}
+
+#' Every legislator in every session on disk: one row per person per session,
+#' with people.csv's columns plus `ga` and `latest_ga` (the newest session the
+#' person served in, whose data their career page shows). Committees, which
+#' LegiScan lists in people.csv with no first name, are dropped.
+legislator_sessions <- function(gas = available_gas()) {
+  purrr::map(gas, \(g) {
+    readr::read_csv(ga_csv("people", g), show_col_types = FALSE) |>
+      dplyr::filter(!is.na(first_name), first_name != "") |>
+      dplyr::mutate(ga = g)
+  }) |>
+    purrr::list_rbind() |>
+    dplyr::mutate(latest_ga = max(ga), .by = people_id) |>
+    dplyr::arrange(people_id, ga)
 }
 
 #' LegiScan session ID for a General Assembly

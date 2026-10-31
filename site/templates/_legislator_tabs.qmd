@@ -1,0 +1,147 @@
+<!-- The session tabs. Include inside a ::: {.panel-tabset} div; the
+including page can add tabs of its own after them. -->
+
+## Sponsored bills
+
+```{r}
+fmt_date <- \(d) str_squish(format(d, "%b %e, %Y"))
+bill_links <- \(bill_number) lapply(format_bill_link(bill_number, bill_dir_href(ga, up = up)), HTML)
+# clean_bill_title() takes one title at a time
+short_title <- \(title) map_chr(title, \(t) clean_bill_title(t)$title)
+
+ui_table(
+  leg_sponsored_bills |>
+    transmute(
+      bill = bill_links(bill_number),
+      title = short_title(title),
+      status = status_desc,
+      status_date = fmt_date(status_date),
+      role = case_when(
+        position == 1 & sponsor_num == 1 ~ "Sole sponsor",
+        position == 1 ~ "Primary sponsor",
+        position >= 2 ~ "Co-sponsor"
+      ),
+      sponsor_num
+    ),
+  labels = c(bill = "Bill", title = "Title", status = "Status", status_date = "Status date",
+             role = "Role", sponsor_num = "Sponsors"),
+  numeric = "sponsor_num",
+  nowrap = c("bill", "status_date"),
+  empty = "No sponsored bills this session."
+)
+```
+
+## Voting record
+
+```{r}
+tagList(
+  if (has_stats) {
+    div(class = "ia-card-sub",
+        sprintf("%d floor votes · %.1f%% with party · %.1f%% participation",
+                n_floor_votes, 100 * leg_stats$with_party_pct, 100 * leg_stats$participation_rate))
+  },
+  ui_table(
+    leg_votes |>
+      arrange(desc(date), desc(roll_call_id)) |>
+      transmute(
+        bill = bill_links(bill_number),
+        title = short_title(title),
+        date = fmt_date(date),
+        description = simplify_vote_desc(description),
+        vote = map(vote_desc, vote_pill)
+      ),
+    labels = c(bill = "Bill", title = "Title", date = "Date", description = "Vote type", vote = "Vote"),
+    nowrap = c("bill", "date"),
+    empty = "No floor votes recorded this session."
+  )
+)
+```
+
+## Vote analysis
+
+```{r}
+if (nrow(leg_vote_records) == 0) {
+  ui_empty("No floor votes to analyze yet.")
+} else {
+  outcome_breakdown <- leg_vote_records |>
+    filter(vote_text %in% c("Yea", "Nay")) |>
+    summarize(
+      count = n(),
+      with_party = sum(vote_with_party == TRUE, na.rm = TRUE),
+      against_party = sum(vote_with_party == FALSE, na.rm = TRUE),
+      .by = vote_outcome
+    ) |>
+    mutate(pct_of_total = sprintf("%.1f%%", count / sum(count) * 100)) |>
+    arrange(desc(count))
+
+  against_party <- leg_vote_records |>
+    filter(vote_with_party == FALSE) |>
+    left_join(bills |> select(bill_id, title), by = "bill_id") |>
+    arrange(desc(vote_date)) |>
+    transmute(
+      bill = bill_links(bill_number),
+      title = short_title(title),
+      vote_date = fmt_date(vote_date),
+      vote_desc = simplify_vote_desc(vote_desc),
+      vote = map(vote_text, vote_pill),
+      party_position,
+      vote_outcome
+    )
+
+  tagList(
+    h3("Votes by classification"),
+    ui_table(
+      outcome_breakdown,
+      labels = c(vote_outcome = "Vote type", count = "Total", with_party = "With party",
+                 against_party = "Against party", pct_of_total = "Share of votes"),
+      numeric = c("count", "with_party", "against_party", "pct_of_total")
+    ),
+    h3("Votes against party"),
+    ui_table(
+      against_party,
+      labels = c(bill = "Bill", title = "Title", vote_date = "Date", vote_desc = "Vote type",
+                 vote = "Vote", party_position = "Party position", vote_outcome = "Classification"),
+      nowrap = c("bill", "vote_date"),
+      empty = "This legislator has not voted against their party."
+    )
+  )
+}
+```
+
+## Similar legislators
+
+```{r}
+# Links go to career pages in docs/legislators/ (legislators_dir from the
+# data partial)
+sim_table <- function(type) {
+  ui_table(
+    leg_similarity |>
+      filter(rank_type == type) |>
+      arrange(rank) |>
+      transmute(
+        legislator = map2(filename_b, name_b, \(f, n) a(href = paste0(legislators_dir, f, ".html"), n)),
+        party = party_b,
+        district = district_b,
+        similarity = sprintf("%.1f%%", similarity * 100),
+        n_shared
+      ),
+    labels = c(legislator = "Legislator", party = "Party", district = "District",
+               similarity = "Similarity", n_shared = "Shared votes"),
+    numeric = c("similarity", "n_shared"),
+    nowrap = c("legislator", "district")
+  )
+}
+
+if (is.null(leg_similarity) || nrow(leg_similarity) == 0) {
+  ui_empty("Similarity data is not available yet.")
+} else {
+  sim_block <- \(title, type) div(class = "g-col-6", h3(title), sim_table(type))
+  div(class = "grid",
+    sim_block("Most similar overall", "overall"),
+    sim_block("Most similar in the other party", "cross_party"),
+    sim_block("Least similar overall", "least_overall"),
+    sim_block("Least similar in their own party", "least_own_party")
+  )
+}
+```
+

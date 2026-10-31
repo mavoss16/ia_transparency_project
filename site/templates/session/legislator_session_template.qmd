@@ -1,0 +1,69 @@
+---
+pagetitle: "`r source(here::here('R/legislature/session.R')); ga <- resolve_ga(params$ga); paste0(jsonlite::read_json(file.path(ga_paths(ga)$people_json, paste0(params$people_id, '.json')))$person$name, ', ', ga_label(ga))`"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: false
+
+params:
+  people_id: 19548
+  ga: null  # The archived General Assembly; null = CURRENT_GA
+---
+
+```{r}
+# Archived session page: one earlier session of a member who served in a
+# later one, rendered once (render_legislator_archives() in render.R).
+# Renders to docs/legislators/ga91/, two directories below docs/, which is
+# why this template sits one level deeper than legislator_template.qmd.
+up <- 2
+```
+
+{{< include ../_legislator_data.qmd >}}
+
+```{r}
+# The career page shows the person's latest session; its filename comes from
+# that session's people.csv (the chamber prefix can change between sessions)
+sessions <- legislator_sessions() |> filter(people_id == params$people_id)
+career_filename <- get_legislator_filename(
+  params$people_id, sessions |> filter(ga == latest_ga)
+)
+career_href <- paste0("../", career_filename, ".html")
+
+archive_notice <- sprintf(
+  "This is %s's record in the %s (%s). <a href='%s'>Current page and electoral history →</a>",
+  legislator$name, ga_label(ga), ga_years(ga), career_href
+)
+
+district_extra <- NULL
+```
+
+::: {.ia-breadcrumb}
+[Legislators](../index.html) / [`r legislator$name`](`r career_href`) / `r ga_label(ga)`
+:::
+
+```{r}
+ui_profile_header(
+  name       = legislator$name,
+  party      = legislator$party,
+  role_label = role_label,
+  district   = legislator$district,
+  notice     = paste(c(succession_notice, archive_notice), collapse = "<br>"),
+  links      = links_div
+)
+```
+
+{{< include ../_legislator_summary.qmd >}}
+
+::: {.ia-card}
+::: {.panel-tabset}
+
+{{< include ../_legislator_tabs.qmd >}}
+
+:::
+:::
+
+::: {.ia-sources}
+Archived record of the `r ga_label(ga)`, generated from LegiScan data for the Iowa Legislature. Rendered `r format(Sys.Date(), "%B %e, %Y") |> str_squish()`
+:::

@@ -205,14 +205,30 @@ week_digests <- function(ga = CURRENT_GA) {
   setNames(digests, format(weeks))
 }
 
-#' Get the hash for a legislator from their JSON file
-get_legislator_hash <- function(people_id, ga = CURRENT_GA) {
+#' LegiScan's person_hash for a legislator in one session
+get_person_hash <- function(people_id, ga = CURRENT_GA) {
   json_path <- file.path(ga_paths(ga)$people_json, paste0(people_id, ".json"))
   if (file.exists(json_path)) {
     person_data <- read_json(json_path)
     return(person_data$person$person_hash)
   }
   return(NA_character_)
+}
+
+# The election race table, read once per R session for election_digest()
+.election_results_cache <- new.env()
+
+#' Get the hash for a legislator's career page: their person_hash in the
+#' session the page shows, plus a fingerprint of their election results (the
+#' Elections tab changes when results are added, independently of LegiScan)
+get_legislator_hash <- function(people_id, ga = CURRENT_GA) {
+  person_hash <- get_person_hash(people_id, ga)
+  if (is.na(person_hash)) return(NA_character_)
+  if (is.null(.election_results_cache$results)) {
+    source(here("R/elections/legislator_history.R"), local = .election_results_cache)
+    .election_results_cache$results <- .election_results_cache$load_legislative_results()
+  }
+  paste0(person_hash, "|", .election_results_cache$election_digest(people_id, .election_results_cache$results))
 }
 
 #' Check if a bill needs rendering (hash changed or never rendered)
@@ -309,8 +325,10 @@ render_week <- function(week_start, ga = CURRENT_GA,
   })
 }
 
-#' Render a single legislator page
+#' Render a legislator's career page
 #' @param people_id Numeric ID for the legislator
+#' @param ga The latest session the person served in (the page shows its data;
+#'   legislator_sessions()$latest_ga)
 #' @param template_path Path to legislator_template.qmd
 render_legislator <- function(people_id, ga = CURRENT_GA,
                               template_path = here("site/templates/legislator_template.qmd")) {
@@ -341,9 +359,117 @@ render_legislator <- function(people_id, ga = CURRENT_GA,
   })
 }
 
+#' A session's archived legislator page directory: docs/legislators/ga91
+legislator_archive_dir <- function(ga) file.path(LEGISLATORS_DIR, ga_slug(ga))
+
+#' Render an archived session page for a legislator: their record in an
+#' earlier session, at docs/legislators/ga91/{career filename}.html. The file
+#' is named like the career page, so the two differ only by directory.
+#' @param people_id Numeric ID for the legislator
+#' @param ga The earlier session
+#' @param sessions legislator_sessions() (passed in to avoid re-reading)
+render_legislator_archive <- function(people_id, ga, sessions = legislator_sessions(),
+                                      template_path = file.path(SESSION_TEMPLATE_DIR, "legislator_session_template.qmd")) {
+  person <- sessions |> filter(people_id == !!people_id)
+  filename <- get_legislator_filename(people_id, person |> filter(ga == latest_ga))
+  output_file <- file.path(legislator_archive_dir(ga), paste0(filename, ".html"))
+  # Prefixed like bill pages, so render names in docs/templates/session/ can't collide
+  render_name <- paste0(ga_slug(ga), "-legislator-", filename, ".html")
+  rendered_file <- file.path(SESSION_RENDER_DIR, render_name)
+  dir.create(dirname(output_file), recursive = TRUE, showWarnings = FALSE)
+
+  tryCatch({
+    quarto_render(
+      input = template_path,
+      output_file = render_name,
+      execute_params = list(people_id = people_id, ga = ga),
+      output_format = "html",
+      metadata = list(search = FALSE),  # Avoid search.json file lock on Windows
+      as_job = FALSE
+    )
+
+    if (!file.exists(rendered_file) || !file.rename(rendered_file, output_file)) {
+      stop("rendered page could not be moved to ", output_file)
+    }
+
+    message(paste("Rendered archived legislator page:", ga_slug(ga), filename))
+    return(TRUE)
+  }, error = function(e) {
+    warning(paste("Failed to render archived legislator page", ga_slug(ga), people_id, ":", e$message))
+    return(FALSE)
+  })
+}
+
+#' Render the archived session pages: every earlier session of every person
+#' who served in a later one. Each renders once; it renders again only if the
+#' person's LegiScan record for that session changes (manifest key "ga91/{id}"),
+#' which stops once the session is frozen.
+#' @param force If TRUE, re-render all regardless of hash
+render_legislator_archives <- function(force = FALSE, sessions = legislator_sessions()) {
+  manifest <- load_manifest()
+  archives <- sessions |> filter(ga < latest_ga)
+
+  if (!force && nrow(archives) > 0) {
+    rendered <- manifest |> filter(type == "legislator_archive")
+    archives <- archives |>
+      mutate(
+        key  = session_item_id(ga, people_id),
+        hash = map2_chr(people_id, ga, get_person_hash)
+      ) |>
+      left_join(rendered |> select(key = id, rendered_hash = hash), by = "key") |>
+      filter(!is.na(hash), is.na(rendered_hash) | rendered_hash != hash)
+  }
+  message("Archived legislator pages to render: ", nrow(archives))
+
+  success_count <- 0
+  failed_items <- character(0)
+  for (i in seq_len(nrow(archives))) {
+    id <- archives$people_id[i]
+    g <- archives$ga[i]
+    if (render_legislator_archive(id, g, sessions)) {
+      manifest <- update_manifest(manifest, "legislator_archive", session_item_id(g, id),
+                                  get_person_hash(id, g))
+      save_manifest(manifest)
+      success_count <- success_count + 1
+    } else {
+      failed_items <- c(failed_items, session_item_id(g, id))
+    }
+    gc()
+  }
+
+  invisible(list(success = success_count, failed = length(failed_items), failed_items = failed_items))
+}
+
+#' Redirect stubs for legislators whose page filename changed between
+#' sessions (it carries the chamber: "rep-" became "sen-"). Pages from the
+#' earlier session, which are never re-rendered, still link to the old name.
+#' @return Paths of the stubs written, invisibly
+write_legislator_redirects <- function(sessions = legislator_sessions()) {
+  moves <- sessions |>
+    mutate(filename = map2_chr(people_id, ga, \(id, g)
+      get_legislator_filename(id, sessions |> filter(ga == g)))) |>
+    mutate(career = filename[ga == latest_ga][1], .by = people_id) |>
+    filter(filename != career) |>
+    distinct(filename, career)
+
+  paths <- file.path(LEGISLATORS_DIR, paste0(moves$filename, ".html"))
+  for (i in seq_len(nrow(moves))) {
+    target <- paste0(moves$career[i], ".html")
+    writeLines(c(
+      "<!doctype html>",
+      "<html lang=\"en\"><head><meta charset=\"utf-8\">",
+      sprintf("<title>Moved</title><link rel=\"canonical\" href=\"%s\">", target),
+      sprintf("<meta http-equiv=\"refresh\" content=\"0; url=%s\">", target),
+      sprintf("</head><body><p>This page moved to <a href=\"%s\">%s</a>.</p></body></html>", target, target)
+    ), paths[i])
+  }
+  if (nrow(moves) > 0) message("Wrote ", nrow(moves), " legislator redirect stub(s)")
+  invisible(paths)
+}
+
 #' Get the hash for a committee from its JSON file
 get_committee_hash <- function(people_id, ga = CURRENT_GA) {
-  get_legislator_hash(people_id, ga)  # Same JSON structure
+  get_person_hash(people_id, ga)  # Same JSON structure
 }
 
 #' Check if a committee needs rendering (hash changed or never rendered)
@@ -576,34 +702,37 @@ render_all_weeks <- function(weeks = NULL, force = FALSE, ga = CURRENT_GA) {
   return(invisible(list(success = success_count, failed = fail_count, failed_items = failed_items)))
 }
 
-#' Render all legislator pages (incremental by default)
+#' Render all legislator career pages (incremental by default)
+#'
+#' One page per person in any session on disk, showing their latest session,
+#' so members who left keep their page. Writes redirect stubs for changed
+#' filenames first.
 #' @param limit Optional limit for testing (NULL for all)
-#' @param force If TRUE, re-render all regardless of hash
-render_all_legislators <- function(limit = NULL, force = FALSE, ga = CURRENT_GA) {
-  ensure_dirs(ga)
+#' @param force If TRUE, re-render regardless of hash every page whose session
+#'   isn't frozen; pages showing a frozen session still render only when their
+#'   hash (LegiScan record + election results) changes
+render_all_legislators <- function(limit = NULL, force = FALSE, sessions = legislator_sessions()) {
+  ensure_dirs()
   manifest <- load_manifest()
+  write_legislator_redirects(sessions)
 
-  people <- read_csv(ga_csv("people", ga), show_col_types = FALSE)
-  # Exclude committees (have empty first_name/last_name)
-  legislators <- people |> filter(!is.na(first_name), first_name != "")
-  people_ids <- legislators$people_id
+  latest <- sessions |> filter(ga == latest_ga)
+  people_ids <- latest$people_id
+  page_ga <- setNames(latest$ga, latest$people_id)
 
   if (!is.null(limit)) {
     people_ids <- head(people_ids, limit)
   }
 
-  # Filter to only legislators that need rendering (unless force = TRUE)
-  if (!force) {
-    needs_render <- sapply(people_ids, needs_render_legislator, manifest = manifest, ga = ga)
-    legislators_to_render <- people_ids[needs_render]
-    message(paste(
-      "Found", length(legislators_to_render), "legislators needing render out of",
-      length(people_ids), "total"
-    ))
-  } else {
-    legislators_to_render <- people_ids
-    message(paste("Force rendering all", length(legislators_to_render), "legislators..."))
-  }
+  forced <- force & !ga_frozen(page_ga[as.character(people_ids)])
+  needs_render <- forced | mapply(needs_render_legislator, people_ids,
+                                  ga = page_ga[as.character(people_ids)],
+                                  MoreArgs = list(manifest = manifest))
+  legislators_to_render <- people_ids[needs_render]
+  message(paste(
+    "Rendering", length(legislators_to_render), "of", length(people_ids), "legislators",
+    if (force) sprintf("(%d forced)", sum(forced)) else ""
+  ))
 
   if (length(legislators_to_render) == 0) {
     message("No legislators need rendering. Use force = TRUE to re-render all.")
@@ -615,6 +744,7 @@ render_all_legislators <- function(limit = NULL, force = FALSE, ga = CURRENT_GA)
   failed_items <- character(0)
 
   for (people_id in legislators_to_render) {
+    ga <- page_ga[[as.character(people_id)]]
     success <- render_legislator(people_id, ga)
 
     if (success) {
@@ -722,8 +852,10 @@ render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees
 
   message("\n")
 
-  # Render legislators (incremental unless force = TRUE)
+  # Render legislator career pages (forced while their session is live), then
+  # any archived session pages not yet rendered
   legislators_result <- render_all_legislators(limit = legislators_limit, force = TRUE)
+  render_legislator_archives()
 
   message("\n")
 

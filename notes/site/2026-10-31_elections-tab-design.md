@@ -38,6 +38,12 @@ Election date and type (general/primary/special); the district map in force; per
 ## Open
 
 - **Where the tab sits:** settled by the career-page decision (2026-10-31, decision 2 in the [multi-session plan](../legislature/2026-10-24_multi-session-plan.md#open-decisions)). The career page carries Elections as a fifth tab next to the latest session's tabs; archived session pages (`legislators/ga91/`) don't carry it.
-- **Tab bar at phone width** already wraps to three rows; a fifth tab makes it worse. Fix with the tab, or with the career-page layout.
-- **Latest margin in the district card** is the most prominent number this work adds. Recommended (it's the most useful single fact for a newcomer); confirm.
-- **Component split:** the share-bar and result table could be shared (`R/ui_helpers.R`) if campaign finance or an elections section will show races too; the incumbent/party/redistricting wording is domain vocabulary and belongs in a domain helper.
+- **Tab bar at phone width:** with five tabs it now stacks as five rows at 375px (seen 2026-10-31). Open; take it to `/impeccable critique`.
+- **Latest margin in the district card:** built as recommended ("Won the 2024 general with 72.1% of the vote. Electoral history →").
+- **Component split:** built 2026-10-31 as an elections-domain layer, `R/elections/ui_helpers.R`, which the legislator template sources next to the legislature helpers. Move the race bar and table to `R/ui_helpers.R` if campaign finance ever shows races.
+
+## Built differently from the mock
+
+- Tenure line reads "First elected to the Iowa House in 2018 · re-elected 2020, 2022 and 2024" rather than "since 2019": it dates the election, which the data has, not the term start. When the first win in the data may not be the first (no 2010 or 2014 general yet), it says "Elected to the Iowa Senate in 2018, 2022 and 2024 · earlier results not yet included".
+- The person's own name is bold in race tables, and an unopposed race always names the candidate.
+- Missing primaries show one muted line ("Primary results for 2018 are not yet included.") instead of dashed placeholders.

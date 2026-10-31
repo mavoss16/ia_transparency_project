@@ -1,6 +1,6 @@
 # Elections
 
-Precinct-level election results and precinct shapefiles. **No production pipeline or site section yet** (`R/elections/render.R` and `site/elections/` are still to be built). Raw downloads in `data/elections/raw/` are not committed; `data/elections/processed/` is.
+Precinct-level election results and precinct shapefiles. **No production pipeline or site section yet** (`R/elections/render.R` and `site/elections/` are still to be built). The race table does reach the live site, through the Elections tab on legislator pages (`site/templates/legislator_template.qmd`). Raw downloads in `data/elections/raw/` are not committed; `data/elections/processed/` is.
 
 ## Scripts
 
@@ -25,6 +25,10 @@ legislative_results/                    House and Senate results for legislator 
                                         county rows; sources in data/elections/raw/special_results/sources.csv)
   03_match_legislators.R                candidates ↔ LegiScan people_id → data/general/candidate_legislators.csv;
                                         adds people_id, incumbent, open_seat to legislative_results.rds
+legislator_history.R                    a legislator's races from the race table (legislator_races(), tenure_text(),
+                                        block_notes(), election_digest()), for legislator pages
+ui_helpers.R                            elections markup (race results, the legislator page Elections tab and
+                                        district-card line); sources R/ui_helpers.R and legislator_history.R
 clean_precinct_elections_2024.R         2024 general (ENR SpreadsheetML) → precinct_elections_2024.csv
 _test_download_5.R, _test_scrape_urls.R scratch
 archive/election_results_2024.R         old one-election ENR downloader

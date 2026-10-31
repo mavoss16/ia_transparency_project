@@ -9,148 +9,37 @@ format:
 
 params:
   people_id: 19548
-  ga: null  # General Assembly; null = CURRENT_GA
+  ga: null  # The person's latest General Assembly; null = CURRENT_GA
 ---
 
 ```{r}
-library(jsonlite)
-library(readr)
-library(dplyr)
-library(purrr)
-library(stringr)
-library(tidyr)
-library(sf)
-library(leaflet)
-library(htmltools)
-source(here::here("R/legislature/utils.R"))
-source(here::here("R/legislature/ui_helpers.R"))
-source(here::here("R/legislature/maps.R"))
+# Career page: the person's latest session in full (ga), their electoral
+# history, and links to archived pages for earlier sessions. Renders to
+# docs/legislators/, one directory below docs/.
+up <- 1
+```
+
+{{< include _legislator_data.qmd >}}
+
+```{r}
 # Electoral history comes from the elections domain (data + markup)
 source(here::here("R/elections/ui_helpers.R"))
 
-ga <- resolve_ga(params$ga)
-```
-
-```{r}
-items_to_df <- function(list){
-  map(list, as.data.frame) |>
-    bind_rows()
-}
-```
-
-```{r}
-# Read legislator data
-legislator <- read_json(file.path(ga_paths(ga)$people_json, paste0(params$people_id, ".json"))) |>
-  pluck("person")
-
-# Read related data
-bills <- read_csv(ga_csv("bills", ga), show_col_types = FALSE)
-sponsors <- read_csv(ga_csv("sponsors", ga), show_col_types = FALSE)
-votes <- read_csv(ga_csv("votes", ga), show_col_types = FALSE)
-rollcalls <- read_csv(ga_csv("rollcalls", ga), show_col_types = FALSE)
-
-# Full people table (with people_id) — used for succession detection + successor links
-people_full <- read_csv(ga_csv("people", ga), show_col_types = FALSE) |>
-  filter(!is.na(first_name), first_name != "")
-
-# Mid-session replacement detection (shared helper in utils.R)
-turnover <- classify_district_turnover(people_full, votes, rollcalls)
-this_turnover <- turnover |> filter(people_id == params$people_id)
-is_former <- nrow(this_turnover) == 1 && isTRUE(this_turnover$is_former[1])
-
-successor <- NULL
-if (is_former && !is.na(this_turnover$counterpart_id[1])) {
-  succ_id <- this_turnover$counterpart_id[1]
-  succ <- people_full |> filter(people_id == succ_id)
-  if (nrow(succ) == 1) {
-    successor <- list(
-      name     = succ$name,
-      party    = succ$party,
-      filename = get_legislator_filename(succ_id, people_full)
-    )
-  }
-}
-
-# Now enrich votes with roll-call + bill context for the tabs below
-votes <- left_join(votes, rollcalls, by = join_by(roll_call_id)) |>
-  left_join(bills |> select(bill_id, bill_number, title), by = join_by(bill_id))
-
-# Filter to this legislator's activity
-leg_sponsored_bills <- sponsors |>
-  mutate(sponsor_num = n(), .by = bill_id) |>
-  filter(people_id == params$people_id) |>
-  left_join(bills, by = "bill_id") |>
-  arrange(desc(status_date))
-
-leg_votes <- votes |>
-  filter(
-    people_id == params$people_id,
-    !str_detect(description, "Report$")
-  )
-
-# Load processed vote data for party alignment analysis
-legislator_stats <- read_rds(file.path(ga_paths(ga)$votes, "legislator_stats.rds"))
-vote_records <- read_rds(file.path(ga_paths(ga)$votes, "records.rds"))
-
-# Load legislator similarity data (graceful degradation if not yet generated)
-similarity_path <- file.path(ga_paths(ga)$votes, "similarity_top_n.rds")
-leg_similarity <- if (file.exists(similarity_path)) {
-  read_rds(similarity_path) |> filter(people_id_a == params$people_id)
-} else {
-  NULL
-}
-
-leg_stats <- legislator_stats |> filter(people_id == params$people_id)
-leg_vote_records <- vote_records |> filter(people_id == params$people_id)
-
-# Legislator names by district for the district map
-people <- read_csv(ga_csv("people", ga), show_col_types = FALSE) |>
-  filter(party_id != 0) |>
-  mutate(district_num = parse_district_number(district)) |>
-  select(name, party, district, district_num, role)
-
-# Electoral history: every race matched to this person, plus links to other
-# legislators' pages (opponents, previous seat holders)
+# Every race matched to this person, plus links to other legislators' pages
+# (opponents, previous seat holders)
 election_results <- load_legislative_results()
 races <- legislator_races(params$people_id, election_results, legislator$party)
 legislator_href <- \(id) {
   if (id %in% people_full$people_id) paste0(get_legislator_filename(id, people_full), ".html") else NULL
 }
-```
 
-```{r}
-# --- Values for the profile header + stat cards ---
-role_label <- if (legislator$role == "Sen") "Senator" else "Representative"
+# Earlier sessions, each with an archived page under docs/legislators/ga{N}/
+past_sessions <- legislator_sessions() |>
+  filter(people_id == params$people_id, ga < !!ga) |>
+  arrange(desc(ga))
+career_filename <- get_legislator_filename(params$people_id, people_full)
 
-succession_notice <- if (is_former && !is.null(successor)) {
-  sprintf("No longer serving — succeeded by <a href='%s.html'>%s (%s)</a> in %s this session.",
-          successor$filename, successor$name, successor$party, legislator$district)
-} else {
-  NULL
-}
-
-# External-link buttons (rendered inside the profile header)
-leg_email   <- legislator$bio$social$email
-leg_website <- legislator$bio$links$official$website
-btns <- list()
-if (!is.null(leg_website) && nchar(leg_website) > 0)
-  btns <- c(btns, list(a(href = leg_website, target = "_blank", "Iowa Legislature ↗")))
-if (!is.null(leg_email) && nchar(leg_email) > 0)
-  btns <- c(btns, list(a(href = paste0("mailto:", leg_email), "Email")))
-if (!is.null(legislator$ballotpedia) && nchar(legislator$ballotpedia) > 0)
-  btns <- c(btns, list(a(href = sprintf("https://ballotpedia.org/%s", legislator$ballotpedia),
-                         target = "_blank", "Ballotpedia ↗")))
-if (!is.null(legislator$votesmart_id) && nchar(as.character(legislator$votesmart_id)) > 0)
-  btns <- c(btns, list(a(href = sprintf("https://justfacts.votesmart.org/candidate/%s", legislator$votesmart_id),
-                         target = "_blank", "VoteSmart ↗")))
-links_div <- div(class = "ia-profile-actions", btns)
-
-# Sponsorship + voting stat values
-total_sponsored <- nrow(leg_sponsored_bills)
-n_sole <- if (total_sponsored > 0) sum(leg_sponsored_bills$position == 1 & leg_sponsored_bills$sponsor_num == 1) else 0
-n_co   <- if (total_sponsored > 0) sum(leg_sponsored_bills$position >= 2) else 0
-n_floor_votes <- nrow(leg_votes)
-has_stats <- nrow(leg_stats) == 1 && leg_stats$total_votes[1] > 0
+district_extra <- tagList(ui_latest_result(races), elections_tab_script())
 ```
 
 ::: {.ia-breadcrumb}
@@ -169,221 +58,12 @@ ui_profile_header(
 )
 ```
 
-::::: {.grid}
-
-:::: {.g-col-7}
-```{r}
-div(class = "ia-stats-2col",
-  ui_stat_grid(
-    ui_stat_card("Bills Sponsored", total_sponsored,
-                 sprintf("%d sole · %d co-sponsored", n_sole, n_co)),
-    ui_stat_card("Party Alignment",
-                 if (has_stats) sprintf("%.1f%%", 100 * leg_stats$with_party_pct) else "—",
-                 if (has_stats) sprintf("%d with party · %d against",
-                                        leg_stats$votes_with_party, leg_stats$votes_against_party)
-                 else "No floor votes recorded"),
-    ui_stat_card("Participation",
-                 if (has_stats) sprintf("%.1f%%", 100 * leg_stats$participation_rate) else "—",
-                 "Of eligible floor votes"),
-    ui_stat_card("Floor Votes", n_floor_votes, "Cast this session")
-  )
-)
-```
-::::
-
-:::: {.g-col-5}
-::: {.ia-card}
-::: {.ia-card-title}
-District `r legislator$district`
-:::
-
-```{r}
-district_num <- parse_district_number(legislator$district)
-chamber <- chamber_name(legislator$role)
-party_color <- if (legislator$party == "D") "#3F5B93" else "#A8433A"
-
-# Every district in the chamber, the legislator's own highlighted and drawn on
-# top; the shapes come from the shared geometry file (maps.R)
-map_districts <- district_geometry(chamber, ga_district_plan(ga)) |>
-  st_drop_geometry() |>
-  select(District) |>
-  left_join(people |> filter(role == legislator$role), by = c("District" = "district_num")) |>
-  mutate(
-    own          = District == district_num,
-    fill         = if_else(own, party_color, "#CCCCCC"),
-    fill_opacity = if_else(own, 0.6, 0.2),
-    stroke       = if_else(own, party_color, "#000000"),
-    weight       = if_else(own, 3, 1),
-    label        = case_when(
-      own          ~ paste(legislator$name, "-", legislator$district),
-      !is.na(name) ~ paste0(name, " (", party, "-", district, ")"),
-      .default     = paste("District", District)
-    ),
-    front        = own
-  ) |>
-  select(District, fill, fill_opacity, stroke, weight, label, front)
-
-bbox <- st_bbox(district_geometry(chamber, ga_district_plan(ga)) |> filter(District == district_num))
-
-district_map(map_districts, chamber, ga, bounds = bbox, height = 340) |>
-  addTiles()
-```
-
-```{r}
-tagList(ui_latest_result(races), elections_tab_script())
-```
-
-:::
-::::
-
-:::::
+{{< include _legislator_summary.qmd >}}
 
 ::: {.ia-card}
 ::: {.panel-tabset}
 
-## Sponsored bills
-
-```{r}
-fmt_date <- \(d) str_squish(format(d, "%b %e, %Y"))
-bill_links <- \(bill_number) lapply(format_bill_link(bill_number, bill_dir_href(ga, up = 1)), HTML)
-# clean_bill_title() takes one title at a time
-short_title <- \(title) map_chr(title, \(t) clean_bill_title(t)$title)
-
-ui_table(
-  leg_sponsored_bills |>
-    transmute(
-      bill = bill_links(bill_number),
-      title = short_title(title),
-      status = status_desc,
-      status_date = fmt_date(status_date),
-      role = case_when(
-        position == 1 & sponsor_num == 1 ~ "Sole sponsor",
-        position == 1 ~ "Primary sponsor",
-        position >= 2 ~ "Co-sponsor"
-      ),
-      sponsor_num
-    ),
-  labels = c(bill = "Bill", title = "Title", status = "Status", status_date = "Status date",
-             role = "Role", sponsor_num = "Sponsors"),
-  numeric = "sponsor_num",
-  nowrap = c("bill", "status_date"),
-  empty = "No sponsored bills this session."
-)
-```
-
-## Voting record
-
-```{r}
-tagList(
-  if (has_stats) {
-    div(class = "ia-card-sub",
-        sprintf("%d floor votes · %.1f%% with party · %.1f%% participation",
-                n_floor_votes, 100 * leg_stats$with_party_pct, 100 * leg_stats$participation_rate))
-  },
-  ui_table(
-    leg_votes |>
-      arrange(desc(date), desc(roll_call_id)) |>
-      transmute(
-        bill = bill_links(bill_number),
-        title = short_title(title),
-        date = fmt_date(date),
-        description = simplify_vote_desc(description),
-        vote = map(vote_desc, vote_pill)
-      ),
-    labels = c(bill = "Bill", title = "Title", date = "Date", description = "Vote type", vote = "Vote"),
-    nowrap = c("bill", "date"),
-    empty = "No floor votes recorded this session."
-  )
-)
-```
-
-## Vote analysis
-
-```{r}
-if (nrow(leg_vote_records) == 0) {
-  ui_empty("No floor votes to analyze yet.")
-} else {
-  outcome_breakdown <- leg_vote_records |>
-    filter(vote_text %in% c("Yea", "Nay")) |>
-    summarize(
-      count = n(),
-      with_party = sum(vote_with_party == TRUE, na.rm = TRUE),
-      against_party = sum(vote_with_party == FALSE, na.rm = TRUE),
-      .by = vote_outcome
-    ) |>
-    mutate(pct_of_total = sprintf("%.1f%%", count / sum(count) * 100)) |>
-    arrange(desc(count))
-
-  against_party <- leg_vote_records |>
-    filter(vote_with_party == FALSE) |>
-    left_join(bills |> select(bill_id, title), by = "bill_id") |>
-    arrange(desc(vote_date)) |>
-    transmute(
-      bill = bill_links(bill_number),
-      title = short_title(title),
-      vote_date = fmt_date(vote_date),
-      vote_desc = simplify_vote_desc(vote_desc),
-      vote = map(vote_text, vote_pill),
-      party_position,
-      vote_outcome
-    )
-
-  tagList(
-    h3("Votes by classification"),
-    ui_table(
-      outcome_breakdown,
-      labels = c(vote_outcome = "Vote type", count = "Total", with_party = "With party",
-                 against_party = "Against party", pct_of_total = "Share of votes"),
-      numeric = c("count", "with_party", "against_party", "pct_of_total")
-    ),
-    h3("Votes against party"),
-    ui_table(
-      against_party,
-      labels = c(bill = "Bill", title = "Title", vote_date = "Date", vote_desc = "Vote type",
-                 vote = "Vote", party_position = "Party position", vote_outcome = "Classification"),
-      nowrap = c("bill", "vote_date"),
-      empty = "This legislator has not voted against their party."
-    )
-  )
-}
-```
-
-## Similar legislators
-
-```{r}
-# Legislator pages sit side by side in docs/legislators/, so links are bare
-# filenames
-sim_table <- function(type) {
-  ui_table(
-    leg_similarity |>
-      filter(rank_type == type) |>
-      arrange(rank) |>
-      transmute(
-        legislator = map2(filename_b, name_b, \(f, n) a(href = paste0(f, ".html"), n)),
-        party = party_b,
-        district = district_b,
-        similarity = sprintf("%.1f%%", similarity * 100),
-        n_shared
-      ),
-    labels = c(legislator = "Legislator", party = "Party", district = "District",
-               similarity = "Similarity", n_shared = "Shared votes"),
-    numeric = c("similarity", "n_shared"),
-    nowrap = c("legislator", "district")
-  )
-}
-
-if (is.null(leg_similarity) || nrow(leg_similarity) == 0) {
-  ui_empty("Similarity data is not available yet.")
-} else {
-  sim_block <- \(title, type) div(class = "g-col-6", h3(title), sim_table(type))
-  div(class = "grid",
-    sim_block("Most similar overall", "overall"),
-    sim_block("Most similar in the other party", "cross_party"),
-    sim_block("Least similar overall", "least_overall"),
-    sim_block("Least similar in their own party", "least_own_party")
-  )
-}
-```
+{{< include _legislator_tabs.qmd >}}
 
 ## Elections
 
@@ -395,6 +75,30 @@ ui_elections_tab(races, legislator$name, chamber_name(legislator$role),
 :::
 :::
 
+```{r}
+# Earlier sessions: one row each, linking to the archived session page
+if (nrow(past_sessions) > 0) {
+  past_rows <- past_sessions |>
+    mutate(
+      session = map(ga, \(g) a(href = paste0(ga_slug(g), "/", career_filename, ".html"),
+                               paste0(ga_label(g), " (", ga_years(g), ")"))),
+      role = if_else(role == "Sen", "Senator", "Representative"),
+      bills_sponsored = map_int(ga, \(g) {
+        sum(read_csv(ga_csv("sponsors", g), col_select = people_id, show_col_types = FALSE)$people_id ==
+              params$people_id)
+      })
+    ) |>
+    select(session, role, district, bills_sponsored)
+  div(class = "ia-card",
+    div(class = "ia-card-title", "Earlier sessions"),
+    ui_table(past_rows,
+             labels = c(session = "Session", role = "Role", district = "District",
+                        bills_sponsored = "Bills sponsored"),
+             numeric = "bills_sponsored", nowrap = "district")
+  )
+}
+```
+
 ::: {.ia-sources}
-Profile generated from LegiScan data for the Iowa Legislature. Last updated `r format(Sys.Date(), "%B %e, %Y") |> str_squish()`
+Profile generated from LegiScan data for the Iowa Legislature; election results from the Iowa Secretary of State. Last updated `r format(Sys.Date(), "%B %e, %Y") |> str_squish()`
 :::
