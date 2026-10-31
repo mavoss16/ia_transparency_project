@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | **Campaign Finance** — IECDB state data + FEC for Iowa's federal candidates | Pipeline + DuckDB built; **nothing published** | [`R/campaign_finance/CLAUDE.md`](R/campaign_finance/CLAUDE.md) |
 | **Elections** — precinct results and shapefiles | Download + crosswalk scripts; **no pipeline or site section** | [`R/elections/CLAUDE.md`](R/elections/CLAUDE.md) |
 
-Those files load automatically when you work inside their folders, but **not** when you're editing their templates under `site/`, so read the domain file first for template work too. No code links the domains to each other yet (legislator ↔ campaign committee ↔ election candidate); that crosswalk is the next structural piece, and `data/general/` is reserved for it.
+Those files load automatically when you work inside their folders, but **not** when you're editing their templates under `site/`, so read the domain file first for template work too. Cross-domain links live in `data/general/`. The only one so far is legislator `people_id` ↔ election candidate (`candidate_legislators.csv`, built by `R/elections/legislative_results/03_match_legislators.R`); campaign committees and lobbying clients aren't linked yet.
 
 ## Current focus and tasks
 

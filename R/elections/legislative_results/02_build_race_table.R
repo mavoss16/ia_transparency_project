@@ -16,7 +16,7 @@
 # pct and margin_pct are shares of race_votes, write-ins included. margin
 # (per race, repeated on each row): top named candidate's votes minus the
 # second's; NA when fewer than two named candidates ran. Incumbent, open seat
-# and people_id come from the candidate crosswalk (plan step 4), not here.
+# and people_id are added by 03_match_legislators.R.
 #
 # winner: the top vote-getter. In a primary the nominee needs at least 35% of
 #   the vote; below that the nomination goes to a party convention
