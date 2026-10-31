@@ -17,10 +17,15 @@ precinct_matching/                      shapefile ↔ election-precinct crosswal
   03_crosswalk_precincts_2024.R         auto-match + manual template for 2024
   manual_crosswalk.R                    interactive console helpers (sourced repeatedly)
   explore_shapefiles.R                  inspection helpers
+legislative_results/                    House and Senate results for legislator electoral history
+  parsers.R                             parse_results_file(): one parser per file layout, picked from contents
+  01_parse_precinct_results.R           every raw results file → legislative_results_precinct.rds
 clean_precinct_elections_2024.R         2024 general (ENR SpreadsheetML) → precinct_elections_2024.csv
 _test_download_5.R, _test_scrape_urls.R scratch
 archive/election_results_2024.R         old one-election ENR downloader
 ```
+
+`01_parse_precinct_results.R` takes ~10 minutes, mostly the 2020 general (`.xlsx`, 29 sheets per county). Generals list each candidate's party only in 2012 and 2014 (and 2016 except Adair); elsewhere `party` is NA until the race table fills it. Candidate names are all caps in 2010.
 
 Raw results live in `data/elections/raw/precinct_results/{year}_{type}/{county}.{ext}` (statewide files as `statewide.{ext}`). The extension is the real format read from the first bytes, not what the server called it: `xls` (BIFF), `xlsx`, `xml` (SpreadsheetML: readxl can't open it, use xml2) or `pdf` (Scott 2020 general is PDF only). `data/elections/raw/precinct_elections_2014/` holds superseded per-county 2014 general files; the 2014 general source is the statewide file.
 
