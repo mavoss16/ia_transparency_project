@@ -33,3 +33,10 @@ data/legislature/archive/Journals/
 
 # Elections: raw downloaded data (shapefiles, precinct results) — reproducible via download scripts
 data/elections/raw/
+
+# Impeccable design skill: installed locally per machine, not project code
+# (its critique snapshots in .impeccable/critique/ ARE tracked)
+.claude/skills/impeccable/
+.claude/agents/impeccable-*
+.github/skills/impeccable/
+.github/agents/impeccable-*
