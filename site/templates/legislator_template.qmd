@@ -25,6 +25,8 @@ library(htmltools)
 source(here::here("R/legislature/utils.R"))
 source(here::here("R/legislature/ui_helpers.R"))
 source(here::here("R/legislature/maps.R"))
+# Electoral history comes from the elections domain (data + markup)
+source(here::here("R/elections/ui_helpers.R"))
 
 ga <- resolve_ga(params$ga)
 ```
@@ -106,6 +108,14 @@ people <- read_csv(ga_csv("people", ga), show_col_types = FALSE) |>
   filter(party_id != 0) |>
   mutate(district_num = parse_district_number(district)) |>
   select(name, party, district, district_num, role)
+
+# Electoral history: every race matched to this person, plus links to other
+# legislators' pages (opponents, previous seat holders)
+election_results <- load_legislative_results()
+races <- legislator_races(params$people_id, election_results, legislator$party)
+legislator_href <- \(id) {
+  if (id %in% people_full$people_id) paste0(get_legislator_filename(id, people_full), ".html") else NULL
+}
 ```
 
 ```{r}
@@ -154,7 +164,8 @@ ui_profile_header(
   role_label = role_label,
   district   = legislator$district,
   notice     = succession_notice,
-  links      = links_div
+  links      = links_div,
+  tenure     = tenure_text(races, legislator$name, chamber_name(legislator$role), "line")
 )
 ```
 
@@ -216,6 +227,10 @@ bbox <- st_bbox(district_geometry(chamber, ga_district_plan(ga)) |> filter(Distr
 
 district_map(map_districts, chamber, ga, bounds = bbox, height = 340) |>
   addTiles()
+```
+
+```{r}
+tagList(ui_latest_result(races), elections_tab_script())
 ```
 
 :::
@@ -368,6 +383,13 @@ if (is.null(leg_similarity) || nrow(leg_similarity) == 0) {
     sim_block("Least similar in their own party", "least_own_party")
   )
 }
+```
+
+## Elections
+
+```{r}
+ui_elections_tab(races, legislator$name, chamber_name(legislator$role),
+                 election_results, page_href = legislator_href)
 ```
 
 :::

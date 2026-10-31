@@ -218,7 +218,10 @@ ui_paired_bars <- function(df) {
 # Profile header (legislator detail pages)
 # ------------------------------------------------------------------
 
-ui_profile_header <- function(name, party, role_label, district, notice = NULL, links = NULL) {
+#' tenure: optional line under the meta line ("First elected to the Iowa House
+#'   in 2018 · re-elected 2020, 2022 and 2024"), from tenure_text()
+ui_profile_header <- function(name, party, role_label, district, notice = NULL, links = NULL,
+                              tenure = NULL) {
   party_class <- if (party == "D") "ia-profile-header party-d" else "ia-profile-header"
   party_label <- if (party == "D") "DEMOCRAT" else "REPUBLICAN"
   div(class = party_class,
@@ -227,6 +230,7 @@ ui_profile_header <- function(name, party, role_label, district, notice = NULL, 
       ui_pill(party_label, tolower(party))
     ),
     div(class = "ia-profile-meta", paste0(role_label, " · District ", district, " · Iowa")),
+    if (!is.null(tenure)) div(class = "ia-profile-tenure", tenure),
     if (!is.null(notice)) div(class = "ia-notice", HTML(notice)),
     if (!is.null(links)) div(style = "margin-top:0.9rem", links)
   )
