@@ -190,10 +190,27 @@ real test of multiple sessions.
    `/ga91/`)? For current 91st links: move them once (the site has only been
    live since 2026-10-15, so few links point at it yet), or leave redirect
    stubs (e.g. Quarto `aliases`)?
-2. **Legislator pages.** One career page per person (`people_id` is the same
-   across sessions) with a tab per session, or one page per person per
-   session? Career pages fit the "connections over collections" principle
-   better, but each page grows with every session.
+2. **Legislator pages.** *Decided 2026-10-31: a career page plus frozen
+   session pages.*
+   - `docs/legislators/{name}-{people_id}.html` is the career page: profile
+     header and tenure line, district card, full detail (stat cards and the
+     existing tabs) for the member's **latest** session, the Elections tab,
+     and a "Past sessions" list with one row per earlier session (chamber,
+     district, bills sponsored, votes cast) linking to its session page.
+   - `docs/legislators/ga91/{name}-{people_id}.html` holds the full detail
+     for an earlier session of a member who served in a later one. It renders
+     once when its session freezes and never again. The template has to sit
+     one directory deeper (like `site/templates/session/`) so relative paths
+     come out right.
+   - Members who left keep their last session's detail on the career page;
+     their URL doesn't change.
+   - Bill pages from every session link to the career page.
+   - Older sessions from the Phase 3 backfill can appear as "Past sessions"
+     rows from data alone; full archive pages for them stay optional
+     (Decision 4).
+   - Rejected: everything on one page with a session switcher. Pages would
+     grow every term, and a change in the current session would re-render
+     every past session's content.
 3. **How far back.** Only the 90th GA? Back to the 84th (2011 maps, a single
    extra district plan)? Or all the way to the 83rd?
 4. **Hosting.** If full bill pages for older sessions are wanted, Pages'

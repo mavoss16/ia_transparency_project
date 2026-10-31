@@ -244,6 +244,14 @@ run_pipeline <- function(
     log = TRUE,
     keep_days = 30
 ) {
+  # A frozen session has nothing new to pull or render. Return before logging
+  # and the run summary so the daily CI run leaves nothing to commit.
+  if (ga_frozen(CURRENT_GA)) {
+    message("The ", ga_label(CURRENT_GA), " is frozen (FROZEN_GAS in session.R); ",
+            "nothing to do until CURRENT_GA moves to the next session.")
+    return(invisible(list()))
+  }
+
   pipeline_start <- Sys.time()
   log_file <- NULL
 
@@ -365,6 +373,6 @@ run_pipeline <- function(
 
 if (sys.nframe() == 0) {
   results <- run_pipeline()
-  any_failed <- any(!sapply(results, `[[`, "success"))
+  any_failed <- !all(vapply(results, `[[`, logical(1), "success"))
   quit(status = if (any_failed) 1L else 0L, save = "no")
 }

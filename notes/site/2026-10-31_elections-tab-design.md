@@ -37,7 +37,7 @@ Election date and type (general/primary/special); the district map in force; per
 
 ## Open
 
-- **Where the tab sits** depends on the career-page decision in `ROADMAP.md`: if a page gets a tab per session, Elections sits outside the session tabs, since it spans the career.
+- **Where the tab sits:** settled by the career-page decision (2026-10-31, decision 2 in the [multi-session plan](../legislature/2026-10-24_multi-session-plan.md#open-decisions)). The career page carries Elections as a fifth tab next to the latest session's tabs; archived session pages (`legislators/ga91/`) don't carry it.
 - **Tab bar at phone width** already wraps to three rows; a fifth tab makes it worse. Fix with the tab, or with the career-page layout.
 - **Latest margin in the district card** is the most prominent number this work adds. Recommended (it's the most useful single fact for a newcomer); confirm.
 - **Component split:** the share-bar and result table could be shared (`R/ui_helpers.R`) if campaign finance or an elections section will show races too; the incumbent/party/redistricting wording is domain vocabulary and belongs in a domain helper.

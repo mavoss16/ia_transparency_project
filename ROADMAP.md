@@ -8,8 +8,8 @@ The project's single list of open work. Items link to the note or file with the 
 
 Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-plan.md).
 
-- [ ] Add a way to freeze a session, then do a final 91st pull and freeze it so the daily run skips it.
-- [ ] **Decide** legislator pages across sessions: one career page per `people_id` with a tab per session, or one page per session. Today a page shows `CURRENT_GA` only, so switching to 92 would drop a returning member's 91st record. Planned electoral history is career-level, which favors the career page.
+- [ ] Freeze the 91st: after CI's last 91st pull, add `91L` to `FROZEN_GAS` in `R/legislature/session.R`. The daily run then does nothing (no pull, no re-renders, no commit) until `CURRENT_GA = 92`. **Decide** when; freezing early also stops the ~115-minute nightly legislator and committee re-renders.
+- [ ] Legislator pages across sessions (decided 2026-10-31: [career page plus frozen session pages](notes/legislature/2026-10-24_multi-session-plan.md#open-decisions)). Build the career page (latest session's detail, "Past sessions" list) and the `legislators/ga91/` archive template, and render pages for members who left as well as current ones. Today a page shows `CURRENT_GA` only, so this must land before switching to 92.
 - [ ] Link past sessions: the weekly activity archive (`site/activity/index.qmd`) and the index pages list `CURRENT_GA` only, so 91st week pages would be orphaned.
 - [ ] When LegiScan creates the session, set `CURRENT_GA = 92` (the ID fills itself via `legiscan_session_id()`), bulk-download the first load, then run incremental updates.
 - [ ] Put lobbying (`04` / `04a`) in `run_pipeline.R` and keep CI inside its time budget.

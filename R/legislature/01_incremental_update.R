@@ -101,6 +101,11 @@ incremental_update <- function(
     pause_secs  = 0.5,
     force       = FALSE
 ) {
+  if (ga_frozen(ga)) {
+    stop("The ", ga_label(ga), " is frozen (FROZEN_GAS in session.R); ",
+         "remove it there to pull updates again.")
+  }
+
   api_key <- Sys.getenv("LEGISCAN_API_KEY")
   if (nchar(api_key) == 0L) stop("LEGISCAN_API_KEY environment variable is not set.")
 

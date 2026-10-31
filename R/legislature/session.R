@@ -20,6 +20,15 @@ library(here)
 #' The General Assembly the daily pipeline collects and the site leads with
 CURRENT_GA <- 91L
 
+#' Sessions whose data is final. The daily pipeline does nothing while
+#' CURRENT_GA is frozen, and incremental_update() refuses to write to a frozen
+#' session, so its raw JSON (the source of everything downstream) can't drift
+#' after the final pull. Rendering a frozen session's pages is still allowed.
+FROZEN_GAS <- integer()
+
+#' Is a session frozen?
+ga_frozen <- function(ga = CURRENT_GA) as.integer(ga) %in% FROZEN_GAS
+
 # GA -> LegiScan session ID cache. legiscan_session_id() fills it from
 # getSessionList the first time a session is asked for.
 SESSION_ID_CACHE <- here("data/legislature/legiscan_sessions.csv")

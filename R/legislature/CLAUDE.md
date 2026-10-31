@@ -28,7 +28,7 @@ Other files: `session.R` (session settings, below), `maps.R` (Leaflet maps), `ut
 
 ## Sessions are a setting
 
-`session.R` holds `CURRENT_GA` and `ga_paths(ga)`; every pipeline function and template takes a `ga` argument (templates: `ga: null` = current session). Data lives in `legiscan/ga91/` and `data/legislature/ga91/`; the folder carries the session. `legiscan_session_id(ga)` reads `data/legislature/legiscan_sessions.csv` and fills it from `getSessionList` on a miss. Shared across sessions: `data/legislature/districts/` (keyed by district plan) and `pipeline_internal/pipeline_runs.rds`.
+`session.R` holds `CURRENT_GA` and `ga_paths(ga)`; every pipeline function and template takes a `ga` argument (templates: `ga: null` = current session). Data lives in `legiscan/ga91/` and `data/legislature/ga91/`; the folder carries the session. `legiscan_session_id(ga)` reads `data/legislature/legiscan_sessions.csv` and fills it from `getSessionList` on a miss. Shared across sessions: `data/legislature/districts/` (keyed by district plan) and `pipeline_internal/pipeline_runs.rds`. A session in `FROZEN_GAS` is final: `incremental_update()` refuses to write to it, and `run_pipeline()` returns at once while `CURRENT_GA` is frozen. Rendering a frozen session is still allowed.
 
 **URLs:** bills at `docs/legislation/ga91/HF1.html`, committees at `docs/committees/ga91/…`, legislators unchanged at `docs/legislators/…` (`people_id` spans sessions). The bill and committee templates live in `site/templates/session/` so Quarto's relative `site_libs`/navbar paths come out `../../`: **a page must end up exactly as deep as it rendered.** Build links with `bill_dir_href(ga, up)`. Manifest keys for bills and committees are `ga91/HF1`.
 
