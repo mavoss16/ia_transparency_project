@@ -51,15 +51,7 @@ sponsored_bills <- sponsors |>
   left_join(bills, by = "bill_id") |>
   arrange(desc(last_action_date))
 
-# Match rollcalls where the description names the committee:
-# "{Chamber} {Committee Name} Report". The people record and the vote
-# descriptions disagree on "&" vs "And" (Senate Ways & Means), so either
-# matches either
-name_pattern <- str_replace_all(committee_name, regex("\\s+(and|&)\\s+", ignore_case = TRUE), " (and|&) ")
-vote_pattern <- str_glue("{chamber_name}.*{name_pattern}.*Report")
-
-committee_votes <- rollcalls |>
-  filter(str_detect(description, regex(vote_pattern, ignore_case = TRUE))) |>
+committee_votes <- committee_rollcalls(rollcalls, committee_name, committee_data$role) |>
   left_join(bills |> select(bill_id, bill_number, title), by = "bill_id") |>
   arrange(desc(date))
 ```

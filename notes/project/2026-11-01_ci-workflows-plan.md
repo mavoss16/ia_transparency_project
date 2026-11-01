@@ -2,8 +2,9 @@
 
 Plan, partly built. Update in place as pieces land. **Built (2026-11-01):**
 the render backlog workflow, the shared setup action, and the lobbying
-workflow; organization pages are off the daily path. **Next:** digest-gating
-legislators and committees.
+workflow; organization pages are off the daily path; legislator and committee
+pages are digest-gated. All four steps are built; what's left is checking the
+first runs (`ROADMAP.md`).
 
 One workflow, `.github/workflows/daily-update.yml`, runs everything on one
 06:00 UTC schedule. It is close to its limits, and lobbying (now with 1,003
@@ -132,7 +133,10 @@ to render incrementally. Not required for this split; the two fit together.
 1. ~~**Render backlog workflow**~~ (built 2026-11-01).
 2. ~~**Lobbying workflow**, then remove organization pages from the daily
    path~~ (built 2026-11-01).
-3. **Digest-gate legislator and committee renders** in `render.R` (biggest
-   saving; changes rendering code, not just YAML).
+3. ~~**Digest-gate legislator and committee renders**~~ (built 2026-11-01:
+   `legislator_data_digests()` and `committee_data_digests()` hash each page's
+   own rows of every input; ~10 s for both. Tested stable across R sessions,
+   and changing one bill's status changed exactly its 100 sponsors and voters
+   and its 2 committees).
 4. ~~Composite setup action~~ (built with 1: `.github/actions/setup-site/`).
    The shared commit step is still copied into each workflow.

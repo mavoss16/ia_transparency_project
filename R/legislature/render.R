@@ -222,9 +222,133 @@ get_person_hash <- function(people_id, ga = CURRENT_GA) {
 # The election race table, read once per R session for election_digest()
 .election_results_cache <- new.env()
 
+#' IDs as text without scientific notation (as.character(1e5) is "1e+05")
+id_chr <- function(x) if (is.numeric(x)) format(x, scientific = FALSE, trim = TRUE) else as.character(x)
+
+#' One text line per row, tagged by source, keyed by a column. Digests hash
+#' these lines rather than data frames, so column types and object attributes
+#' can't move a fingerprint (as in lobby_digests())
+#' @param df Data frame
+#' @param key Column holding the page's ID
+#' @param tag Short label naming the source, so rows from two sources can't collide
+keyed_rows <- function(df, key, tag) {
+  if (nrow(df) == 0) return(tibble(key = character(), row = character()))
+  # Built before tibble(), where a `key` column would shadow the argument
+  ids <- id_chr(df[[key]])
+  rows <- do.call(paste, c(list(tag), unname(as.list(select(df, -all_of(key)))), sep = "\t"))
+  tibble(key = ids, row = rows)
+}
+
+#' Hash each key's rows together with data every page shares
+#' @param rows Tibble of key, row from keyed_rows()
+#' @param shared Character vector every page also depends on
+#' @return Named character vector: key -> hash
+hash_keyed_rows <- function(rows, shared) {
+  digests <- rows |>
+    arrange(key, row) |>
+    summarise(digest = rlang::hash(c(row, shared)), .by = key)
+  setNames(digests$digest, digests$key)
+}
+
+# Digests per session, computed once per R session: the inputs don't change
+# between deciding what to render and recording what was rendered
+.page_digest_cache <- new.env()
+
+#' Fingerprint every legislator page's session data
+#'
+#' Everything a career or archive page reads for its session, each source
+#' cut to the person's rows: sponsorships (with each bill's sponsor count),
+#' floor votes with their roll calls, the full bills.csv row of every bill
+#' the page lists or names, vote records, stats, similarity, and the
+#' succession notice. Shared by every page: the member table (district map
+#' labels, links to other members) and the session list ("Earlier sessions").
+#' @param ga General Assembly
+#' @return Named character vector: people_id -> hash
+legislator_data_digests <- function(ga = CURRENT_GA) {
+  read <- \(name) read_csv(ga_csv(name, ga), show_col_types = FALSE)
+  bills <- read("bills")
+  sponsors <- read("sponsors") |> mutate(n_sponsors = n(), .by = bill_id)
+  votes <- read("votes")
+  rollcalls <- read("rollcalls")
+  members <- read("people") |> filter(!is.na(first_name), first_name != "")
+  read_votes <- \(name) readRDS(file.path(ga_paths(ga)$votes, paste0(name, ".rds")))
+  records <- read_votes("records")
+  similarity_path <- file.path(ga_paths(ga)$votes, "similarity_top_n.rds")
+  similarity <- if (file.exists(similarity_path)) readRDS(similarity_path) else NULL
+
+  page_bills <- bind_rows(
+    sponsors |> distinct(people_id, bill_id),
+    votes |> inner_join(select(rollcalls, roll_call_id, bill_id), by = "roll_call_id") |>
+      distinct(people_id, bill_id),
+    records |> distinct(people_id, bill_id)
+  ) |>
+    distinct() |>
+    inner_join(bills, by = "bill_id")
+
+  turnover <- classify_district_turnover(members, votes, rollcalls) |>
+    left_join(members |> select(counterpart_id = people_id, name, party), by = "counterpart_id")
+
+  rows <- bind_rows(
+    keyed_rows(sponsors, "people_id", "s"),
+    keyed_rows(page_bills, "people_id", "b"),
+    keyed_rows(left_join(votes, rollcalls, by = "roll_call_id"), "people_id", "v"),
+    keyed_rows(records, "people_id", "r"),
+    keyed_rows(read_votes("legislator_stats"), "people_id", "t"),
+    if (!is.null(similarity)) keyed_rows(similarity, "people_id_a", "m"),
+    keyed_rows(turnover, "people_id", "o")
+  )
+  shared <- c(
+    keyed_rows(members |> select(people_id, name, party, district, role), "people_id", "p")$row,
+    keyed_rows(legislator_sessions() |> select(people_id, ga, role, district), "people_id", "g")$row
+  )
+  hash_keyed_rows(rows, shared)
+}
+
+#' Fingerprint every committee page: the full bills.csv row of each bill
+#' referred to or sponsored by the committee, and its own roll calls
+#' @param ga General Assembly
+#' @return Named character vector: people_id -> hash
+committee_data_digests <- function(ga = CURRENT_GA) {
+  read <- \(name) read_csv(ga_csv(name, ga), show_col_types = FALSE)
+  bills <- read("bills")
+  sponsors <- read("sponsors")
+  rollcalls <- read("rollcalls")
+  committees <- read("people") |> filter(is.na(first_name) | first_name == "", committee_id > 0)
+
+  rows <- pmap(committees, \(people_id, name, role, committee_id, ...) {
+    sponsored <- sponsors$bill_id[sponsors$people_id == people_id]
+    page_bills <- bills |>
+      filter(committee_id == !!committee_id | bill_id %in% sponsored)
+    votes <- committee_rollcalls(rollcalls, name, role) |>
+      left_join(select(bills, bill_id, bill_number, title), by = "bill_id")
+    bind_rows(
+      keyed_rows(mutate(page_bills, key = people_id), "key", "b"),
+      keyed_rows(mutate(votes, key = people_id), "key", "v")
+    )
+  }) |>
+    list_rbind()
+  hash_keyed_rows(rows, character(0))
+}
+
+#' Look up one page's digest, computing the session's digests on first use
+#' @param kind "legislator" or "committee"
+#' @param people_id Page ID
+#' @param ga General Assembly
+page_data_digest <- function(kind, people_id, ga) {
+  cache_key <- paste0(kind, "_", ga_slug(ga))
+  if (is.null(.page_digest_cache[[cache_key]])) {
+    digest_fn <- switch(kind, legislator = legislator_data_digests, committee = committee_data_digests)
+    .page_digest_cache[[cache_key]] <- digest_fn(ga)
+  }
+  digest <- .page_digest_cache[[cache_key]][id_chr(people_id)]
+  # A page with no rows of its own still depends on its JSON and the shared data
+  if (is.na(digest)) "none" else unname(digest)
+}
+
 #' Get the hash for a legislator's career page: their person_hash in the
-#' session the page shows, plus a fingerprint of their election results (the
-#' Elections tab changes when results are added, independently of LegiScan)
+#' session the page shows, a fingerprint of their election results (the
+#' Elections tab changes when results are added, independently of LegiScan),
+#' and a fingerprint of the session data the page shows
 get_legislator_hash <- function(people_id, ga = CURRENT_GA) {
   person_hash <- get_person_hash(people_id, ga)
   if (is.na(person_hash)) return(NA_character_)
@@ -232,7 +356,8 @@ get_legislator_hash <- function(people_id, ga = CURRENT_GA) {
     source(here("R/elections/legislator_history.R"), local = .election_results_cache)
     .election_results_cache$results <- .election_results_cache$load_legislative_results()
   }
-  paste0(person_hash, "|", .election_results_cache$election_digest(people_id, .election_results_cache$results))
+  paste0(person_hash, "|", .election_results_cache$election_digest(people_id, .election_results_cache$results),
+         "|", page_data_digest("legislator", people_id, ga))
 }
 
 #' Check if a bill needs rendering (hash changed or never rendered)
@@ -471,9 +596,12 @@ write_legislator_redirects <- function(sessions = legislator_sessions()) {
   invisible(paths)
 }
 
-#' Get the hash for a committee from its JSON file
+#' Get the hash for a committee page: its person_hash (same JSON structure as
+#' a legislator's) plus a fingerprint of the bills and votes it lists
 get_committee_hash <- function(people_id, ga = CURRENT_GA) {
-  get_person_hash(people_id, ga)  # Same JSON structure
+  person_hash <- get_person_hash(people_id, ga)
+  if (is.na(person_hash)) return(NA_character_)
+  paste0(person_hash, "|", page_data_digest("committee", people_id, ga))
 }
 
 #' Check if a committee needs rendering (hash changed or never rendered)
@@ -980,7 +1108,8 @@ render_index_pages <- function() {
 #' @param time_budget_minutes Stop starting new bills this many minutes after the
 #'   render begins, so a CI job can commit its progress before the runner's time
 #'   limit. Defaults to the RENDER_TIME_BUDGET_MINUTES env var, else no limit.
-#'   Legislators and committees always render in full after the bills.
+#'   Legislators and committees render after the bills, outside the budget,
+#'   but only where their data digests changed (or with force).
 #' @param weeks Optional vector of week Mondays to limit weekly pages to
 #'   (NULL = all weeks). Weeks render before bills and outside the budget.
 render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees_limit = NULL, force = FALSE,
@@ -1008,15 +1137,15 @@ render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees
   # Lobbying organization pages render in run_lobbying.R (weekly workflow),
   # the only thing that changes their data, or in render_backlog()
 
-  # Render legislator career pages (forced while their session is live), then
-  # any archived session pages not yet rendered
-  legislators_result <- render_all_legislators(limit = legislators_limit, force = TRUE)
+  # Render legislator career pages whose data changed, then any archived
+  # session pages not yet rendered
+  legislators_result <- render_all_legislators(limit = legislators_limit, force = force)
   render_legislator_archives()
 
   message("\n")
 
   # Render committees (incremental unless force = TRUE)
-  committees_result <- render_all_committees(limit = committees_limit, force = TRUE)
+  committees_result <- render_all_committees(limit = committees_limit, force = force)
 
   # Write status summary for the status page
   write_status(render_start, bills_result, legislators_result, committees_result, weeks_result)

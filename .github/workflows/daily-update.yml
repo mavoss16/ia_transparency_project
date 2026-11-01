@@ -34,8 +34,10 @@ jobs:
           # (legislators, committees, commit) inside timeout-minutes. Bills not
           # reached stay out of render_manifest.csv and the next run renders them.
           # Measured 2026-10-13: setup + pipeline ~10 min, bills ~8/min, and
-          # the always-forced legislators + committees ~115 min. 180 finished
+          # the then always-forced legislators + committees ~115 min. 180 finished
           # 5 seconds inside the 300-minute timeout; 150 leaves ~25 min slack.
+          # Since 2026-11-01 those render only when their data digests change,
+          # so this could rise once a few gated nights confirm it.
           RENDER_TIME_BUDGET_MINUTES: 150
         run: Rscript R/legislature/run_pipeline.R
 

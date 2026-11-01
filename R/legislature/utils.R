@@ -96,6 +96,20 @@ get_committee_filename <- function(people_id, people_df = NULL) {
   paste0(chamber, "-", committee_name, "-", people_id)
 }
 
+#' A committee's own roll calls: those whose description names it,
+#' "{Chamber} {Committee Name} Report". The people record and the vote
+#' descriptions disagree on "&" vs "And" (Senate Ways & Means), so either
+#' matches either. Used by the committee page and its render digest.
+#' @param rollcalls Roll calls with a description column
+#' @param committee_name Committee name from people.csv
+#' @param role "Sen" or "Rep" from people.csv
+committee_rollcalls <- function(rollcalls, committee_name, role) {
+  chamber_name <- if (role == "Sen") "Senate" else "House"
+  name_pattern <- str_replace_all(committee_name, regex("\\s+(and|&)\\s+", ignore_case = TRUE), " (and|&) ")
+  vote_pattern <- str_glue("{chamber_name}.*{name_pattern}.*Report")
+  rollcalls |> filter(str_detect(description, regex(vote_pattern, ignore_case = TRUE)))
+}
+
 parse_district_number <- function(district_str) {
   as.numeric(stringr::str_extract(district_str, "\\d+$"))
 }
