@@ -46,6 +46,9 @@ IA_PALETTE <- list(
   party_r     = "#A8433A",
   party_d     = "#3F5B93",
   green       = "#256a43",
+  lobby_for       = "#256a43",
+  lobby_against   = "#B8860B",
+  lobby_undecided = "#cfccc2",
   bar_fill    = "#8f8b80",
   bar_light   = "#c5c1b4",
   bar_track   = "#f0efe9"

@@ -30,6 +30,12 @@ $red-fg:     #8f3a31;
 $amber-fg:   #7d5c17;
 $amber-bg:   #f7f3e8;
 $neutral-bg: #eeede7;
+// Lobbying positions. Against is ochre, not red, so it can't read as the
+// Republican color; it is lighter than For so the two stay apart under
+// red-green color blindness, and 3.0:1 on $bg (decided 2026-11-01).
+$lobby-for:       #256a43;
+$lobby-against:   #B8860B;
+$lobby-undecided: #cfccc2;
 $bar-fill:   #8f8b80;
 $bar-track:  #f0efe9;
 

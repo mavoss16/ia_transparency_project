@@ -26,7 +26,8 @@ Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-p
 - [ ] Week page: status hidden on phones; resolutions lead busy weeks (sort substantive bills first at equal stage); the "✓ Vetoed" stepper step is green (give `ui_stepper()` an end-state class); footnote line length; empty search shows "No rows found".
 - [ ] Home: tally dash `#b5b2a8` fails contrast (`site/index.qmd`); gloss LegiScan jargon in activity rows; funnel restructure (deferred by choice).
 - [ ] Legislators index: Senate is the default tab; consider House.
-- [ ] `site/templates/session/bill_template.qmd` hardcodes the share-bar colors; use `IA_PALETTE`. The Undecided swatch `#cfccc2` is below 3:1.
+- [ ] The Undecided lobbying swatch `#cfccc2` (`IA_PALETTE$lobby_undecided`) is below 3:1 on the background.
+- [ ] Bill pages switched the Against share-bar color from red to ochre on 2026-11-01, but bill pages render only when their LegiScan hash changes, so most live pages keep the red until a forced re-render (fold into the next full render, e.g. the 92nd switch).
 - [ ] **Decide** analytics: the live site has none. Wire `google-analytics.html` (repo root) into `_quarto.yml` or delete it.
 - [ ] Write `DESIGN.md` once the visual direction is settled.
 - [ ] Feature idea: "enter your town → your two legislators" (highest-leverage feature for newcomers; scope with `/impeccable shape`).
@@ -37,8 +38,8 @@ Detail for the design items: [design backlog](notes/site/2026-07-15_design-backl
 
 - [ ] Phase 2: backfill the 90th GA (2023–24) as the multi-session test. Phase 3: the 83rd–89th, data first. **Decide** how far back and how older sessions are hosted (open decisions 3–4 in the plan).
 - [ ] Show legislator–lobbyist alignment (`04a`) on legislator pages.
-- [ ] Lobbying comments: the declarations page's Comments cell is a count (`<a class="viewDecComments" data-decid="…">2</a>`), so `lobbyist_filings.rds` `comments` holds "1"–"4", not text (834 filings have any). The text comes from a POST to `declarations?action=getDeclarationComments&declarationID={decid}&col=7` (comment, updated by, date). Store `data-decid` as `declaration_id` and the count as an integer `comment_count`, then fetch text for the ~834 (about 30 min). **Decide** whether comments appear on pages at all.
-- [ ] Lobbying pages: an index and one page per organization (client), with lobbyists listed on the organization page rather than given their own pages (decided 2026-10-31). Each page shows outcomes by position at the bill-group level, next to the session-wide rate. Organization pages need legislator alignment computed per organization (`04a` keeps only each legislator's top 5) and normalized client names. **Decide** the For/Against colors: Against reuses the Republican red `#A8433A`.
+- [ ] Lobbying pages: an index and one page per organization (client), with lobbyists listed on the organization page rather than given their own pages (decided 2026-10-31). Each page shows outcomes by position at the bill-group level, next to the session-wide rate. Pages key on `client_slug` from `04b_lobbying_clients.R` (`clients.rds`). Still needed: legislator alignment computed per organization (`04a` keeps only each legislator's top 5). **Decide** whether the 19 personal-interest clients get pages. Colors: `IA_PALETTE$lobby_for` / `lobby_against` / `lobby_undecided` (green For, ochre Against, decided 2026-11-01).
+- [ ] Maybe later: lobbyist comments. The declarations page's Comments cell is a count (`<a class="viewDecComments" data-decid="…">2</a>`), so `lobbyist_filings.rds` `comments` holds "1"–"4", not text (834 filings have any). The text comes from a POST to `declarations?action=getDeclarationComments&declarationID={decid}&col=7` (comment, updated by, date). Store `data-decid` as `declaration_id` and the count as an integer `comment_count`, then fetch the text (about 30 min). Some are argumentative, so think about neutrality before showing them.
 - [ ] **Decide** whether to raise `MIN_SHARED_BILLS` above 5 in the similarity scores (0% scores at the minimum may be noise).
 
 ## Campaign finance

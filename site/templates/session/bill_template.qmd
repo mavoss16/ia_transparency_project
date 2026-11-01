@@ -214,7 +214,8 @@ if (n_lobby > 0) {
         sprintf("%d declaration%s filed on this bill", n_lobby, if (n_lobby == 1) "" else "s")),
     ui_share_bar(
       c(For = lobby_for, Against = lobby_against, Undecided = lobby_undecided),
-      c(For = "#256a43", Against = "#A8433A", Undecided = "#cfccc2")
+      c(For = IA_PALETTE$lobby_for, Against = IA_PALETTE$lobby_against,
+        Undecided = IA_PALETTE$lobby_undecided)
     )
   )
 } else {
