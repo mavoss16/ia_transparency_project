@@ -1,8 +1,9 @@
 # CI workflows plan: split the daily job by cadence (2026-11-01)
 
-Plan, partly built. Update in place as pieces land. **Built:** the render
-backlog workflow and the shared setup action (2026-11-01, not yet run in CI).
-**Next:** the lobbying workflow, then digest-gating legislators and committees.
+Plan, partly built. Update in place as pieces land. **Built (2026-11-01):**
+the render backlog workflow, the shared setup action, and the lobbying
+workflow; organization pages are off the daily path. **Next:** digest-gating
+legislators and committees.
 
 One workflow, `.github/workflows/daily-update.yml`, runs everything on one
 06:00 UTC schedule. It is close to its limits, and lobbying (now with 1,003
@@ -44,15 +45,21 @@ The daily job mixes work with very different costs and cadences:
   inputs, like `week_digests()`, instead of forcing them. This is the biggest
   single saving (~115 min a night to near zero on a quiet day) and stops ~65 MB
   of rewritten HTML entering git history daily. Already a roadmap item.
-- **Change:** drop `render_all_organizations()` from the daily `render_site()`
-  path once the lobbying workflow exists. Until then it stays, sharing the
-  bills' budget (as wired on 2026-11-01).
+- ~~**Change:** drop `render_all_organizations()` from the daily
+  `render_site()` path.~~ Done 2026-11-01 with the lobbying workflow.
 - While a session is in `FROZEN_GAS` the run does nothing, as now.
 
 ### 2. Lobbying (new)
 
-`lobbying-update.yml`. Weekly during session (e.g. Mondays), plus manual run.
-Between sessions, run it by hand only, or skip it while the GA is frozen.
+**Built 2026-11-01.** `lobbying-update.yml`, Mondays 12:00 UTC plus manual
+run (a `scrape` checkbox; off rebuilds from the saved filings), calling
+`run_lobbying()` in `R/legislature/run_lobbying.R`. It returns at once while
+the current GA is frozen, so between sessions it stops on its own. One time
+budget (`RENDER_TIME_BUDGET_MINUTES`, 300, counted from the start, scrape
+included) inside a 350-minute timeout; it renders organizations, the lobbying
+index, then bills. The scrape from GitHub's runners is untested: if
+legis.iowa.gov blocks them (as sos.iowa.gov blocks httr2), the scrape step
+fails and nothing else changes.
 
 1. Full scrape: `update_lobbyist_declarations()` with every bill, then retry
    failures with `rescrape_lobbyist_declarations()`.
@@ -123,7 +130,8 @@ to render incrementally. Not required for this split; the two fit together.
 ## Order
 
 1. ~~**Render backlog workflow**~~ (built 2026-11-01).
-2. **Lobbying workflow**, then remove organization pages from the daily path.
+2. ~~**Lobbying workflow**, then remove organization pages from the daily
+   path~~ (built 2026-11-01).
 3. **Digest-gate legislator and committee renders** in `render.R` (biggest
    saving; changes rendering code, not just YAML).
 4. ~~Composite setup action~~ (built with 1: `.github/actions/setup-site/`).

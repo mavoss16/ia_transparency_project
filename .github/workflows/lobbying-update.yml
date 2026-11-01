@@ -1,0 +1,77 @@
+name: Lobbying Update
+
+# Weekly full scrape of lobbyist declarations, then the derived lobbying data
+# and pages (R/legislature/run_lobbying.R). Does nothing while the current GA
+# is in FROZEN_GAS. Plan: notes/project/2026-11-01_ci-workflows-plan.md
+
+on:
+  schedule:
+    - cron: '0 12 * * 1'  # Mondays 12:00 UTC, after the daily run's usual finish
+  workflow_dispatch:
+    inputs:
+      scrape:
+        description: 'Scrape legis.iowa.gov first (~3 h). Turn off to rebuild the derived data and pages from the saved filings.'
+        type: boolean
+        default: true
+
+# Same group as the daily and backlog runs, so they queue instead of
+# overlapping and never push to main at once
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: write  # the final step pushes data/, docs/ and the manifest back to main
+
+jobs:
+  scrape-and-render:
+    # Pinned to 24.04; see .github/actions/setup-site/action.yml
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350  # GitHub-hosted runners stop jobs at 360
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up R, Quarto and renv
+        uses: ./.github/actions/setup-site
+
+      - name: Scrape and render
+        shell: bash
+        env:
+          # Counted from the start of the run, scrape included: the scrape takes
+          # ~3 h (4,231 bills at ~2.5 s), leaving ~2 h for pages (~23 s each).
+          # Pages not reached stay out of render_manifest.csv for the next run.
+          RENDER_TIME_BUDGET_MINUTES: 300
+          # A schedule run has no inputs (and null == false in expressions), so
+          # name it outright: scheduled runs always scrape
+          SCRAPE: ${{ github.event_name == 'schedule' || inputs.scrape }}
+        run: |
+          mkdir -p logs/legislature
+          Rscript -e "source('R/legislature/run_lobbying.R');
+            run_lobbying(scrape = as.logical(Sys.getenv('SCRAPE')))" \
+            2>&1 | tee "logs/legislature/lobbying_$(date -u +%Y-%m-%d_%H%M%S).log"
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lobbying-logs
+          path: logs/
+          retention-days: 7
+
+      - name: Commit and push updates
+        if: always()  # keep scrape and render progress even if a later step failed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/legislature/ docs/ render_manifest.csv
+          git diff --staged --quiet || \
+            git commit -m "chore: lobbying update $(date -u +%Y-%m-%d)"
+          # Main may have moved during the run (a push by hand; the other
+          # workflows can't overlap). The bot commits only generated files, so
+          # on a conflict keep its freshly built version.
+          git pull --rebase -X theirs
+          git push

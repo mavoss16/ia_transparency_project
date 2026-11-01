@@ -1005,11 +1005,8 @@ render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees
 
   message("\n")
 
-  # Lobbying organization pages (incremental; share the bills' time budget,
-  # since a fresh lobbying scrape can change hundreds at once)
-  render_all_organizations(force = force, deadline = bills_deadline)
-
-  message("\n")
+  # Lobbying organization pages render in run_lobbying.R (weekly workflow),
+  # the only thing that changes their data, or in render_backlog()
 
   # Render legislator career pages (forced while their session is live), then
   # any archived session pages not yet rendered
