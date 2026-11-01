@@ -527,7 +527,8 @@ render_committee <- function(people_id, ga = CURRENT_GA,
 #' Render all committee pages (incremental by default)
 #' @param limit Optional limit for testing (NULL for all)
 #' @param force If TRUE, re-render all regardless of hash
-render_all_committees <- function(limit = NULL, force = FALSE, ga = CURRENT_GA) {
+#' @param deadline POSIXct after which no new committee is started (Inf = no limit)
+render_all_committees <- function(limit = NULL, force = FALSE, deadline = Inf, ga = CURRENT_GA) {
   ensure_dirs(ga)
   manifest <- load_manifest()
 
@@ -561,6 +562,10 @@ render_all_committees <- function(limit = NULL, force = FALSE, ga = CURRENT_GA) 
   failed_items <- character(0)
 
   for (people_id in committees_to_render) {
+    if (Sys.time() > deadline) {
+      message("Time budget reached; the remaining committees render next run.")
+      break
+    }
     success <- render_committee(people_id, ga)
 
     if (success) {
@@ -799,7 +804,8 @@ Time budget reached after ", i - 1, "/", total_to_render,
 #' week changes daily, and the home page will link to it.
 #' @param weeks Optional vector of week Mondays to consider (NULL = all)
 #' @param force If TRUE, re-render regardless of hash
-render_all_weeks <- function(weeks = NULL, force = FALSE, ga = CURRENT_GA) {
+#' @param deadline POSIXct after which no new week is started (Inf = no limit)
+render_all_weeks <- function(weeks = NULL, force = FALSE, deadline = Inf, ga = CURRENT_GA) {
   ensure_dirs(ga)
   manifest <- load_manifest()
   digests <- week_digests(ga)
@@ -823,6 +829,10 @@ render_all_weeks <- function(weeks = NULL, force = FALSE, ga = CURRENT_GA) {
   failed_items <- character(0)
 
   for (week_id in weeks_to_render) {
+    if (Sys.time() > deadline) {
+      message("Time budget reached; the remaining weeks render next run.")
+      break
+    }
     if (render_week(week_id, ga)) {
       manifest <- update_manifest(manifest, "week", week_id, unname(digests[week_id]))
       save_manifest(manifest)
@@ -848,7 +858,9 @@ render_all_weeks <- function(weeks = NULL, force = FALSE, ga = CURRENT_GA) {
 #' @param force If TRUE, re-render regardless of hash every page whose session
 #'   isn't frozen; pages showing a frozen session still render only when their
 #'   hash (LegiScan record + election results) changes
-render_all_legislators <- function(limit = NULL, force = FALSE, sessions = legislator_sessions()) {
+#' @param deadline POSIXct after which no new legislator is started (Inf = no limit)
+render_all_legislators <- function(limit = NULL, force = FALSE, deadline = Inf,
+                                   sessions = legislator_sessions()) {
   ensure_dirs()
   manifest <- load_manifest()
   write_legislator_redirects(sessions)
@@ -881,6 +893,10 @@ render_all_legislators <- function(limit = NULL, force = FALSE, sessions = legis
   failed_items <- character(0)
 
   for (people_id in legislators_to_render) {
+    if (Sys.time() > deadline) {
+      message("Time budget reached; the remaining legislators render next run.")
+      break
+    }
     ga <- page_ga[[as.character(people_id)]]
     success <- render_legislator(people_id, ga)
 
@@ -1163,6 +1179,69 @@ clear_manifest <- function() {
   }
 }
 
+#' Forget the rendered state of some page types, so they all render again
+#' @param types Manifest `type` values, e.g. "bill" or "organization"
+clear_manifest_type <- function(types) {
+  manifest <- load_manifest()
+  kept <- manifest |> filter(!type %in% types)
+  save_manifest(kept)
+  message("Cleared ", nrow(manifest) - nrow(kept), " manifest rows (",
+          paste(types, collapse = ", "), ").")
+}
+
+# Backlog targets and the manifest types each one owns
+BACKLOG_TARGETS <- list(
+  weeks         = "week",
+  bills         = "bill",
+  organizations = "organization",
+  legislators   = c("legislator", "legislator_archive"),
+  committees    = "committee"
+)
+
+#' Work through a render backlog under one time budget
+#'
+#' For the manual render-backlog CI workflow: re-run it until nothing is left.
+#' Every page type renders incrementally, so a run that stops at the budget
+#' leaves the rest out of the manifest and the next run picks them up.
+#' @param target "everything" (index pages, then every type in BACKLOG_TARGETS,
+#'   in that order) or one name of BACKLOG_TARGETS
+#' @param force If TRUE, first clear the target's types from the manifest, so
+#'   every page of that type renders again (spread over as many runs as needed)
+#' @param budget_minutes Stop starting new pages after this long
+render_backlog <- function(target = "everything", force = FALSE, budget_minutes = Inf) {
+  targets <- if (target == "everything") names(BACKLOG_TARGETS) else target
+  if (!all(targets %in% names(BACKLOG_TARGETS))) {
+    stop("Unknown target '", target, "'; use everything or one of: ",
+         paste(names(BACKLOG_TARGETS), collapse = ", "))
+  }
+  deadline <- Sys.time() + budget_minutes * 60
+  message("=== Render backlog: ", target, if (force) " (forced)", ", ",
+          budget_minutes, "-minute budget ===\n")
+
+  if (force) clear_manifest_type(unlist(BACKLOG_TARGETS[targets], use.names = FALSE))
+  if (target == "everything") render_index_pages()
+
+  results <- list()
+  for (t in targets) {
+    message("\n--- ", t, " ---")
+    results[[t]] <- switch(t,
+      weeks         = render_all_weeks(deadline = deadline),
+      bills         = render_all_bills(deadline = deadline),
+      organizations = render_all_organizations(deadline = deadline),
+      legislators   = {
+        r <- render_all_legislators(deadline = deadline)
+        render_legislator_archives()
+        r
+      },
+      committees    = render_all_committees(deadline = deadline)
+    )
+  }
+
+  message("\n=== Render backlog complete",
+          if (Sys.time() > deadline) " (budget reached; run again to continue)", " ===")
+  invisible(results)
+}
+
 # Print usage info when script is sourced
 message("
 render_site.R loaded. Available functions:
@@ -1185,6 +1264,8 @@ render_site.R loaded. Available functions:
     render_status()              - Show how many items need rendering
     render_index_pages()         - Render main site index pages only
     clear_manifest()             - Clear render history (forces full re-render)
+    clear_manifest_type('bill')  - Clear one page type's render history
+    render_backlog('bills', force=TRUE, budget_minutes=60)  - Budgeted backlog run
 
   Limiting:
     render_all_bills(limit=10)   - Process first 10 bills only

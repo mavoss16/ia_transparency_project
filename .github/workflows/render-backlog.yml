@@ -1,0 +1,86 @@
+name: Render Backlog
+
+# Manual only. Renders pages that the daily run's time budget hasn't reached,
+# or (with force) re-renders a whole page type after a template change.
+# Re-run until the log says nothing is left: each run commits its progress,
+# and render_manifest.csv records what's done. Plan:
+# notes/project/2026-11-01_ci-workflows-plan.md
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Page type to render. "everything" also renders the index pages.'
+        type: choice
+        options: [everything, bills, organizations, weeks, legislators, committees]
+        default: everything
+      force:
+        description: 'Clear the target from the render manifest first, so every page of that type renders again. Leave OFF on the follow-up runs that finish the backlog; ticking it again restarts it.'
+        type: boolean
+        default: false
+      budget_minutes:
+        description: 'Stop starting new pages after this many minutes (keep below ~310 so the commit fits in the 350-minute timeout)'
+        type: number
+        default: 300
+
+# Same group as the daily run, so the two queue instead of overlapping and
+# never push to main at once. GitHub keeps only one pending run per group: a
+# third run queued behind a running and a pending one cancels the pending one.
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: write  # the final step pushes docs/ and the manifest back to main
+
+jobs:
+  render:
+    # Pinned to 24.04; see .github/actions/setup-site/action.yml
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350  # GitHub-hosted runners stop jobs at 360
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up R, Quarto and renv
+        uses: ./.github/actions/setup-site
+
+      - name: Render backlog
+        shell: bash
+        env:
+          # Inputs pass through the environment, not the script text
+          TARGET: ${{ inputs.target }}
+          FORCE: ${{ inputs.force }}
+          BUDGET_MINUTES: ${{ inputs.budget_minutes }}
+        run: |
+          mkdir -p logs/legislature
+          Rscript -e "source('R/legislature/render.R'); render_backlog(
+            target = Sys.getenv('TARGET'),
+            force = as.logical(Sys.getenv('FORCE')),
+            budget_minutes = as.numeric(Sys.getenv('BUDGET_MINUTES')))" \
+            2>&1 | tee "logs/legislature/backlog_$(date -u +%Y-%m-%d_%H%M%S).log"
+
+      - name: Upload render logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backlog-logs
+          path: logs/
+          retention-days: 7
+
+      - name: Commit and push progress
+        if: always()  # keep partial render progress even if a later step failed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/ render_manifest.csv
+          git diff --staged --quiet || \
+            git commit -m "chore: render backlog (${{ inputs.target }}) $(date -u +%Y-%m-%d)"
+          # Main may have moved during the render (a push by hand; the daily run
+          # can't overlap). The bot commits only generated files, so on a
+          # conflict keep its freshly rendered version.
+          git pull --rebase -X theirs
+          git push

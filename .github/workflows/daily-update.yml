@@ -3,12 +3,7 @@ name: Daily Pipeline Update
 on:
   schedule:
     - cron: '0 6 * * *'  # 6 AM UTC = midnight CT
-  workflow_dispatch:
-    inputs:
-      force_render:
-        description: 'Clear the render manifest and re-render every page. Runs are time-budgeted, so later runs (with this OFF) finish the backlog. Ticking it again restarts the full re-render.'
-        type: boolean
-        default: false
+  workflow_dispatch:  # full or forced re-renders go through render-backlog.yml
 
 concurrency:
   group: pipeline
@@ -19,8 +14,7 @@ permissions:
 
 jobs:
   update-and-render:
-    # Pinned: ubuntu-latest moved to 26.04 on 2026-10-27, where PPM has no binary for
-    # the locked `later` 1.4.2 and its source fails to build against the newer glibc.
+    # Pinned to 24.04; see .github/actions/setup-site/action.yml
     runs-on: ubuntu-24.04
     timeout-minutes: 300
 
@@ -30,30 +24,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up R
-        uses: r-lib/actions/setup-r@v2
-        with:
-          r-version: '4.5.1'
-          use-public-rspm: true  # binary packages from Posit PPM — faster installs
-
-      - name: Install system libraries
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends \
-            libcurl4-openssl-dev \
-            libssl-dev \
-            libxml2-dev \
-            libgdal-dev \
-            libgeos-dev \
-            libproj-dev \
-            libglpk-dev \
-            libudunits2-dev
-
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-
-      - name: Restore renv cache
-        uses: r-lib/actions/setup-renv@v2
+      - name: Set up R, Quarto and renv
+        uses: ./.github/actions/setup-site
 
       - name: Run pipeline
         env:
@@ -65,13 +37,7 @@ jobs:
           # the always-forced legislators + committees ~115 min. 180 finished
           # 5 seconds inside the 300-minute timeout; 150 leaves ~25 min slack.
           RENDER_TIME_BUDGET_MINUTES: 150
-        run: |
-          if [ "${{ github.event.inputs.force_render }}" = "true" ]; then
-            # Full re-render: forget everything rendered so far. The time budget
-            # spreads the backlog across this run and the following ones.
-            Rscript -e "source('R/legislature/render.R'); clear_manifest()"
-          fi
-          Rscript R/legislature/run_pipeline.R
+        run: Rscript R/legislature/run_pipeline.R
 
       - name: Upload pipeline logs
         if: always()

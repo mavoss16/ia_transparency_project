@@ -1,6 +1,8 @@
 # CI workflows plan: split the daily job by cadence (2026-11-01)
 
-Plan, not yet built. Update in place as pieces land.
+Plan, partly built. Update in place as pieces land. **Built:** the render
+backlog workflow and the shared setup action (2026-11-01, not yet run in CI).
+**Next:** the lobbying workflow, then digest-gating legislators and committees.
 
 One workflow, `.github/workflows/daily-update.yml`, runs everything on one
 06:00 UTC schedule. It is close to its limits, and lobbying (now with 1,003
@@ -70,11 +72,21 @@ Weekly is gentle; daily full scrapes would not be.
 
 ### 3. Render backlog (new, manual only)
 
-`render-backlog.yml`, `workflow_dispatch` only. Inputs:
+**Built 2026-11-01.** `render-backlog.yml`, `workflow_dispatch` only, calling
+`render_backlog()` in `render.R`. Inputs:
 
-- `target`: organizations / bills / legislators / committees / everything
+- `target`: everything / bills / organizations / weeks / legislators /
+  committees. `everything` renders the index pages first, then each type in
+  that order (weeks before bills, as in `render_site()`).
 - `force`: clear that page type from the manifest first
-- `budget_minutes`: stop starting pages after this long
+  (`clear_manifest_type()`; legislators clears `legislator_archive` too)
+- `budget_minutes`: stop starting pages after this long (default 300, job
+  timeout 350). Legislators, committees and weeks now take a `deadline` like
+  bills and organizations, so one budget covers every type.
+
+Commits `docs/` and the manifest only. The `force_render` input is gone from
+the daily workflow; a full re-render is `target: everything, force: on`, then
+follow-up runs with force off.
 
 Re-run until the backlog is empty; each run commits its progress, and the
 manifest records what's done. First uses:
@@ -110,8 +122,9 @@ to render incrementally. Not required for this split; the two fit together.
 
 ## Order
 
-1. **Render backlog workflow** (smallest; renders the organization pages now).
+1. ~~**Render backlog workflow**~~ (built 2026-11-01).
 2. **Lobbying workflow**, then remove organization pages from the daily path.
 3. **Digest-gate legislator and committee renders** in `render.R` (biggest
    saving; changes rendering code, not just YAML).
-4. Composite setup action, folded in during 1 or 2 rather than separately.
+4. ~~Composite setup action~~ (built with 1: `.github/actions/setup-site/`).
+   The shared commit step is still copied into each workflow.

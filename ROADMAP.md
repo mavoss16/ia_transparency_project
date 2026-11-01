@@ -19,7 +19,7 @@ Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-p
 
 ## Site and hosting
 
-- [ ] Split CI into three workflows by cadence: the daily update (lighter), a weekly lobbying workflow, and a manual render-backlog workflow; [plan](notes/project/2026-11-01_ci-workflows-plan.md). Build the backlog workflow first: it renders the 1,003 organization pages and the pending forced re-render.
+- [ ] Split CI into three workflows by cadence ([plan](notes/project/2026-11-01_ci-workflows-plan.md)). The manual render-backlog workflow and shared setup action are built (2026-11-01) but haven't run in CI yet; do a first run (e.g. `target: weeks`, `force` on) to check it. Left: the weekly lobbying workflow (item above), then digest-gating legislators and committees.
 - [ ] **Decide** deploying with `actions/deploy-pages` instead of committing `docs/`. `.git` is ~900 MB and grows daily, and campaign finance pages won't fit in a committed `docs/`.
 - [ ] `ia_reactable_theme()` for the four reactable tables (legislation index, committee lists, `legislator_table()`, week page), with the `:focus-visible` rules folded in. Then make the legislator voting record and sponsored bills reactable. Re-check the legislation index's font size once themed (the backlog flagged 12px).
 - [ ] Legislator and committee bill lists show LegiScan's `status_desc` ("Engrossed") instead of the site's status scale; use the `groups.rds` status.
@@ -28,7 +28,7 @@ Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-p
 - [ ] Home: tally dash `#b5b2a8` fails contrast (`site/index.qmd`); gloss LegiScan jargon in activity rows; funnel restructure (deferred by choice).
 - [ ] Legislators index: Senate is the default tab; consider House.
 - [ ] The Undecided lobbying swatch `#cfccc2` (`IA_PALETTE$lobby_undecided`) is below 3:1 on the background.
-- [ ] Pages render only when their own data changes, so three site-wide template changes from 2026-11-01 reach most live pages only on a forced re-render: the ochre Against share bar and organization links on bill pages, and the Lobbying navbar entry on every page. Fold into the next full render (e.g. the 92nd switch).
+- [ ] Pages render only when their own data changes, so three site-wide template changes from 2026-11-01 reach most live pages only on a forced re-render: the ochre Against share bar and organization links on bill pages, and the Lobbying navbar entry on every page. Run the Render Backlog workflow with `target: everything`, `force` on, then repeat with `force` off until done (bills alone are ~9 h at ~8/min, so expect three or four runs).
 - [ ] **Decide** analytics: the live site has none. Wire `google-analytics.html` (repo root) into `_quarto.yml` or delete it.
 - [ ] Write `DESIGN.md` once the visual direction is settled.
 - [ ] Feature idea: "enter your town → your two legislators" (highest-leverage feature for newcomers; scope with `/impeccable shape`).
