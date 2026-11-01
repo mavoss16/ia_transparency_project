@@ -18,7 +18,11 @@
 # Note: a single bill can contribute two bill-votes if it passed both chambers,
 # so n_shared counts bill-votes, not unique bills.
 #
-# Output saved to data/legislature/ga{N}/lobbying/legislator_client_alignment.rds
+# Output saved to data/legislature/ga{N}/lobbying/:
+#   legislator_client_alignment.rds      top-N most aligned and most opposed
+#                                        clients per legislator
+#   legislator_client_alignment_all.rds  every pair with >= MIN_SHARED_BILLS
+#                                        (organization pages)
 #
 # Usage:
 #   source("R/legislature/04a_legislator_lobbyist_alignment.R")
@@ -41,7 +45,8 @@ TOP_N            <- 5   # most/least aligned clients to keep per legislator
 #' @param records_path  Path to vote records RDS (from 02_process_votes.R)
 #' @param lobby_path    Path to lobbyist declarations RDS (from 04_lobbyist_declarations.R)
 #' @param people_path   Path to people.csv
-#' @param output_path   Path to write output RDS
+#' @param output_path   Path to write the top-N RDS
+#' @param all_path      Path to write every pair (organization pages)
 #' @param min_shared    Minimum shared bill-votes required for a valid score
 #' @param top_n         Number of most/least aligned clients to keep per legislator
 #' @param verbose       Print progress messages
@@ -52,6 +57,7 @@ compute_legislator_lobbyist_alignment <- function(
     lobby_path   = file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds"),
     people_path  = ga_csv("people", ga),
     output_path  = file.path(ga_paths(ga)$lobbying, "legislator_client_alignment.rds"),
+    all_path     = file.path(ga_paths(ga)$lobbying, "legislator_client_alignment_all.rds"),
     min_shared   = MIN_SHARED_BILLS,
     top_n        = TOP_N,
     verbose      = TRUE
@@ -140,6 +146,13 @@ compute_legislator_lobbyist_alignment <- function(
     "  %d (legislator, client) pairs with >= %d shared bill-votes",
     nrow(alignment), min_shared
   ))
+
+  # Every pair, for organization pages (the top-N below is per legislator)
+  dir.create(dirname(all_path), recursive = TRUE, showWarnings = FALSE)
+  saveRDS(
+    alignment |> left_join(people, by = "people_id"),
+    all_path
+  )
 
   # ---------------------------------------------------------------------------
   # 6. Build top-N per legislator (most aligned and most opposed)
