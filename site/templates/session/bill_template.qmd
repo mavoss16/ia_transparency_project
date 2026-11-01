@@ -99,6 +99,13 @@ lobby <- if (file.exists(lobby_path)) {
   NULL
 }
 
+# Organization page slugs (04b), so client names can link to their pages
+clients_path <- file.path(ga_paths(ga)$lobbying, "clients.rds")
+if (!is.null(lobby) && file.exists(clients_path)) {
+  lobby <- lobby |>
+    left_join(read_rds(clients_path) |> select(client, client_slug, client_name), by = "client")
+}
+
 lobby_for <- if (!is.null(lobby) && nrow(lobby) > 0) sum(lobby$most_recent_declaration == "For", na.rm = TRUE) else 0
 lobby_against <- if (!is.null(lobby) && nrow(lobby) > 0) sum(lobby$most_recent_declaration == "Against", na.rm = TRUE) else 0
 lobby_undecided <- if (!is.null(lobby) && nrow(lobby) > 0) sum(lobby$most_recent_declaration == "Undecided", na.rm = TRUE) else 0
@@ -457,10 +464,19 @@ if (is.null(floor_votes) || nrow(floor_votes) == 0) {
 if (is.null(lobby)) {
   ui_empty("Lobbyist declarations are unavailable right now.")
 } else {
+  org_prefix <- paste0("../../lobbying/", ga_slug(ga), "/")
+  has_slug <- "client_slug" %in% names(lobby)
   ui_table(
     lobby |>
       arrange(most_recent_declaration, client) |>
-      transmute(client, declaration = most_recent_declaration, date = fmt_date(date)),
+      transmute(
+        client = if (has_slug) {
+          pmap(list(client, client_slug, client_name), \(cl, slug, name)
+            if (is.na(slug)) cl else a(href = paste0(org_prefix, slug, ".html"), name))
+        } else client,
+        declaration = map(most_recent_declaration, position_pill),
+        date = fmt_date(date)
+      ),
     labels = c(client = "Client", declaration = "Declaration", date = "Last updated"),
     nowrap = "date",
     empty = "No lobbyist declarations filed on this bill."

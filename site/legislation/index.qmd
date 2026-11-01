@@ -232,15 +232,6 @@ bill_link_js <- reactable::JS(sprintf(
   "function(cell) { return '<a href=\"%s' + cell.row.bill_number + '.html\">' + cell.value + '</a>' }",
   bill_dir_href(ga, up = 1)
 ))
-# Mirrors status_pill() in R/legislature/ui_helpers.R
-status_pill_js <- reactable::JS(
-  "function(cell) {
-     const s = cell.value || '';
-     const type = /signed|^adopted/i.test(s) ? 'signed' : /vetoed/i.test(s) ? 'vetoed' :
-                  /passed/i.test(s) ? 'progress' : 'neutral';
-     return '<span class=\"ia-pill ia-pill-' + type + '\">' + s + '</span>';
-   }"
-)
 date_js <- reactable::JS(
   "function(cell) {
      if (!cell.value) return '—';

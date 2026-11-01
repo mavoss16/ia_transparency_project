@@ -134,6 +134,13 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 .ia-pill-yea      { background: $green-bg;   color: $green; font-weight: 700; }
 .ia-pill-nay      { background: $red-bg;     color: $red-fg; font-weight: 700; }
 .ia-pill-absent   { background: $neutral-bg; color: $muted;  font-weight: 700; }
+// Lobbying positions — emitted by position_pill(). Outlined, so a position
+// never reads as a bill status (filled). Against text is the darker amber:
+// ochre text on white is only 3:1.
+.ia-pill-pos-for       { background: #fff; color: $lobby-for; border: 1px solid #9cc4ab; }
+.ia-pill-pos-against   { background: #fff; color: $amber-fg;  border: 1px solid $lobby-against; }
+.ia-pill-pos-undecided { background: #fff; color: $ink-soft;  border: 1px solid $lobby-undecided; }
+.ia-pill-pos-withdrawn { background: #fff; color: $muted;     border: 1px dashed $lobby-undecided; }
 .ia-pill-r        { background: $party-r; color: #fff; font-weight: 700; }
 .ia-pill-d        { background: $party-d; color: #fff; font-weight: 700; }
 
@@ -204,6 +211,9 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 // ------------------------------------------------------------
 .ia-share-bar { display: flex; height: 20px; border-radius: 6px; overflow: hidden; margin: 0.5rem 0; }
 .ia-share-legend { display: flex; gap: 1.1rem; font-size: 0.82rem; font-weight: 500; }
+// Table-cell version (lobbying index): a thin bar over the counts
+.ia-split-mini { display: flex; gap: 1px; height: 8px; border-radius: 3px; overflow: hidden; max-width: 150px; }
+.ia-split-mini-label { text-align: left; font-size: 0.75rem; color: $muted; margin-top: 3px; font-variant-numeric: tabular-nums; }
 
 // ------------------------------------------------------------
 // gt / reactable polish

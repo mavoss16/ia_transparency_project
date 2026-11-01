@@ -1,0 +1,206 @@
+---
+pagetitle: "`r source(here::here('R/legislature/session.R')); paste('Lobbying -', ga_label(CURRENT_GA))`"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: false
+---
+
+```{r}
+library(dplyr)
+library(purrr)
+library(stringr)
+library(htmltools)
+source(here::here("R/legislature/utils.R"))
+source(here::here("R/legislature/ui_helpers.R"))
+
+ga <- CURRENT_GA
+```
+
+```{r}
+# Organization-page data from 04b / 04c (R/legislature/)
+lobbying_dir <- ga_paths(ga)$lobbying
+read_lobbying <- \(name) readRDS(file.path(lobbying_dir, paste0(name, ".rds")))
+
+clients <- read_lobbying("clients")
+org_bills <- read_lobbying("organization_bills")
+org_outcomes <- read_lobbying("organization_outcomes")
+baseline <- read_lobbying("outcome_baseline")
+declarations <- read_lobbying("lobbyist_declarations") |>
+  filter(!is.na(client)) |>
+  semi_join(clients, by = "client")
+
+fmt_num <- \(n) format(n, big.mark = ",")
+pct <- \(x) paste0(round(100 * x), "%")
+data_through <- str_squish(format(max(declarations$date), "%B %e, %Y"))
+```
+
+```{r}
+div(class = "ia-hero-row",
+  div(
+    div(class = "ia-eyebrow", paste(ga_label(ga), "·", ga_years(ga))),
+    h1("Lobbying"),
+    p(class = "ia-lead",
+      "Organizations that hire a registered lobbyist must declare, bill by bill, whether they are ",
+      "for, against or undecided on it. These pages collect those declarations by organization ",
+      "and show how the bills turned out."),
+    div(class = "ia-updated", paste("Declarations through", data_through))
+  )
+)
+```
+
+```{r}
+n_orgs <- n_distinct(org_bills$client_slug)
+n_heavy <- org_bills |> count(client_slug) |> filter(n >= 100) |> nrow()
+share_undecided <- mean(declarations$most_recent_declaration == "Undecided")
+
+ui_stat_grid(
+  ui_stat_card("Organizations", fmt_num(n_orgs),
+               sprintf("%d declared on 100 or more bills", n_heavy)),
+  ui_stat_card("Declarations", fmt_num(nrow(declarations)),
+               "One per organization per bill"),
+  ui_stat_card("Bills declared on", fmt_num(n_distinct(org_bills$bill_group_id)),
+               "Counting a renumbered bill once"),
+  ui_stat_card("Marked undecided", pct(share_undecided),
+               "Most declarations take no side")
+)
+```
+
+::: {.ia-card}
+::: {.ia-card-title}
+Where declared bills ended up
+:::
+::: {.ia-card-sub}
+Across every organization's declarations this session, substantive bills only (resolutions nearly always pass). Bills where organizations were undecided became law about as often as bills they supported, so each organization's page compares its record with these rates.
+:::
+
+```{r}
+baseline_table <- baseline |>
+  select(position, outcome, share, n_position) |>
+  mutate(share = if_else(share > 0 & share < 0.01, sprintf("%.1f%%", 100 * share), pct(share))) |>
+  tidyr::pivot_wider(names_from = outcome, values_from = share) |>
+  mutate(
+    n_position = fmt_num(n_position),
+    position = map(as.character(position), position_pill)
+  ) |>
+  relocate(n_position, .after = position)
+
+ui_table(
+  baseline_table,
+  labels = c(position = "Position", n_position = "Declarations"),
+  numeric = setdiff(names(baseline_table), "position")
+)
+```
+
+:::
+
+::: {.ia-card}
+::: {.ia-card-title}
+Organizations
+:::
+::: {.ia-card-sub}
+Search by name. Bills count a renumbered bill once; an organization's position on it is its latest declaration. "Supported bills that became law" counts substantive bills only.
+:::
+
+```{r}
+signed_for <- org_outcomes |>
+  filter(position == "For", outcome == "Signed into law") |>
+  transmute(client_slug, law = n, supported = n_position)
+
+orgs <- org_bills |>
+  summarise(
+    bills     = n(),
+    n_for     = sum(position == "For"),
+    n_against = sum(position == "Against"),
+    n_undecided = sum(position == "Undecided"),
+    last      = as.Date(max(date)),
+    .by = c(client_slug, client_name)
+  ) |>
+  left_join(signed_for, by = "client_slug") |>
+  # NA, not 0, for organizations that supported no substantive bill, so they
+  # sort last and show a dash
+  mutate(law = if_else(coalesce(supported, 0L) > 0, law, NA_integer_)) |>
+  arrange(desc(bills), client_name)
+
+name_js <- reactable::JS(sprintf(
+  "function(cell) { return '<a href=\"%s/' + cell.row.client_slug + '.html\">' + cell.value + '</a>' }",
+  ga_slug(ga)
+))
+# For / against / undecided as a small stacked bar with the counts beside it
+split_js <- reactable::JS(sprintf(
+  "function(cell) {
+     const r = cell.row, t = r.n_for + r.n_against + r.n_undecided;
+     if (!t) return '—';
+     const seg = (n, c) => n ? '<span style=\"width:' + (100 * n / t).toFixed(1) +
+       '%%;background:' + c + '\"></span>' : '';
+     return '<div class=\"ia-split-mini\" role=\"img\" aria-label=\"' + r.n_for + ' for, ' +
+       r.n_against + ' against, ' + r.n_undecided + ' undecided\">' +
+       seg(r.n_for, '%s') + seg(r.n_against, '%s') + seg(r.n_undecided, '%s') +
+       '</div><div class=\"ia-split-mini-label\">' + r.n_for + ' · ' + r.n_against + ' · ' +
+       r.n_undecided + '</div>';
+   }",
+  IA_PALETTE$lobby_for, IA_PALETTE$lobby_against, IA_PALETTE$lobby_undecided
+))
+law_js <- reactable::JS(
+  "function(cell) {
+     return cell.value === null || cell.value === undefined ? '—' :
+       cell.value + ' of ' + cell.row.supported;
+   }"
+)
+date_js <- reactable::JS(
+  "function(cell) {
+     if (!cell.value) return '—';
+     return new Date(cell.value).toLocaleDateString('en-US',
+       { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+   }"
+)
+
+# The split column's header doubles as its legend: a colored dot per position
+dot <- \(color, label) span(style = "white-space:nowrap",
+                            span(style = paste0("color:", color), "●"), paste0(" ", label))
+split_header <- span(
+  dot(IA_PALETTE$lobby_for, "For"), " · ",
+  dot(IA_PALETTE$lobby_against, "Against"), " · ",
+  dot(IA_PALETTE$lobby_undecided, "Undecided")
+)
+
+reactable::reactable(
+  orgs |>
+    mutate(split = bills) |>
+    select(client_slug, client_name, bills, split, n_for, n_against, n_undecided,
+           law, supported, last),
+  columns = list(
+    client_slug = reactable::colDef(show = FALSE),
+    n_for = reactable::colDef(show = FALSE),
+    n_against = reactable::colDef(show = FALSE),
+    n_undecided = reactable::colDef(show = FALSE),
+    supported = reactable::colDef(show = FALSE),
+    client_name = reactable::colDef(name = "Organization", minWidth = 260, html = TRUE,
+                                    cell = name_js),
+    bills = reactable::colDef(name = "Bills", minWidth = 70, align = "right",
+                              searchable = FALSE),
+    split = reactable::colDef(name = "For · Against · Undecided", header = split_header,
+                              minWidth = 190,
+                              html = TRUE, sortable = FALSE, searchable = FALSE,
+                              cell = split_js),
+    law = reactable::colDef(name = "Supported bills that became law", minWidth = 150,
+                            align = "right", searchable = FALSE, sortNALast = TRUE,
+                            html = TRUE, cell = law_js),
+    last = reactable::colDef(name = "Last declaration", minWidth = 120, searchable = FALSE,
+                             cell = date_js)
+  ),
+  defaultSorted = list(bills = "desc"),
+  searchable = TRUE,
+  defaultPageSize = 25,
+  showPageSizeOptions = TRUE,
+  highlight = TRUE
+)
+```
+
+:::
+
+::: {.ia-sources}
+Source: lobbyist declarations filed with the Iowa Legislature; bill status from LegiScan. A bill renumbered in committee counts once, under its final number; if an organization declared differently on two versions, its latest declaration is used. Last updated `r format(Sys.Date(), "%B %e, %Y") |> str_squish()`
+:::

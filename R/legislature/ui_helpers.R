@@ -64,6 +64,31 @@ status_pill <- function(status) {
   ui_pill(status, type)
 }
 
+#' status_pill() as a reactable cell renderer, for tables too long to carry
+#' one tag per row. Keep the two in step.
+status_pill_js <- reactable::JS(
+  "function(cell) {
+     const s = cell.value || '';
+     const type = /signed|^adopted/i.test(s) ? 'signed' : /vetoed/i.test(s) ? 'vetoed' :
+                  /passed/i.test(s) ? 'progress' : 'neutral';
+     return '<span class=\"ia-pill ia-pill-' + type + '\">' + s + '</span>';
+   }"
+)
+
+#' Lobbying position pill (For / Against / Undecided / Withdrawn). Outlined,
+#' so a position never reads as a bill status.
+position_pill <- function(position) {
+  ui_pill(position, paste0("pos-", str_to_lower(position)))
+}
+
+#' position_pill() as a reactable cell renderer. Keep the two in step.
+position_pill_js <- reactable::JS(
+  "function(cell) {
+     const s = cell.value || '';
+     return '<span class=\"ia-pill ia-pill-pos-' + s.toLowerCase() + '\">' + s + '</span>';
+   }"
+)
+
 #' Vote pill (Yea / Nay / Absent / NV)
 vote_pill <- function(vote) {
   type <- dplyr::case_when(

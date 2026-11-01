@@ -1,0 +1,303 @@
+---
+pagetitle: "`r source(here::here('R/legislature/session.R')); x <- readRDS(file.path(ga_paths(resolve_ga(params$ga))$lobbying, 'clients.rds')); paste(x$client_name[x$client_slug == params$slug][1], '– Lobbying')`"
+format:
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: false
+
+params:
+  slug: "iowa-medical-society"
+  ga: null  # General Assembly; null = CURRENT_GA
+---
+
+```{r}
+library(readr)
+library(dplyr)
+library(purrr)
+library(stringr)
+library(htmltools)
+source(here::here("R/legislature/utils.R"))
+source(here::here("R/legislature/ui_helpers.R"))
+
+ga <- resolve_ga(params$ga)
+```
+
+```{r}
+# Organization-page data from 04b / 04c / 04a (R/legislature/)
+lobbying_dir <- ga_paths(ga)$lobbying
+read_lobbying <- \(name) readRDS(file.path(lobbying_dir, paste0(name, ".rds")))
+
+client <- read_lobbying("clients") |> filter(client_slug == params$slug)
+org_name <- client$client_name[1]
+is_personal <- client$client_type[1] == "personal"
+
+org_bills <- read_lobbying("organization_bills") |> filter(client_slug == params$slug)
+org_outcomes <- read_lobbying("organization_outcomes") |> filter(client_slug == params$slug)
+baseline <- read_lobbying("outcome_baseline")
+lobbyists <- read_lobbying("organization_lobbyists") |> filter(client_slug == params$slug)
+alignment <- read_lobbying("legislator_client_alignment_all") |>
+  filter(client %in% !!client$client)
+
+bills_csv <- read_csv(ga_csv("bills", ga), show_col_types = FALSE)
+people <- read_csv(ga_csv("people", ga), show_col_types = FALSE)
+
+fmt_date <- \(d) str_squish(format(d, "%b %e, %Y"))
+fmt_bill <- \(b) str_replace(b, "^([A-Z]+)(\\d+)$", "\\1 \\2")
+plural <- \(n, word) paste(format(n, big.mark = ","), if (n == 1) word else paste0(word, "s"))
+pct <- \(x) if_else(is.na(x), "—", paste0(round(100 * x), "%"))
+
+position_counts <- org_bills |> count(position, .drop = FALSE)
+n_position <- \(p) position_counts$n[position_counts$position == p]
+```
+
+```{r}
+div(class = "ia-breadcrumb", a(href = "../index.html", "← All organizations"))
+
+div(class = "ia-card",
+  div(class = "ia-bill-eyebrow-row",
+    span(class = "ia-bill-eyebrow",
+         toupper(if (is_personal) "Lobbying for personal interest" else "Lobbying organization"))
+  ),
+  h1(class = "ia-bill-title", org_name),
+  div(class = "ia-bill-meta",
+    span(HTML(sprintf("Declared on <strong>%s</strong>", plural(nrow(org_bills), "bill")))),
+    span(HTML(sprintf("<strong>%s</strong>", plural(nrow(lobbyists), "lobbyist")))),
+    span(HTML(sprintf("Last declaration <strong>%s</strong>", fmt_date(max(org_bills$date))))),
+    span(ga_label(ga))
+  ),
+  div(style = "margin-top:1rem; max-width:640px",
+    {
+      # Withdrawn is rare; leave it out of the legend unless it happened
+      segments <- c(For = n_position("For"), Against = n_position("Against"),
+                    Undecided = n_position("Undecided"), Withdrawn = n_position("Withdrawn"))
+      if (segments[["Withdrawn"]] == 0) segments <- segments[names(segments) != "Withdrawn"]
+      ui_share_bar(
+        segments,
+        c(For = IA_PALETTE$lobby_for, Against = IA_PALETTE$lobby_against,
+          Undecided = IA_PALETTE$lobby_undecided, Withdrawn = IA_PALETTE$border)
+      )
+    }
+  )
+)
+```
+
+::: {.ia-card}
+::: {.ia-card-title}
+How its bills turned out
+:::
+::: {.ia-card-sub}
+Where each bill ended up, next to the rate across every organization's declarations this session. Many forces decide a bill; this doesn't show that the organization's position caused the outcome. Substantive bills only: resolutions nearly always pass.
+:::
+
+```{r}
+MIN_RATE_BILLS <- 5  # fewer bills than this in a position: show a count, not a rate
+
+signed_share <- function(df, position) {
+  row <- df |> filter(position == !!position, outcome == "Signed into law")
+  list(n = row$n, total = row$n_position, share = row$share)
+}
+
+position_card <- function(position, label) {
+  org <- signed_share(org_outcomes, position)
+  all <- signed_share(baseline, position)
+  if (org$total == 0) return(NULL)
+  # A percentage of one or two bills overstates the evidence; show the count
+  if (org$total < MIN_RATE_BILLS) {
+    return(ui_stat_card(
+      label,
+      sprintf("%d of %d", org$n, org$total),
+      HTML(sprintf("became law &middot; all organizations: %s", pct(all$share)))
+    ))
+  }
+  ui_stat_card(
+    label,
+    pct(org$share),
+    HTML(sprintf("%d of %d became law &middot; all organizations: %s",
+                 org$n, org$total, pct(all$share)))
+  )
+}
+
+if (sum(org_outcomes$n) == 0) {
+  ui_empty("This organization declared only on resolutions, so there are no bill outcomes to show.")
+} else {
+  outcome_table <- org_outcomes |>
+    filter(n_position > 0) |>
+    select(position, outcome, n, n_position) |>
+    tidyr::pivot_wider(names_from = outcome, values_from = n) |>
+    relocate(n_position, .after = last_col()) |>
+    mutate(position = map(as.character(position), position_pill))
+
+  tagList(
+    ui_stat_grid(
+      position_card("For", "Bills it supported"),
+      position_card("Against", "Bills it opposed"),
+      position_card("Undecided", "Bills where it was undecided")
+    ),
+    div(class = "ia-card-sub", style = "margin-top:1.25rem",
+        "Number of bills, by its position and how far the bill got"),
+    ui_table(
+      outcome_table,
+      labels = c(position = "Position", n_position = "Total"),
+      numeric = setdiff(names(outcome_table), "position")
+    )
+  )
+}
+```
+
+:::
+
+::: {.ia-card}
+::: {.ia-card-title}
+Positions on bills
+:::
+::: {.ia-card-sub}
+`r plural(nrow(org_bills), "bill")`, newest declaration first. Type "Against" or a word from a title to filter. A bill renumbered in committee is listed under its final number.
+:::
+
+```{r}
+bill_prefix <- bill_dir_href(ga, up = 2)
+# Short titles: appropriations titles run to hundreds of words, and the bill
+# page has the full text
+titles <- bills_csv |>
+  transmute(
+    lead_bill = bill_number,
+    title = map_chr(title, \(t) clean_bill_title(t)$title) |>
+      str_remove("\\s*\\(See [^)]*\\)\\.?") |>
+      str_trunc(160, ellipsis = "…")
+  )
+
+positions_df <- org_bills |>
+  left_join(titles, by = "lead_bill") |>
+  mutate(
+    via = map2_chr(bills_declared, lead_bill, \(b, lead) {
+      other <- setdiff(b, lead)
+      if (length(other) == 0) "" else paste("declared on", paste(fmt_bill(other), collapse = ", "))
+    })
+  ) |>
+  transmute(
+    lead_bill,
+    bill = fmt_bill(lead_bill),
+    via, title,
+    position = as.character(position),
+    stage,
+    date = as.Date(date)
+  )
+
+bill_cell_js <- reactable::JS(sprintf(
+  "function(cell) {
+     const via = cell.row.via ? '<div class=\"ia-recent-meta\">' + cell.row.via + '</div>' : '';
+     return '<a href=\"%s' + cell.row.lead_bill + '.html\">' + cell.value + '</a>' + via;
+   }",
+  bill_prefix
+))
+date_js <- reactable::JS(
+  "function(cell) {
+     if (!cell.value) return '—';
+     return new Date(cell.value).toLocaleDateString('en-US',
+       { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+   }"
+)
+
+reactable::reactable(
+  positions_df,
+  columns = list(
+    lead_bill = reactable::colDef(show = FALSE),
+    via = reactable::colDef(show = FALSE),
+    bill = reactable::colDef(name = "Bill", minWidth = 100, html = TRUE, cell = bill_cell_js),
+    title = reactable::colDef(name = "Title", minWidth = 300, sortable = FALSE),
+    position = reactable::colDef(name = "Position", minWidth = 100, html = TRUE,
+                                 cell = position_pill_js),
+    stage = reactable::colDef(name = "Where it ended up", minWidth = 150, html = TRUE,
+                              cell = status_pill_js),
+    date = reactable::colDef(name = "Declared", minWidth = 110, cell = date_js)
+  ),
+  defaultSorted = list(date = "desc"),
+  searchable = TRUE,
+  defaultPageSize = 25,
+  highlight = TRUE
+)
+```
+
+:::
+
+::: {.ia-card}
+::: {.ia-card-title}
+Lobbyists
+:::
+::: {.ia-card-sub}
+Registered lobbyists who filed declarations for `r if (is_personal) "this client" else "this organization"`. Registration details are on the Legislature's site.
+:::
+
+```{r}
+lobbyist_href <- \(id) sprintf(
+  "https://www.legis.iowa.gov/lobbyist/reports/lobbyist?personID=%s&ga=%d", id, ga)
+
+ui_table(
+  lobbyists |>
+    arrange(desc(n_bills), lobbyist) |>
+    transmute(
+      lobbyist = map2(lobbyist, lobbyist_id, \(name, id)
+        a(href = lobbyist_href(id), target = "_blank", rel = "noopener", name)),
+      n_bills,
+      first = fmt_date(first_date),
+      last = fmt_date(last_date)
+    ),
+  labels = c(lobbyist = "Lobbyist", n_bills = "Bills", first = "First declaration",
+             last = "Last declaration"),
+  numeric = "n_bills",
+  nowrap = c("first", "last"),
+  empty = "No lobbyists on record."
+)
+```
+
+:::
+
+::: {.ia-card}
+::: {.ia-card-title}
+Legislators whose votes matched its positions
+:::
+::: {.ia-card-sub}
+On bills where `r if (is_personal) "this client" else "the organization"` was for or against and a legislator cast a final floor vote: how often the vote went the same way. Legislators with fewer than five such votes are left out.
+:::
+
+```{r}
+if (nrow(alignment) == 0) {
+  ui_empty("Too few of its bills reached a floor vote to compare with legislators' votes.")
+} else {
+  legislator_prefix <- "../../legislators/"
+  alignment_table <- function(df) {
+    ui_table(
+      df |>
+        transmute(
+          legislator = map2(people_id, name, \(id, nm) a(
+            href = paste0(legislator_prefix, get_legislator_filename(id, people), ".html"), nm)),
+          seat = paste0(party, "-", district),
+          matched = sprintf("%d of %d", n_aligned, n_shared),
+          rate = pct(alignment)
+        ),
+      labels = c(legislator = "Legislator", seat = "Party and district",
+                 matched = "Votes matched", rate = "Rate"),
+      numeric = c("matched", "rate"),
+      nowrap = c("seat", "matched")
+    )
+  }
+  n_show <- min(5, ceiling(nrow(alignment) / 2))
+  tagList(
+    h3(class = "ia-card-sub", style = "margin-top:0.5rem", "Most often matched"),
+    alignment_table(alignment |> arrange(desc(alignment), desc(n_shared)) |> head(n_show)),
+    h3(class = "ia-card-sub", style = "margin-top:1.25rem", "Least often matched"),
+    alignment_table(alignment |> arrange(alignment, desc(n_shared)) |> head(n_show)),
+    div(class = "ia-footnote", sprintf(
+      "%s compared. A bill that passed both chambers counts once per chamber's vote.",
+      plural(nrow(alignment), "legislator")))
+  )
+}
+```
+
+:::
+
+::: {.ia-sources}
+Source: lobbyist declarations filed with the Iowa Legislature; bill status and votes from LegiScan. Last updated `r format(Sys.Date(), "%B %e, %Y") |> str_squish()`
+:::

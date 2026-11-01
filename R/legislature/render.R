@@ -40,11 +40,15 @@ bill_output_dir <- function(ga = CURRENT_GA) file.path(OUTPUT_DIR, "legislation"
 #' A session's committee page directory: docs/committees/ga91
 committee_output_dir <- function(ga = CURRENT_GA) file.path(OUTPUT_DIR, "committees", ga_slug(ga))
 
+#' A session's lobbying organization page directory: docs/lobbying/ga91
+organization_output_dir <- function(ga = CURRENT_GA) file.path(OUTPUT_DIR, "lobbying", ga_slug(ga))
+
 # Ensure output directories exist
 ensure_dirs <- function(ga = CURRENT_GA) {
   dir.create(bill_output_dir(ga), recursive = TRUE, showWarnings = FALSE)
   dir.create(LEGISLATORS_DIR, recursive = TRUE, showWarnings = FALSE)
   dir.create(committee_output_dir(ga), recursive = TRUE, showWarnings = FALSE)
+  dir.create(organization_output_dir(ga), recursive = TRUE, showWarnings = FALSE)
   dir.create(ACTIVITY_DIR, recursive = TRUE, showWarnings = FALSE)
 }
 
@@ -576,6 +580,139 @@ render_all_committees <- function(limit = NULL, force = FALSE, ga = CURRENT_GA) 
   return(invisible(list(success = success_count, failed = fail_count, failed_items = failed_items)))
 }
 
+#' Fingerprint every lobbying organization page
+#'
+#' An organization page shows its bill groups (position, date, stage), its
+#' lobbyists, its legislator alignment, and the session-wide baseline its
+#' outcome rates are compared with. Hashes plain text, as lobby_digests()
+#' does, so object attributes can't move the fingerprint.
+#' @param ga General Assembly
+#' @return Named character vector: client_slug -> hash
+organization_digests <- function(ga = CURRENT_GA) {
+  lobbying_dir <- ga_paths(ga)$lobbying
+  read_lobbying <- \(name) readRDS(file.path(lobbying_dir, paste0(name, ".rds")))
+  clients <- read_lobbying("clients")
+
+  rows <- bind_rows(
+    read_lobbying("organization_bills") |>
+      transmute(client_slug, row = paste(
+        "b", bill_group_id, lead_bill, vapply(bills_declared, paste, character(1), collapse = ","),
+        position, format(date, "%Y-%m-%d %H:%M"), stage, sep = "\t")),
+    read_lobbying("organization_lobbyists") |>
+      transmute(client_slug, row = paste(
+        "l", lobbyist_id, lobbyist, n_bills,
+        format(first_date, "%Y-%m-%d"), format(last_date, "%Y-%m-%d"), sep = "\t")),
+    read_lobbying("legislator_client_alignment_all") |>
+      inner_join(select(clients, client, client_slug), by = "client") |>
+      transmute(client_slug, row = paste(
+        "a", people_id, name, party, district, n_shared, n_aligned, sep = "\t"))
+  )
+  baseline <- read_lobbying("outcome_baseline") |>
+    transmute(row = paste(position, outcome, n, sep = "\t")) |>
+    pull(row) |>
+    rlang::hash()
+
+  digests <- rows |>
+    arrange(client_slug, row) |>
+    summarise(digest = rlang::hash(c(row, baseline)), .by = client_slug)
+  setNames(digests$digest, digests$client_slug)
+}
+
+#' Render a single lobbying organization page
+#' @param slug client_slug from clients.rds
+#' @param ga General Assembly
+#' @param template_path Path to organization_template.qmd
+render_organization <- function(slug, ga = CURRENT_GA,
+                                template_path = file.path(SESSION_TEMPLATE_DIR, "organization_template.qmd")) {
+  output_file <- file.path(organization_output_dir(ga), paste0(slug, ".html"))
+  render_name <- paste0(ga_slug(ga), "-org-", slug, ".html")
+  rendered_file <- file.path(SESSION_RENDER_DIR, render_name)
+  dir.create(dirname(output_file), recursive = TRUE, showWarnings = FALSE)
+
+  tryCatch({
+    quarto_render(
+      input = template_path,
+      output_file = render_name,
+      execute_params = list(slug = slug, ga = ga),
+      output_format = "html",
+      metadata = list(search = FALSE),  # Avoid search.json file lock on Windows
+      as_job = FALSE
+    )
+
+    if (!file.exists(rendered_file) || !file.rename(rendered_file, output_file)) {
+      stop("rendered page could not be moved to ", output_file)
+    }
+
+    message(paste("Rendered organization:", slug))
+    return(TRUE)
+  }, error = function(e) {
+    warning(paste("Failed to render organization", slug, ":", e$message))
+    return(FALSE)
+  })
+}
+
+#' Render all lobbying organization pages (incremental by default)
+#' @param slugs Optional vector of client_slugs to consider (NULL = all)
+#' @param force If TRUE, re-render regardless of hash
+#' @param deadline POSIXct after which no new page is started (Inf = no limit)
+render_all_organizations <- function(slugs = NULL, force = FALSE, deadline = Inf, ga = CURRENT_GA) {
+  if (!file.exists(file.path(ga_paths(ga)$lobbying, "organization_bills.rds"))) {
+    message("No organization data for the ", ga_label(ga), "; run 04c first.")
+    return(invisible(list(success = 0, failed = 0, failed_items = character(0))))
+  }
+  ensure_dirs(ga)
+  manifest <- load_manifest()
+  digests <- organization_digests(ga)
+
+  # Most bills first, so a run stopped by the time budget has done the
+  # organizations readers are most likely to look for
+  if (is.null(slugs)) {
+    slugs <- readRDS(file.path(ga_paths(ga)$lobbying, "organization_bills.rds")) |>
+      count(client_slug, sort = TRUE) |>
+      pull(client_slug)
+  }
+
+  if (!force) {
+    rendered <- manifest |>
+      filter(type == "organization") |>
+      select(id, hash)
+    current <- tibble(slug = slugs, id = session_item_id(ga, slugs), hash = unname(digests[slugs]))
+    slugs <- current |>
+      anti_join(rendered, by = c("id", "hash")) |>
+      pull(slug)
+  }
+  message(paste("Organizations to render:", length(slugs)))
+
+  success_count <- 0
+  fail_count <- 0
+  failed_items <- character(0)
+
+  for (i in seq_along(slugs)) {
+    if (Sys.time() > deadline) {
+      message(paste0("Time budget reached after ", i - 1, "/", length(slugs),
+                     " organizations; the rest render next run."))
+      break
+    }
+    slug <- slugs[i]
+    if (render_organization(slug, ga)) {
+      manifest <- update_manifest(manifest, "organization", session_item_id(ga, slug), digests[[slug]])
+      save_manifest(manifest)
+      success_count <- success_count + 1
+    } else {
+      fail_count <- fail_count + 1
+      failed_items <- c(failed_items, slug)
+    }
+    gc()
+
+    if (i %% 100 == 0 && i < length(slugs)) {
+      message(paste0("  Progress: ", i, "/", length(slugs)))
+    }
+  }
+
+  message(paste("\nOrganizations completed:", success_count, "success,", fail_count, "failed"))
+  invisible(list(success = success_count, failed = fail_count, failed_items = failed_items))
+}
+
 #' Render all bill pages (incremental by default)
 #' @param limit Optional limit for testing (NULL for all)
 #' @param force If TRUE, re-render all regardless of hash
@@ -849,6 +986,12 @@ render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees
 
   # Render bills (incremental unless force = TRUE)
   bills_result <- render_all_bills(limit = bills_limit, force = force, deadline = bills_deadline)
+
+  message("\n")
+
+  # Lobbying organization pages (incremental; share the bills' time budget,
+  # since a fresh lobbying scrape can change hundreds at once)
+  render_all_organizations(force = force, deadline = bills_deadline)
 
   message("\n")
 

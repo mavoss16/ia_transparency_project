@@ -28,6 +28,8 @@ website:
         text: Legislation
       - href: legislators/index.qmd
         text: Legislators
+      - href: lobbying/index.qmd
+        text: Lobbying
       # Future domains — uncomment as each section gets an index page
       # - href: elections/index.qmd
       #   text: Elections

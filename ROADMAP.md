@@ -12,13 +12,14 @@ Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-p
 - [ ] Legislator pages across sessions: career pages and `legislators/ga91/` archive pages are built ([session log](notes/legislature/2026-10-31_career-pages-electoral-history.md)), but the "Earlier sessions" list, archive rendering and redirect stubs have only run against one session. Check them on the first two-session render (the 92nd switch, or the 90th backfill). The legislators index lists `CURRENT_GA` members only, so after the switch, members who left have pages that nothing links to (part of "Link past sessions" below).
 - [ ] Link past sessions: the weekly activity archive (`site/activity/index.qmd`) and the index pages list `CURRENT_GA` only, so 91st week pages would be orphaned.
 - [ ] When LegiScan creates the session, set `CURRENT_GA = 92` (the ID fills itself via `legiscan_session_id()`), bulk-download the first load, then run incremental updates.
-- [ ] Put lobbying (`04` / `04a`) in `run_pipeline.R` and keep CI inside its time budget.
+- [ ] Run lobbying (`04`, `04a`, `04b`, `05`, `04c`) in CI as its own weekly workflow rather than in `run_pipeline.R` ([CI plan](notes/project/2026-11-01_ci-workflows-plan.md)), before 92nd declarations start.
 - [ ] Gate legislator and committee renders on a digest of their inputs, like `week_digests()`. They are force-rendered every night (~115 min) and rewrite ~65 MB of HTML into git history daily. Legislator career pages whose session is frozen already render only when their hash (LegiScan record + election results) changes; the live session's pages and committees are still forced.
 - [ ] Check `classify_district_turnover()` at the start of the new session; expect heavy turnover after the 2026-11-03 election.
 - [ ] **Decide** whether salience indicators appear on 92nd GA pages.
 
 ## Site and hosting
 
+- [ ] Split CI into three workflows by cadence: the daily update (lighter), a weekly lobbying workflow, and a manual render-backlog workflow; [plan](notes/project/2026-11-01_ci-workflows-plan.md). Build the backlog workflow first: it renders the 1,003 organization pages and the pending forced re-render.
 - [ ] **Decide** deploying with `actions/deploy-pages` instead of committing `docs/`. `.git` is ~900 MB and grows daily, and campaign finance pages won't fit in a committed `docs/`.
 - [ ] `ia_reactable_theme()` for the four reactable tables (legislation index, committee lists, `legislator_table()`, week page), with the `:focus-visible` rules folded in. Then make the legislator voting record and sponsored bills reactable. Re-check the legislation index's font size once themed (the backlog flagged 12px).
 - [ ] Legislator and committee bill lists show LegiScan's `status_desc` ("Engrossed") instead of the site's status scale; use the `groups.rds` status.
@@ -27,7 +28,7 @@ Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-p
 - [ ] Home: tally dash `#b5b2a8` fails contrast (`site/index.qmd`); gloss LegiScan jargon in activity rows; funnel restructure (deferred by choice).
 - [ ] Legislators index: Senate is the default tab; consider House.
 - [ ] The Undecided lobbying swatch `#cfccc2` (`IA_PALETTE$lobby_undecided`) is below 3:1 on the background.
-- [ ] Bill pages switched the Against share-bar color from red to ochre on 2026-11-01, but bill pages render only when their LegiScan hash changes, so most live pages keep the red until a forced re-render (fold into the next full render, e.g. the 92nd switch).
+- [ ] Pages render only when their own data changes, so three site-wide template changes from 2026-11-01 reach most live pages only on a forced re-render: the ochre Against share bar and organization links on bill pages, and the Lobbying navbar entry on every page. Fold into the next full render (e.g. the 92nd switch).
 - [ ] **Decide** analytics: the live site has none. Wire `google-analytics.html` (repo root) into `_quarto.yml` or delete it.
 - [ ] Write `DESIGN.md` once the visual direction is settled.
 - [ ] Feature idea: "enter your town → your two legislators" (highest-leverage feature for newcomers; scope with `/impeccable shape`).
@@ -38,7 +39,7 @@ Detail for the design items: [design backlog](notes/site/2026-07-15_design-backl
 
 - [ ] Phase 2: backfill the 90th GA (2023–24) as the multi-session test. Phase 3: the 83rd–89th, data first. **Decide** how far back and how older sessions are hosted (open decisions 3–4 in the plan).
 - [ ] Show legislator–lobbyist alignment (`04a`) on legislator pages.
-- [ ] Lobbying pages: an index and one page per organization (client), with lobbyists listed on the organization page rather than given their own pages (decided 2026-10-31). Each page shows outcomes by position at the bill-group level, next to the session-wide rate. Pages key on `client_slug` from `04b_lobbying_clients.R` (`clients.rds`). The data is built (`04c`, plus `legislator_client_alignment_all.rds` from `04a`; only 203 of 918 positioned organizations share 5+ floor votes with any legislator, so most pages will have no alignment section). Next: the index and organization templates, render and manifest wiring, a navbar entry, and links from bill pages' lobbying tab. **Decide** whether the 19 personal-interest clients get pages. Colors: `IA_PALETTE$lobby_for` / `lobby_against` / `lobby_undecided` (green For, ochre Against, decided 2026-11-01).
+- [ ] Lobbying pages are built (2026-11-01): `site/lobbying/index.qmd` and `site/templates/session/organization_template.qmd`, rendered by `render_all_organizations()` inside `render_site()`. Only a handful of the 1,003 organization pages are rendered so far; the rest render in CI's bill time budget (~390 a night) or in one ~6½-hour local run. The 19 personal-interest clients get pages too, labelled as such; **Decide** whether to keep them. Then run `/impeccable critique` on an organization page and the index.
 - [ ] Maybe later: lobbyist comments. The declarations page's Comments cell is a count (`<a class="viewDecComments" data-decid="…">2</a>`), so `lobbyist_filings.rds` `comments` holds "1"–"4", not text (834 filings have any). The text comes from a POST to `declarations?action=getDeclarationComments&declarationID={decid}&col=7` (comment, updated by, date). Store `data-decid` as `declaration_id` and the count as an integer `comment_count`, then fetch the text (about 30 min). Some are argumentative, so think about neutrality before showing them.
 - [ ] **Decide** whether to raise `MIN_SHARED_BILLS` above 5 in the similarity scores (0% scores at the minimum may be noise).
 
