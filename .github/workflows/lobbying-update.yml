@@ -6,7 +6,9 @@ name: Lobbying Update
 
 on:
   schedule:
-    - cron: '0 12 * * 1'  # Mondays 12:00 UTC, after the daily run's usual finish
+    # Mondays 12:43 UTC (6:43 AM CST), after the daily run's usual finish and
+    # off the top of the hour (see daily-update.yml)
+    - cron: '43 12 * * 1'
   workflow_dispatch:
     inputs:
       scrape:

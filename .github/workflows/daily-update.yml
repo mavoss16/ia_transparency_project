@@ -2,7 +2,10 @@ name: Daily Pipeline Update
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # 6 AM UTC = midnight CT
+    # 06:17 UTC = 12:17 AM CST / 1:17 AM CDT. Off the top of the hour, where
+    # GitHub's scheduler is busiest: runs at :00 started 4½–9½ h late in
+    # Oct–Nov 2026. Scheduled runs are best effort either way.
+    - cron: '17 6 * * *'
   workflow_dispatch:  # full or forced re-renders go through render-backlog.yml
 
 concurrency:

@@ -38,7 +38,8 @@ The daily job mixes work with very different costs and cadences:
 
 ### 1. Daily update (existing, made lighter)
 
-`daily-update.yml`, 06:00 UTC daily plus manual run.
+`daily-update.yml`, daily plus manual run. Scheduled 06:17 UTC since
+2026-11-02 (was 06:00; runs at :00 started 4½–9½ h late).
 
 - LegiScan pull and processing, as now (`run_pipeline.R`).
 - Renders changed bills, weeks and index pages.
@@ -52,7 +53,7 @@ The daily job mixes work with very different costs and cadences:
 
 ### 2. Lobbying (new)
 
-**Built 2026-11-01.** `lobbying-update.yml`, Mondays 12:00 UTC plus manual
+**Built 2026-11-01.** `lobbying-update.yml`, Mondays 12:43 UTC plus manual
 run (a `scrape` checkbox; off rebuilds from the saved filings), calling
 `run_lobbying()` in `R/legislature/run_lobbying.R`. It returns at once while
 the current GA is frozen, so between sessions it stops on its own. One time
