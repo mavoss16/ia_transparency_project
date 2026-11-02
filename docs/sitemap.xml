@@ -2,4182 +2,822 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://iowatransparencyproject.org/templates/week_template.html</loc>
-    <lastmod>2026-11-01T16:30:00.811Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.290Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/legislator_session_template.html</loc>
-    <lastmod>2026-11-01T16:30:00.811Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.290Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/bill_template.html</loc>
-    <lastmod>2026-11-01T16:30:00.811Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.290Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/status.html</loc>
-    <lastmod>2026-11-01T16:30:00.811Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.290Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/legislators/index.html</loc>
-    <lastmod>2026-11-01T16:30:00.811Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.290Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/legislation/index.html</loc>
-    <lastmod>2026-11-01T16:30:00.810Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.290Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/activity/index.html</loc>
-    <lastmod>2026-11-01T16:30:00.810Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.289Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/about.html</loc>
-    <lastmod>2026-11-01T16:30:00.810Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.289Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/index.html</loc>
-    <lastmod>2026-11-01T16:30:00.810Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.290Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/legislators/compare.html</loc>
-    <lastmod>2026-11-01T16:30:00.810Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.290Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/lobbying/index.html</loc>
-    <lastmod>2026-11-01T16:30:00.811Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.290Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/legislator_template.html</loc>
-    <lastmod>2026-11-01T16:30:00.811Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.290Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/committee_template.html</loc>
-    <lastmod>2026-11-01T16:30:00.811Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.290Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/organization_template.html</loc>
-    <lastmod>2026-11-01T16:30:00.811Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cedar-rapids-metro-economic-alliance.html</loc>
-    <lastmod>2026-11-01T16:34:43.917Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-integrated-health-planning-and-advisory-council.html</loc>
-    <lastmod>2026-11-01T16:34:55.250Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-police-chief-association-fka-iowa-police-executive-forum.html</loc>
-    <lastmod>2026-11-01T16:35:06.413Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-rural-school-advocates-of-iowa.html</loc>
-    <lastmod>2026-11-01T16:35:17.638Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-urban-education-network-of-iowa.html</loc>
-    <lastmod>2026-11-01T16:35:28.967Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-school-administrators-of-iowa.html</loc>
-    <lastmod>2026-11-01T16:35:40.259Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-valor-iowa.html</loc>
-    <lastmod>2026-11-01T16:35:51.570Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-urban-county-coalition.html</loc>
-    <lastmod>2026-11-01T16:36:02.739Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-chapter-of-sierra-club.html</loc>
-    <lastmod>2026-11-01T16:36:13.928Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-school-boards.html</loc>
-    <lastmod>2026-11-01T16:36:25.038Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-education-association.html</loc>
-    <lastmod>2026-11-01T16:36:36.261Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-linn-county-board-of-supervisors.html</loc>
-    <lastmod>2026-11-01T16:36:47.444Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-league-of-women-voters-of-iowa.html</loc>
-    <lastmod>2026-11-01T16:36:58.712Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-county-attorneys-association.html</loc>
-    <lastmod>2026-11-01T16:37:10.165Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-professional-educators-of-iowa.html</loc>
-    <lastmod>2026-11-01T16:37:21.680Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-association-of-counties.html</loc>
-    <lastmod>2026-11-01T16:37:32.953Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-board-of-regents.html</loc>
-    <lastmod>2026-11-01T16:37:44.171Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-department-of-inspections-appeals-and-licensing.html</loc>
-    <lastmod>2026-11-01T16:37:55.270Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-for-justice.html</loc>
-    <lastmod>2026-11-01T16:38:06.669Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-bar-association.html</loc>
-    <lastmod>2026-11-01T16:38:18.693Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-city-of-cedar-rapids.html</loc>
-    <lastmod>2026-11-01T16:38:29.970Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-catholic-conference.html</loc>
-    <lastmod>2026-11-01T16:38:41.222Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-society-of-certified-public-accountants.html</loc>
-    <lastmod>2026-11-01T16:38:52.375Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-medical-society.html</loc>
-    <lastmod>2026-11-01T16:39:03.660Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-dept-of-natural-resources.html</loc>
-    <lastmod>2026-11-01T16:39:14.778Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-business-and-industry-abi.html</loc>
-    <lastmod>2026-11-01T16:39:25.977Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-americans-for-prosperity.html</loc>
-    <lastmod>2026-11-01T16:39:37.176Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-dept-of-transportation.html</loc>
-    <lastmod>2026-11-01T16:39:48.450Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-mental-health-advocacy.html</loc>
-    <lastmod>2026-11-01T16:39:59.642Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-minuteman-civil-defense-corps.html</loc>
-    <lastmod>2026-11-01T16:40:11.082Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-association-of-county-supervisors.html</loc>
-    <lastmod>2026-11-01T16:40:22.525Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-marion-county-board-of-supervisors.html</loc>
-    <lastmod>2026-11-01T16:40:33.829Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-federation-of-labor-afl-cio.html</loc>
-    <lastmod>2026-11-01T16:40:45.150Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-afscme-council-61.html</loc>
-    <lastmod>2026-11-01T16:40:56.495Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-atheists-and-freethinkers.html</loc>
-    <lastmod>2026-11-01T16:41:07.692Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-episcopal-diocese-of-iowa.html</loc>
-    <lastmod>2026-11-01T16:41:19.010Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-faith-and-freedom-coalition.html</loc>
-    <lastmod>2026-11-01T16:41:30.275Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-wellmark-inc.html</loc>
-    <lastmod>2026-11-01T16:41:41.311Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-behavioral-health-association-ibha.html</loc>
-    <lastmod>2026-11-01T16:41:52.733Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-economic-development-authority.html</loc>
-    <lastmod>2026-11-01T16:42:03.952Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-league-of-cities.html</loc>
-    <lastmod>2026-11-01T16:42:15.474Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-peace-officers-association.html</loc>
-    <lastmod>2026-11-01T16:42:26.952Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-dept-of-public-safety.html</loc>
-    <lastmod>2026-11-01T16:42:38.199Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-blank-childrens-hospital.html</loc>
-    <lastmod>2026-11-01T16:42:49.377Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-aarp-iowa.html</loc>
-    <lastmod>2026-11-01T16:43:00.652Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-elevance-health-and-its-affiliates-dba-anthem-inc.html</loc>
-    <lastmod>2026-11-01T16:43:11.924Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-ibew-iowa-state-conference.html</loc>
-    <lastmod>2026-11-01T16:43:23.402Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-baptists-for-biblical-values.html</loc>
-    <lastmod>2026-11-01T16:43:34.761Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-sheriffs-and-deputies-association.html</loc>
-    <lastmod>2026-11-01T16:43:46.037Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-interfaith-alliance-of-iowa-action-fund.html</loc>
-    <lastmod>2026-11-01T16:43:57.368Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-the-family-leader-foundation.html</loc>
-    <lastmod>2026-11-01T16:44:08.693Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-city-of-marion.html</loc>
-    <lastmod>2026-11-01T16:44:19.866Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-department-of-health-and-human-services.html</loc>
-    <lastmod>2026-11-01T16:44:31.147Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-common-good-iowa.html</loc>
-    <lastmod>2026-11-01T16:44:42.450Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-easterseals-iowa.html</loc>
-    <lastmod>2026-11-01T16:44:53.740Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-civil-liberties-union-of-iowa-aclu-ia.html</loc>
-    <lastmod>2026-11-01T16:45:04.993Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-bitches-get-stuff-done.html</loc>
-    <lastmod>2026-11-01T16:45:16.267Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-chapter-american-academy-of-pediatrics.html</loc>
-    <lastmod>2026-11-01T16:45:27.577Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-chapter-of-the-national-association-of-pediatric-nurse-practitioners.html</loc>
-    <lastmod>2026-11-01T16:45:38.857Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-electric-cooperatives.html</loc>
-    <lastmod>2026-11-01T16:45:50.080Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-nurses-association.html</loc>
-    <lastmod>2026-11-01T16:46:01.344Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-the-family-leader.html</loc>
-    <lastmod>2026-11-01T16:46:12.675Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-christian-schools.html</loc>
-    <lastmod>2026-11-01T16:46:24.069Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-farmers-union.html</loc>
-    <lastmod>2026-11-01T16:46:35.473Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-environmental-council.html</loc>
-    <lastmod>2026-11-01T16:46:46.716Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-chamber-alliance.html</loc>
-    <lastmod>2026-11-01T16:46:58.040Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-finance-authority.html</loc>
-    <lastmod>2026-11-01T16:47:09.078Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-primary-care-association.html</loc>
-    <lastmod>2026-11-01T16:47:20.570Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-planned-parenthood-advocates-of-iowa.html</loc>
-    <lastmod>2026-11-01T16:47:31.996Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-polk-county-board-of-supervisors.html</loc>
-    <lastmod>2026-11-01T16:47:42.991Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-bankers-association.html</loc>
-    <lastmod>2026-11-01T16:47:54.196Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-conference-of-the-united-methodist-church.html</loc>
-    <lastmod>2026-11-01T16:48:05.419Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-grocery-industry-association.html</loc>
-    <lastmod>2026-11-01T16:48:16.357Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-city-of-des-moines.html</loc>
-    <lastmod>2026-11-01T16:48:27.612Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-nurse-practitioners-society.html</loc>
-    <lastmod>2026-11-01T16:48:38.687Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-city-of-waukee.html</loc>
-    <lastmod>2026-11-01T16:48:49.802Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-area-education-agencies-of-iowa.html</loc>
-    <lastmod>2026-11-01T16:49:00.909Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-dr-tanja-garrison.html</loc>
-    <lastmod>2026-11-01T16:49:12.080Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-judicial-branch-supreme-court.html</loc>
-    <lastmod>2026-11-01T16:49:23.296Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-developmental-disabilities-council.html</loc>
-    <lastmod>2026-11-01T16:49:34.549Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-one-iowa.html</loc>
-    <lastmod>2026-11-01T16:49:45.799Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-one-iowa-action.html</loc>
-    <lastmod>2026-11-01T16:49:57.010Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-professional-developers-of-iowa-pdi.html</loc>
-    <lastmod>2026-11-01T16:50:08.156Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-newspaper-association.html</loc>
-    <lastmod>2026-11-01T16:50:19.471Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-affiliate-of-the-american-college-of-nurse-midwives.html</loc>
-    <lastmod>2026-11-01T16:50:30.925Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-community-college-trustees.html</loc>
-    <lastmod>2026-11-01T16:50:42.223Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-realtors.html</loc>
-    <lastmod>2026-11-01T16:50:53.748Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-talented-and-gifted-association.html</loc>
-    <lastmod>2026-11-01T16:51:04.878Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-the-nature-conservancy.html</loc>
-    <lastmod>2026-11-01T16:51:16.268Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-coalition-against-domestic-violence.html</loc>
-    <lastmod>2026-11-01T16:51:27.609Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-psychological-association.html</loc>
-    <lastmod>2026-11-01T16:51:38.901Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-quad-cities-chamber-of-commerce.html</loc>
-    <lastmod>2026-11-01T16:51:50.290Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-emergency-management-association.html</loc>
-    <lastmod>2026-11-01T16:52:01.861Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-insurance-associates.html</loc>
-    <lastmod>2026-11-01T16:52:13.286Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-brain-injury-association-of-iowa.html</loc>
-    <lastmod>2026-11-01T16:52:24.728Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-broadcasters-association.html</loc>
-    <lastmod>2026-11-01T16:52:35.981Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-independent-physician-group.html</loc>
-    <lastmod>2026-11-01T16:52:47.238Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-county-recorders-association.html</loc>
-    <lastmod>2026-11-01T16:52:58.459Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-academy-of-trial-lawyers.html</loc>
-    <lastmod>2026-11-01T16:53:09.667Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-insurance-division.html</loc>
-    <lastmod>2026-11-01T16:53:21.013Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-aces-360.html</loc>
-    <lastmod>2026-11-01T16:53:32.181Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-conservation-alliance.html</loc>
-    <lastmod>2026-11-01T16:53:43.333Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-psychiatric-physicians-society.html</loc>
-    <lastmod>2026-11-01T16:53:54.711Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-police-association.html</loc>
-    <lastmod>2026-11-01T16:54:06.012Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-utilities-commission.html</loc>
-    <lastmod>2026-11-01T16:54:17.083Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-ames-regional-economic-alliance.html</loc>
-    <lastmod>2026-11-01T16:54:28.353Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-veterinary-medical-association.html</loc>
-    <lastmod>2026-11-01T16:54:39.648Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-mid-american-carpenters-regional-council.html</loc>
-    <lastmod>2026-11-01T16:54:50.764Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-city-of-bettendorf.html</loc>
-    <lastmod>2026-11-01T16:55:01.855Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-izaak-walton-league-iowa-division.html</loc>
-    <lastmod>2026-11-01T16:55:12.925Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-mental-health-counselors-association.html</loc>
-    <lastmod>2026-11-01T16:55:24.133Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-metropolitan-coalition.html</loc>
-    <lastmod>2026-11-01T16:55:35.226Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-unitypoint-health.html</loc>
-    <lastmod>2026-11-01T16:55:46.541Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-bnsf-railway-co.html</loc>
-    <lastmod>2026-11-01T16:55:57.632Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-lutheran-services-in-ia-inc.html</loc>
-    <lastmod>2026-11-01T16:56:08.866Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-marshalltown-area-chamber-of-commerce.html</loc>
-    <lastmod>2026-11-01T16:56:20.050Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-legion-of-iowa.html</loc>
-    <lastmod>2026-11-01T16:56:31.071Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-coalition-against-sexual-assault.html</loc>
-    <lastmod>2026-11-01T16:56:42.506Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-credit-union-league.html</loc>
-    <lastmod>2026-11-01T16:56:53.636Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-farm-bureau-federation.html</loc>
-    <lastmod>2026-11-01T16:57:04.998Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-physician-assistant-society.html</loc>
-    <lastmod>2026-11-01T16:57:16.265Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-college-of-obstetricians-and-gynecologists.html</loc>
-    <lastmod>2026-11-01T16:57:27.514Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-inspired-life.html</loc>
-    <lastmod>2026-11-01T16:57:38.573Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-aig-american-international-companies.html</loc>
-    <lastmod>2026-11-01T16:57:49.575Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-municipal-utilities.html</loc>
-    <lastmod>2026-11-01T16:58:00.704Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-pharmacy-association.html</loc>
-    <lastmod>2026-11-01T16:58:11.839Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-total-care-a-subsidiary-of-centene-corporation.html</loc>
-    <lastmod>2026-11-01T16:58:23.237Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-bayer-u-s-llc.html</loc>
-    <lastmod>2026-11-01T16:58:34.353Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-chapter-of-the-national-emergency-number-association-nena.html</loc>
-    <lastmod>2026-11-01T16:58:45.571Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-chapter-of-the-association-of-public-safety-communications-officials-apco.html</loc>
-    <lastmod>2026-11-01T16:58:57.002Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-public-health-association.html</loc>
-    <lastmod>2026-11-01T16:59:08.342Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-kurtis-bower.html</loc>
-    <lastmod>2026-11-01T16:59:19.570Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-state-police-officers-council.html</loc>
-    <lastmod>2026-11-01T16:59:30.939Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-alliance-of-ymca-s.html</loc>
-    <lastmod>2026-11-01T16:59:42.171Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-rural-health-clinics.html</loc>
-    <lastmod>2026-11-01T16:59:53.687Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-association-of-assessors.html</loc>
-    <lastmod>2026-11-01T17:00:05.074Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-united-professionals-ue.html</loc>
-    <lastmod>2026-11-01T17:00:16.310Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-department-of-agriculture-and-land-stewardship.html</loc>
-    <lastmod>2026-11-01T17:00:27.733Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-fueliowa-pmci.html</loc>
-    <lastmod>2026-11-01T17:00:39.168Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-helena-agri-enterprises-llc.html</loc>
-    <lastmod>2026-11-01T17:00:50.412Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-biotechnology-association.html</loc>
-    <lastmod>2026-11-01T17:01:01.724Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-tony-thompson-personal-interest.html</loc>
-    <lastmod>2026-11-01T17:01:12.903Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-greater-des-moines-partnership.html</loc>
-    <lastmod>2026-11-01T17:01:24.198Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-smithfield-foods-inc.html</loc>
-    <lastmod>2026-11-01T17:01:35.395Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-environmental-law-and-policy-center.html</loc>
-    <lastmod>2026-11-01T17:01:46.811Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-grow-clinton-county.html</loc>
-    <lastmod>2026-11-01T17:01:58.058Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-national-association-of-social-workers-iowa-chapter.html</loc>
-    <lastmod>2026-11-01T17:02:09.575Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-corn-growers-association.html</loc>
-    <lastmod>2026-11-01T17:02:21.196Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-safe-schools.html</loc>
-    <lastmod>2026-11-01T17:02:32.818Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-academy-of-family-physicians.html</loc>
-    <lastmod>2026-11-01T17:02:44.163Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-magistrate-judges.html</loc>
-    <lastmod>2026-11-01T17:02:55.355Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-cattlemen-s-association.html</loc>
-    <lastmod>2026-11-01T17:03:06.844Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-motor-truck-association.html</loc>
-    <lastmod>2026-11-01T17:03:18.211Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-soaring-hearts.html</loc>
-    <lastmod>2026-11-01T17:03:29.614Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-organization-for-victim-assistance.html</loc>
-    <lastmod>2026-11-01T17:03:40.975Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-real-estate-developers-association.html</loc>
-    <lastmod>2026-11-01T17:03:52.293Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-association-of-county-auditors.html</loc>
-    <lastmod>2026-11-01T17:04:03.811Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-taxpayers-association.html</loc>
-    <lastmod>2026-11-01T17:04:15.280Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-utility-association.html</loc>
-    <lastmod>2026-11-01T17:04:26.620Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-laborers-international-union-of-north-america.html</loc>
-    <lastmod>2026-11-01T17:04:38.035Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-midamerican-energy-company.html</loc>
-    <lastmod>2026-11-01T17:04:49.440Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-siouxland-bitches-get-stuff-done.html</loc>
-    <lastmod>2026-11-01T17:05:00.385Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-foundation-for-government-accountability-action.html</loc>
-    <lastmod>2026-11-01T17:05:11.844Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-missouri-river-energy-services.html</loc>
-    <lastmod>2026-11-01T17:05:23.002Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-national-federation-of-independent-business-nfib-ia.html</loc>
-    <lastmod>2026-11-01T17:05:34.303Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-technology-association-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:05:45.398Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-family-planning-council-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:05:56.650Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-federation-of-iowa-insurers.html</loc>
-    <lastmod>2026-11-01T17:06:07.924Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-corebridge-financial.html</loc>
-    <lastmod>2026-11-01T17:06:18.900Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-bowhunters-association.html</loc>
-    <lastmod>2026-11-01T17:06:30.161Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-housing-partnership.html</loc>
-    <lastmod>2026-11-01T17:06:41.429Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-rural-water-association.html</loc>
-    <lastmod>2026-11-01T17:06:52.584Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-master-builders-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:07:03.600Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-firearms-coalition-inc.html</loc>
-    <lastmod>2026-11-01T17:07:15.084Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-soybean-association.html</loc>
-    <lastmod>2026-11-01T17:07:26.467Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-sportsmans-club.html</loc>
-    <lastmod>2026-11-01T17:07:37.572Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-naacp-national-association-for-the-advancement-of-colored-people-iowa-nebraska.html</loc>
-    <lastmod>2026-11-01T17:07:48.773Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-area-agencies-on-aging.html</loc>
-    <lastmod>2026-11-01T17:08:00.148Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-hospital-association.html</loc>
-    <lastmod>2026-11-01T17:08:11.585Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-neca-iowa-nec.html</loc>
-    <lastmod>2026-11-01T17:08:22.948Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-protect-my-innocence.html</loc>
-    <lastmod>2026-11-01T17:08:34.150Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-alliant-energy-corporation.html</loc>
-    <lastmod>2026-11-01T17:08:45.214Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-center-for-rural-affairs.html</loc>
-    <lastmod>2026-11-01T17:08:56.409Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-emergency-medical-services-association.html</loc>
-    <lastmod>2026-11-01T17:09:07.786Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-institute-for-cooperatives.html</loc>
-    <lastmod>2026-11-01T17:09:19.107Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-mh-ds-of-east-central-region.html</loc>
-    <lastmod>2026-11-01T17:09:30.256Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-united-way-quad-cities.html</loc>
-    <lastmod>2026-11-01T17:09:41.240Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cicero-action.html</loc>
-    <lastmod>2026-11-01T17:09:52.487Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-home-builders-association-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:10:03.706Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-business-council.html</loc>
-    <lastmod>2026-11-01T17:10:14.875Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-renewable-fuels-association-irf.html</loc>
-    <lastmod>2026-11-01T17:10:26.117Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-retail-federation.html</loc>
-    <lastmod>2026-11-01T17:10:37.161Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-atlantic-bottling.html</loc>
-    <lastmod>2026-11-01T17:10:48.265Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-environmental-health-association.html</loc>
-    <lastmod>2026-11-01T17:10:59.593Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-mechanical-contractors-association-of-iowa-mcai.html</loc>
-    <lastmod>2026-11-01T17:11:10.727Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-council-bluffs-chamber-of-commerce.html</loc>
-    <lastmod>2026-11-01T17:11:21.861Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-delta-dental-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:11:33.001Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-des-moines-area-religious-council.html</loc>
-    <lastmod>2026-11-01T17:11:44.176Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-homeschool-iowa.html</loc>
-    <lastmod>2026-11-01T17:11:55.207Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-fraternal-order-of-police.html</loc>
-    <lastmod>2026-11-01T17:12:06.465Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-pella-pac.html</loc>
-    <lastmod>2026-11-01T17:12:17.938Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-disability-rights-iowa.html</loc>
-    <lastmod>2026-11-01T17:12:29.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-board-of-parole.html</loc>
-    <lastmod>2026-11-01T17:12:40.058Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-dept-of-corrections.html</loc>
-    <lastmod>2026-11-01T17:12:51.112Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-professional-fire-fighters.html</loc>
-    <lastmod>2026-11-01T17:13:02.310Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-right-to-life-committee.html</loc>
-    <lastmod>2026-11-01T17:13:13.536Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-wine-growers-association.html</loc>
-    <lastmod>2026-11-01T17:13:24.739Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-department-of-revenue.html</loc>
-    <lastmod>2026-11-01T17:13:35.909Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-citizens-for-community-improvement-action-fund.html</loc>
-    <lastmod>2026-11-01T17:13:46.951Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-collectors-association-inc.html</loc>
-    <lastmod>2026-11-01T17:13:58.186Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-manufactured-housing-association.html</loc>
-    <lastmod>2026-11-01T17:14:09.449Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-associated-general-contractors-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:14:20.824Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-des-moines-water-works.html</loc>
-    <lastmod>2026-11-01T17:14:31.898Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-governor-s-office.html</loc>
-    <lastmod>2026-11-01T17:14:43.054Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-hills-and-dales.html</loc>
-    <lastmod>2026-11-01T17:14:54.073Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-wholesale-beer-distributors-association.html</loc>
-    <lastmod>2026-11-01T17:15:05.284Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-property-casualty-insurance-association-apcia.html</loc>
-    <lastmod>2026-11-01T17:15:16.453Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-climate-land-leaders.html</loc>
-    <lastmod>2026-11-01T17:15:27.655Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-community-providers.html</loc>
-    <lastmod>2026-11-01T17:15:38.665Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-communications-alliance.html</loc>
-    <lastmod>2026-11-01T17:15:49.650Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-library-association-ila.html</loc>
-    <lastmod>2026-11-01T17:16:00.702Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-occupational-therapy-association.html</loc>
-    <lastmod>2026-11-01T17:16:12.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-society-of-solid-waste-operations-isoswo.html</loc>
-    <lastmod>2026-11-01T17:16:23.245Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-cancer-society-cancer-action-network-acs-can.html</loc>
-    <lastmod>2026-11-01T17:16:34.485Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-conservation-districts-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:16:45.501Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-ducks-unlimited-inc.html</loc>
-    <lastmod>2026-11-01T17:16:56.766Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-greater-des-moines-habitat-for-humanity.html</loc>
-    <lastmod>2026-11-01T17:17:08.009Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-habitat-for-humanity-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:17:19.428Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-humane-world-for-animals.html</loc>
-    <lastmod>2026-11-01T17:17:30.467Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-brewers-guild.html</loc>
-    <lastmod>2026-11-01T17:17:41.554Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-county-engineers-association.html</loc>
-    <lastmod>2026-11-01T17:17:52.739Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-health-care-association.html</loc>
-    <lastmod>2026-11-01T17:18:04.158Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-migrant-movement-for-justice.html</loc>
-    <lastmod>2026-11-01T17:18:15.626Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-pork-producers-association.html</loc>
-    <lastmod>2026-11-01T17:18:26.748Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-save-the-children-action-network.html</loc>
-    <lastmod>2026-11-01T17:18:37.762Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-developers-council.html</loc>
-    <lastmod>2026-11-01T17:18:48.810Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-dubuque-for-refugee-children.html</loc>
-    <lastmod>2026-11-01T17:19:00.190Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-greater-iowa-apartment-association.html</loc>
-    <lastmod>2026-11-01T17:19:11.067Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-hubbell-realty-company.html</loc>
-    <lastmod>2026-11-01T17:19:22.327Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-bicycle-coalition.html</loc>
-    <lastmod>2026-11-01T17:19:33.514Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-cable-and-telecommunications-association.html</loc>
-    <lastmod>2026-11-01T17:19:44.561Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-community-action-association.html</loc>
-    <lastmod>2026-11-01T17:19:55.697Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-homeland-security-and-emergency-management-div.html</loc>
-    <lastmod>2026-11-01T17:20:06.954Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-school-nurses-organization.html</loc>
-    <lastmod>2026-11-01T17:20:18.211Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-molina-healthcare-inc.html</loc>
-    <lastmod>2026-11-01T17:20:29.491Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-pulse-life-advocates.html</loc>
-    <lastmod>2026-11-01T17:20:40.791Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-reforging-families.html</loc>
-    <lastmod>2026-11-01T17:20:52.207Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-council-of-engineering-companies.html</loc>
-    <lastmod>2026-11-01T17:21:03.399Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-planning-association-iowa-chapter.html</loc>
-    <lastmod>2026-11-01T17:21:14.841Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-food-and-water-watch.html</loc>
-    <lastmod>2026-11-01T17:21:26.180Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-heavy-highway-contractors-association.html</loc>
-    <lastmod>2026-11-01T17:21:37.541Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-integrated-telehealth-partners.html</loc>
-    <lastmod>2026-11-01T17:21:48.711Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-ethics-and-campaign-disclosure-board.html</loc>
-    <lastmod>2026-11-01T17:21:59.805Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-speech-language-hearing-association.html</loc>
-    <lastmod>2026-11-01T17:22:11.097Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-building-and-construction-trades.html</loc>
-    <lastmod>2026-11-01T17:22:22.378Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-presentation-lantern-center.html</loc>
-    <lastmod>2026-11-01T17:22:33.701Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-sisters-of-st-francis-dubuque-iowa.html</loc>
-    <lastmod>2026-11-01T17:22:44.996Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-union-pacific-railroad.html</loc>
-    <lastmod>2026-11-01T17:22:56.048Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-united-way-of-central-iowa.html</loc>
-    <lastmod>2026-11-01T17:23:07.256Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-waste-management-inc.html</loc>
-    <lastmod>2026-11-01T17:23:18.384Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-agribusiness-association-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:23:29.642Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-autism-speaks.html</loc>
-    <lastmod>2026-11-01T17:23:40.901Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-bluegreen-alliance.html</loc>
-    <lastmod>2026-11-01T17:23:51.925Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-building-bridges.html</loc>
-    <lastmod>2026-11-01T17:24:03.216Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cn-rail.html</loc>
-    <lastmod>2026-11-01T17:24:14.337Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-farm-credit-service-of-america.html</loc>
-    <lastmod>2026-11-01T17:24:25.510Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-independent-insurance-agents-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:24:36.652Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-chapter-american-institute-of-architects.html</loc>
-    <lastmod>2026-11-01T17:24:47.714Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-firefighters-association-ifa.html</loc>
-    <lastmod>2026-11-01T17:24:58.926Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-freedom-of-information-council.html</loc>
-    <lastmod>2026-11-01T17:25:10.243Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-land-title-association.html</loc>
-    <lastmod>2026-11-01T17:25:21.400Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-public-airports-association.html</loc>
-    <lastmod>2026-11-01T17:25:32.480Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-secretary-of-state.html</loc>
-    <lastmod>2026-11-01T17:25:43.631Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowans-for-tax-relief.html</loc>
-    <lastmod>2026-11-01T17:25:54.838Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-itc-midwest.html</loc>
-    <lastmod>2026-11-01T17:26:06.102Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-sisters-of-the-presentation-dubuque.html</loc>
-    <lastmod>2026-11-01T17:26:17.253Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-society-of-health-and-physical-educators.html</loc>
-    <lastmod>2026-11-01T17:26:28.468Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-dubuque-coalition-for-nonviolence-cnv.html</loc>
-    <lastmod>2026-11-01T17:26:39.616Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-attorney-general-dept-of-justice.html</loc>
-    <lastmod>2026-11-01T17:26:50.745Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-interstate-railroad.html</loc>
-    <lastmod>2026-11-01T17:27:01.920Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-motorcycle-dealers-association.html</loc>
-    <lastmod>2026-11-01T17:27:13.065Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-section-american-water-works-association.html</loc>
-    <lastmod>2026-11-01T17:27:24.207Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-county-treasurers-association.html</loc>
-    <lastmod>2026-11-01T17:27:35.212Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowans-for-medical-marijuana.html</loc>
-    <lastmod>2026-11-01T17:27:46.383Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-link-associates.html</loc>
-    <lastmod>2026-11-01T17:27:57.453Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-mindspring-mental-health-alliance.html</loc>
-    <lastmod>2026-11-01T17:28:08.616Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-motion-picture-association-inc.html</loc>
-    <lastmod>2026-11-01T17:28:19.620Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-prairie-meadows-racetrack-and-casino.html</loc>
-    <lastmod>2026-11-01T17:28:30.795Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-revelton-distilling-company.html</loc>
-    <lastmod>2026-11-01T17:28:42.109Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-systems-unlimited-inc.html</loc>
-    <lastmod>2026-11-01T17:28:53.224Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-west-des-moines-water-works.html</loc>
-    <lastmod>2026-11-01T17:29:04.251Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-wine-institute.html</loc>
-    <lastmod>2026-11-01T17:29:15.266Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-abate-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:29:26.202Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-alliance-for-automotive-innovation.html</loc>
-    <lastmod>2026-11-01T17:29:37.154Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-boone-and-scenic-valley-railroad.html</loc>
-    <lastmod>2026-11-01T17:29:48.040Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-burlington-junction-railway.html</loc>
-    <lastmod>2026-11-01T17:29:59.346Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-city-of-iowa-city.html</loc>
-    <lastmod>2026-11-01T17:30:10.823Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-classroom-clinic.html</loc>
-    <lastmod>2026-11-01T17:30:21.975Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-county-planning-and-zoning-officials-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:30:32.906Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-davenport-industrial-railroad.html</loc>
-    <lastmod>2026-11-01T17:30:43.870Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-dubuque-area-chamber-of-commerce.html</loc>
-    <lastmod>2026-11-01T17:30:54.773Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-building-officials.html</loc>
-    <lastmod>2026-11-01T17:31:05.771Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-commercial-real-estate-association-icrea.html</loc>
-    <lastmod>2026-11-01T17:31:16.758Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-defense-counsel-association.html</loc>
-    <lastmod>2026-11-01T17:31:27.684Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-dental-association.html</loc>
-    <lastmod>2026-11-01T17:31:38.766Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-restaurant-association.html</loc>
-    <lastmod>2026-11-01T17:31:49.736Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-travel-industry-partners.html</loc>
-    <lastmod>2026-11-01T17:32:00.683Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-network-against-human-trafficking.html</loc>
-    <lastmod>2026-11-01T17:32:11.840Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-okoboji-tourism.html</loc>
-    <lastmod>2026-11-01T17:32:22.766Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-petroleum-marketers-management-insurance-company-pmmic.html</loc>
-    <lastmod>2026-11-01T17:32:33.854Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-poet-llc.html</loc>
-    <lastmod>2026-11-01T17:32:45.038Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-state-farm-insurance.html</loc>
-    <lastmod>2026-11-01T17:32:56.106Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-t-mobile-usa-inc.html</loc>
-    <lastmod>2026-11-01T17:33:07.128Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-heart-association.html</loc>
-    <lastmod>2026-11-01T17:33:18.335Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-at-and-t.html</loc>
-    <lastmod>2026-11-01T17:33:29.446Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-central-iowa-water-works.html</loc>
-    <lastmod>2026-11-01T17:33:40.436Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cigna-corporate-services-llc.html</loc>
-    <lastmod>2026-11-01T17:33:51.455Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-des-moines-university.html</loc>
-    <lastmod>2026-11-01T17:34:02.640Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-division-of-banking.html</loc>
-    <lastmod>2026-11-01T17:34:13.757Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-national-association-of-benefits-and-insurance-professionals-iowa-chapter.html</loc>
-    <lastmod>2026-11-01T17:34:25.092Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-plumbers-and-steam-fitters-local-33.html</loc>
-    <lastmod>2026-11-01T17:34:36.562Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-animal-rescue-league-iowa-inc.html</loc>
-    <lastmod>2026-11-01T17:34:47.779Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-business-energy-coalition-ibec.html</loc>
-    <lastmod>2026-11-01T17:34:59.102Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowans-for-gun-safety.html</loc>
-    <lastmod>2026-11-01T17:35:10.491Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-ipers.html</loc>
-    <lastmod>2026-11-01T17:35:21.653Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-kwik-trip-inc.html</loc>
-    <lastmod>2026-11-01T17:35:32.719Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-landlords-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:35:43.660Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-national-rifle-association-of-america.html</loc>
-    <lastmod>2026-11-01T17:35:54.894Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-united-ways-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:36:06.157Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-verizon-corporation-and-affiliated-companies.html</loc>
-    <lastmod>2026-11-01T17:36:17.345Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-black-hills-energy.html</loc>
-    <lastmod>2026-11-01T17:36:28.537Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-broadlawns-medical-center.html</loc>
-    <lastmod>2026-11-01T17:36:39.838Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-des-moines-public-schools.html</loc>
-    <lastmod>2026-11-01T17:36:51.181Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-electronic-services-system.html</loc>
-    <lastmod>2026-11-01T17:37:02.451Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-fareway-stores-inc.html</loc>
-    <lastmod>2026-11-01T17:37:13.691Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-central-community-college.html</loc>
-    <lastmod>2026-11-01T17:37:24.824Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-gaming-association.html</loc>
-    <lastmod>2026-11-01T17:37:35.967Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-dairy-association.html</loc>
-    <lastmod>2026-11-01T17:37:47.101Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowans-for-freedom.html</loc>
-    <lastmod>2026-11-01T17:37:58.413Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-land-of-the-free-action.html</loc>
-    <lastmod>2026-11-01T17:38:09.872Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-nationwide-mutual-ins-co.html</loc>
-    <lastmod>2026-11-01T17:38:21.131Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-pharmaceutical-care-management-association.html</loc>
-    <lastmod>2026-11-01T17:38:32.355Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-petroleum-institute.html</loc>
-    <lastmod>2026-11-01T17:38:43.699Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-association-of-early-childhood-iowa-area-boards-and-advocates.html</loc>
-    <lastmod>2026-11-01T17:38:54.818Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-concerned-women-for-america-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:39:06.038Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-distilled-spirits-council-of-the-united-states.html</loc>
-    <lastmod>2026-11-01T17:39:17.384Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-dubuque-area-land-and-water-legacy.html</loc>
-    <lastmod>2026-11-01T17:39:28.657Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-exceptional-persons-inc.html</loc>
-    <lastmod>2026-11-01T17:39:39.763Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-imagine-the-possibilities.html</loc>
-    <lastmod>2026-11-01T17:39:50.867Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-ambulatory-surgery-centers.html</loc>
-    <lastmod>2026-11-01T17:40:01.910Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-automobile-dealers-association.html</loc>
-    <lastmod>2026-11-01T17:40:13.073Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-bankers-insurance-and-services-inc.html</loc>
-    <lastmod>2026-11-01T17:40:24.376Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-off-highway-vehicle-association.html</loc>
-    <lastmod>2026-11-01T17:40:35.854Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-katherine-bogaards.html</loc>
-    <lastmod>2026-11-01T17:40:46.984Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-mercyone.html</loc>
-    <lastmod>2026-11-01T17:40:58.202Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-mosaic.html</loc>
-    <lastmod>2026-11-01T17:41:09.434Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-nishna-productions-inc.html</loc>
-    <lastmod>2026-11-01T17:41:20.792Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-one-vision.html</loc>
-    <lastmod>2026-11-01T17:41:32.013Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-pheasants-forever-inc-and-quail-forever.html</loc>
-    <lastmod>2026-11-01T17:41:43.087Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-relx-inc.html</loc>
-    <lastmod>2026-11-01T17:41:54.366Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-smart-transportation-division.html</loc>
-    <lastmod>2026-11-01T17:42:05.484Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-state-long-term-care-ombudsman.html</loc>
-    <lastmod>2026-11-01T17:42:16.902Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-urbandale-water-utility.html</loc>
-    <lastmod>2026-11-01T17:42:28.211Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-village-northwest-unlimited.html</loc>
-    <lastmod>2026-11-01T17:42:39.236Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-associated-builders-and-contractors-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:42:50.191Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-boyd-gaming-and-dubuque-diamond-jo-and-diamond-jo-worth.html</loc>
-    <lastmod>2026-11-01T17:43:01.314Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-casey-s-general-stores.html</loc>
-    <lastmod>2026-11-01T17:43:12.535Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-central-iowa-physicians.html</loc>
-    <lastmod>2026-11-01T17:43:23.811Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-ethiopian-zion-coptic-church.html</loc>
-    <lastmod>2026-11-01T17:43:34.948Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-business-for-clean-energy.html</loc>
-    <lastmod>2026-11-01T17:43:46.053Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-drainage-district-association.html</loc>
-    <lastmod>2026-11-01T17:43:57.222Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-hotel-and-lodging-association.html</loc>
-    <lastmod>2026-11-01T17:44:08.285Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-independent-automobile-dealers-association.html</loc>
-    <lastmod>2026-11-01T17:44:19.390Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-insurance-institute.html</loc>
-    <lastmod>2026-11-01T17:44:30.567Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-trappers-association.html</loc>
-    <lastmod>2026-11-01T17:44:41.894Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-juvenile-detention-coalition-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:44:53.077Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-national-alliance-on-mental-illness-iowa.html</loc>
-    <lastmod>2026-11-01T17:45:04.252Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-republic-national-distributing-company.html</loc>
-    <lastmod>2026-11-01T17:45:15.541Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-southern-glazer-s-wine-and-spirits.html</loc>
-    <lastmod>2026-11-01T17:45:26.783Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-teamsters-local-238.html</loc>
-    <lastmod>2026-11-01T17:45:38.095Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-city-of-coralville.html</loc>
-    <lastmod>2026-11-01T17:45:49.516Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-city-of-davenport.html</loc>
-    <lastmod>2026-11-01T17:46:00.930Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-hy-vee-inc.html</loc>
-    <lastmod>2026-11-01T17:46:12.448Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-academy-of-nutrition-and-dietetics.html</loc>
-    <lastmod>2026-11-01T17:46:23.892Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-alliance-of-surety-companies.html</loc>
-    <lastmod>2026-11-01T17:46:35.236Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-county-conservation-boards.html</loc>
-    <lastmod>2026-11-01T17:46:46.440Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-water-agencies.html</loc>
-    <lastmod>2026-11-01T17:46:57.798Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-athletic-trainers-society.html</loc>
-    <lastmod>2026-11-01T17:47:09.361Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-funeral-directors-association.html</loc>
-    <lastmod>2026-11-01T17:47:20.916Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-optometric-association.html</loc>
-    <lastmod>2026-11-01T17:47:32.588Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-treasurer-s-office.html</loc>
-    <lastmod>2026-11-01T17:47:44.018Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-leadingage-iowa.html</loc>
-    <lastmod>2026-11-01T17:47:55.544Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-lutheran-family-service.html</loc>
-    <lastmod>2026-11-01T17:48:07.159Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-rick-phillips.html</loc>
-    <lastmod>2026-11-01T17:48:18.564Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-yes-every-kid.html</loc>
-    <lastmod>2026-11-01T17:48:30.164Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-anheuser-busch.html</loc>
-    <lastmod>2026-11-01T17:48:41.591Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-brotherhood-of-locomotive-engineers-and-trainmen.html</loc>
-    <lastmod>2026-11-01T17:48:53.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-corteva-agriscience.html</loc>
-    <lastmod>2026-11-01T17:49:04.568Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-do-no-harm-action.html</loc>
-    <lastmod>2026-11-01T17:49:16.244Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-eastlake-partnership.html</loc>
-    <lastmod>2026-11-01T17:49:27.659Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-elite-casino-resorts-llc.html</loc>
-    <lastmod>2026-11-01T17:49:39.192Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-ellipsis.html</loc>
-    <lastmod>2026-11-01T17:49:50.792Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-enterprise-holdings-d-b-a-enterprise-mobility.html</loc>
-    <lastmod>2026-11-01T17:50:02.348Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-google-llc-and-its-affiliates.html</loc>
-    <lastmod>2026-11-01T17:50:13.842Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-greater-iowa-city-inc.html</loc>
-    <lastmod>2026-11-01T17:50:25.108Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-caregivers.html</loc>
-    <lastmod>2026-11-01T17:50:36.560Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-department-of-veterans-affairs.html</loc>
-    <lastmod>2026-11-01T17:50:47.790Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-homeless-coalition.html</loc>
-    <lastmod>2026-11-01T17:50:59.207Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-school-counselors-association.html</loc>
-    <lastmod>2026-11-01T17:51:10.650Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-society-of-anesthesiologists.html</loc>
-    <lastmod>2026-11-01T17:51:22.116Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-kemin-industries.html</loc>
-    <lastmod>2026-11-01T17:51:33.508Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-manatts-inc.html</loc>
-    <lastmod>2026-11-01T17:51:44.838Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-rosecrance-health-network-and-its-affiliate-rosecrance-jackson-centers.html</loc>
-    <lastmod>2026-11-01T17:51:56.050Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-the-iowa-academy-of-trust-and-estate-counsel.html</loc>
-    <lastmod>2026-11-01T17:52:07.528Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cedar-rapids-airport.html</loc>
-    <lastmod>2026-11-01T17:52:18.985Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-central-iowa-power-cooperative-cipco.html</loc>
-    <lastmod>2026-11-01T17:52:30.248Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-coalition-for-family-and-children-s-services-in-iowa.html</loc>
-    <lastmod>2026-11-01T17:52:41.532Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-doll-distributing.html</loc>
-    <lastmod>2026-11-01T17:52:52.818Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-excellence-in-education-national-inc-d-b-a-excellence-in-education-in-action.html</loc>
-    <lastmod>2026-11-01T17:53:04.242Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-grinnell-mutual-reinsurance-company.html</loc>
-    <lastmod>2026-11-01T17:53:15.584Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-independent-colleges-and-universities.html</loc>
-    <lastmod>2026-11-01T17:53:27.205Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-nurse-anesthetists.html</loc>
-    <lastmod>2026-11-01T17:53:38.657Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-food-bank-association.html</loc>
-    <lastmod>2026-11-01T17:53:49.940Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-natural-heritage-foundation.html</loc>
-    <lastmod>2026-11-01T17:54:01.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-school-psychologists-association.html</loc>
-    <lastmod>2026-11-01T17:54:12.729Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowans-for-affordable-healthcare.html</loc>
-    <lastmod>2026-11-01T17:54:23.994Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-lake-panorama-association.html</loc>
-    <lastmod>2026-11-01T17:54:35.329Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-medpharm-iowa.html</loc>
-    <lastmod>2026-11-01T17:54:46.636Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-plumbing-heating-and-cooling-contractors-of-ia.html</loc>
-    <lastmod>2026-11-01T17:54:58.010Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-rheumatology-association-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:55:09.570Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-physical-therapy-association-of-iowa.html</loc>
-    <lastmod>2026-11-01T17:55:20.976Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-city-of-west-des-moines.html</loc>
-    <lastmod>2026-11-01T17:55:32.503Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-credit-union-division.html</loc>
-    <lastmod>2026-11-01T17:55:43.913Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cvs-health.html</loc>
-    <lastmod>2026-11-01T17:55:55.311Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-diane-hathway.html</loc>
-    <lastmod>2026-11-01T17:56:06.633Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-behavior-analysis.html</loc>
-    <lastmod>2026-11-01T17:56:18.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-gun-owners.html</loc>
-    <lastmod>2026-11-01T17:56:29.293Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-mortgage-association.html</loc>
-    <lastmod>2026-11-01T17:56:40.746Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-propane-gas-association.html</loc>
-    <lastmod>2026-11-01T17:56:52.387Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-public-information-board.html</loc>
-    <lastmod>2026-11-01T17:57:03.864Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-school-social-workers-association.html</loc>
-    <lastmod>2026-11-01T17:57:15.358Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-maverik-inc.html</loc>
-    <lastmod>2026-11-01T17:57:26.882Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-national-alliance-for-public-charter-schools.html</loc>
-    <lastmod>2026-11-01T17:57:38.085Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-national-insurance-crime-bureau.html</loc>
-    <lastmod>2026-11-01T17:57:49.120Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-older-iowans-legislature.html</loc>
-    <lastmod>2026-11-01T17:58:00.160Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-penn-entertainment-ameristar.html</loc>
-    <lastmod>2026-11-01T17:58:11.345Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-technology-network-aka-technet.html</loc>
-    <lastmod>2026-11-01T17:58:22.591Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-united-healthcare-services-inc.html</loc>
-    <lastmod>2026-11-01T17:58:33.726Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-adf-action.html</loc>
-    <lastmod>2026-11-01T17:58:45.100Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cafe-iowa-citizen-s-action-network-clean-air-for-everyone.html</loc>
-    <lastmod>2026-11-01T17:58:56.354Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-ctia-the-wireless-association.html</loc>
-    <lastmod>2026-11-01T17:59:07.368Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-dog-daycare-coalition.html</loc>
-    <lastmod>2026-11-01T17:59:18.591Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-barber-and-cosmetology-school-association.html</loc>
-    <lastmod>2026-11-01T17:59:29.878Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-biodiesel-board.html</loc>
-    <lastmod>2026-11-01T17:59:41.075Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-coalition-for-public-charter-schools.html</loc>
-    <lastmod>2026-11-01T17:59:52.146Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-distillers-alliance.html</loc>
-    <lastmod>2026-11-01T18:00:03.254Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-faith-and-climate-network.html</loc>
-    <lastmod>2026-11-01T18:00:14.365Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-fire-chiefs-association.html</loc>
-    <lastmod>2026-11-01T18:00:25.557Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-reserve-law-officers-association.html</loc>
-    <lastmod>2026-11-01T18:00:36.686Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-turkey-federation.html</loc>
-    <lastmod>2026-11-01T18:00:47.879Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-water-well-association.html</loc>
-    <lastmod>2026-11-01T18:00:58.950Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-west-racing-association.html</loc>
-    <lastmod>2026-11-01T18:01:10.218Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-on-with-life-inc.html</loc>
-    <lastmod>2026-11-01T18:01:21.368Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-pharmaceutical-research-and-manufacturers-of-america-phrma.html</loc>
-    <lastmod>2026-11-01T18:01:32.551Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-society-of-land-surveyors-of-iowa.html</loc>
-    <lastmod>2026-11-01T18:01:43.628Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-state-public-defender-s-office.html</loc>
-    <lastmod>2026-11-01T18:01:54.778Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-tyson-foods-inc.html</loc>
-    <lastmod>2026-11-01T18:02:05.871Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-uber-technologies-inc.html</loc>
-    <lastmod>2026-11-01T18:02:17.464Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-adventureland-amusement-park.html</loc>
-    <lastmod>2026-11-01T18:02:28.709Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-lung-association.html</loc>
-    <lastmod>2026-11-01T18:02:39.854Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-caesars-enterprise-services-llc.html</loc>
-    <lastmod>2026-11-01T18:02:50.958Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-coalition-for-iowa-woodlands-and-trees.html</loc>
-    <lastmod>2026-11-01T18:03:02.059Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-four-oaks.html</loc>
-    <lastmod>2026-11-01T18:03:13.486Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-independent-venue-association-of-iowa.html</loc>
-    <lastmod>2026-11-01T18:03:24.554Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-conservative-energy-forum.html</loc>
-    <lastmod>2026-11-01T18:03:35.659Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-housing-trust-funds-advocates-network.html</loc>
-    <lastmod>2026-11-01T18:03:46.694Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-hunger-coalition.html</loc>
-    <lastmod>2026-11-01T18:03:57.808Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-public-transit-association-ipt.html</loc>
-    <lastmod>2026-11-01T18:04:08.879Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-rural-health-association.html</loc>
-    <lastmod>2026-11-01T18:04:20.013Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-workforce-development.html</loc>
-    <lastmod>2026-11-01T18:04:31.096Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-molson-coors-beverage-company-usa-llc.html</loc>
-    <lastmod>2026-11-01T18:04:42.215Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-north-central-poultry-association.html</loc>
-    <lastmod>2026-11-01T18:04:53.437Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-pearson-education-ncs-pearson.html</loc>
-    <lastmod>2026-11-01T18:05:04.588Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-racom-corporation.html</loc>
-    <lastmod>2026-11-01T18:05:15.785Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-rem-iowa.html</loc>
-    <lastmod>2026-11-01T18:05:26.957Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-soo-line-railroad-company-d-b-a-canadian-pacific-kansas-city-cpkc.html</loc>
-    <lastmod>2026-11-01T18:05:38.107Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-state-shield-action.html</loc>
-    <lastmod>2026-11-01T18:05:49.339Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-stride-inc.html</loc>
-    <lastmod>2026-11-01T18:06:00.514Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-wild-rose-entertainment-llc.html</loc>
-    <lastmod>2026-11-01T18:06:11.725Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-diabetes-association.html</loc>
-    <lastmod>2026-11-01T18:06:22.985Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-association-of-iowa-cemeteries.html</loc>
-    <lastmod>2026-11-01T18:06:34.230Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-boehringer-ingelheim-pharmaceuticals-inc.html</loc>
-    <lastmod>2026-11-01T18:06:45.419Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-churchill-downs-incorporated.html</loc>
-    <lastmod>2026-11-01T18:06:56.487Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-congressional-sportsmen-s-foundation.html</loc>
-    <lastmod>2026-11-01T18:07:07.654Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-gevo.html</loc>
-    <lastmod>2026-11-01T18:07:19.011Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-greater-des-moines-heating-and-cooling-association.html</loc>
-    <lastmod>2026-11-01T18:07:30.226Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-innocence-project.html</loc>
-    <lastmod>2026-11-01T18:07:41.376Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-alliance-for-arts-education.html</loc>
-    <lastmod>2026-11-01T18:07:52.561Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-councils-of-governments.html</loc>
-    <lastmod>2026-11-01T18:08:03.725Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-professional-fire-chiefs.html</loc>
-    <lastmod>2026-11-01T18:08:14.930Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-automobile-recyclers-association.html</loc>
-    <lastmod>2026-11-01T18:08:26.207Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-communications-network-icn-ittc.html</loc>
-    <lastmod>2026-11-01T18:08:37.500Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-economic-alliance.html</loc>
-    <lastmod>2026-11-01T18:08:48.602Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-engineering-society.html</loc>
-    <lastmod>2026-11-01T18:08:59.824Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-head-start-association.html</loc>
-    <lastmod>2026-11-01T18:09:11.124Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-honey-producers-association.html</loc>
-    <lastmod>2026-11-01T18:09:22.340Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-judges-association.html</loc>
-    <lastmod>2026-11-01T18:09:33.526Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-landowner-freedom-coalition.html</loc>
-    <lastmod>2026-11-01T18:09:44.643Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-nebraska-farm-equipment-dealers-association.html</loc>
-    <lastmod>2026-11-01T18:09:56.017Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-podiatric-medical-society.html</loc>
-    <lastmod>2026-11-01T18:10:07.124Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-snowmobile-association.html</loc>
-    <lastmod>2026-11-01T18:10:18.109Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-lake-delhi-combined-water-quality-and-recreational-facility-district.html</loc>
-    <lastmod>2026-11-01T18:10:29.209Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-mental-health-america.html</loc>
-    <lastmod>2026-11-01T18:10:40.236Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-microsoft-corp.html</loc>
-    <lastmod>2026-11-01T18:10:51.381Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-national-association-of-mutual-insurance-companies-namic.html</loc>
-    <lastmod>2026-11-01T18:11:02.414Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-principal-financial-group.html</loc>
-    <lastmod>2026-11-01T18:11:13.462Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-refugee-and-immigrant-voices-in-action-riva.html</loc>
-    <lastmod>2026-11-01T18:11:24.652Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-teachers-insurance-and-annuity-association-tiaa.html</loc>
-    <lastmod>2026-11-01T18:11:35.733Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-travelers.html</loc>
-    <lastmod>2026-11-01T18:11:46.910Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-windstream-communications-corporation.html</loc>
-    <lastmod>2026-11-01T18:11:58.020Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-adm.html</loc>
-    <lastmod>2026-11-01T18:12:09.149Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-alter-trading-corporation.html</loc>
-    <lastmod>2026-11-01T18:12:20.573Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-anita-fischer-personal-interest.html</loc>
-    <lastmod>2026-11-01T18:12:31.725Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-apple-inc.html</loc>
-    <lastmod>2026-11-01T18:12:42.918Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-archer-daniels-midland-company.html</loc>
-    <lastmod>2026-11-01T18:12:54.148Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-arconic-formerly-alcoa.html</loc>
-    <lastmod>2026-11-01T18:13:05.400Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cedar-rapids-development-group-llc.html</loc>
-    <lastmod>2026-11-01T18:13:16.687Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-classlink.html</loc>
-    <lastmod>2026-11-01T18:13:27.934Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-clean-grid-alliance.html</loc>
-    <lastmod>2026-11-01T18:13:39.207Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-code-org.html</loc>
-    <lastmod>2026-11-01T18:13:50.457Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-community-bankers-of-iowa.html</loc>
-    <lastmod>2026-11-01T18:14:01.733Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-conlin-properties.html</loc>
-    <lastmod>2026-11-01T18:14:13.035Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-consumer-data-industry-association.html</loc>
-    <lastmod>2026-11-01T18:14:24.150Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-copic.html</loc>
-    <lastmod>2026-11-01T18:14:35.295Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-des-moines-area-regional-transit.html</loc>
-    <lastmod>2026-11-01T18:14:46.359Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-everystep.html</loc>
-    <lastmod>2026-11-01T18:14:57.485Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-bankers-mortgage-corp.html</loc>
-    <lastmod>2026-11-01T18:15:08.683Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-court-reporters-association.html</loc>
-    <lastmod>2026-11-01T18:15:19.802Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-dental-hygienists-association.html</loc>
-    <lastmod>2026-11-01T18:15:30.925Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-fire-marshal-s-association.html</loc>
-    <lastmod>2026-11-01T18:15:42.120Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-good-roads-association.html</loc>
-    <lastmod>2026-11-01T18:15:53.347Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-harness-horsemen-s-association.html</loc>
-    <lastmod>2026-11-01T18:16:04.347Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-hemp-alliance.html</loc>
-    <lastmod>2026-11-01T18:16:15.473Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-hemp-coalition.html</loc>
-    <lastmod>2026-11-01T18:16:26.551Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-manufactured-home-residents-network.html</loc>
-    <lastmod>2026-11-01T18:16:37.749Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-prosthetics-orthotics-pedorthotics-association.html</loc>
-    <lastmod>2026-11-01T18:16:48.901Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-radiological-society.html</loc>
-    <lastmod>2026-11-01T18:17:00.001Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-recycling-association.html</loc>
-    <lastmod>2026-11-01T18:17:11.249Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-society-for-respiratory-care.html</loc>
-    <lastmod>2026-11-01T18:17:22.464Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-fair.html</loc>
-    <lastmod>2026-11-01T18:17:33.719Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-its-inc-and-shazam-inc.html</loc>
-    <lastmod>2026-11-01T18:17:44.939Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-justice-not-politics.html</loc>
-    <lastmod>2026-11-01T18:17:55.958Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-meta-platforms-inc.html</loc>
-    <lastmod>2026-11-01T18:18:07.045Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-motorola-solutions-inc.html</loc>
-    <lastmod>2026-11-01T18:18:18.221Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-mutual-insurance-association-of-iowa.html</loc>
-    <lastmod>2026-11-01T18:18:29.215Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-nextera-energy.html</loc>
-    <lastmod>2026-11-01T18:18:40.131Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-pacific-legal-foundation.html</loc>
-    <lastmod>2026-11-01T18:18:51.426Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-pfizer-inc.html</loc>
-    <lastmod>2026-11-01T18:19:02.503Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-responsive-policy-solutions.html</loc>
-    <lastmod>2026-11-01T18:19:13.674Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-summit-carbon-solutions.html</loc>
-    <lastmod>2026-11-01T18:19:24.852Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-susan-g-komen-foundation.html</loc>
-    <lastmod>2026-11-01T18:19:35.969Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-tesla.html</loc>
-    <lastmod>2026-11-01T18:19:46.976Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-truckstops-of-iowa.html</loc>
-    <lastmod>2026-11-01T18:19:58.109Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-valero-energy-corporation.html</loc>
-    <lastmod>2026-11-01T18:20:09.233Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-walmart-inc.html</loc>
-    <lastmod>2026-11-01T18:20:20.330Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-1st-amendment-partnership.html</loc>
-    <lastmod>2026-11-01T18:20:31.445Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-altria-client-services-llc-and-its-affiliates.html</loc>
-    <lastmod>2026-11-01T18:20:42.683Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-clean-power-association.html</loc>
-    <lastmod>2026-11-01T18:20:53.914Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-amy-campbell-personal-interest.html</loc>
-    <lastmod>2026-11-01T18:21:05.094Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-association-of-iowa-fairs.html</loc>
-    <lastmod>2026-11-01T18:21:16.263Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cargill.html</loc>
-    <lastmod>2026-11-01T18:21:27.315Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-childserve.html</loc>
-    <lastmod>2026-11-01T18:21:38.373Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-city-of-cedar-falls.html</loc>
-    <lastmod>2026-11-01T18:21:49.374Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-dairyland-power-cooperative.html</loc>
-    <lastmod>2026-11-01T18:22:00.378Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-decoding-dyslexia-iowa.html</loc>
-    <lastmod>2026-11-01T18:22:11.456Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-deere-and-company.html</loc>
-    <lastmod>2026-11-01T18:22:22.467Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-eli-lilly-and-co.html</loc>
-    <lastmod>2026-11-01T18:22:33.556Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-entertainment-software-association-esa.html</loc>
-    <lastmod>2026-11-01T18:22:44.641Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-faith-baptist-bible-college.html</loc>
-    <lastmod>2026-11-01T18:22:55.829Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-flock-group-inc-dba-flock-safety.html</loc>
-    <lastmod>2026-11-01T18:23:06.975Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-free-clinics-of-iowa.html</loc>
-    <lastmod>2026-11-01T18:23:18.103Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-greater-fort-dodge-growth-alliance.html</loc>
-    <lastmod>2026-11-01T18:23:29.362Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-growmark-inc.html</loc>
-    <lastmod>2026-11-01T18:23:40.372Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-hntb-corporation.html</loc>
-    <lastmod>2026-11-01T18:23:51.328Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-home-school-legal-defense-association.html</loc>
-    <lastmod>2026-11-01T18:24:02.510Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-horsemen-s-benevolent-and-protective-association-ihbpa.html</loc>
-    <lastmod>2026-11-01T18:24:13.688Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-hospice-and-palliative-care-association.html</loc>
-    <lastmod>2026-11-01T18:24:24.790Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-institute-for-justice.html</loc>
-    <lastmod>2026-11-01T18:24:35.989Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-cannabis-company.html</loc>
-    <lastmod>2026-11-01T18:24:47.086Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-commission-on-uniform-state-laws.html</loc>
-    <lastmod>2026-11-01T18:24:58.137Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-department-of-education.html</loc>
-    <lastmod>2026-11-01T18:25:09.292Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-office-of-civil-rights.html</loc>
-    <lastmod>2026-11-01T18:25:20.470Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-stormwater-education-partnership.html</loc>
-    <lastmod>2026-11-01T18:25:31.647Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-wood-industry-association.html</loc>
-    <lastmod>2026-11-01T18:25:42.850Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowans-for-alternatives-to-smoking-and-tobacco.html</loc>
-    <lastmod>2026-11-01T18:25:54.049Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-kairos-nexus.html</loc>
-    <lastmod>2026-11-01T18:26:05.112Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-loess-hills-alliance.html</loc>
-    <lastmod>2026-11-01T18:26:16.053Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-lumen.html</loc>
-    <lastmod>2026-11-01T18:26:27.183Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-municipal-fire-and-police-retirement-system-of-iowa-mfprsi.html</loc>
-    <lastmod>2026-11-01T18:26:38.263Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-office-of-ombudsman.html</loc>
-    <lastmod>2026-11-01T18:26:49.352Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-optimae-life-services-inc.html</loc>
-    <lastmod>2026-11-01T18:27:00.568Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-q-casino.html</loc>
-    <lastmod>2026-11-01T18:27:11.770Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-rai-service-co.html</loc>
-    <lastmod>2026-11-01T18:27:22.814Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-sheet-metal-contractors-of-iowa.html</loc>
-    <lastmod>2026-11-01T18:27:33.857Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-warren-county-attorney-s-office.html</loc>
-    <lastmod>2026-11-01T18:27:45.183Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-1-love-legacy.html</loc>
-    <lastmod>2026-11-01T18:27:56.315Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-ahip.html</loc>
-    <lastmod>2026-11-01T18:28:07.443Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-alamo-rent-a-car.html</loc>
-    <lastmod>2026-11-01T18:28:18.673Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-alliance-for-civic-education-of-iowa.html</loc>
-    <lastmod>2026-11-01T18:28:29.803Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-massage-therapy-association-amta.html</loc>
-    <lastmod>2026-11-01T18:28:40.974Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-dav-iowa.html</loc>
-    <lastmod>2026-11-01T18:28:51.994Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-des-moines-international-airport.html</loc>
-    <lastmod>2026-11-01T18:29:03.095Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-des-moines-metropolitan-wastewater-reclamation-authority.html</loc>
-    <lastmod>2026-11-01T18:29:14.225Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-dubuque-audubon-society.html</loc>
-    <lastmod>2026-11-01T18:29:25.392Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-equifax.html</loc>
-    <lastmod>2026-11-01T18:29:36.562Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-famm.html</loc>
-    <lastmod>2026-11-01T18:29:47.568Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-genentech-inc-a-member-of-the-roche-group.html</loc>
-    <lastmod>2026-11-01T18:29:58.626Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-great-river-entertainment.html</loc>
-    <lastmod>2026-11-01T18:30:09.888Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-healthcare-distribution-alliance.html</loc>
-    <lastmod>2026-11-01T18:30:20.991Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-heartland-strategies-llc.html</loc>
-    <lastmod>2026-11-01T18:30:32.062Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-heritage-action-for-america.html</loc>
-    <lastmod>2026-11-01T18:30:43.281Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-invenergy.html</loc>
-    <lastmod>2026-11-01T18:30:54.429Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-advocates-for-choice-in-education.html</loc>
-    <lastmod>2026-11-01T18:31:05.547Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-public-insurance-adjusters.html</loc>
-    <lastmod>2026-11-01T18:31:16.697Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-beverage-association.html</loc>
-    <lastmod>2026-11-01T18:31:27.843Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-chiropractic-society.html</loc>
-    <lastmod>2026-11-01T18:31:38.805Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-communities-assurance-pool-icap.html</loc>
-    <lastmod>2026-11-01T18:31:49.851Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-community-foundations.html</loc>
-    <lastmod>2026-11-01T18:32:00.928Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-coon-hunters-association.html</loc>
-    <lastmod>2026-11-01T18:32:12.123Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-county-commissioners-of-veterans-affairs.html</loc>
-    <lastmod>2026-11-01T18:32:23.342Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-limestone-producers-association.html</loc>
-    <lastmod>2026-11-01T18:32:34.396Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-nut-growers-association.html</loc>
-    <lastmod>2026-11-01T18:32:45.437Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-trust-association.html</loc>
-    <lastmod>2026-11-01T18:32:56.521Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-woodland-owners-association.html</loc>
-    <lastmod>2026-11-01T18:33:07.429Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-koloma.html</loc>
-    <lastmod>2026-11-01T18:33:18.460Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-ls-power-grid-midcontinent-llc.html</loc>
-    <lastmod>2026-11-01T18:33:29.521Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-marty-ryan-personal-interest.html</loc>
-    <lastmod>2026-11-01T18:33:40.556Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-matt-chapman-personal-interest.html</loc>
-    <lastmod>2026-11-01T18:33:51.710Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-meidh-technologies-inc.html</loc>
-    <lastmod>2026-11-01T18:34:02.850Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-mona-bond-personal-interest.html</loc>
-    <lastmod>2026-11-01T18:34:14.068Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-national-rent-a-car.html</loc>
-    <lastmod>2026-11-01T18:34:25.196Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-one-main-holdings-inc.html</loc>
-    <lastmod>2026-11-01T18:34:36.268Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-orchard-place.html</loc>
-    <lastmod>2026-11-01T18:34:47.366Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-pacific-battleship-center-uss-iowa.html</loc>
-    <lastmod>2026-11-01T18:34:58.497Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-piper-sandler.html</loc>
-    <lastmod>2026-11-01T18:35:09.704Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-roeslein-renewables.html</loc>
-    <lastmod>2026-11-01T18:35:20.843Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-save-iowa-history.html</loc>
-    <lastmod>2026-11-01T18:35:31.854Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-syngenta.html</loc>
-    <lastmod>2026-11-01T18:35:42.840Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-templeton-rye-spirits-llc.html</loc>
-    <lastmod>2026-11-01T18:35:53.980Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-the-campaign-for-tobacco-free-kids.html</loc>
-    <lastmod>2026-11-01T18:36:05.055Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-the-marzetti-company.html</loc>
-    <lastmod>2026-11-01T18:36:16.013Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-the-people-s-hill.html</loc>
-    <lastmod>2026-11-01T18:36:27.080Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-veterans-of-foreign-wars-department-of-iowa.html</loc>
-    <lastmod>2026-11-01T18:36:38.155Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-woodward-academy.html</loc>
-    <lastmod>2026-11-01T18:36:49.288Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-youth-law-center.html</loc>
-    <lastmod>2026-11-01T18:37:00.466Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-air-methods.html</loc>
-    <lastmod>2026-11-01T18:37:11.660Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-alec-action.html</loc>
-    <lastmod>2026-11-01T18:37:22.858Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-alliance-for-responsible-consumer-legal-funding.html</loc>
-    <lastmod>2026-11-01T18:37:34.041Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-amazon-com-services-llc.html</loc>
-    <lastmod>2026-11-01T18:37:45.149Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-chemistry-council.html</loc>
-    <lastmod>2026-11-01T18:37:56.234Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-federation-for-children.html</loc>
-    <lastmod>2026-11-01T18:38:07.350Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-legal-finance-association.html</loc>
-    <lastmod>2026-11-01T18:38:18.537Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-amvc-management-services.html</loc>
-    <lastmod>2026-11-01T18:38:29.612Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-animal-legal-defense-fund.html</loc>
-    <lastmod>2026-11-01T18:38:40.779Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-axon-enterprise-inc.html</loc>
-    <lastmod>2026-11-01T18:38:52.063Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-barbara-scholl.html</loc>
-    <lastmod>2026-11-01T18:39:03.236Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-bellin-gundersen-health-system-inc.html</loc>
-    <lastmod>2026-11-01T18:39:14.536Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-better-ballot-iowa.html</loc>
-    <lastmod>2026-11-01T18:39:25.621Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-black-hawk-county-gaming-association.html</loc>
-    <lastmod>2026-11-01T18:39:36.701Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-bld-connection-iowa.html</loc>
-    <lastmod>2026-11-01T18:39:47.742Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-blockratize-inc.html</loc>
-    <lastmod>2026-11-01T18:39:58.890Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cigar-association-of-america-inc.html</loc>
-    <lastmod>2026-11-01T18:40:10.226Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-community-choice-financial.html</loc>
-    <lastmod>2026-11-01T18:40:21.451Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-crow-s-auto-service.html</loc>
-    <lastmod>2026-11-01T18:40:32.663Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-des-moines-kennel-club-inc.html</loc>
-    <lastmod>2026-11-01T18:40:43.726Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-eide-walton.html</loc>
-    <lastmod>2026-11-01T18:40:54.919Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-epilepsy-foundation-iowa.html</loc>
-    <lastmod>2026-11-01T18:41:06.108Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-general-motors-llc.html</loc>
-    <lastmod>2026-11-01T18:41:17.342Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-goldwater-institute.html</loc>
-    <lastmod>2026-11-01T18:41:28.649Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-gsk.html</loc>
-    <lastmod>2026-11-01T18:41:39.820Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-hni-corporation.html</loc>
-    <lastmod>2026-11-01T18:41:50.910Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-imagine-learning.html</loc>
-    <lastmod>2026-11-01T18:42:02.222Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-international-legal-finance-association.html</loc>
-    <lastmod>2026-11-01T18:42:13.364Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-internet-accountability-project.html</loc>
-    <lastmod>2026-11-01T18:42:24.639Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-alliance-for-fair-competition.html</loc>
-    <lastmod>2026-11-01T18:42:35.784Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-american-water-co.html</loc>
-    <lastmod>2026-11-01T18:42:46.981Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-assisted-living-association.html</loc>
-    <lastmod>2026-11-01T18:42:58.167Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-pet-breeders-association.html</loc>
-    <lastmod>2026-11-01T18:43:09.373Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-quarter-horse-racing-association.html</loc>
-    <lastmod>2026-11-01T18:43:20.610Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-retired-school-personnel-association.html</loc>
-    <lastmod>2026-11-01T18:43:31.804Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-select-farms-l-l-p.html</loc>
-    <lastmod>2026-11-01T18:43:42.971Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-solar-energy-trade-association.html</loc>
-    <lastmod>2026-11-01T18:43:54.197Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-state-patrol-supervisors-association.html</loc>
-    <lastmod>2026-11-01T18:44:05.394Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-thoroughbred-breeders-and-owners-association.html</loc>
-    <lastmod>2026-11-01T18:44:16.601Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-whitetail-deer-association.html</loc>
-    <lastmod>2026-11-01T18:44:27.853Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowafathers.html</loc>
-    <lastmod>2026-11-01T18:44:39.065Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-jeremy-dannewitz.html</loc>
-    <lastmod>2026-11-01T18:44:50.275Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-kalshi-inc.html</loc>
-    <lastmod>2026-11-01T18:45:01.435Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-lederman-bonding-company.html</loc>
-    <lastmod>2026-11-01T18:45:12.761Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-mahaska-county-board-of-supervisors.html</loc>
-    <lastmod>2026-11-01T18:45:24.093Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-marc-beltrame-personal-interest.html</loc>
-    <lastmod>2026-11-01T18:45:35.298Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-metro-waste-authority.html</loc>
-    <lastmod>2026-11-01T18:45:46.589Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-midwestern-trading-inc.html</loc>
-    <lastmod>2026-11-01T18:45:58.156Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-mm-finance.html</loc>
-    <lastmod>2026-11-01T18:46:09.778Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-morriganai.html</loc>
-    <lastmod>2026-11-01T18:46:21.382Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-national-association-of-insurance-and-financial-advisors-iowa.html</loc>
-    <lastmod>2026-11-01T18:46:33.372Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-novo-nordisk.html</loc>
-    <lastmod>2026-11-01T18:46:45.247Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-oak-park.html</loc>
-    <lastmod>2026-11-01T18:46:57.027Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-ownwell.html</loc>
-    <lastmod>2026-11-01T18:47:08.521Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-quadrivium-services.html</loc>
-    <lastmod>2026-11-01T18:47:20.230Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-quality-technology-services-llc.html</loc>
-    <lastmod>2026-11-01T18:47:31.810Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-rathbun-regional-water-association.html</loc>
-    <lastmod>2026-11-01T18:47:43.458Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-resale-power-group-of-iowa.html</loc>
-    <lastmod>2026-11-01T18:47:55.122Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-rivian-automotive-llc.html</loc>
-    <lastmod>2026-11-01T18:48:06.801Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-roblox.html</loc>
-    <lastmod>2026-11-01T18:48:18.149Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-safenetrx.html</loc>
-    <lastmod>2026-11-01T18:48:29.831Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-samoyed-club-of-iowa.html</loc>
-    <lastmod>2026-11-01T18:48:41.233Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-sensys-gatso.html</loc>
-    <lastmod>2026-11-01T18:48:53.081Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-southwest-transmission-llc.html</loc>
-    <lastmod>2026-11-01T18:49:04.836Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-sports-betting-alliance.html</loc>
-    <lastmod>2026-11-01T18:49:16.421Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-state-policy-network.html</loc>
-    <lastmod>2026-11-01T18:49:28.046Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-steve-krug.html</loc>
-    <lastmod>2026-11-01T18:49:39.819Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-town-financial.html</loc>
-    <lastmod>2026-11-01T18:49:51.101Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-troy-tech-personal-interest.html</loc>
-    <lastmod>2026-11-01T18:50:02.309Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-u-s-cellular.html</loc>
-    <lastmod>2026-11-01T18:50:13.303Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-verra-mobility.html</loc>
-    <lastmod>2026-11-01T18:50:24.424Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-western-iowa-tech-community-college.html</loc>
-    <lastmod>2026-11-01T18:50:35.350Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-wireless-infrastructure-association.html</loc>
-    <lastmod>2026-11-01T18:50:46.252Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-1405-broad-street-llc.html</loc>
-    <lastmod>2026-11-01T18:50:57.274Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-3m-company.html</loc>
-    <lastmod>2026-11-01T18:51:08.252Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-3m-company-transportation.html</loc>
-    <lastmod>2026-11-01T18:51:19.439Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-ag-processing-inc.html</loc>
-    <lastmod>2026-11-01T18:51:30.499Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-aircraft-owners-and-pilots-association.html</loc>
-    <lastmod>2026-11-01T18:51:41.450Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-alzheimers-association-iowa-chapter.html</loc>
-    <lastmod>2026-11-01T18:51:52.566Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-express-travel-related-services-inc.html</loc>
-    <lastmod>2026-11-01T18:52:03.677Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-kennel-club.html</loc>
-    <lastmod>2026-11-01T18:52:14.921Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-kratom-association.html</loc>
-    <lastmod>2026-11-01T18:52:26.138Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-american-power-play.html</loc>
-    <lastmod>2026-11-01T18:52:37.421Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-americans-for-nonsmokers-rights.html</loc>
-    <lastmod>2026-11-01T18:52:48.848Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-association-of-equipment-manufacturers-aem.html</loc>
-    <lastmod>2026-11-01T18:53:00.190Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-beks-carlson-personal-interest.html</loc>
-    <lastmod>2026-11-01T18:53:11.379Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-bold-alliance.html</loc>
-    <lastmod>2026-11-01T18:53:22.760Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-botanicals-for-better-health-and-wellness.html</loc>
-    <lastmod>2026-11-01T18:53:34.106Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-caitlin-jarzen-personal-interest.html</loc>
-    <lastmod>2026-11-01T18:53:45.552Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cambium-learning-group.html</loc>
-    <lastmod>2026-11-01T18:53:56.950Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-carvana.html</loc>
-    <lastmod>2026-11-01T18:54:08.400Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-caterpillar.html</loc>
-    <lastmod>2026-11-01T18:54:19.813Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cedar-rapids-kennel-association.html</loc>
-    <lastmod>2026-11-01T18:54:31.185Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-central-iowa-towing-and-recovery.html</loc>
-    <lastmod>2026-11-01T18:54:42.620Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cgi-technologies-and-solutions.html</loc>
-    <lastmod>2026-11-01T18:54:53.934Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-chevron-u-s-a-inc-and-affiliates.html</loc>
-    <lastmod>2026-11-01T18:55:05.223Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-chip-baltimore.html</loc>
-    <lastmod>2026-11-01T18:55:16.460Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-chuck-hurley-personal-interest.html</loc>
-    <lastmod>2026-11-01T18:55:27.763Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-classical-conversations.html</loc>
-    <lastmod>2026-11-01T18:55:38.992Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-cleaner-iowa-inc.html</loc>
-    <lastmod>2026-11-01T18:55:50.268Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-coinflip.html</loc>
-    <lastmod>2026-11-01T18:56:01.839Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-compass-pathways.html</loc>
-    <lastmod>2026-11-01T18:56:13.219Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-constellation-brands.html</loc>
-    <lastmod>2026-11-01T18:56:24.727Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-consumers-defense.html</loc>
-    <lastmod>2026-11-01T18:56:36.220Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-convention-of-states-action.html</loc>
-    <lastmod>2026-11-01T18:56:47.827Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-crypto-com.html</loc>
-    <lastmod>2026-11-01T18:56:59.358Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-dentaquest-llc.html</loc>
-    <lastmod>2026-11-01T18:57:10.719Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-des-moines-area-community-college.html</loc>
-    <lastmod>2026-11-01T18:57:21.925Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-des-moines-performing-arts.html</loc>
-    <lastmod>2026-11-01T18:57:33.210Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-disability-consulting-lc.html</loc>
-    <lastmod>2026-11-01T18:57:44.642Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-dubuque-branch-naacp.html</loc>
-    <lastmod>2026-11-01T18:57:55.918Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-examination-board-of-professional-home-inspectors.html</loc>
-    <lastmod>2026-11-01T18:58:07.224Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-fedex-corporation.html</loc>
-    <lastmod>2026-11-01T18:58:18.373Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-fortinet.html</loc>
-    <lastmod>2026-11-01T18:58:29.593Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-green-leaf-cannabis-co.html</loc>
-    <lastmod>2026-11-01T18:58:40.727Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-growth-energy.html</loc>
-    <lastmod>2026-11-01T18:58:51.819Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-hazel-health.html</loc>
-    <lastmod>2026-11-01T18:59:03.004Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-heartland-impact.html</loc>
-    <lastmod>2026-11-01T18:59:14.112Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-honest-elections-project-action.html</loc>
-    <lastmod>2026-11-01T18:59:25.431Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-hungry-canyons-alliance.html</loc>
-    <lastmod>2026-11-01T18:59:36.653Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-impactlife.html</loc>
-    <lastmod>2026-11-01T18:59:47.825Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-independent-pharmacy-cooperative.html</loc>
-    <lastmod>2026-11-01T18:59:58.896Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-international-union-of-operating-engineers-local-234.html</loc>
-    <lastmod>2026-11-01T19:00:10.267Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-abolitionists.html</loc>
-    <lastmod>2026-11-01T19:00:21.318Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-army-of-pink.html</loc>
-    <lastmod>2026-11-01T19:00:32.372Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-association-of-railroad-passengers.html</loc>
-    <lastmod>2026-11-01T19:00:43.370Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-chapter-american-society-of-landscape-architects.html</loc>
-    <lastmod>2026-11-01T19:00:54.507Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-chapter-of-american-society-of-home-inspectors.html</loc>
-    <lastmod>2026-11-01T19:01:05.614Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-chiropractic-physicians-clinic-llc.html</loc>
-    <lastmod>2026-11-01T19:01:16.703Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-collision-repair-association.html</loc>
-    <lastmod>2026-11-01T19:01:27.938Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-competitive-bidding-alliance-inc.html</loc>
-    <lastmod>2026-11-01T19:01:38.941Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-donor-network.html</loc>
-    <lastmod>2026-11-01T19:01:49.955Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-extension-council-association.html</loc>
-    <lastmod>2026-11-01T19:02:01.343Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-healthiest-state-initiative.html</loc>
-    <lastmod>2026-11-01T19:02:12.714Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-jobs-for-america-s-graduates-ijag.html</loc>
-    <lastmod>2026-11-01T19:02:23.914Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-magistrate-s-association.html</loc>
-    <lastmod>2026-11-01T19:02:34.988Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/session/ga91-org-iowa-pbs.html</loc>
-    <lastmod>2026-11-01T19:02:46.121Z</lastmod>
+    <lastmod>2026-11-02T15:30:18.290Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-dave-jacoby-6970.html</loc>
-    <lastmod>2026-11-01T19:03:17.300Z</lastmod>
+    <lastmod>2026-11-02T15:33:40.468Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-jason-schultz-6973.html</loc>
-    <lastmod>2026-11-01T19:03:36.512Z</lastmod>
+    <lastmod>2026-11-02T15:33:50.468Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-bobby-kaufmann-6981.html</loc>
-    <lastmod>2026-11-01T19:04:00.472Z</lastmod>
+    <lastmod>2026-11-02T15:34:02.883Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-matt-windschitl-6982.html</loc>
-    <lastmod>2026-11-01T19:04:24.281Z</lastmod>
+    <lastmod>2026-11-02T15:34:15.037Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-bob-kressig-7000.html</loc>
-    <lastmod>2026-11-01T19:04:49.709Z</lastmod>
+    <lastmod>2026-11-02T15:34:28.202Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-cindy-winckler-7003.html</loc>
-    <lastmod>2026-11-01T19:05:10.026Z</lastmod>
+    <lastmod>2026-11-02T15:34:38.801Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-annette-sweeney-7010.html</loc>
-    <lastmod>2026-11-01T19:05:29.540Z</lastmod>
+    <lastmod>2026-11-02T15:34:48.886Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-beth-wessel-kroeschell-7033.html</loc>
-    <lastmod>2026-11-01T19:05:55.262Z</lastmod>
+    <lastmod>2026-11-02T15:35:02.276Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-janet-petersen-7037.html</loc>
-    <lastmod>2026-11-01T19:06:16.036Z</lastmod>
+    <lastmod>2026-11-02T15:35:13.124Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-rick-olson-7069.html</loc>
-    <lastmod>2026-11-01T19:06:41.379Z</lastmod>
+    <lastmod>2026-11-02T15:35:26.157Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-pat-grassley-7075.html</loc>
-    <lastmod>2026-11-01T19:07:05.171Z</lastmod>
+    <lastmod>2026-11-02T15:35:38.694Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-william-dotzler-7125.html</loc>
-    <lastmod>2026-11-01T19:07:25.779Z</lastmod>
+    <lastmod>2026-11-02T15:35:49.319Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-herman-quirmbach-7134.html</loc>
-    <lastmod>2026-11-01T19:07:46.048Z</lastmod>
+    <lastmod>2026-11-02T15:36:00.019Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-mark-lofgren-10726.html</loc>
-    <lastmod>2026-11-01T19:08:06.131Z</lastmod>
+    <lastmod>2026-11-02T15:36:10.441Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-julian-garrett-10728.html</loc>
-    <lastmod>2026-11-01T19:08:25.166Z</lastmod>
+    <lastmod>2026-11-02T15:36:20.289Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-ruth-ann-gaines-11623.html</loc>
-    <lastmod>2026-11-01T19:08:49.373Z</lastmod>
+    <lastmod>2026-11-02T15:36:32.806Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-jack-whitver-13191.html</loc>
-    <lastmod>2026-11-01T19:09:08.367Z</lastmod>
+    <lastmod>2026-11-02T15:36:42.561Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-mark-costello-14789.html</loc>
-    <lastmod>2026-11-01T19:09:27.721Z</lastmod>
+    <lastmod>2026-11-02T15:36:52.574Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-dean-fisher-14790.html</loc>
-    <lastmod>2026-11-01T19:09:52.811Z</lastmod>
+    <lastmod>2026-11-02T15:37:05.507Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-megan-hess-jones-14793.html</loc>
-    <lastmod>2026-11-01T19:10:17.772Z</lastmod>
+    <lastmod>2026-11-02T15:37:18.293Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-sandy-salmon-14797.html</loc>
-    <lastmod>2026-11-01T19:10:38.273Z</lastmod>
+    <lastmod>2026-11-02T15:37:28.844Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-dennis-guth-15397.html</loc>
-    <lastmod>2026-11-01T19:10:57.902Z</lastmod>
+    <lastmod>2026-11-02T15:37:39.233Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-ken-rozenboom-15398.html</loc>
-    <lastmod>2026-11-01T19:11:17.183Z</lastmod>
+    <lastmod>2026-11-02T15:37:49.086Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-amy-sinclair-15400.html</loc>
-    <lastmod>2026-11-01T19:11:36.599Z</lastmod>
+    <lastmod>2026-11-02T15:37:59.108Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-daniel-zumbach-15401.html</loc>
-    <lastmod>2026-11-01T19:11:55.654Z</lastmod>
+    <lastmod>2026-11-02T15:38:09.021Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-art-staed-15615.html</loc>
-    <lastmod>2026-11-01T19:12:16.436Z</lastmod>
+    <lastmod>2026-11-02T15:38:19.929Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-brian-meyer-16122.html</loc>
-    <lastmod>2026-11-01T19:12:41.846Z</lastmod>
+    <lastmod>2026-11-02T15:38:33.108Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-tony-bisignano-17037.html</loc>
-    <lastmod>2026-11-01T19:13:02.107Z</lastmod>
+    <lastmod>2026-11-02T15:38:43.547Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-steven-holt-17218.html</loc>
-    <lastmod>2026-11-01T19:13:26.195Z</lastmod>
+    <lastmod>2026-11-02T15:38:56.075Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-liz-bennett-17286.html</loc>
-    <lastmod>2026-11-01T19:13:46.647Z</lastmod>
+    <lastmod>2026-11-02T15:39:06.704Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-timi-brown-powers-17287.html</loc>
-    <lastmod>2026-11-01T19:14:11.567Z</lastmod>
+    <lastmod>2026-11-02T15:39:19.740Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-norlin-mommsen-17289.html</loc>
-    <lastmod>2026-11-01T19:14:35.723Z</lastmod>
+    <lastmod>2026-11-02T15:39:32.249Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-john-wills-17290.html</loc>
-    <lastmod>2026-11-01T19:14:59.756Z</lastmod>
+    <lastmod>2026-11-02T15:39:44.914Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-tim-kraayenbrink-17368.html</loc>
-    <lastmod>2026-11-01T19:15:18.619Z</lastmod>
+    <lastmod>2026-11-02T15:39:54.751Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-tom-shipley-17430.html</loc>
-    <lastmod>2026-11-01T19:15:37.759Z</lastmod>
+    <lastmod>2026-11-02T15:40:04.785Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-michael-sexton-17458.html</loc>
-    <lastmod>2026-11-01T19:15:53.542Z</lastmod>
+    <lastmod>2026-11-02T15:40:13.061Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-david-sieck-17617.html</loc>
-    <lastmod>2026-11-01T19:16:17.256Z</lastmod>
+    <lastmod>2026-11-02T15:40:25.558Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-thomas-moore-17825.html</loc>
-    <lastmod>2026-11-01T19:16:41.246Z</lastmod>
+    <lastmod>2026-11-02T15:40:38.262Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-dan-dawson-18623.html</loc>
-    <lastmod>2026-11-01T19:16:59.922Z</lastmod>
+    <lastmod>2026-11-02T15:40:48.124Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-michael-bergan-18953.html</loc>
-    <lastmod>2026-11-01T19:17:24.774Z</lastmod>
+    <lastmod>2026-11-02T15:41:01.041Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-jane-bloomingdale-18954.html</loc>
-    <lastmod>2026-11-01T19:17:48.454Z</lastmod>
+    <lastmod>2026-11-02T15:41:13.519Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-shannon-lundgren-18958.html</loc>
-    <lastmod>2026-11-01T19:18:11.634Z</lastmod>
+    <lastmod>2026-11-02T15:41:25.835Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-gary-mohr-18960.html</loc>
-    <lastmod>2026-11-01T19:18:34.881Z</lastmod>
+    <lastmod>2026-11-02T15:41:38.312Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-skyler-wheeler-18961.html</loc>
-    <lastmod>2026-11-01T19:18:58.426Z</lastmod>
+    <lastmod>2026-11-02T15:41:50.791Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-amy-nielsen-19016.html</loc>
-    <lastmod>2026-11-01T19:19:22.123Z</lastmod>
+    <lastmod>2026-11-02T15:42:03.280Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-craig-johnson-19141.html</loc>
-    <lastmod>2026-11-01T19:19:46.051Z</lastmod>
+    <lastmod>2026-11-02T15:42:15.690Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-monica-kurth-19287.html</loc>
-    <lastmod>2026-11-01T19:20:11.555Z</lastmod>
+    <lastmod>2026-11-02T15:42:28.968Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-jacob-bossman-19548.html</loc>
-    <lastmod>2026-11-01T19:20:35.200Z</lastmod>
+    <lastmod>2026-11-02T15:42:41.226Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-claire-celsi-20957.html</loc>
-    <lastmod>2026-11-01T19:20:50.004Z</lastmod>
+    <lastmod>2026-11-02T15:42:49.103Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-ray-sorensen-21044.html</loc>
-    <lastmod>2026-11-01T19:21:14.224Z</lastmod>
+    <lastmod>2026-11-02T15:43:01.746Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-jeff-shipley-21051.html</loc>
-    <lastmod>2026-11-01T19:21:39.172Z</lastmod>
+    <lastmod>2026-11-02T15:43:14.685Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-zach-wahls-21052.html</loc>
-    <lastmod>2026-11-01T19:21:58.873Z</lastmod>
+    <lastmod>2026-11-02T15:43:25.050Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-molly-donahue-21055.html</loc>
-    <lastmod>2026-11-01T19:22:20.586Z</lastmod>
+    <lastmod>2026-11-02T15:43:36.226Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-tracy-ehlert-21056.html</loc>
-    <lastmod>2026-11-01T19:22:45.624Z</lastmod>
+    <lastmod>2026-11-02T15:43:49.166Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-jennifer-konfrst-21057.html</loc>
-    <lastmod>2026-11-01T19:23:10.252Z</lastmod>
+    <lastmod>2026-11-02T15:44:01.777Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-lindsay-james-21091.html</loc>
-    <lastmod>2026-11-01T19:23:34.817Z</lastmod>
+    <lastmod>2026-11-02T15:44:14.716Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-kenan-judge-21092.html</loc>
-    <lastmod>2026-11-01T19:23:59.577Z</lastmod>
+    <lastmod>2026-11-02T15:44:27.792Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-heather-matson-21093.html</loc>
-    <lastmod>2026-11-01T19:24:25.096Z</lastmod>
+    <lastmod>2026-11-02T15:44:40.928Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-carrie-koelker-21097.html</loc>
-    <lastmod>2026-11-01T19:24:44.256Z</lastmod>
+    <lastmod>2026-11-02T15:44:50.856Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-thomas-gerhold-21115.html</loc>
-    <lastmod>2026-11-01T19:25:08.346Z</lastmod>
+    <lastmod>2026-11-02T15:45:03.501Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-ann-meyer-21125.html</loc>
-    <lastmod>2026-11-01T19:25:32.695Z</lastmod>
+    <lastmod>2026-11-02T15:45:16.169Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-thomas-jeneary-21160.html</loc>
-    <lastmod>2026-11-01T19:25:56.902Z</lastmod>
+    <lastmod>2026-11-02T15:45:28.753Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-brian-lohse-21242.html</loc>
-    <lastmod>2026-11-01T19:26:22.875Z</lastmod>
+    <lastmod>2026-11-02T15:45:42.247Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-ross-wilburn-21419.html</loc>
-    <lastmod>2026-11-01T19:26:48.647Z</lastmod>
+    <lastmod>2026-11-02T15:45:55.356Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-jesse-green-22488.html</loc>
-    <lastmod>2026-11-01T19:27:08.455Z</lastmod>
+    <lastmod>2026-11-02T15:46:05.553Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-jeffrey-reichman-22489.html</loc>
-    <lastmod>2026-11-01T19:27:27.658Z</lastmod>
+    <lastmod>2026-11-02T15:46:15.503Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-dawn-driscoll-22530.html</loc>
-    <lastmod>2026-11-01T19:27:46.941Z</lastmod>
+    <lastmod>2026-11-02T15:46:25.528Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-michael-klimesh-22531.html</loc>
-    <lastmod>2026-11-01T19:28:06.365Z</lastmod>
+    <lastmod>2026-11-02T15:46:35.684Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-jeff-taylor-22552.html</loc>
-    <lastmod>2026-11-01T19:28:26.034Z</lastmod>
+    <lastmod>2026-11-02T15:46:45.921Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-craig-williams-22553.html</loc>
-    <lastmod>2026-11-01T19:28:49.948Z</lastmod>
+    <lastmod>2026-11-02T15:46:58.285Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-eric-gjerde-22572.html</loc>
-    <lastmod>2026-11-01T19:29:15.776Z</lastmod>
+    <lastmod>2026-11-02T15:47:11.625Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-carter-nordman-22573.html</loc>
-    <lastmod>2026-11-01T19:29:39.550Z</lastmod>
+    <lastmod>2026-11-02T15:47:24.013Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-sarah-trone-garriott-22650.html</loc>
-    <lastmod>2026-11-01T19:30:00.114Z</lastmod>
+    <lastmod>2026-11-02T15:47:34.640Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-steven-bradley-22663.html</loc>
-    <lastmod>2026-11-01T19:30:24.136Z</lastmod>
+    <lastmod>2026-11-02T15:47:47.199Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-henry-stone-22664.html</loc>
-    <lastmod>2026-11-01T19:30:48.013Z</lastmod>
+    <lastmod>2026-11-02T15:47:59.734Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-cherielynn-westrich-22665.html</loc>
-    <lastmod>2026-11-01T19:31:07.595Z</lastmod>
+    <lastmod>2026-11-02T15:48:10.015Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-eddie-andrews-22682.html</loc>
-    <lastmod>2026-11-01T19:31:31.652Z</lastmod>
+    <lastmod>2026-11-02T15:48:22.658Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-brooke-boden-22683.html</loc>
-    <lastmod>2026-11-01T19:31:55.972Z</lastmod>
+    <lastmod>2026-11-02T15:48:35.302Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-mark-cisneros-22686.html</loc>
-    <lastmod>2026-11-01T19:32:21.772Z</lastmod>
+    <lastmod>2026-11-02T15:48:48.858Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-martin-graber-22687.html</loc>
-    <lastmod>2026-11-01T19:32:31.100Z</lastmod>
+    <lastmod>2026-11-02T15:48:54.013Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-chad-ingels-22688.html</loc>
-    <lastmod>2026-11-01T19:32:55.766Z</lastmod>
+    <lastmod>2026-11-02T15:49:07.173Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-shannon-latham-22689.html</loc>
-    <lastmod>2026-11-01T19:33:19.514Z</lastmod>
+    <lastmod>2026-11-02T15:49:19.659Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-charlie-mcclintock-22690.html</loc>
-    <lastmod>2026-11-01T19:33:39.224Z</lastmod>
+    <lastmod>2026-11-02T15:49:29.954Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-brent-siegrist-22691.html</loc>
-    <lastmod>2026-11-01T19:34:02.983Z</lastmod>
+    <lastmod>2026-11-02T15:49:42.421Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-adrian-dickey-22801.html</loc>
-    <lastmod>2026-11-01T19:34:22.009Z</lastmod>
+    <lastmod>2026-11-02T15:49:52.502Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-mike-bousselot-22961.html</loc>
-    <lastmod>2026-11-01T19:34:40.892Z</lastmod>
+    <lastmod>2026-11-02T15:50:02.411Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-jon-dunwell-22962.html</loc>
-    <lastmod>2026-11-01T19:35:04.882Z</lastmod>
+    <lastmod>2026-11-02T15:50:14.905Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-dave-rowley-23049.html</loc>
-    <lastmod>2026-11-01T19:35:24.175Z</lastmod>
+    <lastmod>2026-11-02T15:50:25.108Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-scott-webster-23866.html</loc>
-    <lastmod>2026-11-01T19:35:43.371Z</lastmod>
+    <lastmod>2026-11-02T15:50:35.114Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-taylor-collins-24097.html</loc>
-    <lastmod>2026-11-01T19:36:07.282Z</lastmod>
+    <lastmod>2026-11-02T15:50:47.645Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-dan-gehlbach-24098.html</loc>
-    <lastmod>2026-11-01T19:36:30.948Z</lastmod>
+    <lastmod>2026-11-02T15:51:00.083Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-cindy-golding-24099.html</loc>
-    <lastmod>2026-11-01T19:36:55.381Z</lastmod>
+    <lastmod>2026-11-02T15:51:12.885Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-bill-gustoff-24100.html</loc>
-    <lastmod>2026-11-01T19:37:19.868Z</lastmod>
+    <lastmod>2026-11-02T15:51:25.659Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-austin-harris-24101.html</loc>
-    <lastmod>2026-11-01T19:37:43.524Z</lastmod>
+    <lastmod>2026-11-02T15:51:38.077Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-robert-henderson-24102.html</loc>
-    <lastmod>2026-11-01T19:38:07.529Z</lastmod>
+    <lastmod>2026-11-02T15:51:50.670Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-heather-hora-24103.html</loc>
-    <lastmod>2026-11-01T19:38:31.233Z</lastmod>
+    <lastmod>2026-11-02T15:52:03.088Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-barb-kniff-mcculla-24104.html</loc>
-    <lastmod>2026-11-01T19:38:54.829Z</lastmod>
+    <lastmod>2026-11-02T15:52:15.518Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-joshua-meggers-24105.html</loc>
-    <lastmod>2026-11-01T19:39:18.694Z</lastmod>
+    <lastmod>2026-11-02T15:52:28.004Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-matthew-rinker-24106.html</loc>
-    <lastmod>2026-11-01T19:39:43.489Z</lastmod>
+    <lastmod>2026-11-02T15:52:41.093Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-charley-thomson-24109.html</loc>
-    <lastmod>2026-11-01T19:40:08.906Z</lastmod>
+    <lastmod>2026-11-02T15:52:54.528Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-mike-vondran-24110.html</loc>
-    <lastmod>2026-11-01T19:40:32.634Z</lastmod>
+    <lastmod>2026-11-02T15:53:07.090Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-devon-wood-24111.html</loc>
-    <lastmod>2026-11-01T19:40:56.322Z</lastmod>
+    <lastmod>2026-11-02T15:53:19.500Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-derek-wulf-24112.html</loc>
-    <lastmod>2026-11-01T19:41:19.840Z</lastmod>
+    <lastmod>2026-11-02T15:53:31.921Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-david-young-24113.html</loc>
-    <lastmod>2026-11-01T19:41:43.830Z</lastmod>
+    <lastmod>2026-11-02T15:53:44.676Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-izaah-knox-24258.html</loc>
-    <lastmod>2026-11-01T19:42:03.499Z</lastmod>
+    <lastmod>2026-11-02T15:53:55.024Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-janice-weiner-24259.html</loc>
-    <lastmod>2026-11-01T19:42:23.706Z</lastmod>
+    <lastmod>2026-11-02T15:54:05.475Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-zachary-dieken-24265.html</loc>
-    <lastmod>2026-11-01T19:42:47.578Z</lastmod>
+    <lastmod>2026-11-02T15:54:18.338Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-hans-wilz-24266.html</loc>
-    <lastmod>2026-11-01T19:43:11.693Z</lastmod>
+    <lastmod>2026-11-02T15:54:30.854Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-kevin-alons-24514.html</loc>
-    <lastmod>2026-11-01T19:43:30.923Z</lastmod>
+    <lastmod>2026-11-02T15:54:40.921Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-lynn-evans-24515.html</loc>
-    <lastmod>2026-11-01T19:43:50.299Z</lastmod>
+    <lastmod>2026-11-02T15:54:51.052Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-rocky-de-witt-24516.html</loc>
-    <lastmod>2026-11-01T19:44:04.068Z</lastmod>
+    <lastmod>2026-11-02T15:54:58.432Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-jerome-amos-24620.html</loc>
-    <lastmod>2026-11-01T19:44:28.660Z</lastmod>
+    <lastmod>2026-11-02T15:55:11.580Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-austin-baeth-24621.html</loc>
-    <lastmod>2026-11-01T19:44:52.633Z</lastmod>
+    <lastmod>2026-11-02T15:55:24.296Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-jeff-cooling-24623.html</loc>
-    <lastmod>2026-11-01T19:45:17.022Z</lastmod>
+    <lastmod>2026-11-02T15:55:37.165Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-tom-determann-24624.html</loc>
-    <lastmod>2026-11-01T19:45:40.524Z</lastmod>
+    <lastmod>2026-11-02T15:55:49.558Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-kerry-gruenhagen-24625.html</loc>
-    <lastmod>2026-11-01T19:45:59.204Z</lastmod>
+    <lastmod>2026-11-02T15:55:59.896Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-helena-hayes-24626.html</loc>
-    <lastmod>2026-11-01T19:46:23.473Z</lastmod>
+    <lastmod>2026-11-02T15:56:12.894Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-elinor-levin-24627.html</loc>
-    <lastmod>2026-11-01T19:46:49.250Z</lastmod>
+    <lastmod>2026-11-02T15:56:26.473Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-mary-madison-24628.html</loc>
-    <lastmod>2026-11-01T19:47:15.070Z</lastmod>
+    <lastmod>2026-11-02T15:56:40.039Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-j-d--scholten-24629.html</loc>
-    <lastmod>2026-11-01T19:47:39.236Z</lastmod>
+    <lastmod>2026-11-02T15:56:52.905Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-megan-srinivas-24630.html</loc>
-    <lastmod>2026-11-01T19:48:04.052Z</lastmod>
+    <lastmod>2026-11-02T15:57:05.904Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-mark-thompson-24631.html</loc>
-    <lastmod>2026-11-01T19:48:28.320Z</lastmod>
+    <lastmod>2026-11-02T15:57:18.509Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-josh-turek-24632.html</loc>
-    <lastmod>2026-11-01T19:48:52.615Z</lastmod>
+    <lastmod>2026-11-02T15:57:31.417Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-elizabeth-wilson-24633.html</loc>
-    <lastmod>2026-11-01T19:49:17.662Z</lastmod>
+    <lastmod>2026-11-02T15:57:44.496Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-sean-bagniewski-24811.html</loc>
-    <lastmod>2026-11-01T19:49:44.122Z</lastmod>
+    <lastmod>2026-11-02T15:57:58.197Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-ken-croken-24813.html</loc>
-    <lastmod>2026-11-01T19:50:10.305Z</lastmod>
+    <lastmod>2026-11-02T15:58:11.874Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-sami-scheetz-24814.html</loc>
-    <lastmod>2026-11-01T19:50:23.197Z</lastmod>
+    <lastmod>2026-11-02T15:58:18.757Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-adam-zabner-24815.html</loc>
-    <lastmod>2026-11-01T19:50:47.910Z</lastmod>
+    <lastmod>2026-11-02T15:58:31.586Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-brett-barker-26303.html</loc>
-    <lastmod>2026-11-01T19:51:12.267Z</lastmod>
+    <lastmod>2026-11-02T15:58:44.349Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-chad-behn-26304.html</loc>
-    <lastmod>2026-11-01T19:51:35.742Z</lastmod>
+    <lastmod>2026-11-02T15:58:56.681Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-david-blom-26305.html</loc>
-    <lastmod>2026-11-01T19:52:00.361Z</lastmod>
+    <lastmod>2026-11-02T15:59:09.538Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-samantha-fett-26306.html</loc>
-    <lastmod>2026-11-01T19:52:24.627Z</lastmod>
+    <lastmod>2026-11-02T15:59:22.244Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-jason-gearhart-26307.html</loc>
-    <lastmod>2026-11-01T19:52:49.139Z</lastmod>
+    <lastmod>2026-11-02T15:59:35.128Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-daniel-gosa-26308.html</loc>
-    <lastmod>2026-11-01T19:53:15.325Z</lastmod>
+    <lastmod>2026-11-02T15:59:48.678Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-christian-hermanson-26309.html</loc>
-    <lastmod>2026-11-01T19:53:38.773Z</lastmod>
+    <lastmod>2026-11-02T16:00:01.010Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-rob-johnson-26310.html</loc>
-    <lastmod>2026-11-01T19:54:03.641Z</lastmod>
+    <lastmod>2026-11-02T16:00:13.940Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-judd-lawler-26311.html</loc>
-    <lastmod>2026-11-01T19:54:27.700Z</lastmod>
+    <lastmod>2026-11-02T16:00:26.632Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-larry-mcburney-26312.html</loc>
-    <lastmod>2026-11-01T19:54:52.070Z</lastmod>
+    <lastmod>2026-11-02T16:00:39.455Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-travis-sitzmann-26313.html</loc>
-    <lastmod>2026-11-01T19:55:15.696Z</lastmod>
+    <lastmod>2026-11-02T16:00:51.776Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-jennifer-smith-26314.html</loc>
-    <lastmod>2026-11-01T19:55:39.889Z</lastmod>
+    <lastmod>2026-11-02T16:01:04.375Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-ryan-weldon-26315.html</loc>
-    <lastmod>2026-11-01T19:56:03.439Z</lastmod>
+    <lastmod>2026-11-02T16:01:17.348Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-sam-wengryn-26316.html</loc>
-    <lastmod>2026-11-01T19:56:27.006Z</lastmod>
+    <lastmod>2026-11-02T16:01:29.758Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-aime-wichtendahl-26317.html</loc>
-    <lastmod>2026-11-01T19:56:52.382Z</lastmod>
+    <lastmod>2026-11-02T16:01:43.033Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-matt-blake-26318.html</loc>
-    <lastmod>2026-11-01T19:57:13.051Z</lastmod>
+    <lastmod>2026-11-02T16:01:53.689Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-doug-campbell-26319.html</loc>
-    <lastmod>2026-11-01T19:57:33.330Z</lastmod>
+    <lastmod>2026-11-02T16:02:04.352Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-mike-pike-26320.html</loc>
-    <lastmod>2026-11-01T19:57:52.222Z</lastmod>
+    <lastmod>2026-11-02T16:02:14.374Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-dave-sires-26321.html</loc>
-    <lastmod>2026-11-01T19:58:11.280Z</lastmod>
+    <lastmod>2026-11-02T16:02:24.428Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-thomas-townsend-26322.html</loc>
-    <lastmod>2026-11-01T19:58:31.426Z</lastmod>
+    <lastmod>2026-11-02T16:02:35.082Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-kara-warme-26323.html</loc>
-    <lastmod>2026-11-01T19:58:50.171Z</lastmod>
+    <lastmod>2026-11-02T16:02:44.919Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-mike-zimmer-26409.html</loc>
-    <lastmod>2026-11-01T19:59:10.311Z</lastmod>
+    <lastmod>2026-11-02T16:02:55.622Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-blaine-watkins-26448.html</loc>
-    <lastmod>2026-11-01T19:59:30.892Z</lastmod>
+    <lastmod>2026-11-02T16:03:06.694Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-angel-ramirez-26467.html</loc>
-    <lastmod>2026-11-01T19:59:49.102Z</lastmod>
+    <lastmod>2026-11-02T16:03:16.352Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/rep-wendy-larson-26570.html</loc>
-    <lastmod>2026-11-01T20:00:06.133Z</lastmod>
+    <lastmod>2026-11-02T16:03:25.365Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-catelin-drey-26571.html</loc>
-    <lastmod>2026-11-01T20:00:20.707Z</lastmod>
+    <lastmod>2026-11-02T16:03:33.165Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/sen-renee-hardman-26572.html</loc>
-    <lastmod>2026-11-01T20:00:34.893Z</lastmod>
+    <lastmod>2026-11-02T16:03:40.676Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-administrative-rules-review-committee-13762.html</loc>
-    <lastmod>2026-11-01T20:00:42.205Z</lastmod>
+    <lastmod>2026-11-02T16:03:45.516Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-rules-and-administration-19009.html</loc>
-    <lastmod>2026-11-01T20:00:49.632Z</lastmod>
+    <lastmod>2026-11-02T16:03:49.489Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-administration-and-rules-19214.html</loc>
-    <lastmod>2026-11-01T20:00:56.894Z</lastmod>
+    <lastmod>2026-11-02T16:03:53.379Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-ways-and-means-19251.html</loc>
-    <lastmod>2026-11-01T20:01:04.649Z</lastmod>
+    <lastmod>2026-11-02T16:03:57.494Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-natural-resources-and-environment-19314.html</loc>
-    <lastmod>2026-11-01T20:01:12.247Z</lastmod>
+    <lastmod>2026-11-02T16:04:01.447Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-economic-growth-and-technology-24378.html</loc>
-    <lastmod>2026-11-01T20:01:19.863Z</lastmod>
+    <lastmod>2026-11-02T16:04:05.402Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-health-and-human-services-24380.html</loc>
-    <lastmod>2026-11-01T20:01:27.600Z</lastmod>
+    <lastmod>2026-11-02T16:04:09.482Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-health-and-human-services-24381.html</loc>
-    <lastmod>2026-11-01T20:01:35.174Z</lastmod>
+    <lastmod>2026-11-02T16:04:13.589Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-technology-24382.html</loc>
-    <lastmod>2026-11-01T20:01:42.538Z</lastmod>
+    <lastmod>2026-11-02T16:04:17.496Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-workforce-24855.html</loc>
-    <lastmod>2026-11-01T20:01:50.029Z</lastmod>
+    <lastmod>2026-11-02T16:04:21.449Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-labor-and-workforce-24869.html</loc>
-    <lastmod>2026-11-01T20:01:57.414Z</lastmod>
+    <lastmod>2026-11-02T16:04:25.452Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-higher-education-26389.html</loc>
-    <lastmod>2026-11-01T20:02:05.062Z</lastmod>
+    <lastmod>2026-11-02T16:04:29.434Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-commerce-7061.html</loc>
-    <lastmod>2026-11-01T20:02:13.023Z</lastmod>
+    <lastmod>2026-11-02T16:04:33.496Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-judiciary-7066.html</loc>
-    <lastmod>2026-11-01T20:02:21.003Z</lastmod>
+    <lastmod>2026-11-02T16:04:37.725Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-state-government-7071.html</loc>
-    <lastmod>2026-11-01T20:02:28.906Z</lastmod>
+    <lastmod>2026-11-02T16:04:41.929Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-veterans-affairs-7072.html</loc>
-    <lastmod>2026-11-01T20:02:36.294Z</lastmod>
+    <lastmod>2026-11-02T16:04:45.890Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-public-safety-7076.html</loc>
-    <lastmod>2026-11-01T20:02:43.908Z</lastmod>
+    <lastmod>2026-11-02T16:04:49.906Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-education-7077.html</loc>
-    <lastmod>2026-11-01T20:02:51.837Z</lastmod>
+    <lastmod>2026-11-02T16:04:54.165Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-local-government-7080.html</loc>
-    <lastmod>2026-11-01T20:02:59.347Z</lastmod>
+    <lastmod>2026-11-02T16:04:58.172Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-agriculture-7085.html</loc>
-    <lastmod>2026-11-01T20:03:06.887Z</lastmod>
+    <lastmod>2026-11-02T16:05:02.215Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-appropriations-7087.html</loc>
-    <lastmod>2026-11-01T20:03:14.535Z</lastmod>
+    <lastmod>2026-11-02T16:05:06.426Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-environmental-protection-7088.html</loc>
-    <lastmod>2026-11-01T20:03:21.836Z</lastmod>
+    <lastmod>2026-11-02T16:05:10.598Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-transportation-7089.html</loc>
-    <lastmod>2026-11-01T20:03:29.343Z</lastmod>
+    <lastmod>2026-11-02T16:05:14.920Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-natural-resources-7090.html</loc>
-    <lastmod>2026-11-01T20:03:36.822Z</lastmod>
+    <lastmod>2026-11-02T16:05:18.988Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-house-ethics-7097.html</loc>
-    <lastmod>2026-11-01T20:03:44.186Z</lastmod>
+    <lastmod>2026-11-02T16:05:23.003Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-judiciary-7121.html</loc>
-    <lastmod>2026-11-01T20:03:51.871Z</lastmod>
+    <lastmod>2026-11-02T16:05:27.250Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-local-government-7131.html</loc>
-    <lastmod>2026-11-01T20:03:59.495Z</lastmod>
+    <lastmod>2026-11-02T16:05:31.617Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-ways-means-7132.html</loc>
-    <lastmod>2026-11-01T20:04:07.270Z</lastmod>
+    <lastmod>2026-11-02T16:05:36.037Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-state-government-7133.html</loc>
-    <lastmod>2026-11-01T20:04:14.985Z</lastmod>
+    <lastmod>2026-11-02T16:05:40.518Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-education-7151.html</loc>
-    <lastmod>2026-11-01T20:04:22.766Z</lastmod>
+    <lastmod>2026-11-02T16:05:45.026Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-veterans-affairs-7158.html</loc>
-    <lastmod>2026-11-01T20:04:30.030Z</lastmod>
+    <lastmod>2026-11-02T16:05:49.301Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-transportation-7159.html</loc>
-    <lastmod>2026-11-01T20:04:37.468Z</lastmod>
+    <lastmod>2026-11-02T16:05:53.663Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-commerce-7160.html</loc>
-    <lastmod>2026-11-01T20:04:45.024Z</lastmod>
+    <lastmod>2026-11-02T16:05:58.018Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-agriculture-7164.html</loc>
-    <lastmod>2026-11-01T20:04:52.240Z</lastmod>
+    <lastmod>2026-11-02T16:06:02.337Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-appropriations-7166.html</loc>
-    <lastmod>2026-11-01T20:04:59.676Z</lastmod>
+    <lastmod>2026-11-02T16:06:06.698Z</lastmod>
   </url>
   <url>
     <loc>https://iowatransparencyproject.org/templates/session/ga91-senate-ethics-7168.html</loc>
-    <lastmod>2026-11-01T20:05:06.939Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-10-05.html</loc>
-    <lastmod>2026-11-01T22:33:55.166Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-09-28.html</loc>
-    <lastmod>2026-11-01T22:34:02.723Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-07-13.html</loc>
-    <lastmod>2026-11-01T22:34:09.790Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-06-01.html</loc>
-    <lastmod>2026-11-01T22:34:18.932Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-05-25.html</loc>
-    <lastmod>2026-11-01T22:34:26.653Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-05-18.html</loc>
-    <lastmod>2026-11-01T22:34:35.147Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-05-11.html</loc>
-    <lastmod>2026-11-01T22:34:44.351Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-05-04.html</loc>
-    <lastmod>2026-11-01T22:34:53.430Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-04-27.html</loc>
-    <lastmod>2026-11-01T22:35:12.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-04-20.html</loc>
-    <lastmod>2026-11-01T22:35:24.187Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-04-13.html</loc>
-    <lastmod>2026-11-01T22:35:38.623Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-04-06.html</loc>
-    <lastmod>2026-11-01T22:35:52.927Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-03-30.html</loc>
-    <lastmod>2026-11-01T22:36:05.708Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-03-23.html</loc>
-    <lastmod>2026-11-01T22:36:19.268Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-03-16.html</loc>
-    <lastmod>2026-11-01T22:36:36.325Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-03-09.html</loc>
-    <lastmod>2026-11-01T22:36:53.613Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-03-02.html</loc>
-    <lastmod>2026-11-01T22:37:14.084Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-02-23.html</loc>
-    <lastmod>2026-11-01T22:37:33.011Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-02-16.html</loc>
-    <lastmod>2026-11-01T22:38:01.966Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-02-09.html</loc>
-    <lastmod>2026-11-01T22:38:30.890Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-02-02.html</loc>
-    <lastmod>2026-11-01T22:38:53.615Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-01-26.html</loc>
-    <lastmod>2026-11-01T22:39:16.776Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-01-19.html</loc>
-    <lastmod>2026-11-01T22:39:35.255Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2026-01-12.html</loc>
-    <lastmod>2026-11-01T22:39:54.930Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-06-23.html</loc>
-    <lastmod>2026-11-01T22:40:02.598Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-06-16.html</loc>
-    <lastmod>2026-11-01T22:40:11.659Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-06-09.html</loc>
-    <lastmod>2026-11-01T22:40:19.253Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-06-02.html</loc>
-    <lastmod>2026-11-01T22:40:27.502Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-05-26.html</loc>
-    <lastmod>2026-11-01T22:40:35.486Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-05-19.html</loc>
-    <lastmod>2026-11-01T22:40:45.842Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-05-12.html</loc>
-    <lastmod>2026-11-01T22:41:00.330Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-05-05.html</loc>
-    <lastmod>2026-11-01T22:41:10.957Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-04-28.html</loc>
-    <lastmod>2026-11-01T22:41:22.728Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-04-21.html</loc>
-    <lastmod>2026-11-01T22:41:37.581Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-04-14.html</loc>
-    <lastmod>2026-11-01T22:41:51.869Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-04-07.html</loc>
-    <lastmod>2026-11-01T22:42:06.522Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-03-31.html</loc>
-    <lastmod>2026-11-01T22:42:25.447Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-03-24.html</loc>
-    <lastmod>2026-11-01T22:42:45.260Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-03-17.html</loc>
-    <lastmod>2026-11-01T22:43:04.651Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-03-10.html</loc>
-    <lastmod>2026-11-01T22:43:24.690Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-03-03.html</loc>
-    <lastmod>2026-11-01T22:43:54.341Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-02-24.html</loc>
-    <lastmod>2026-11-01T22:44:20.708Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-02-17.html</loc>
-    <lastmod>2026-11-01T22:44:49.050Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-02-10.html</loc>
-    <lastmod>2026-11-01T22:45:12.810Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-02-03.html</loc>
-    <lastmod>2026-11-01T22:45:31.821Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-01-27.html</loc>
-    <lastmod>2026-11-01T22:45:51.761Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-01-20.html</loc>
-    <lastmod>2026-11-01T22:46:08.619Z</lastmod>
-  </url>
-  <url>
-    <loc>https://iowatransparencyproject.org/templates/2025-01-13.html</loc>
-    <lastmod>2026-11-01T22:46:23.749Z</lastmod>
+    <lastmod>2026-11-02T16:06:10.685Z</lastmod>
   </url>
 </urlset>

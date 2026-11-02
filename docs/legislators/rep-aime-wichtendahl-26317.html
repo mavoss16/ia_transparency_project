@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.20">
+<meta name="generator" content="quarto-1.11.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,14 +38,15 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9e0a4b11ac0b4637a88c4dc05304f180.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-aa4d3fe0b633a8e0d3137286b23e913d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -88,19 +89,18 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Iowa Transparency Project</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -125,6 +125,7 @@ ul.task-list li input[type="checkbox"] {
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
+            <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -134,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content column-page" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Aime Wichtendahl</h1></header>
+<main class="content column-page" id="quarto-document-content" tabindex="-1"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Aime Wichtendahl</h1></header>
 
 
 
@@ -208,8 +209,8 @@ plus `district_extra` (tags shown under the map, or NULL). -->
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="htmlwidget-111e757dfff48e7bdce9" style="width:100%;height:328px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-111e757dfff48e7bdce9">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[41.981077,-91.74593,42.10953,-91.643443,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_house","districts":{"District":[1,10,15,7,7,35,50,5,49,6,33,22,86,34,28,26,27,11,46,42,41,4,17,59,25,48,18,13,39,40,51,23,47,52,60,44,56,12,9,32,37,21,30,36,3,31,24,8,20,55,16,95,100,100,99,66,96,81,98,97,94,93,70,82,73,74,79,80,77,78,78,83,85,89,90,92,58,19,69,57,71,72,65,67,64,68,14,63,76,75,62,61,54,2,43,29,45,84,38,91,53,88,87],"fill":["#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#3F5B93","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC"],"fill_opacity":[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.6,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2],"stroke":["#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#3F5B93","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000"],"weight":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"label":["J.D. Scholten (D-HD-001)","John Wills (R-HD-010)","Matt Windschitl (R-HD-015)","Michael Sexton (R-HD-007)","Wendy Larson (R-HD-007)","Sean Bagniewski (D-HD-035)","Ross Wilburn (D-HD-050)","Zachary Dieken (R-HD-005)","Beth Wessel-Kroeschell (D-HD-049)","Megan Hess Jones (R-HD-006)","Ruth Ann Gaines (D-HD-033)","Samantha Fett (R-HD-022)","Dave Jacoby (D-HD-086)","Rob Johnson (D-HD-034)","David Young (R-HD-028)","Austin Harris (R-HD-026)","Kenan Judge (D-HD-027)","Craig Williams (R-HD-011)","Dan Gehlbach (R-HD-046)","Heather Matson (D-HD-042)","Ryan Weldon (R-HD-041)","Skyler Wheeler (R-HD-004)","Devon Wood (R-HD-017)","Christian Hermanson (R-HD-059)","Hans Wilz (R-HD-025)","Chad Behn (R-HD-048)","Tom Moore (R-HD-018)","Travis Sitzmann (R-HD-013)","Rick Olson (D-HD-039)","Bill Gustoff (R-HD-040)","Brett Barker (R-HD-051)","Ray Sorensen (R-HD-023)","Carter Nordman (R-HD-047)","David Blom (R-HD-052)","Jane Bloomingdale (R-HD-060)","Larry McBurney (D-HD-044)","Mark Thompson (R-HD-056)","Steven Holt (R-HD-012)","Henry Stone (R-HD-009)","Jennifer Konfrst (D-HD-032)","Barb Kniff McCulla (R-HD-037)","Brooke Boden (R-HD-021)","Megan Srinivas (D-HD-030)","Austin Baeth (D-HD-036)","Thomas Jeneary (R-HD-003)","Mary Madison (D-HD-031)","Sam Wengryn (R-HD-024)","Ann Meyer (R-HD-008)","Josh Turek (D-HD-020)","Shannon Latham (R-HD-055)","David Sieck (R-HD-016)","Taylor Collins (R-HD-095)","Martin Graber (R-HD-100)","Blaine Watkins (R-HD-100)","Matthew Rinker (R-HD-099)","Steven Bradley (R-HD-066)","Mark Cisneros (R-HD-096)","Daniel Gosa (D-HD-081)","Monica Kurth (D-HD-098)","Ken Croken (D-HD-097)","Mike Vondran (R-HD-094)","Gary Mohr (R-HD-093)","Norlin Mommsen (R-HD-070)","Bobby Kaufmann (R-HD-082)","Elizabeth Wilson (D-HD-073)","Eric Gjerde (D-HD-074)","Tracy Ehlert (D-HD-079)","Aime Wichtendahl - HD-080","Jeff Cooling (D-HD-077)","Sami Scheetz (D-HD-078)","Angel Ramirez (D-HD-078)","Cindy Golding (R-HD-083)","Amy Nielsen (D-HD-085)","Elinor Levin (D-HD-089)","Adam Zabner (D-HD-090)","Heather Hora (R-HD-092)","Charley Thomson (R-HD-058)","Brent Siegrist (R-HD-019)","Tom Determann (R-HD-069)","Pat Grassley (R-HD-057)","Lindsay James (D-HD-071)","Jennifer Smith (R-HD-072)","Shannon Lundgren (R-HD-065)","Craig Johnson (R-HD-067)","Jason Gearhart (R-HD-064)","Chad Ingels (R-HD-068)","Jacob Bossman (R-HD-014)","Michael Bergan (R-HD-063)","Derek Wulf (R-HD-076)","Bob Kressig (D-HD-075)","Jerome Amos (D-HD-062)","Timi Brown-powers (D-HD-061)","Joshua Meggers (R-HD-054)","Robert Henderson (R-HD-002)","Eddie Andrews (R-HD-043)","Brian Meyer (D-HD-029)","Brian Lohse (R-HD-045)","Thomas Gerhold (R-HD-084)","Jon Dunwell (R-HD-038)","Judd Lawler (R-HD-091)","Dean Fisher (R-HD-053)","Helena Hayes (R-HD-088)","Jeff Shipley (R-HD-087)"],"front":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},"hover":null}}]}}</script>
+<div id="htmlwidget-33d1a4bc54abc86bdfe7" style="width:100%;height:328px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-33d1a4bc54abc86bdfe7">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[41.981077,-91.74593,42.10953,-91.643443,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_house","districts":{"District":[1,10,15,7,7,35,50,5,49,6,33,22,86,34,28,26,27,11,46,42,41,4,17,59,25,48,18,13,39,40,51,23,47,52,60,44,56,12,9,32,37,21,30,36,3,31,24,8,20,55,16,95,100,100,99,66,96,81,98,97,94,93,70,82,73,74,79,80,77,78,78,83,85,89,90,92,58,19,69,57,71,72,65,67,64,68,14,63,76,75,62,61,54,2,43,29,45,84,38,91,53,88,87],"fill":["#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#3F5B93","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC","#CCCCCC"],"fill_opacity":[0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.6,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2],"stroke":["#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#3F5B93","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000","#000000"],"weight":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"label":["J.D. Scholten (D-HD-001)","John Wills (R-HD-010)","Matt Windschitl (R-HD-015)","Michael Sexton (R-HD-007)","Wendy Larson (R-HD-007)","Sean Bagniewski (D-HD-035)","Ross Wilburn (D-HD-050)","Zachary Dieken (R-HD-005)","Beth Wessel-Kroeschell (D-HD-049)","Megan Hess Jones (R-HD-006)","Ruth Ann Gaines (D-HD-033)","Samantha Fett (R-HD-022)","Dave Jacoby (D-HD-086)","Rob Johnson (D-HD-034)","David Young (R-HD-028)","Austin Harris (R-HD-026)","Kenan Judge (D-HD-027)","Craig Williams (R-HD-011)","Dan Gehlbach (R-HD-046)","Heather Matson (D-HD-042)","Ryan Weldon (R-HD-041)","Skyler Wheeler (R-HD-004)","Devon Wood (R-HD-017)","Christian Hermanson (R-HD-059)","Hans Wilz (R-HD-025)","Chad Behn (R-HD-048)","Tom Moore (R-HD-018)","Travis Sitzmann (R-HD-013)","Rick Olson (D-HD-039)","Bill Gustoff (R-HD-040)","Brett Barker (R-HD-051)","Ray Sorensen (R-HD-023)","Carter Nordman (R-HD-047)","David Blom (R-HD-052)","Jane Bloomingdale (R-HD-060)","Larry McBurney (D-HD-044)","Mark Thompson (R-HD-056)","Steven Holt (R-HD-012)","Henry Stone (R-HD-009)","Jennifer Konfrst (D-HD-032)","Barb Kniff McCulla (R-HD-037)","Brooke Boden (R-HD-021)","Megan Srinivas (D-HD-030)","Austin Baeth (D-HD-036)","Thomas Jeneary (R-HD-003)","Mary Madison (D-HD-031)","Sam Wengryn (R-HD-024)","Ann Meyer (R-HD-008)","Josh Turek (D-HD-020)","Shannon Latham (R-HD-055)","David Sieck (R-HD-016)","Taylor Collins (R-HD-095)","Martin Graber (R-HD-100)","Blaine Watkins (R-HD-100)","Matthew Rinker (R-HD-099)","Steven Bradley (R-HD-066)","Mark Cisneros (R-HD-096)","Daniel Gosa (D-HD-081)","Monica Kurth (D-HD-098)","Ken Croken (D-HD-097)","Mike Vondran (R-HD-094)","Gary Mohr (R-HD-093)","Norlin Mommsen (R-HD-070)","Bobby Kaufmann (R-HD-082)","Elizabeth Wilson (D-HD-073)","Eric Gjerde (D-HD-074)","Tracy Ehlert (D-HD-079)","Aime Wichtendahl - HD-080","Jeff Cooling (D-HD-077)","Sami Scheetz (D-HD-078)","Angel Ramirez (D-HD-078)","Cindy Golding (R-HD-083)","Amy Nielsen (D-HD-085)","Elinor Levin (D-HD-089)","Adam Zabner (D-HD-090)","Heather Hora (R-HD-092)","Charley Thomson (R-HD-058)","Brent Siegrist (R-HD-019)","Tom Determann (R-HD-069)","Pat Grassley (R-HD-057)","Lindsay James (D-HD-071)","Jennifer Smith (R-HD-072)","Shannon Lundgren (R-HD-065)","Craig Johnson (R-HD-067)","Jason Gearhart (R-HD-064)","Chad Ingels (R-HD-068)","Jacob Bossman (R-HD-014)","Michael Bergan (R-HD-063)","Derek Wulf (R-HD-076)","Bob Kressig (D-HD-075)","Jerome Amos (D-HD-062)","Timi Brown-powers (D-HD-061)","Joshua Meggers (R-HD-054)","Robert Henderson (R-HD-002)","Eddie Andrews (R-HD-043)","Brian Meyer (D-HD-029)","Brian Lohse (R-HD-045)","Thomas Gerhold (R-HD-084)","Jon Dunwell (R-HD-038)","Judd Lawler (R-HD-091)","Dean Fisher (R-HD-053)","Helena Hayes (R-HD-088)","Jeff Shipley (R-HD-087)"],"front":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},"hover":null}}]}}</script>
 </div>
 </div>
 <div class="cell">
@@ -7677,7 +7678,7 @@ Source: Iowa Secretary of State (<a href="https://electionresults.iowa.gov/IA/12
 </div>
 </div>
 <div class="ia-sources">
-<p>Profile generated from LegiScan data for the Iowa Legislature; election results from the Iowa Secretary of State. Last updated November 1, 2026</p>
+<p>Profile generated from LegiScan data for the Iowa Legislature; election results from the Iowa Secretary of State. Last updated November 2, 2026</p>
 </div>
 
 
@@ -7761,7 +7762,8 @@ Source: Iowa Secretary of State (<a href="https://electionresults.iowa.gov/IA/12
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
       // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
       for (var i=0; i<links.length; i++) {
         const link = links[i];
         if (!isInternal(link.href)) {
@@ -7770,8 +7772,69 @@ Source: Iowa Secretary of State (<a href="https://electionresults.iowa.gov/IA/12
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+          if (!link.classList.contains('no-external-icon')) {
+          }
         }
       }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
       const config = {
         allowHTML: true,
@@ -7785,6 +7848,7 @@ Source: Iowa Secretary of State (<a href="https://electionresults.iowa.gov/IA/12
         interactiveBorder: 10,
         theme: 'quarto',
         placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
       };
       if (contentFn) {
         config.content = contentFn;
@@ -7947,44 +8011,54 @@ Source: Iowa Secretary of State (<a href="https://electionresults.iowa.gov/IA/12
           const lineIds = lines.map((line) => {
             return targetCell + "-" + line;
           })
-          let top = null;
-          let height = null;
-          let parent = null;
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
           if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
             }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
             }
+            placeBand(gutterDiv, el, lastEl);
             selectedAnnoteEl = annoteEl;
           }
         };
@@ -8082,6 +8156,9 @@ Source: Iowa Secretary of State (<a href="https://electionresults.iowa.gov/IA/12
       }
     }
   });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
   </script>
 </div> <!-- /content -->
 
