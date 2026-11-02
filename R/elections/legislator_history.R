@@ -92,9 +92,10 @@ legislator_races <- function(people_id, results, legiscan_party = NA_character_)
     ) |>
     mutate(.block_date = max(election_date), .by = block) |>
     # Newest block first; in a block the person's general or special, then their
-    # primary, then the other primaries; write-ins last, else by votes (rank)
+    # primary, then the other primaries; write-ins last (named ones before the
+    # total), else by votes (rank)
     arrange(desc(.block_date), block, other_primary, type == "primary",
-            primary_party, candidate == "Write-in", rank) |>
+            primary_party, candidate == "Write-in" | write_in, candidate == "Write-in", rank) |>
     select(-.block_date)
 }
 
@@ -242,6 +243,10 @@ election_digest <- function(people_id, results) {
   rows <- races |>
     transmute(row = paste(race, candidate, party, votes, winner, incumbent, open_seat,
                           people_id, source_url, sep = "\t")) |>
+    # write_in changes how the tab words a race (unopposed, margin) without
+    # moving the fields above; appended only when set, so other pages' digests
+    # stay as they were
+    mutate(row = if_else(races$write_in, paste0(row, "\twrite-in"), row)) |>
     pull(row)
   rlang::hash(sort(rows))
 }

@@ -82,6 +82,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 7000,Bob Kressig,2020,general,house,59,,Bob Kressig,name
 7000,Bob Kressig,2022,primary,house,75,Democratic,Bob Kressig,name
 7000,Bob Kressig,2024,general,house,75,,Bob Kressig,seat
+7000,Bob Kressig,2024,primary,house,75,Democratic,Bob Kressig,name
 6981,Bobby Kaufmann,2012,general,house,73,,Bobby Kaufmann,name
 6981,Bobby Kaufmann,2016,general,house,73,,Bobby Kaufmann,name
 6981,Bobby Kaufmann,2018,general,house,73,,Bobby Kaufmann,name
@@ -405,6 +406,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 26314,Jennifer Smith,2026,primary,house,72,Republican,Jennifer Smith,name
 24620,Jerome Amos,2022,primary,house,62,Democratic,Jerome Amos Jr.,name
 24620,Jerome Amos,2024,general,house,62,,Jerome Amos Jr,seat
+24620,Jerome Amos,2024,primary,house,62,Democratic,Jerome Amos Jr,name
 24620,Jerome Amos,2026,primary,house,62,Democratic,Jerome Amos Jr,name
 22488,Jesse Green,2020,general,senate,24,,Jesse Green,name
 22488,Jesse Green,2024,general,senate,24,,Jesse Green,seat
@@ -743,6 +745,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 17287,Timi Brown-powers,2020,general,house,61,,Timi Brown-Powers,name
 17287,Timi Brown-powers,2022,primary,house,61,Democratic,Timi Brown-Powers,name
 17287,Timi Brown-powers,2024,general,house,61,,Timi Brown-Powers,seat
+17287,Timi Brown-powers,2024,primary,house,61,Democratic,Timi Brown-Powers,name
 24624,Tom Determann,2022,general,house,69,,Tom Determann,seat
 24624,Tom Determann,2022,primary,house,69,Republican,Tom Determann,name
 24624,Tom Determann,2024,general,house,69,,Tom Determann,seat

@@ -15,6 +15,11 @@
 # Not parsed: anything before 2010 (the 2006 and 2008 statewide files have
 # party columns, not candidates).
 #
+# Gaps: a county with no precinct file for an election (ENR 404s Black Hawk's
+# 2024 primary) is filled from that election's statewide "results by county"
+# file in data/elections/raw/county_results/{year}_{type}.{ext}, as county-level
+# rows (precinct NA, source "county_results/..."), like the specials in 02.
+#
 # Usage:
 #   source("R/elections/legislative_results/01_parse_precinct_results.R")
 #   results <- parse_all_results()
@@ -24,8 +29,28 @@ library(here)
 source(here("R/elections/legislative_results/parsers.R"))
 
 RAW_DIR    <- here("data/elections/raw/precinct_results")
+COUNTY_DIR <- here("data/elections/raw/county_results")
 OUTPUT     <- here("data/elections/processed/legislative_results_precinct.rds")
 FIRST_YEAR <- 2010
+
+# County-level rows for the counties each election's precinct files lack
+fill_missing_counties <- function(results) {
+  files <- tibble(path = list.files(COUNTY_DIR, full.names = TRUE)) |>
+    mutate(
+      name = tools::file_path_sans_ext(basename(path)),
+      year = as.integer(str_sub(name, 1, 4)),
+      type = str_remove(name, "^\\d{4}_")
+    )
+  pmap(files, \(path, name, year, type) {
+    have <- unique(results$county[results$year == year & results$type == type])
+    rows <- parse_results_file(path, type, county_rows = TRUE) |>
+      filter(!county %in% have)
+    if (!nrow(rows)) return(NULL)
+    message("  ", basename(path), ": filled ", paste(unique(rows$county), collapse = ", "))
+    mutate(rows, year = year, type = type, source = file.path("county_results", basename(path)))
+  }) |>
+    list_rbind()
+}
 
 parse_all_results <- function() {
   files <- tibble(path = list.files(RAW_DIR, recursive = TRUE, full.names = TRUE)) |>
@@ -46,6 +71,7 @@ parse_all_results <- function() {
   }) |>
     list_rbind() |>
     relocate(year, type)
+  results <- bind_rows(results, fill_missing_counties(results))
 
   if (nrow(skipped)) message("Not parsed: ", paste(skipped$source, collapse = ", "))
   saveRDS(results, OUTPUT)

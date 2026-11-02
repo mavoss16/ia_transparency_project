@@ -15,8 +15,16 @@
 #     candidate ("Write-in" sums every write-in), party, party_source,
 #     votes, race_votes (all candidates and write-ins), pct (of race_votes),
 #     rank, winner, unopposed, no_candidate, convention, margin, margin_pct,
-#     counties, source_url
+#     write_in, counties, race_counties, source_url
 #
+# write_in: a named candidate who was a write-in, not on the ballot. A ballot
+# candidate is printed in every county of the district, so a name that
+# appears in fewer of the race's counties than the race covers is a write-in
+# some county reported by name ("Kayla Koether", 2024 HD 63, Winneshiek only).
+# It keeps its name and votes but counts like "Write-in" below. A race inside
+# one county can't be checked this way.
+#
+# "Named" below means on the ballot: neither "Write-in" nor write_in.
 # pct and margin_pct are shares of race_votes, write-ins included. margin
 # (per race, repeated on each row): top named candidate's votes minus the
 # second's; NA when fewer than two named candidates ran. Incumbent, open seat
@@ -140,9 +148,12 @@ build_race_table <- function(precinct = readRDS(INPUT), specials = read_specials
       candidate = candidate[which.max(votes)],
       .by = c(year, type, chamber, district, primary_party, spelling)
     ) |>
+    # Counties the race covers, write-in rows included
+    mutate(race_counties = n_distinct(county), .by = c(year, type, chamber, district, primary_party)) |>
     summarise(
       votes    = sum(votes),
       counties = n_distinct(county),
+      race_counties = first(race_counties),
       # A county file may lack the label (Adair 2016) while others print it
       party    = first(party[!is.na(party)]),
       special_date = first(special_date),
@@ -172,20 +183,22 @@ build_race_table <- function(precinct = readRDS(INPUT), specials = read_specials
 
   races <- races |>
     mutate(
+      write_in   = candidate != "Write-in" & race_counties > 1 & counties < race_counties,
+      on_ballot  = candidate != "Write-in" & !write_in,
       race_votes = sum(votes),
       pct        = if_else(race_votes > 0, votes / race_votes, NA_real_),
       rank       = min_rank(desc(votes)),
-      named      = sum(candidate != "Write-in"),
+      named      = sum(on_ballot),
       unopposed  = named == 1,
       no_candidate = named == 0,
-      top_pct    = max(pct[candidate != "Write-in"], 0, na.rm = TRUE),
+      top_pct    = max(pct[on_ballot], 0, na.rm = TRUE),
       convention = type == "primary" & !no_candidate & top_pct < PRIMARY_THRESHOLD,
       # A primary write-in "win" is usually no nominee; who (if anyone) was
       # nominated by write-in is in the canvass, not these results
       winner     = rank == 1 & votes > 0 & !convention &
-                   !(type == "primary" & candidate == "Write-in"),
+                   !(type == "primary" & !on_ballot),
       # First minus second named candidate; NA with fewer than two
-      margin     = if (first(named) >= 2) diff(sort(votes[candidate != "Write-in"], decreasing = TRUE)[2:1]) else NA_integer_,
+      margin     = if (first(named) >= 2) diff(sort(votes[on_ballot], decreasing = TRUE)[2:1]) else NA_integer_,
       margin_pct = margin / race_votes,
       .by = c(year, type, chamber, district, primary_party)
     ) |>
@@ -198,7 +211,7 @@ build_race_table <- function(precinct = readRDS(INPUT), specials = read_specials
     select(year, type, election_date, district_map, chamber, district, primary_party,
            candidate, party, party_source, votes, race_votes, pct, rank,
            winner, unopposed, no_candidate, convention, margin, margin_pct,
-           counties, source_url) |>
+           write_in, counties, race_counties, source_url) |>
     arrange(year, type, chamber, district, primary_party, rank)
 
   saveRDS(races, OUTPUT)
@@ -215,8 +228,9 @@ race_summary <- function(races) {
       unopposed     = n_distinct(paste(chamber, district, primary_party)[unopposed]),
       no_candidate  = n_distinct(paste(chamber, district, primary_party)[no_candidate]),
       conventions   = n_distinct(paste(chamber, district, primary_party)[convention]),
-      candidates    = sum(candidate != "Write-in"),
-      party_missing = sum(is.na(party) & candidate != "Write-in"),
+      candidates    = sum(candidate != "Write-in" & !write_in),
+      named_write_ins = sum(write_in),
+      party_missing = sum(is.na(party) & candidate != "Write-in" & !write_in),
       party_from_primary = sum(party_source %in% "primary"),
       .by = c(year, type)
     ) |>
@@ -232,19 +246,17 @@ check_race_table <- function(races) {
       summarise(winners = sum(winner), skip = any(convention | no_candidate), .by = all_of(race_cols)) |>
       filter(winners != 1, !skip),
     # Write-ins ahead of every named candidate
-    write_in_won = races |> filter(winner, candidate == "Write-in"),
+    write_in_won = races |> filter(winner, candidate == "Write-in" | write_in),
     # Two names in one race sharing a surname: likely one person spelled two ways
     name_variants = races |>
       filter(candidate != "Write-in") |>
       mutate(last = word(str_remove(candidate, ",? (Jr|Sr|II|III|IV)\\.?$"), -1)) |>
       filter(n() > 1, .by = c(all_of(race_cols), last)),
-    # A named candidate missing from some of the race's counties (a county file
-    # not downloaded or not parsed)
-    missing_counties = races |>
-      filter(candidate != "Write-in") |>
-      mutate(race_counties = max(counties), .by = all_of(race_cols)) |>
-      filter(counties < race_counties) |>
-      select(all_of(race_cols), candidate, counties, race_counties)
+    # Names flagged as write-ins. A ballot candidate here means a county file
+    # that wasn't parsed for them: check the source before trusting the flag
+    named_write_ins = races |>
+      filter(write_in) |>
+      select(all_of(race_cols), candidate, votes, counties, race_counties)
   )
 }
 

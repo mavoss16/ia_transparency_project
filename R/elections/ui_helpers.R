@@ -105,11 +105,16 @@ margin_line <- function(race_rows) {
 ui_race <- function(race_rows, page_href = \(id) NULL) {
   first <- race_rows[1, ]
   is_primary <- first$type == "primary"
-  named <- race_rows |> filter(candidate != "Write-in")
-  write_in <- race_rows |> filter(candidate == "Write-in")
+  # Ballot candidates; write-ins are the "Write-in" total plus any write-in a
+  # county reported by name (write_in, from 02_build_race_table.R)
+  named <- race_rows |> filter(candidate != "Write-in", !write_in)
+  write_in <- race_rows |> filter(candidate == "Write-in" | write_in)
+  by_name <- write_in |> filter(candidate != "Write-in", votes > 0)
   write_in_votes <- sum(write_in$votes)
   write_in_text <- if (write_in_votes > 0) {
-    paste0("; ", fmt_votes(write_in_votes), " write-in", if (write_in_votes != 1) "s")
+    paste0("; ", fmt_votes(write_in_votes), " write-in", if (write_in_votes != 1) "s",
+           if (nrow(by_name) > 0)
+             paste0(" (", paste(fmt_votes(by_name$votes), "for", by_name$candidate, collapse = ", "), ")"))
   } else ""
 
   label <- div(class = "ia-race-label", race_title(first$type, first$primary_party),
@@ -122,10 +127,13 @@ ui_race <- function(race_rows, page_href = \(id) NULL) {
       candidate_cell(named, page_href, party = if (is_primary) "none" else "full"),
       paste0(" ran unopposed: ", fmt_votes(named$votes), " votes", write_in_text, "."))
   } else {
-    rows <- bind_rows(named, write_in)
+    rows <- bind_rows(named, by_name, filter(write_in, candidate == "Write-in"))
+    others <- if (nrow(by_name) > 0) "Other write-ins" else "Write-ins"
     cells <- tibble(
       candidate = map(seq_len(nrow(rows)), \(i) {
-        if (rows$candidate[i] == "Write-in") span(class = "ia-writein", "Write-ins")
+        if (rows$candidate[i] == "Write-in") span(class = "ia-writein", others)
+        else if (rows$write_in[i]) tagList(candidate_cell(rows[i, ], page_href, party = "none"),
+                                           span(class = "ia-writein", " (write-in)"))
         else candidate_cell(rows[i, ], page_href, party = if (is_primary) "none" else "short")
       }),
       party = map(rows$party, party_tag),

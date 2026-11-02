@@ -419,7 +419,9 @@ clean_party <- function(x) str_squish(str_remove(x, regex("\\s+party$", ignore_c
 # candidate, votes, contest (raw label). `county` is the file's county for
 # per-county files; statewide files carry it per row. Primaries take the party
 # from the contest label, generals from the source where it gives one.
-parse_results_file <- function(path, type, county = NULL) {
+# county_rows = TRUE reads a "results by county" file (data/elections/raw/
+# county_results/), whose first column is the county: precinct is then NA.
+parse_results_file <- function(path, type, county = NULL, county_rows = FALSE) {
   layout <- detect_layout(path)
   rows <- switch(layout,
     contest_sheets = read_contest_sheets(path, is_legislative),
@@ -430,6 +432,7 @@ parse_results_file <- function(path, type, county = NULL) {
     canvass_pdf    = read_canvass_pdf(path, is_legislative)
   )
   if (is.null(rows) || !nrow(rows)) return(NULL)
+  if (county_rows) rows <- mutate(rows, county = precinct, precinct = NA_character_)
   if (!"county" %in% names(rows)) rows$county <- county
   if (!"party" %in% names(rows)) rows$party <- NA_character_
 
