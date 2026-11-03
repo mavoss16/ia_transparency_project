@@ -4,7 +4,7 @@
 # candidate's precinct total (election day + absentee); over and under votes
 # are dropped, write-ins kept as "Write-in".
 #
-# Four layouts, chosen from the file's contents by detect_layout():
+# Layouts, chosen from the file's contents by detect_layout():
 #   contest_sheets — one sheet per contest: title row, candidate row (each name
 #                    spans its vote-type columns), vote-type row with
 #                    "Total Votes", precinct rows, "Total:" row.
@@ -24,6 +24,10 @@
 #   clarity_xml    — ENR's detail.xml report: <Contest>, <Choice party=...>,
 #                    one <VoteType> per vote type with a <Precinct> each.
 #                    2026 primary (ENR published no Excel report).
+#   clarity_summary — Clarity's county summary export: one row per candidate
+#                    ("line number", "contest name", "choice name", "party name",
+#                    "total votes", ...), no precincts, so precinct is NA.
+#                    Dickinson, 2018 primary.
 #
 # Usage:
 #   source("R/elections/legislative_results/parsers.R")
@@ -77,9 +81,11 @@ is_legislative <- function(contest) {
   str_detect(str_squish(contest), regex("^state\\s+(rep|sen)", ignore_case = TRUE))
 }
 
+# "Scattering" (Story), "Blank" and "No Name" are write-in tallies in some 2018
+# primary files, which list write-ins by name
 clean_candidate <- function(x) {
   x <- str_squish(x)
-  if_else(str_detect(x, regex("^write[- ]?in$", ignore_case = TRUE)), "Write-in", x)
+  if_else(str_detect(x, regex("^(write[- ]?in|scattering|blank|no name)$", ignore_case = TRUE)), "Write-in", x)
 }
 
 # One tibble from a matrix block: precinct per row, candidate per column
@@ -105,6 +111,7 @@ detect_layout <- function(path) {
 
   top <- suppressMessages(read_excel(path, col_names = FALSE, col_types = "text", n_max = 1))
   if (identical(top[[1]][1], "RaceTitle")) return("clarity_wide")
+  if (identical(top[[1]][1], "line number") && identical(top[[2]][1], "contest name")) return("clarity_summary")
   if (ncol(top) > 1 && identical(top[[2]][1], "County")) return("race_blocks")
   if (any(str_detect(unlist(top), "CANVASS SUMMARY"), na.rm = TRUE)) return("county_canvass")
   stop("Unrecognized layout: ", path)
@@ -231,6 +238,22 @@ read_clarity_xml <- function(path, keep) {
     list_rbind() |>
     # Sum Election Day + Absentee into the precinct total
     summarise(votes = sum(votes), .by = c(precinct, contest, candidate, party))
+}
+
+# ---- clarity_summary ----
+
+read_clarity_summary <- function(path, keep) {
+  d <- suppressMessages(read_excel(path, col_types = "text"))
+  d <- d[!is.na(d$`contest name`) & keep(d$`contest name`), , drop = FALSE]
+  if (!nrow(d)) return(NULL)
+  tibble(
+    precinct  = NA_character_,
+    # "... District 1 - REP (Vote For 1)": drop the tail so the party suffix ends the label
+    contest   = str_squish(str_remove(d$`contest name`, "\\s*\\(Vote For \\d+\\)$")),
+    candidate = clean_candidate(d$`choice name`),
+    party     = d$`party name`,
+    votes     = as.integer(d$`total votes`)
+  )
 }
 
 # ---- race_blocks ----
@@ -427,6 +450,7 @@ parse_results_file <- function(path, type, county = NULL, county_rows = FALSE) {
     contest_sheets = read_contest_sheets(path, is_legislative),
     clarity_wide   = read_clarity_wide(path, is_legislative),
     clarity_xml    = read_clarity_xml(path, is_legislative),
+    clarity_summary = read_clarity_summary(path, is_legislative),
     race_blocks    = read_race_blocks(path, is_legislative),
     county_canvass = read_county_canvass(path, is_legislative),
     canvass_pdf    = read_canvass_pdf(path, is_legislative)

@@ -21,8 +21,11 @@
 # candidate is printed in every county of the district, so a name that
 # appears in fewer of the race's counties than the race covers is a write-in
 # some county reported by name ("Kayla Koether", 2024 HD 63, Winneshiek only).
-# It keeps its name and votes but counts like "Write-in" below. A race inside
-# one county can't be checked this way.
+# A primary name with more votes in another party's primary for the same seat
+# is also a write-in (2018 files list write-ins by name: Skyler Wheeler,
+# HD 4 Democratic). It keeps its name and votes but counts like "Write-in"
+# below. Other names written in within a one-county race can't be told apart
+# from ballot candidates.
 #
 # "Named" below means on the ballot: neither "Write-in" nor write_in.
 # pct and margin_pct are shares of race_votes, write-ins included. margin
@@ -140,10 +143,11 @@ build_race_table <- function(precinct = readRDS(INPUT), specials = read_specials
       candidate     = fix_caps(candidate),
       primary_party = if_else(type == "primary", party, NA_character_),
       party         = standard_party(party),
-      spelling      = str_to_lower(candidate)
+      spelling      = str_squish(str_remove_all(str_to_lower(candidate), "[^a-z ]"))
     ) |>
-    # County files can differ only in case ("TJ Widbin" / "Tj Widbin"): use
-    # the spelling with the most votes in the race
+    # County files can differ in case or punctuation ("TJ Widbin" / "Tj Widbin",
+    # "Matt W. Windschitl" / "Matt. W. Windschitl"): use the spelling with the
+    # most votes in the race
     mutate(
       candidate = candidate[which.max(votes)],
       .by = c(year, type, chamber, district, primary_party, spelling)
@@ -160,19 +164,30 @@ build_race_table <- function(precinct = readRDS(INPUT), specials = read_specials
       special_url  = first(special_url),
       .by = c(year, type, chamber, district, primary_party, candidate)
     ) |>
-    mutate(party_source = if_else(!is.na(party), "results", NA_character_))
+    mutate(
+      party_source = if_else(!is.na(party), "results", NA_character_),
+      key          = name_key(candidate),
+      write_in     = candidate != "Write-in" & race_counties > 1 & counties < race_counties
+    ) |>
+    # A primary name with more votes in another party's primary for the seat
+    # is that party's candidate, written in here
+    mutate(
+      write_in = write_in | (type == "primary" & candidate != "Write-in" &
+                             n_distinct(primary_party) > 1 & votes < max(votes)),
+      .by = c(year, type, chamber, district, key)
+    )
 
   # Generals without a printed party: the primary the candidate won that year
   nominees <- races |>
     filter(type == "primary", candidate != "Write-in") |>
     mutate(race_votes = sum(votes), .by = c(year, chamber, district, primary_party)) |>
+    filter(!write_in) |>
     filter(votes == max(votes), votes >= PRIMARY_THRESHOLD * race_votes,
            .by = c(year, chamber, district, primary_party)) |>
-    transmute(year, chamber, district, key = name_key(candidate), nominee_party = primary_party) |>
+    transmute(year, chamber, district, key, nominee_party = primary_party) |>
     distinct()
 
   races <- races |>
-    mutate(key = name_key(candidate)) |>
     left_join(nominees, by = c("year", "chamber", "district", "key"), relationship = "many-to-one") |>
     mutate(
       fill         = type == "general" & is.na(party) & candidate != "Write-in" & !is.na(nominee_party),
@@ -183,7 +198,6 @@ build_race_table <- function(precinct = readRDS(INPUT), specials = read_specials
 
   races <- races |>
     mutate(
-      write_in   = candidate != "Write-in" & race_counties > 1 & counties < race_counties,
       on_ballot  = candidate != "Write-in" & !write_in,
       race_votes = sum(votes),
       pct        = if_else(race_votes > 0, votes / race_votes, NA_real_),

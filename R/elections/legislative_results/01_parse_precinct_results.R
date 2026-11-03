@@ -20,12 +20,20 @@
 # file in data/elections/raw/county_results/{year}_{type}.{ext}, as county-level
 # rows (precinct NA, source "county_results/..."), like the specials in 02.
 #
+# Incremental: the output carries a fingerprint per election (its raw files,
+# its county_results file, and this script and parsers.R) in
+# attr(, "digests"). A run re-parses only elections whose fingerprint changed
+# and keeps the other elections' rows from the existing output, so editing the
+# parser re-parses everything. force = TRUE (or --force) re-parses everything.
+#
 # Usage:
 #   source("R/elections/legislative_results/01_parse_precinct_results.R")
-#   results <- parse_all_results()
+#   results <- parse_all_results()          # or parse_all_results(force = TRUE)
 #   results_summary(results)
+#   Rscript R/elections/legislative_results/01_parse_precinct_results.R [--force]
 
 library(here)
+library(tidyr)
 source(here("R/elections/legislative_results/parsers.R"))
 
 RAW_DIR    <- here("data/elections/raw/precinct_results")
@@ -33,26 +41,40 @@ COUNTY_DIR <- here("data/elections/raw/county_results")
 OUTPUT     <- here("data/elections/processed/legislative_results_precinct.rds")
 FIRST_YEAR <- 2010
 
-# County-level rows for the counties each election's precinct files lack
-fill_missing_counties <- function(results) {
-  files <- tibble(path = list.files(COUNTY_DIR, full.names = TRUE)) |>
-    mutate(
-      name = tools::file_path_sans_ext(basename(path)),
-      year = as.integer(str_sub(name, 1, 4)),
-      type = str_remove(name, "^\\d{4}_")
-    )
-  pmap(files, \(path, name, year, type) {
-    have <- unique(results$county[results$year == year & results$type == type])
-    rows <- parse_results_file(path, type, county_rows = TRUE) |>
-      filter(!county %in% have)
-    if (!nrow(rows)) return(NULL)
-    message("  ", basename(path), ": filled ", paste(unique(rows$county), collapse = ", "))
-    mutate(rows, year = year, type = type, source = file.path("county_results", basename(path)))
-  }) |>
-    list_rbind()
+# County-level rows from an election's county_results file (if any) for the
+# counties its precinct rows lack
+fill_missing_counties <- function(rows, year, type, county_file) {
+  if (is.na(county_file)) return(NULL)
+  fill <- parse_results_file(county_file, type, county_rows = TRUE) |>
+    filter(!county %in% rows$county)
+  if (!nrow(fill)) return(NULL)
+  message("  ", basename(county_file), ": filled ", paste(unique(fill$county), collapse = ", "))
+  mutate(fill, year = year, type = type, source = file.path("county_results", basename(county_file)))
 }
 
-parse_all_results <- function() {
+# One election's rows: its precinct files, then the counties they lack
+parse_election <- function(files, year, type, county_file) {
+  rows <- pmap(files, \(path, source, name, ...) {
+    message("  ", source)
+    # Statewide files carry the county on each row
+    parse_results_file(path, type, county = if (name == "statewide") NULL else name) |>
+      mutate(year = year, type = type, source = source)
+  }) |>
+    list_rbind()
+  bind_rows(rows, fill_missing_counties(rows, year, type, county_file)) |>
+    relocate(year, type)
+}
+
+# Hash of everything an election's rows depend on: file names and contents,
+# plus the parsing code
+election_digest <- function(paths) {
+  code <- c(here("R/elections/legislative_results/01_parse_precinct_results.R"),
+            here("R/elections/legislative_results/parsers.R"))
+  paths <- c(sort(paths), code)
+  rlang::hash(paste(basename(paths), unname(tools::md5sum(paths))))
+}
+
+parse_all_results <- function(force = FALSE) {
   files <- tibble(path = list.files(RAW_DIR, recursive = TRUE, full.names = TRUE)) |>
     mutate(
       source = str_remove(path, fixed(paste0(RAW_DIR, "/"))),
@@ -63,19 +85,31 @@ parse_all_results <- function() {
   skipped <- filter(files, year < FIRST_YEAR)
   files   <- filter(files, !path %in% skipped$path)
 
-  results <- pmap(files, \(path, source, year, type, name) {
-    message("  ", source)
-    # Statewide files carry the county on each row
-    parse_results_file(path, type, county = if (name == "statewide") NULL else name) |>
-      mutate(year = year, type = type, source = source)
+  county_files <- tibble(county_file = list.files(COUNTY_DIR, full.names = TRUE)) |>
+    mutate(election = tools::file_path_sans_ext(basename(county_file)))
+  elections <- files |>
+    nest(files = -c(year, type)) |>
+    mutate(election = paste0(year, "_", type)) |>
+    left_join(county_files, by = "election") |>
+    arrange(year, type) |>
+    mutate(digest = map2_chr(files, county_file, \(f, c) election_digest(c(f$path, na.omit(c)))))
+
+  previous <- if (!force && file.exists(OUTPUT)) readRDS(OUTPUT)
+  old_digests <- attr(previous, "digests") %||% character()
+  elections <- mutate(elections, reuse = unname(old_digests[election] %in% digest))
+  if (any(elections$reuse)) message("Unchanged, kept: ", paste(elections$election[elections$reuse], collapse = ", "))
+
+  results <- pmap(elections, \(year, type, files, county_file, reuse, ...) {
+    if (reuse) return(filter(previous, .data$year == .env$year, .data$type == .env$type))
+    parse_election(files, year, type, county_file)
   }) |>
-    list_rbind() |>
-    relocate(year, type)
-  results <- bind_rows(results, fill_missing_counties(results))
+    list_rbind()
+  attr(results, "digests") <- set_names(elections$digest, elections$election)
 
   if (nrow(skipped)) message("Not parsed: ", paste(skipped$source, collapse = ", "))
   saveRDS(results, OUTPUT)
-  message("Saved ", nrow(results), " rows to ", OUTPUT)
+  message("Saved ", nrow(results), " rows to ", OUTPUT, " (re-parsed ", sum(!elections$reuse),
+          " of ", nrow(elections), " elections)")
   invisible(results)
 }
 
@@ -95,5 +129,6 @@ results_summary <- function(results) {
 }
 
 if (sys.nframe() == 0) {
-  print(results_summary(parse_all_results()), n = Inf, width = Inf)
+  force <- "--force" %in% commandArgs(trailingOnly = TRUE)
+  print(results_summary(parse_all_results(force = force)), n = Inf, width = Inf)
 }

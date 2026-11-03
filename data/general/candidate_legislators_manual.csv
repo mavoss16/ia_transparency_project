@@ -12,3 +12,8 @@ year,type,chamber,district,primary_party,candidate,people_id,note
 2022,general,senate,17,,ToyA S. Johnson,,Not Rob Johnson: different first name
 2024,general,house,33,,Toya S. Johnson,,Not Rob Johnson: different first name
 2022,general,house,17,,Pat Shipley,,Not Tom Shipley: different first name
+2018,primary,house,9,Democratic,Megan L. Srinivas,24630,Ran in Fort Dodge (HD 9) in 2018 before moving to Des Moines
+2018,primary,house,95,Republican,Louis J. Zumbach,,Not Daniel Zumbach: different first name
+2018,primary,house,10,Democratic,Jake Ronald Thompson,,Not Mark Thompson: different first name
+2018,primary,house,53,Republican,Karen Campbell,,Not Doug Campbell: different first name; a one-vote write-in
+2018,primary,house,21,Libertarian,Tim Moore,,Not Tom Moore: different first name; a one-vote write-in
