@@ -132,10 +132,12 @@ race_counties <- function(precinct = readRDS(PRECINCT_INPUT)) {
     summarise(counties = list(county), .by = all_of(RACE_COLS))
 }
 
-# Candidate rows (one per candidate per race) with name key and counties
+# Candidate rows (one per candidate per race) with name key and counties.
+# Named write-ins aren't candidacies (a legislator written into another
+# party's primary, or another district's), so they never match.
 candidate_rows <- function(races, counties) {
   races |>
-    filter(candidate != "Write-in") |>
+    filter(candidate != "Write-in", !write_in) |>
     distinct(across(all_of(RACE_COLS)), candidate, winner) |>
     left_join(counties, by = RACE_COLS) |>
     mutate(key = name_key(candidate), last = word(key, -1))

@@ -15,6 +15,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 19016,Amy Nielsen,2018,general,house,77,,Amy Nielsen,name
 19016,Amy Nielsen,2018,primary,house,77,Democratic,Amy Nielsen,name
 19016,Amy Nielsen,2020,general,house,77,,Amy Nielsen,name
+19016,Amy Nielsen,2020,primary,house,77,Democratic,Amy Nielsen,name
 19016,Amy Nielsen,2022,general,house,85,,Amy Nielsen,seat
 19016,Amy Nielsen,2022,primary,house,85,Democratic,Amy Nielsen,name
 19016,Amy Nielsen,2024,general,house,85,,Amy Nielsen,seat
@@ -23,6 +24,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 15400,Amy Sinclair,2012,general,senate,14,,Amy Sinclair,name
 15400,Amy Sinclair,2016,general,senate,14,,Amy Sinclair,name
 15400,Amy Sinclair,2020,general,senate,14,,Amy Sinclair,name
+15400,Amy Sinclair,2020,primary,senate,14,Republican,Amy Sinclair,name
 15400,Amy Sinclair,2024,general,senate,12,,Amy Sinclair,seat
 15400,Amy Sinclair,2024,primary,senate,12,Republican,Amy Sinclair,name
 26467,Angel Ramirez,2025,special,house,78,,Angel Ramirez,seat
@@ -30,6 +32,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 21125,Ann Meyer,2018,general,house,9,,Ann Meyer,name
 21125,Ann Meyer,2018,primary,house,9,Republican,Ann Meyer,name
 21125,Ann Meyer,2020,general,house,9,,Ann Meyer,name
+21125,Ann Meyer,2020,primary,house,9,Republican,Ann Meyer,name
 21125,Ann Meyer,2022,general,house,8,,Ann Meyer,seat
 21125,Ann Meyer,2022,primary,house,8,Republican,Ann Meyer,name
 21125,Ann Meyer,2024,general,house,8,,Ann Meyer,seat
@@ -45,6 +48,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 15615,Art Staed,2018,general,house,66,,Art Staed,name
 15615,Art Staed,2018,primary,house,66,Democratic,Art Staed,name
 15615,Art Staed,2020,general,house,66,,Art Staed,name
+15615,Art Staed,2020,primary,house,66,Democratic,Art Staed,name
 15615,Art Staed,2022,general,house,80,,Art Staed,name
 15615,Art Staed,2022,primary,house,80,Democratic,Art Staed,name
 15615,Art Staed,2024,general,senate,40,,Art Staed,seat
@@ -69,6 +73,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 7033,Beth Wessel-Kroeschell,2018,general,house,45,,Beth Wessel-Kroeschell,name
 7033,Beth Wessel-Kroeschell,2018,primary,house,45,Democratic,Beth Wessel-Kroeschell,name
 7033,Beth Wessel-Kroeschell,2020,general,house,45,,Beth Wessel-Kroeschell,name
+7033,Beth Wessel-Kroeschell,2020,primary,house,45,Democratic,Beth Wessel-Kroeschell,name
 7033,Beth Wessel-Kroeschell,2022,general,house,49,,Beth Wessel-Kroeschell,seat
 7033,Beth Wessel-Kroeschell,2022,primary,house,49,Democratic,Beth Wessel-Kroeschell,name
 7033,Beth Wessel-Kroeschell,2024,general,house,49,,Beth Wessel-Kroeschell,seat
@@ -86,6 +91,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 7000,Bob Kressig,2018,general,house,59,,Bob Kressig,name
 7000,Bob Kressig,2018,primary,house,59,Democratic,Bob Kressig,name
 7000,Bob Kressig,2020,general,house,59,,Bob Kressig,name
+7000,Bob Kressig,2020,primary,house,59,Democratic,Bob Kressig,name
 7000,Bob Kressig,2022,primary,house,75,Democratic,Bob Kressig,name
 7000,Bob Kressig,2024,general,house,75,,Bob Kressig,seat
 7000,Bob Kressig,2024,primary,house,75,Democratic,Bob Kressig,name
@@ -94,12 +100,14 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 6981,Bobby Kaufmann,2018,general,house,73,,Bobby Kaufmann,name
 6981,Bobby Kaufmann,2018,primary,house,73,Republican,Bobby Kaufmann,name
 6981,Bobby Kaufmann,2020,general,house,73,,Bobby Kaufmann,name
+6981,Bobby Kaufmann,2020,primary,house,73,Republican,Bobby Kaufmann,name
 6981,Bobby Kaufmann,2022,general,house,82,,Bobby Kaufmann,seat
 6981,Bobby Kaufmann,2022,primary,house,82,Republican,Bobby Kaufmann,name
 6981,Bobby Kaufmann,2024,general,house,82,,Bobby Kaufmann,seat
 6981,Bobby Kaufmann,2024,primary,house,82,Republican,Bobby Kaufmann,name
 6981,Bobby Kaufmann,2026,primary,house,82,Republican,Bobby Kaufmann,name
 22691,Brent Siegrist,2020,general,house,16,,Brent Siegrist,name
+22691,Brent Siegrist,2020,primary,house,16,Republican,Brent Siegrist,name
 22691,Brent Siegrist,2022,general,house,19,,Brent Siegrist,seat
 22691,Brent Siegrist,2024,general,house,19,,Brent Siegrist,seat
 22691,Brent Siegrist,2024,primary,house,19,Republican,Brent Siegrist,name
@@ -109,6 +117,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 26303,Brett Barker,2026,primary,house,51,Republican,Brett Barker,name
 21242,Brian Lohse,2018,general,house,30,,Brian K. Lohse,name
 21242,Brian Lohse,2020,general,house,30,,Brian K. Lohse,name
+21242,Brian Lohse,2020,primary,house,30,Republican,Brian K. Lohse,name
 21242,Brian Lohse,2022,general,house,45,,Brian K. Lohse,seat
 21242,Brian Lohse,2022,primary,house,45,Republican,Brian K. Lohse,name
 21242,Brian Lohse,2024,general,house,45,,Brian K. Lohse,seat
@@ -118,24 +127,26 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 16122,Brian Meyer,2018,general,house,33,,Brian Meyer,name
 16122,Brian Meyer,2018,primary,house,33,Democratic,Brian Meyer,name
 16122,Brian Meyer,2020,general,house,33,,Brian Meyer,name
+16122,Brian Meyer,2020,primary,house,33,Democratic,Brian Meyer,name
 16122,Brian Meyer,2022,general,house,29,,Brian Meyer,seat
 16122,Brian Meyer,2022,primary,house,29,Democratic,Brian Meyer,name
 16122,Brian Meyer,2024,general,house,29,,Brian Meyer,seat
 16122,Brian Meyer,2024,primary,house,29,Democratic,Brian Meyer,name
 16122,Brian Meyer,2026,primary,house,29,Democratic,Brian Meyer,name
 22683,Brooke Boden,2020,general,house,26,,Brooke Boden,name
+22683,Brooke Boden,2020,primary,house,26,Republican,Brooke Boden,name
 22683,Brooke Boden,2022,general,house,21,,Brooke Boden,seat
 22683,Brooke Boden,2022,primary,house,21,Republican,Brooke Boden,name
 22683,Brooke Boden,2024,general,house,21,,Brooke Boden,seat
 22683,Brooke Boden,2024,primary,house,21,Republican,Brooke Boden,name
 22683,Brooke Boden,2026,primary,house,21,Republican,Brooke Boden,name
 21097,Carrie Koelker,2018,general,senate,29,,Carrie Koelker,name
-21097,Carrie Koelker,2018,primary,senate,29,Libertarian,Carrie Koelker,name
 21097,Carrie Koelker,2018,primary,senate,29,Republican,Carrie Koelker,name
 21097,Carrie Koelker,2022,general,senate,33,,Carrie Koelker,seat
 21097,Carrie Koelker,2022,primary,senate,33,Republican,Carrie Koelker,name
 21097,Carrie Koelker,2026,primary,senate,33,Republican,Carrie Koelker,name
 22573,Carter Nordman,2020,general,house,19,,Carter Nordman,name
+22573,Carter Nordman,2020,primary,house,19,Republican,Carter Nordman,name
 22573,Carter Nordman,2022,general,house,47,,Carter Nordman,seat
 22573,Carter Nordman,2022,primary,house,47,Republican,Carter Nordman,name
 22573,Carter Nordman,2024,general,house,47,,Carter Nordman,seat
@@ -143,21 +154,25 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 22573,Carter Nordman,2026,primary,house,47,Republican,Carter F. Nordman,name
 26571,Catelin Drey,2025,special,senate,1,,Catelin Drey,seat
 26571,Catelin Drey,2026,primary,senate,1,Democratic,Catelin Drey,name
+26304,Chad Behn,2020,primary,senate,24,Republican,Chad Behn,name
 26304,Chad Behn,2024,general,house,48,,Chad Behn,seat
 26304,Chad Behn,2024,primary,house,48,Republican,Chad Behn,name
 26304,Chad Behn,2026,primary,house,48,Republican,Chad Behn,name
 22688,Chad Ingels,2020,general,house,64,,Chad Ingels,name
+22688,Chad Ingels,2020,primary,house,64,Republican,Chad Ingels,name
 22688,Chad Ingels,2022,general,house,68,,Chad Ingels,seat
 22688,Chad Ingels,2022,primary,house,68,Republican,Chad Ingels,name
 22688,Chad Ingels,2024,general,house,68,,Chad Ingels,seat
 22688,Chad Ingels,2024,primary,house,68,Republican,Chad Ingels,name
 22688,Chad Ingels,2026,primary,house,68,Republican,Chad Ingels,name
+24109,Charley Thomson,2020,primary,house,52,Republican,Charley Thomson,name
 24109,Charley Thomson,2022,general,house,58,,Charley Thomson,seat
 24109,Charley Thomson,2022,primary,house,58,Republican,Charley Thomson,name
 24109,Charley Thomson,2024,general,house,58,,Charley Thomson,seat
 24109,Charley Thomson,2024,primary,house,58,Republican,Charley Thomson,name
 24109,Charley Thomson,2026,primary,house,58,Republican,Charley Thomson,name
 22690,Charlie McClintock,2020,general,house,95,,Charlie McClintock,name
+22690,Charlie McClintock,2020,primary,house,95,Republican,Charlie McClintock,name
 22690,Charlie McClintock,2022,general,senate,42,,Charlie McClintock,seat
 22690,Charlie McClintock,2022,primary,senate,42,Republican,Charlie McClintock,name
 22690,Charlie McClintock,2024,general,senate,42,,Charlie McClintock,seat
@@ -165,6 +180,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 22665,Cherielynn Westrich,2018,general,house,81,,Cherielynn Westrich,name
 22665,Cherielynn Westrich,2018,primary,house,81,Republican,Cherielynn Westrich,name
 22665,Cherielynn Westrich,2020,general,house,81,,Cherielynn Westrich,name
+22665,Cherielynn Westrich,2020,primary,house,81,Republican,Cherielynn Westrich,name
 22665,Cherielynn Westrich,2022,general,senate,13,,Cherielynn Westrich,seat
 22665,Cherielynn Westrich,2022,primary,senate,13,Republican,Cherielynn Westrich,name
 26309,Christian Hermanson,2024,general,house,59,,Christian Hermanson,seat
@@ -180,6 +196,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 7003,Cindy Winckler,2018,general,house,90,,Cindy Winckler,name
 7003,Cindy Winckler,2018,primary,house,90,Democratic,Cindy Winckler,name
 7003,Cindy Winckler,2020,general,house,90,,Cindy Winckler,name
+7003,Cindy Winckler,2020,primary,house,90,Democratic,Cindy Winckler,name
 7003,Cindy Winckler,2022,general,senate,49,,Cindy Winckler,seat
 7003,Cindy Winckler,2022,primary,senate,49,Democratic,Cindy Winckler,name
 7003,Cindy Winckler,2026,primary,senate,49,Democratic,Cindy Winckler,name
@@ -192,17 +209,20 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 20957,Claire Celsi,2024,primary,senate,16,Democratic,Claire Celsi,name
 19141,Craig Johnson,2016,general,senate,32,,Craig Johnson,name
 19141,Craig Johnson,2020,general,senate,32,,Craig Johnson,name
+19141,Craig Johnson,2020,primary,senate,32,Republican,Craig Johnson,name
 19141,Craig Johnson,2022,general,house,67,,Craig Johnson,seat
 19141,Craig Johnson,2022,primary,house,67,Republican,Craig Johnson,name
 19141,Craig Johnson,2024,general,house,67,,Craig Johnson,seat
 19141,Craig Johnson,2024,primary,house,67,Republican,Craig Johnson,name
 19141,Craig Johnson,2026,primary,house,67,Republican,Craig Johnson,name
 22553,Craig Williams,2020,general,senate,6,,Craig Steven Williams,name
+22553,Craig Williams,2020,primary,senate,6,Republican,Craig Steven Williams,name
 22553,Craig Williams,2024,general,house,11,,Craig Steven Williams,seat
 22553,Craig Williams,2024,primary,house,11,Republican,Craig Steven Williams,name
 22553,Craig Williams,2026,primary,house,11,Republican,Craig Williams,name
 18623,Dan Dawson,2016,general,senate,8,,Dan Dawson,name
 18623,Dan Dawson,2020,general,senate,8,,Dan Dawson,name
+18623,Dan Dawson,2020,primary,senate,8,Republican,Dan Dawson,name
 18623,Dan Dawson,2024,general,senate,10,,Dan Dawson,seat
 18623,Dan Dawson,2024,primary,senate,10,Republican,Dan Dawson,name
 24098,Dan Gehlbach,2022,general,house,46,,Dan Gehlbach,seat
@@ -216,6 +236,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 15401,Daniel Zumbach,2012,general,senate,48,,Dan Zumbach,name
 15401,Daniel Zumbach,2016,general,senate,48,,Dan Zumbach,name
 15401,Daniel Zumbach,2020,general,senate,48,,Dan Zumbach,name
+15401,Daniel Zumbach,2020,primary,senate,48,Republican,Dan Zumbach,name
 15401,Daniel Zumbach,2024,general,senate,34,,Dan Zumbach,seat
 15401,Daniel Zumbach,2024,primary,senate,34,Republican,Dan Zumbach,name
 6970,Dave Jacoby,2012,general,house,74,,Dave Jacoby,name
@@ -223,6 +244,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 6970,Dave Jacoby,2018,general,house,74,,Dave Jacoby,name
 6970,Dave Jacoby,2018,primary,house,74,Democratic,Dave Jacoby,name
 6970,Dave Jacoby,2020,general,house,74,,Dave Jacoby,name
+6970,Dave Jacoby,2020,primary,house,74,Democratic,Dave Jacoby,name
 6970,Dave Jacoby,2022,general,house,86,,Dave Jacoby,seat
 6970,Dave Jacoby,2022,primary,house,86,Democratic,Dave Jacoby,name
 6970,Dave Jacoby,2024,general,house,86,,Dave Jacoby,seat
@@ -239,6 +261,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 17617,David Sieck,2018,general,house,23,,David Sieck,name
 17617,David Sieck,2018,primary,house,23,Republican,David Sieck,name
 17617,David Sieck,2020,general,house,23,,David A. Sieck,name
+17617,David Sieck,2020,primary,house,23,Republican,David A. Sieck,name
 17617,David Sieck,2022,general,house,16,,David Sieck,seat
 17617,David Sieck,2022,primary,house,16,Republican,David Sieck,name
 17617,David Sieck,2024,general,house,16,,David Sieck,seat
@@ -250,6 +273,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 24113,David Young,2024,primary,house,28,Republican,David Young,name
 24113,David Young,2026,primary,house,28,Republican,David Young,name
 22530,Dawn Driscoll,2020,general,senate,38,,Dawn Driscoll,name
+22530,Dawn Driscoll,2020,primary,senate,38,Republican,Dawn Driscoll,name
 22530,Dawn Driscoll,2022,general,senate,46,,Dawn Driscoll,seat
 22530,Dawn Driscoll,2022,primary,senate,46,Republican,Dawn Driscoll,name
 22530,Dawn Driscoll,2024,general,senate,46,,Dawn Driscoll,seat
@@ -259,6 +283,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 14790,Dean Fisher,2018,general,house,72,,Dean Fisher,name
 14790,Dean Fisher,2018,primary,house,72,Republican,Dean Fisher,name
 14790,Dean Fisher,2020,general,house,72,,Dean Fisher,name
+14790,Dean Fisher,2020,primary,house,72,Republican,Dean Fisher,name
 14790,Dean Fisher,2022,general,house,53,,Dean Fisher,seat
 14790,Dean Fisher,2022,primary,house,53,Republican,Dean Fisher,name
 14790,Dean Fisher,2024,general,house,53,,Dean Fisher,seat
@@ -267,6 +292,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 15397,Dennis Guth,2012,general,senate,4,,Dennis Guth,name
 15397,Dennis Guth,2016,general,senate,4,,Dennis Guth,name
 15397,Dennis Guth,2020,general,senate,4,,Dennis Guth,name
+15397,Dennis Guth,2020,primary,senate,4,Republican,Dennis Guth,name
 15397,Dennis Guth,2024,general,senate,28,,Dennis Guth,seat
 15397,Dennis Guth,2024,primary,senate,28,Republican,Dennis Guth,name
 24112,Derek Wulf,2022,general,house,76,,Derek Wulf,seat
@@ -284,6 +310,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 26319,Doug Campbell,2024,general,senate,30,,Doug Campbell,seat
 26319,Doug Campbell,2024,primary,senate,30,Republican,Doug Campbell,name
 22682,Eddie Andrews,2020,general,house,39,,Eddie Andrews,name
+22682,Eddie Andrews,2020,primary,house,39,Republican,Eddie Andrews,name
 22682,Eddie Andrews,2022,general,house,43,,Eddie Andrews,seat
 22682,Eddie Andrews,2022,primary,house,43,Republican,Eddie Andrews,name
 22682,Eddie Andrews,2024,general,house,43,,Eddie Andrews,seat
@@ -301,6 +328,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 22572,Eric Gjerde,2018,general,house,67,,Eric Gjerde,name
 22572,Eric Gjerde,2018,primary,house,67,Democratic,Eric Gjerde,name
 22572,Eric Gjerde,2020,general,house,67,,Eric Gjerde,name
+22572,Eric Gjerde,2020,primary,house,67,Democratic,Eric Gjerde,name
 22572,Eric Gjerde,2022,general,house,74,,Eric Gjerde,seat
 22572,Eric Gjerde,2022,primary,house,74,Democratic,Eric Gjerde,name
 22572,Eric Gjerde,2024,general,house,74,,Eric Gjerde,seat
@@ -310,6 +338,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 18960,Gary Mohr,2018,general,house,94,,Gary Mohr,name
 18960,Gary Mohr,2018,primary,house,94,Republican,Gary Mohr,name
 18960,Gary Mohr,2020,general,house,94,,Gary M. Mohr,name
+18960,Gary Mohr,2020,primary,house,94,Republican,Gary M. Mohr,name
 18960,Gary Mohr,2022,general,house,93,,Gary Mohr,seat
 18960,Gary Mohr,2022,primary,house,93,Republican,Gary Mohr,name
 18960,Gary Mohr,2024,general,house,93,,Gary Mohr,seat
@@ -331,6 +360,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 21093,Heather Matson,2018,general,house,38,,Heather Matson,name
 21093,Heather Matson,2018,primary,house,38,Democratic,Heather Matson,name
 21093,Heather Matson,2020,general,house,38,,Heather Matson,name
+21093,Heather Matson,2020,primary,house,38,Democratic,Heather Matson,name
 21093,Heather Matson,2022,general,house,42,,Heather Matson,seat
 21093,Heather Matson,2022,primary,house,42,Democratic,Heather Matson,name
 21093,Heather Matson,2024,general,house,42,,Heather Matson,seat
@@ -342,6 +372,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 24626,Helena Hayes,2024,primary,house,88,Republican,Helena Hayes,name
 24626,Helena Hayes,2026,primary,house,88,Republican,Helena Hayes,name
 22664,Henry Stone,2020,general,house,7,,Henry Stone,name
+22664,Henry Stone,2020,primary,house,7,Republican,Henry Stone,name
 22664,Henry Stone,2022,general,house,9,,Henry Stone,seat
 22664,Henry Stone,2022,primary,house,9,Republican,Henry Stone,name
 22664,Henry Stone,2024,general,house,9,,Henry Stone,seat
@@ -349,7 +380,6 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 22664,Henry Stone,2026,primary,house,9,Republican,Henry Stone,name
 7134,Herman Quirmbach,2018,general,senate,23,,Herman C. Quirmbach,name
 7134,Herman Quirmbach,2018,primary,senate,23,Democratic,Herman C. Quirmbach,name
-7134,Herman Quirmbach,2018,primary,senate,23,Republican,Herman Quirmbach,name
 7134,Herman Quirmbach,2022,general,senate,25,,Herman C. Quirmbach,seat
 7134,Herman Quirmbach,2022,primary,senate,25,Democratic,Herman C. Quirmbach,name
 7134,Herman Quirmbach,2026,primary,senate,25,Democratic,Herman C. Quirmbach,name
@@ -366,6 +396,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 19548,Jacob Bossman,2018,general,house,6,,Jacob Bossman,name
 19548,Jacob Bossman,2018,primary,house,6,Republican,Jacob Bossman,name
 19548,Jacob Bossman,2020,general,house,6,,Jacob Bossman,name
+19548,Jacob Bossman,2020,primary,house,6,Republican,Jacob Bossman,name
 19548,Jacob Bossman,2022,general,house,14,,Jacob Bossman,seat
 19548,Jacob Bossman,2022,primary,house,14,Republican,Jacob Bossman,name
 19548,Jacob Bossman,2024,general,house,14,,Jacob Bossman,seat
@@ -375,6 +406,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 18954,Jane Bloomingdale,2018,general,house,51,,Jane Bloomingdale,name
 18954,Jane Bloomingdale,2018,primary,house,51,Republican,Jane Bloomingdale,name
 18954,Jane Bloomingdale,2020,general,house,51,,Jane Bloomingdale,name
+18954,Jane Bloomingdale,2020,primary,house,51,Republican,Jane Bloomingdale,name
 18954,Jane Bloomingdale,2022,general,house,60,,Jane Bloomingdale,seat
 18954,Jane Bloomingdale,2022,primary,house,60,Republican,Jane Bloomingdale,name
 18954,Jane Bloomingdale,2024,general,house,60,,Jane E. Bloomingdale,seat
@@ -383,6 +415,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 7037,Janet Petersen,2012,general,senate,18,,Janet Petersen,name
 7037,Janet Petersen,2016,general,senate,18,,Janet Petersen,name
 7037,Janet Petersen,2020,general,senate,18,,Janet Petersen,name
+7037,Janet Petersen,2020,primary,senate,18,Democratic,Janet Petersen,name
 7037,Janet Petersen,2024,general,senate,18,,Janet Petersen,seat
 7037,Janet Petersen,2024,primary,senate,18,Democratic,Janet Petersen,name
 24259,Janice Weiner,2018,primary,senate,37,Democratic,Janice Weiner,name
@@ -394,8 +427,6 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 26307,Jason Gearhart,2026,primary,house,64,Republican,Jason Gearhart,name
 6973,Jason Schultz,2012,general,house,18,,Jason Schultz,name
 6973,Jason Schultz,2018,general,senate,9,,Jason Schultz,name
-6973,Jason Schultz,2018,primary,senate,9,Democratic,Jason Schultz,name
-6973,Jason Schultz,2018,primary,senate,9,Libertarian,Jason Schultz,name
 6973,Jason Schultz,2018,primary,senate,9,Republican,Jason Schultz,name
 6973,Jason Schultz,2022,general,senate,6,,Jason Schultz,seat
 6973,Jason Schultz,2022,primary,senate,6,Republican,Jason Schultz,name
@@ -409,28 +440,32 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 22489,Jeff Reichman,2018,general,house,83,,Jeffrey D. Reichman,name
 22489,Jeff Reichman,2018,primary,house,83,Republican,Jeffrey D. Reichman,name
 22489,Jeff Reichman,2020,general,senate,42,,Jeff Reichman,name
+22489,Jeff Reichman,2020,primary,senate,42,Republican,Jeff Reichman,name
 22489,Jeff Reichman,2024,general,senate,50,,Jeff Reichman,seat
 22489,Jeff Reichman,2024,primary,senate,50,Republican,Jeff Reichman,name
 21051,Jeff Shipley,2018,general,house,82,,Jeff Shipley,name
-21051,Jeff Shipley,2018,primary,house,82,Republican,Jeff Shipley,name
 21051,Jeff Shipley,2020,general,house,82,,Jeff Shipley,name
+21051,Jeff Shipley,2020,primary,house,82,Republican,Jeff Shipley,name
 21051,Jeff Shipley,2022,general,house,87,,Jeff Shipley,seat
 21051,Jeff Shipley,2022,primary,house,87,Republican,Jeff Shipley,name
 21051,Jeff Shipley,2024,general,house,87,,Jeff Shipley,seat
 21051,Jeff Shipley,2024,primary,house,87,Republican,Jeff Shipley,name
 21051,Jeff Shipley,2026,primary,house,87,Republican,Jeff Shipley,name
 22552,Jeff Taylor,2020,general,senate,2,,Jeff Taylor,name
+22552,Jeff Taylor,2020,primary,senate,2,Republican,Jeff Taylor,name
 22552,Jeff Taylor,2024,general,senate,2,,Jeff Taylor,seat
 22552,Jeff Taylor,2024,primary,senate,2,Republican,Jeff Taylor,name
 21057,Jennifer Konfrst,2016,general,house,43,,Jennifer Konfrst,name
 21057,Jennifer Konfrst,2018,general,house,43,,Jennifer Konfrst,name
 21057,Jennifer Konfrst,2018,primary,house,43,Democratic,Jennifer Konfrst,name
 21057,Jennifer Konfrst,2020,general,house,43,,Jennifer Konfrst,name
+21057,Jennifer Konfrst,2020,primary,house,43,Democratic,Jennifer Konfrst,name
 21057,Jennifer Konfrst,2022,general,house,32,,Jennifer Konfrst,seat
 21057,Jennifer Konfrst,2022,primary,house,32,Democratic,Jennifer Konfrst,name
 21057,Jennifer Konfrst,2024,general,house,32,,Jennifer Konfrst,seat
 21057,Jennifer Konfrst,2024,primary,house,32,Democratic,Jennifer Konfrst,name
 26314,Jennifer Smith,2020,general,senate,50,,Jennifer Smith,name
+26314,Jennifer Smith,2020,primary,senate,50,Republican,Jennifer Smith,name
 26314,Jennifer Smith,2022,general,house,72,,Jennifer Smith,name
 26314,Jennifer Smith,2022,primary,house,72,Republican,Jennifer Smith,name
 26314,Jennifer Smith,2024,general,house,72,,Jennifer J. Smith,seat
@@ -441,18 +476,21 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 24620,Jerome Amos,2024,primary,house,62,Democratic,Jerome Amos Jr,name
 24620,Jerome Amos,2026,primary,house,62,Democratic,Jerome Amos Jr,name
 22488,Jesse Green,2020,general,senate,24,,Jesse Green,name
+22488,Jesse Green,2020,primary,senate,24,Republican,Jesse Green,name
 22488,Jesse Green,2024,general,senate,24,,Jesse Green,seat
 22488,Jesse Green,2024,primary,senate,24,Republican,Jesse Green,name
 17290,John Wills,2016,general,house,1,,John H. Wills,name
 17290,John Wills,2018,general,house,1,,John H. Wills,name
 17290,John Wills,2018,primary,house,1,Republican,John H. Wills,name
 17290,John Wills,2020,general,house,1,,John H. Wills,name
+17290,John Wills,2020,primary,house,1,Republican,John H. Wills,name
 17290,John Wills,2022,general,house,10,,John H. Wills,seat
 17290,John Wills,2022,primary,house,10,Republican,John H. Wills,name
 17290,John Wills,2024,general,house,10,,John H. Wills,seat
 17290,John Wills,2024,primary,house,10,Republican,John H. Wills,name
 17290,John Wills,2026,primary,house,10,Republican,John H Wills,name
 22962,Jon Dunwell,2020,general,house,29,,Jon Dunwell,name
+22962,Jon Dunwell,2020,primary,house,29,Republican,Jon Dunwell,name
 22962,Jon Dunwell,2022,general,house,38,,Jon Dunwell,seat
 22962,Jon Dunwell,2022,primary,house,38,Republican,Jon Dunwell,name
 22962,Jon Dunwell,2024,general,house,38,,Jon Dunwell,seat
@@ -484,11 +522,13 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 15398,Ken Rozenboom,2012,general,senate,40,,Ken Rozenboom,name
 15398,Ken Rozenboom,2016,general,senate,40,,Ken Rozenboom,name
 15398,Ken Rozenboom,2020,general,senate,40,,Ken Rozenboom,name
+15398,Ken Rozenboom,2020,primary,senate,40,Republican,Ken Rozenboom,name
 15398,Ken Rozenboom,2022,general,senate,19,,Ken Rozenboom,seat
 15398,Ken Rozenboom,2022,primary,senate,19,Republican,Ken Rozenboom,name
 21092,Kenan Judge,2018,general,house,44,,Kenan Judge,name
 21092,Kenan Judge,2018,primary,house,44,Democratic,Kenan Judge,name
 21092,Kenan Judge,2020,general,house,44,,Kenan Judge,name
+21092,Kenan Judge,2020,primary,house,44,Democratic,Kenan Judge,name
 21092,Kenan Judge,2022,general,house,27,,Kenan Judge,seat
 21092,Kenan Judge,2022,primary,house,27,Democratic,Kenan Judge,name
 21092,Kenan Judge,2024,general,house,27,,Kenan Judge,seat
@@ -506,6 +546,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 21091,Lindsay James,2018,general,house,99,,Lindsay James,name
 21091,Lindsay James,2018,primary,house,99,Democratic,Lindsay James,name
 21091,Lindsay James,2020,general,house,99,,Lindsay James,name
+21091,Lindsay James,2020,primary,house,99,Democratic,Lindsay James,name
 21091,Lindsay James,2022,general,house,71,,Lindsay James,seat
 21091,Lindsay James,2022,primary,house,71,Democratic,Lindsay James,name
 21091,Lindsay James,2024,general,house,71,,Lindsay James,seat
@@ -514,13 +555,16 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 17286,Liz Bennett,2018,general,house,65,,Liz Bennett,name
 17286,Liz Bennett,2018,primary,house,65,Democratic,Liz Bennett,name
 17286,Liz Bennett,2020,general,house,65,,Liz Bennett,name
+17286,Liz Bennett,2020,primary,house,65,Democratic,Liz Bennett,name
 17286,Liz Bennett,2022,general,senate,39,,Liz Bennett,seat
 17286,Liz Bennett,2022,primary,senate,39,Democratic,Liz Bennett,name
 17286,Liz Bennett,2026,primary,senate,39,Democratic,Liz Bennett,name
+24515,Lynn Evans,2020,primary,house,3,Republican,K. Lynn Evans,manual
 24515,Lynn Evans,2022,general,senate,3,,Lynn Evans,seat
 24515,Lynn Evans,2022,primary,senate,3,Republican,Lynn Evans,name
 24515,Lynn Evans,2026,primary,senate,3,Republican,Lynn Evans,name
 22686,Mark Cisneros,2020,general,house,91,,Mark Cisneros,name
+22686,Mark Cisneros,2020,primary,house,91,Republican,Mark Cisneros,name
 22686,Mark Cisneros,2022,general,house,96,,Mark Cisneros,seat
 22686,Mark Cisneros,2022,primary,house,96,Republican,Mark Cisneros,name
 22686,Mark Cisneros,2024,general,house,96,,Mark Cisneros,seat
@@ -529,11 +573,13 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 14789,Mark Costello,2012,general,house,23,,Mark Costello,name
 14789,Mark Costello,2016,general,senate,12,,Mark Costello,name
 14789,Mark Costello,2020,general,senate,12,,Mark Costello,name
+14789,Mark Costello,2020,primary,senate,12,Republican,Mark Costello,name
 14789,Mark Costello,2024,general,senate,8,,Mark Costello,seat
 14789,Mark Costello,2024,primary,senate,8,Republican,Mark Costello,name
 10726,Mark Lofgren,2012,general,house,91,,Mark S. Lofgren,name
 10726,Mark Lofgren,2016,general,senate,46,,Mark S. Lofgren,name
 10726,Mark Lofgren,2020,general,senate,46,,Mark S. Lofgren,name
+10726,Mark Lofgren,2020,primary,senate,46,Republican,Mark S. Lofgren,name
 10726,Mark Lofgren,2024,general,senate,48,,Mark S. Lofgren,seat
 10726,Mark Lofgren,2024,primary,senate,48,Republican,Mark S. Lofgren,name
 24631,Mark Thompson,2022,general,house,56,,Mark Thompson,seat
@@ -542,6 +588,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 24631,Mark Thompson,2024,primary,house,56,Republican,Mark I. Thompson,name
 24631,Mark Thompson,2026,primary,house,56,Republican,Mark I. Thompson,name
 22687,Martin Graber,2020,general,house,83,,Martin L. Graber,name
+22687,Martin Graber,2020,primary,house,83,Republican,Martin L. Graber,name
 22687,Martin Graber,2022,general,house,100,,Martin L. Graber,seat
 22687,Martin Graber,2022,primary,house,100,Republican,Martin L. Graber,name
 22687,Martin Graber,2024,general,house,100,,Martin L. Graber,seat
@@ -558,10 +605,12 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 6982,Matt Windschitl,2018,general,house,17,,Matt W. Windschitl,name
 6982,Matt Windschitl,2018,primary,house,17,Republican,Matt. W. Windschitl,name
 6982,Matt Windschitl,2020,general,house,17,,Matt W. Windschitl,name
+6982,Matt Windschitl,2020,primary,house,17,Republican,Matt W. Windschitl,name
 6982,Matt Windschitl,2022,general,house,15,,Matt W. Windschitl,seat
 6982,Matt Windschitl,2022,primary,house,15,Republican,Matt W. Windschitl,name
 6982,Matt Windschitl,2024,general,house,15,,Matt W. Windschitl,seat
 6982,Matt Windschitl,2024,primary,house,15,Republican,Matt W. Windschitl,name
+24106,Matthew Rinker,2020,primary,senate,44,Republican,Matthew Rinker,name
 24106,Matthew Rinker,2022,general,house,99,,Matthew Rinker,seat
 24106,Matthew Rinker,2022,primary,house,99,Republican,Matthew Rinker,name
 24106,Matthew Rinker,2024,general,house,99,,Matthew Rinker,seat
@@ -571,6 +620,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 14793,Megan Hess Jones,2018,general,house,2,,Megan Lee Hess Jones,name
 14793,Megan Hess Jones,2018,primary,house,2,Republican,Megan Lee Hess Jones,name
 14793,Megan Hess Jones,2020,general,house,2,,Megan Jones,name
+14793,Megan Hess Jones,2020,primary,house,2,Republican,Megan Jones,name
 14793,Megan Hess Jones,2022,general,house,6,,Megan Jones,seat
 14793,Megan Hess Jones,2022,primary,house,6,Republican,Megan Jones,name
 14793,Megan Hess Jones,2024,general,house,6,,Megan Jones,seat
@@ -587,6 +637,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 18953,Michael Bergan,2018,general,house,55,,Michael Bergan,name
 18953,Michael Bergan,2018,primary,house,55,Republican,Michael Bergan,name
 18953,Michael Bergan,2020,general,house,55,,Michael R. Bergan,name
+18953,Michael Bergan,2020,primary,house,55,Republican,Michael R. Bergan,name
 18953,Michael Bergan,2022,general,house,63,,Michael R. Bergan,seat
 18953,Michael Bergan,2022,primary,house,63,Republican,Michael R. Bergan,name
 18953,Michael Bergan,2024,general,house,63,,Michael R. Bergan,seat
@@ -596,6 +647,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 17458,Michael Sexton,2018,general,house,10,,Mike Sexton,name
 17458,Michael Sexton,2018,primary,house,10,Republican,Mike Sexton,name
 17458,Michael Sexton,2020,general,house,10,,Mike Sexton,name
+17458,Michael Sexton,2020,primary,house,10,Republican,Mike Sexton,name
 17458,Michael Sexton,2022,general,house,7,,Mike Sexton,seat
 17458,Michael Sexton,2022,primary,house,7,Republican,Mike Sexton,name
 17458,Michael Sexton,2024,general,house,7,,Mike Sexton,seat
@@ -605,11 +657,13 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 22961,Mike Bousselot,2026,primary,senate,23,Republican,Mike Bousselot,name
 22531,Mike Klimesh,2012,general,house,55,,Michael T. Klimesh,name
 22531,Mike Klimesh,2020,general,senate,28,,Mike Klimesh,name
+22531,Mike Klimesh,2020,primary,senate,28,Republican,Mike Klimesh,name
 22531,Mike Klimesh,2024,general,senate,32,,Mike Klimesh,seat
 22531,Mike Klimesh,2024,primary,senate,32,Republican,Mike Klimesh,name
 26320,Mike Pike,2024,general,senate,20,,Mike Pike,seat
 26320,Mike Pike,2024,primary,senate,20,Republican,Mike Pike,name
 24110,Mike Vondran,2020,general,house,93,,Mike Vondran,name
+24110,Mike Vondran,2020,primary,house,93,Republican,Mike Vondran,name
 24110,Mike Vondran,2022,general,house,94,,Mike Vondran,seat
 24110,Mike Vondran,2022,primary,house,94,Republican,Mike Vondran,name
 24110,Mike Vondran,2024,general,house,94,,Mike Vondran,seat
@@ -621,12 +675,14 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 21055,Molly Donahue,2018,general,house,68,,Molly Donahue,name
 21055,Molly Donahue,2018,primary,house,68,Democratic,Molly Donahue,name
 21055,Molly Donahue,2020,general,house,68,,Molly Donahue,name
+21055,Molly Donahue,2020,primary,house,68,Democratic,Molly Donahue,name
 21055,Molly Donahue,2022,general,senate,37,,Molly Donahue,seat
 21055,Molly Donahue,2022,primary,senate,37,Democratic,Molly Donahue,name
 21055,Molly Donahue,2026,primary,senate,37,Democratic,Molly Donahue,name
 19287,Monica Kurth,2018,general,house,89,,Monica Kurth,name
 19287,Monica Kurth,2018,primary,house,89,Democratic,Monica Kurth,name
 19287,Monica Kurth,2020,general,house,89,,Monica Kurth,name
+19287,Monica Kurth,2020,primary,house,89,Democratic,Monica Kurth,name
 19287,Monica Kurth,2022,general,house,98,,Monica Kurth,seat
 19287,Monica Kurth,2022,primary,house,98,Democratic,Monica Kurth,name
 19287,Monica Kurth,2024,general,house,98,,Monica Kurth,seat
@@ -635,6 +691,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 17289,Norlin Mommsen,2018,general,house,97,,Norlin Mommsen,name
 17289,Norlin Mommsen,2018,primary,house,97,Republican,Norlin Mommsen,name
 17289,Norlin Mommsen,2020,general,house,97,,Norlin Mommsen,name
+17289,Norlin Mommsen,2020,primary,house,97,Republican,Norlin Mommsen,name
 17289,Norlin Mommsen,2022,general,house,70,,Norlin Mommsen,seat
 17289,Norlin Mommsen,2022,primary,house,70,Republican,Norlin Mommsen,name
 17289,Norlin Mommsen,2024,general,house,70,,Norlin Mommsen,seat
@@ -645,6 +702,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 7075,Pat Grassley,2018,general,house,50,,Pat Grassley,name
 7075,Pat Grassley,2018,primary,house,50,Republican,Pat Grassley,name
 7075,Pat Grassley,2020,general,house,50,,Pat Grassley,name
+7075,Pat Grassley,2020,primary,house,50,Republican,Pat Grassley,name
 7075,Pat Grassley,2022,general,house,57,,Pat Grassley,seat
 7075,Pat Grassley,2022,primary,house,57,Republican,Pat Grassley,name
 7075,Pat Grassley,2024,general,house,57,,Pat Grassley,seat
@@ -653,6 +711,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 21044,Ray Sorensen,2018,general,house,20,,Ray Bubba Sorensen,name
 21044,Ray Sorensen,2018,primary,house,20,Republican,Ray Bubba Sorensen,name
 21044,Ray Sorensen,2020,general,house,20,,Ray Bubba Sorensen,name
+21044,Ray Sorensen,2020,primary,house,20,Republican,Ray Bubba Sorensen,name
 21044,Ray Sorensen,2022,general,house,23,,Ray Bubba Sorensen,seat
 21044,Ray Sorensen,2022,primary,house,23,Republican,Ray Bubba Sorensen,name
 21044,Ray Sorensen,2024,general,house,23,,Ray Bubba Sorensen,seat
@@ -664,6 +723,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 7069,Rick Olson,2018,general,house,31,,Rick L. Olson,name
 7069,Rick Olson,2018,primary,house,31,Democratic,Rick L. Olson,name
 7069,Rick Olson,2020,general,house,31,,Rick L. Olson,name
+7069,Rick Olson,2020,primary,house,31,Democratic,Rick L. Olson,name
 7069,Rick Olson,2022,general,house,39,,Rick L. Olson,seat
 7069,Rick Olson,2022,primary,house,39,Democratic,Rick L. Olson,name
 7069,Rick Olson,2024,general,house,39,,Rick L. Olson,seat
@@ -675,6 +735,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 24102,Robert Henderson,2018,general,house,14,,Robert Henderson,name
 24102,Robert Henderson,2018,primary,house,14,Republican,Robert Henderson,name
 24102,Robert Henderson,2020,general,house,14,,Robert Henderson,name
+24102,Robert Henderson,2020,primary,house,14,Republican,Robert Henderson,name
 24102,Robert Henderson,2022,general,house,2,,Robert Henderson,seat
 24102,Robert Henderson,2022,primary,house,2,Republican,Robert Henderson,name
 24102,Robert Henderson,2024,general,house,2,,Robert Henderson,seat
@@ -683,6 +744,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 24516,Rocky De Witt,2022,general,senate,1,,Rocky De Witt,seat
 24516,Rocky De Witt,2022,primary,senate,1,Republican,Rocky De Witt,name
 21419,Ross Wilburn,2020,general,house,46,,Ross Wilburn,name
+21419,Ross Wilburn,2020,primary,house,46,Democratic,Ross Wilburn,name
 21419,Ross Wilburn,2022,general,house,50,,Ross Wilburn,seat
 21419,Ross Wilburn,2022,primary,house,50,Democratic,Ross Wilburn,name
 21419,Ross Wilburn,2024,general,house,50,,Ross Wilburn,seat
@@ -693,6 +755,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 11623,Ruth Ann Gaines,2018,general,house,32,,Ruth Ann Gaines,name
 11623,Ruth Ann Gaines,2018,primary,house,32,Democratic,Ruth Ann Gaines,name
 11623,Ruth Ann Gaines,2020,general,house,32,,Ruth Ann Gaines,name
+11623,Ruth Ann Gaines,2020,primary,house,32,Democratic,Ruth Ann Gaines,name
 11623,Ruth Ann Gaines,2022,general,house,33,,Ruth Ann Gaines,seat
 11623,Ruth Ann Gaines,2022,primary,house,33,Democratic,Ruth Ann Gaines,name
 11623,Ruth Ann Gaines,2024,general,house,33,,Ruth Ann Gaines,seat
@@ -715,10 +778,12 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 14797,Sandy Salmon,2018,general,house,63,,Sandy Salmon,name
 14797,Sandy Salmon,2018,primary,house,63,Republican,Sandy Salmon,name
 14797,Sandy Salmon,2020,general,house,63,,Sandy Salmon,name
+14797,Sandy Salmon,2020,primary,house,63,Republican,Sandy Salmon,name
 14797,Sandy Salmon,2022,general,senate,29,,Sandy Salmon,seat
 14797,Sandy Salmon,2022,primary,senate,29,Republican,Sandy Salmon,name
 14797,Sandy Salmon,2026,primary,senate,29,Republican,Sandy Salmon,name
 22650,Sarah Trone Garriott,2020,general,senate,22,,Sarah Trone Garriott,name
+22650,Sarah Trone Garriott,2020,primary,senate,22,Democratic,Sarah Trone Garriott,name
 22650,Sarah Trone Garriott,2022,general,senate,14,,Sarah Trone Garriott,seat
 22650,Sarah Trone Garriott,2022,primary,senate,14,Democratic,Sarah Trone Garriott,name
 22650,Sarah Trone Garriott,2024,general,senate,14,,Sarah Trone Garriott,seat
@@ -734,15 +799,16 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 22689,Shannon Latham,2018,general,senate,27,,Shannon Latham,name
 22689,Shannon Latham,2018,primary,senate,27,Republican,Shannon Latham,name
 22689,Shannon Latham,2020,general,house,54,,Shannon Latham,name
+22689,Shannon Latham,2020,primary,house,54,Republican,Shannon Latham,name
 22689,Shannon Latham,2022,general,house,55,,Shannon Latham,seat
 22689,Shannon Latham,2022,primary,house,55,Republican,Shannon Latham,name
 22689,Shannon Latham,2024,general,house,55,,Shannon Latham,seat
 22689,Shannon Latham,2024,primary,house,55,Republican,Shannon Latham,name
 18958,Shannon Lundgren,2016,general,house,57,,Shannon Lundgren,name
 18958,Shannon Lundgren,2018,general,house,57,,Shannon Lundgren,name
-18958,Shannon Lundgren,2018,primary,house,57,Libertarian,Shannon Lundgren,name
 18958,Shannon Lundgren,2018,primary,house,57,Republican,Shannon Lundgren,name
 18958,Shannon Lundgren,2020,general,house,57,,Shannon Lundgren,name
+18958,Shannon Lundgren,2020,primary,house,57,Republican,Shannon Lundgren,name
 18958,Shannon Lundgren,2022,general,house,65,,Shannon Lundgren,seat
 18958,Shannon Lundgren,2022,primary,house,65,Republican,Shannon Lundgren,name
 18958,Shannon Lundgren,2024,general,house,65,,Shannon Lundgren,seat
@@ -750,16 +816,16 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 18958,Shannon Lundgren,2026,primary,house,65,Republican,Shannon Lundgren,name
 18961,Skyler Wheeler,2016,general,house,4,,Skyler Wheeler,name
 18961,Skyler Wheeler,2018,general,house,4,,Skyler Wheeler,name
-18961,Skyler Wheeler,2018,primary,house,4,Democratic,Skyler Wheeler,name
-18961,Skyler Wheeler,2018,primary,house,4,Libertarian,Skyler Wheeler,name
 18961,Skyler Wheeler,2018,primary,house,4,Republican,Skyler Wheeler,name
 18961,Skyler Wheeler,2020,general,house,4,,Skyler Wheeler,name
+18961,Skyler Wheeler,2020,primary,house,4,Republican,Skyler Wheeler,name
 18961,Skyler Wheeler,2022,general,house,4,,Skyler Wheeler,seat
 18961,Skyler Wheeler,2022,primary,house,4,Republican,Skyler Wheeler,name
 18961,Skyler Wheeler,2024,general,house,4,,Skyler Wheeler,seat
 18961,Skyler Wheeler,2024,primary,house,4,Republican,Skyler Wheeler,name
 18961,Skyler Wheeler,2026,primary,house,4,Republican,Skyler Wheeler,name
 22663,Steven Bradley,2020,general,house,58,,Steven P. Bradley,name
+22663,Steven Bradley,2020,primary,house,58,Republican,Steven P. Bradley,name
 22663,Steven Bradley,2022,general,house,66,,Steven P. Bradley,seat
 22663,Steven Bradley,2022,primary,house,66,Republican,Steven P. Bradley,name
 22663,Steven Bradley,2024,general,house,66,,Steven P Bradley,seat
@@ -767,9 +833,9 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 22663,Steven Bradley,2026,primary,house,66,Republican,Steven Bradley,name
 17218,Steven Holt,2016,general,house,18,,Steven Holt,name
 17218,Steven Holt,2018,general,house,18,,Steven Holt,name
-17218,Steven Holt,2018,primary,house,18,Democratic,Steve Holt,name
 17218,Steven Holt,2018,primary,house,18,Republican,Steven Holt,name
 17218,Steven Holt,2020,general,house,18,,Steven Holt,name
+17218,Steven Holt,2020,primary,house,18,Republican,Steven Holt,name
 17218,Steven Holt,2022,general,house,12,,Steven Holt,seat
 17218,Steven Holt,2022,primary,house,12,Republican,Steven Holt,name
 17218,Steven Holt,2024,general,house,12,,Steven Holt,seat
@@ -783,6 +849,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 21115,Thomas Gerhold,2018,general,house,75,,Thomas Gerhold,name
 21115,Thomas Gerhold,2018,primary,house,75,Republican,Thomas Gerhold,name
 21115,Thomas Gerhold,2020,general,house,75,,Thomas Gerhold,name
+21115,Thomas Gerhold,2020,primary,house,75,Republican,Thomas Gerhold,name
 21115,Thomas Gerhold,2022,general,house,84,,Thomas D. Gerhold,seat
 21115,Thomas Gerhold,2022,primary,house,84,Republican,Thomas D. Gerhold,name
 21115,Thomas Gerhold,2024,general,house,84,,Thomas Gerhold,seat
@@ -791,6 +858,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 21160,Thomas Jeneary,2018,general,house,5,,Thomas Jeneary,name
 21160,Thomas Jeneary,2018,primary,house,5,Republican,Thomas Jeneary,name
 21160,Thomas Jeneary,2020,general,house,5,,Thomas Jeneary,name
+21160,Thomas Jeneary,2020,primary,house,5,Republican,Thomas Jeneary,name
 21160,Thomas Jeneary,2022,general,house,3,,Thomas Jeneary,seat
 21160,Thomas Jeneary,2022,primary,house,3,Republican,Thomas Jeneary,name
 21160,Thomas Jeneary,2024,general,house,3,,Thomas Jeneary,seat
@@ -798,7 +866,6 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 26322,Thomas Townsend,2024,general,senate,36,,Thomas Townsend,seat
 26322,Thomas Townsend,2024,primary,senate,36,Democratic,Thomas Townsend,name
 17368,Tim Kraayenbrink,2018,general,senate,5,,Tim Kraayenbrink,name
-17368,Tim Kraayenbrink,2018,primary,senate,5,Libertarian,Tim Kraayenbrink,name
 17368,Tim Kraayenbrink,2018,primary,senate,5,Republican,Tim Kraayenbrink,name
 17368,Tim Kraayenbrink,2022,general,senate,4,,Tim Kraayenbrink,seat
 17368,Tim Kraayenbrink,2022,primary,senate,4,Republican,Tim Kraayenbrink,name
@@ -808,6 +875,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 17287,Timi Brown-powers,2018,general,house,61,,Timi Brown-Powers,name
 17287,Timi Brown-powers,2018,primary,house,61,Democratic,Timi Brown-Powers,name
 17287,Timi Brown-powers,2020,general,house,61,,Timi Brown-Powers,name
+17287,Timi Brown-powers,2020,primary,house,61,Democratic,Timi Brown-Powers,name
 17287,Timi Brown-powers,2022,primary,house,61,Democratic,Timi Brown-Powers,name
 17287,Timi Brown-powers,2024,general,house,61,,Timi Brown-Powers,seat
 17287,Timi Brown-powers,2024,primary,house,61,Democratic,Timi Brown-Powers,name
@@ -820,13 +888,13 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 17825,Tom Moore,2018,general,house,21,,Tom Moore,name
 17825,Tom Moore,2018,primary,house,21,Republican,Tom Moore,name
 17825,Tom Moore,2020,general,house,21,,Tom Moore,name
+17825,Tom Moore,2020,primary,house,21,Republican,Tom Moore,name
 17825,Tom Moore,2022,general,house,18,,Thomas Jay Moore,seat
 17825,Tom Moore,2022,primary,house,18,Republican,Thomas Jay Moore,name
 17825,Tom Moore,2024,general,house,18,,Thomas Jay Moore,seat
 17825,Tom Moore,2024,primary,house,18,Republican,Thomas Jay Moore,name
 17825,Tom Moore,2026,primary,house,18,Republican,Thomas Jay Moore,name
 17430,Tom Shipley,2018,general,senate,11,,Tom Shipley,name
-17430,Tom Shipley,2018,primary,senate,11,Libertarian,Tom Shipley,name
 17430,Tom Shipley,2018,primary,senate,11,Republican,Tom Shipley,name
 17430,Tom Shipley,2022,general,senate,9,,Tom Shipley,seat
 17430,Tom Shipley,2022,primary,senate,9,Republican,Tom Shipley,name
@@ -838,6 +906,7 @@ people_id,legislator,year,type,chamber,district,primary_party,candidate,match
 21056,Tracy Ehlert,2018,general,house,70,,Tracy Ehlert,name
 21056,Tracy Ehlert,2018,primary,house,70,Democratic,Tracy Ehlert,name
 21056,Tracy Ehlert,2020,general,house,70,,Tracy Ehlert,name
+21056,Tracy Ehlert,2020,primary,house,70,Democratic,Tracy Ehlert,name
 21056,Tracy Ehlert,2022,general,house,79,,Tracy Ehlert,seat
 21056,Tracy Ehlert,2022,primary,house,79,Democratic,Tracy Ehlert,name
 21056,Tracy Ehlert,2024,general,house,79,,Tracy Ehlert,seat

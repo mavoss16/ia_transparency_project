@@ -2,7 +2,7 @@
 # Read one precinct results file (from download/election_results.R) into long
 # rows: county, precinct, contest, candidate, party, votes. Votes are each
 # candidate's precinct total (election day + absentee); over and under votes
-# are dropped, write-ins kept as "Write-in".
+# are dropped, write-ins kept under the file's own label (02 standardizes it).
 #
 # Layouts, chosen from the file's contents by detect_layout():
 #   contest_sheets — one sheet per contest: title row, candidate row (each name
@@ -81,12 +81,10 @@ is_legislative <- function(contest) {
   str_detect(str_squish(contest), regex("^state\\s+(rep|sen)", ignore_case = TRUE))
 }
 
-# "Scattering" (Story), "Blank" and "No Name" are write-in tallies in some 2018
-# primary files, which list write-ins by name
-clean_candidate <- function(x) {
-  x <- str_squish(x)
-  if_else(str_detect(x, regex("^(write[- ]?in|scattering|blank|no name)$", ignore_case = TRUE)), "Write-in", x)
-}
+# Names as the file prints them. Write-in labels ("WRITE-IN", "Scattering",
+# "(Blank)", "Dennis Bush (W)") are standardized in 02_build_race_table.R, so
+# label rules can change without re-parsing every file.
+clean_candidate <- function(x) str_squish(x)
 
 # One tibble from a matrix block: precinct per row, candidate per column
 long_votes <- function(precinct, candidate, votes, party = NA_character_) {

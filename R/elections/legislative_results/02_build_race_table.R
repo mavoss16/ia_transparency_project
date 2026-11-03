@@ -5,6 +5,10 @@
 # Input:  data/elections/processed/legislative_results_precinct.rds (01_parse_precinct_results.R)
 #         data/elections/processed/legislative_results_special.csv (special
 #           elections, county rows entered from SOS canvasses or ENR; type "special")
+#         data/elections/processed/legislative_results_corrections.csv (hand
+#           fixes per race and candidate: correct_name for a misspelling the
+#           spelling merge can't catch, write_in = TRUE for a write-in the
+#           results don't mark; with a note)
 # Output: data/elections/processed/legislative_results.rds, one row per
 #   year × type × chamber × district × party (primaries) × candidate
 #   (a second special for the same seat in one year would need election_date
@@ -24,8 +28,11 @@
 # A primary name with more votes in another party's primary for the same seat
 # is also a write-in (2018 files list write-ins by name: Skyler Wheeler,
 # HD 4 Democratic). It keeps its name and votes but counts like "Write-in"
-# below. Other names written in within a one-county race can't be told apart
-# from ballot candidates.
+# below. A name some county marks "(W)" or "(write-in)" (2020 primary) is a
+# write-in, with the mark removed, and so is a name in a one-county primary
+# that the race's unnamed write-ins outpoll. Other names written in within a
+# one-county race can't be told apart from ballot candidates (the 2018
+# Libertarian one-vote "winners"); list those in the corrections file.
 #
 # "Named" below means on the ballot: neither "Write-in" nor write_in.
 # pct and margin_pct are shares of race_votes, write-ins included. margin
@@ -60,6 +67,7 @@ library(lubridate)
 
 INPUT    <- here("data/elections/processed/legislative_results_precinct.rds")
 SPECIALS <- here("data/elections/processed/legislative_results_special.csv")
+CORRECTIONS <- here("data/elections/processed/legislative_results_corrections.csv")
 OUTPUT   <- here("data/elections/processed/legislative_results.rds")
 
 PRIMARY_THRESHOLD <- 0.35  # Iowa Code 43.65: below this, a convention nominates
@@ -137,13 +145,34 @@ read_specials <- function(path = SPECIALS) {
     )
 }
 
-build_race_table <- function(precinct = readRDS(INPUT), specials = read_specials()) {
+# Hand fixes, one row per race and candidate (primary_party empty for generals)
+read_corrections <- function(path = CORRECTIONS) {
+  readr::read_csv(path, col_types = readr::cols(year = "i", district = "i", write_in = "l", .default = "c"))
+}
+
+# Write-in tallies under the files' own labels: "Write-in" in any case, and in
+# some 2018 and 2020 primaries "Scattering" (Story), "Blank" / "(Blank)" and
+# "No Name"
+WRITE_IN_LABEL <- regex("^\\(?(write[- ]?in|scattering|blank|no name)\\)?$", ignore_case = TRUE)
+# A write-in some county lists by name and marks: "Dennis Bush (W)"
+WRITE_IN_MARK <- regex("\\s*\\((w|write[- ]?in)\\)$", ignore_case = TRUE)
+
+build_race_table <- function(precinct = readRDS(INPUT), specials = read_specials(),
+                             corrections = read_corrections()) {
+  race_cols <- c("year", "type", "chamber", "district", "primary_party")
   races <- bind_rows(precinct, specials) |>
     mutate(
-      candidate     = fix_caps(candidate),
+      candidate     = if_else(str_detect(candidate, WRITE_IN_LABEL), "Write-in", fix_caps(candidate)),
+      marked        = str_detect(candidate, WRITE_IN_MARK),
+      candidate     = str_remove(candidate, WRITE_IN_MARK),
       primary_party = if_else(type == "primary", party, NA_character_),
-      party         = standard_party(party),
-      spelling      = str_squish(str_remove_all(str_to_lower(candidate), "[^a-z ]"))
+      party         = standard_party(party)
+    ) |>
+    left_join(corrections |> filter(!is.na(correct_name)) |> select(all_of(race_cols), candidate, correct_name),
+              by = c(race_cols, "candidate")) |>
+    mutate(
+      candidate = coalesce(correct_name, candidate),
+      spelling  = str_squish(str_remove_all(str_to_lower(candidate), "[^a-z ]"))
     ) |>
     # County files can differ in case or punctuation ("TJ Widbin" / "Tj Widbin",
     # "Matt W. Windschitl" / "Matt. W. Windschitl"): use the spelling with the
@@ -162,13 +191,27 @@ build_race_table <- function(precinct = readRDS(INPUT), specials = read_specials
       party    = first(party[!is.na(party)]),
       special_date = first(special_date),
       special_url  = first(special_url),
+      marked   = any(marked),
       .by = c(year, type, chamber, district, primary_party, candidate)
     ) |>
+    left_join(corrections |> filter(write_in %in% TRUE) |> select(all_of(race_cols), candidate, listed = write_in),
+              by = c(race_cols, "candidate")) |>
     mutate(
       party_source = if_else(!is.na(party), "results", NA_character_),
       key          = name_key(candidate),
-      write_in     = candidate != "Write-in" & race_counties > 1 & counties < race_counties
+      write_in     = candidate != "Write-in" &
+                     ((race_counties > 1 & counties < race_counties) | marked | listed %in% TRUE)
     ) |>
+    select(-marked, -listed) |>
+    # A name in a one-county primary that the unnamed write-ins outpoll was
+    # written in too (2018 and 2020 list write-ins by name; no other year has one)
+    mutate(
+      write_in_votes = sum(votes[candidate == "Write-in"]),
+      write_in = write_in | (type == "primary" & race_counties == 1 & candidate != "Write-in" &
+                             votes < write_in_votes),
+      .by = all_of(race_cols)
+    ) |>
+    select(-write_in_votes) |>
     # A primary name with more votes in another party's primary for the seat
     # is that party's candidate, written in here
     mutate(
