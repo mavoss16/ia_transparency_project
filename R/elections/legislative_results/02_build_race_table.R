@@ -4,7 +4,7 @@
 #
 # Input:  data/elections/processed/legislative_results_precinct.rds (01_parse_precinct_results.R)
 #         data/elections/processed/legislative_results_special.csv (special
-#           elections, county rows entered from the SOS canvasses; type "special")
+#           elections, county rows entered from SOS canvasses or ENR; type "special")
 # Output: data/elections/processed/legislative_results.rds, one row per
 #   year × type × chamber × district × party (primaries) × candidate
 #   (a second special for the same seat in one year would need election_date

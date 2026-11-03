@@ -29,3 +29,9 @@ election_date,chamber,district,county,candidate,party,votes,source_url
 2025-12-09,House,7,Webster,Rachel Burns,Democratic,158,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
 2025-12-09,House,7,Webster,Wendy Larson,Republican,265,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
 2025-12-09,House,7,Webster,Write-in,,0,https://sos.iowa.gov/sites/default/files/2025-12/State%20Canvass%2012-9-2025%201.pdf
+2025-12-30,Senate,16,Dallas,Lucas Loftin,Republican,55,https://electionresults.iowa.gov/IA/125665/web.345435/#/summary
+2025-12-30,Senate,16,Dallas,Renee Hardman,Democratic,114,https://electionresults.iowa.gov/IA/125665/web.345435/#/summary
+2025-12-30,Senate,16,Dallas,Write-in,,0,https://electionresults.iowa.gov/IA/125665/web.345435/#/summary
+2025-12-30,Senate,16,Polk,Lucas Loftin,Republican,2875,https://electionresults.iowa.gov/IA/125665/web.345435/#/summary
+2025-12-30,Senate,16,Polk,Renee Hardman,Democratic,7227,https://electionresults.iowa.gov/IA/125665/web.345435/#/summary
+2025-12-30,Senate,16,Polk,Write-in,,11,https://electionresults.iowa.gov/IA/125665/web.345435/#/summary
