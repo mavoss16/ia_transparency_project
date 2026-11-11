@@ -47,6 +47,9 @@ jobs:
 
       - name: Set up R, Quarto and renv
         uses: ./.github/actions/setup-site
+        # Normally ~2 min. A runner that can't reach the package mirrors hung
+        # here for 2 hours on 2026-11-11; fail fast instead.
+        timeout-minutes: 20
 
       - name: Render backlog
         shell: bash
