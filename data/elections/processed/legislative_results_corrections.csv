@@ -1,3 +1,4 @@
 year,type,chamber,district,primary_party,candidate,correct_name,write_in,note
 2020,primary,house,10,Democratic,Camella Schultes,Carmella Schultes,,County misspelling of the ballot candidate (Carmella Schultes in the other counties and the general)
 2020,primary,house,10,Democratic,Camella Schuttes,Carmella Schultes,,County misspelling of the ballot candidate (Carmella Schultes in the other counties and the general)
+2026,general,senate,5,,NPY Rachel Gravert,Rachel Gravert,,Palo Alto prints a party code in the ballot name (Rachel Gravert in the other counties)

@@ -60,7 +60,8 @@ RESULT_SOURCES <- tribble(
   2022,  "general", "sos_county",    "precinct-results-county-2022-general-0",
   2024,  "primary", "enr",           "121508",
   2024,  "general", "enr",           "122322",
-  2026,  "primary", "enr",           "126082"
+  2026,  "primary", "enr",           "126082",
+  2026,  "general", "enr",           "127077"
 )
 
 # ---- Requests ----

@@ -50,7 +50,9 @@
 #   no_candidate: none (a primary nobody filed for).
 # party (generals): the results file's party label where it prints one
 #   (party_source "results"), else the party of the primary the candidate won
-#   that year ("primary"); otherwise NA. Primaries: the primary's party.
+#   that year ("primary"); otherwise NA. The 2026 general prints a code for
+#   every party's candidates, so a ballot name with none there is "No Party"
+#   ("no_code"). Primaries: the primary's party.
 #
 # Usage:
 #   source("R/elections/legislative_results/02_build_race_table.R")
@@ -111,6 +113,7 @@ standard_party <- function(x) {
     str_detect(x, regex("^dem", ignore_case = TRUE)) ~ "Democratic",
     str_detect(x, regex("^rep", ignore_case = TRUE)) ~ "Republican",
     str_detect(x, regex("^lib", ignore_case = TRUE)) ~ "Libertarian",
+    x %in% c("NP", "NOP") ~ "No Party",  # ENR's county codes, 2026 general
     .default = x
   )
 }
@@ -235,9 +238,12 @@ build_race_table <- function(precinct = readRDS(INPUT), specials = read_specials
     mutate(
       fill         = type == "general" & is.na(party) & candidate != "Write-in" & !is.na(nominee_party),
       party_source = if_else(fill, "primary", party_source),
-      party        = if_else(fill, nominee_party, party)
+      party        = if_else(fill, nominee_party, party),
+      no_party     = type == "general" & year == 2026 & is.na(party) & candidate != "Write-in" & !write_in,
+      party_source = if_else(no_party, "no_code", party_source),
+      party        = if_else(no_party, "No Party", party)
     ) |>
-    select(-key, -nominee_party, -fill)
+    select(-key, -nominee_party, -fill, -no_party)
 
   races <- races |>
     mutate(
