@@ -81,6 +81,7 @@ run_lobbying <- function(ga = CURRENT_GA, scrape = TRUE,
   render$render_all_organizations(deadline = deadline, ga = ga)
   quarto::quarto_render(here("site/lobbying/index.qmd"), as_job = FALSE)
   render$render_all_bills(deadline = deadline, ga = ga)
+  render$finish_site_output()
 
   message("\n=== Lobbying update complete",
           if (Sys.time() > deadline) " (budget reached; pages left render next run)", " ===")

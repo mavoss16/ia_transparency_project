@@ -18,6 +18,7 @@ library(quarto)
 library(here)
 
 source(here("R/legislature/utils.R"))
+source(here("R/site_index.R"), local = TRUE)
 
 # Configuration
 OUTPUT_DIR <- here("docs")
@@ -1150,6 +1151,8 @@ render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees
   # Write status summary for the status page
   write_status(render_start, bills_result, legislators_result, committees_result, weeks_result)
 
+  finish_site_output()
+
   message("\n=== Site render complete ===")
 }
 
@@ -1362,6 +1365,8 @@ render_backlog <- function(target = "everything", force = FALSE, budget_minutes 
       committees    = render_all_committees(deadline = deadline)
     )
   }
+
+  finish_site_output()
 
   message("\n=== Render backlog complete",
           if (Sys.time() > deadline) " (budget reached; run again to continue)", " ===")

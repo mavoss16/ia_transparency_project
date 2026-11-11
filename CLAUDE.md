@@ -28,6 +28,7 @@ R/{domain}/            pipeline scripts, numbered by stage; download/ for unnumb
 R/exploratory/         analysis scripts, not production
 R/ui_helpers.R         shared UI components + palette (all domains)
 R/render_all.R         top-level render orchestrator (legislature only so far)
+R/site_index.R         final render step: rebuilds sitemap.xml and search.json from docs/
 data/{domain}/         processed data; raw sources kept strictly separate
 legiscan/ga{N}/        raw LegiScan data per session
 site/                  Quarto project (output → docs/)
@@ -61,6 +62,7 @@ Not committed: `data/campaign_finance/{source,processed}/` and the `.duckdb`, `d
 - Raw source files strictly separate from processed data. Processed formats: legislature `.rds`; campaign finance Parquet + DuckDB; elections `.rds` for combined shapefiles.
 - Pipeline scripts numbered by stage (`01_`, `02_`, …) within `R/{domain}/`; one-off downloaders in `R/{domain}/download/` without numbers. When a script's first-line comment or usage example names its own file, update it on a rename.
 - Each domain gets its own `R/{domain}/render.R`, called from `R/render_all.R`. Original monorepo plan: `notes/project/2026-03-06_migration-plan.md`.
+- Every entry point that renders pages ends with `finish_site_output()` (`R/site_index.R`), because Quarto's own `sitemap.xml` and `search.json` hold only the latest batch. A new page type needs a case in `site_page_kind()` for a useful search result.
 - Prefix test/scratch scripts with `_` (e.g. `_test_download_5.R`).
 - Archive deprecated code in an `archive/` subdirectory rather than deleting it.
 - Strong preference for tidyverse functions, with the base R pipe `|>`.
