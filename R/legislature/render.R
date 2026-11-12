@@ -1094,6 +1094,81 @@ write_status <- function(render_time, bills_result, legislators_result, committe
   message(paste("Status written to", status_path))
 }
 
+#' Section indexes that get a copy per earlier session (see session.R). The
+#' weekly activity archive isn't here: it lists every session on one page.
+SESSION_INDEX_SECTIONS <- c("legislation", "legislators", "lobbying")
+
+#' Render one section index for an earlier session, beside the current one:
+#' site/legislation/index.qmd with ga = 91 -> docs/legislation/ga91.html.
+#' Same directory depth as index.html, so Quarto's relative paths hold.
+#' @param section One of SESSION_INDEX_SECTIONS
+#' @param ga The earlier session
+render_session_index <- function(section, ga) {
+  render_name <- paste0(ga_slug(ga), ".html")
+  output_file <- file.path(OUTPUT_DIR, section, render_name)
+
+  tryCatch({
+    quarto_render(
+      input = here("site", section, "index.qmd"),
+      output_file = render_name,
+      execute_params = list(ga = ga),
+      output_format = "html",
+      metadata = list(search = FALSE),  # Avoid search.json file lock on Windows
+      as_job = FALSE
+    )
+    if (!file.exists(output_file)) stop("no page at ", output_file)
+
+    message("Rendered session index: ", section, "/", render_name)
+    TRUE
+  }, error = function(e) {
+    warning(paste("Failed to render session index", section, ga_slug(ga), ":", e$message))
+    FALSE
+  })
+}
+
+#' Fingerprint of an archived section index: the template, the section's
+#' session list and which session is current. The page's own data is frozen,
+#' so this changes only when the template is edited or a session is added
+#' (its session switcher then needs the new link).
+session_index_digest <- function(section) {
+  rlang::hash(c(rlang::hash_file(here("site", section, "index.qmd")),
+                section_gas(section), CURRENT_GA))
+}
+
+#' Render what keeps earlier sessions reachable from the index pages: each
+#' section index for every session before CURRENT_GA (manifest type
+#' "session_index", key "ga91/legislation"), and those sessions' week pages
+#' (incremental; a session's weeks were rendered while it was current, so
+#' this renders nothing unless the session was backfilled).
+#' @param force If TRUE, re-render the archived indexes regardless of hash
+render_session_archives <- function(force = FALSE) {
+  manifest <- load_manifest()
+  rendered <- manifest |> filter(type == "session_index")
+
+  success_count <- 0
+  failed_items <- character(0)
+  for (section in SESSION_INDEX_SECTIONS) {
+    digest <- session_index_digest(section)
+    for (g in setdiff(section_gas(section), CURRENT_GA)) {
+      key <- session_item_id(g, section)
+      if (!force && identical(rendered$hash[match(key, rendered$id)], digest)) next
+      if (render_session_index(section, g)) {
+        manifest <- update_manifest(manifest, "session_index", key, digest)
+        save_manifest(manifest)
+        success_count <- success_count + 1
+      } else {
+        failed_items <- c(failed_items, key)
+      }
+    }
+  }
+  message("Archived session indexes rendered: ", success_count,
+          if (length(failed_items)) paste0(" (failed: ", paste(failed_items, collapse = ", "), ")"))
+
+  for (g in setdiff(section_gas("activity"), CURRENT_GA)) render_all_weeks(ga = g)
+
+  invisible(list(success = success_count, failed = length(failed_items), failed_items = failed_items))
+}
+
 #' Render the main Quarto site (index pages)
 render_index_pages <- function() {
   message("Rendering main site pages...")
@@ -1119,6 +1194,10 @@ render_site <- function(bills_limit = NULL, legislators_limit = NULL, committees
   render_start <- Sys.time()
   bills_deadline <- render_start + time_budget_minutes * 60
   message("=== Starting full site render ===\n")
+
+  # Earlier sessions' index pages (and any of their weeks not yet rendered),
+  # which the current index pages' session switchers link to
+  render_session_archives()
 
   # Render main quarto site first (includes the weekly activity archive)
   render_index_pages()
@@ -1348,7 +1427,10 @@ render_backlog <- function(target = "everything", force = FALSE, budget_minutes 
           budget_minutes, "-minute budget ===\n")
 
   if (force) clear_manifest_type(unlist(BACKLOG_TARGETS[targets], use.names = FALSE))
-  if (target == "everything") render_index_pages()
+  if (target == "everything") {
+    render_session_archives(force = force)
+    render_index_pages()
+  }
 
   results <- list()
   for (t in targets) {

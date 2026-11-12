@@ -1,5 +1,7 @@
 ---
-pagetitle: "`r source(here::here('R/legislature/session.R')); paste('Legislators -', ga_label(CURRENT_GA))`"
+pagetitle: "`r source(here::here('R/legislature/session.R')); paste('Legislators -', ga_label(resolve_ga(params$ga)))`"
+params:
+  ga: null  # null = CURRENT_GA at index.html; an earlier session renders to ga91.html (render_session_indexes())
 format:
   html:
     echo: false
@@ -20,7 +22,19 @@ library(htmltools)
 source(here::here("R/legislature/utils.R"))
 source(here::here("R/legislature/ui_helpers.R"))
 
-ga <- CURRENT_GA
+ga <- resolve_ga(params$ga)
+archived <- ga != CURRENT_GA
+
+# Each member links to their career page, which shows their latest session.
+# On an earlier session's page, members who served again link instead to
+# their archived page for this session (docs/legislators/ga91/, rendered by
+# render_legislator_archives()), named like the career page.
+sessions <- legislator_sessions()
+profile_href <- function(id) {
+  person <- sessions |> filter(people_id == id)
+  filename <- get_legislator_filename(id, person |> filter(ga == latest_ga))
+  if (person$latest_ga[1] > ga) paste0(ga_slug(ga), "/", filename, ".html") else paste0(filename, ".html")
+}
 ```
 
 ```{r}
@@ -73,8 +87,14 @@ party_split_bar <- function(label, r, d) {
 div(class = "ia-hero-row",
   div(
     h1("Legislators"),
-    HTML(sprintf("<p class='ia-lead'><strong>%d</strong> members serving in the House and Senate.</p>",
-                 nrow(active_people)))
+    HTML(if (archived) {
+      sprintf("<p class='ia-lead'><strong>%d</strong> members served in the House and Senate at the end of the %s (%s).</p>",
+              nrow(active_people), ga_label(ga), ga_years(ga))
+    } else {
+      sprintf("<p class='ia-lead'><strong>%d</strong> members serving in the House and Senate.</p>",
+              nrow(active_people))
+    }),
+    session_nav("legislators", ga)
   ),
   div(style = "display:flex; gap:1.75rem",
     party_split_bar("House",  n_house_R,  n_house_D),
@@ -95,7 +115,7 @@ chamber_districts <- function(role_code) {
     rowwise() |>
     mutate(
       District = parse_district_number(district),
-      filename = get_legislator_filename(people_id, people)
+      href = profile_href(people_id)
     ) |>
     ungroup() |>
     transmute(
@@ -106,7 +126,7 @@ chamber_districts <- function(role_code) {
       popup  = paste0(
         "<b>", name, "</b> (", party, ")<br>",
         "<b>District:</b> ", district, "<br>",
-        "<a href='", filename, ".html'>View Profile →</a>"
+        "<a href='", href, "'>View Profile →</a>"
       )
     )
 }
@@ -149,8 +169,8 @@ build_chamber <- function(role_code) {
     replace_na(list(bills_sponsored = 0, sole_sponsored = 0, votes_cast = 0)) |>
     rowwise() |>
     mutate(
-      filename  = get_legislator_filename(people_id, people),
-      name_link = str_glue("<a href='{filename}.html'>{name}</a>"),
+      href      = profile_href(people_id),
+      name_link = str_glue("<a href='{href}'>{name}</a>"),
       is_former = people_id %in% former_ids
     ) |>
     ungroup() |>

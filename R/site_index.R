@@ -40,6 +40,7 @@ site_page_paths <- function(docs_dir) {
 #' What kind of page a path is; decides how its search entry is written
 site_page_kind <- function(path) {
   case_when(
+    str_detect(path, "^(legislation|legislators|lobbying)/ga\\d+\\.html$") ~ "session_index",
     str_detect(path, "^legislators/ga\\d+/") ~ "legislator_archive",
     str_detect(path, "^legislators/(index|compare)\\.html$") ~ "general",
     str_detect(path, "^legislators/") ~ "legislator",

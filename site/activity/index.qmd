@@ -18,8 +18,16 @@ source(here::here("R/legislature/ui_helpers.R"))
 
 ga <- CURRENT_GA
 
-bill_actions <- load_bill_actions()
-weeks <- weekly_activity_summary(bill_actions)   # newest first; one row per page
+# Every session's weeks, so earlier sessions' week pages stay reachable after
+# CURRENT_GA moves on. Week pages are keyed by date (docs/activity/2026-03-02.html),
+# so they don't collide across sessions.
+gas <- section_gas("activity")
+read_actions <- \(g) readRDS(file.path(ga_paths(g)$bills, "bill_actions.rds"))
+weeks <- purrr::map(gas, \(g) weekly_activity_summary(read_actions(g)) |> mutate(ga = g)) |>
+  purrr::list_rbind() |>
+  arrange(desc(week_start))   # newest first; one row per page
+
+bill_actions <- read_actions(ga)
 latest <- latest_active_week(bill_actions)
 data_through <- max(bill_actions$date)
 
@@ -35,7 +43,9 @@ week_href <- \(d) paste0(format(d, "%Y-%m-%d"), ".html")
 ```{r}
 div(class = "ia-hero-row",
   div(
-    div(class = "ia-eyebrow", ga_label(ga)),
+    div(class = "ia-eyebrow",
+        if (length(gas) == 1) ga_label(ga)
+        else paste0(ga_ordinal(min(gas)), "–", ga_ordinal(max(gas)), " General Assemblies")),
     h1("Weekly activity"),
     p(class = "ia-lead",
       "What the Legislature did each week: bills introduced, moved through ",
@@ -79,8 +89,9 @@ gap_row <- function(newer, older) {
                                  fmt_day(older + 7), fmt_day(newer - 1))))
 }
 
-year_table <- function(yr) {
-  ws <- weeks |> filter(format(week_start, "%Y") == yr)
+# One card per session and calendar year, newest first
+year_table <- function(g, yr) {
+  ws <- weeks |> filter(ga == g, format(week_start, "%Y") == yr)
   rows <- list()
   for (i in seq_len(nrow(ws))) {
     if (i > 1 && as.numeric(ws$week_start[i - 1] - ws$week_start[i]) > 7) {
@@ -90,6 +101,7 @@ year_table <- function(yr) {
   }
   div(class = "ia-card ia-week-year",
     div(class = "ia-card-title", yr),
+    if (length(gas) > 1) div(class = "ia-card-sub", ga_label(g)),
     div(class = "ia-table-scroll",
       tags$table(class = "ia-week-table",
         tags$thead(tags$tr(
@@ -107,8 +119,10 @@ year_table <- function(yr) {
   )
 }
 
+cards <- weeks |> distinct(ga, year = format(week_start, "%Y"))  # already newest first
+
 tagList(
-  lapply(sort(unique(format(weeks$week_start, "%Y")), decreasing = TRUE), year_table),
+  purrr::map2(cards$ga, cards$year, year_table),
   div(class = "ia-footnote",
     "Counts are bill groups — a bill together with its companion bills and the ",
     "study bill it came from — reaching each stage during the week. ",

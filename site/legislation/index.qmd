@@ -1,5 +1,7 @@
 ---
-pagetitle: "`r source(here::here('R/legislature/session.R')); paste('Legislation -', ga_label(CURRENT_GA))`"
+pagetitle: "`r source(here::here('R/legislature/session.R')); paste('Legislation -', ga_label(resolve_ga(params$ga)))`"
+params:
+  ga: null  # null = CURRENT_GA at index.html; an earlier session renders to ga91.html (render_session_indexes())
 format:
   html:
     echo: false
@@ -17,7 +19,8 @@ library(htmltools)
 source(here::here("R/legislature/utils.R"))
 source(here::here("R/legislature/ui_helpers.R"))
 
-ga <- CURRENT_GA
+ga <- resolve_ga(params$ga)
+archived <- ga != CURRENT_GA
 ```
 
 ```{r}
@@ -50,8 +53,11 @@ div(class = "ia-hero-row",
   div(
     h1("Legislation"),
     HTML(sprintf(
-      "<p class='ia-lead'>The %s has introduced <strong>%s</strong> bills and resolutions.</p>",
-      ga_label(ga), format(n_bills, big.mark = ",")))
+      "<p class='ia-lead'>The %s %s <strong>%s</strong> bills and resolutions.</p>",
+      if (archived) paste0(ga_label(ga), " (", ga_years(ga), ")") else ga_label(ga),
+      if (archived) "introduced" else "has introduced",
+      format(n_bills, big.mark = ","))),
+    session_nav("legislation", ga)
   )
 )
 ```

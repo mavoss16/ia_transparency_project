@@ -159,6 +159,38 @@ available_gas <- function() {
   sort(gas)
 }
 
+# Section index pages --------------------------------------------------------
+# The Legislation, Legislators and Lobbying indexes and the weekly activity
+# archive show the current session at their usual URL. Each earlier session
+# gets its own copy of the first three beside it, rendered from the same .qmd
+# with a `ga` parameter (render_session_indexes() in render.R):
+#   docs/legislation/index.html   current session
+#   docs/legislation/ga91.html    the 91st, once it is no longer current
+# The weekly archive lists every session's weeks on one page instead.
+
+#' The file each section's index reads, so a session only gets a page in a
+#' section once that section's data exists for it (a backfilled session may
+#' have bills but no lobbying declarations)
+SECTION_INDEX_INPUTS <- list(
+  legislation = \(ga) ga_csv("bills", ga),
+  legislators = \(ga) file.path(ga_paths(ga)$votes, "legislator_stats.rds"),
+  lobbying    = \(ga) file.path(ga_paths(ga)$lobbying, "organization_bills.rds"),
+  activity    = \(ga) file.path(ga_paths(ga)$bills, "bill_actions.rds")
+)
+
+#' Sessions that have a page in a site section, oldest first
+#' @param section "legislation", "legislators", "lobbying" or "activity"
+section_gas <- function(section) {
+  gas <- available_gas()
+  gas[file.exists(vapply(gas, SECTION_INDEX_INPUTS[[section]], character(1)))]
+}
+
+#' A session's index page within its section directory: "index.html" for
+#' the current session, "ga91.html" for an earlier one
+session_index_href <- function(ga) {
+  if (as.integer(ga) == CURRENT_GA) "index.html" else paste0(ga_slug(ga), ".html")
+}
+
 #' Every legislator in every session on disk: one row per person per session,
 #' with people.csv's columns plus `ga` and `latest_ga` (the newest session the
 #' person served in, whose data their career page shows). Committees, which

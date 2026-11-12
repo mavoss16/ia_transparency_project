@@ -1,5 +1,7 @@
 ---
-pagetitle: "`r source(here::here('R/legislature/session.R')); paste('Lobbying -', ga_label(CURRENT_GA))`"
+pagetitle: "`r source(here::here('R/legislature/session.R')); paste('Lobbying -', ga_label(resolve_ga(params$ga)))`"
+params:
+  ga: null  # null = CURRENT_GA at index.html; an earlier session renders to ga91.html (render_session_indexes())
 format:
   html:
     echo: false
@@ -16,7 +18,7 @@ library(htmltools)
 source(here::here("R/legislature/utils.R"))
 source(here::here("R/legislature/ui_helpers.R"))
 
-ga <- CURRENT_GA
+ga <- resolve_ga(params$ga)
 ```
 
 ```{r}
@@ -46,7 +48,8 @@ div(class = "ia-hero-row",
       "Organizations that hire a registered lobbyist must declare, bill by bill, whether they are ",
       "for, against or undecided on it. These pages collect those declarations by organization ",
       "and show how the bills turned out."),
-    div(class = "ia-updated", paste("Declarations through", data_through))
+    div(class = "ia-updated", paste("Declarations through", data_through)),
+    session_nav("lobbying", ga)
   )
 )
 ```

@@ -298,6 +298,12 @@ h2 { font-size: 1.4rem; margin-top: 2rem; }
 }
 .ia-updated { font-size: 0.82rem; color: $faint; white-space: nowrap; }
 
+// Session switcher under a section index's lead (session_nav() in
+// R/legislature/ui_helpers.R); shows only once a section has two sessions
+.ia-session-nav { font-size: 0.85rem; color: $faint; margin-top: 0.6rem; }
+.ia-session-nav a { color: $muted; }
+.ia-session-nav strong { color: $ink-soft; font-weight: 600; }
+
 // Card header row (title left, action/legend right)
 .ia-card-head {
   display: flex; align-items: baseline; justify-content: space-between;

@@ -309,3 +309,32 @@ legislator_table <- function(df) {
     highlight = TRUE
   )
 }
+
+# ------------------------------------------------------------------
+# Session switcher for section index pages
+# ------------------------------------------------------------------
+
+#' One line listing every session a section index exists for, newest first,
+#' with the one on screen marked and the others linked. NULL while the
+#' section has a single session, so nothing shows until there's a choice.
+#' Links are relative to the section directory (session_index_href()), so it
+#' works on both index.html and ga91.html.
+#' @param section "legislation", "legislators" or "lobbying" (section_gas())
+#' @param ga The session the page shows
+session_nav <- function(section, ga) {
+  gas <- rev(section_gas(section))
+  if (length(gas) < 2) return(invisible(NULL))  # invisible: knitr would print "NULL"
+
+  items <- lapply(gas, function(g) {
+    label <- paste0(ga_ordinal(g), " · ", ga_years(g), if (g == CURRENT_GA) " (current)")
+    if (g == ga) tags$strong(`aria-current` = "page", label)
+    else tags$a(href = session_index_href(g), label)
+  })
+  sep <- span(class = "ia-session-sep", `aria-hidden` = "true", HTML(" &middot; "))
+  joined <- lapply(seq_along(items), \(i) tagList(if (i > 1) sep, items[[i]]))
+
+  tags$nav(class = "ia-session-nav", `aria-label` = "General Assembly",
+    span(class = "ia-session-nav-label", "General Assembly: "),
+    joined
+  )
+}
