@@ -26,7 +26,6 @@ Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-p
 - [ ] Home: tally dash `#b5b2a8` fails contrast (`site/index.qmd`); gloss LegiScan jargon in activity rows; funnel restructure (deferred by choice).
 - [ ] Legislators index: Senate is the default tab; consider House.
 - [ ] The Undecided lobbying swatch `#cfccc2` (`IA_PALETTE$lobby_undecided`) is below 3:1 on the background.
-- [ ] Pages render only when their own data changes, so three site-wide template changes from 2026-11-01 reach most live pages only on a forced re-render: the ochre Against share bar and organization links on bill pages, and the Lobbying navbar entry on every page. Weeks are re-rendered (2026-11-01), organization pages already have both changes, and legislator and committee pages re-render on the first gated night. Left: bills. Run the Render Backlog workflow with `target: bills`, `force` on, then repeat with `force` off until done (~9 h at ~8/min, so two or three runs). Not on Monday, when the lobbying run needs the queue.
 - [ ] **Decide** analytics: the live site has none. Wire `google-analytics.html` (repo root) into `_quarto.yml` or delete it.
 - [ ] Write `DESIGN.md` once the visual direction is settled.
 - [ ] Feature idea: "enter your town → your two legislators" (highest-leverage feature for newcomers; scope with `/impeccable shape`).
