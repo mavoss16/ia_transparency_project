@@ -8,6 +8,7 @@ The project's single list of open work. Items link to the note or file with the 
 
 Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-plan.md).
 
+- [ ] Run the 90th GA backfill (Phase 2, under Legislature data) in December as the rehearsal for the rollover: it is the first real two-session render, and January is the wrong time to find a cross-session bug.
 - [ ] Freeze the 91st: after CI's last 91st pull, add `91L` to `FROZEN_GAS` in `R/legislature/session.R`. The daily run then does nothing (no pull, no re-renders, no commit) until `CURRENT_GA = 92`. **Decide** when.
 - [ ] Check cross-session pages on the first real two-session render (the 92nd switch, or the 90th backfill): legislator career pages' "Earlier sessions" list, `legislators/ga91/` archive pages and redirect stubs ([session log](notes/legislature/2026-10-31_career-pages-electoral-history.md)), and the archived section indexes with their session switchers (`legislation/ga91.html`, `legislators/ga91.html`, `lobbying/ga91.html`, and the all-sessions weekly archive; [session log](notes/legislature/2026-11-11_past-session-indexes.md)). All were tested only against a faked second session.
 - [ ] When LegiScan creates the session, set `CURRENT_GA = 92` (the ID fills itself via `legiscan_session_id()`), bulk-download the first load, then run incremental updates.
@@ -18,7 +19,8 @@ Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-p
 ## Site and hosting
 
 - [ ] Scheduled runs start late: moving the crons off the hour on 2026-11-02 (daily 06:17, lobbying Mondays 12:43) did not help. Daily runs from 11-03 to 11-10 began 6¾–10 h after the cron, and the 11-09 lobbying run 10 h after. If the delay matters for the 92nd GA, trigger them from a Cloudflare Worker cron calling the `workflow_dispatch` API (needs a fine-grained GitHub token with Actions write).
-- [ ] **Decide** deploying with `actions/deploy-pages` instead of committing `docs/`. The `.git` pack is ~960 MB and grows daily (nights that render no pages still commit about 15 files of timestamps and widget IDs), and campaign finance pages won't fit in a committed `docs/`.
+- [ ] **Decide** deploying with `actions/deploy-pages` instead of committing `docs/`. The `.git` pack is ~960 MB and grows daily (nights that render no pages still commit about 15 files of timestamps and widget IDs), and campaign finance pages won't fit in a committed `docs/`. Incremental rendering needs the previous output, so the alternative to an artifact deploy is an orphan `gh-pages` branch force-pushed each run (main keeps code and data, and output history stops accumulating). Recommended before the 92nd GA (2026-11-14 review).
+- [ ] **Decide** the rendering model for high-volume pages before backfilling more sessions or publishing campaign finance. One Quarto process per page runs at ~8 bills/min and ~23 s per organization, and a navbar change means ~9 h of forced bill re-renders; eight more sessions or 8,000 committee pages multiply that. Options: build those pages directly with `htmltools` into a shared shell, or load the navbar at runtime so site-wide changes don't touch every page.
 - [ ] `ia_reactable_theme()` for the four reactable tables (legislation index, committee lists, `legislator_table()`, week page), with the `:focus-visible` rules folded in. Then make the legislator voting record and sponsored bills reactable. Re-check the legislation index's font size once themed (the backlog flagged 12px).
 - [ ] Legislator and committee bill lists show LegiScan's `status_desc` ("Engrossed") instead of the site's status scale; use the `groups.rds` status.
 - [ ] Phone width, all from nested card + tab padding: vote maps (~198 px, legend covers them), the 10-column vote summary (scrolls in a ~232 px box), the legislators index map (~233 px sliver).
@@ -26,7 +28,9 @@ Phase 1 of the [multi-session plan](notes/legislature/2026-10-24_multi-session-p
 - [ ] Home: tally dash `#b5b2a8` fails contrast (`site/index.qmd`); gloss LegiScan jargon in activity rows; funnel restructure (deferred by choice).
 - [ ] Legislators index: Senate is the default tab; consider House.
 - [ ] The Undecided lobbying swatch `#cfccc2` (`IA_PALETTE$lobby_undecided`) is below 3:1 on the background.
-- [ ] **Decide** analytics: the live site has none. Wire `google-analytics.html` (repo root) into `_quarto.yml` or delete it.
+- [ ] **Decide** analytics: the live site has none. Wire `google-analytics.html` (repo root) into `_quarto.yml` or delete it. A cookieless option (Cloudflare Web Analytics; DNS is already there) suits the neutral-reference brand better than Google.
+- [ ] Trust surface: `site/about.qmd` is not in the navbar and is out of date (says all data is LegiScan's and updates run at midnight; no lobbying or elections sources). Rewrite it, add it to the navbar, add a methodology page for the derived measures (bill status rules, bill groups, legislator similarity, lobbying positions and outcome rates), and give readers a contact or corrections route.
+- [ ] Stale-data alert: scheduled runs start hours late and a frozen session commits nothing by design, so a missing commit doesn't signal a failure. Alert when the data-through date is older than expected while a session is live.
 - [ ] Write `DESIGN.md` once the visual direction is settled.
 - [ ] Feature idea: "enter your town → your two legislators" (highest-leverage feature for newcomers; scope with `/impeccable shape`).
 
@@ -34,6 +38,8 @@ Detail for the design items: [design backlog](notes/site/2026-07-15_design-backl
 
 ## Legislature data
 
+- [ ] Validation gate before render: `run_pipeline()` defaults to `stop_on_error = FALSE`, so render runs after a failed step, the workflows commit with `if: always()`, and the legislature scripts assert nothing. Add a check step (unique keys, row counts not collapsing against the last run, every status in `STATUS_LEVELS`, no NA dates or keys) that blocks render and the data commit when it fails.
+- [ ] Tests (`testthat`; there is no `tests/` yet), starting with the rules that carry editorial weight: `classify_action()` / `get_bill_status_from_history()`, the elections `parsers.R` layouts, and the R/JS pill pairs (`status_pill` ↔ `status_pill_js`, `position_pill` ↔ `position_pill_js`). Run them in CI before the pipeline.
 - [ ] Phase 2: backfill the 90th GA (2023–24) as the multi-session test. Phase 3: the 83rd–89th, data first. **Decide** how far back and how older sessions are hosted (open decisions 3–4 in the plan).
 - [ ] Show legislator–lobbyist alignment (`04a`) on legislator pages.
 - [ ] Lobbying pages are built (2026-11-01): `site/lobbying/index.qmd` and `site/templates/session/organization_template.qmd`, rendered by `render_all_organizations()` inside `render_site()`. All 1,003 organization pages are rendered. The 19 personal-interest clients get pages too, labelled as such; **Decide** whether to keep them. Then run `/impeccable critique` on an organization page and the index.
@@ -45,6 +51,7 @@ Detail for the design items: [design backlog](notes/site/2026-07-15_design-backl
 
 Order matters: the IECDB migration (Phases A–C) comes before any published pages, because Phase D changes the data model. Detail: [API note](notes/campaign_finance/2026-07-25_iecdb-api-data-sources.md), [Phase B log](notes/campaign_finance/2026-08-01_phase-b-ingest.md).
 
+- [ ] **Decide** publishing a thin slice first: a campaign finance tab on legislator pages (candidate committee totals from the bulk data, with a stated as-of date) instead of waiting for the full section. It delivers the "money" connection without mass-rendering committee pages; it needs the `people_id` ↔ committee crosswalk (Cross-domain) and a check that Phase D wouldn't change the totals shown.
 - [ ] **Cutover blocker:** explain why committee `1046` returns fewer API rows than bulk for 2007–08 (start with the `(date, amount)` diff). It may mean responses are truncated.
 - [ ] Confirm the `countyReports` record shape; if it matches, add a second change feed for local committees (0% covered today).
 - [ ] Run the full sweep (~1,429 requests, ~24 min) and re-reconcile on a representative sample including a large active committee.
@@ -79,3 +86,6 @@ Order matters: the IECDB migration (Phases A–C) comes before any published pag
 ## Housekeeping
 
 - [ ] Archive the old `iowa_legislature` GitHub repo and delete `../iowa_legislature-filtered`.
+- [ ] The repo is public with no README, licence or description. Add a short README (what the site is, how to run the pipeline, data sources) and **Decide** a licence for the code and for the processed data.
+- [ ] Settle the open **Decide** items in one sitting; several block other work (deploy method, rendering model, analytics, 91st freeze date, backfill depth).
+- [ ] Trim the long items here (electoral history, the 2026 general, the SOS download blocker) to what is left to do, and move their status detail into the linked notes.
