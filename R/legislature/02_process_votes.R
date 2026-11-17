@@ -49,7 +49,15 @@ process_votes <- function(
   votes <- load_votes_data(file.path(csv_dir, "votes.csv"))
   bills <- load_bills_data(file.path(csv_dir, "bills.csv"))
   roll_calls <- load_roll_call_metadata(file.path(json_dir, "vote"))
-  
+
+  # Take dates from rollcalls.csv, where 01c has filled LegiScan's 0000-00-00
+  # placeholders from bill history (repair_rollcall_dates())
+  csv_dates <- read_csv(file.path(csv_dir, "rollcalls.csv"), show_col_types = FALSE,
+                        col_types = cols(roll_call_id = "d", date = "D", .default = "-"))
+  roll_calls <- roll_calls |>
+    select(-vote_date) |>
+    left_join(csv_dates |> rename(vote_date = date), by = "roll_call_id")
+
   if(only_floor_votes == TRUE){
     roll_calls <- roll_calls |> filter(!str_detect(vote_desc, "Report$"))
     votes <- votes |> filter(roll_call_id %in% roll_calls$roll_call_id)

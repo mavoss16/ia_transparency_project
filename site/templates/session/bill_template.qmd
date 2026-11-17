@@ -57,6 +57,17 @@ votes <- bill |>
   pluck("votes") |>
   items_to_df()
 
+# Dates from rollcalls.csv, where 01c fills LegiScan's 0000-00-00 placeholders
+# from the bill history (repair_rollcall_dates())
+if (!is.null(votes)) {
+  rollcall_dates <- read_csv(ga_csv("rollcalls", ga), show_col_types = FALSE,
+                             col_types = cols(roll_call_id = "d", date = "D", .default = "-"))
+  votes <- votes |>
+    select(-date) |>
+    left_join(rollcall_dates, by = "roll_call_id") |>
+    relocate(date, .after = roll_call_id)
+}
+
 calendar <- bill |>
   pluck("calendar") |>
   items_to_df()
