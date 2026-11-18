@@ -137,6 +137,8 @@ load_relationship_edges <- function(edges_path = file.path(ga_paths(ga)$bills, "
 #' @param edges Tibble with from_bill and to_bill columns
 #' @param edges_path Path to save edges RDS file
 save_relationship_edges <- function(edges, edges_path = file.path(ga_paths(ga)$bills, "relationship_edges.rds"), ga = CURRENT_GA) {
+  # A new session's bills/ folder doesn't exist yet (git keeps no empty folders)
+  dir.create(dirname(edges_path), recursive = TRUE, showWarnings = FALSE)
   saveRDS(edges, edges_path)
   message("Saved ", nrow(edges), " relationship edges to ", edges_path)
 }
@@ -442,6 +444,7 @@ save_bill_groups <- function(
     ga = CURRENT_GA
 ) {
   groups <- build_bill_groups(edges_path, json_dir)
+  dir.create(dirname(output_path), recursive = TRUE, showWarnings = FALSE)
   saveRDS(groups, output_path)
   message("Saved bill groups to ", output_path)
   return(groups)

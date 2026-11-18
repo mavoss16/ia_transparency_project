@@ -137,6 +137,7 @@ build_bill_actions <- function(
            counts_as_introduction) |>
     arrange(date, bill, sequence)
 
+  dir.create(dirname(output_path), recursive = TRUE, showWarnings = FALSE)
   saveRDS(actions, output_path)
   message(sprintf(
     "Saved %s actions (%s bills, %s groups, %d weeks with activity) to %s",
