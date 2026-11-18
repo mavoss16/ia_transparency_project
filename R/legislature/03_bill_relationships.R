@@ -72,7 +72,8 @@ get_all_bill_statuses <- function(json_dir = ga_paths(ga)$bill_json, ga = CURREN
 #' Scrape related bills from the Iowa Legislature bill history page
 #' @param bill_number Bill number (e.g., "HF1")
 #' @param ga General Assembly number (default CURRENT_GA)
-#' @return Tibble with bill and related_bills columns
+#' @return Tibble with bill and related_bills columns, or NULL if the page
+#'   couldn't be fetched
 scrape_bill_relationships <- function(bill_number, ga = CURRENT_GA) {
   # Bill history pages are static HTML — no JS/chromote needed.
   # URL format requires a space between letters and digits: "HF 2511"
@@ -83,20 +84,13 @@ scrape_bill_relationships <- function(bill_number, ga = CURRENT_GA) {
     "&ga=", ga
   )
 
-  page <- NULL
-  for (attempt in 1:3) {
-    page <- tryCatch(read_html(url), error = function(e) NULL)
-    if (!is.null(page)) break
-    if (attempt < 3) {
-      message("  Attempt ", attempt, " failed for ", bill_number, ", retrying...")
-      Sys.sleep(2)
-    }
-  }
-
-  if (is.null(page)) {
-    warning("Failed to read page for ", bill_number)
-    return(tibble(bill = bill_number, related_bills = list(character(0))))
-  }
+  # On failure return NULL, not an empty result: an empty result is saved as
+  # "scraped, no related bills" and never retried
+  page <- tryCatch(fetch_html(url), error = function(e) {
+    message("    Failed to read page for ", bill_number, ": ", conditionMessage(e))
+    NULL
+  })
+  if (is.null(page)) return(NULL)
 
   # Links in the "All Related Bills to Selected Bill" section point to BillBook
   # with a "ba=" query parameter, e.g. href="...BillBook?ba=HF 2158&ga=91"

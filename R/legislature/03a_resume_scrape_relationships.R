@@ -20,6 +20,7 @@ library(here)
 library(purrr)
 
 source(here("R/legislature/session.R"))
+source(here("R/legislature/utils.R"))  # fetch_html()
 
 # Set GA before sourcing to resume a different session's scrape
 if (!exists("GA")) GA <- CURRENT_GA
@@ -36,15 +37,10 @@ scrape_one_bill <- function(bill_number, ga = GA) {
     "&ga=", ga
   )
 
-  page <- NULL
-  for (attempt in 1:3) {
-    page <- tryCatch(read_html(url), error = function(e) NULL)
-    if (!is.null(page)) break
-    if (attempt < 3) {
-      message("    Attempt ", attempt, " failed for ", bill_number, ", retrying...")
-      Sys.sleep(2)
-    }
-  }
+  page <- tryCatch(fetch_html(url), error = function(e) {
+    message("    Failed to read page for ", bill_number, ": ", conditionMessage(e))
+    NULL
+  })
 
   if (is.null(page)) {
     warning("Failed to read page for ", bill_number)

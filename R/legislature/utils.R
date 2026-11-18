@@ -320,31 +320,40 @@ items_to_df <- function(list){
   }
 }
 
+#' Fetch and parse an HTML page from legis.iowa.gov
+#'
+#' Fetches with httr2 rather than rvest::read_html(url): a failed
+#' read_html(url) leaves its curl connection open, and R allows 128, so a long
+#' scrape with a few percent of failed requests crashes ("all 128 connections
+#' are in use"; the GA 90 backfill on 2026-11-18). httr2 holds no connection
+#' after the request, retries network failures and 429/5xx with backoff, and
+#' reports why a page failed.
+#' @param url Page URL
+#' @param max_tries Attempts in all
+#' @param timeout Seconds per attempt
+#' @return An xml_document; errors once every attempt has failed
+fetch_html <- function(url, max_tries = 3, timeout = 30) {
+  resp <- httr2::request(url) |>
+    httr2::req_timeout(timeout) |>
+    httr2::req_retry(max_tries = max_tries, retry_on_failure = TRUE,
+                     backoff = \(attempt) 2^attempt) |>
+    httr2::req_perform()
+  xml2::read_html(httr2::resp_body_string(resp))
+}
+
 scrape_lobbyist_declarations <- function(bill_number, ga = CURRENT_GA, max_retries = 3, retry_delay = 2) {
 
   # Construct URL dynamically
   url <- paste0("https://www.legis.iowa.gov/lobbyist/reports/declarations?ga=", ga, "&ba=", bill_number)
 
-  # Retry loop for network requests
-  page <- NULL
-  for (attempt in seq_len(max_retries)) {
-    page <- tryCatch(
-      read_html(url),
-      error = function(e) {
-        if (attempt < max_retries) {
-          message(paste0("Lobbyist scrape attempt ", attempt, "/", max_retries,
-                         " failed for ", bill_number, ": ", e$message, ". Retrying..."))
-          Sys.sleep(retry_delay)
-        }
-        NULL
-      }
-    )
-    if (!is.null(page)) break
-  }
-
-  if (is.null(page)) {
-    stop("Failed to fetch lobbyist declarations after ", max_retries, " attempts.")
-  }
+  # fetch_html() retries with backoff (retry_delay is no longer used)
+  page <- tryCatch(
+    fetch_html(url, max_tries = max_retries),
+    error = function(e) {
+      stop("Failed to fetch lobbyist declarations after ", max_retries,
+           " attempts: ", conditionMessage(e), call. = FALSE)
+    }
+  )
 
   # Extract all tables
   tables <- page %>% html_elements("table")
