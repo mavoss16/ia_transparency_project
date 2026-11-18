@@ -1,5 +1,5 @@
 {
-  "last_render": "2026-11-17T16:01:28Z",
+  "last_render": "2026-11-18T15:40:36Z",
   "session": "ga91",
   "bills": {
     "rendered": 0,
@@ -7,7 +7,7 @@
     "failed_items": []
   },
   "legislators": {
-    "rendered": 155,
+    "rendered": 0,
     "failed": 23,
     "failed_items": [
       "6975",
@@ -36,7 +36,7 @@
     ]
   },
   "committees": {
-    "rendered": 34,
+    "rendered": 0,
     "failed": 0,
     "failed_items": []
   },
