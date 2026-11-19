@@ -87,11 +87,16 @@ Weekly is gentle; daily full scrapes would not be.
 - `target`: everything / bills / organizations / weeks / legislators /
   committees. `everything` renders the index pages first, then each type in
   that order (weeks before bills, as in `render_site()`).
-- `force`: clear that page type from the manifest first
-  (`clear_manifest_type()`; legislators clears `legislator_archive` too)
+- `force`: clear that page type from the manifest first, for the chosen
+  session only (`session_manifest_ids()`; legislators clears
+  `legislator_archive` too). Before 2026-11-19 it cleared every session's rows.
 - `budget_minutes`: stop starting pages after this long (default 300, job
   timeout 350). Legislators, committees and weeks now take a `deadline` like
   bills and organizations, so one budget covers every type.
+- `ga` (added 2026-11-19): the session whose bill, committee, week and
+  organization pages to render; blank is `CURRENT_GA`, `90` renders the
+  backfill. Legislator pages cover every session either way. `everything`
+  skips organizations for a session with no lobbying data.
 
 Commits `docs/` and the manifest only. The `force_render` input is gone from
 the daily workflow; a full re-render is `target: everything, force: on`, then

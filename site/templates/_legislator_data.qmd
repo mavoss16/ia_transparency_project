@@ -117,8 +117,10 @@ succession_notice <- if (is_former && !is.null(successor)) {
 }
 
 # External-link buttons (rendered inside the profile header)
-leg_email   <- legislator$bio$social$email
-leg_website <- legislator$bio$links$official$website
+# pluck(), not $: LegiScan's bulk datasets (backfilled sessions) have no
+# `bio`, and `$` would partial-match `bioguide_id` and fail
+leg_email   <- pluck(legislator, "bio", "social", "email")
+leg_website <- pluck(legislator, "bio", "links", "official", "website")
 btns <- list()
 if (!is.null(leg_website) && nchar(leg_website) > 0)
   btns <- c(btns, list(a(href = leg_website, target = "_blank", "Iowa Legislature ↗")))

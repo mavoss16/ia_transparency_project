@@ -1406,6 +1406,35 @@ BACKLOG_TARGETS <- list(
   committees    = "committee"
 )
 
+#' Manifest ids a backlog target owns in one session, so a forced backlog
+#' clears only that session's pages
+#' @param types Manifest `type` values from BACKLOG_TARGETS
+#' @param ga General Assembly
+#' @return Tibble of type, id
+session_manifest_ids <- function(types, ga) {
+  sessions <- legislator_sessions()
+  ids_for <- function(type) {
+    switch(type,
+      # Weeks are keyed by their Monday; sessions' weeks never overlap
+      week               = names(week_digests(ga)),
+      # Career pages show the person's latest session
+      legislator         = id_chr(sessions$people_id[sessions$ga == ga & sessions$latest_ga == ga]),
+      legislator_archive = session_item_id(ga, sessions$people_id[sessions$ga == ga & sessions$latest_ga > ga]),
+      # Bills, committees and organizations are keyed "ga91/{id}"
+      NULL
+    )
+  }
+  manifest <- load_manifest()
+  map(types, \(type) {
+    ids <- ids_for(type)
+    rows <- manifest |> filter(type == !!type)
+    if (is.null(ids)) rows <- rows |> filter(startsWith(id, paste0(ga_slug(ga), "/")))
+    else rows <- rows |> filter(id %in% ids)
+    select(rows, type, id)
+  }) |>
+    list_rbind()
+}
+
 #' Work through a render backlog under one time budget
 #'
 #' For the manual render-backlog CI workflow: re-run it until nothing is left.
@@ -1413,20 +1442,38 @@ BACKLOG_TARGETS <- list(
 #' leaves the rest out of the manifest and the next run picks them up.
 #' @param target "everything" (index pages, then every type in BACKLOG_TARGETS,
 #'   in that order) or one name of BACKLOG_TARGETS
-#' @param force If TRUE, first clear the target's types from the manifest, so
-#'   every page of that type renders again (spread over as many runs as needed)
+#' @param force If TRUE, first clear the target's pages for session `ga` from
+#'   the manifest, so they all render again (spread over as many runs as needed)
 #' @param budget_minutes Stop starting new pages after this long
-render_backlog <- function(target = "everything", force = FALSE, budget_minutes = Inf) {
+#' @param ga Session whose bill, committee, week and organization pages to
+#'   render; an earlier one renders a backfilled session. Legislator pages
+#'   always cover every session (career pages plus archived session pages).
+#'   "everything" skips organizations for a session with no lobbying data.
+render_backlog <- function(target = "everything", force = FALSE, budget_minutes = Inf,
+                           ga = CURRENT_GA) {
+  ga <- as.integer(ga)
+  if (!ga %in% available_gas()) {
+    stop("No session data for GA ", ga, "; available: ", paste(available_gas(), collapse = ", "))
+  }
   targets <- if (target == "everything") names(BACKLOG_TARGETS) else target
   if (!all(targets %in% names(BACKLOG_TARGETS))) {
     stop("Unknown target '", target, "'; use everything or one of: ",
          paste(names(BACKLOG_TARGETS), collapse = ", "))
   }
+  if (!ga %in% section_gas("lobbying")) {
+    if (target == "organizations") stop("GA ", ga, " has no lobbying data")
+    targets <- setdiff(targets, "organizations")
+  }
   deadline <- Sys.time() + budget_minutes * 60
-  message("=== Render backlog: ", target, if (force) " (forced)", ", ",
+  message("=== Render backlog: ", target, " for the ", ga_label(ga), if (force) " (forced)", ", ",
           budget_minutes, "-minute budget ===\n")
 
-  if (force) clear_manifest_type(unlist(BACKLOG_TARGETS[targets], use.names = FALSE))
+  if (force) {
+    cleared <- session_manifest_ids(unlist(BACKLOG_TARGETS[targets], use.names = FALSE), ga)
+    manifest <- load_manifest()
+    save_manifest(anti_join(manifest, cleared, by = c("type", "id")))
+    message("Cleared ", nrow(cleared), " manifest rows for the ", ga_label(ga), ".")
+  }
   if (target == "everything") {
     render_session_archives(force = force)
     render_index_pages()
@@ -1436,15 +1483,15 @@ render_backlog <- function(target = "everything", force = FALSE, budget_minutes 
   for (t in targets) {
     message("\n--- ", t, " ---")
     results[[t]] <- switch(t,
-      weeks         = render_all_weeks(deadline = deadline),
-      bills         = render_all_bills(deadline = deadline),
-      organizations = render_all_organizations(deadline = deadline),
+      weeks         = render_all_weeks(deadline = deadline, ga = ga),
+      bills         = render_all_bills(deadline = deadline, ga = ga),
+      organizations = render_all_organizations(deadline = deadline, ga = ga),
       legislators   = {
         r <- render_all_legislators(deadline = deadline)
         render_legislator_archives()
         r
       },
-      committees    = render_all_committees(deadline = deadline)
+      committees    = render_all_committees(deadline = deadline, ga = ga)
     )
   }
 
@@ -1479,6 +1526,7 @@ render_site.R loaded. Available functions:
     clear_manifest()             - Clear render history (forces full re-render)
     clear_manifest_type('bill')  - Clear one page type's render history
     render_backlog('bills', force=TRUE, budget_minutes=60)  - Budgeted backlog run
+    render_backlog('everything', ga=90)  - Render an earlier (backfilled) session
 
   Limiting:
     render_all_bills(limit=10)   - Process first 10 bills only

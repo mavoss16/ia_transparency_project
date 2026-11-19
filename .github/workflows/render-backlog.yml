@@ -22,6 +22,10 @@ on:
         description: 'Stop starting new pages after this many minutes (keep below ~310 so the commit fits in the 350-minute timeout)'
         type: number
         default: 300
+      ga:
+        description: 'General Assembly whose bill, committee, week and organization pages to render (e.g. 90 for a backfilled session). Blank = the current session. Legislator pages always cover every session.'
+        type: string
+        default: ''
 
 # Same group as the daily run, so the two queue instead of overlapping and
 # never push to main at once. GitHub keeps only one pending run per group: a
@@ -58,12 +62,18 @@ jobs:
           TARGET: ${{ inputs.target }}
           FORCE: ${{ inputs.force }}
           BUDGET_MINUTES: ${{ inputs.budget_minutes }}
+          GA: ${{ inputs.ga }}
         run: |
+          if [[ -n "$GA" && ! "$GA" =~ ^[0-9]{2,3}$ ]]; then
+            echo "::error::ga must be a General Assembly number such as 90, or blank"
+            exit 1
+          fi
           mkdir -p logs/legislature
           Rscript -e "source('R/legislature/render.R'); render_backlog(
             target = Sys.getenv('TARGET'),
             force = as.logical(Sys.getenv('FORCE')),
-            budget_minutes = as.numeric(Sys.getenv('BUDGET_MINUTES')))" \
+            budget_minutes = as.numeric(Sys.getenv('BUDGET_MINUTES')),
+            ga = if (nzchar(Sys.getenv('GA'))) Sys.getenv('GA') else CURRENT_GA)" \
             2>&1 | tee "logs/legislature/backlog_$(date -u +%Y-%m-%d_%H%M%S).log"
 
       - name: Upload render logs
@@ -81,7 +91,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/ render_manifest.csv
           git diff --staged --quiet || \
-            git commit -m "chore: render backlog (${{ inputs.target }}) $(date -u +%Y-%m-%d)"
+            git commit -m "chore: render backlog (${{ inputs.target }}${{ inputs.ga && format(', GA {0}', inputs.ga) || '' }}) $(date -u +%Y-%m-%d)"
           # Main may have moved during the render (a push by hand; the daily run
           # can't overlap). The bot commits only generated files, so on a
           # conflict keep its freshly rendered version.
