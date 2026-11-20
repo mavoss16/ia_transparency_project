@@ -1,13 +1,13 @@
 {
-  "last_render": "2026-11-19T15:55:55Z",
+  "last_render": "2026-11-20T15:28:23Z",
   "session": "ga91",
   "bills": {
-    "rendered": 0,
+    "rendered": 495,
     "failed": 0,
     "failed_items": []
   },
   "legislators": {
-    "rendered": 23,
+    "rendered": 0,
     "failed": 0,
     "failed_items": []
   },
