@@ -9,6 +9,33 @@ description: R 4.5.1, system libraries, Quarto and the renv library, shared by e
 runs:
   using: composite
   steps:
+    # Runners download apt packages from the first mirror in apt-mirrors.txt,
+    # a regional one (azure.archive.ubuntu.com, or us-east-2.ec2.archive... on
+    # some runners). That mirror sometimes serves ~60 kB/s, and setup hit its
+    # 20-minute timeout three times on 2026-11-18/19. apt switches mirrors only
+    # when a download stalls, not when it's slow, so put the Ubuntu archive
+    # first and keep the regional mirror as the last fallback. Must run before
+    # setup-r, which makes the first apt download. Same idea as
+    # rstudio/shiny-workflows#73, which only handles the Azure mirror.
+    - name: Prefer the Ubuntu archive mirror
+      shell: bash
+      run: |
+        f=/etc/apt/apt-mirrors.txt
+        if [[ ! -f "$f" ]]; then
+          echo "No $f; leaving apt sources alone."
+          exit 0
+        fi
+        echo "Mirror list before:"; cat "$f"
+        regional=$(awk '{print $1}' "$f" | grep -vE '^https?://(archive|security)\.ubuntu\.com/' || true)
+        {
+          printf 'https://archive.ubuntu.com/ubuntu/\tpriority:1\n'
+          printf 'https://security.ubuntu.com/ubuntu/\tpriority:2\n'
+          n=3
+          for m in $regional; do printf '%s\tpriority:%d\n' "$m" "$n"; n=$((n + 1)); done
+        } | sudo tee "$f.new" > /dev/null
+        sudo mv "$f.new" "$f"
+        echo "Mirror list after:"; cat "$f"
+
     - name: Set up R
       uses: r-lib/actions/setup-r@v2
       with:
