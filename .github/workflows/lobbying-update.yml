@@ -80,3 +80,11 @@ jobs:
           # on a conflict keep its freshly built version.
           git pull --rebase -X theirs
           git push
+
+      # The runner reads .github/actions/setup-site again for its post step. If
+      # the pull above brought in a changed version (pushed mid-run), the post
+      # step fails on the mismatched step list, so put back the run's own copy.
+      - name: Restore setup action for post steps
+        if: always()
+        shell: bash
+        run: git checkout "$GITHUB_SHA" -- .github/actions/setup-site || true
