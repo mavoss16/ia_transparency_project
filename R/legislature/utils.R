@@ -341,6 +341,29 @@ fetch_html <- function(url, max_tries = 3, timeout = 30) {
   xml2::read_html(httr2::resp_body_string(resp))
 }
 
+#' Rows the declarations page shows before "Click to load all declarations"
+DECLARATIONS_PAGE_SIZE <- 50
+
+#' Fetch every declaration row for a bill
+#'
+#' Replays the request behind the declarations page's "Click to load all
+#' declarations" link (`searchDeclarations(true)` in the site's
+#' publicLobby.js). The response is bare `<tr class="decRow">` rows in the
+#' page table's column order, with no header row.
+#' @return The `tr.decRow` nodes
+fetch_all_declaration_rows <- function(bill_number, ga, max_tries = 3, timeout = 60) {
+  resp <- httr2::request("https://www.legis.iowa.gov/lobbyist/reports/declarations?action=search") |>
+    httr2::req_body_form(ga = ga, date = "", personID = "", clientID = "",
+                         ba = bill_number, index = 1, loadAll = "true") |>
+    httr2::req_timeout(timeout) |>
+    httr2::req_retry(max_tries = max_tries, retry_on_failure = TRUE,
+                     backoff = \(attempt) 2^attempt) |>
+    httr2::req_perform()
+  # Bare <tr> elements are dropped by the HTML parser outside a table
+  html <- paste0("<table><tbody>", httr2::resp_body_string(resp), "</tbody></table>")
+  xml2::read_html(html) |> html_elements("tr.decRow")
+}
+
 scrape_lobbyist_declarations <- function(bill_number, ga = CURRENT_GA, max_retries = 3, retry_delay = 2) {
 
   # Construct URL dynamically
@@ -376,6 +399,18 @@ scrape_lobbyist_declarations <- function(bill_number, ga = CURRENT_GA, max_retri
   # declarations" placeholder is a single colspan row without the decRow class
   headers <- target_table %>% html_elements("th") %>% html_text(trim = TRUE)
   rows <- target_table %>% html_elements("tr.decRow")
+
+  # The page shows only the 50 most recent declarations. A full page means
+  # there may be more, so ask for all of them the way the page's "Click to
+  # load all declarations" link does (HF 639 in the 91st: 50 shown, 67 in all)
+  if (length(rows) >= DECLARATIONS_PAGE_SIZE) {
+    all_rows <- fetch_all_declaration_rows(bill_number, ga, max_tries = max_retries)
+    if (length(all_rows) < length(rows)) {
+      stop("Load-all request returned ", length(all_rows), " rows, fewer than the ",
+           length(rows), " on the page.", call. = FALSE)
+    }
+    rows <- all_rows
+  }
 
   cell <- function(header) {
     i <- match(header, headers)

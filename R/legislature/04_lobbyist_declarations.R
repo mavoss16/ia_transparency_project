@@ -338,6 +338,18 @@ update_lobbyist_declarations <- function(
     message("Run rescrape_lobbyist_declarations() with these bills to retry.")
   }
 
+  # The page shows 50 declarations until "load all" is clicked, and the
+  # scraper asks for the rest. Many bills at exactly 50 means that request
+  # stopped working (a few genuinely have 50, e.g. HF 1008 in the 91st)
+  at_page_size <- load_lobbyist_filings(filings_path) |>
+    filter(bill %in% bill_numbers, !is.na(lobbyist)) |>
+    count(bill) |>
+    filter(n == DECLARATIONS_PAGE_SIZE)
+  if (nrow(at_page_size) > 0) {
+    message(sprintf("\n%d bills came back with exactly %d declarations; if that's many, check the load-all request in fetch_all_declaration_rows().",
+                    nrow(at_page_size), DECLARATIONS_PAGE_SIZE))
+  }
+
   elapsed <- as.numeric(difftime(Sys.time(), start_time, units = "secs"))
   per_bill <- if (processed_count > 0) elapsed / processed_count else NA
   message(sprintf("\nDone! Processed %d bills in %.1f seconds (%.1f sec/bill).",
