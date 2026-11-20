@@ -46,7 +46,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-aa4d3fe0b633a8e0d3137286b23e913d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-689b526e9d5231395ec11fa4c74a23e1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -151,23 +151,24 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <h1 class="ia-bill-title">The Rasmussen Group</h1>
 <div class="ia-bill-meta">
-<span>Declared on <strong>1 bill</strong></span>
+<span>Declared on <strong>3 bills</strong></span>
 <span><strong>6 lobbyists</strong></span>
-<span>Last declaration <strong>Jan 29, 2025</strong></span>
+<span>Last declaration <strong>Mar 28, 2025</strong></span>
 <span>91st General Assembly</span>
 </div>
 <div style="margin-top:1rem; max-width:640px">
 <div class="ia-share-bar">
-<div style="width:100.0%; background:#256a43"></div>
+<div style="width:66.7%; background:#256a43"></div>
+<div style="width:33.3%; background:#B8860B"></div>
 </div>
 <div class="ia-share-legend">
 <span>
 <span style="color:#256a43">●</span>
- 1 For
+ 2 For
 </span>
 <span>
 <span style="color:#B8860B">●</span>
- 0 Against
+ 1 Against
 </span>
 <span>
 <span style="color:#cfccc2">●</span>
@@ -190,8 +191,13 @@ ul.task-list li input[type="checkbox"] {
 <div class="ia-stat-grid">
 <div class="ia-stat-card">
 <div class="ia-stat-label">Bills it supported</div>
+<div class="ia-stat-value">1 of 2</div>
+<div class="ia-stat-sub">became law · all organizations: 29%</div>
+</div>
+<div class="ia-stat-card">
+<div class="ia-stat-label">Bills it opposed</div>
 <div class="ia-stat-value">0 of 1</div>
-<div class="ia-stat-sub">became law · all organizations: 28%</div>
+<div class="ia-stat-sub">became law · all organizations: 19%</div>
 </div>
 </div>
 <div class="ia-card-sub" style="margin-top:1.25rem">Number of bills, by its position and how far the bill got</div>
@@ -211,10 +217,18 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><span class="ia-pill ia-pill-pos-for">For</span></td>
-<td class="ia-num">0</td>
+<td class="ia-num">1</td>
 <td class="ia-num">0</td>
 <td class="ia-num">1</td>
 <td class="ia-num">0</td>
+<td class="ia-num">2</td>
+</tr>
+<tr class="even">
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-num">0</td>
+<td class="ia-num">0</td>
+<td class="ia-num">0</td>
+<td class="ia-num">1</td>
 <td class="ia-num">1</td>
 </tr>
 </tbody>
@@ -229,12 +243,12 @@ ul.task-list li input[type="checkbox"] {
 <p>Positions on bills</p>
 </div>
 <div class="ia-card-sub">
-<p>1 bill, newest declaration first. Type “Against” or a word from a title to filter. A bill renumbered in committee is listed under its final number.</p>
+<p>3 bills, newest declaration first. Type “Against” or a word from a title to filter. A bill renumbered in committee is listed under its final number.</p>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="reactable html-widget html-fill-item" id="htmlwidget-0f38c974295de51daf6d" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-0f38c974295de51daf6d">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"lead_bill":["HF144"],"bill":["HF 144"],"via":["declared on HSB 80, SSB 1069"],"title":["Concerning the licensing and regulation of gambling games, including a moratorium on the issuance of new licenses, and including effective date and retroactive…"],"position":["For"],"stage":["Passed one chamber"],"date":["2025-01-29"]},"columns":[{"id":"lead_bill","name":"lead_bill","type":"character","show":false},{"id":"bill","name":"Bill","type":"character","cell":"function(cell) {\n     const via = cell.row.via ? '<div class=\"ia-recent-meta\">' + cell.row.via + '<\/div>' : '';\n     return '<a href=\"../../legislation/ga91/' + cell.row.lead_bill + '.html\">' + cell.value + '<\/a>' + via;\n   }","html":true,"minWidth":100},{"id":"via","name":"via","type":"character","show":false},{"id":"title","name":"Title","type":"character","sortable":false,"minWidth":300},{"id":"position","name":"Position","type":"character","cell":"function(cell) {\n     const s = cell.value || '';\n     return '<span class=\"ia-pill ia-pill-pos-' + s.toLowerCase() + '\">' + s + '<\/span>';\n   }","html":true,"minWidth":100},{"id":"stage","name":"Where it ended up","type":"character","cell":"function(cell) {\n     const s = cell.value || '';\n     const type = /signed|^adopted/i.test(s) ? 'signed' : /vetoed/i.test(s) ? 'vetoed' :\n                  /passed/i.test(s) ? 'progress' : 'neutral';\n     return '<span class=\"ia-pill ia-pill-' + type + '\">' + s + '<\/span>';\n   }","html":true,"minWidth":150},{"id":"date","name":"Declared","type":"Date","cell":"function(cell) {\n     if (!cell.value) return '—';\n     return new Date(cell.value).toLocaleDateString('en-US',\n       { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });\n   }","minWidth":110}],"searchable":true,"defaultSorted":[{"id":"date","desc":true}],"defaultPageSize":25,"highlight":true,"dataKey":"fa115784c6417e3f8fc08698d362e90f"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.1.cell","tag.attribs.columns.4.cell","tag.attribs.columns.5.cell","tag.attribs.columns.6.cell"],"jsHooks":[]}</script>
+<div class="reactable html-widget html-fill-item" id="htmlwidget-3949e82faa056cb8caef" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3949e82faa056cb8caef">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"lead_bill":["SF607","SSB1189","HF144"],"bill":["SF 607","SSB 1189","HF 144"],"via":["declared on HF 980, HSB 114, HSB 315, SF 504, SSB 1173","","declared on HSB 80, SSB 1069"],"title":["Unemployment insurance taxes on employers","Unemployment insurance taxes on employers","Concerning the licensing and regulation of gambling games, including a moratorium on the issuance of new licenses, and including effective date and retroactive…"],"position":["For","Against","For"],"stage":["Signed by Governor","Passed subcommittee","Passed one chamber"],"date":["2025-03-28","2025-02-26","2025-01-29"]},"columns":[{"id":"lead_bill","name":"lead_bill","type":"character","show":false},{"id":"bill","name":"Bill","type":"character","cell":"function(cell) {\n     const via = cell.row.via ? '<div class=\"ia-recent-meta\">' + cell.row.via + '<\/div>' : '';\n     return '<a href=\"../../legislation/ga91/' + cell.row.lead_bill + '.html\">' + cell.value + '<\/a>' + via;\n   }","html":true,"minWidth":100},{"id":"via","name":"via","type":"character","show":false},{"id":"title","name":"Title","type":"character","sortable":false,"minWidth":300},{"id":"position","name":"Position","type":"character","cell":"function(cell) {\n     const s = cell.value || '';\n     return '<span class=\"ia-pill ia-pill-pos-' + s.toLowerCase() + '\">' + s + '<\/span>';\n   }","html":true,"minWidth":100},{"id":"stage","name":"Where it ended up","type":"character","cell":"function(cell) {\n     const s = cell.value || '';\n     const type = /signed|^adopted/i.test(s) ? 'signed' : /vetoed/i.test(s) ? 'vetoed' :\n                  /passed/i.test(s) ? 'progress' : 'neutral';\n     return '<span class=\"ia-pill ia-pill-' + type + '\">' + s + '<\/span>';\n   }","html":true,"minWidth":150},{"id":"date","name":"Declared","type":"Date","cell":"function(cell) {\n     if (!cell.value) return '—';\n     return new Date(cell.value).toLocaleDateString('en-US',\n       { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });\n   }","minWidth":110}],"searchable":true,"defaultSorted":[{"id":"date","desc":true}],"defaultPageSize":25,"highlight":true,"dataKey":"e1bdfcaf05dda045221fbea9e7c10269"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.1.cell","tag.attribs.columns.4.cell","tag.attribs.columns.5.cell","tag.attribs.columns.6.cell"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -261,39 +275,39 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><a href="https://www.legis.iowa.gov/lobbyist/reports/lobbyist?personID=17588&amp;ga=91" target="_blank" rel="noopener">David Adelman</a></td>
-<td class="ia-num">2</td>
+<td class="ia-num">9</td>
 <td class="ia-nowrap">Jan 27, 2025</td>
-<td class="ia-nowrap">Jan 29, 2025</td>
+<td class="ia-nowrap">Mar 28, 2025</td>
 </tr>
 <tr class="even">
 <td><a href="https://www.legis.iowa.gov/lobbyist/reports/lobbyist?personID=19565&amp;ga=91" target="_blank" rel="noopener">Frank Chiodo</a></td>
-<td class="ia-num">2</td>
+<td class="ia-num">9</td>
 <td class="ia-nowrap">Jan 27, 2025</td>
-<td class="ia-nowrap">Jan 29, 2025</td>
+<td class="ia-nowrap">Mar 28, 2025</td>
 </tr>
 <tr class="odd">
 <td><a href="https://www.legis.iowa.gov/lobbyist/reports/lobbyist?personID=20870&amp;ga=91" target="_blank" rel="noopener">Matt Hinch</a></td>
-<td class="ia-num">2</td>
+<td class="ia-num">9</td>
 <td class="ia-nowrap">Jan 27, 2025</td>
-<td class="ia-nowrap">Jan 29, 2025</td>
-</tr>
-<tr class="even">
-<td><a href="https://www.legis.iowa.gov/lobbyist/reports/lobbyist?personID=32665&amp;ga=91" target="_blank" rel="noopener">Paige Thorson</a></td>
-<td class="ia-num">2</td>
-<td class="ia-nowrap">Jan 27, 2025</td>
-<td class="ia-nowrap">Jan 29, 2025</td>
-</tr>
-<tr class="odd">
-<td><a href="https://www.legis.iowa.gov/lobbyist/reports/lobbyist?personID=18213&amp;ga=91" target="_blank" rel="noopener">Sara Allen</a></td>
-<td class="ia-num">2</td>
-<td class="ia-nowrap">Jan 27, 2025</td>
-<td class="ia-nowrap">Jan 29, 2025</td>
+<td class="ia-nowrap">Mar 28, 2025</td>
 </tr>
 <tr class="even">
 <td><a href="https://www.legis.iowa.gov/lobbyist/reports/lobbyist?personID=19667&amp;ga=91" target="_blank" rel="noopener">Scott Newhard</a></td>
-<td class="ia-num">2</td>
+<td class="ia-num">9</td>
 <td class="ia-nowrap">Jan 27, 2025</td>
-<td class="ia-nowrap">Jan 29, 2025</td>
+<td class="ia-nowrap">Mar 28, 2025</td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.legis.iowa.gov/lobbyist/reports/lobbyist?personID=32665&amp;ga=91" target="_blank" rel="noopener">Paige Thorson</a></td>
+<td class="ia-num">6</td>
+<td class="ia-nowrap">Jan 27, 2025</td>
+<td class="ia-nowrap">Mar 5, 2025</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.legis.iowa.gov/lobbyist/reports/lobbyist?personID=18213&amp;ga=91" target="_blank" rel="noopener">Sara Allen</a></td>
+<td class="ia-num">6</td>
+<td class="ia-nowrap">Jan 27, 2025</td>
+<td class="ia-nowrap">Mar 5, 2025</td>
 </tr>
 </tbody>
 </table>
@@ -316,7 +330,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="ia-sources">
-<p>Source: lobbyist declarations filed with the Iowa Legislature; bill status and votes from LegiScan. Last updated November 3, 2026</p>
+<p>Source: lobbyist declarations filed with the Iowa Legislature; bill status and votes from LegiScan. Last updated November 20, 2026</p>
 </div>
 
 
