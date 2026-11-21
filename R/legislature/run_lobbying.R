@@ -19,6 +19,7 @@
 #   source("R/legislature/run_lobbying.R")
 #   run_lobbying()                  # scrape, derive, render
 #   run_lobbying(scrape = FALSE)    # rebuild derived data and pages only
+#   run_lobbying(ga = 90)           # an earlier, backfilled session
 #
 # Usage (command line):
 #   Rscript R/legislature/run_lobbying.R
@@ -46,6 +47,7 @@ run_script <- function(file, fn, ...) {
 #'   run began (the scrape counts toward it)
 run_lobbying <- function(ga = CURRENT_GA, scrape = TRUE,
                          budget_minutes = as.numeric(Sys.getenv("RENDER_TIME_BUDGET_MINUTES", "Inf"))) {
+  ga <- as.integer(ga)  # the workflow passes it as a string
   if (ga_frozen(ga)) {
     message(ga_label(ga), " is frozen; nothing to scrape.")
     return(invisible(NULL))
@@ -79,7 +81,18 @@ run_lobbying <- function(ga = CURRENT_GA, scrape = TRUE,
   render <- new.env()
   source(here("R/legislature/render.R"), local = render)
   render$render_all_organizations(deadline = deadline, ga = ga)
+  # The current session's index, which also gains or refreshes the session
+  # switcher. An earlier session's index is its archived ga{N}.html, whose
+  # manifest digest tracks only the template and session list, so render it
+  # here, where its data has just changed.
   quarto::quarto_render(here("site/lobbying/index.qmd"), as_job = FALSE)
+  if (ga != CURRENT_GA && render$render_session_index("lobbying", ga)) {
+    manifest <- render$load_manifest()
+    manifest <- render$update_manifest(manifest, "session_index",
+                                       session_item_id(ga, "lobbying"),
+                                       render$session_index_digest("lobbying"))
+    render$save_manifest(manifest)
+  }
   render$render_all_bills(deadline = deadline, ga = ga)
   render$finish_site_output()
 
