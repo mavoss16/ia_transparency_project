@@ -125,6 +125,7 @@ load_lobbyist_filings <- function(path = file.path(ga_paths(ga)$lobbying, "lobby
 #' @param filings Tibble with lobbyist filings
 #' @param path Path to save
 save_lobbyist_filings <- function(filings, path = file.path(ga_paths(ga)$lobbying, "lobbyist_filings.rds"), ga = CURRENT_GA) {
+  dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)  # new session
   saveRDS(filings, path)
   message("Saved ", nrow(filings), " lobbyist filing records to ", path)
 }
@@ -181,6 +182,7 @@ load_lobbyist_declarations <- function(path = file.path(ga_paths(ga)$lobbying, "
 #' @param declarations Tibble with lobbyist data
 #' @param path Path to save
 save_lobbyist_declarations <- function(declarations, path = file.path(ga_paths(ga)$lobbying, "lobbyist_declarations.rds"), ga = CURRENT_GA) {
+  dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
   saveRDS(declarations, path)
   message("Saved ", nrow(declarations), " lobbyist declaration records to ", path)
 }
