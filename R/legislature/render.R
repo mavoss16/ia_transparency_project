@@ -1126,13 +1126,37 @@ render_session_index <- function(section, ga) {
   })
 }
 
-#' Fingerprint of an archived section index: the template, the section's
-#' session list and which session is current. The page's own data is frozen,
-#' so this changes only when the template is edited or a session is added
-#' (its session switcher then needs the new link).
-session_index_digest <- function(section) {
+#' Data files each section index reads for session `ga`. Keep these in step
+#' with the reads in site/{section}/index.qmd: a file left out here doesn't
+#' re-render the archived page when it changes (legislation/ga90.html showed
+#' no status summary for days because groups.rds landed after its render).
+SESSION_INDEX_DATA <- list(
+  legislation = \(ga) c(ga_csv("bills", ga), ga_csv("people", ga), ga_csv("sponsors", ga),
+                        file.path(ga_paths(ga)$bills, "groups.rds")),
+  # legislator_sessions() reads every session's people.csv for the
+  # "served again" links
+  legislators = \(ga) c(ga_csv("people", ga), ga_csv("sponsors", ga), ga_csv("votes", ga),
+                        ga_csv("rollcalls", ga),
+                        file.path(ga_paths(ga)$votes, "legislator_stats.rds"),
+                        vapply(available_gas(), \(g) ga_csv("people", g), character(1))),
+  lobbying    = \(ga) file.path(ga_paths(ga)$lobbying,
+                                paste0(c("clients", "organization_bills", "organization_outcomes",
+                                         "outcome_baseline", "lobbyist_declarations"), ".rds"))
+)
+
+#' Fingerprint of one archived section index: the template, the section's
+#' session list, which session is current, and the data files the page reads
+#' for that session (a missing file hashes as NA, so its arrival counts as a
+#' change). Earlier sessions' data is mostly frozen, but a backfill or a
+#' re-scrape changes it.
+#' @param section One of SESSION_INDEX_SECTIONS
+#' @param ga The earlier session
+session_index_digest <- function(section, ga) {
+  data_files <- SESSION_INDEX_DATA[[section]](ga)
+  data_hashes <- vapply(data_files, \(f) if (file.exists(f)) rlang::hash_file(f) else NA_character_,
+                        character(1), USE.NAMES = FALSE)
   rlang::hash(c(rlang::hash_file(here("site", section, "index.qmd")),
-                section_gas(section), CURRENT_GA))
+                section_gas(section), CURRENT_GA, data_hashes))
 }
 
 #' Render what keeps earlier sessions reachable from the index pages: each
@@ -1148,8 +1172,8 @@ render_session_archives <- function(force = FALSE) {
   success_count <- 0
   failed_items <- character(0)
   for (section in SESSION_INDEX_SECTIONS) {
-    digest <- session_index_digest(section)
     for (g in setdiff(section_gas(section), CURRENT_GA)) {
+      digest <- session_index_digest(section, g)
       key <- session_item_id(g, section)
       if (!force && identical(rendered$hash[match(key, rendered$id)], digest)) next
       if (render_session_index(section, g)) {

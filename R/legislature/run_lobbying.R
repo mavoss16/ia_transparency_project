@@ -83,16 +83,9 @@ run_lobbying <- function(ga = CURRENT_GA, scrape = TRUE,
   render$render_all_organizations(deadline = deadline, ga = ga)
   # The current session's index, which also gains or refreshes the session
   # switcher. An earlier session's index is its archived ga{N}.html, whose
-  # manifest digest tracks only the template and session list, so render it
-  # here, where its data has just changed.
+  # digest includes the lobbying data, so it re-renders here.
   quarto::quarto_render(here("site/lobbying/index.qmd"), as_job = FALSE)
-  if (ga != CURRENT_GA && render$render_session_index("lobbying", ga)) {
-    manifest <- render$load_manifest()
-    manifest <- render$update_manifest(manifest, "session_index",
-                                       session_item_id(ga, "lobbying"),
-                                       render$session_index_digest("lobbying"))
-    render$save_manifest(manifest)
-  }
+  if (ga != CURRENT_GA) render$render_session_archives()
   render$render_all_bills(deadline = deadline, ga = ga)
   render$finish_site_output()
 
