@@ -46,7 +46,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-689b526e9d5231395ec11fa4c74a23e1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5cd8c37cf69d721ad6fb6d136cc7d9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -223,7 +223,26 @@ Read first time, referred to Labor and Workforce. H.J. 501. — March 5, 2024
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="ia-card-sub">No lobbyist declarations filed on this bill.</div>
+<div class="ia-card-sub">67 declarations filed on this bill</div>
+<div class="ia-share-bar">
+<div style="width:6.0%; background:#256a43"></div>
+<div style="width:56.7%; background:#B8860B"></div>
+<div style="width:37.3%; background:#cfccc2"></div>
+</div>
+<div class="ia-share-legend">
+<span>
+<span style="color:#256a43">●</span>
+ 4 For
+</span>
+<span>
+<span style="color:#B8860B">●</span>
+ 38 Against
+</span>
+<span>
+<span style="color:#cfccc2">●</span>
+ 25 Undecided
+</span>
+</div>
 </div>
 </div>
 </div>
@@ -473,8 +492,8 @@ Read first time, referred to Labor and Workforce. H.J. 501. — March 5, 2024
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-c4cec9bcc58ac2829f18" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-c4cec9bcc58ac2829f18">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[40.37544,-96.639484,43.501196,-90.140061,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addLegend","args":[{"colors":["#3F5B93","#B2BDD4","#A8433A","#DCB4B0","#CCCCCC"],"labels":["Democrat: Yea","Democrat: Nay","Republican: Yea","Republican: Nay","Absent/NV"],"na_color":null,"na_label":"NA","opacity":0.9,"position":"bottomright","type":"unknown","title":"Vote","extra":null,"layerId":null,"className":"info legend","group":null}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_senate","districts":{"District":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],"fill":["#CCCCCC","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#CCCCCC","#B2BDD4","#A8433A","#A8433A","#DCB4B0","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#CCCCCC","#A8433A","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A"],"label":["Rocky De Witt (R-1): Absent","Jeff Taylor (R-2): Yea","Lynn Evans (R-3): Yea","Tim Kraayenbrink (R-4): Yea","Dave Rowley (R-5): Yea","Jason Schultz (R-6): Yea","Kevin Alons (R-7): Yea","Mark Costello (R-8): Yea","Tom Shipley (R-9): Yea","Dan Dawson (R-10): Yea","Julian Garrett (R-11): Yea","Amy Sinclair (R-12): Yea","Cherielynn Westrich (R-13): Yea","Sarah Trone Garriott (D-14): Nay","Tony Bisignano (D-15): Nay","Claire Celsi (D-16): Nay","Izaah Knox (D-17): Nay","Janet Petersen (D-18): Nay","Ken Rozenboom (R-19): Yea","Nate Boulton (D-20): Nay","Mike Bousselot (R-21): Yea","Brad Zaun (R-22): Yea","Jack Whitver (R-23): Yea","Jesse Green (R-24): Yea","Herman Quirmbach (D-25): Nay","Jeff Edler (R-26): Yea","Annette Sweeney (R-27): Yea","Dennis Guth (R-28): Yea","Sandy Salmon (R-29): Yea","Waylon Brown (R-30): Absent","William Dotzler (D-31): Nay","Mike Klimesh (R-32): Yea","Carrie Koelker (R-33): Yea","Daniel Zumbach (R-34): Nay","Chris Cournoyer (R-35): Yea","Pam Jochum (D-36): Nay","Molly Donahue (D-37): Nay","Eric Giddens (D-38): Nay","Liz Bennett (D-39): Nay","Todd Taylor (D-40): Nay","Kerry Gruenhagen (R-41): Absent","Charlie McClintock (R-42): Yea","Zach Wahls (D-43): Nay","Adrian Dickey (R-44): Yea","Janice Weiner (D-45): Nay","Dawn Driscoll (R-46): Yea","Scott Webster (R-47): Yea","Mark Lofgren (R-48): Yea","Cindy Winckler (D-49): Nay","Jeff Reichman (R-50): Yea"]},"hover":null}}]}}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-1d1c25767f1df1d9d39d" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-1d1c25767f1df1d9d39d">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[40.37544,-96.639484,43.501196,-90.140061,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addLegend","args":[{"colors":["#3F5B93","#B2BDD4","#A8433A","#DCB4B0","#CCCCCC"],"labels":["Democrat: Yea","Democrat: Nay","Republican: Yea","Republican: Nay","Absent/NV"],"na_color":null,"na_label":"NA","opacity":0.9,"position":"bottomright","type":"unknown","title":"Vote","extra":null,"layerId":null,"className":"info legend","group":null}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_senate","districts":{"District":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],"fill":["#CCCCCC","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#CCCCCC","#B2BDD4","#A8433A","#A8433A","#DCB4B0","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#CCCCCC","#A8433A","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A"],"label":["Rocky De Witt (R-1): Absent","Jeff Taylor (R-2): Yea","Lynn Evans (R-3): Yea","Tim Kraayenbrink (R-4): Yea","Dave Rowley (R-5): Yea","Jason Schultz (R-6): Yea","Kevin Alons (R-7): Yea","Mark Costello (R-8): Yea","Tom Shipley (R-9): Yea","Dan Dawson (R-10): Yea","Julian Garrett (R-11): Yea","Amy Sinclair (R-12): Yea","Cherielynn Westrich (R-13): Yea","Sarah Trone Garriott (D-14): Nay","Tony Bisignano (D-15): Nay","Claire Celsi (D-16): Nay","Izaah Knox (D-17): Nay","Janet Petersen (D-18): Nay","Ken Rozenboom (R-19): Yea","Nate Boulton (D-20): Nay","Mike Bousselot (R-21): Yea","Brad Zaun (R-22): Yea","Jack Whitver (R-23): Yea","Jesse Green (R-24): Yea","Herman Quirmbach (D-25): Nay","Jeff Edler (R-26): Yea","Annette Sweeney (R-27): Yea","Dennis Guth (R-28): Yea","Sandy Salmon (R-29): Yea","Waylon Brown (R-30): Absent","William Dotzler (D-31): Nay","Mike Klimesh (R-32): Yea","Carrie Koelker (R-33): Yea","Daniel Zumbach (R-34): Nay","Chris Cournoyer (R-35): Yea","Pam Jochum (D-36): Nay","Molly Donahue (D-37): Nay","Eric Giddens (D-38): Nay","Liz Bennett (D-39): Nay","Todd Taylor (D-40): Nay","Kerry Gruenhagen (R-41): Absent","Charlie McClintock (R-42): Yea","Zach Wahls (D-43): Nay","Adrian Dickey (R-44): Yea","Janice Weiner (D-45): Nay","Dawn Driscoll (R-46): Yea","Scott Webster (R-47): Yea","Mark Lofgren (R-48): Yea","Cindy Winckler (D-49): Nay","Jeff Reichman (R-50): Yea"]},"hover":null}}]}}</script>
 </div>
 </div>
 <div class="cell">
@@ -812,8 +831,8 @@ Read first time, referred to Labor and Workforce. H.J. 501. — March 5, 2024
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-3377ba12ce55257ae927" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-3377ba12ce55257ae927">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[40.37544,-96.639484,43.501196,-90.140061,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addLegend","args":[{"colors":["#3F5B93","#B2BDD4","#A8433A","#DCB4B0","#CCCCCC"],"labels":["Democrat: Yea","Democrat: Nay","Republican: Yea","Republican: Nay","Absent/NV"],"na_color":null,"na_label":"NA","opacity":0.9,"position":"bottomright","type":"unknown","title":"Vote","extra":null,"layerId":null,"className":"info legend","group":null}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_senate","districts":{"District":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],"fill":["#CCCCCC","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#CCCCCC","#B2BDD4","#A8433A","#A8433A","#DCB4B0","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#CCCCCC","#A8433A","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A"],"label":["Rocky De Witt (R-1): Absent","Jeff Taylor (R-2): Yea","Lynn Evans (R-3): Yea","Tim Kraayenbrink (R-4): Yea","Dave Rowley (R-5): Yea","Jason Schultz (R-6): Yea","Kevin Alons (R-7): Yea","Mark Costello (R-8): Yea","Tom Shipley (R-9): Yea","Dan Dawson (R-10): Yea","Julian Garrett (R-11): Yea","Amy Sinclair (R-12): Yea","Cherielynn Westrich (R-13): Yea","Sarah Trone Garriott (D-14): Nay","Tony Bisignano (D-15): Nay","Claire Celsi (D-16): Nay","Izaah Knox (D-17): Nay","Janet Petersen (D-18): Nay","Ken Rozenboom (R-19): Yea","Nate Boulton (D-20): Nay","Mike Bousselot (R-21): Yea","Brad Zaun (R-22): Yea","Jack Whitver (R-23): Yea","Jesse Green (R-24): Yea","Herman Quirmbach (D-25): Nay","Jeff Edler (R-26): Yea","Annette Sweeney (R-27): Yea","Dennis Guth (R-28): Yea","Sandy Salmon (R-29): Yea","Waylon Brown (R-30): Absent","William Dotzler (D-31): Nay","Mike Klimesh (R-32): Yea","Carrie Koelker (R-33): Yea","Daniel Zumbach (R-34): Nay","Chris Cournoyer (R-35): Yea","Pam Jochum (D-36): Nay","Molly Donahue (D-37): Nay","Eric Giddens (D-38): Nay","Liz Bennett (D-39): Nay","Todd Taylor (D-40): Nay","Kerry Gruenhagen (R-41): Absent","Charlie McClintock (R-42): Yea","Zach Wahls (D-43): Nay","Adrian Dickey (R-44): Yea","Janice Weiner (D-45): Nay","Dawn Driscoll (R-46): Yea","Scott Webster (R-47): Yea","Mark Lofgren (R-48): Yea","Cindy Winckler (D-49): Nay","Jeff Reichman (R-50): Yea"]},"hover":null}}]}}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-2cf440606910fcad277e" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-2cf440606910fcad277e">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[40.37544,-96.639484,43.501196,-90.140061,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addLegend","args":[{"colors":["#3F5B93","#B2BDD4","#A8433A","#DCB4B0","#CCCCCC"],"labels":["Democrat: Yea","Democrat: Nay","Republican: Yea","Republican: Nay","Absent/NV"],"na_color":null,"na_label":"NA","opacity":0.9,"position":"bottomright","type":"unknown","title":"Vote","extra":null,"layerId":null,"className":"info legend","group":null}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_senate","districts":{"District":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],"fill":["#CCCCCC","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#CCCCCC","#B2BDD4","#A8433A","#A8433A","#DCB4B0","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#CCCCCC","#A8433A","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A"],"label":["Rocky De Witt (R-1): Absent","Jeff Taylor (R-2): Yea","Lynn Evans (R-3): Yea","Tim Kraayenbrink (R-4): Yea","Dave Rowley (R-5): Yea","Jason Schultz (R-6): Yea","Kevin Alons (R-7): Yea","Mark Costello (R-8): Yea","Tom Shipley (R-9): Yea","Dan Dawson (R-10): Yea","Julian Garrett (R-11): Yea","Amy Sinclair (R-12): Yea","Cherielynn Westrich (R-13): Yea","Sarah Trone Garriott (D-14): Nay","Tony Bisignano (D-15): Nay","Claire Celsi (D-16): Nay","Izaah Knox (D-17): Nay","Janet Petersen (D-18): Nay","Ken Rozenboom (R-19): Yea","Nate Boulton (D-20): Nay","Mike Bousselot (R-21): Yea","Brad Zaun (R-22): Yea","Jack Whitver (R-23): Yea","Jesse Green (R-24): Yea","Herman Quirmbach (D-25): Nay","Jeff Edler (R-26): Yea","Annette Sweeney (R-27): Yea","Dennis Guth (R-28): Yea","Sandy Salmon (R-29): Yea","Waylon Brown (R-30): Absent","William Dotzler (D-31): Nay","Mike Klimesh (R-32): Yea","Carrie Koelker (R-33): Yea","Daniel Zumbach (R-34): Nay","Chris Cournoyer (R-35): Yea","Pam Jochum (D-36): Nay","Molly Donahue (D-37): Nay","Eric Giddens (D-38): Nay","Liz Bennett (D-39): Nay","Todd Taylor (D-40): Nay","Kerry Gruenhagen (R-41): Absent","Charlie McClintock (R-42): Yea","Zach Wahls (D-43): Nay","Adrian Dickey (R-44): Yea","Janice Weiner (D-45): Nay","Dawn Driscoll (R-46): Yea","Scott Webster (R-47): Yea","Mark Lofgren (R-48): Yea","Cindy Winckler (D-49): Nay","Jeff Reichman (R-50): Yea"]},"hover":null}}]}}</script>
 </div>
 </div>
 <div class="cell">
@@ -1151,8 +1170,8 @@ Read first time, referred to Labor and Workforce. H.J. 501. — March 5, 2024
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-cc1bc9ad717b639b695e" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-cc1bc9ad717b639b695e">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[40.37544,-96.639484,43.501196,-90.140061,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addLegend","args":[{"colors":["#3F5B93","#B2BDD4","#A8433A","#DCB4B0","#CCCCCC"],"labels":["Democrat: Yea","Democrat: Nay","Republican: Yea","Republican: Nay","Absent/NV"],"na_color":null,"na_label":"NA","opacity":0.9,"position":"bottomright","type":"unknown","title":"Vote","extra":null,"layerId":null,"className":"info legend","group":null}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_senate","districts":{"District":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],"fill":["#CCCCCC","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#CCCCCC","#B2BDD4","#A8433A","#A8433A","#DCB4B0","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#CCCCCC","#A8433A","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A"],"label":["Rocky De Witt (R-1): Absent","Jeff Taylor (R-2): Yea","Lynn Evans (R-3): Yea","Tim Kraayenbrink (R-4): Yea","Dave Rowley (R-5): Yea","Jason Schultz (R-6): Yea","Kevin Alons (R-7): Yea","Mark Costello (R-8): Yea","Tom Shipley (R-9): Yea","Dan Dawson (R-10): Yea","Julian Garrett (R-11): Yea","Amy Sinclair (R-12): Yea","Cherielynn Westrich (R-13): Yea","Sarah Trone Garriott (D-14): Nay","Tony Bisignano (D-15): Nay","Claire Celsi (D-16): Nay","Izaah Knox (D-17): Nay","Janet Petersen (D-18): Nay","Ken Rozenboom (R-19): Yea","Nate Boulton (D-20): Nay","Mike Bousselot (R-21): Yea","Brad Zaun (R-22): Yea","Jack Whitver (R-23): Yea","Jesse Green (R-24): Yea","Herman Quirmbach (D-25): Nay","Jeff Edler (R-26): Yea","Annette Sweeney (R-27): Yea","Dennis Guth (R-28): Yea","Sandy Salmon (R-29): Yea","Waylon Brown (R-30): Absent","William Dotzler (D-31): Nay","Mike Klimesh (R-32): Yea","Carrie Koelker (R-33): Yea","Daniel Zumbach (R-34): Nay","Chris Cournoyer (R-35): Yea","Pam Jochum (D-36): Nay","Molly Donahue (D-37): Nay","Eric Giddens (D-38): Nay","Liz Bennett (D-39): Nay","Todd Taylor (D-40): Nay","Kerry Gruenhagen (R-41): Absent","Charlie McClintock (R-42): Yea","Zach Wahls (D-43): Nay","Adrian Dickey (R-44): Yea","Janice Weiner (D-45): Nay","Dawn Driscoll (R-46): Yea","Scott Webster (R-47): Yea","Mark Lofgren (R-48): Yea","Cindy Winckler (D-49): Nay","Jeff Reichman (R-50): Yea"]},"hover":null}}]}}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-011878be4ad14078565d" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-011878be4ad14078565d">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[40.37544,-96.639484,43.501196,-90.140061,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addLegend","args":[{"colors":["#3F5B93","#B2BDD4","#A8433A","#DCB4B0","#CCCCCC"],"labels":["Democrat: Yea","Democrat: Nay","Republican: Yea","Republican: Nay","Absent/NV"],"na_color":null,"na_label":"NA","opacity":0.9,"position":"bottomright","type":"unknown","title":"Vote","extra":null,"layerId":null,"className":"info legend","group":null}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_senate","districts":{"District":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],"fill":["#CCCCCC","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#CCCCCC","#B2BDD4","#A8433A","#A8433A","#DCB4B0","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#CCCCCC","#A8433A","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A"],"label":["Rocky De Witt (R-1): Absent","Jeff Taylor (R-2): Yea","Lynn Evans (R-3): Yea","Tim Kraayenbrink (R-4): Yea","Dave Rowley (R-5): Yea","Jason Schultz (R-6): Yea","Kevin Alons (R-7): Yea","Mark Costello (R-8): Yea","Tom Shipley (R-9): Yea","Dan Dawson (R-10): Yea","Julian Garrett (R-11): Yea","Amy Sinclair (R-12): Yea","Cherielynn Westrich (R-13): Yea","Sarah Trone Garriott (D-14): Nay","Tony Bisignano (D-15): Nay","Claire Celsi (D-16): Nay","Izaah Knox (D-17): Nay","Janet Petersen (D-18): Nay","Ken Rozenboom (R-19): Yea","Nate Boulton (D-20): Nay","Mike Bousselot (R-21): Yea","Brad Zaun (R-22): Yea","Jack Whitver (R-23): Yea","Jesse Green (R-24): Yea","Herman Quirmbach (D-25): Nay","Jeff Edler (R-26): Yea","Annette Sweeney (R-27): Yea","Dennis Guth (R-28): Yea","Sandy Salmon (R-29): Yea","Waylon Brown (R-30): Absent","William Dotzler (D-31): Nay","Mike Klimesh (R-32): Yea","Carrie Koelker (R-33): Yea","Daniel Zumbach (R-34): Nay","Chris Cournoyer (R-35): Yea","Pam Jochum (D-36): Nay","Molly Donahue (D-37): Nay","Eric Giddens (D-38): Nay","Liz Bennett (D-39): Nay","Todd Taylor (D-40): Nay","Kerry Gruenhagen (R-41): Absent","Charlie McClintock (R-42): Yea","Zach Wahls (D-43): Nay","Adrian Dickey (R-44): Yea","Janice Weiner (D-45): Nay","Dawn Driscoll (R-46): Yea","Scott Webster (R-47): Yea","Mark Lofgren (R-48): Yea","Cindy Winckler (D-49): Nay","Jeff Reichman (R-50): Yea"]},"hover":null}}]}}</script>
 </div>
 </div>
 <div class="cell">
@@ -1490,8 +1509,8 @@ Read first time, referred to Labor and Workforce. H.J. 501. — March 5, 2024
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-afd7bf9e677100330b8e" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-afd7bf9e677100330b8e">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[40.37544,-96.639484,43.501196,-90.140061,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addLegend","args":[{"colors":["#3F5B93","#B2BDD4","#A8433A","#DCB4B0","#CCCCCC"],"labels":["Democrat: Yea","Democrat: Nay","Republican: Yea","Republican: Nay","Absent/NV"],"na_color":null,"na_label":"NA","opacity":0.9,"position":"bottomright","type":"unknown","title":"Vote","extra":null,"layerId":null,"className":"info legend","group":null}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_senate","districts":{"District":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],"fill":["#CCCCCC","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#CCCCCC","#B2BDD4","#A8433A","#A8433A","#DCB4B0","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#CCCCCC","#A8433A","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A"],"label":["Rocky De Witt (R-1): Absent","Jeff Taylor (R-2): Yea","Lynn Evans (R-3): Yea","Tim Kraayenbrink (R-4): Yea","Dave Rowley (R-5): Yea","Jason Schultz (R-6): Yea","Kevin Alons (R-7): Yea","Mark Costello (R-8): Yea","Tom Shipley (R-9): Yea","Dan Dawson (R-10): Yea","Julian Garrett (R-11): Yea","Amy Sinclair (R-12): Yea","Cherielynn Westrich (R-13): Yea","Sarah Trone Garriott (D-14): Nay","Tony Bisignano (D-15): Nay","Claire Celsi (D-16): Nay","Izaah Knox (D-17): Nay","Janet Petersen (D-18): Nay","Ken Rozenboom (R-19): Yea","Nate Boulton (D-20): Nay","Mike Bousselot (R-21): Yea","Brad Zaun (R-22): Yea","Jack Whitver (R-23): Yea","Jesse Green (R-24): Yea","Herman Quirmbach (D-25): Nay","Jeff Edler (R-26): Yea","Annette Sweeney (R-27): Yea","Dennis Guth (R-28): Yea","Sandy Salmon (R-29): Yea","Waylon Brown (R-30): Absent","William Dotzler (D-31): Nay","Mike Klimesh (R-32): Yea","Carrie Koelker (R-33): Yea","Daniel Zumbach (R-34): Nay","Chris Cournoyer (R-35): Yea","Pam Jochum (D-36): Nay","Molly Donahue (D-37): Nay","Eric Giddens (D-38): Nay","Liz Bennett (D-39): Nay","Todd Taylor (D-40): Nay","Kerry Gruenhagen (R-41): Absent","Charlie McClintock (R-42): Yea","Zach Wahls (D-43): Nay","Adrian Dickey (R-44): Yea","Janice Weiner (D-45): Nay","Dawn Driscoll (R-46): Yea","Scott Webster (R-47): Yea","Mark Lofgren (R-48): Yea","Cindy Winckler (D-49): Nay","Jeff Reichman (R-50): Yea"]},"hover":null}}]}}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-a3a84bdc1800e11b68ed" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-a3a84bdc1800e11b68ed">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[40.37544,-96.639484,43.501196,-90.140061,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addLegend","args":[{"colors":["#3F5B93","#B2BDD4","#A8433A","#DCB4B0","#CCCCCC"],"labels":["Democrat: Yea","Democrat: Nay","Republican: Yea","Republican: Nay","Absent/NV"],"na_color":null,"na_label":"NA","opacity":0.9,"position":"bottomright","type":"unknown","title":"Vote","extra":null,"layerId":null,"className":"info legend","group":null}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_senate","districts":{"District":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],"fill":["#CCCCCC","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#CCCCCC","#B2BDD4","#A8433A","#A8433A","#DCB4B0","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#CCCCCC","#A8433A","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A"],"label":["Rocky De Witt (R-1): Absent","Jeff Taylor (R-2): Yea","Lynn Evans (R-3): Yea","Tim Kraayenbrink (R-4): Yea","Dave Rowley (R-5): Yea","Jason Schultz (R-6): Yea","Kevin Alons (R-7): Yea","Mark Costello (R-8): Yea","Tom Shipley (R-9): Yea","Dan Dawson (R-10): Yea","Julian Garrett (R-11): Yea","Amy Sinclair (R-12): Yea","Cherielynn Westrich (R-13): Yea","Sarah Trone Garriott (D-14): Nay","Tony Bisignano (D-15): Nay","Claire Celsi (D-16): Nay","Izaah Knox (D-17): Nay","Janet Petersen (D-18): Nay","Ken Rozenboom (R-19): Yea","Nate Boulton (D-20): Nay","Mike Bousselot (R-21): Yea","Brad Zaun (R-22): Yea","Jack Whitver (R-23): Yea","Jesse Green (R-24): Yea","Herman Quirmbach (D-25): Nay","Jeff Edler (R-26): Yea","Annette Sweeney (R-27): Yea","Dennis Guth (R-28): Yea","Sandy Salmon (R-29): Yea","Waylon Brown (R-30): Absent","William Dotzler (D-31): Nay","Mike Klimesh (R-32): Yea","Carrie Koelker (R-33): Yea","Daniel Zumbach (R-34): Nay","Chris Cournoyer (R-35): Yea","Pam Jochum (D-36): Nay","Molly Donahue (D-37): Nay","Eric Giddens (D-38): Nay","Liz Bennett (D-39): Nay","Todd Taylor (D-40): Nay","Kerry Gruenhagen (R-41): Absent","Charlie McClintock (R-42): Yea","Zach Wahls (D-43): Nay","Adrian Dickey (R-44): Yea","Janice Weiner (D-45): Nay","Dawn Driscoll (R-46): Yea","Scott Webster (R-47): Yea","Mark Lofgren (R-48): Yea","Cindy Winckler (D-49): Nay","Jeff Reichman (R-50): Yea"]},"hover":null}}]}}</script>
 </div>
 </div>
 <div class="cell">
@@ -1829,8 +1848,8 @@ Read first time, referred to Labor and Workforce. H.J. 501. — March 5, 2024
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-8ba275d478535eb45408" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-8ba275d478535eb45408">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[40.37544,-96.639484,43.501196,-90.140061,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addLegend","args":[{"colors":["#3F5B93","#B2BDD4","#A8433A","#DCB4B0","#CCCCCC"],"labels":["Democrat: Yea","Democrat: Nay","Republican: Yea","Republican: Nay","Absent/NV"],"na_color":null,"na_label":"NA","opacity":0.9,"position":"bottomright","type":"unknown","title":"Vote","extra":null,"layerId":null,"className":"info legend","group":null}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_senate","districts":{"District":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],"fill":["#CCCCCC","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#CCCCCC","#B2BDD4","#A8433A","#A8433A","#DCB4B0","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#CCCCCC","#A8433A","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A"],"label":["Rocky De Witt (R-1): Absent","Jeff Taylor (R-2): Yea","Lynn Evans (R-3): Yea","Tim Kraayenbrink (R-4): Yea","Dave Rowley (R-5): Yea","Jason Schultz (R-6): Yea","Kevin Alons (R-7): Yea","Mark Costello (R-8): Yea","Tom Shipley (R-9): Yea","Dan Dawson (R-10): Yea","Julian Garrett (R-11): Yea","Amy Sinclair (R-12): Yea","Cherielynn Westrich (R-13): Yea","Sarah Trone Garriott (D-14): Nay","Tony Bisignano (D-15): Nay","Claire Celsi (D-16): Nay","Izaah Knox (D-17): Nay","Janet Petersen (D-18): Nay","Ken Rozenboom (R-19): Yea","Nate Boulton (D-20): Nay","Mike Bousselot (R-21): Yea","Brad Zaun (R-22): Yea","Jack Whitver (R-23): Yea","Jesse Green (R-24): Yea","Herman Quirmbach (D-25): Nay","Jeff Edler (R-26): Yea","Annette Sweeney (R-27): Yea","Dennis Guth (R-28): Yea","Sandy Salmon (R-29): Yea","Waylon Brown (R-30): Absent","William Dotzler (D-31): Nay","Mike Klimesh (R-32): Yea","Carrie Koelker (R-33): Yea","Daniel Zumbach (R-34): Nay","Chris Cournoyer (R-35): Yea","Pam Jochum (D-36): Nay","Molly Donahue (D-37): Nay","Eric Giddens (D-38): Nay","Liz Bennett (D-39): Nay","Todd Taylor (D-40): Nay","Kerry Gruenhagen (R-41): Absent","Charlie McClintock (R-42): Yea","Zach Wahls (D-43): Nay","Adrian Dickey (R-44): Yea","Janice Weiner (D-45): Nay","Dawn Driscoll (R-46): Yea","Scott Webster (R-47): Yea","Mark Lofgren (R-48): Yea","Cindy Winckler (D-49): Nay","Jeff Reichman (R-50): Yea"]},"hover":null}}]}}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-834793827ed8e7a8122d" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-834793827ed8e7a8122d">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"fitBounds":[40.37544,-96.639484,43.501196,-90.140061,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addLegend","args":[{"colors":["#3F5B93","#B2BDD4","#A8433A","#DCB4B0","#CCCCCC"],"labels":["Democrat: Yea","Democrat: Nay","Republican: Yea","Republican: Nay","Absent/NV"],"na_color":null,"na_label":"NA","opacity":0.9,"position":"bottomright","type":"unknown","title":"Vote","extra":null,"layerId":null,"className":"info legend","group":null}]}]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x, data) {\n  var map = this;\n  var arr = function(v) { return [].concat(v); };\n  var key = arr(data.key)[0];\n  var geo = window.IA_DISTRICTS && window.IA_DISTRICTS[key];\n  if (!geo) {\n    console.error('IA district map: geometry not loaded for ' + key);\n    return;\n  }\n  var d = data.districts;\n  var row = {};\n  arr(d.District).forEach(function(v, i) { row[v] = i; });\n  var val = function(name, i, fallback) {\n    if (i === undefined || d[name] === undefined || d[name] === null) return fallback;\n    var v = arr(d[name])[i];\n    return v === null || v === undefined ? fallback : v;\n  };\n  var front = [];\n  L.geoJSON(geo, {\n    style: function(f) {\n      var i = row[f.properties.District];\n      return {\n        fillColor: val('fill', i, '#CCCCCC'), fillOpacity: val('fill_opacity', i, 0.7),\n        color: val('stroke', i, '#333333'), weight: val('weight', i, 1)\n      };\n    },\n    onEachFeature: function(f, layer) {\n      var i = row[f.properties.District];\n      layer.bindTooltip(val('label', i, 'District ' + f.properties.District));\n      var popup = val('popup', i, null);\n      if (popup) layer.bindPopup(popup);\n      if (val('front', i, false)) front.push(layer);\n      if (data.hover) {\n        var base;\n        layer.on('mouseover', function() {\n          base = { weight: layer.options.weight, fillOpacity: layer.options.fillOpacity };\n          layer.setStyle({ weight: data.hover.weight, fillOpacity: data.hover.fillOpacity });\n          layer.bringToFront();\n        });\n        layer.on('mouseout', function() { if (base) layer.setStyle(base); });\n      }\n    }\n  }).addTo(map);\n  front.forEach(function(layer) { layer.bringToFront(); });\n}\n).call(this.getMap(), el, x, data);\n}","data":{"key":"plan2021_senate","districts":{"District":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],"fill":["#CCCCCC","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#A8433A","#CCCCCC","#B2BDD4","#A8433A","#A8433A","#DCB4B0","#A8433A","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#B2BDD4","#CCCCCC","#A8433A","#B2BDD4","#A8433A","#B2BDD4","#A8433A","#A8433A","#A8433A","#B2BDD4","#A8433A"],"label":["Rocky De Witt (R-1): Absent","Jeff Taylor (R-2): Yea","Lynn Evans (R-3): Yea","Tim Kraayenbrink (R-4): Yea","Dave Rowley (R-5): Yea","Jason Schultz (R-6): Yea","Kevin Alons (R-7): Yea","Mark Costello (R-8): Yea","Tom Shipley (R-9): Yea","Dan Dawson (R-10): Yea","Julian Garrett (R-11): Yea","Amy Sinclair (R-12): Yea","Cherielynn Westrich (R-13): Yea","Sarah Trone Garriott (D-14): Nay","Tony Bisignano (D-15): Nay","Claire Celsi (D-16): Nay","Izaah Knox (D-17): Nay","Janet Petersen (D-18): Nay","Ken Rozenboom (R-19): Yea","Nate Boulton (D-20): Nay","Mike Bousselot (R-21): Yea","Brad Zaun (R-22): Yea","Jack Whitver (R-23): Yea","Jesse Green (R-24): Yea","Herman Quirmbach (D-25): Nay","Jeff Edler (R-26): Yea","Annette Sweeney (R-27): Yea","Dennis Guth (R-28): Yea","Sandy Salmon (R-29): Yea","Waylon Brown (R-30): Absent","William Dotzler (D-31): Nay","Mike Klimesh (R-32): Yea","Carrie Koelker (R-33): Yea","Daniel Zumbach (R-34): Nay","Chris Cournoyer (R-35): Yea","Pam Jochum (D-36): Nay","Molly Donahue (D-37): Nay","Eric Giddens (D-38): Nay","Liz Bennett (D-39): Nay","Todd Taylor (D-40): Nay","Kerry Gruenhagen (R-41): Absent","Charlie McClintock (R-42): Yea","Zach Wahls (D-43): Nay","Adrian Dickey (R-44): Yea","Janice Weiner (D-45): Nay","Dawn Driscoll (R-46): Yea","Scott Webster (R-47): Yea","Mark Lofgren (R-48): Yea","Cindy Winckler (D-49): Nay","Jeff Reichman (R-50): Yea"]},"hover":null}}]}}</script>
 </div>
 </div>
 <div class="cell">
@@ -2164,7 +2183,356 @@ Read first time, referred to Labor and Workforce. H.J. 501. — March 5, 2024
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <div class="cell">
 <div class="cell-output-display">
-<div class="ia-empty">Lobbyist declarations are unavailable right now.</div>
+<div class="ia-table-scroll">
+
+<table class="ia-table caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">Client</th>
+<th data-quarto-table-cell-role="th" scope="col">Declaration</th>
+<th class="ia-nowrap" data-quarto-table-cell-role="th" scope="col">Last updated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/agribusiness-association-of-iowa.html">Agribusiness Association of Iowa</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 31, 2024</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/alter-trading-corporation.html">Alter Trading Corporation</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Mar 1, 2024</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/ames-regional-economic-alliance.html">Ames Regional Economic Alliance</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Mar 8, 2024</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/annett-holdings.html">Annett Holdings</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 31, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/associated-general-contractors-of-iowa.html">Associated General Contractors of Iowa</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 23, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/crst-international.html">CRST International</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 31, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/casey-s-general-stores.html">Casey's General Stores</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 24, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/cedar-rapids-metro-economic-alliance.html">Cedar Rapids Metro Economic Alliance</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 27, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/dubuque-area-chamber-of-commerce.html">Dubuque Area Chamber of Commerce</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 30, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/episcopal-diocese-of-iowa.html">Episcopal Diocese of Iowa</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 25, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/greater-des-moines-partnership.html">Greater Des Moines Partnership</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 24, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/grow-cedar-valley.html">Grow Cedar Valley</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Feb 6, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/heavy-highway-contractors-association.html">Heavy Highway Contractors Association</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 24, 2024</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/interfaith-alliance-of-iowa-action-fund.html">Interfaith Alliance of Iowa Action Fund</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 24, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-association-of-business-and-industry-abi.html">Iowa Association of Business and Industry (ABI)</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 23, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-business-council.html">Iowa Business Council</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 26, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-catholic-conference.html">Iowa Catholic Conference</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 26, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-chamber-alliance.html">Iowa Chamber Alliance</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 23, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-city-area-business-partnership.html">Iowa City Area Business Partnership</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Mar 10, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-coalition-against-domestic-violence.html">Iowa Coalition Against Domestic Violence</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 20, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-federation-of-labor-afl-cio.html">Iowa Federation of Labor, AFL-CIO</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 20, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-greenhouse-growers-association.html">Iowa Greenhouse Growers Association</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 22, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-grocery-industry-association.html">Iowa Grocery Industry Association</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 24, 2024</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-hotel-and-lodging-association.html">Iowa Hotel &amp; Lodging Association</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 24, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-insurance-associates.html">Iowa Insurance Associates</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 18, 2024</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-migrant-movement-for-justice.html">Iowa Migrant Movement for Justice</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 18, 2024</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-motor-truck-association.html">Iowa Motor Truck Association</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 24, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-restaurant-association.html">Iowa Restaurant Association</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 24, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-retail-federation.html">Iowa Retail Federation</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 24, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-state-bar-association.html">Iowa State Bar Association</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 24, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/marshalltown-area-chamber-of-commerce.html">Marshalltown Area Chamber of Commerce</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Feb 13, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/master-builders-of-iowa.html">Master Builders of Iowa</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 24, 2024</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/national-federation-of-independent-business-nfib-ia.html">National Federation of Independent Business (NFIB /IA)</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 24, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/patterson-law-firm-llp.html">Patterson Law Firm LLP</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 20, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/professional-developers-of-iowa-pdi.html">Professional Developers of Iowa (PDI)</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Mar 1, 2024</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/quad-cities-chamber-of-commerce.html">Quad Cities Chamber of Commerce</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Feb 23, 2024</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/sukup-manufacturing.html">Sukup Manufacturing</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Jan 19, 2024</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/uaw-region-4.html">UAW Region 4</a></td>
+<td><span class="ia-pill ia-pill-pos-against">Against</span></td>
+<td class="ia-nowrap">Feb 12, 2024</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-faith-and-freedom-coalition.html">Iowa Faith and Freedom Coalition</a></td>
+<td><span class="ia-pill ia-pill-pos-for">For</span></td>
+<td class="ia-nowrap">Jan 31, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-minuteman-civil-defense-corps.html">Iowa Minuteman Civil Defense Corps</a></td>
+<td><span class="ia-pill ia-pill-pos-for">For</span></td>
+<td class="ia-nowrap">Jan 19, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/chuck-hurley-personal-interest.html">Chuck Hurley (personal interest)</a></td>
+<td><span class="ia-pill ia-pill-pos-for">For</span></td>
+<td class="ia-nowrap">Jan 24, 2024</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/united-professionals-ue.html">United Professionals/UE</a></td>
+<td><span class="ia-pill ia-pill-pos-for">For</span></td>
+<td class="ia-nowrap">Feb 5, 2024</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/bnsf-railway-co.html">BNSF Railway Co.</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 20, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/bayer-u-s-llc.html">Bayer U.S. LLC</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 20, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/council-bluffs-chamber-of-commerce.html">Council Bluffs Chamber of Commerce</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 27, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/fareway-stores-inc.html">Fareway Stores, Inc.</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Feb 2, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/helena-agri-enterprises-llc.html">Helena Agri-Enterprises, LLC</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 20, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-automobile-dealers-association.html">Iowa Automobile Dealers Association</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 20, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-board-of-regents.html">Iowa Board of Regents</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 20, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-cattlemen-s-association.html">Iowa Cattlemen's Association</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 22, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-central-community-college.html">Iowa Central Community College</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Mar 13, 2024</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-collectors-association-inc.html">Iowa Collectors Association, Inc.</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 20, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-county-attorneys-association.html">Iowa County Attorneys Association</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 19, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-department-of-health-and-human-services.html">Iowa Department of Health and Human Services</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 23, 2024</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-economic-development-authority.html">Iowa Economic Development Authority</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Feb 23, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/iowa-police-chief-association-fka-iowa-police-executive-forum.html">Iowa Police Chief Association (FKA Iowa Police Executive Forum)</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 31, 2024</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/iowa-society-of-certified-public-accountants.html">Iowa Society of Certified Public Accountants</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 20, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/linn-county-board-of-supervisors.html">Linn County Board of Supervisors</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 31, 2024</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/mechanical-contractors-association-of-iowa-mcai.html">Mechanical Contractors Association of Iowa (MCAI)</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 20, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/neca-iowa-nec.html">NECA - Iowa (NEC)</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 20, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/north-central-states-regional-council-of-carpenters.html">North Central States Regional Council of Carpenters</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 24, 2024</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/rural-school-advocates-of-iowa.html">Rural School Advocates of Iowa</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Mar 24, 2024</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/smithfield-foods-inc.html">Smithfield Foods, Inc.</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 19, 2023</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/tyson-foods-inc.html">Tyson Foods, Inc.</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 24, 2023</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/urban-county-coalition.html">Urban County Coalition</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 31, 2024</td>
+</tr>
+<tr class="even">
+<td><a href="../../lobbying/ga90/urban-education-network-of-iowa.html">Urban Education Network of Iowa</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Mar 18, 2024</td>
+</tr>
+<tr class="odd">
+<td><a href="../../lobbying/ga90/wellmark-inc.html">Wellmark, Inc.</a></td>
+<td><span class="ia-pill ia-pill-pos-undecided">Undecided</span></td>
+<td class="ia-nowrap">Jan 31, 2023</td>
+</tr>
+</tbody>
+</table>
+
+</div>
 </div>
 </div>
 </div>
